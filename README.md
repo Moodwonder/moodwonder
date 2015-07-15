@@ -14,11 +14,10 @@ Bundling with webpack
 
 Setting up your Database
 
-Install MongoDB:
+MongoDB
 
-    brew update
-    brew install mongodb
-    mongod (Make sure you have the permissions to the directory /data/db)
+    Run queries given in the file 'engagementAreas' before starting the application.
+    
 
 Configuration 
 
