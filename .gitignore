@@ -1,2 +1,5 @@
 /node_modules
+/public/assets/app.js
+/public/assets/app.server.js
+/public/assets/header.server.js
 /server/config/secrets.js
