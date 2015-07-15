@@ -12,12 +12,15 @@ Bundling with webpack
     npm run build runs webpack will run configurations within webpack.config.js.
     npm run watch runs webpack --watch to watch and recompile for changes.
 
+<<<<<<< HEAD
 Setting up your Database
 
 MongoDB
 
     Run queries given in the file 'engagementAreas' before starting the application.
     
+=======
+>>>>>>> 788dc873782d89edae554fb7b294008d8e77f170
 
 Configuration 
 

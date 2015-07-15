@@ -97,12 +97,6 @@ module.exports =
 
 	var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-	/*
-	 * @param {AltObject} an instance of the Alt object
-	 * @param {ReactObject} routes specified in react-router
-	 * @param {Object} Data to bootstrap our altStores with
-	 * @param {String} url that react-router should route to
-	 */
 	var renderToMarkup = function renderToMarkup(alt, routes, state, url) {
 	  var markup = undefined;
 
@@ -114,19 +108,11 @@ module.exports =
 	  return markup;
 	};
 
-	/*
-	 * @param {AltObject} an instance of the Alt object
-	 * @param {ReactObject} routes specified in react-router
-	 * @param {String} HTML template passed in
-	 * @return render function which can be executed on server/client side
-	 */
-
 	function UniversalRenderer(alt, routes, html) {
 	  var render = undefined;
-	  // if it is not a browser
+
 	  if (typeof window === 'undefined') {
-	    // if there is a html string passed in
-	    // render the markup and inject it into the html string
+
 	    if (html) {
 	      render = function (state, url) {
 	        var markup = renderToMarkup(alt, routes, state, url);
