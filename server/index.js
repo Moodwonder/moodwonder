@@ -29,5 +29,13 @@ fs.readdirSync(__dirname + '/models').forEach(function(file) {
 	if(~file.indexOf('.js')) require(__dirname + '/models/' + file);
 });
 
+// Bootstrap passport config
+require('./config/passport')(app, passport);
+
+// Bootstrap application settings
+require('./config/express')(app, passport);
+
+// Bootstrap routes
+require('./config/routes')(app, passport);
 
 server.listen(app.get('port'));
