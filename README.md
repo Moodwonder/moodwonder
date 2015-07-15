@@ -12,13 +12,6 @@ Bundling with webpack
     npm run build runs webpack will run configurations within webpack.config.js.
     npm run watch runs webpack --watch to watch and recompile for changes.
 
-Setting up your Database
-
-Install MongoDB:
-
-    brew update
-    brew install mongodb
-    mongod (Make sure you have the permissions to the directory /data/db)
 
 Configuration 
 
