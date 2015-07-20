@@ -9,7 +9,7 @@ var flash = require('express-flash');
 var methodOverride = require('method-override');
 
 module.exports = function (app, passport) {
-  app.set('port', (process.env.PORT || 3000));
+  app.set('port', (process.env.PORT || secrets.portnumber));
 
   app.disable('x-powered-by');
   app.set('views', path.join(__dirname, '..', 'views'));
