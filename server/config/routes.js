@@ -12,6 +12,7 @@ var surveys = require('../controllers/surveys');
 module.exports = function(app, passport) {
   // user routes
   app.post('/login', users.postLogin);
+  app.post('/usersignupstep1', users.postSignupStep1);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);
   app.post('/usersignup', users.postUserSignUp);

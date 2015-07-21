@@ -12,7 +12,7 @@ import NotFound from 'components/404.react';
 import Test from 'components/test';
 
 const routes = (
-  <Route name="app" path="/" handler={App}>
+  <Route name="app" path="/" handler={App} >
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="index" handler={Index} />

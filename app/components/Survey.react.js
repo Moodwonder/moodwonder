@@ -34,15 +34,27 @@ export default class Survey extends React.Component {
   render() {
     const items = this.state.questions.map((data,key) => {
       return (
-        <li>{data.mood} : {data.description}  <input type="text" ref={data._id} /></li>
+        <li className="list-group-item"><div className="row"><div className="col-sm-6" >{data.mood} : {data.description}  </div> <div className="col-sm-6" ><input type="text" ref={data._id} /> </div></div></li>
       );
     });
+    let submitButton = '';
+    if(items){
+        submitButton = (
+         <li className="list-group-item">
+            <div className="row">
+               <div className="col-sm-6" ></div>
+               <div className="col-sm-6" ><button type="button" className="btn btn-primary" onClick={this._onSurveySubmit}>Submit</button></div>
+            </div>
+        </li> );
+      
+    }
+    
     return (
-      <div className="Survey-list">
-         <ul>
+      <div className="container Survey-list">
+         <ul className="list-group">
          {items}
+         {submitButton}
          </ul>
-         <button onClick={this._onSurveySubmit}>Submit</button>
       </div>
     );
   }

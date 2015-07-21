@@ -33,24 +33,34 @@ export default class Navigation extends React.Component {
       let loginOrOut;
       if(this.state.user.get('authenticated')){
         loginOrOut = (
-          <span>
-            <Link onClick={this._onLogout} className="navigation__item" to="logout">Logout</Link> 
-          </span>
+            <li><Link onClick={this._onLogout} className="navigation__item" to="logout">Logout</Link></li>
         );
       } else {
-        loginOrOut = (
-          <span>      
-            <Link className="navigation__item" to="login">Log in</Link>
-            <Link to="signup" className="navigation__item" activeClassName="navigation__item--active">Signup</Link>
-          </span>
-        );  
+        loginOrOut = [
+            <li><Link className="navigation__item" to="login">Log in</Link></li>,
+            <li><Link to="signup" className="navigation__item" activeClassName="navigation__item--active">Signup</Link></li>
+        ]
       }
     return (
-      <nav className="navigation" role="navigation">
-          <Link to="/" className="navigation__item" activeClassName="navigation__item--active">Moodwonder</Link>
-          { loginOrOut }
-          <Link to="survey" className="navigation__item" activeClassName="navigation__item--active">Engagement Survey</Link>
-          <Link to="customsurvey" className="navigation__item" activeClassName="navigation__item--active">Create Custom Survey</Link>
+      <nav className="navbar navbar-default" role="navigation">
+        <div className="container-fluid">
+            <div className="navbar-header">
+                <Link to="/" className="navbar-brand navigation__item" activeClassName="navigation__item--active">Moodwonder</Link>
+            </div>
+            <div>
+                <ul className="nav navbar-nav  navbar-right">
+                  { loginOrOut }
+                  <li>
+					<a className="navigation__item">
+					<select className="navigation__item">
+						<option>EN</option>
+						<option>FL</option>
+					</select>
+					</a>
+				  </li>
+                </ul>
+            </div>
+        </div>
       </nav>
     );
   }

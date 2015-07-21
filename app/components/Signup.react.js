@@ -25,17 +25,13 @@ export default class Signup extends React.Component {
     });
   }
 
-  _onSignupSubmit = () => {
+  _onSignupStep1Submit = () => {
     const email = React.findDOMNode(this.refs.email).value.trim();
-    const password = React.findDOMNode(this.refs.password).value.trim();
-    const name = React.findDOMNode(this.refs.name).value.trim();
-    if (!email || !password || !name) {
+    if (!email) {
       return;
     }
-    SignupActions.usersignup({
-      email: email,
-      password: password,
-      name: name
+    SignupActions.usersignupstep1({
+      email: email
     });
   }
 
@@ -56,23 +52,16 @@ export default class Signup extends React.Component {
         renderedResult = (<h3 className="login__header">Processing...</h3>);
       } else {
         renderedResult = (
-          <div className="login__container">
-            <fieldset className="login__fieldset">
-                <h3>Signup here..</h3>
-                <span>Name : </span>
-                <input type="text" ref="name" placeholder="name" />
-                <br/><br/>
-                <span>Email : </span>
-                <input type="email" ref="email" placeholder="email" />
-                <br/><br/>
-                <span>Password : </span>
-                <input type="password" ref="password" placeholder="password" />
-                <br/><br/>
-                <span>* All fields are required.</span>
-                <br/><br/>
-                <button onClick={this._onSignupSubmit}>Register</button>
-            </fieldset>
-          </div>
+			<div className="container">
+			  <h2>Signup here..</h2>
+			  <h3>for free</h3>
+			  <form role="form">
+				<div className="form-group">
+				  <input type="email" ref="email" className="form-control" id="email" placeholder="Work email"/>
+				</div>
+				<button className="btn btn-default" onClick={this._onSignupStep1Submit}>Sign Up</button>
+			  </form>
+			</div>
         );
       }
     }
