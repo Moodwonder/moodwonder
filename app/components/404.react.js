@@ -17,10 +17,8 @@ export default class List extends React.Component {
   render() {
 
     return (
-      <div className="login__container">
-        <fieldset className="login__fieldset">
-            <span id="surveyTitle">Page not found.</span>
-        </fieldset>
+      <div className="container">
+        <h2>Page not found.</h2>
       </div>
     );
 
