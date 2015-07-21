@@ -1,11 +1,22 @@
 {
-    "rules": {
-        "quotes": [1, "single"],
-        "no-unused-vars": 1,
-        "new-cap": [2, { "capIsNewExceptions": ["Map"] }]
-    },
-    "env":{
+    "parser": "babel-eslint",
+    "env": {
+        "node": true,
         "es6": true
+    },
+    "rules": {
+        "no-undef": 2,
+        "quotes": [1, "single"],
+        "no-unused-vars": 2,
+        "new-cap": [2, { "capIsNewExceptions": ["Map","Seq"] }],
+        "eqeqeq": 0,
+        "no-underscore-dangle": 0,
+        "no-unused-vars": 0
+    },
+    "globals": {
+        "document": true,
+        "window": true,
+        "sessionStorage": true
     },
     "ecmaFeatures": {
         "modules": true,

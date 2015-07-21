@@ -14,8 +14,8 @@
   "esLintConfig": {
     "parser": "babel-eslint",
     "env": {
-      "browser": true,
-      "node": true
+        "browser": true,
+        "node": true
     }
   },
   "author": "Ti Technologies",
