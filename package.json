@@ -11,6 +11,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack -p"
   },
+  "esLintConfig": {
+    "parser": "babel-eslint",
+    "env": {
+      "browser": true,
+      "node": true
+    }
+  },
   "author": "Ti Technologies",
   "license": "",
   "devDependencies": {},
