@@ -8,7 +8,7 @@ export default class Index extends React.Component {
 
   render() {
     return (
-      <div className="vote">
+      <div className="container">
         <h1>Moodwonder</h1>
       </div>
     );
