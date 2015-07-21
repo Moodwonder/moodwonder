@@ -1,7 +1,8 @@
 {
     "rules": {
         "quotes": [1, "single"],
-        "no-unused-vars": 1
+        "no-unused-vars": 1,
+        "new-cap": [2, { "capIsNewExceptions": ["Map"] }]
     },
     "env":{
         "es6": true
