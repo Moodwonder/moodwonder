@@ -4,7 +4,7 @@ import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
 export default class Login extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = UserStore.getState();
@@ -28,11 +28,11 @@ export default class Login extends React.Component {
   _onLoginSubmit = () => {
     const email = React.findDOMNode(this.refs.email).value.trim();
     const password = React.findDOMNode(this.refs.password).value.trim();
-    
+
     if (!email || !password) {
       return;
     }
-      
+
     UserActions.manuallogin({
       email: email,
       password: password
@@ -40,10 +40,10 @@ export default class Login extends React.Component {
   }
 
   render() {
-    
+
     let renderedResult;
     if (this.state.user.get('authenticated')) {
-      let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));  
+      let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
       renderedResult = (<span>
               <h3 className="login__header">Welcome {currentUser.name}</h3>
               </span>
