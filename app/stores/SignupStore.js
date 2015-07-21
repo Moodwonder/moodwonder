@@ -16,7 +16,7 @@ class SignupStore {
 
     this.bindListeners({
       handleSignupSuccess: SignupActions.SIGNUPSUCCESS,
-      handleSignupAttempt: SignupActions.USERSIGNUP
+      handleSignupAttempt: SignupActions.USERSIGNUPSTEP1
     });
   }
 

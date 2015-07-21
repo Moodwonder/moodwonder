@@ -10,7 +10,7 @@ import Customsurvey from 'components/Customsurvey.react';
 import Survey from 'components/Survey.react';
 
 const routes = (
-  <Route name="app" path="/" handler={App}>
+  <Route name="app" path="/" handler={App} >
     <Route name="login" handler={Login} />
     <Route name="logout" handler={Logout} />
     <Route name="index" handler={Index} />

@@ -15,9 +15,8 @@ const renderToMarkup = (alt, routes, state, url) => {
 
 export default function UniversalRenderer(alt, routes, html) {
   let render;
-  
   if (typeof window === 'undefined') {
-    
+
     if (html) {
       render = (state, url) => {
         const markup = renderToMarkup(alt, routes, state, url);

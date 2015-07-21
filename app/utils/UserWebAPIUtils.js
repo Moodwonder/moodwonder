@@ -14,9 +14,9 @@ const utils = {
     });
   },
 
-  usersignup: (data) => {
+  usersignupstep1: (data) => {
     return $.ajax({
-      url: '/usersignup',
+      url: '/usersignupstep1',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data)

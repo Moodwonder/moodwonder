@@ -9,13 +9,14 @@ class SignupActions {
   /**
    *function to collect details from users
    */  
-  usersignup(data) {
+  usersignupstep1(data) {
     this.dispatch();
-    UserWebAPIUtils.usersignup(data)
+    UserWebAPIUtils.usersignupstep1(data)
       .then((response, textStatus) => {
         if (textStatus === 'success') {
           // Dispatch another event for successful login
-          this.actions.signupsuccess(data.email);
+          console.log(response);
+          this.actions.signupsuccess(data);
         }
       }, () => {
         // Dispatch another event for a bad login

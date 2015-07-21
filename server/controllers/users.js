@@ -5,6 +5,14 @@ var sess = {};
 
 
 /**
+ *  JSON response format
+ */
+var response = {};
+response.status = false;
+response.message = 'Error';
+ 
+ 
+/**
  * Login
  */
 exports.postLogin = function(req, res, next) { 
@@ -63,6 +71,36 @@ exports.getLogout = function(req, res, next) {
   next();
 };
 
+/**
+ * First step of signup.
+ *
+ * Accept : -  @email
+ */
+exports.postSignupStep1 = function(req, res) {
+  var user =  new User({
+    email: req.body.email
+  });
+
+  User.findOne({email: req.body.email}, function(err, existingUser) {
+    if(existingUser) {
+		console.log('errors...');
+		res.send(response);
+		res.end();
+    }
+    else
+    {
+		user.save(function(err) {
+		  if(err) return next(err);
+		  req.logIn(user, function(err) {
+			if(err) return next(err);
+			console.log('Successfully created');
+			res.end('Success');
+		  });
+		});
+	}
+
+  });
+};
 
 /**
  * For testing Signup functionality.
