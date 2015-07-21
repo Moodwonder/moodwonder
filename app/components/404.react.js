@@ -14,7 +14,7 @@ export default class List extends React.Component {
 
   }
 
-  render() {  
+  render() {
 
     return (
       <div className="login__container">
