@@ -44,26 +44,24 @@ export default class Login extends React.Component {
     let renderedResult;
     if (this.state.user.get('authenticated')) {
       let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-      renderedResult = (<span>
-              <h3 className="login__header">Welcome {currentUser.name}</h3>
-              </span>
+      renderedResult = (<div className="container">
+              <h2 className="login__header">Welcome {currentUser.name}</h2>
+              </div>
               );
     } else {
       if (this.state.user.get('isWaiting')) {
         renderedResult = (<h3 className="login__header">Waiting ...</h3>);
       } else {
         renderedResult = (
-          <div className="login__container">
-            <fieldset className="login__fieldset">
-                <h3>Login here..</h3>
-                <span>Email : </span>
-                <input type="email" ref="email" placeholder="email" />
-                <br/><br/>
-                <span>Password : </span>
-                <input type="password" ref="password" placeholder="password" />
-                <br/><br/>
-                <button onClick={this._onLoginSubmit}>Login</button>
-            </fieldset>
+          <div className="container">
+            <h2>Login here..</h2>
+            <div className="form-group">
+              <input type="email" ref="email" placeholder="Email" className="form-control"/>
+            </div>
+            <div className="form-group">
+              <input type="password" ref="password" placeholder="Password" className="form-control"/>
+            </div>
+            <button className="btn btn-default" onClick={this._onLoginSubmit}>Login</button>
           </div>
         );
       }
