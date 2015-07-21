@@ -83,19 +83,21 @@ exports.postSignupStep1 = function(req, res) {
 
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if(existingUser) {
-		console.log('errors...');
+		response.status = false;
+		response.message = 'The email address you have entered is already registered';
 		res.send(response);
 		res.end();
-    }
-    else
-    {
+    }else{
 		user.save(function(err) {
-		  if(err) return next(err);
-		  req.logIn(user, function(err) {
-			if(err) return next(err);
-			console.log('Successfully created');
-			res.end('Success');
-		  });
+		    if(!err){
+				response.status = true;
+				response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
 		});
 	}
 
@@ -131,7 +133,7 @@ exports.postSignUp = function(req, res, next) {
 /**
  * Signup
  */
-exports.postUserSignUp = function(req, res, next) { 
+exports.postUserSignUp = function(req, res, next) {
   var user =  new User({
     email: req.body.email,
     password: req.body.password,

@@ -13,20 +13,18 @@ class SignupActions {
     this.dispatch();
     UserWebAPIUtils.usersignupstep1(data)
       .then((response, textStatus) => {
-        if (textStatus === 'success') {
-          // Dispatch another event for successful login
-          console.log(response);
-          this.actions.signupsuccess(data);
-        }
+          if (textStatus === 'success') {
+             // Dispatch another event for successful login
+             this.actions.signupfeedback(response);
+          }
       }, () => {
         // Dispatch another event for a bad login
       });
   }
 
-  signupsuccess(email) {
-    this.dispatch(email);
+  signupfeedback(response) {
+    this.dispatch(response);
   }
-
 }
 
 export default alt.createActions(SignupActions);

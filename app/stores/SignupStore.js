@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 import SignupActions from 'actions/SignupActions';
 import alt from 'altInstance';
 
@@ -8,31 +7,26 @@ import alt from 'altInstance';
 class SignupStore {
 
   constructor() {
-
-    this.user = Immutable.Map({});
-
-    this.on('init', this.bootstrap);
-    this.on('bootstrap', this.bootstrap);
-
+    this.user = {};
+    this.isSignupWaiting = false;
+    this.message = "";
+    this.isRegistered = false;
     this.bindListeners({
-      handleSignupSuccess: SignupActions.SIGNUPSUCCESS,
+      handleSignupFeedback: SignupActions.SIGNUPFEEDBACK,
       handleSignupAttempt: SignupActions.USERSIGNUPSTEP1
     });
   }
 
-  bootstrap() {
-    if (!Immutable.Map.isMap(this.user)) {
-      this.user = Immutable.fromJS(this.user);
-    }
-  }
-
   handleSignupAttempt() {
-    this.user = this.user.set('isSignupWaiting', true);
+    this.isSignupWaiting = true;
     this.emitChange();
   }
 
-  handleSignupSuccess() {
-    this.user = this.user.merge({ isSignupWaiting: false, isRegistered: true });
+  handleSignupFeedback(response) {
+	console.log(response);
+    this.isSignupWaiting = false;
+    this.message = response.message;
+    this.isRegistered = response.status;
     this.emitChange();
   }
 
