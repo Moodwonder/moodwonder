@@ -7,7 +7,7 @@ import mixins from 'es6-mixins';
 
 
 export default class List extends React.Component {
-  
+
   constructor(props) {
     super(props);
     mixins(Validation.FieldMixin, this);
@@ -20,17 +20,17 @@ export default class List extends React.Component {
         }
     };
   }
-  
+
   componentDidMount() {
-      
+
   }
-  
+
   _handleReset = (e) => {
     e.preventDefault();
     this.refs.validation.reset();
     this.setState(this.getInitialState());
   }
-  
+
   _handleSubmitForm = (e) => {
     e.preventDefault();
     var validation = this.refs.validation;
@@ -44,7 +44,7 @@ export default class List extends React.Component {
       console.log(this.state.formData);
     });
   }
-  
+
   _userExists(rule, value, callback) {
     setTimeout(function () {
       if (value === '1') {
@@ -57,8 +57,8 @@ export default class List extends React.Component {
       }
     }, 1000);
   }
-  
-  render() {  
+
+  render() {
     var status = this.state.status;
     var formData = this.state.formData;
     return (
@@ -71,10 +71,10 @@ export default class List extends React.Component {
                         <label className="col-sm-2 control-label">Survey title :</label>
                         <div className="col-sm-10">
                           <Validator rules={[{required: true, min: 5}, {validator: this._userExists}]}>
-                            <input name='surveytitle' className="form-control"  value={formData.surveytitle}/>
+                            <input name='surveytitle' className="form-control" value={formData.surveytitle}/>
                           </Validator>
                               {status.surveytitle.isValidating ? <span style={{color: 'green'}}> isValidating </span> : null}
-                              {status.surveytitle.errors ? <span style={errorStyle}> {status.surveytitle.errors.join(', ')}</span> : null}
+                              {status.surveytitle.errors ? <span> {status.surveytitle.errors.join(', ')}</span> : null}
                         </div>
                     </div>
                     <div className="form-group">
@@ -89,7 +89,7 @@ export default class List extends React.Component {
         </fieldset>
       </div>
     );
-    
+
   }
 }
 
