@@ -39,7 +39,7 @@ export default class Navigation extends React.Component {
         loginOrOut = [
             <li><Link className="navigation__item" to="login">Log in</Link></li>,
             <li><Link to="signup" className="navigation__item" activeClassName="navigation__item--active">Signup</Link></li>
-        ]
+        ];
       }
     return (
       <nav className="navbar navbar-default" role="navigation">
@@ -51,13 +51,13 @@ export default class Navigation extends React.Component {
                 <ul className="nav navbar-nav  navbar-right">
                   { loginOrOut }
                   <li>
-					<a className="navigation__item">
-					<select className="navigation__item">
-						<option>EN</option>
-						<option>FL</option>
-					</select>
-					</a>
-				  </li>
+                    <a className="navigation__item">
+                    <select className="navigation__item">
+                        <option>EN</option>
+                        <option>FL</option>
+                    </select>
+                    </a>
+                  </li>
                 </ul>
             </div>
         </div>
