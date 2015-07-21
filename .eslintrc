@@ -10,6 +10,7 @@
         "no-unused-vars": 2,
         "new-cap": [2, { "capIsNewExceptions": ["Map","Seq"] }],
         "eqeqeq": 0,
+        "strict": 0,
         "no-underscore-dangle": 0,
         "no-unused-vars": 0
     },
