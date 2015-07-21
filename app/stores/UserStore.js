@@ -8,9 +8,9 @@ import alt from 'altInstance';
 class UserStore {
 
   constructor() {
-    
+
     this.user = Immutable.Map({});
-    
+
     this.on('init', this.bootstrap);
     this.on('bootstrap', this.bootstrap);
 
@@ -34,7 +34,7 @@ class UserStore {
     this.user = this.user.set('isWaiting', true);
     this.emitChange();
   }
-  
+
   handleSignupAttempt() {
     this.user = this.user.set('isSignupWaiting', true);
     this.emitChange();
@@ -47,7 +47,7 @@ class UserStore {
 
   handleLoginSuccess(data) {
     this.user = this.user.merge({ isWaiting: false, authenticated: true });
-    sessionStorage.setItem('isAuthenticated',true);
+    sessionStorage.setItem('isAuthenticated', true);
     //sessionStorage.setItem('currentUser', JSON.stringify({'email':'test@email.com','name':'test'}));
     sessionStorage.setItem('currentUser', JSON.stringify(data));
     this.emitChange();

@@ -6,9 +6,9 @@ import alt from 'altInstance';
  * SignupStore
  */
 class SignupStore {
-  
+
   constructor() {
-    
+
     this.user = Immutable.Map({});
 
     this.on('init', this.bootstrap);

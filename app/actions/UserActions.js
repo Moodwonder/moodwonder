@@ -10,10 +10,9 @@ class UserActions {
   manuallogin(data) {
     this.dispatch();
     UserWebAPIUtils.manuallogin(data)
-      .then((response, textStatus) => {
-        if (response.status == 'success') {
+      .then((response) => {
+        if (response.status === 'success') {
           // Dispatch another event for successful login
-          console.log(response);    
           this.actions.loginsuccess(response.user);
         }
       }, () => {
@@ -21,7 +20,7 @@ class UserActions {
       });
   }
 
-  // user registration function  
+  //user registration function
   usersignup(data) {
     this.dispatch();
     UserWebAPIUtils.usersignup(data)
@@ -43,7 +42,7 @@ class UserActions {
     this.dispatch(email);
   }
 
-  // logout function  
+  //logout function
   logout() {
     this.dispatch();
     UserWebAPIUtils.logout()

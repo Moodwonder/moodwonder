@@ -5,10 +5,10 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
  * SignupActions
  */
 class SignupActions {
-  
+
   /**
    *function to collect details from users
-   */  
+   */
   usersignup(data) {
     this.dispatch();
     UserWebAPIUtils.usersignup(data)

@@ -19,7 +19,7 @@ const utils = {
       data: JSON.stringify(surveyResult)
     });
   }
-  
+
 };
 
 export default utils;
