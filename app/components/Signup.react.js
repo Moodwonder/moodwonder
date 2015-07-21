@@ -1,11 +1,10 @@
 import React from 'react';
 import Immutable from 'immutable';
-
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
 
 export default class Signup extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = SignupStore.getState();
@@ -44,7 +43,7 @@ export default class Signup extends React.Component {
                     <h3 className="login__header">Registered successfully.</h3>
                     <br/>
                     Please proceed with <a href="login">Login</a>
-                </fieldset>    
+                </fieldset>
               </div>
               );
     } else {
@@ -52,16 +51,16 @@ export default class Signup extends React.Component {
         renderedResult = (<h3 className="login__header">Processing...</h3>);
       } else {
         renderedResult = (
-			<div className="container">
-			  <h2>Signup here..</h2>
-			  <h3>for free</h3>
-			  <form role="form">
-				<div className="form-group">
-				  <input type="email" ref="email" className="form-control" id="email" placeholder="Work email"/>
-				</div>
-				<button className="btn btn-default" onClick={this._onSignupStep1Submit}>Sign Up</button>
-			  </form>
-			</div>
+          <div className="container">
+            <h2>Signup here..</h2>
+            <h3>for free</h3>
+            <form role="form">
+              <div className="form-group">
+                <input type="email" ref="email" className="form-control" id="email" placeholder="Work email"/>
+              </div>
+              <button className="btn btn-default" onClick={this._onSignupStep1Submit}>Sign Up</button>
+            </form>
+          </div>
         );
       }
     }
