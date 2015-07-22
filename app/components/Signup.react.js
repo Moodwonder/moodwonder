@@ -35,7 +35,6 @@ export default class Signup extends React.Component {
 
   render() {
 
-    console.log(this.state.isRegistered);
     let renderedResult;
     let message;
 
@@ -46,6 +45,7 @@ export default class Signup extends React.Component {
             </div>
         );
     }
+
 
     if (this.state.isRegistered) {
         renderedResult = (
