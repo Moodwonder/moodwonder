@@ -20,11 +20,8 @@ export default class Customsurvey extends React.Component {
   render() {
 
     return (
-      <div className="login__container">
-        <fieldset className="login__fieldset">
-            <h3 id="surveyTitle">Custom survey page.</h3>
-            <br/>
-        </fieldset>
+      <div className="container">
+        <h3>Custom survey page.</h3>
       </div>
     );
 
