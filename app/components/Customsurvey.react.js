@@ -12,12 +12,12 @@ export default class Customsurvey extends React.Component {
     super(props);
     this.state = {};
   }
-  
+
   componentDidMount() {
 
   }
 
-  render() {  
+  render() {
 
     return (
       <div className="login__container">
@@ -27,7 +27,7 @@ export default class Customsurvey extends React.Component {
         </fieldset>
       </div>
     );
-    
+
   }
 }
 
