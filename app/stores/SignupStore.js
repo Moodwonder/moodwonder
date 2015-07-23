@@ -9,7 +9,7 @@ class SignupStore {
   constructor() {
     this.user = {};
     this.isSignupWaiting = false;
-    this.message = "";
+    this.message = '';
     this.isRegistered = false;
     this.bindListeners({
       handleSignupFeedback: SignupActions.SIGNUPFEEDBACK,

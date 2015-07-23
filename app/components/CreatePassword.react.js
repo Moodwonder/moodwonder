@@ -17,17 +17,17 @@ export default class CreatePassword extends React.Component {
       action: 'X',
       isActive: false,
       dismissAfter: 5000,
-      position:'tr',
+      position: 'tr',
       style: {
             bar: {
-			  bottom: '82%',
-              backgroundColor: 'rgb(97, 172, 234)',
+              bottom: '82%',
+              backgroundColor: 'rgb(97, 172, 234)'
             },
             action: {
               color: 'rgb(20, 27, 32)'
             }
           }
-    }
+    };
   }
 
   componentDidMount() {
@@ -46,7 +46,7 @@ export default class CreatePassword extends React.Component {
   }
 
   formSubmit = (e) => { e.preventDefault(); }
-  
+
   showNotification = (message) => {
       this.setState({
         notificationReact: {
@@ -60,12 +60,12 @@ export default class CreatePassword extends React.Component {
   _onSignupStep2Submit = () => {
 
     const password = React.findDOMNode(this.refs.password).value.trim();
-    if (password=="") {
+    if (password == '') {
 
-        this.showNotification("Password field cannot be empty");
-    }else if(password.length<= 6){
+        this.showNotification('Password field cannot be empty');
+    }else if(password.length <= 6){
 
-      this.showNotification("Password length should be at least 7 characters");
+      this.showNotification('Password length should be at least 7 characters');
     }else{
 
       CreatePswdActions.usersignupstep2({
@@ -85,13 +85,13 @@ export default class CreatePassword extends React.Component {
       });
     }
   }
-  
+
   render() {
 
     let renderedResult;
     let message;
-    
-    if (this.state.message != "") {
+
+    if (this.state.message != '') {
         message = (
             <div className="alert alert-info">
                 {this.state.message}

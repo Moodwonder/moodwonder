@@ -15,13 +15,13 @@ export default class Signup extends React.Component {
       dismissAfter: 2000,
       style: {
             bar: {
-              backgroundColor: 'rgb(97, 172, 234)',
+              backgroundColor: 'rgb(97, 172, 234)'
             },
             action: {
               color: 'rgb(20, 27, 32)'
             }
           }
-    }
+    };
   }
 
   componentDidMount() {
@@ -81,7 +81,7 @@ export default class Signup extends React.Component {
     let renderedResult;
     let message;
 
-    if (this.state.message != "") {
+    if (this.state.message != '') {
         message = (
             <div className="alert alert-info">
                 {this.state.message}
