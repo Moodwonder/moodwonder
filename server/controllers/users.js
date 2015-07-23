@@ -1,6 +1,8 @@
 var _ = require('lodash');
 var User = require('../models/user');
 var passport = require('passport');
+var crypto = require('crypto');
+var ObjectId = require('mongoose').Types.ObjectId; 
 var sess = {};
 
 
@@ -77,8 +79,13 @@ exports.getLogout = function(req, res, next) {
  * Accept : -  @email
  */
 exports.postSignupStep1 = function(req, res) {
+
+  var email = req.body.email;
+  var verifystring = email + Date.now();
+  verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
   var user =  new User({
-    email: req.body.email
+    email: req.body.email,
+    verifylink: verifystring
   });
 
   User.findOne({email: req.body.email}, function(err, existingUser) {
@@ -100,6 +107,72 @@ exports.postSignupStep1 = function(req, res) {
 			}
 		});
 	}
+  });
+};
+
+/**
+ * Second step of signup.
+ *
+ * Accept : -  @password
+ */
+exports.postSignupStep2 = function(req, res) {
+
+    var password = req.body.password.trim();
+    if(password.length<= 6){
+        response.status = false;
+        response.message = 'Password length should be at least 7 characters';
+        res.send(response);
+        res.end();
+	}else{
+       var user_id = '55af2a066d59aedf18dc89f1';
+       user_id = new ObjectId(user_id);
+       var conditions = { _id: user_id }
+         , update = { password: password }
+         , options = { multi: false };
+      User.update(conditions, update, options, function(err) {
+        if(err){
+          response.status = false;
+          response.message = 'Something went wrong...';
+        }else{
+          response.status = true;
+          response.message = 'Password created';
+        }
+        res.send(response);
+        res.end();
+      });
+    }
+};
+
+/**
+ *  Email ID verification
+ */
+
+exports.getVerify = function(req,res){
+
+    var verifyString = req.params.hash;
+    var conditions = { verifylink: verifyString }
+      , update = { verifylink: 1 }
+      , options = { multi: false };
+
+    /**
+     * Checking the hash is exist in the user collections
+    */
+  User.findOne({verifylink: verifyString}, function(err, document) {
+
+    if(document) {
+      User.update(conditions, update, options, function(err) {
+        if(err){
+          res.send('Something went wrong...');
+          res.end();
+        }else{
+          res.send("Email verified");
+          res.end();
+        }
+      });
+    }else{
+      res.send('Invalid verification link');
+      res.end();
+    }
 
   });
 };

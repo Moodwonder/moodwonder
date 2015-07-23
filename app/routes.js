@@ -6,6 +6,7 @@ import Index from 'components/Index.react';
 import Login from 'components/Login.react';
 import Logout from 'components/Logout.react';
 import Signup from 'components/Signup.react';
+import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/Customsurvey.react';
 import Survey from 'components/Survey.react';
 import NotFound from 'components/404.react';
@@ -18,6 +19,7 @@ const routes = (
     <Route name="logout" handler={Logout} />
     <Route name="index" handler={Index} />
     <Route name="signup" handler={Signup} />
+    <Route name="createpassword" handler={CreatePassword} />
     <Route name="customsurvey" handler={Customsurvey} />
     <Route name="survey" handler={Survey} />
     <Route name="test" handler={Test} />
@@ -26,5 +28,6 @@ const routes = (
     <NotFoundRoute name="404" handler={NotFound} />
   </Route>
 );
+
 
 export default routes;

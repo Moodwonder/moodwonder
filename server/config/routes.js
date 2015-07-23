@@ -13,8 +13,10 @@ module.exports = function(app, passport) {
   // user routes
   app.post('/login', users.postLogin);
   app.post('/usersignupstep1', users.postSignupStep1);
+  app.post('/usersignupstep2', users.postSignupStep2);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);
+  app.get('/verify/:hash', users.getVerify);
   app.post('/usersignup', users.postUserSignUp);
   app.get('/getusers', users.getUsers);
   app.get('/getengagementsurvey', surveys.getEngagementSurvey);
@@ -28,7 +30,7 @@ module.exports = function(app, passport) {
     res.locals.data =  {
       UserStore: { user: user }
     };
-
+	console.log(req.user);
     var html = App(JSON.stringify(res.locals.data || {}), req.url);
     html = html.replace("TITLE", Header.title)
                .replace("META", Header.meta)
