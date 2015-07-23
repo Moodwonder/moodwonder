@@ -11,9 +11,32 @@ var crypto = require('crypto');
  *User Schema
  */
 var UserSchema = new mongoose.Schema({
-    name: {type: String, default: ''},
-    email: {type: String, unique: true, lowercase: true},
-    password: String
+  firstname: {type: String, default: ''},
+  lastname: {type: String, default: ''},
+  email: {type: String, unique: true, lowercase: true},
+  languages:
+    [{
+      id: {type: Number, default: 0},
+      language: {type: String, default: ''}
+    }],
+  report_frequency: {type: String, default: ''},
+  password: String,
+  profile_image: {type: String, default: ''},
+  usertype: String,
+  teamname: String,
+  company_info :
+    [{
+      companyname : String,
+      industry : String,
+      continent : String,
+      country : String,
+      state : String,
+      city : String,
+      address : String,
+      website : String,
+      companysize : String
+    }],
+  verifylink: {type: String, default: ''}
 });
 
 

@@ -14,6 +14,9 @@ const utils = {
     });
   },
 
+  /*
+   * User signup with e-mail id verification
+   */
   usersignupstep1: (data) => {
     return $.ajax({
       url: '/usersignupstep1',
@@ -23,6 +26,18 @@ const utils = {
     });
   },
 
+  /*
+   * Creating password after verification
+   */
+  usersignupstep2: (data) => {
+    return $.ajax({
+      url: '/usersignupstep2',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  
   /*
    * @return {Promise}
    */

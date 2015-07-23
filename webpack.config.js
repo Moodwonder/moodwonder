@@ -35,6 +35,11 @@ module.exports = [
       publicPath: publicPath
 
     },
+    node: {
+		// To fix webpack error from `react-validation-mixin` module
+        dns: "empty",
+        net: "empty"
+    },
     module: {
       preLoaders: [{
         test: /\.js$|.jsx$/,
