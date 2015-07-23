@@ -14,8 +14,8 @@
   "esLintConfig": {
     "parser": "babel-eslint",
     "env": {
-        "browser": true,
-        "node": true
+      "browser": true,
+      "node": true
     }
   },
   "author": "Ti Technologies",
@@ -45,6 +45,7 @@
     "express-session": "^1.10.2",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "get-form-data": "^1.2.2",
     "html-loader": "^0.3.0",
     "immutable": "^3.7.4",
     "iso": "^4.1.0",

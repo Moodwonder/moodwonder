@@ -4,10 +4,10 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import $ from 'jquery';
 import Validation, { Validator } from 'rc-form-validation';
 import mixins from 'es6-mixins';
-import Question from 'components/Question.react';
+import Question1 from 'components/Question1.react';
 import getFormData from 'get-form-data';
 
-export default class Test extends React.Component {
+export default class Test1 extends React.Component {
 
   constructor(props) {
     super(props);
@@ -59,13 +59,11 @@ export default class Test extends React.Component {
           </div>
           <h4>Enter question here..</h4>
           <div>
-            <Question indexes={this.state.indexes}/>
+            <Question1 indexes={this.state.indexes}/>
           </div>
           <br/>
           <div className="form-group">
-            <button className="btn btn-success" onClick={this.onAddQuestion}>Add Question</button>
-          </div>
-          <div className="form-group">
+            <button className="btn btn-success" onClick={this.onAddQuestion}>Add Question</button>&nbsp;&nbsp;
             <button className="btn btn-primary" onClick={this.onSurveySubmit}>Submit</button>
           </div>
         </form>
@@ -73,3 +71,4 @@ export default class Test extends React.Component {
     );
   }
 }
+

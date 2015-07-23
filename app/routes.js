@@ -10,6 +10,7 @@ import Customsurvey from 'components/Customsurvey.react';
 import Survey from 'components/Survey.react';
 import NotFound from 'components/404.react';
 import Test from 'components/test';
+import Test1 from 'components/test1';
 
 const routes = (
   <Route name="app" path="/" handler={App} >
@@ -20,6 +21,7 @@ const routes = (
     <Route name="customsurvey" handler={Customsurvey} />
     <Route name="survey" handler={Survey} />
     <Route name="test" handler={Test} />
+    <Route name="test1" handler={Test1} />
     <DefaultRoute handler={Index} />
     <NotFoundRoute name="404" handler={NotFound} />
   </Route>
