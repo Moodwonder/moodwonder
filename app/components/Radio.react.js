@@ -43,7 +43,7 @@ export default class Question1 extends React.Component {
               <div className="form-group">
                 <input type="radio" ref={'radio_' + index} name={'radio_' + index}/>
                 <input type="text" ref={'q_' + qId + '_option_' + index} name={'q_' + qId + '_option_' + index} id={'q_' + qId + '_option_' + index} placeholder="enter option here.."/>
-                <a href="#" className="btn-link" id={index} onClick={this.onRemoveRadioOption}>Remove</a>
+                <a href="#" className="btn-link" id={'q_' + qId + '_option_' + index} onClick={this.onRemoveRadioOption}>Remove</a>
               </div>
             </div>
         );

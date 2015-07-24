@@ -29,6 +29,10 @@ export default class Test1 extends React.Component {
 
   }
 
+  componentWillUnmount() {
+
+  }
+
   onSurveySubmit = (e) => {
     e.preventDefault();
     var form = document.querySelector('#surveyForm');

@@ -12,6 +12,7 @@ import Survey from 'components/Survey.react';
 import NotFound from 'components/404.react';
 import Test from 'components/test';
 import Test1 from 'components/test1';
+import Test2 from 'components/test2';
 
 const routes = (
   <Route name="app" path="/" handler={App} >
@@ -24,6 +25,7 @@ const routes = (
     <Route name="survey" handler={Survey} />
     <Route name="test" handler={Test} />
     <Route name="test1" handler={Test1} />
+    <Route name="test2" handler={Test2} />
     <DefaultRoute handler={Index} />
     <NotFoundRoute name="404" handler={NotFound} />
   </Route>
