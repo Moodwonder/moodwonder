@@ -46,6 +46,8 @@
     "express-session": "^1.10.2",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "formsy-react": "^0.14.1",
+    "formsy-react-components": "^0.4.0",
     "get-form-data": "^1.2.2",
     "html-loader": "^0.3.0",
     "immutable": "^3.7.4",

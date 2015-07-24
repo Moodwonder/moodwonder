@@ -117,6 +117,7 @@ export default class CreatePassword extends React.Component {
         renderedResult = (
             <div className="container">
                 <h2>Create your password here..</h2>
+                {JSON.stringify(this.user)}
                 <div role="form">
                     <div className="form-group">
                         <input type="password" ref="password" onBlur={this._onSignupStep2Submit} className="form-control" id="password" placeholder="Enter your password" />

@@ -28,9 +28,9 @@ module.exports = function(app, passport) {
 
     var user = req.user ? { authenticated: true, isWaiting: false } : { authenticated: false, isWaiting: false };
     res.locals.data =  {
-      UserStore: { user: user }
+      UserStore: { user: user },
+      CreatePswdStore: { user: {uid : req.body.uid } }
     };
-	console.log(req.user);
     var html = App(JSON.stringify(res.locals.data || {}), req.url);
     html = html.replace("TITLE", Header.title)
                .replace("META", Header.meta)

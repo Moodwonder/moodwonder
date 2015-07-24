@@ -2,26 +2,50 @@ import React from 'react';
 import Notification from 'react-notification';
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
+import Formsy from 'formsy-react';
+import {Input} from 'formsy-react-components';
+
+
+var MyOwnInput = React.createClass({
+
+  mixins: [Formsy.Mixin],
+
+  changeValue: function (event) {
+    this.setValue(event.currentTarget.value);
+  },
+  render: function () {
+
+        var errorMessage = this.getErrorMessage();
+
+        var classNames = {
+            formGroup: ['form-group'],
+            elementWrapper: []
+        };
+
+        if (errorMessage) {
+            classNames.formGroup.push('has-error');
+            classNames.formGroup.push('has-feedback');
+        }
+        
+        var elementWrapper = classNames.formGroup.join(' ');
+
+    return (
+      <div className={elementWrapper}>
+        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()}/>
+        <span className='help-block validation-message'>{errorMessage}</span>
+      </div>
+    );
+  }
+});
+
 
 export default class Signup extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = SignupStore.getState();
-    this.state.notificationReact = {
-      message: 'Invalid E-mail!',
-      action: 'X',
-      isActive: false,
-      dismissAfter: 2000,
-      style: {
-            bar: {
-              backgroundColor: 'rgb(97, 172, 234)'
-            },
-            action: {
-              color: 'rgb(20, 27, 32)'
-            }
-          }
-    };
+    this.state.canSubmit = false;
+    this.validationErrors = {};
   }
 
   componentDidMount() {
@@ -32,20 +56,35 @@ export default class Signup extends React.Component {
     SignupStore.unlisten(this._onChange);
   }
 
+  enableButton = () => {
+    this.setState({canSubmit: true});
+  }
+
+  disableButton = () => {
+    this.setState({canSubmit: false});
+  }
+
   _onChange = (state) => {
     this.setState(state);
   }
 
   formSubmit = (e) => { e.preventDefault(); }
 
-  _onSignupStep1Submit = () => {
-    const email = React.findDOMNode(this.refs.email).value.trim();
-    if (!email) {
-      return;
-    }
+  _onSignupStep1Submit = (model) => {
+    const email = model.email.trim();
     SignupActions.usersignupstep1({
       email: email
     });
+  }
+
+  showNotification = (message) => {
+      this.setState({
+        notificationReact: {
+          ...this.state.notificationReact,
+          isActive: true,
+          message: message
+        }
+      });
   }
 
   isValidEmailAddress = (emailAddress) => {
@@ -81,20 +120,13 @@ export default class Signup extends React.Component {
     let renderedResult;
     let message;
 
-    if (this.state.message != '') {
-        message = (
-            <div className="alert alert-info">
-                {this.state.message}
-            </div>
-        );
-    }
-
-
     if (this.state.isRegistered) {
         renderedResult = (
             <div className="login__container">
                 <fieldset className="login__fieldset">
-                   {message}
+                   <div className="alert alert-info">
+                      {this.state.message}
+                   </div>
                 </fieldset>
             </div>
         );
@@ -102,20 +134,24 @@ export default class Signup extends React.Component {
     }else {
 
         if (this.state.isSignupWaiting) {
-            renderedResult = (<h3 className="login__header">Processing...</h3>);
-        } else {
+            message = (<h3 className="login__header">Processing...</h3>);
+        }
 
         renderedResult = (
             <div className="container">
                 <h2>Signup here..</h2>
                 <h3>for free</h3>
                 {message}
-                <div role="form">
-                    <div className="form-group">
-                        <input type="email" onBlur={this._onEmailChange} ref="email" className="form-control" id="email" placeholder="Work email"/>
-                    </div>
-                    <button className="btn btn-default" onClick={this._onSignupStep1Submit}>Sign Up</button>
-                </div>
+                <Formsy.Form onValidSubmit={this._onSignupStep1Submit} onValid={this.enableButton} onInvalid={this.disableButton} >
+                   <MyOwnInput 
+                   name="email"
+                   className="form-control"
+                   placeholder="Work email"
+                   validations="isEmail"
+                   validationError="This is not a valid email" 
+                   required/>
+                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
+                </Formsy.Form>
                 <Notification
                   {...this.state.notificationReact}
                   onClick={this.handleNotificationClick.bind(null, 'email')}
@@ -123,7 +159,6 @@ export default class Signup extends React.Component {
                 />
             </div>
         );
-      }
 
     }
     return (

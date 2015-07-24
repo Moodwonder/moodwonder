@@ -23,7 +23,6 @@ class CreatePswdActions {
   }
 
   signupstep2feedback(response) {
-	console.log(this);
     this.dispatch(response);
   }
 }

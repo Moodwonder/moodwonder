@@ -17,7 +17,7 @@ response.message = 'Error';
 /**
  * Login
  */
-exports.postLogin = function(req, res, next) { 
+exports.postLogin = function(req, res, next) {
     // Do email and password validation for the server
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
@@ -147,7 +147,7 @@ exports.postSignupStep2 = function(req, res) {
  *  Email ID verification
  */
 
-exports.getVerify = function(req,res){
+exports.getVerify = function(req,res,next){
 
     var verifyString = req.params.hash;
     var conditions = { verifylink: verifyString }
@@ -165,8 +165,10 @@ exports.getVerify = function(req,res){
           res.send('Something went wrong...');
           res.end();
         }else{
-          res.send("Email verified");
-          res.end();
+           req.body.uid = document._id.valueOf();
+           next();
+          // res.send("Email verified");
+          // res.end();
         }
       });
     }else{
@@ -195,7 +197,6 @@ exports.postSignUp = function(req, res, next) {
       if(err) return next(err);
       req.logIn(user, function(err) {
         if(err) return next(err);
-        console.log('Successfully created');
         res.end('Success');
       });
     });
@@ -221,7 +222,6 @@ exports.postUserSignUp = function(req, res, next) {
       if(err) return next(err);
       req.logIn(user, function(err) {
         if(err) return next(err);
-        console.log('Successfully created');
         res.end('Success');
       });
     });
