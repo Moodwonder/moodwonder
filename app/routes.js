@@ -18,7 +18,7 @@ const routes = (
     <Route name="logout" handler={Logout} />
     <Route name="index" handler={Index} />
     <Route name="signup" handler={Signup} />
-    <Route name="createpassword" handler={CreatePassword} />
+    <Route name="createpassword/:hash" handler={CreatePassword} />
     <Route name="customsurvey" handler={Customsurvey} />
     <Route name="survey" handler={Survey} />
     <Route name="test2" handler={Test2} />

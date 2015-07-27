@@ -8,7 +8,7 @@ class CreatePswdStore {
 
   constructor() {
     this.user = {};
-    this.message = "";
+    this.message = '';
     this.hasError = false;
     this.bindListeners({
       handleSignupStep2Feedback: CreatePswdActions.SIGNUPSTEP2FEEDBACK

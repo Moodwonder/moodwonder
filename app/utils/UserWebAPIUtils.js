@@ -37,7 +37,7 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
-  
+
   /*
    * @return {Promise}
    */

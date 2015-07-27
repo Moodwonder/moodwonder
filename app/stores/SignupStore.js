@@ -9,8 +9,24 @@ class SignupStore {
   constructor() {
     this.user = {};
     this.isSignupWaiting = false;
-    this.message = "";
+    this.message = '';
     this.isRegistered = false;
+    this.canSubmit = false;
+    this.notificationReact = {
+      message: 'Invalid E-mail!',
+      action: 'X',
+      isActive: false,
+      dismissAfter: 10000,
+      style: {
+            bar: {
+              backgroundColor: 'rgb(97, 172, 234)',
+              bottom: '50%'
+            },
+            action: {
+              color: 'rgb(20, 27, 32)'
+            }
+          }
+    };
     this.bindListeners({
       handleSignupFeedback: SignupActions.SIGNUPFEEDBACK,
       handleSignupAttempt: SignupActions.USERSIGNUPSTEP1
@@ -23,10 +39,13 @@ class SignupStore {
   }
 
   handleSignupFeedback(response) {
-	console.log(response);
     this.isSignupWaiting = false;
     this.message = response.message;
     this.isRegistered = response.status;
+    if(this.message != ''){
+       this.notificationReact.message = this.message;
+       this.notificationReact.isActive = true;
+    }
     this.emitChange();
   }
 

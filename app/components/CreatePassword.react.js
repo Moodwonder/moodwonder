@@ -17,17 +17,17 @@ export default class CreatePassword extends React.Component {
       action: 'X',
       isActive: false,
       dismissAfter: 5000,
-      position:'tr',
+      position: 'tr',
       style: {
             bar: {
-			  bottom: '82%',
-              backgroundColor: 'rgb(97, 172, 234)',
+              bottom: '82%',
+              backgroundColor: 'rgb(97, 172, 234)'
             },
             action: {
               color: 'rgb(20, 27, 32)'
             }
           }
-    }
+    };
   }
 
   componentDidMount() {
@@ -46,7 +46,7 @@ export default class CreatePassword extends React.Component {
   }
 
   formSubmit = (e) => { e.preventDefault(); }
-  
+
   showNotification = (message) => {
       this.setState({
         notificationReact: {
@@ -59,17 +59,19 @@ export default class CreatePassword extends React.Component {
 
   _onSignupStep2Submit = () => {
 
-    const password = React.findDOMNode(this.refs.password).value.trim();
-    if (password=="") {
+    var password = React.findDOMNode(this.refs.password).value.trim();
+    var hash = React.findDOMNode(this.refs.hash).value.trim();
+    if (password == '') {
 
-        this.showNotification("Password field cannot be empty");
-    }else if(password.length<= 6){
+        this.showNotification('Password field cannot be empty');
+    }else if(password.length <= 6){
 
-      this.showNotification("Password length should be at least 7 characters");
+      this.showNotification('Password length should be at least 7 characters');
     }else{
 
       CreatePswdActions.usersignupstep2({
-        password: password
+        password: password,
+        hash: hash
       });
     }
 
@@ -85,13 +87,20 @@ export default class CreatePassword extends React.Component {
       });
     }
   }
-  
+
   render() {
 
     let renderedResult;
     let message;
-    
-    if (this.state.message != "") {
+
+    if (this.state.hasError) {
+        message = (
+            <div className="alert alert-warning">
+                {this.state.message}
+            </div>
+        );
+    }
+    else if (this.state.message != '') {
         message = (
             <div className="alert alert-info">
                 {this.state.message}
@@ -116,10 +125,12 @@ export default class CreatePassword extends React.Component {
 
         renderedResult = (
             <div className="container">
+                {message}
                 <h2>Create your password here..</h2>
                 <div role="form">
                     <div className="form-group">
-                        <input type="password" ref="password" onBlur={this._onSignupStep2Submit} className="form-control" id="password" placeholder="Enter your password" />
+                        <input type="password" ref="password" className="form-control" id="password" placeholder="Enter your password" />
+                        <input type="hidden" ref="hash" value={this.props.params.hash} />
                     </div>
                     <button className="btn btn-default" onClick={this._onSignupStep2Submit}>Create</button>
                 </div>
@@ -140,5 +151,3 @@ export default class CreatePassword extends React.Component {
     );
   }
 }
-
-CreatePassword.propTypes = { user: {} };

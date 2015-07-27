@@ -2,7 +2,7 @@ const config = {
   link: [
     // Add to homescreen for Chrome on Android
     { "rel": "icon", "sizes": "192x192", "href": "" },
-    { "rel": "stylesheet", "href": "assets/styles/bootstrap.min.css" }
+    { "rel": "stylesheet", "href": "/assets/styles/bootstrap.min.css" }
   ],
   meta: [
     { "charset": "utf-8" },
