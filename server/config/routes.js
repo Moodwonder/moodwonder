@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
   app.post('/usersignupstep2', users.postSignupStep2);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);
-  app.get('/verify/:hash', users.getVerify);
+  app.get('/test', users.test);
   app.post('/usersignup', users.postUserSignUp);
   app.get('/getusers', users.getUsers);
   app.get('/getengagementsurvey', surveys.getEngagementSurvey);
@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
     var user = req.user ? { authenticated: true, isWaiting: false } : { authenticated: false, isWaiting: false };
     res.locals.data =  {
       UserStore: { user: user },
-      CreatePswdStore: { user: {uid : req.body.uid } }
+      CreatePswdStore: { user: {uid : req.session._id } }
     };
     var html = App(JSON.stringify(res.locals.data || {}), req.url);
     html = html.replace("TITLE", Header.title)

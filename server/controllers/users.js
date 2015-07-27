@@ -2,6 +2,7 @@ var _ = require('lodash');
 var User = require('../models/user');
 var passport = require('passport');
 var crypto = require('crypto');
+var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId; 
 var sess = {};
 
@@ -56,7 +57,12 @@ exports.getUsers = function(req, res) {
     }
   });
 };
-
+/**
+ * Get test
+ */
+exports.test = function(req, res) {
+	res.send(sess._id);
+};
 
 /**
  * Logout
@@ -117,66 +123,60 @@ exports.postSignupStep1 = function(req, res) {
  */
 exports.postSignupStep2 = function(req, res) {
 
-    var password = req.body.password.trim();
-    if(password.length<= 6){
-        response.status = false;
-        response.message = 'Password length should be at least 7 characters';
-        res.send(response);
-        res.end();
-	}else{
-       var user_id = '55af2a066d59aedf18dc89f1';
-       user_id = new ObjectId(user_id);
-       var conditions = { _id: user_id }
-         , update = { password: password }
-         , options = { multi: false };
-      User.update(conditions, update, options, function(err) {
-        if(err){
-          response.status = false;
-          response.message = 'Something went wrong...';
-        }else{
-          response.status = true;
-          response.message = 'Password created';
-        }
-        res.send(response);
-        res.end();
-      });
-    }
-};
+  var verifyString = req.body.hash.trim();
+  var password = req.body.password.trim();
 
-/**
- *  Email ID verification
- */
+  if(verifyString == ''){
 
-exports.getVerify = function(req,res,next){
+      response.status = false;
+      response.message = 'Invalid verification link';
+      res.send(response);
+      res.end();
+  }else if(password.length<= 6){
 
-    var verifyString = req.params.hash;
-    var conditions = { verifylink: verifyString }
-      , update = { verifylink: 1 }
-      , options = { multi: false };
+      response.status = false;
+      response.message = 'Password length should be at least 7 characters';
+      res.send(response);
+      res.end();
+  }else{
 
-    /**
-     * Checking the hash is exist in the user collections
-    */
-  User.findOne({verifylink: verifyString}, function(err, document) {
+  var conditions = { verifylink: verifyString }
+    , update = { verifylink: 1 , password: password }
+    , options = { multi: false };
+
+  /**
+   * Checking the verifylink is exist in the user collections
+  */
+  User.findOne(conditions, function(err, document) {
 
     if(document) {
+
       User.update(conditions, update, options, function(err) {
-        if(err){
-          res.send('Something went wrong...');
-          res.end();
+        if(!err){
+
+           response.status = true;
+           response.message = 'Password created';
+           sess = req.session;
+           sess._id = document._id.valueOf();
         }else{
-           req.body.uid = document._id.valueOf();
-           next();
-          // res.send("Email verified");
-          // res.end();
+
+           response.status = false;
+           response.message = 'Something went wrong..';
         }
+        res.send(response);
+        res.end();
       });
     }else{
-      res.send('Invalid verification link');
+
+      response.status = false;
+      response.message = 'Invalid verification link';
+      res.send(response);
       res.end();
     }
-
   });
+
+  }
+
 };
 
 /**

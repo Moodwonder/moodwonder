@@ -26,7 +26,7 @@ var MyOwnInput = React.createClass({
             classNames.formGroup.push('has-error');
             classNames.formGroup.push('has-feedback');
         }
-        
+
         var elementWrapper = classNames.formGroup.join(' ');
 
     return (
@@ -143,12 +143,12 @@ export default class Signup extends React.Component {
                 <h3>for free</h3>
                 {message}
                 <Formsy.Form onValidSubmit={this._onSignupStep1Submit} onValid={this.enableButton} onInvalid={this.disableButton} >
-                   <MyOwnInput 
+                   <MyOwnInput
                    name="email"
                    className="form-control"
                    placeholder="Work email"
                    validations="isEmail"
-                   validationError="This is not a valid email" 
+                   validationError="This is not a valid email"
                    required/>
                    <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
                 </Formsy.Form>

@@ -59,7 +59,8 @@ export default class CreatePassword extends React.Component {
 
   _onSignupStep2Submit = () => {
 
-    const password = React.findDOMNode(this.refs.password).value.trim();
+    var password = React.findDOMNode(this.refs.password).value.trim();
+    var hash = React.findDOMNode(this.refs.hash).value.trim();
     if (password == '') {
 
         this.showNotification('Password field cannot be empty');
@@ -69,7 +70,8 @@ export default class CreatePassword extends React.Component {
     }else{
 
       CreatePswdActions.usersignupstep2({
-        password: password
+        password: password,
+        hash: hash
       });
     }
 
@@ -91,7 +93,14 @@ export default class CreatePassword extends React.Component {
     let renderedResult;
     let message;
 
-    if (this.state.message != '') {
+    if (this.state.hasError) {
+        message = (
+            <div className="alert alert-warning">
+                {this.state.message}
+            </div>
+        );
+    }
+    else if (this.state.message != '') {
         message = (
             <div className="alert alert-info">
                 {this.state.message}
@@ -116,11 +125,12 @@ export default class CreatePassword extends React.Component {
 
         renderedResult = (
             <div className="container">
+                {message}
                 <h2>Create your password here..</h2>
-                {JSON.stringify(this.user)}
                 <div role="form">
                     <div className="form-group">
-                        <input type="password" ref="password" onBlur={this._onSignupStep2Submit} className="form-control" id="password" placeholder="Enter your password" />
+                        <input type="password" ref="password" className="form-control" id="password" placeholder="Enter your password" />
+                        <input type="hidden" ref="hash" value={this.props.params.hash} />
                     </div>
                     <button className="btn btn-default" onClick={this._onSignupStep2Submit}>Create</button>
                 </div>
@@ -141,5 +151,3 @@ export default class CreatePassword extends React.Component {
     );
   }
 }
-
-CreatePassword.propTypes = { user: {} };
