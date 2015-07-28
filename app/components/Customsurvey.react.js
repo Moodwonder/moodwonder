@@ -2,29 +2,288 @@ import React from 'react';
 import Immutable from 'immutable';
 import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import $ from 'jquery';
-//import SurveyActions from 'actions/SurveyActions';
-//import SurveyStore from 'stores/SurveyStore';
+import Validation, { Validator } from 'rc-form-validation';
+import mixins from 'es6-mixins';
+import Question from 'components/Question.react';
+import getFormData from 'get-form-data';
+import _ from 'underscore';
 
 
-export default class Customsurvey extends React.Component {
+export default class Test2 extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    mixins(Validation.FieldMixin, this);
+    this.state = {
+        qIndex: 1,
+        questions: ['q1'],
+        option: [],
+        radio: [],
+        rIndex: 1,
+        checkbox: [],
+        cIndex: 1,
+        textbox: [],
+        tIndex: 1,
+        textarea: [],
+        txIndex: 1
+    };
   }
 
   componentDidMount() {
+    //console.log(this.state.questions);
+    //console.log(this.state.qIndex);
+  }
 
+  componentWillUnmount() {
+    this.setState({qIndex: this.state.qIndex + 1});
+  }
+
+  onSurveySubmit = (e) => {
+    e.preventDefault();
+    var form = document.querySelector('#surveyForm');
+    var data = getFormData(form, {trim: true});
+    console.log(JSON.stringify(data));
+  }
+
+  onAddQuestion = (e) => {
+    e.preventDefault();
+    let qIndex = parseInt(this.state.qIndex);
+    let questions = this.state.questions;
+    qIndex++;
+    questions.push('q' + qIndex);
+    this.setState({qIndex: qIndex});
+    this.setState({questions: questions});
+  }
+
+  onRemoveQuestion = (child) => {
+    console.log(child.refs);
+    console.log(child.props);
+    let qid = child.props.qid;
+    var questions = this.state.questions;
+    var key = questions.indexOf(qid);
+    if(key != -1) {
+      questions.splice(key, 1);
+    }
+    this.setState({questions: questions});
+  }
+
+  onAddRadioOption = (e, child) => {
+    let rIndex = parseInt(this.state.rIndex);
+    let qid = child.props.qid;
+    let radio = this.state.radio;
+    rIndex++;
+    radio.push(qid + 'r' + rIndex);
+    this.setState({rIndex: rIndex});
+    this.setState({radio: radio});
+  }
+
+  onRemoveRadioOption = (e, child) => {
+    let rid = child.props.rid;
+    var radio = this.state.radio;
+    var key = radio.indexOf(rid);
+    if(key != -1) {
+      radio.splice(key, 1);
+    }
+    this.setState({radio: radio});
+  }
+
+  onAddCheckboxOption = (e, child) => {
+    //console.log(child.refs);
+    //console.log(child.props);
+    let cIndex = parseInt(this.state.cIndex);
+    let qid = child.props.qid;
+    let checkbox = this.state.checkbox;
+    cIndex++;
+    checkbox.push(qid + 'c' + cIndex);
+    this.setState({cIndex: cIndex});
+    this.setState({checkbox: checkbox});
+  }
+
+  onRemoveCheckboxOption = (e, child) => {
+    let cid = child.props.cid;
+    var checkbox = this.state.checkbox;
+    var key = checkbox.indexOf(cid);
+    if(key != -1) {
+      checkbox.splice(key, 1);
+    }
+    this.setState({checkbox: checkbox});
+  }
+
+  onSelectAnswerType = (e, child) => {
+    var qid = child.props.qid;
+    var answerType = e.target.value;
+
+    var option = this.state.option;
+    var radio = this.state.radio;
+    var checkbox = this.state.checkbox;
+    var textbox = this.state.textbox;
+    var textarea = this.state.textarea;
+
+    // Radio - Clear all the previous states against qustion id.
+    var rClear = [];
+    for(let item of radio){
+      if(item.search(qid) != -1) {
+        rClear.push(item);
+      }
+    }
+    for(let item of rClear){
+      radio.splice(radio.indexOf(item), 1);
+    }
+    this.setState({radio: radio});
+
+    // Checkbox - Clear all the previous states against qustion id.
+    var cClear = [];
+    for(let item of checkbox){
+      if(item.search(qid) != -1) {
+        cClear.push(item);
+      }
+    }
+    for(let item of cClear){
+      checkbox.splice(checkbox.indexOf(item), 1);
+    }
+    this.setState({checkbox: checkbox});
+
+    // Textbox - Clear all the previous states against qustion id.
+    var tClear = [];
+    for(let item of textbox){
+      if(item.search(qid) != -1) {
+        tClear.push(item);
+      }
+    }
+    for(let item of tClear){
+      textbox.splice(textbox.indexOf(item), 1);
+    }
+    this.setState({textbox: textbox});
+
+    // Textarea - Clear all the previous states against qustion id.
+    var txClear = [];
+    for(let item of textarea){
+      if(item.search(qid) != -1) {
+        txClear.push(item);
+      }
+    }
+    for(let item of txClear){
+      textarea.splice(textarea.indexOf(item), 1);
+    }
+    this.setState({textarea: textarea});
+
+    var aid = '';
+
+    switch(answerType){
+        case 'radio': console.log('radio');
+            aid = qid + 'r1';
+            var nRadio = this.state.radio;
+            nRadio.push(aid);
+            this.setState({radio: nRadio});
+            break;
+        case 'checkbox': console.log('checkbox');
+            aid = qid + 'c1';
+            var nCheckbox = this.state.checkbox;
+            nCheckbox.push(aid);
+            this.setState({checkbox: nCheckbox});
+            break;
+        case 'textbox': console.log('textbox');
+            aid = qid + 't1';
+            var nTextbox = this.state.textbox;
+            nTextbox.push(aid);
+            this.setState({textbox: nTextbox});
+            break;
+        case 'textarea': console.log('textarea');
+            aid = qid + 'tx1';
+            var nTextarea = this.state.textarea;
+            nTextarea.push(aid);
+            this.setState({textarea: nTextarea});
+            break;
+        default: break;
+    }
   }
 
   render() {
+    var qIndex = this.state.qIndex;
+    var questions = this.state.questions;
+    var radio = this.state.radio;
+    var checkbox = this.state.checkbox;
+    var textbox = this.state.textbox;
+    var textarea = this.state.textarea;
+
+    let sno = 0;
+    let contents = questions.map((qid) => {
+      var rString = qid + 'r';
+      var rArr = [];
+      for (let item of radio) {
+        if(item.search(rString) != -1)
+        {
+          rArr.push(item);
+        }
+      }
+
+      var cString = qid + 'c';
+      var cArr = [];
+      for (let item of checkbox) {
+        if(item.search(cString) != -1)
+        {
+          cArr.push(item);
+        }
+      }
+
+      var tString = qid + 't';
+      var tArr = [];
+      for (let item of textbox) {
+        if(item.search(tString) != -1)
+        {
+          tArr.push(item);
+        }
+      }
+
+      var txString = qid + 'tx';
+      var txArr = [];
+      for (let item of textarea) {
+        if(item.search(txString) != -1)
+        {
+          txArr.push(item);
+        }
+      }
+
+      //console.log('radio');
+      //console.log(rArr);
+      //console.log('checkbox');
+      //console.log(cArr);
+      return (
+            <Question
+                qid={qid}
+                sno={sno++}
+                onClick={this.onRemoveQuestion}
+                onChange={this.onSelectAnswerType}
+                radio={rArr}
+                onClick1={this.onRemoveRadioOption}
+                addRadio={this.onAddRadioOption}
+                checkbox={cArr}
+                removeCheckbox={this.onRemoveCheckboxOption}
+                addCheckbox={this.onAddCheckboxOption}
+                textbox={tArr}
+                textarea={txArr}
+            /> );
+    }.bind(this));
 
     return (
       <div className="container">
-        <h3>Custom survey page.</h3>
+        <h2>Custom Survey Generation.</h2>
+        <form id="surveyForm">
+          <div className="form-group">
+            <input type="text" ref="surveytitle" className="form-control" id="surveytitle" placeholder="Survey title"/>
+          </div>
+          <h4>Enter question here..</h4>
+          <div>
+            {contents}
+          </div>
+          <br/>
+          <div className="form-group">
+            <button className="btn btn-success" onClick={this.onAddQuestion}>Add Question</button>&nbsp;&nbsp;
+            <button className="btn btn-primary" onClick={this.onSurveySubmit}>Submit</button>
+          </div>
+        </form>
       </div>
     );
-
   }
 }
 
