@@ -110,7 +110,7 @@ exports.postSignupStep1 = function(req, res) {
 				from: 'admin@moodewonder.com',
 				to: email,
 				subject: 'Create password',
-				html: "<b>Click here :</b>"+ 'http://moodwonder.titechnologies.org:9039/createpassword/'+verifystring
+				html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
 			});
 				response.status = true;
 				response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
