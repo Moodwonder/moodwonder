@@ -24,6 +24,7 @@ module.exports = function(app, passport) {
   
 
   app.get('*', function (req, res, next) {
+	  ' entering into * '
     if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
 
     var user = req.user ? { authenticated: true, isWaiting: false } : { authenticated: false, isWaiting: false };

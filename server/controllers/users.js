@@ -1,10 +1,12 @@
 var _ = require('lodash');
 var User = require('../models/user');
 var passport = require('passport');
+var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
+
 var sess = {};
 
 
@@ -23,19 +25,20 @@ exports.postLogin = function(req, res, next) {
     // Do email and password validation for the server
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
+    console.log(user);
     if(!user) {
       req.flash('errors', {msg: info.message});
     }
     // Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session
     req.logIn(user, function(err) {
+		console.log(' passport.authenticate ==='+err);
       if(err) return next(err);
-      console.log(user);
+      console.log('after return');
       sess = req.session;
       sess._id = user._id;
-      sess.name = user.name;
+      sess.name = user.firstname+' '+user.lastname;
       sess.email = user.email;
       req.flash('success', { msg: 'Success! You are logged in'});
-      var response = {};
       response.user = user;
       response.status = 'success';
       res.send(response);
@@ -160,22 +163,49 @@ exports.postSignupStep2 = function(req, res) {
 
     if(document) {
 
-      User.update(conditions, update, options, function(err) {
-        if(!err){
+    bcrypt.genSalt(5, function (err, salt) {
+        if (!err){
+        bcrypt.hash(update.password, salt, null, function (err, hash) {
+            if (!err){
+			  update.password = hash;
+			  console.log(update.password);
+			  User.update(conditions, update, options, function(err) {
+				if(!err){
 
-           response.status = true;
-           response.message = 'Password created';
-           sess = req.session;
-           sess._id = document._id.valueOf();
-           console.log('saveed');
-        }else{
+				   response.status = true;
+				   response.message = 'Password created';
+				   sess = req.session;
+				   sess._id = document._id.valueOf();
+				   console.log('saveed');
+				}else{
 
-           response.status = false;
-           response.message = 'Something went wrong..';
-        }
-        res.send(response);
-        res.end();
-      });
+				   response.status = false;
+				   response.message = 'Something went wrong..';
+				}
+				res.send(response);
+				res.end();
+			  });
+			}
+			else{
+				// bcrypt.hash Error
+				response.status = false;
+				response.message = 'Something went wrong..';
+				res.send(response);
+				res.end();
+			}
+        });
+		}else{
+			// bcrypt.genSalt Error
+			response.status = false;
+			response.message = 'Something went wrong..';
+			res.send(response);
+			res.end();
+		}
+
+    });
+    
+
+      
     }else{
 
       response.status = false;

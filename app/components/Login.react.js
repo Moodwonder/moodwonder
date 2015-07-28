@@ -56,7 +56,7 @@ export default class Login extends React.Component {
           <div className="container">
             <h2>Login here..</h2>
             <div className="form-group">
-              <input type="email" ref="email" placeholder="Email" className="form-control"/>
+              <input type="email" ref="email" name="email" placeholder="Email" className="form-control"/>
             </div>
             <div className="form-group">
               <input type="password" ref="password" placeholder="Password" className="form-control"/>

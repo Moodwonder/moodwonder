@@ -64,11 +64,24 @@ UserSchema.pre('save', function (next) {
  */
 UserSchema.methods = {
     comparePassword: function (candidatePassword, cb) {
-        bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-            if (err)
-                return cb(err);
-            cb(null, isMatch);
-        })
+		var currentPswd = this.password;
+		bcrypt.genSalt(5, function (err, salt) {
+			if (!err){
+				bcrypt.hash(candidatePassword, salt, null, function (err, hash) {
+					if (!err){
+						bcrypt.compare(candidatePassword, currentPswd, function (err, isMatch) {
+							if (err)
+								return cb(err);
+							cb(null, isMatch);
+						});
+					}else{
+						console.log(' bcrypt.hash '+err);
+					}
+				});
+			}else{
+				console.log(' bcrypt.genSalt'+err);
+			}
+		});
     }
 };
 
