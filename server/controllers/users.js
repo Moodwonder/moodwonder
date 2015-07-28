@@ -3,7 +3,8 @@ var User = require('../models/user');
 var passport = require('passport');
 var crypto = require('crypto');
 var App = require('../../public/assets/app.server');
-var ObjectId = require('mongoose').Types.ObjectId; 
+var ObjectId = require('mongoose').Types.ObjectId;
+var nodemailer = require("nodemailer");
 var sess = {};
 
 
@@ -103,6 +104,14 @@ exports.postSignupStep1 = function(req, res) {
     }else{
 		user.save(function(err) {
 		    if(!err){
+
+			var transporter = nodemailer.createTransport();
+			transporter.sendMail({
+				from: 'admin@moodewonder.com',
+				to: email,
+				subject: 'Create password',
+				html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
+			});
 				response.status = true;
 				response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
 				res.send(response);
@@ -158,6 +167,7 @@ exports.postSignupStep2 = function(req, res) {
            response.message = 'Password created';
            sess = req.session;
            sess._id = document._id.valueOf();
+           console.log('saveed');
         }else{
 
            response.status = false;

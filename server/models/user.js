@@ -59,7 +59,6 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-
 /**
  *Defining our own custom document instance method
  */
