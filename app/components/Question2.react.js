@@ -4,7 +4,7 @@ import Checkbox from 'components/Checkbox.react';
 import Textbox from 'components/Textbox.react';
 import Textarea from 'components/Textarea.react';
 
-export default class Question extends React.Component {
+export default class Question2 extends React.Component {
 
   constructor(props) {
     super(props);

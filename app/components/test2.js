@@ -4,7 +4,7 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import $ from 'jquery';
 import Validation, { Validator } from 'rc-form-validation';
 import mixins from 'es6-mixins';
-import Question from 'components/Question.react';
+import Question2 from 'components/Question2.react';
 import getFormData from 'get-form-data';
 import _ from 'underscore';
 
@@ -108,6 +108,14 @@ export default class Test2 extends React.Component {
     }
     this.setState({checkbox: checkbox});
   }
+
+  changeHandler = (key, attr, event) => {
+    var state = {};
+    state[key] = this.state[key] || {};
+    state[key][attr] = event.currentTarget.value;
+    this.setState(state);
+    //console.log(this.state);
+  };
 
   onSelectAnswerType = (e, child) => {
     var qid = child.props.qid;
@@ -249,17 +257,21 @@ export default class Test2 extends React.Component {
       //console.log('checkbox');
       //console.log(cArr);
       return (
-            <Question
+            <Question2
                 qid={qid}
                 sno={sno++}
                 onClick={this.onRemoveQuestion}
                 onChange={this.onSelectAnswerType}
+                changeQuestion={this.changeHandler}
+                formdata={this.state.formdata}
                 radio={rArr}
-                onClick1={this.onRemoveRadioOption}
+                removeRadio={this.onRemoveRadioOption}
                 addRadio={this.onAddRadioOption}
+                changeRadio={this.changeHandler}
                 checkbox={cArr}
                 removeCheckbox={this.onRemoveCheckboxOption}
                 addCheckbox={this.onAddCheckboxOption}
+                changeCheckbox={this.changeHandler}
                 textbox={tArr}
                 textarea={txArr}
             /> );
@@ -270,7 +282,7 @@ export default class Test2 extends React.Component {
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
-            <input type="text" ref="surveytitle" className="form-control" id="surveytitle" placeholder="Survey title"/>
+            <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} className="form-control" id="surveytitle" placeholder="Survey title"/>
           </div>
           <h4>Enter question here..</h4>
           <div>
