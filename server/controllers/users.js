@@ -17,7 +17,45 @@ var response = {};
 response.status = false;
 response.message = 'Error';
  
- 
+/**
+ * Encrypt password
+ */
+exports.encryptPassword = function(req, res, next){
+
+  var password = req.body.password.trim();
+  if(password.length<= 6){
+
+      response.status = false;
+      response.message = 'Password length should be at least 7 characters';
+      res.send(response);
+      res.end();
+  }else{
+      bcrypt.genSalt(5, function (err, salt) {
+
+        if (!err){
+          bcrypt.hash(password, salt, null, function (err, hash) {
+            if (!err){
+              req.body.password = hash;
+              next();
+            }
+            else{
+              // bcrypt.hash Error
+              response.status = false;
+              response.message = 'Something went wrong..';
+              res.send(response);
+              res.end();
+            }
+          });
+        }else{
+          // bcrypt.genSalt Error
+          response.status = false;
+          response.message = 'Something went wrong..';
+          res.send(response);
+          res.end();
+        }
+    });
+  }
+}
 /**
  * Login
  */
@@ -25,22 +63,22 @@ exports.postLogin = function(req, res, next) {
     // Do email and password validation for the server
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
-    console.log(user);
     if(!user) {
-      req.flash('errors', {msg: info.message});
+      response.message = info.message;
+      res.send(response);
+      res.end();
+      return;
     }
     // Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session
     req.logIn(user, function(err) {
-		console.log(' passport.authenticate ==='+err);
       if(err) return next(err);
-      console.log('after return');
       sess = req.session;
       sess._id = user._id;
       sess.name = user.firstname+' '+user.lastname;
       sess.email = user.email;
-      req.flash('success', { msg: 'Success! You are logged in'});
+      response.status = true;
+      response.message = 'Success! You are logged in';
       response.user = user;
-      response.status = 'success';
       res.send(response);
       res.end();
       
@@ -161,51 +199,23 @@ exports.postSignupStep2 = function(req, res) {
   */
   User.findOne(conditions, function(err, document) {
 
-    if(document) {
+    if(document){
+      User.update(conditions, update, options, function(err) {
+        if(!err){
 
-    bcrypt.genSalt(5, function (err, salt) {
-        if (!err){
-        bcrypt.hash(update.password, salt, null, function (err, hash) {
-            if (!err){
-			  update.password = hash;
-			  console.log(update.password);
-			  User.update(conditions, update, options, function(err) {
-				if(!err){
+          response.status = true;
+          response.message = 'Password created';
+          sess = req.session;
+          sess._id = document._id.valueOf();
+          console.log('saveed');
+        }else{
 
-				   response.status = true;
-				   response.message = 'Password created';
-				   sess = req.session;
-				   sess._id = document._id.valueOf();
-				   console.log('saveed');
-				}else{
-
-				   response.status = false;
-				   response.message = 'Something went wrong..';
-				}
-				res.send(response);
-				res.end();
-			  });
-			}
-			else{
-				// bcrypt.hash Error
-				response.status = false;
-				response.message = 'Something went wrong..';
-				res.send(response);
-				res.end();
-			}
-        });
-		}else{
-			// bcrypt.genSalt Error
-			response.status = false;
-			response.message = 'Something went wrong..';
-			res.send(response);
-			res.end();
-		}
-
-    });
-    
-
-      
+          response.status = false;
+          response.message = 'Something went wrong..';
+        }
+        res.send(response);
+        res.end();
+      });
     }else{
 
       response.status = false;

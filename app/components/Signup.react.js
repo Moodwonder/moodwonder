@@ -2,42 +2,7 @@ import React from 'react';
 import Notification from 'react-notification';
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
-import Formsy from 'formsy-react';
-import {Input} from 'formsy-react-components';
-
-
-var MyOwnInput = React.createClass({
-
-  mixins: [Formsy.Mixin],
-
-  changeValue: function (event) {
-    this.setValue(event.currentTarget.value);
-  },
-  render: function () {
-
-        var errorMessage = this.getErrorMessage();
-
-        var classNames = {
-            formGroup: ['form-group'],
-            elementWrapper: []
-        };
-
-        if (errorMessage) {
-            classNames.formGroup.push('has-error');
-            classNames.formGroup.push('has-feedback');
-        }
-
-        var elementWrapper = classNames.formGroup.join(' ');
-
-    return (
-      <div className={elementWrapper}>
-        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()}/>
-        <span className='help-block validation-message'>{errorMessage}</span>
-      </div>
-    );
-  }
-});
-
+import MyOwnInput from 'components/Formsy-components';
 
 export default class Signup extends React.Component {
 
@@ -116,7 +81,6 @@ export default class Signup extends React.Component {
   }
 
   render() {
-
     let renderedResult;
     let message;
 

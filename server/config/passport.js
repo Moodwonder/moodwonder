@@ -10,8 +10,6 @@ var local = require('./passport/local');
 module.exports = function(app, passport, config) {
   // serialize sessions
   passport.serializeUser(function(user, done) {
-	console.log('serializeUser');
-	console.log(user);
     done(null, user.id);
   });
 
