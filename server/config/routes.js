@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
   // user routes
   app.post('/login', users.postLogin);
   app.post('/usersignupstep1', users.postSignupStep1);
-  app.post('/usersignupstep2', users.postSignupStep2);
+  app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);
   app.get('/test', users.test);
@@ -26,6 +26,7 @@ module.exports = function(app, passport) {
   
 
   app.get('*', function (req, res, next) {
+	  ' entering into * '
     if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
 
     var user = req.user ? { authenticated: true, isWaiting: false } : { authenticated: false, isWaiting: false };

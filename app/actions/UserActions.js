@@ -10,36 +10,18 @@ class UserActions {
   manuallogin(data) {
     this.dispatch();
     UserWebAPIUtils.manuallogin(data)
-      .then((response) => {
-        if (response.status === 'success') {
-          // Dispatch another event for successful login
-          this.actions.loginsuccess(response.user);
-        }
-      }, () => {
-        // Dispatch another event for a bad login
-      });
-  }
-
-  //user registration function
-  usersignup(data) {
-    this.dispatch();
-    UserWebAPIUtils.usersignup(data)
       .then((response, textStatus) => {
         if (textStatus === 'success') {
           // Dispatch another event for successful login
-          this.actions.signupsuccess(data.email);
+          this.actions.loginsuccess(response);
         }
       }, () => {
         // Dispatch another event for a bad login
       });
   }
 
-  loginsuccess(email) {
-    this.dispatch(email);
-  }
-
-  signupsuccess(email) {
-    this.dispatch(email);
+  loginsuccess(response) {
+    this.dispatch(response);
   }
 
   //logout function

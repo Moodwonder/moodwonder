@@ -10,7 +10,10 @@ class UserStore {
   constructor() {
 
     this.user = Immutable.Map({});
-
+    this.isLogginWaiting = false;
+    this.message = '';
+    this.isLoggedIn = false;
+    this.canSubmit = false;
     this.on('init', this.bootstrap);
     this.on('bootstrap', this.bootstrap);
 
@@ -18,9 +21,7 @@ class UserStore {
       handleLoginAttempt: UserActions.MANUALLOGIN,
       handleLoginSuccess: UserActions.LOGINSUCCESS,
       handleLogoutAttempt: UserActions.LOGOUT,
-      handleLogoutSuccess: UserActions.LOGOUTSUCCESS,
-      handleSignupSuccess: UserActions.SIGNUPSUCCESS,
-      handleSignupAttempt: UserActions.USERSIGNUP
+      handleLogoutSuccess: UserActions.LOGOUTSUCCESS
     });
   }
 
@@ -31,35 +32,27 @@ class UserStore {
   }
 
   handleLoginAttempt() {
-    this.user = this.user.set('isWaiting', true);
+    this.isLogginWaiting = true;
     this.emitChange();
   }
 
-  handleSignupAttempt() {
-    this.user = this.user.set('isSignupWaiting', true);
-    this.emitChange();
-  }
-
-  handleSignupSuccess() {
-    this.user = this.user.merge({ isSignupWaiting: false, registration: true });
-    this.emitChange();
-  }
-
-  handleLoginSuccess(data) {
-    this.user = this.user.merge({ isWaiting: false, authenticated: true });
+  handleLoginSuccess(response) {
+    this.isLogginWaiting = false;
+    this.message = response.message;
+    this.isLoggedIn = response.status;
     sessionStorage.setItem('isAuthenticated', true);
-    //sessionStorage.setItem('currentUser', JSON.stringify({'email':'test@email.com','name':'test'}));
-    sessionStorage.setItem('currentUser', JSON.stringify(data));
+    sessionStorage.setItem('currentUser', JSON.stringify(response));
     this.emitChange();
   }
 
   handleLogoutAttempt() {
-    this.user = this.user.set('isWaiting', true);
+    this.isLogginWaiting = true;
     this.emitChange();
   }
 
   handleLogoutSuccess() {
-    this.user = this.user.merge({ isWaiting: false, authenticated: false });
+    this.isLogginWaiting = false;
+    this.isLoggedIn = false;
     sessionStorage.removeItem('isAuthenticated');
     sessionStorage.removeItem('currentUser');
     this.emitChange();
