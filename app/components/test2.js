@@ -3,17 +3,17 @@ import Immutable from 'immutable';
 import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import $ from 'jquery';
 import Validation, { Validator } from 'rc-form-validation';
-import mixins from 'es6-mixins';
 import Question2 from 'components/Question2.react';
 import getFormData from 'get-form-data';
 import _ from 'underscore';
+import CustomSurveyActions from 'actions/CustomSurveyActions';
+import CustomSurveyStore from 'stores/CustomSurveyStore';
 
 
 export default class Test2 extends React.Component {
 
   constructor(props) {
     super(props);
-    mixins(Validation.FieldMixin, this);
     this.state = {
         qIndex: 1,
         questions: ['q1'],
@@ -24,17 +24,26 @@ export default class Test2 extends React.Component {
         textbox: [],
         tIndex: 1,
         textarea: [],
-        txIndex: 1
+        txIndex: 1,
+        isSurveySaved: CustomSurveyStore.getState().isSurveySaved
     };
   }
 
   componentDidMount() {
     //console.log(this.state.questions);
     //console.log(this.state.qIndex);
+    CustomSurveyStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
     this.setState({qIndex: this.state.qIndex + 1});
+    CustomSurveyStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+    this.setState({
+      isSurveySaved: CustomSurveyStore.getState().isSurveySaved
+    });
   }
 
   onSurveySubmit = (e) => {
@@ -85,6 +94,7 @@ export default class Test2 extends React.Component {
     }
 
     console.log(JSON.stringify(survey));
+    CustomSurveyActions.createCustomSurveyForm(survey);
   }
 
   onAddQuestion = (e) => {
@@ -292,6 +302,11 @@ export default class Test2 extends React.Component {
           txArr.push(item);
         }
       }
+      
+      let surveyCreated = '';
+      if(this.state.isSurveySaved == 'true'){
+          surveyCreated = (<span>New survey created successfully.</span>);
+      }
 
       return (
             <Question2
@@ -316,6 +331,7 @@ export default class Test2 extends React.Component {
 
     return (
       <div className="container">
+        {surveyCreated}
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
