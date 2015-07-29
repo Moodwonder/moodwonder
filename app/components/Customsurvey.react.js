@@ -9,7 +9,7 @@ import getFormData from 'get-form-data';
 import _ from 'underscore';
 
 
-export default class Test2 extends React.Component {
+export default class Customsurvey extends React.Component {
 
   constructor(props) {
     super(props);
@@ -17,7 +17,6 @@ export default class Test2 extends React.Component {
     this.state = {
         qIndex: 1,
         questions: ['q1'],
-        option: [],
         radio: [],
         rIndex: 1,
         checkbox: [],
@@ -42,7 +41,50 @@ export default class Test2 extends React.Component {
     e.preventDefault();
     var form = document.querySelector('#surveyForm');
     var data = getFormData(form, {trim: true});
+    var question = this.state.questions;
+    var survey = survey || {};
     console.log(JSON.stringify(data));
+
+    survey.id = 'S1';
+    survey.surveytitle = data.surveytitle;
+    survey.user_id = 1;
+    survey.createddate = '29-july-2015';
+    survey.target_teamid = 2;
+    survey.questions = [];
+    var keys = Object.keys(data);
+
+    for(let qid of question){
+      var id = qid.replace('q', '');
+      var qTemp = {};
+
+      qTemp.question = data['question_' + qid];
+      qTemp.question_id = id;
+      qTemp.answertype = data['answertype_' + qid];
+      qTemp.answers = [];
+
+      var rString = qid + 'r';
+      var cString = qid + 'c';
+      var tString = qid + 'te';
+      var txString = qid + 'tx';
+
+      for (let key of keys) {
+        var aTemp = {};
+        if((key.search(rString) != -1) || (key.search(cString) != -1))
+        {
+          aTemp.option = data[key][0];
+          qTemp.answers.push(aTemp);
+        }
+        if((key.search(tString) != -1) || (key.search(txString) != -1))
+        {
+          aTemp.option = '';
+          qTemp.answers.push(aTemp);
+        }
+      }
+
+      survey.questions.push(qTemp);
+    }
+
+    console.log(JSON.stringify(survey));
   }
 
   onAddQuestion = (e) => {
@@ -109,11 +151,18 @@ export default class Test2 extends React.Component {
     this.setState({checkbox: checkbox});
   }
 
+  changeHandler = (key, attr, event) => {
+    var state = {};
+    state[key] = this.state[key] || {};
+    state[key][attr] = event.currentTarget.value;
+    this.setState(state);
+    //console.log(this.state);
+  };
+
   onSelectAnswerType = (e, child) => {
     var qid = child.props.qid;
     var answerType = e.target.value;
 
-    var option = this.state.option;
     var radio = this.state.radio;
     var checkbox = this.state.checkbox;
     var textbox = this.state.textbox;
@@ -170,25 +219,25 @@ export default class Test2 extends React.Component {
     var aid = '';
 
     switch(answerType){
-        case 'radio': console.log('radio');
+        case 'radio':
             aid = qid + 'r1';
             var nRadio = this.state.radio;
             nRadio.push(aid);
             this.setState({radio: nRadio});
             break;
-        case 'checkbox': console.log('checkbox');
+        case 'checkbox':
             aid = qid + 'c1';
             var nCheckbox = this.state.checkbox;
             nCheckbox.push(aid);
             this.setState({checkbox: nCheckbox});
             break;
-        case 'textbox': console.log('textbox');
-            aid = qid + 't1';
+        case 'textbox':
+            aid = qid + 'te1';
             var nTextbox = this.state.textbox;
             nTextbox.push(aid);
             this.setState({textbox: nTextbox});
             break;
-        case 'textarea': console.log('textarea');
+        case 'textarea':
             aid = qid + 'tx1';
             var nTextarea = this.state.textarea;
             nTextarea.push(aid);
@@ -206,7 +255,7 @@ export default class Test2 extends React.Component {
     var textbox = this.state.textbox;
     var textarea = this.state.textarea;
 
-    let sno = 0;
+    let sno = 1;
     let contents = questions.map((qid) => {
       var rString = qid + 'r';
       var rArr = [];
@@ -226,7 +275,7 @@ export default class Test2 extends React.Component {
         }
       }
 
-      var tString = qid + 't';
+      var tString = qid + 'te';
       var tArr = [];
       for (let item of textbox) {
         if(item.search(tString) != -1)
@@ -244,22 +293,22 @@ export default class Test2 extends React.Component {
         }
       }
 
-      //console.log('radio');
-      //console.log(rArr);
-      //console.log('checkbox');
-      //console.log(cArr);
       return (
             <Question
                 qid={qid}
                 sno={sno++}
                 onClick={this.onRemoveQuestion}
                 onChange={this.onSelectAnswerType}
+                changeQuestion={this.changeHandler}
+                formdata={this.state.formdata}
                 radio={rArr}
-                onClick1={this.onRemoveRadioOption}
+                removeRadio={this.onRemoveRadioOption}
                 addRadio={this.onAddRadioOption}
+                changeRadio={this.changeHandler}
                 checkbox={cArr}
                 removeCheckbox={this.onRemoveCheckboxOption}
                 addCheckbox={this.onAddCheckboxOption}
+                changeCheckbox={this.changeHandler}
                 textbox={tArr}
                 textarea={txArr}
             /> );
@@ -270,9 +319,9 @@ export default class Test2 extends React.Component {
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
-            <input type="text" ref="surveytitle" className="form-control" id="surveytitle" placeholder="Survey title"/>
+            <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} className="form-control" id="surveytitle" placeholder="Survey title"/>
           </div>
-          <h4>Enter question here..</h4>
+          <h4>Enter questions here..</h4>
           <div>
             {contents}
           </div>
