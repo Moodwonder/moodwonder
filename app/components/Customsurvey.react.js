@@ -3,17 +3,18 @@ import Immutable from 'immutable';
 import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import $ from 'jquery';
 import Validation, { Validator } from 'rc-form-validation';
-import mixins from 'es6-mixins';
 import Question from 'components/Question.react';
 import getFormData from 'get-form-data';
 import _ from 'underscore';
+import CustomSurveyActions from 'actions/CustomSurveyActions';
+import CustomSurveyStore from 'stores/CustomSurveyStore';
 
 
 export default class Customsurvey extends React.Component {
 
   constructor(props) {
     super(props);
-    mixins(Validation.FieldMixin, this);
+    this.state = CustomSurveyStore.getState();
     this.state = {
         qIndex: 1,
         questions: ['q1'],
@@ -31,10 +32,18 @@ export default class Customsurvey extends React.Component {
   componentDidMount() {
     //console.log(this.state.questions);
     //console.log(this.state.qIndex);
+    CustomSurveyStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
     this.setState({qIndex: this.state.qIndex + 1});
+    CustomSurveyStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+    this.setState({
+      isSurveySaved: CustomSurveyStore.getState().isSurveySaved
+    });
   }
 
   onSurveySubmit = (e) => {
@@ -85,6 +94,7 @@ export default class Customsurvey extends React.Component {
     }
 
     console.log(JSON.stringify(survey));
+    CustomSurveyActions.createCustomSurveyForm(survey);
   }
 
   onAddQuestion = (e) => {
@@ -254,6 +264,7 @@ export default class Customsurvey extends React.Component {
     var checkbox = this.state.checkbox;
     var textbox = this.state.textbox;
     var textarea = this.state.textarea;
+    console.log(this.state.isSurveyCreated);
 
     let sno = 1;
     let contents = questions.map((qid) => {

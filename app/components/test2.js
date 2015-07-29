@@ -14,6 +14,7 @@ export default class Test2 extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = CustomSurveyStore.getState();
     this.state = {
         qIndex: 1,
         questions: ['q1'],
@@ -24,8 +25,7 @@ export default class Test2 extends React.Component {
         textbox: [],
         tIndex: 1,
         textarea: [],
-        txIndex: 1,
-        isSurveySaved: CustomSurveyStore.getState().isSurveySaved
+        txIndex: 1
     };
   }
 
@@ -264,6 +264,7 @@ export default class Test2 extends React.Component {
     var checkbox = this.state.checkbox;
     var textbox = this.state.textbox;
     var textarea = this.state.textarea;
+    console.log(this.state.isSurveyCreated);
 
     let sno = 1;
     let contents = questions.map((qid) => {
@@ -302,11 +303,6 @@ export default class Test2 extends React.Component {
           txArr.push(item);
         }
       }
-      
-      let surveyCreated = '';
-      if(this.state.isSurveySaved == 'true'){
-          surveyCreated = (<span>New survey created successfully.</span>);
-      }
 
       return (
             <Question2
@@ -331,7 +327,6 @@ export default class Test2 extends React.Component {
 
     return (
       <div className="container">
-        {surveyCreated}
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
