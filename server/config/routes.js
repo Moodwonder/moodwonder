@@ -8,6 +8,7 @@ var _ = require('lodash');
 var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 var surveys = require('../controllers/surveys');
+var customSurvey = require('../controllers/customSurvey');
 
 module.exports = function(app, passport) {
   // user routes
@@ -21,6 +22,7 @@ module.exports = function(app, passport) {
   app.get('/getusers', users.getUsers);
   app.get('/getengagementsurvey', surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', surveys.saveEngagementSurveyResult);
+  app.post('/createsurveyform', customSurvey.createCustomSurveyForm);
   
 
   app.get('*', function (req, res, next) {
