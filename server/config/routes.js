@@ -22,8 +22,9 @@ module.exports = function(app, passport) {
   app.get('/getusers', users.getUsers);
   app.get('/getengagementsurvey', surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', surveys.saveEngagementSurveyResult);
-  app.post('/createsurveyform', customSurvey.createCustomSurveyForm);
-  
+  app.post('/createsurveyform', customSurvey.createForm);
+  app.get('/getsurveyforms', customSurvey.getForms);
+  app.post('/deleteform', customSurvey.deleteForm);
 
   app.get('*', function (req, res, next) {
 	  ' entering into * '

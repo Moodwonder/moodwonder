@@ -9,6 +9,7 @@ import Signup from 'components/Signup.react';
 import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/Customsurvey.react';
 import Survey from 'components/Survey.react';
+import Surveyforms from 'components/Customsurveyforms.react';
 import NotFound from 'components/404.react';
 import Test1 from 'components/test1';
 import Test2 from 'components/test2';
@@ -21,6 +22,7 @@ const routes = (
     <Route name="signup" handler={Signup} />
     <Route name="createpassword/:hash" handler={CreatePassword} />
     <Route name="customsurvey" handler={Customsurvey} />
+    <Route name="surveyforms" handler={Surveyforms} />
     <Route name="survey" handler={Survey} />
     <Route name="test1" handler={Test1} />
     <Route name="test2" handler={Test2} />

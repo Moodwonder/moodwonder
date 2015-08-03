@@ -5,6 +5,7 @@ var app = express();
 var server = require('http').Server(app);
 var passport = require('passport');
 var secrets = require('./config/secrets');
+var autoIncrement = require('mongoose-auto-increment');
 
 // Find the appropriate database to connect to, default to localhost if not found.
 var connect = function() {
