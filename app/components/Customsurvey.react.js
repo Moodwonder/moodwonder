@@ -8,12 +8,15 @@ import getFormData from 'get-form-data';
 import _ from 'underscore';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
+import { Router, Navigation } from 'react-router';
+import mixins from 'es6-mixins';
 
 
 export default class Customsurvey extends React.Component {
 
   constructor(props) {
     super(props);
+    mixins(Navigation, this);
     this.state = CustomSurveyStore.getState();
     this.state = {
         qIndex: 1,
@@ -44,6 +47,16 @@ export default class Customsurvey extends React.Component {
     this.setState({
       isSurveySaved: CustomSurveyStore.getState().isSurveySaved
     });
+  }
+
+  onFormListsClick = (e) => {
+    e.preventDefault();
+    this.context.router.transitionTo('/surveyforms');
+  }
+
+  onSurveyClick = (e) => {
+    e.preventDefault();
+    this.context.router.transitionTo('/takesurvey');
   }
 
   onSurveySubmit = (e) => {
@@ -327,6 +340,10 @@ export default class Customsurvey extends React.Component {
 
     return (
       <div className="container">
+        <div className="form-group">
+          <a href="#" onClick={this.onFormListsClick}>List forms</a>&nbsp;&nbsp;
+          <a href="#" onClick={this.onSurveyClick}>Take a survey</a>
+        </div>
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
@@ -346,4 +363,6 @@ export default class Customsurvey extends React.Component {
     );
   }
 }
+
+Customsurvey.contextTypes = { router: React.PropTypes.func };
 

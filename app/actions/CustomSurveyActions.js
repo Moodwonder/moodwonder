@@ -37,6 +37,23 @@ class CustomSurveyActions {
     this.dispatch(data);
   }
 
+  getSurveyForm() {
+    this.dispatch();
+    CustomSurveyWebAPIUtils.getSurveyForm()
+      .then((response, textStatus) => {
+        if (response.status == 'success') {
+          this.actions.handlesurveyform(response.form);
+        }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  handlesurveyform(data)
+  {
+    this.dispatch(data);
+  }
+
   deleteForm(id) {
     this.dispatch();
     CustomSurveyWebAPIUtils.deleteForm(id)

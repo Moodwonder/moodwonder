@@ -26,6 +26,14 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify({id: id})
     });
+  },
+
+  getSurveyForm: () => {
+    return $.ajax({
+      url: '/getsurveyform',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };
