@@ -21,10 +21,6 @@ export default class Login extends React.Component {
   }
 
   componentWillUnmount() {
-	console.log(this.state);
-    if(this.state.isLoggedIn){
-       this.context.router.transitionTo('/survey');
-    }
     UserStore.unlisten(this._onChange);
   }
 
@@ -38,6 +34,9 @@ export default class Login extends React.Component {
 
   _onChange = (state) => {
     this.setState(state);
+    if(this.state.isLoggedIn){
+       this.context.router.transitionTo('/survey');
+    }
   }
 
   _onLoginSubmit = (model) => {
