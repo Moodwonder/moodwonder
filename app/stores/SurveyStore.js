@@ -7,30 +7,19 @@ class SurveyStore {
 
   constructor() {
 
-    this.questions = Immutable.Map({});
-
-    this.on('init', this.bootstrap);
-
-    this.on('bootstrap', this.bootstrap);
+    this.questions = {};
+    this.hasQuestions = false;
 
     this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS
     });
   }
 
-  bootstrap() {
-    if (!Immutable.OrderedMap.isOrderedMap(this.questions)) {
-      this.questions = fromJSOrdered(this.questions);
-    }
-  }
-
   handleSurveys(data) {
+    console.log('handleSurveys(data)');
+    console.log(data);
     this.questions = data;
-    this.emitChange();
-  }
-
-  handleEngageSuccess() {
-    this.questions = this.questions.merge({ EngageSuccess: true });
+    this.hasQuestions = true;
     this.emitChange();
   }
 

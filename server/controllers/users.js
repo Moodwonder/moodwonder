@@ -7,7 +7,7 @@ var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 
-var sess = {};
+sess = {};
 
 
 /**

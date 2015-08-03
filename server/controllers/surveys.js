@@ -2,11 +2,11 @@ var _ = require('lodash');
 var EngagementArea = require('../models/engagementArea');
 var EngagementResults = require('../models/engagementResults');
 
-
 /**
  * GET /getEngagementSurvey
  */
 exports.getEngagementSurvey = function(req, res) {
+  console.log(sess);
   EngagementArea.find({}).exec(function(err, lists) {
     if(!err) {
       res.json(lists);
@@ -20,14 +20,15 @@ exports.getEngagementSurvey = function(req, res) {
  * POST /saveEngagementSurveyResult
  */
 exports.saveEngagementSurveyResult = function(req, res) {
-   var qry = req.body;
-	EngagementResults.create(qry, function (err, candies) {
-	  if (!err){
-		  res.json({'status':true,'message':'query success'});
-	  }else{
-		  res.json({'status':false,'message':'query failed'});
-	  }
-	});
+  var qry = req.body;
+  qry.user_id = sess._id;
+  EngagementResults.create(qry, function (err, candies) {
+    if (!err){
+        res.json({'status':true,'message':'query success'});
+    }else{
+        res.json({'status':false,'message':'query failed'});
+    }
+  });
 };
 
 
