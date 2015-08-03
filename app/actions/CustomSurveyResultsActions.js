@@ -1,0 +1,25 @@
+import alt from 'altInstance';
+import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
+
+class CustomSurveyResultsActions {
+
+  getSurveyForm() {
+    this.dispatch();
+    CustomSurveyWebAPIUtils.getSurveyForm()
+      .then((response, textStatus) => {
+        if (response.status == 'success') {
+          this.actions.handlesurveyform(response.form);
+        }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  handlesurveyform(data)
+  {
+    this.dispatch(data);
+  }
+
+}
+
+export default alt.createActions(CustomSurveyResultsActions);

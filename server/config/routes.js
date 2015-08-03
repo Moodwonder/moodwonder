@@ -9,6 +9,7 @@ var Header = require('../../public/assets/header.server');
 var App = require('../../public/assets/app.server');
 var surveys = require('../controllers/surveys');
 var customSurvey = require('../controllers/customSurvey');
+var customSurveyResults = require('../controllers/customSurveyResults');
 
 module.exports = function(app, passport) {
   // user routes
@@ -24,6 +25,7 @@ module.exports = function(app, passport) {
   app.post('/saveengagementsurveyresult', surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);
   app.get('/getsurveyforms', customSurvey.getForms);
+  app.get('/getsurveyform', customSurvey.getSurveyForm);
   app.post('/deleteform', customSurvey.deleteForm);
 
   app.get('*', function (req, res, next) {
