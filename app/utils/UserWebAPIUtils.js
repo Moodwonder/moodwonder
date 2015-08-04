@@ -59,6 +59,17 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  /*
+   * Get user info if logged in
+   * @return {Promise}
+   */
+  userinfo: () => {
+    return $.ajax({
+      url: '/userinfo',
+      type: 'GET'
+    });
   }
 
 };

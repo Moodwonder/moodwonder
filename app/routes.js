@@ -9,6 +9,7 @@ import Signup from 'components/Signup.react';
 import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/Customsurvey.react';
 import Survey from 'components/Survey.react';
+import MyProfile from 'components/MyProfile.react';
 import Surveyforms from 'components/Customsurveyforms.react';
 import Takesurvey from 'components/Takesurvey.react';
 import NotFound from 'components/404.react';
@@ -26,6 +27,7 @@ const routes = (
     <Route name="surveyforms" handler={Surveyforms} />
     <Route name="takesurvey" handler={Takesurvey} />
     <Route name="survey" handler={Survey} />
+    <Route name="myprofile" handler={MyProfile} />
     <Route name="test1" handler={Test1} />
     <Route name="test2" handler={Test2} />
     <DefaultRoute handler={Index} />

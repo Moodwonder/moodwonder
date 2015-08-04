@@ -56,6 +56,19 @@ exports.encryptPassword = function(req, res, next){
     });
   }
 }
+
+/**
+ * Check login status
+ */
+exports.checkLogin = function(req, res, next){
+  //console.log('checkLogin'+sess._id+typeof sess._id);
+  if(typeof sess._id == 'object' && sess._id != '') {
+    next();
+  }else{
+    res.json({'status':false,'message':'Session expired.!'});
+  }
+}
+
 /**
  * Login
  */
@@ -99,6 +112,27 @@ exports.getUsers = function(req, res) {
     }
   });
 };
+
+/**
+ * Get all Users
+ */
+exports.getUserInfo = function(req, res) {
+  var condition = { '_id': new ObjectId(sess._id) };
+  User.findOne(condition,function(err, lists) {
+    if(!err) {
+      console.log('lists');
+      console.log(lists);
+      response = {};
+      response.status = true;
+      response.message = 'success';
+      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.lastname, 'language': '', 'reportfrequency': lists.report_frequency, 'password': '' };
+      res.json(response);
+    } else {
+      res.json(response);
+    }
+  });
+};
+
 /**
  * Get test
  */

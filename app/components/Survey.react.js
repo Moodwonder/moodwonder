@@ -33,12 +33,21 @@ export default class Survey extends React.Component {
   render() {
 
     var items = '';
+    var message = '';
     if(this.state.hasQuestions){
         items = this.state.questions.map((data, key) => {
         return (
           <li className="list-group-item"><div className="row"><div className="col-sm-6" >{data.mood} : {data.description}</div> <div className="col-sm-6" ><input type="text" ref={data._id} /> </div></div></li>
         );
       });
+    }
+
+    if(this.state.message != ''){
+        message = (
+            <div className="alert alert-warning">
+                {this.state.message}
+            </div>
+        );
     }
 
     let submitButton = '';
@@ -54,6 +63,7 @@ export default class Survey extends React.Component {
 
     return (
       <div className="container Survey-list">
+        {message}
          <ul className="list-group">
          {items}
          {submitButton}

@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import MyOwnInput from 'components/Formsy-components';
+import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
@@ -35,7 +35,8 @@ export default class Login extends React.Component {
   _onChange = (state) => {
     this.setState(state);
     if(this.state.isLoggedIn){
-       this.context.router.transitionTo('/survey');
+		window.location.assign('/survey');
+       //this.context.router.transitionTo('/survey');
     }
   }
 

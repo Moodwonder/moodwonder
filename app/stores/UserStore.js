@@ -11,6 +11,9 @@ class UserStore {
 
     this.user = Immutable.Map({});
     this.isLogginWaiting = false;
+    this.isServerCallWaiting = true;
+    this.hasError = false;
+    this.userDetails = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '' };
     this.message = '';
     this.isLoggedIn = false;
     this.canSubmit = false;
@@ -21,6 +24,7 @@ class UserStore {
       handleLoginAttempt: UserActions.MANUALLOGIN,
       handleLoginSuccess: UserActions.LOGINSUCCESS,
       handleLogoutAttempt: UserActions.LOGOUT,
+      handleUserInfoSuccess: UserActions.USERINFOSUCCESS,
       handleLogoutSuccess: UserActions.LOGOUTSUCCESS
     });
   }
@@ -42,6 +46,14 @@ class UserStore {
     this.isLoggedIn = response.status;
     sessionStorage.setItem('isAuthenticated', true);
     sessionStorage.setItem('currentUser', JSON.stringify(response));
+    this.emitChange();
+  }
+
+  handleUserInfoSuccess(response) {
+    this.isServerCallWaiting = false;
+    this.hasError = response.status;
+    this.message = response.message;
+    this.userDetails = response.data;
     this.emitChange();
   }
 

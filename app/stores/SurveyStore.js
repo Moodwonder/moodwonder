@@ -9,6 +9,7 @@ class SurveyStore {
 
     this.questions = {};
     this.hasQuestions = false;
+    this.message = '';
 
     this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS

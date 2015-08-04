@@ -24,6 +24,22 @@ class UserActions {
     this.dispatch(response);
   }
 
+  // Get user details
+  getuserinfo() {
+    this.dispatch();
+    UserWebAPIUtils.userinfo()
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.userinfosuccess(response);
+        }
+      }, () => {
+      });
+  }
+
+  userinfosuccess(response) {
+    this.dispatch(response);
+  }
+
   //logout function
   logout() {
     this.dispatch();

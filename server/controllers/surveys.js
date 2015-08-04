@@ -20,15 +20,21 @@ exports.getEngagementSurvey = function(req, res) {
  * POST /saveEngagementSurveyResult
  */
 exports.saveEngagementSurveyResult = function(req, res) {
+
   var qry = req.body;
   qry.user_id = sess._id;
-  EngagementResults.create(qry, function (err, candies) {
-    if (!err){
-        res.json({'status':true,'message':'query success'});
-    }else{
-        res.json({'status':false,'message':'query failed'});
-    }
-  });
+  if(sess._id != '') {
+    EngagementResults.create(qry, function (err, candies) {
+      if (!err){
+          res.json({'status':true,'message':'query success'});
+      }else{
+          res.json({'status':false,'message':'query failed'});
+      }
+    });
+  }else{
+    res.json({'status':false,'message':'Session expired.!'});
+  }
+
 };
 
 
