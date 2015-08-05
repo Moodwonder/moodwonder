@@ -2,8 +2,8 @@ import React from 'react';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import MyOwnInput from 'components/Formsy-components';
-import { Router,Navigation } from 'react-router';
+import { MyOwnInput } from 'components/Formsy-components';
+import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
 export default class Login extends React.Component {
@@ -34,6 +34,10 @@ export default class Login extends React.Component {
 
   _onChange = (state) => {
     this.setState(state);
+    if(this.state.isLoggedIn){
+		window.location.assign('/survey');
+       //this.context.router.transitionTo('/survey');
+    }
   }
 
   _onLoginSubmit = (model) => {
@@ -98,3 +102,4 @@ export default class Login extends React.Component {
 }
 
 Login.propTypes = { user: React.PropTypes.instanceOf(Immutable.Map) };
+Login.contextTypes = { router: React.PropTypes.func };

@@ -26,11 +26,51 @@ var MyOwnInput = React.createClass({
 
     return (
       <div className={elementWrapper}>
-        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()}/>
+        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()} autoComplete={this.props.autocomplete || 'on' } />
         <span className='help-block validation-message'>{errorMessage}</span>
       </div>
     );
   }
 });
 
-export default MyOwnInput;
+var MyOwnSelect = React.createClass({
+
+  mixins: [Formsy.Mixin],
+
+  changeValue: function (event) {
+    this.setValue(event.currentTarget.value);
+  },
+  render: function () {
+
+        var errorMessage = this.getErrorMessage();
+
+        var classNames = {
+            formGroup: ['form-group'],
+            elementWrapper: []
+        };
+
+        if (errorMessage) {
+            classNames.formGroup.push('has-error');
+            classNames.formGroup.push('has-feedback');
+        }
+
+        var elementWrapper = classNames.formGroup.join(' ');
+
+        var options = this.props.options.map((data, key) => {
+        return (
+           <option>{data}</option>
+        );
+      });
+    return (
+      <div className={elementWrapper}>
+        <select className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()} >
+            <option value='' disabled Style='display:none;'>{this.props.placeholder}</option>
+            {options}
+        </select>
+        <span className='help-block validation-message'>{errorMessage}</span>
+      </div>
+    );
+  }
+});
+
+export { MyOwnInput, MyOwnSelect };

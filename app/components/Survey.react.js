@@ -18,25 +18,38 @@ export default class Survey extends React.Component {
     SurveyStore.unlisten(this._onChange);
   }
 
-  _onChange = () => {
-    this.setState({
-      questions: SurveyStore.getState().questions
-    });
+  _onChange = (state) => {
+	this.setState(state);
+    console.log(state);
   }
 
   _onSurveySubmit = () => {
     const surveyResult = this.state.questions.map((data, key) => {
-       return { 'user_id': 1, 'engagementarea_id': data._id, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
+       return { 'engagementarea_id': data._id, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
     });
     SurveyActions.saveEngagementSurvey(surveyResult);
   }
 
   render() {
-    const items = this.state.questions.map((data, key) => {
-      return (
-        <li className="list-group-item"><div className="row"><div className="col-sm-6" >{data.mood} : {data.description}</div> <div className="col-sm-6" ><input type="text" ref={data._id} /> </div></div></li>
-      );
-    });
+
+    var items = '';
+    var message = '';
+    if(this.state.hasQuestions){
+        items = this.state.questions.map((data, key) => {
+        return (
+          <li className="list-group-item"><div className="row"><div className="col-sm-6" >{data.mood} : {data.description}</div> <div className="col-sm-6" ><input type="text" ref={data._id} /> </div></div></li>
+        );
+      });
+    }
+
+    if(this.state.message != ''){
+        message = (
+            <div className="alert alert-warning">
+                {this.state.message}
+            </div>
+        );
+    }
+
     let submitButton = '';
     if(items){
         submitButton = (
@@ -50,6 +63,7 @@ export default class Survey extends React.Component {
 
     return (
       <div className="container Survey-list">
+        {message}
          <ul className="list-group">
          {items}
          {submitButton}

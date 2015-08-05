@@ -7,7 +7,7 @@ var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 
-var sess = {};
+sess = {};
 
 
 /**
@@ -23,13 +23,9 @@ response.message = 'Error';
 exports.encryptPassword = function(req, res, next){
 
   var password = req.body.password.trim();
-  if(password.length<= 6){
 
-      response.status = false;
-      response.message = 'Password length should be at least 7 characters';
-      res.send(response);
-      res.end();
-  }else{
+  if(password.length >= 6){
+
       bcrypt.genSalt(5, function (err, salt) {
 
         if (!err){
@@ -54,8 +50,24 @@ exports.encryptPassword = function(req, res, next){
           res.end();
         }
     });
+  }else{
+    req.body.password = '';
+    next();
   }
 }
+
+/**
+ * Check login status
+ */
+exports.checkLogin = function(req, res, next){
+  console.log('checkLogin'+sess._id+typeof sess._id);
+  if(typeof sess._id == 'object' && sess._id != '') {
+    next();
+  }else{
+    res.json({'status':false,'message':'Session expired.!'});
+  }
+}
+
 /**
  * Login
  */
@@ -99,6 +111,27 @@ exports.getUsers = function(req, res) {
     }
   });
 };
+
+/**
+ * Get all Users
+ */
+exports.getUserInfo = function(req, res) {
+  var condition = { '_id': new ObjectId(sess._id) };
+  User.findOne(condition,function(err, lists) {
+    if(!err) {
+      console.log('lists');
+      console.log(lists);
+      response = {};
+      response.status = true;
+      response.message = 'success';
+      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': '', 'reportfrequency': lists.report_frequency, 'password': '' };
+      res.json(response);
+    } else {
+      res.json(response);
+    }
+  });
+};
+
 /**
  * Get test
  */
@@ -278,7 +311,51 @@ exports.postUserSignUp = function(req, res, next) {
   });
 };
 
+/**
+ * Save user details
+ *
+ * Accept :
+ * @fname:
+ * @lname,
+ * @email,
+ * @language,
+ * @reportfrequency,
+ * @password
+ * 
+ */
+exports.postSaveUserInfo = function(req, res) {
 
+  var model = req.body;
+
+  if(model.password != '' && model.password.length<= 6){
+
+    response.status = false;
+    response.message = 'Password length should be at least 7 characters';
+    res.send(response);
+    res.end();
+  }else{
+
+    // To delete password object, since has no value
+    delete model.password;
+    var conditions = { '_id': new ObjectId(sess._id) }
+    , update = model
+    , options = { multi: false };
+
+    User.update(conditions, update, options, function(err) {
+      if(!err){
+
+        response.status = true;
+        response.message = 'User details saved';
+      }else{
+
+        response.status = false;
+        response.message = 'Something went wrong..';
+      }
+      res.send(response);
+      res.end();
+    });
+  }
+};
 
 
 

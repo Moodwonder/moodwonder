@@ -13,8 +13,6 @@ module.exports = function (app, passport) {
 
   app.disable('x-powered-by');
   app.set('views', path.join(__dirname, '..', 'views'));
-  
-  var sess = {};
 
   app.set('view cache', false);
 

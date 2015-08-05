@@ -6,8 +6,10 @@ class SurveyActions {
   getallquestions() {
     this.dispatch();
     SurveyWebAPIUtils.getEngagementSurvey()
-      .then((response) => {
-        if (response) {
+      .then((response, textStatus) => {
+		console.log(textStatus);
+        if (textStatus == 'success') {
+			console.log(response);
           this.actions.getquestions(response);
         }
       }, () => {
@@ -17,6 +19,7 @@ class SurveyActions {
 
   getquestions(data)
   {
+     console.log('getquestions(data)');
      this.dispatch(data);
   }
 

@@ -20,7 +20,40 @@ class UserActions {
       });
   }
 
+  // Keep this function name in lower case, otherwise it will not be available in 'Store'
   loginsuccess(response) {
+    this.dispatch(response);
+  }
+
+  // Save use details
+  saveUserInfo(data) {
+    this.dispatch();
+    UserWebAPIUtils.saveUserDetails(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.saveuserdetailssuccess(response);
+        }
+      }, () => {
+      });
+  }
+
+  saveuserdetailssuccess(response) {
+    this.dispatch(response);
+  }
+
+  // Get user details
+  getuserinfo() {
+    this.dispatch();
+    UserWebAPIUtils.userinfo()
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.userinfosuccess(response);
+        }
+      }, () => {
+      });
+  }
+
+  userinfosuccess(response) {
     this.dispatch(response);
   }
 
