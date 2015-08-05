@@ -2,7 +2,7 @@ import React from 'react';
 import Notification from 'react-notification';
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
-import MyOwnInput from 'components/Formsy-components';
+import { MyOwnInput } from 'components/Formsy-components';
 
 export default class Signup extends React.Component {
 
