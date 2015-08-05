@@ -40,16 +40,7 @@ export default class MyProfile extends React.Component {
 
   _onSaveSubmit = (model) => {
 	console.log(model);
-    var email = model.email.trim();
-    var password = model.password.trim();
-    /*UserActions.manuallogin({
-      fname: email,
-      lname: lname,
-      email: email,
-      language: language,
-      reportfrequency: reportfrequency,
-      password: password
-    });*/
+    UserActions.saveUserInfo(model);
   }
 
   render() {
@@ -61,7 +52,11 @@ export default class MyProfile extends React.Component {
     var userInfo = this.state.userDetails;
 
     if(this.state.message != '' ) {
-      message = (<h3 className="login__header">Processing...</h3>);
+      message = (
+        <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
+          {this.state.message}
+        </div>
+      );
     }
 
     renderedResult = (
@@ -70,12 +65,46 @@ export default class MyProfile extends React.Component {
         {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                <MyOwnInput
-               name="fname"
+               name="firstname"
                className="form-control"
                value={userInfo.fname}
                placeholder="First name"
                validationError="First name is required"
                required/>
+
+               <MyOwnInput
+               name="lastname"
+               className="form-control"
+               value={userInfo.lname}
+               placeholder="Last name"
+               validationError="Last name is required"
+               required/>
+
+               <MyOwnInput
+               name="email"
+               autocomplete="off"
+               className="form-control"
+               value={userInfo.email}
+               placeholder="Work Email"
+               validations="isEmail"
+               validationError="This is not a valid email"
+               required/>
+
+               <MyOwnSelect
+               name="language"
+               className="form-control"
+               value={userInfo.language}
+               placeholder="Language"
+               options={['EN', 'FL']}
+               />
+
+               <MyOwnSelect
+               name="report_frequency"
+               className="form-control"
+               value={userInfo.reportfrequency}
+               placeholder="reportfrequency"
+               options={['Weekly', 'Monthly', 'Never']}
+               />
 
                <MyOwnInput
                type="password"

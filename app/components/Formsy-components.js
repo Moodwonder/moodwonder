@@ -26,7 +26,7 @@ var MyOwnInput = React.createClass({
 
     return (
       <div className={elementWrapper}>
-        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()} autocomplete={this.props.autocomplete || 'on' } />
+        <input type={this.props.type || 'text'} placeholder={this.props.placeholder} className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()} autoComplete={this.props.autocomplete || 'on' } />
         <span className='help-block validation-message'>{errorMessage}</span>
       </div>
     );

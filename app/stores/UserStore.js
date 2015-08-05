@@ -25,6 +25,7 @@ class UserStore {
       handleLoginSuccess: UserActions.LOGINSUCCESS,
       handleLogoutAttempt: UserActions.LOGOUT,
       handleUserInfoSuccess: UserActions.USERINFOSUCCESS,
+      handleSaveUserDetailsSuccess: UserActions.SAVEUSERDETAILSSUCCESS,
       handleLogoutSuccess: UserActions.LOGOUTSUCCESS
     });
   }
@@ -49,11 +50,22 @@ class UserStore {
     this.emitChange();
   }
 
+  handleSaveUserDetailsSuccess(response) {
+    this.isServerCallWaiting = false;
+    this.hasError = !response.status;
+    this.message = response.message;
+    this.emitChange();
+  }
+
   handleUserInfoSuccess(response) {
     this.isServerCallWaiting = false;
-    this.hasError = response.status;
+    this.hasError = !response.status;
     this.message = response.message;
-    this.userDetails = response.data;
+    if(!this.hasError) {
+      this.userDetails = response.data;
+      // To ignore initial message
+      this.message = '';
+    }
     this.emitChange();
   }
 

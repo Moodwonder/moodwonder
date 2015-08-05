@@ -14,11 +14,7 @@ var UserSchema = new mongoose.Schema({
   firstname: {type: String, default: ''},
   lastname: {type: String, default: ''},
   email: {type: String, unique: true, lowercase: true},
-  languages:
-    [{
-      id: {type: Number, default: 0},
-      language: {type: String, default: 'EN'}
-    }],
+  language: {type: String, default: 'EN'},
   report_frequency: {type: String, default: 'weekly'},
   password: String,
   profile_image: {type: String, default: ''},
