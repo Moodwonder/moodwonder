@@ -39,12 +39,17 @@ export default class MyProfile extends React.Component {
   }
 
   _onSaveSubmit = (model) => {
+	console.log(model);
     var email = model.email.trim();
     var password = model.password.trim();
-    UserActions.manuallogin({
+    /*UserActions.manuallogin({
+      fname: email,
+      lname: lname,
       email: email,
+      language: language,
+      reportfrequency: reportfrequency,
       password: password
-    });
+    });*/
   }
 
   render() {
@@ -73,48 +78,13 @@ export default class MyProfile extends React.Component {
                required/>
 
                <MyOwnInput
-               name="lname"
-               className="form-control"
-               value={userInfo.lname}
-               placeholder="Last name"
-               validationError="Last name is required"
-               required/>
-
-               <MyOwnInput
-               name="email"
-               className="form-control"
-               value={userInfo.email}
-               placeholder="Work Email"
-               validations="isEmail"
-               validationError="This is not a valid email"
-               required/>
-
-               <MyOwnSelect
-               name="language"
-               className="form-control"
-               value={userInfo.language}
-               placeholder="Language"
-               options={['EN', 'FL']}
-               validationError="Language is required"
-               required/>
-
-               <MyOwnSelect
-               name="reportfrequency"
-               className="form-control"
-               value={userInfo.reportfrequency}
-               placeholder="reportfrequency"
-               options={['Weekly', 'Monthly', 'Never']}
-               validationError="Report frequency is required"
-               required/>
-
-               <MyOwnInput
                type="password"
                name="password"
+               autocomplete="off"
                className="form-control"
                value={userInfo.password}
                placeholder="Password"
-               validationError="This is not a valid email"
-               required/>
+               validationError="This is not a valid email" />
 
                <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>

@@ -17,9 +17,9 @@ var UserSchema = new mongoose.Schema({
   languages:
     [{
       id: {type: Number, default: 0},
-      language: {type: String, default: ''}
+      language: {type: String, default: 'EN'}
     }],
-  report_frequency: {type: String, default: ''},
+  report_frequency: {type: String, default: 'weekly'},
   password: String,
   profile_image: {type: String, default: ''},
   usertype: String,
