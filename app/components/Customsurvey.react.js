@@ -107,7 +107,11 @@ export default class Customsurvey extends React.Component {
     }
 
     console.log(JSON.stringify(survey));
-    CustomSurveyActions.createCustomSurveyForm(survey);
+    if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
+      console.log('yes');
+      CustomSurveyActions.createCustomSurveyForm(survey);
+    }
+
   }
 
   onAddQuestion = (e) => {
@@ -348,6 +352,10 @@ export default class Customsurvey extends React.Component {
         <form id="surveyForm">
           <div className="form-group">
             <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} className="form-control" id="surveytitle" placeholder="Survey title"/>
+          </div>
+          <div className="form-group">
+            <label>Freeze date:</label>
+            <input type="text" ref="freezedate" name="freezedate" id="freezedate" placeholder="Pick a date"/>
           </div>
           <h4>Enter questions here..</h4>
           <div>

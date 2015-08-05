@@ -2,12 +2,15 @@ import React from 'react';
 import Immutable from 'immutable';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyFormsStore from 'stores/CustomSurveyFormsStore';
+import { Router, Navigation } from 'react-router';
+import mixins from 'es6-mixins';
 
 
 export default class Customsurveyforms extends React.Component {
 
   constructor(props) {
     super(props);
+    mixins(Navigation, this);
     this.state = CustomSurveyFormsStore.getState();
   }
 
@@ -60,7 +63,6 @@ export default class Customsurveyforms extends React.Component {
                 <td className="text-center">{form.surveytitle}</td>
                 <td className="text-center">{form.createddate}</td>
                 <td className="text-center">
-                  <a href="#" id={form._id}>edit</a>&nbsp;&nbsp;
                   <a href="#" onClick={this.onDeleteForm} id={form._id}>delete</a>
                 </td>
               </tr>
@@ -88,4 +90,7 @@ export default class Customsurveyforms extends React.Component {
     );
   }
 }
+
+Customsurveyforms.contextTypes = { router: React.PropTypes.func };
+
 
