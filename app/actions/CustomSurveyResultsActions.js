@@ -20,6 +20,21 @@ class CustomSurveyResultsActions {
     this.dispatch(data);
   }
 
+  saveSurveyResults(data) {
+    this.dispatch();
+    CustomSurveyWebAPIUtils.saveSurveyResults(data)
+      .then((response, textStatus) => {
+        this.actions.handlesurveyresults(true);
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  handlesurveyresults(data)
+  {
+    this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(CustomSurveyResultsActions);

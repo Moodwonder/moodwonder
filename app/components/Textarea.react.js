@@ -13,10 +13,7 @@ export default class Textarea extends React.Component {
     return (
       <div id={index} key={index} className="container">
         <br/>
-        <span>Textarea option - {index}</span>
-        <div className="form-group">
-          <textarea type="text" ref={index} name={index} id={index} readonly></textarea>
-        </div>
+        <span>Textarea - {index}</span>
       </div>
     );
   }

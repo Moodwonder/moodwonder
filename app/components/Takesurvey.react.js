@@ -22,7 +22,6 @@ export default class Takesurvey extends React.Component {
   }
 
   componentDidMount() {
-    //CustomSurveyResultsActions.getSurveyForm();
     CustomSurveyActions.getSurveyForm();
     CustomSurveyStore.listen(this._onChange);
   }
@@ -39,25 +38,53 @@ export default class Takesurvey extends React.Component {
 
   onCancelSurvey = (e) => {
     e.preventDefault();
-    console.log('cancelled.');
   }
 
   onSubmitSurvey = (e) => {
     e.preventDefault();
-    var form = document.querySelector('#surveyForm');
-    var data = getFormData(form, {trim: true});
-    console.log('submitted');
-    console.log(JSON.stringify(data));
+    var formData = document.querySelector('#surveyForm');
+    var data = getFormData(formData, {trim: true});
+    var surveyResults = [];
+    let form = this.state.form;
+    let qcount = _.size(form.questions);
+
+    for(let i = 1; i <= qcount; i++){
+       var survey = survey || {};
+       survey.user_id = 1; // Need to change in future.
+       survey.survey_id = data.surveyid;
+       survey.question_id = data['questionid_' + i];
+       survey.question = data['question_' + i];
+       survey.answertype = data['answer_type_' + i];
+       survey.answers = [];
+       var options = {};
+       if(data['answer_type_' + i] === 'checkbox') {
+          for(let answer of data['answer_' + i + '_[]']){
+            options = {};
+            options.option = answer;
+            survey.answers.push(options);
+          }
+       } else {
+         options.option = data['answer_' + i];
+         survey.answers.push(options);
+       }
+       surveyResults.push(JSON.stringify(survey));
+       //console.log(JSON.stringify(survey));
+    }
+
+    if (window.confirm('Are you sure you want to submit survey details ?')) {
+      var results = {};
+      results.surveyresults = surveyResults;
+      CustomSurveyResultsActions.saveSurveyResults(results);
+    }
   }
 
   render() {
     let form = this.state.form;
     let questions = [];
     let fields = '';
-    console.log(form);
-    console.log(_.size(questions));
+    let qcount = _.size(form.questions);
 
-    for(var i = 0; i < _.size(form.questions); i++ ){
+    for(var i = 0; i < qcount; i++ ){
       questions.push(form.questions[i]);
     }
 
@@ -111,7 +138,7 @@ export default class Takesurvey extends React.Component {
                <div className="form-group" id={qno}>
                  <label>{qno}&nbsp;:&nbsp;</label>
                  <label>{question.question}</label>
-                 <input type="hidden" name={'questionid_' + qno} value={question._id} />
+                 <input type="hidden" name={'questionid_' + qno} value={question.question_id} />
                  <input type="hidden" name={'question_' + qno} value={question.question}/>
                  <input type="hidden" name={'answer_type_' + qno} value={question.answertype} />
                  <br/>{ans}

@@ -107,11 +107,11 @@ export default class Test2 extends React.Component {
     }
 
     console.log(JSON.stringify(survey));
-
-    if (window.confirm('Please review the survey, once posted it cannot be edited')) {
+    if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
       console.log('yes');
       CustomSurveyActions.createCustomSurveyForm(survey);
     }
+
   }
 
   onAddQuestion = (e) => {
@@ -351,7 +351,29 @@ export default class Test2 extends React.Component {
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">
-            <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} className="form-control" id="surveytitle" placeholder="Survey title"/>
+            <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} className="form-control" id="surveytitle" placeholder="Name of the survey"/>
+          </div>
+          <div className="form-group">
+            <label>Freeze date:</label>
+            <input type="text" ref="freezedate" name="freezedate" id="freezedate" placeholder="Pick a date"/>
+          </div>
+          <div className="form-group">
+            <label>Target group</label>
+            <br/>
+            <input type="radio" name="targetgroup" defaultChecked/>&nbsp; Org &nbsp;
+            <select className="navigation__item">
+              <option value="0">Whole company or team</option>
+              <option value="company">Company</option>
+              <option value="team">Team</option>
+            </select>
+            <br/>
+            <input type="radio" name="targetgroup"/>&nbsp; Survey &nbsp;
+            <input type="text" value="10%"/>&nbsp;
+            <select className="navigation__item">
+              <option value="0">Expectations</option>
+              <option value="above">Above</option>
+              <option value="below">Below</option>
+            </select>
           </div>
           <h4>Enter questions here..</h4>
           <div>
@@ -369,5 +391,4 @@ export default class Test2 extends React.Component {
 }
 
 Test2.contextTypes = { router: React.PropTypes.func };
-
 

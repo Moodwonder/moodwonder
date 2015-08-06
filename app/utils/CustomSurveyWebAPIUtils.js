@@ -34,6 +34,15 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  saveSurveyResults: (data) => {
+    return $.ajax({
+      url: '/savesurveyresults',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
 
 };

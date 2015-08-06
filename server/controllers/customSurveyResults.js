@@ -1,27 +1,30 @@
 var _ = require('lodash');
 var mongoose = require('mongoose');
-var customSurveyResults = require('../models/customSurveyResults');
+var CustomSurveyResults = require('../models/customSurveyResults');
 
 /**
- * Get custome survey form by _id 
+ * save survey results
  */
-exports.getSurveyForm = function (req, res) {
-    var _id = mongoose.Types.ObjectId('55bf3fb8052965b025b67ec8');
-    customSurveyResults.findOne({_id: _id}).exec(function (err, form) {
-        var response = {};
-        if (!err) {
-            response.status = 'success';
-            response.form = form;
-            console.log(form);
-            //res.json(forms);
-            //console.log(forms);
-        } else {
-            response.status = 'failure';
-            response.form = [];
-        }
-        res.send(response);
-        res.end();
-    });
+exports.saveSurveyResults = function (req, res) {
+    
+    var surveyresults = req.body.surveyresults;
+    var length = surveyresults.length;
+    var response = {};
+    
+    for (var i = 0; i < length; i++) {
+        var row = {};
+        row = surveyresults[i];
+        row.survey_id = mongoose.Types.ObjectId(surveyresults[i].survey_id);
+        CustomSurveyResults.create(JSON.parse(row), function (err, data) {
+            if (!err) {
+                response.status = 'success';
+            } else {
+                response.status = 'failure';
+            }
+        });
+    }
+    res.json({'status': true});
+    res.end();
 };
 
 
