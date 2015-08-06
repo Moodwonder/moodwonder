@@ -65,9 +65,10 @@ const utils = {
    * Get user info if logged in
    * @return {Promise}
    */
-  userinfo: () => {
+  userinfo: (type) => {
+    
     return $.ajax({
-      url: '/userinfo',
+      url: '/userinfo?type='+type,
       type: 'GET'
     });
   },
@@ -78,6 +79,17 @@ const utils = {
   saveUserDetails: (data) => {
     return $.ajax({
       url: '/saveuserdetails',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  /*
+   * Ajaxcall for save company details
+   */
+  saveCompanyDetails: (data) => {
+    return $.ajax({
+      url: '/savecompanydetails',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data)

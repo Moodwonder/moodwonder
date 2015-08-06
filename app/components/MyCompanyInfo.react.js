@@ -17,7 +17,7 @@ export default class MyProfile extends React.Component {
   }
 
   componentDidMount() {
-    UserActions.getuserinfo();
+    UserActions.getcompanyinfo();
     UserStore.listen(this._onChange);
   }
 
@@ -40,7 +40,7 @@ export default class MyProfile extends React.Component {
 
   _onSaveSubmit = (model) => {
 	console.log(model);
-    UserActions.saveUserInfo(model);
+    UserActions.saveCompanyInfo(model);
   }
 
   render() {
@@ -66,59 +66,81 @@ export default class MyProfile extends React.Component {
           <li><a href="/myprofile">My Profile</a></li>
           <li><a href="/mycompany">My Company</a></li>
         </ul>
-        <h2>My Profile</h2>
+        <h2>My Company Info</h2>
         {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                <MyOwnInput
-               name="firstname"
+               name="companyname"
                className="form-control"
-               value={userInfo.fname}
-               placeholder="First name"
-               validationError="First name is required"
+               value={userInfo.companyname}
+               placeholder="Company name"
+               validationError="Company name is required"
                required/>
 
                <MyOwnInput
-               name="lastname"
+               name="industry"
                className="form-control"
-               value={userInfo.lname}
-               placeholder="Last name"
-               validationError="Last name is required"
-               required/>
-
-               <MyOwnInput
-               name="email"
-               autocomplete="off"
-               className="form-control"
-               value={userInfo.email}
-               placeholder="Work Email"
-               validations="isEmail"
-               validationError="This is not a valid email"
+               value={userInfo.industry}
+               placeholder="Industry"
+               validationError="Industry is required"
                required/>
 
                <MyOwnSelect
-               name="language"
+               name="continent"
                className="form-control"
-               value={userInfo.language}
-               placeholder="Language"
-               options={['EN', 'FL']}
+               value={userInfo.continent}
+               placeholder="Continent"
+               options={['ASIA']}
                />
 
                <MyOwnSelect
-               name="report_frequency"
+               name="country"
                className="form-control"
-               value={userInfo.reportfrequency}
-               placeholder="reportfrequency"
-               options={['Weekly', 'Monthly', 'Never']}
+               value={userInfo.country}
+               placeholder="Country"
+               options={['United states of america']}
+               />
+
+               <MyOwnSelect
+               name="state"
+               className="form-control"
+               value={userInfo.state}
+               placeholder="State"
+               options={['New york']}
+               />
+
+               <MyOwnSelect
+               name="city"
+               className="form-control"
+               value={userInfo.country}
+               placeholder="city"
+               options={['my city']}
                />
 
                <MyOwnInput
-               type="password"
-               name="password"
-               autocomplete="off"
+               name="address"
                className="form-control"
-               value={userInfo.password}
-               placeholder="Password"
-               validationError="This is not a valid email" />
+               value={userInfo.address}
+               placeholder="Address"
+               validationError="Address is required"
+               required/>
+               
+               <MyOwnInput
+               name="website"
+               className="form-control"
+               value={userInfo.website}
+               placeholder="Website"
+               validationError="Website is required"
+               required/>
+               
+
+               <MyOwnSelect
+               name="companysize"
+               className="form-control"
+               value={userInfo.companysize}
+               placeholder="Companysize"
+               options={['Small', 'Medium', 'Big']}
+               />
 
                <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>

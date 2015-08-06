@@ -25,7 +25,7 @@ class UserActions {
     this.dispatch(response);
   }
 
-  // Save use details
+  // Save user details
   saveUserInfo(data) {
     this.dispatch();
     UserWebAPIUtils.saveUserDetails(data)
@@ -38,6 +38,22 @@ class UserActions {
   }
 
   saveuserdetailssuccess(response) {
+    this.dispatch(response);
+  }
+
+  // Save company details
+  saveCompanyInfo(data) {
+    this.dispatch();
+    UserWebAPIUtils.saveCompanyDetails(data)
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.savecompanysuccess(response);
+        }
+      }, () => {
+      });
+  }
+
+  savecompanysuccess(response) {
     this.dispatch(response);
   }
 
@@ -54,6 +70,22 @@ class UserActions {
   }
 
   userinfosuccess(response) {
+    this.dispatch(response);
+  }
+
+  // Get user details
+  getcompanyinfo() {
+    this.dispatch();
+    UserWebAPIUtils.userinfo('company')
+      .then((response, textStatus) => {
+        if (textStatus === 'success') {
+          this.actions.companyinfosuccess(response);
+        }
+      }, () => {
+      });
+  }
+
+  companyinfosuccess(response) {
     this.dispatch(response);
   }
 

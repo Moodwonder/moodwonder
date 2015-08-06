@@ -119,12 +119,14 @@ exports.getUserInfo = function(req, res) {
   var condition = { '_id': new ObjectId(sess._id) };
   User.findOne(condition,function(err, lists) {
     if(!err) {
-      console.log('lists');
-      console.log(lists);
       response = {};
       response.status = true;
       response.message = 'success';
-      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': '', 'reportfrequency': lists.report_frequency, 'password': '' };
+      if(req.query.type == 'company' ){
+      response.data = lists.company_info[0];
+      }else{
+      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '' };
+      }
       res.json(response);
     } else {
       res.json(response);
@@ -335,8 +337,11 @@ exports.postSaveUserInfo = function(req, res) {
     res.end();
   }else{
 
-    // To delete password object, since has no value
-    delete model.password;
+    if(model.password == ''){
+      // To delete password object, since has no value
+      delete model.password;
+    }
+
     var conditions = { '_id': new ObjectId(sess._id) }
     , update = model
     , options = { multi: false };
@@ -355,6 +360,47 @@ exports.postSaveUserInfo = function(req, res) {
       res.end();
     });
   }
+};
+
+/**
+ * Save company details
+ *
+ * Accept :
+ * @companyname
+ * @industry
+ * @continent
+ * @country
+ * @state
+ * @city
+ * @address
+ * @website
+ * @companysize
+ * 
+ */
+exports.postSaveCompanyInfo = function(req, res) {
+
+  var model = req.body;
+
+  var model = { 'company_info': [model] };
+
+  var conditions = { '_id': new ObjectId(sess._id) }
+  , update = model
+  , options = { multi: false };
+
+  User.update(conditions, update, options, function(err) {
+    if(!err){
+
+      response.status = true;
+      response.message = 'Company details saved';
+    }else{
+
+      response.status = false;
+      response.message = 'Something went wrong..';
+    }
+    res.send(response);
+    res.end();
+  });
+
 };
 
 

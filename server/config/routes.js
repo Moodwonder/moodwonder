@@ -23,6 +23,7 @@ module.exports = function(app, passport) {
   app.get('/getusers', users.getUsers);
   app.get('/userinfo', users.checkLogin, users.getUserInfo);
   app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo);
+  app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
   app.get('/getengagementsurvey', surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);

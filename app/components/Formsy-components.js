@@ -57,14 +57,15 @@ var MyOwnSelect = React.createClass({
         var elementWrapper = classNames.formGroup.join(' ');
 
         var options = this.props.options.map((data, key) => {
-        return (
-           <option>{data}</option>
-        );
-      });
+
+          return (
+             <option value={data} >{data}</option>
+          );
+        });
     return (
       <div className={elementWrapper}>
-        <select className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.getValue()} >
-            <option value='' disabled Style='display:none;'>{this.props.placeholder}</option>
+        <select className={this.props.className} name={this.props.name} onChange={this.changeValue} value={this.props.value} >
+            <option value=''>{this.props.placeholder}</option>
             {options}
         </select>
         <span className='help-block validation-message'>{errorMessage}</span>

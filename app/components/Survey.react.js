@@ -63,6 +63,11 @@ export default class Survey extends React.Component {
 
     return (
       <div className="container Survey-list">
+        <ul className="pagination">
+          <li><a href="/survey">Survey</a></li>
+          <li><a href="/myprofile">My Profile</a></li>
+          <li><a href="/mycompany">My Company</a></li>
+        </ul>
         {message}
          <ul className="list-group">
          {items}
