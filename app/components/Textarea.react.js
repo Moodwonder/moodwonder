@@ -2,11 +2,11 @@ import React from 'react';
 
 export default class Textarea extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
-  render() {
+  render () {
     var qid = this.props.qid;
     var index = this.props.txid;
 

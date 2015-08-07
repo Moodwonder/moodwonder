@@ -6,7 +6,7 @@ import Textarea from 'components/Textarea.react';
 
 export default class Question2 extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = {};
   }
@@ -50,7 +50,7 @@ export default class Question2 extends React.Component {
     this.props.changeCheckbox(key, formdata, field);
   }
 
-  render() {
+  render () {
     let qid = this.props.qid;
     let sno = this.props.sno;
     let formdata = this.props.formdata;
@@ -70,19 +70,40 @@ export default class Question2 extends React.Component {
     let textareaComponent = '';
 
     radioComponent = radio.map((rid) => {
-      return (<Radio qid={qid} rid={rid} formdata={formdata} removeRadio={this.onRemoveRadioOption} changeRadio={this.changeRadioHandler} />);
+      return (<Radio
+                qid={qid}
+                rid={rid}
+                formdata={formdata}
+                removeRadio={this.onRemoveRadioOption}
+                changeRadio={this.changeRadioHandler} />
+             );
     }.bind(this));
 
-    if(radio.length > 0){
-       radioAddBtn = (<a href="#" className="btn-link" id={qid} onClick={this.onAddRadioOption}>Add Option</a>);
+    if (radio.length > 0) {
+      radioAddBtn = (<a
+                       href="#"
+                       className="btn-link"
+                       id={qid}
+                       onClick={this.onAddRadioOption}>Add Option</a>
+                    );
     }
 
     checkboxComponent = checkbox.map((cid) => {
-      return (<Checkbox qid={qid} cid={cid} formdata={formdata} removeCheckbox={this.onRemoveCheckboxOption} changeCheckbox={this.changeCheckboxHandler} />);
+      return (<Checkbox
+                qid={qid}
+                cid={cid}
+                formdata={formdata}
+                removeCheckbox={this.onRemoveCheckboxOption}
+                changeCheckbox={this.changeCheckboxHandler} />
+             );
     }.bind(this));
 
-    if(checkbox.length > 0){
-       checkboxAddBtn = (<a href="#" className="btn-link" id={qid} onClick={this.onAddCheckboxOption}>Add Option</a>);
+    if (checkbox.length > 0) {
+      checkboxAddBtn = (<a
+                          href="#"
+                          className="btn-link"
+                          id={qid} onClick={this.onAddCheckboxOption}>Add Option</a>
+                       );
     }
 
     textboxComponent = textbox.map((tid) => {
@@ -94,10 +115,10 @@ export default class Question2 extends React.Component {
     });
 
     let qValue = '';
-    if(typeof formdata === 'undefined'){
-        qValue = '';
+    if (typeof formdata === 'undefined') {
+      qValue = '';
     } else {
-        qValue = formdata['question_' + qid];
+      qValue = formdata['question_' + qid];
     }
 
     return (
@@ -105,11 +126,23 @@ export default class Question2 extends React.Component {
         <br/>
         <span>Question - {sno}</span>
         <div className="form-group">
-          <input type="text" ref={'question_' + qid} value={qValue} onChange={this.changeHandler.bind(this, 'formdata', 'question_' + qid)} name={'question_' + qid} className="form-control" id={'question_' + qid} placeholder="Question"/>
+          <input
+              type="text"
+              ref={'question_' + qid}
+              value={qValue}
+              onChange={this.changeHandler.bind(this, 'formdata', 'question_' + qid)}
+              name={'question_' + qid}
+              className="form-control"
+              id={'question_' + qid}
+              placeholder="Question"/>
         </div>
         <div className="form-group">
           <label>Select answer type:</label>
-          <select className="navigation__item" ref={'answertype_' + qid} id={qid} name={'answertype_' + qid} onChange={this.onSelectAnswerType}>
+          <select
+                className="navigation__item"
+                ref={'answertype_' + qid}
+                id={qid} name={'answertype_' + qid}
+                onChange={this.onSelectAnswerType}>
             <option value="0">Choose one</option>
             <option value="radio">Radio</option>
             <option value="checkbox">Checkbox</option>

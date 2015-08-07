@@ -5,10 +5,10 @@ import alt from 'altInstance';
 
 class CustomSurveyStore {
 
-  constructor() {
+  constructor () {
 
     this.isSurveyCreated = false;
-    this.form = Immutable.Map({});//[];
+    this.form = Immutable.Map({});
 
     this.bindListeners({
       handleCustomSurveyForm: CustomSurveyActions.CREATESURVEYFORM,
@@ -16,18 +16,18 @@ class CustomSurveyStore {
     });
   }
 
-  bootstrap() {
+  bootstrap () {
     if (!Immutable.OrderedMap.isOrderedMap(this.form)) {
       this.form = fromJSOrdered(this.form);
     }
   }
 
-  handleCustomSurveyForm(data) {
+  handleCustomSurveyForm (data) {
     this.isSurveyCreated = true;
     this.emitChange();
   }
 
-  handleSurveyForm(data) {
+  handleSurveyForm (data) {
     this.form = data;
     this.emitChange();
   }

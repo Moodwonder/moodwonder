@@ -3,7 +3,7 @@ import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
 
 class CustomSurveyActions {
 
-  createCustomSurveyForm(data) {
+  createCustomSurveyForm (data) {
     this.dispatch();
     CustomSurveyWebAPIUtils.createCustomSurveyForm(data)
       .then((response, textStatus) => {
@@ -15,12 +15,11 @@ class CustomSurveyActions {
       });
   }
 
-  createsurveyform(data)
-  {
+  createsurveyform (data) {
     this.dispatch(data);
   }
 
-  getCustomSurveyForms() {
+  getCustomSurveyForms () {
     this.dispatch();
     CustomSurveyWebAPIUtils.getCustomSurveyForms()
       .then((response, textStatus) => {
@@ -32,12 +31,11 @@ class CustomSurveyActions {
       });
   }
 
-  surveyforms(data)
-  {
+  surveyforms (data) {
     this.dispatch(data);
   }
 
-  getSurveyForm() {
+  getSurveyForm () {
     this.dispatch();
     CustomSurveyWebAPIUtils.getSurveyForm()
       .then((response, textStatus) => {
@@ -49,12 +47,11 @@ class CustomSurveyActions {
       });
   }
 
-  handlesurveyform(data)
-  {
+  handlesurveyform (data) {
     this.dispatch(data);
   }
 
-  deleteForm(id) {
+  deleteForm (id) {
     this.dispatch();
     CustomSurveyWebAPIUtils.deleteForm(id)
       .then((response, textStatus) => {
@@ -66,8 +63,7 @@ class CustomSurveyActions {
       });
   }
 
-  deleteaform(id)
-  {
+  deleteaform (id) {
     this.dispatch(id);
   }
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class Radio extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
   }
 
@@ -15,17 +15,17 @@ export default class Radio extends React.Component {
     this.props.changeRadio(key, formdata, field);
   }
 
-  render() {
+  render () {
     var qid = this.props.qid;
     var rid = this.props.rid;
     var formdata = this.props.formdata;
     var index = rid; // rid like 'q1r1'
 
     let rValue = '';
-    if(typeof formdata === 'undefined'){
-        rValue = '';
+    if (typeof formdata === 'undefined') {
+      rValue = '';
     } else {
-        rValue = formdata[index];
+      rValue = formdata[index];
     }
 
     return (
@@ -34,7 +34,14 @@ export default class Radio extends React.Component {
         <span>Radio option - {index}</span>
         <div className="form-group">
           <input type="radio" ref={index} name={index}/>
-          <input type="text" ref={index} value={rValue} onChange={this.changeHandler.bind(this, 'formdata', index)} name={index} id={index} placeholder="enter option here.."/>
+          <input
+               type="text"
+               ref={index}
+               value={rValue}
+               onChange={this.changeHandler.bind(this, 'formdata', index)}
+               name={index}
+               id={index}
+               placeholder="enter option here.."/>
           <a href="#" className="btn-link" id={index} onClick={this.onRemoveRadioOption}>Remove</a>
         </div>
       </div>
