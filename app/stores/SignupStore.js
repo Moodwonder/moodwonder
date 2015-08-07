@@ -6,7 +6,7 @@ import alt from 'altInstance';
  */
 class SignupStore {
 
-  constructor() {
+  constructor () {
     this.user = {};
     this.isSignupWaiting = false;
     this.message = '';
@@ -33,18 +33,18 @@ class SignupStore {
     });
   }
 
-  handleSignupAttempt() {
+  handleSignupAttempt () {
     this.isSignupWaiting = true;
     this.emitChange();
   }
 
-  handleSignupFeedback(response) {
+  handleSignupFeedback (response) {
     this.isSignupWaiting = false;
     this.message = response.message;
     this.isRegistered = response.status;
-    if(this.message != ''){
-       this.notificationReact.message = this.message;
-       this.notificationReact.isActive = true;
+    if (this.message != '') {
+      this.notificationReact.message = this.message;
+      this.notificationReact.isActive = true;
     }
     this.emitChange();
   }

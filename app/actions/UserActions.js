@@ -7,7 +7,7 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 class UserActions {
 
   // login function
-  manuallogin(data) {
+  manuallogin (data) {
     this.dispatch();
     UserWebAPIUtils.manuallogin(data)
       .then((response, textStatus) => {
@@ -21,12 +21,12 @@ class UserActions {
   }
 
   // Keep this function name in lower case, otherwise it will not be available in 'Store'
-  loginsuccess(response) {
+  loginsuccess (response) {
     this.dispatch(response);
   }
 
   // Save user details
-  saveUserInfo(data) {
+  saveUserInfo (data) {
     this.dispatch();
     UserWebAPIUtils.saveUserDetails(data)
       .then((response, textStatus) => {
@@ -37,12 +37,12 @@ class UserActions {
       });
   }
 
-  saveuserdetailssuccess(response) {
+  saveuserdetailssuccess (response) {
     this.dispatch(response);
   }
 
   // Save company details
-  saveCompanyInfo(data) {
+  saveCompanyInfo (data) {
     this.dispatch();
     UserWebAPIUtils.saveCompanyDetails(data)
       .then((response, textStatus) => {
@@ -53,12 +53,12 @@ class UserActions {
       });
   }
 
-  savecompanysuccess(response) {
+  savecompanysuccess (response) {
     this.dispatch(response);
   }
 
   // Get user details
-  getuserinfo() {
+  getuserinfo () {
     this.dispatch();
     UserWebAPIUtils.userinfo()
       .then((response, textStatus) => {
@@ -69,12 +69,12 @@ class UserActions {
       });
   }
 
-  userinfosuccess(response) {
+  userinfosuccess (response) {
     this.dispatch(response);
   }
 
   // Get user details
-  getcompanyinfo() {
+  getcompanyinfo () {
     this.dispatch();
     UserWebAPIUtils.userinfo('company')
       .then((response, textStatus) => {
@@ -85,12 +85,12 @@ class UserActions {
       });
   }
 
-  companyinfosuccess(response) {
+  companyinfosuccess (response) {
     this.dispatch(response);
   }
 
-  //logout function
-  logout() {
+  // logout function
+  logout () {
     this.dispatch();
     UserWebAPIUtils.logout()
       .then((response, textStatus) => {
@@ -103,7 +103,7 @@ class UserActions {
       });
   }
 
-  logoutsuccess() {
+  logoutsuccess () {
     this.dispatch();
   }
 }

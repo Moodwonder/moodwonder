@@ -5,7 +5,7 @@ import alt from 'altInstance';
 
 class SurveyStore {
 
-  constructor() {
+  constructor () {
 
     this.questions = {};
     this.hasQuestions = false;
@@ -16,7 +16,7 @@ class SurveyStore {
     });
   }
 
-  handleSurveys(data) {
+  handleSurveys (data) {
     console.log('handleSurveys(data)');
     console.log(data);
     this.questions = data;

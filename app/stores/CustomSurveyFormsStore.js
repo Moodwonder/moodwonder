@@ -5,9 +5,9 @@ import alt from 'altInstance';
 
 class CustomSurveyFormsStore {
 
-  constructor() {
+  constructor () {
 
-    this.forms = [];//Immutable.Map({});
+    this.forms = []; // Immutable.Map({});
     this.formid = '';
 
     this.on('init', this.bootstrap);
@@ -20,18 +20,18 @@ class CustomSurveyFormsStore {
     });
   }
 
-  bootstrap() {
+  bootstrap () {
     if (!Immutable.OrderedMap.isOrderedMap(this.forms)) {
       this.forms = fromJSOrdered(this.forms);
     }
   }
 
-  handleSurveyForms(data) {
+  handleSurveyForms (data) {
     this.forms = data;
     this.emitChange();
   }
 
-  handleDeleteAForm(id) {
+  handleDeleteAForm (id) {
     this.formid = id;
     this.emitChange();
   }
