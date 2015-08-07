@@ -165,9 +165,18 @@ exports.getLogout = function(req, res, next) {
  *
  * Accept : -  @email
  */
-exports.postSignupStep1 = function(req, res) {
+exports.postSignupStep1 = function(req, res, next) {
 
   var email = req.body.email;
+  var type = req.body.type;
+  console.log(type);
+
+  if (type == 'forgotpassword') {
+	console.log('------'+type);
+    next();
+    return;
+  }
+  console.log('>>>>>>>>>> '+type);
   var verifystring = email + Date.now();
   verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
   var user =  new User({
@@ -404,8 +413,58 @@ exports.postSaveCompanyInfo = function(req, res) {
     res.send(response);
     res.end();
   });
-
 };
+
+/**
+ * Forgot password
+ *
+ * Accept : -  @email
+ */
+exports.postForgotPassword = function(req, res) {
+
+  var email = req.body.email;
+  var verifystring = email + Date.now();
+  verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
+  var user =  new User({
+    email: req.body.email,
+    verifylink: verifystring
+  });
+
+  User.findOne({email: req.body.email}, function(err, existingUser) {
+  if(existingUser) {
+  var conditions = { email: email }
+    , update = { verifylink: verifystring }
+    , options = { multi: false };
+    
+		User.update(conditions, update, options, function(err) {
+		    if(!err){
+
+			var transporter = nodemailer.createTransport();
+			transporter.sendMail({
+				from: 'admin@moodewonder.com',
+				to: email,
+				subject: 'Reset password',
+				html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
+			});
+				response.status = true;
+				response.message = 'We have sent you an email with reset password link';
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
+		});
+
+    }else{
+		response.status = false;
+		response.message = 'Your e-mail id is not exist in our database';
+		res.send(response);
+		res.end();
+	}
+  });
+};
+
 
 
 

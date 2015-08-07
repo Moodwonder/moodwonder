@@ -14,7 +14,7 @@ var customSurveyResults = require('../controllers/customSurveyResults');
 module.exports = function(app, passport) {
   // user routes
   app.post('/login', users.postLogin);
-  app.post('/usersignupstep1', users.postSignupStep1);
+  app.post('/usersignupstep1', users.postSignupStep1, users.postForgotPassword);
   app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);

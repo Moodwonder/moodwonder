@@ -86,6 +86,7 @@ export default class Login extends React.Component {
                    validationError="This is not a valid email"
                    required/>
                    <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
+                   <div class="form-group" ><a href="/forgotpassword" >Forgot password</a></div>
                 </Formsy.Form>
           </div>
         );

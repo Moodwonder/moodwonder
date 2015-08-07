@@ -106,6 +106,7 @@ rules:
     vars-on-top: 0            # requires to declare all vars on top of their containing scope
     wrap-iife: [2, "inside"]  # require immediate function invocation to be wrapped in parentheses
     yoda: [2, "never"]        # require or disallow Yoda conditions
+    no-var: 2                 # require let or const instead of var
 
     ###########################################################################
     #                                                                         #
