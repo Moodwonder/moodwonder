@@ -3,7 +3,7 @@ import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
 
 class CustomSurveyResultsActions {
 
-  getSurveyForm() {
+  getSurveyForm () {
     this.dispatch();
     CustomSurveyWebAPIUtils.getSurveyForm()
       .then((response, textStatus) => {
@@ -15,12 +15,11 @@ class CustomSurveyResultsActions {
       });
   }
 
-  handlesurveyform(data)
-  {
+  handlesurveyform (data) {
     this.dispatch(data);
   }
 
-  saveSurveyResults(data) {
+  saveSurveyResults (data) {
     this.dispatch();
     CustomSurveyWebAPIUtils.saveSurveyResults(data)
       .then((response, textStatus) => {
@@ -30,8 +29,7 @@ class CustomSurveyResultsActions {
       });
   }
 
-  handlesurveyresults(data)
-  {
+  handlesurveyresults (data) {
     this.dispatch(data);
   }
 

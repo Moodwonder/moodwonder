@@ -6,16 +6,16 @@ import UserStore from 'stores/UserStore';
 
 export default class Navigation extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = UserStore.getState();
   }
 
-  componentDidMount() {
+  componentDidMount () {
     UserStore.listen(this._onChange);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     UserStore.unlisten(this._onChange);
   }
 
@@ -29,19 +29,25 @@ export default class Navigation extends React.Component {
     UserActions.logout();
   }
 
-  render() {
-      let loginOrOut;
-      if(this.state.user.get('authenticated')){
-        loginOrOut = (
-            <li><Link onClick={this._onLogout} className="navigation__item" to="logout">Logout</Link></li>
-        );
+  render () {
+    let loginOrOut;
+    if (this.state.user.get('authenticated')) {
+      loginOrOut = (
+        <li>
+            <Link
+                onClick={this._onLogout}
+                className="navigation__item"
+                to="logout">Logout
+            </Link>
+        </li>
+      );
       } else {
         loginOrOut = [
             <li><Link className="navigation__item" to="login">Log in</Link></li>,
             <li><Link to="signup" className="navigation__item" activeClassName="navigation__item--active">Signup</Link></li>,
             <li><Link to="customsurvey" className="navigation__item">Customsurvey</Link></li>
         ];
-      }
+    }
     return (
       <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
