@@ -112,7 +112,7 @@ export default class MyProfile extends React.Component {
                <MyOwnSelect
                name="city"
                className="form-control"
-               value={userInfo.country}
+               value={userInfo.city}
                placeholder="city"
                options={['my city']}
                />

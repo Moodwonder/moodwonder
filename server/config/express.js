@@ -34,7 +34,7 @@ module.exports = function (app, passport) {
     // Add HTTPOnly, Secure attributes on Session Cookie
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: false,
       maxAge: 60000
     },
     store: new MongoStore({ url: secrets.db, autoReconnect: true})

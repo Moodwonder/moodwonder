@@ -13,8 +13,7 @@ class UserStore {
     this.isLogginWaiting = false;
     this.isServerCallWaiting = true;
     this.hasError = false;
-    this.userDetails = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '' };
-    this.companyDetails = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '' };
+    this.userDetails = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
     this.message = '';
     this.isLoggedIn = false;
     this.canSubmit = false;

@@ -122,8 +122,12 @@ exports.getUserInfo = function(req, res) {
       response = {};
       response.status = true;
       response.message = 'success';
+      response.data = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
       if(req.query.type == 'company' ){
-      response.data = lists.company_info[0];
+            if(lists.company_info[0] != undefined){
+          response.data = lists.company_info[0];
+        }
+
       }else{
       response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '' };
       }
