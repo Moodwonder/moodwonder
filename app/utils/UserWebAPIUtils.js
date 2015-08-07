@@ -66,9 +66,8 @@ const utils = {
    * @return {Promise}
    */
   userinfo: (type) => {
-    
     return $.ajax({
-      url: '/userinfo?type='+type,
+      url: '/userinfo?type=' + type,
       type: 'GET'
     });
   },
