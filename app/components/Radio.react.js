@@ -3,32 +3,32 @@ import React from 'react';
 export default class Radio extends React.Component {
 
   constructor (props) {
-    super(props);
+      super(props);
   }
 
   onRemoveRadioOption = (e) => {
-    e.preventDefault();
-    this.props.removeRadio(e, this);
+      e.preventDefault();
+      this.props.removeRadio(e, this);
   }
 
   changeHandler = (key, formdata, field) => {
-    this.props.changeRadio(key, formdata, field);
+      this.props.changeRadio(key, formdata, field);
   }
 
   render () {
-    var qid = this.props.qid;
-    var rid = this.props.rid;
-    var formdata = this.props.formdata;
-    var index = rid; // rid like 'q1r1'
+      // let qid = this.props.qid;
+      let rid = this.props.rid;
+      let formdata = this.props.formdata;
+      let index = rid; // rid like 'q1r1'
 
-    let rValue = '';
-    if (typeof formdata === 'undefined') {
-      rValue = '';
-    } else {
-      rValue = formdata[index];
-    }
+      let rValue = '';
+      if (typeof formdata === 'undefined') {
+          rValue = '';
+      } else {
+          rValue = formdata[index];
+      }
 
-    return (
+      return (
       <div id={index} key={index} className="container">
         <br/>
         <span>Radio option - {index}</span>

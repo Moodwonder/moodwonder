@@ -1,103 +1,102 @@
 import React from 'react';
-import Immutable from 'immutable';
-import UserWebAPIUtils from 'utils/UserWebAPIUtils';
-import $ from 'jquery';
-import Validation, { Validator } from 'rc-form-validation';
-import Question from 'components/Question.react';
+// import Immutable from 'immutable';
+// import UserWebAPIUtils from 'utils/UserWebAPIUtils';
+// import $ from 'jquery';
+// import Validation, { Validator } from 'rc-form-validation';
 import getFormData from 'get-form-data';
 import _ from 'underscore';
 import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 //import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
-import { Router, Navigation } from 'react-router';
+import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
 export default class Takesurvey extends React.Component {
 
   constructor(props) {
-    super(props);
-    mixins(Navigation, this);
-    this.state = CustomSurveyStore.getState();
+      super(props);
+      mixins(Navigation, this);
+      this.state = CustomSurveyStore.getState();
   }
 
   componentDidMount() {
-    CustomSurveyActions.getSurveyForm();
-    CustomSurveyStore.listen(this._onChange);
+      CustomSurveyActions.getSurveyForm();
+      CustomSurveyStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
-    CustomSurveyStore.unlisten(this._onChange);
+      CustomSurveyStore.unlisten(this._onChange);
   }
 
   _onChange = () => {
-    this.setState({
+      this.setState({
        form: CustomSurveyStore.getState().form
     });
   }
 
   onCancelSurvey = (e) => {
-    e.preventDefault();
+      e.preventDefault();
   }
 
   onSubmitSurvey = (e) => {
-    e.preventDefault();
-    var formData = document.querySelector('#surveyForm');
-    var data = getFormData(formData, {trim: true});
-    var surveyResults = [];
-    let form = this.state.form;
-    let qcount = _.size(form.questions);
+      e.preventDefault();
+      let formData = document.querySelector('#surveyForm');
+      let data = getFormData(formData, {trim: true});
+      let surveyResults = [];
+      let form = this.state.form;
+      let qcount = _.size(form.questions);
 
-    for(let i = 1; i <= qcount; i++){
-       var survey = survey || {};
-       survey.user_id = 1; // Need to change in future.
-       survey.survey_id = data.surveyid;
-       survey.question_id = data['questionid_' + i];
-       survey.question = data['question_' + i];
-       survey.answertype = data['answer_type_' + i];
-       survey.answers = [];
-       var options = {};
-       if(data['answer_type_' + i] === 'checkbox') {
-          for(let answer of data['answer_' + i + '_[]']){
-            options = {};
-            options.option = answer;
-            survey.answers.push(options);
+      for(let i = 1; i <= qcount; i++){
+          let survey = survey || {};
+          survey.user_id = 1; // Need to change in future.
+          survey.survey_id = data.surveyid;
+          survey.question_id = data['questionid_' + i];
+          survey.question = data['question_' + i];
+          survey.answertype = data['answer_type_' + i];
+          survey.answers = [];
+          let options = {};
+          if(data['answer_type_' + i] === 'checkbox') {
+              for(let answer of data['answer_' + i + '_[]']){
+                  options = {};
+                  options.option = answer;
+                  survey.answers.push(options);
+              }
+          } else {
+              options.option = data['answer_' + i];
+              survey.answers.push(options);
           }
-       } else {
-         options.option = data['answer_' + i];
-         survey.answers.push(options);
-       }
-       surveyResults.push(JSON.stringify(survey));
-       //console.log(JSON.stringify(survey));
-    }
+          surveyResults.push(JSON.stringify(survey));
+          // console.log(JSON.stringify(survey));
+      }
 
-    if (window.confirm('Are you sure you want to submit survey details ?')) {
-      var results = {};
-      results.surveyresults = surveyResults;
-      CustomSurveyResultsActions.saveSurveyResults(results);
-    }
+      if (window.confirm('Are you sure you want to submit survey details ?')) {
+          let results = {};
+          results.surveyresults = surveyResults;
+          CustomSurveyResultsActions.saveSurveyResults(results);
+      }
   }
 
   render() {
-    let form = this.state.form;
-    let questions = [];
-    let fields = '';
-    let qcount = _.size(form.questions);
+      let form = this.state.form;
+      let questions = [];
+      let fields = '';
+      let qcount = _.size(form.questions);
 
-    for(var i = 0; i < qcount; i++ ){
-      questions.push(form.questions[i]);
-    }
+      for(let i = 0; i < qcount; i++ ){
+          questions.push(form.questions[i]);
+      }
 
-    let qno = 0;
-    fields = questions.map((question) => {
-       qno++;
-       var answers = question.answers;
-       var ans = '';
-       var answerType = '';
-       switch(question.answertype){
-           case 'radio':
+      let qno = 0;
+      fields = questions.map((question) => {
+          qno++;
+          let answers = question.answers;
+          let ans = '';
+
+          switch(question.answertype){
+              case 'radio':
                ans = answers.map((answer) => {
-                return (
+                   return (
                         <span>
                           <input type="radio" name={'answer_' + qno} value={answer.option} /> {answer.option}&nbsp;&nbsp;
                         </span>
@@ -105,9 +104,9 @@ export default class Takesurvey extends React.Component {
                });
                break;
 
-           case 'checkbox':
+              case 'checkbox':
                ans = answers.map((answer) => {
-                return (
+                   return (
                         <span>
                           <input type="checkbox" value={answer.option} name={'answer_' + qno + '_[]'}/> {answer.option}&nbsp;&nbsp;
                         </span>
@@ -115,7 +114,7 @@ export default class Takesurvey extends React.Component {
                });
                break;
 
-           case 'textbox':
+              case 'textbox':
                ans = (
                       <span>
                         <input type="textbox" name={'answer_' + qno}/>
@@ -123,7 +122,7 @@ export default class Takesurvey extends React.Component {
                      );
                break;
 
-           case 'textarea':
+              case 'textarea':
                ans = (
                       <span>
                        <textarea name={'answer_' + qno}></textarea>
@@ -131,10 +130,10 @@ export default class Takesurvey extends React.Component {
                      );
                break;
 
-           default: break;
-       }
+              default: break;
+          }
 
-       return (
+          return (
                <div className="form-group" id={qno}>
                  <label>{qno}&nbsp;:&nbsp;</label>
                  <label>{question.question}</label>
@@ -144,15 +143,15 @@ export default class Takesurvey extends React.Component {
                  <br/>{ans}
                </div>
               );
-    });
+      });
 
-    let content = (
+      let content = (
         <div className="form-group">
           {fields}
         </div>
       );
 
-    return (
+      return (
       <div className="container">
         <h2>{form.surveytitle} - {form._id}</h2>
         <form id="surveyForm">
