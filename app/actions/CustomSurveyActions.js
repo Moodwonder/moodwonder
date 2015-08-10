@@ -4,67 +4,67 @@ import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
 class CustomSurveyActions {
 
   createCustomSurveyForm (data) {
-    this.dispatch();
-    CustomSurveyWebAPIUtils.createCustomSurveyForm(data)
+      this.dispatch();
+      CustomSurveyWebAPIUtils.createCustomSurveyForm(data)
       .then((response, textStatus) => {
-        if (textStatus === 'success') {
-          this.actions.createsurveyform(true);
-        }
+          if (textStatus === 'success') {
+              this.actions.createsurveyform(true);
+          }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
   createsurveyform (data) {
-    this.dispatch(data);
+      this.dispatch(data);
   }
 
   getCustomSurveyForms () {
-    this.dispatch();
-    CustomSurveyWebAPIUtils.getCustomSurveyForms()
+      this.dispatch();
+      CustomSurveyWebAPIUtils.getCustomSurveyForms()
       .then((response, textStatus) => {
-        if (response.status == 'success') {
-          this.actions.surveyforms(response.forms);
-        }
+          if (response.status === 'success') {
+              this.actions.surveyforms(response.forms);
+          }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
   surveyforms (data) {
-    this.dispatch(data);
+      this.dispatch(data);
   }
 
   getSurveyForm () {
-    this.dispatch();
-    CustomSurveyWebAPIUtils.getSurveyForm()
+      this.dispatch();
+      CustomSurveyWebAPIUtils.getSurveyForm()
       .then((response, textStatus) => {
-        if (response.status == 'success') {
-          this.actions.handlesurveyform(response.form);
-        }
+          if (response.status === 'success') {
+              this.actions.handlesurveyform(response.form);
+          }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
   handlesurveyform (data) {
-    this.dispatch(data);
+      this.dispatch(data);
   }
 
   deleteForm (id) {
-    this.dispatch();
-    CustomSurveyWebAPIUtils.deleteForm(id)
+      this.dispatch();
+      CustomSurveyWebAPIUtils.deleteForm(id)
       .then((response, textStatus) => {
-        if (response.status == 'success') {
-          this.actions.deleteaform(id);
-        }
+          if (response.status === 'success') {
+              this.actions.deleteaform(id);
+          }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
   deleteaform (id) {
-    this.dispatch(id);
+      this.dispatch(id);
   }
 
 }

@@ -1,27 +1,25 @@
-import Immutable from 'immutable';
 import SurveyActions from 'actions/SurveyActions';
-import { fromJSOrdered } from 'utils/immutableHelpers';
 import alt from 'altInstance';
 
 class SurveyStore {
 
   constructor () {
 
-    this.questions = {};
-    this.hasQuestions = false;
-    this.message = '';
+      this.questions = {};
+      this.hasQuestions = false;
+      this.message = '';
 
-    this.bindListeners({
+      this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS
     });
   }
 
   handleSurveys (data) {
-    console.log('handleSurveys(data)');
-    console.log(data);
-    this.questions = data;
-    this.hasQuestions = true;
-    this.emitChange();
+      console.log('handleSurveys(data)');
+      console.log(data);
+      this.questions = data;
+      this.hasQuestions = true;
+      this.emitChange();
   }
 
 }

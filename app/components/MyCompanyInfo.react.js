@@ -8,7 +8,7 @@ import mixins from 'es6-mixins';
 
 export default class MyProfile extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     mixins(Navigation, this);
     this.state = UserStore.getState();
@@ -16,12 +16,12 @@ export default class MyProfile extends React.Component {
     this.validationErrors = {};
   }
 
-  componentDidMount() {
+  componentDidMount () {
     UserActions.getcompanyinfo();
     UserStore.listen(this._onChange);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     UserStore.unlisten(this._onChange);
   }
 
@@ -51,7 +51,7 @@ export default class MyProfile extends React.Component {
 
     var userInfo = this.state.userDetails;
 
-    if(this.state.message != '' ) {
+    if (this.state.message != '' ) {
       message = (
         <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
           {this.state.message}

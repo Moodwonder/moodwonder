@@ -8,7 +8,7 @@ import mixins from 'es6-mixins';
 
 export default class MyProfile extends React.Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props);
     mixins(Navigation, this);
     this.state = UserStore.getState();
@@ -16,12 +16,12 @@ export default class MyProfile extends React.Component {
     this.validationErrors = {};
   }
 
-  componentDidMount() {
+  componentDidMount () {
     UserActions.getuserinfo();
     UserStore.listen(this._onChange);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     UserStore.unlisten(this._onChange);
   }
 
@@ -39,7 +39,7 @@ export default class MyProfile extends React.Component {
   }
 
   _onSaveSubmit = (model) => {
-	console.log(model);
+    console.log(model);
     UserActions.saveUserInfo(model);
   }
 
@@ -51,7 +51,7 @@ export default class MyProfile extends React.Component {
 
     var userInfo = this.state.userDetails;
 
-    if(this.state.message != '' ) {
+    if (this.state.message != '' ) {
       message = (
         <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
           {this.state.message}
@@ -68,7 +68,9 @@ export default class MyProfile extends React.Component {
         </ul>
         <h2>My Profile</h2>
         {message}
-            <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
+            <Formsy.Form onValidSubmit={this._onSaveSubmit}
+             onValid={this.enableButton}
+              onInvalid={this.disableButton} >
                <MyOwnInput
                name="firstname"
                className="form-control"
@@ -120,7 +122,8 @@ export default class MyProfile extends React.Component {
                placeholder="Password"
                validationError="This is not a valid email" />
 
-               <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
+               <button type="submit" className="btn btn-default"
+               disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>
       </div>
     );

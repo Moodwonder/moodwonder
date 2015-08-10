@@ -7,29 +7,29 @@ class CustomSurveyStore {
 
   constructor () {
 
-    this.isSurveyCreated = false;
-    this.form = Immutable.Map({});
+      this.isSurveyCreated = false;
+      this.form = Immutable.Map({});
 
-    this.bindListeners({
+      this.bindListeners({
       handleCustomSurveyForm: CustomSurveyActions.CREATESURVEYFORM,
       handleSurveyForm: CustomSurveyActions.HANDLESURVEYFORM
     });
   }
 
   bootstrap () {
-    if (!Immutable.OrderedMap.isOrderedMap(this.form)) {
-      this.form = fromJSOrdered(this.form);
-    }
+      if (!Immutable.OrderedMap.isOrderedMap(this.form)) {
+          this.form = fromJSOrdered(this.form);
+      }
   }
 
   handleCustomSurveyForm (data) {
-    this.isSurveyCreated = true;
-    this.emitChange();
+      this.isSurveyCreated = true;
+      this.emitChange();
   }
 
   handleSurveyForm (data) {
-    this.form = data;
-    this.emitChange();
+      this.form = data;
+      this.emitChange();
   }
 
 }

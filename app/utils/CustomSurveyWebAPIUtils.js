@@ -3,7 +3,7 @@ import $ from 'jquery';
 const utils = {
 
   createCustomSurveyForm: (data) => {
-    return $.ajax({
+      return $.ajax({
       url: '/createsurveyform',
       type: 'POST',
       contentType: 'application/json',
@@ -12,7 +12,7 @@ const utils = {
   },
 
   getCustomSurveyForms: () => {
-    return $.ajax({
+      return $.ajax({
       url: '/getsurveyforms',
       type: 'GET',
       contentType: 'application/json'
@@ -20,7 +20,7 @@ const utils = {
   },
 
   deleteForm: (id) => {
-    return $.ajax({
+      return $.ajax({
       url: '/deleteform',
       type: 'POST',
       contentType: 'application/json',
@@ -29,7 +29,7 @@ const utils = {
   },
 
   getSurveyForm: () => {
-    return $.ajax({
+      return $.ajax({
       url: '/getsurveyform',
       type: 'GET',
       contentType: 'application/json'
@@ -37,7 +37,7 @@ const utils = {
   },
 
   saveSurveyResults: (data) => {
-    return $.ajax({
+      return $.ajax({
       url: '/savesurveyresults',
       type: 'POST',
       contentType: 'application/json',

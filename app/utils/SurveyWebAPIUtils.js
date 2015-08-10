@@ -1,18 +1,18 @@
 import $ from 'jquery';
 
 const utils = {
-  /*
-   * Get Engagement areas
-   */
+      /*
+      * Get Engagement areas
+      */
   getEngagementSurvey: () => {
-    return $.ajax({
+      return $.ajax({
       url: '/getengagementsurvey',
       type: 'GET',
       contentType: 'application/json'
     });
   },
   saveEngagementSurveyResult: (surveyResult) => {
-    return $.ajax({
+      return $.ajax({
       url: '/saveengagementsurveyresult',
       type: 'POST',
       contentType: 'application/json',

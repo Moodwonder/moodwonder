@@ -1,30 +1,30 @@
 import React from 'react';
 import Formsy from 'formsy-react';
 
-var MyOwnInput = React.createClass({
+let MyOwnInput = React.createClass({
 
   mixins: [Formsy.Mixin],
 
   changeValue: function (event) {
-    this.setValue(event.currentTarget.value);
+      this.setValue(event.currentTarget.value);
   },
   render: function () {
 
-    var errorMessage = this.getErrorMessage();
+      let errorMessage = this.getErrorMessage();
 
-    var classNames = {
-      formGroup: ['form-group'],
-      elementWrapper: []
-    };
+      let classNames = {
+          formGroup: ['form-group'],
+          elementWrapper: []
+      };
 
-    if (errorMessage) {
-      classNames.formGroup.push('has-error');
-      classNames.formGroup.push('has-feedback');
-    }
+      if (errorMessage) {
+          classNames.formGroup.push('has-error');
+          classNames.formGroup.push('has-feedback');
+      }
 
-    var elementWrapper = classNames.formGroup.join(' ');
+      let elementWrapper = classNames.formGroup.join(' ');
 
-    return (
+      return (
       <div className={elementWrapper}>
         <input type={this.props.type || 'text'} placeholder={this.props.placeholder}
         className={this.props.className} name={this.props.name} onChange={this.changeValue}
@@ -35,37 +35,37 @@ var MyOwnInput = React.createClass({
   }
 });
 
-var MyOwnSelect = React.createClass({
+let MyOwnSelect = React.createClass({
 
   mixins: [Formsy.Mixin],
 
   changeValue: function (event) {
-    this.setValue(event.currentTarget.value);
+      this.setValue(event.currentTarget.value);
   },
   render: function () {
 
-    var errorMessage = this.getErrorMessage();
+      let errorMessage = this.getErrorMessage();
 
-    var classNames = {
-      formGroup: ['form-group'],
-      elementWrapper: []
-    };
+      let classNames = {
+          formGroup: ['form-group'],
+          elementWrapper: []
+      };
 
-    if (errorMessage) {
-      classNames.formGroup.push('has-error');
-      classNames.formGroup.push('has-feedback');
-    }
+      if (errorMessage) {
+          classNames.formGroup.push('has-error');
+          classNames.formGroup.push('has-feedback');
+      }
 
-    var elementWrapper = classNames.formGroup.join(' ');
+      let elementWrapper = classNames.formGroup.join(' ');
 
-    var options = this.props.options.map((data, key) => {
+      let options = this.props.options.map((data, key) => {
+
+          return (
+          <option value={data} >{data}</option>
+          );
+      });
 
       return (
-        <option value={data} >{data}</option>
-      );
-    });
-
-    return (
       <div className={elementWrapper}>
         <select className={this.props.className} name={this.props.name} onChange={this.changeValue}
         value={this.props.value} >
@@ -74,7 +74,7 @@ var MyOwnSelect = React.createClass({
         </select>
         <span className='help-block validation-message'>{errorMessage}</span>
       </div>
-    );
+      );
   }
 });
 
