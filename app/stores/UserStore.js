@@ -32,6 +32,7 @@ class UserStore {
         handleUserInfoSuccess: UserActions.USERINFOSUCCESS,
         handleCompanyInfoSuccess: UserActions.COMPANYINFOSUCCESS,
         handleSaveUserDetailsSuccess: UserActions.SAVEUSERDETAILSSUCCESS,
+        handleSaveManagerDetailsSuccess: UserActions.SAVEMANAGERDETAILSSUCCESS,
         handleSaveCompanySuccess: UserActions.SAVECOMPANYSUCCESS,
         handleLogoutSuccess: UserActions.LOGOUTSUCCESS
       });
@@ -58,6 +59,13 @@ class UserStore {
   }
 
   handleSaveUserDetailsSuccess (response) {
+      this.isServerCallWaiting = false;
+      this.hasError = !response.status;
+      this.message = response.message;
+      this.emitChange();
+  }
+
+  handleSaveManagerDetailsSuccess (response) {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
       this.message = response.message;

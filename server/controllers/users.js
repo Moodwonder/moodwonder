@@ -3,11 +3,10 @@ var User = require('../models/user');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
+var validations = require('../controllers/validationRules');
 var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
-
-sess = {};
 
 
 /**
@@ -117,14 +116,14 @@ exports.getUserInfo = function(req, res) {
       response = {};
       response.status = true;
       response.message = 'success';
-      response.data = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
+      response.data = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
       if(req.query.type == 'company' ){
             if(lists.company_info[0] != undefined){
           response.data = lists.company_info[0];
         }
 
       }else{
-      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '' };
+      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email };
       }
       res.json(response);
     } else {
@@ -164,7 +163,6 @@ exports.postSignupStep1 = function(req, res, next) {
 
   var email = req.body.email;
   var type = req.body.type;
-  console.log(type);
 
   if (type == 'forgotpassword') {
 	console.log('------'+type);
@@ -333,14 +331,15 @@ exports.postUserSignUp = function(req, res, next) {
  * @password
  * 
  */
-exports.postSaveUserInfo = function(req, res) {
+exports.postSaveUserInfo = function(req, res, next) {
 
   var model = req.body;
 
   if(model.password != '' && model.password.length<= 6){
 
-    response.status = false;
-    response.message = 'Password length should be at least 7 characters';
+    validation         =    false;
+    response.status    =    false;
+    response.message   =    'Password length should be at least 7 characters';
     res.send(response);
     res.end();
   }else{
@@ -357,18 +356,59 @@ exports.postSaveUserInfo = function(req, res) {
     User.update(conditions, update, options, function(err) {
       if(!err){
 
-        response.status = true;
-        response.message = 'User details saved';
+        response.status    =   true;
+        response.message   =   'User details saved';
       }else{
 
-        response.status = false;
-        response.message = 'Something went wrong..';
+        response.status    =   false;
+        response.message   =   'Something went wrong..';
       }
       res.send(response);
       res.end();
     });
   }
 };
+
+/**
+ * Save user details
+ *
+ * Accept :
+ * @email : Email id of the manager
+ * 
+ */
+exports.postSaveManagerInfo = function(req, res) {
+
+  var model = req.body;
+
+    if(model.email == '') {
+
+        validation         =    false;
+        response.status    =    false;
+        response.message   =    'Invalid email id';
+        res.send(response);
+        res.end();
+    }else {
+
+    var conditions         =   { '_id': new ObjectId(req.user._id) }
+    , update               =   { 'mymanager': [ { '_id': req.body.searchData._id, 'email': req.body.searchData.email } ]}
+    , options              =   { multi: false };
+
+    User.update(conditions, update, options, function(err) {
+      if(!err){
+
+        response.status    =   true;
+        response.message   =   'User details saved';
+      }else{
+
+        response.status    =   false;
+        response.message   =   'Something went wrong..';
+      }
+      res.send(response);
+      res.end();
+    });
+  }
+};
+
 
 /**
  * Save company details
@@ -460,6 +500,26 @@ exports.postForgotPassword = function(req, res) {
   });
 };
 
+/**
+ * Find user by e-mail id
+ */
+exports.findUserByEmailId = function(req, res, next) {
 
+  var user =  new User({
+    email: req.body.email
+  });
+
+  User.findOne({email: req.body.email}, function(err, existingUser) {
+    if(existingUser) {
+        req.body.searchData = existingUser;
+        next();
+    }else{
+        response.status = false;
+        response.message = 'E-mail id not exist in the system';
+        res.send(response);
+        res.end();
+    }
+  });
+};
 
 

@@ -22,7 +22,8 @@ module.exports = function(app, passport) {
   app.post('/usersignup', users.postUserSignUp);
   app.get('/getusers', users.getUsers);
   app.get('/userinfo', users.checkLogin, users.getUserInfo);
-  app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo);
+  app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
+  app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
   app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);

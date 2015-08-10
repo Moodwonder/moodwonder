@@ -37,7 +37,24 @@ class UserActions {
         });
   }
 
+
   saveuserdetailssuccess (response) {
+      this.dispatch(response);
+  }
+  
+  // Save user details
+  saveManagerInfo (data) {
+      this.dispatch();
+      UserWebAPIUtils.saveManagerDetails(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.savemanagerdetailssuccess(response);
+            }
+        }, () => {
+        });
+  }
+
+  savemanagerdetailssuccess (response) {
       this.dispatch(response);
   }
 

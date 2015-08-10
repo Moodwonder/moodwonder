@@ -65,6 +65,7 @@ export default class MyProfile extends React.Component {
           <li><a href="/survey">Survey</a></li>
           <li><a href="/myprofile">My Profile</a></li>
           <li><a href="/mycompany">My Company</a></li>
+          <li><a href="/mymanager">My Manager</a></li>
         </ul>
         <h2>My Company Info</h2>
         {message}

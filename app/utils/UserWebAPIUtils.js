@@ -83,6 +83,19 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
+
+  /*
+   * Ajaxcall for save manager details
+   */
+  saveManagerDetails: (data) => {
+      return $.ajax({
+      url: '/savemanagerdetails',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  
   /*
    * Ajaxcall for save company details
    */

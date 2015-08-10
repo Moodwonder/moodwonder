@@ -40,7 +40,7 @@ export default class MyProfile extends React.Component {
 
   _onSaveSubmit = (model) => {
     console.log(model);
-    UserActions.saveUserInfo(model);
+    UserActions.saveManagerInfo(model);
   }
 
   render() {
@@ -49,7 +49,7 @@ export default class MyProfile extends React.Component {
 
     let message;
 
-    var userInfo = this.state.userDetails;
+    let userInfo = this.state.userDetails;
 
     if (this.state.message != '' ) {
       message = (
@@ -67,61 +67,27 @@ export default class MyProfile extends React.Component {
           <li><a href="/mycompany">My Company</a></li>
           <li><a href="/mymanager">My Manager</a></li>
         </ul>
-        <h2>My Profile</h2>
+        <h2>My Manager</h2>
         {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit}
              onValid={this.enableButton}
               onInvalid={this.disableButton} >
-               <MyOwnInput
-               name="firstname"
-               className="form-control"
-               value={userInfo.fname}
-               placeholder="First name"
-               validationError="First name is required"
-               required/>
-
-               <MyOwnInput
-               name="lastname"
-               className="form-control"
-               value={userInfo.lname}
-               placeholder="Last name"
-               validationError="Last name is required"
-               required/>
 
                <MyOwnInput
                name="email"
                autocomplete="off"
                className="form-control"
-               value={userInfo.email}
+               value={userInfo.mymanager}
                placeholder="Work Email"
                validations="isEmail"
                validationError="This is not a valid email"
                required/>
 
-               <MyOwnSelect
-               name="language"
-               className="form-control"
-               value={userInfo.language}
-               placeholder="Language"
-               options={['EN', 'FL']}
-               />
-
-               <MyOwnSelect
-               name="report_frequency"
-               className="form-control"
-               value={userInfo.reportfrequency}
-               placeholder="reportfrequency"
-               options={['Weekly', 'Monthly', 'Never']}
-               />
-
                <MyOwnInput
-               type="password"
-               name="password"
-               autocomplete="off"
-               className="form-control"
-               value={userInfo.password}
-               placeholder="Password"
-               validationError="This is not a valid email" />
+               name="type"
+               type="hidden"
+               value="savemanager"
+               required/>
 
                <button type="submit" className="btn btn-default"
                disabled={!this.state.canSubmit}>Submit</button>
