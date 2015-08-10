@@ -1,63 +1,62 @@
 import React from 'react';
-import Immutable from 'immutable';
+// import Immutable from 'immutable';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyFormsStore from 'stores/CustomSurveyFormsStore';
-import { Router, Navigation } from 'react-router';
+import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
 
 export default class Customsurveyforms extends React.Component {
 
   constructor(props) {
-    super(props);
-    mixins(Navigation, this);
-    this.state = CustomSurveyFormsStore.getState();
+      super(props);
+      mixins(Navigation, this);
+      this.state = CustomSurveyFormsStore.getState();
   }
 
   componentDidMount() {
-    CustomSurveyActions.getCustomSurveyForms();
-    CustomSurveyFormsStore.listen(this._onChange);
+      CustomSurveyActions.getCustomSurveyForms();
+      CustomSurveyFormsStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
-    CustomSurveyFormsStore.unlisten(this._onChange);
+      CustomSurveyFormsStore.unlisten(this._onChange);
   }
 
   _onChange = (state) => {
-    this.setState({
+      this.setState({
       forms: CustomSurveyFormsStore.getState().forms,
       formid: CustomSurveyFormsStore.getState().formid
     });
 
-    if(this.state.formid){
-      this.handleOnDeleteForm(this.state.formid);
-    }
+      if(this.state.formid){
+          this.handleOnDeleteForm(this.state.formid);
+      }
   }
 
   handleOnDeleteForm = (id) => {
-    let forms = this.state.forms;
-    for (var i = 0; i < forms.length; i++) {
-      var form = forms[i];
-      if (form._id == id) {
-        forms.splice(i, 1);
-        this.setState({forms: forms});
+      let forms = this.state.forms;
+      for (let i = 0; i < forms.length; i++) {
+          let form = forms[i];
+          if (form._id === id) {
+              forms.splice(i, 1);
+              this.setState({forms: forms});
+          }
       }
-    }
   }
 
   onDeleteForm = (e) => {
-    e.preventDefault();
-
-    let id = e.target.id;
-    CustomSurveyActions.deleteForm(id);
+      e.preventDefault();
+      let id = e.target.id;
+      CustomSurveyActions.deleteForm(id);
   }
 
   render() {
-    let forms = this.state.forms;
-    let items = '';
-    let sno = 1;
-    items = forms.map((form) => {
-      return (<tr>
+      let forms = this.state.forms;
+      let items = '';
+      let sno = 1;
+      items = forms.map((form) => {
+          return (<tr>
                 <td className="text-center">{sno++}</td>
                 <td className="text-center">{form._id}</td>
                 <td className="text-center">{form.surveytitle}</td>
@@ -67,9 +66,9 @@ export default class Customsurveyforms extends React.Component {
                 </td>
               </tr>
               );
-    });
+      });
 
-    return (
+      return (
       <div className="container">
         <h2>Survey Forms.</h2>
             <table className="table table-striped table-hover">

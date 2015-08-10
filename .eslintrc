@@ -27,10 +27,10 @@
         "io": true,
         "document": true,
         "window": true,
-        "sessionStorage": true
+        "sessionStorage": true,
     },
     "rules": {
-        "no-alert": 1,
+        "no-alert": 0,
         "no-array-constructor": 0,
         "no-bitwise": 0,
         "no-caller": 0,
@@ -167,7 +167,7 @@
         "max-len": [0, 80, 4],
         "max-nested-callbacks": [0, 2],
         "max-params": [0, 3],
-        "max-statements": [2, 30],
+        "max-statements": [2, 40],
         "new-cap": 0,
         "new-parens": 0,
         "newline-after-var": 0,
