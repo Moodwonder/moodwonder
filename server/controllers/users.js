@@ -60,11 +60,11 @@ exports.encryptPassword = function(req, res, next){
  * Check login status
  */
 exports.checkLogin = function(req, res, next){
-  console.log('checkLogin'+sess._id+typeof sess._id);
-  if(typeof sess._id == 'object' && sess._id != '') {
+  if(req.user) {
     next();
   }else{
     res.json({'status':false,'message':'Session expired.!'});
+    res.end();
   }
 }
 
@@ -76,7 +76,7 @@ exports.postLogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
     if(!user) {
-      response.message = info.message;
+      response.message   = info.message;
       res.send(response);
       res.end();
       return;
@@ -84,16 +84,11 @@ exports.postLogin = function(req, res, next) {
     // Passport exposes a login() function on req (also aliased as logIn()) that can be used to establish a login session
     req.logIn(user, function(err) {
       if(err) return next(err);
-      sess = req.session;
-      sess._id = user._id;
-      sess.name = user.firstname+' '+user.lastname;
-      sess.email = user.email;
-      response.status = true;
-      response.message = 'Success! You are logged in';
-      response.user = user;
+      response.status    =   true;
+      response.message   =   'Success! You are logged in';
+      response.user      =   user;
       res.send(response);
       res.end();
-      
     });
   })(req, res, next);
 };
@@ -116,7 +111,7 @@ exports.getUsers = function(req, res) {
  * Get all Users
  */
 exports.getUserInfo = function(req, res) {
-  var condition = { '_id': new ObjectId(sess._id) };
+  var condition = { '_id': new ObjectId(req.user._id) };
   User.findOne(condition,function(err, lists) {
     if(!err) {
       response = {};
@@ -142,7 +137,7 @@ exports.getUserInfo = function(req, res) {
  * Get test
  */
 exports.test = function(req, res) {
-	res.send(sess._id);
+	res.send(req);
 };
 
 /**

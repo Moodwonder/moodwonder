@@ -24,8 +24,8 @@ module.exports = function(app, passport) {
   app.get('/userinfo', users.checkLogin, users.getUserInfo);
   app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
-  app.get('/getengagementsurvey', surveys.getEngagementSurvey);
-  app.post('/saveengagementsurveyresult', surveys.saveEngagementSurveyResult);
+  app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
+  app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);
   app.get('/getsurveyforms', customSurvey.getForms);
   app.get('/getsurveyform', customSurvey.getSurveyForm);
@@ -33,22 +33,34 @@ module.exports = function(app, passport) {
   app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
 
   app.get('*', function (req, res, next) {
-	  ' entering into * '
-    if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
 
-    var user = req.user ? { authenticated: true, isWaiting: false } : { authenticated: false, isWaiting: false };
-    res.locals.data =  {
-      UserStore: { user: user },
-      CreatePswdStore: { user: {uid : req.session._id } }
-    };
-    var html = App(JSON.stringify(res.locals.data || {}), req.url);
-    html = html.replace("TITLE", Header.title)
-               .replace("META", Header.meta)
-               .replace("LINK", Header.link);
+      if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
 
-    res.contentType = "text/html; charset=utf8";
-    res.end(html);
+          var user = req.user ? {authenticated: true, isWaiting: false} : {authenticated: false, isWaiting: false};
 
+          res.locals.data = {
+              UserStore: {user: user},
+              CreatePswdStore: { user: {uid : req.user ? req.user._id : null } }
+          };
+          next();
   });
+
+  app.get('*', function (req, res, next) {
+      console.log('res.locals.data');
+      console.log(res.locals.data);
+      console.log('req.user');
+      console.log(req.user);
+      console.log('req.session');
+      console.log(req.session);
+
+      var html = App(JSON.stringify(res.locals.data || {}), req.url);
+          html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", Header.link);
+
+      res.contentType = "text/html; charset=utf8";
+      res.end(html);
+  });
+  
 
 };

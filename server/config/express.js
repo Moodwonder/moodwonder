@@ -25,20 +25,22 @@ module.exports = function (app, passport) {
 
   app.use(cookieParser());
 
-  app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    // Use generic cookie name for security purposes
-    key: 'sessionId',
-    secret: secrets.sessionSecret,
-    // Add HTTPOnly, Secure attributes on Session Cookie
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: 60000
-    },
-    store: new MongoStore({ url: secrets.db, autoReconnect: true})
-  }));
+  var sess = {
+        resave: true,
+        saveUninitialized: true,
+        // Use generic cookie name for security purposes
+        key: 'sessionId',
+        secret: secrets.sessionSecret,
+        // Add HTTPOnly, Secure attributes on Session Cookie
+        // If secure is set, and you access your site over HTTP, the cookie will not be set
+        cookie: {
+            httpOnly: true,
+            maxAge: new Date(Date.now() + (2 * 24 * 60 * 60 * 1000))
+        },
+        store: new MongoStore({url: secrets.db, autoReconnect: true})
+    };
+    
+  app.use(session(sess));
 
   app.use(passport.initialize());
   app.use(passport.session());
