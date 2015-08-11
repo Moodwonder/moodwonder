@@ -107,7 +107,7 @@ exports.getUsers = function(req, res) {
 };
 
 /**
- * Get all Users
+ * Get a User
  */
 exports.getUserInfo = function(req, res) {
   var condition = { '_id': new ObjectId(req.user._id) };
@@ -520,6 +520,44 @@ exports.findUserByEmailId = function(req, res, next) {
         res.end();
     }
   });
+};
+
+/**
+ * Update current user collection
+ *
+ * Working with next() method
+ * 
+ */
+exports.updateUser = function(req, res) {
+
+  if(req.user && req.body.update){
+
+    var conditions = { '_id': req.user._id }
+    , update = req.body.update
+    , options = { multi: false };
+
+
+    User.update(conditions, update, options, function(err) {
+        if(!err){
+
+            response.status = true;
+            response.message = req.body.resmessage;
+        }else{
+
+            response.status = false;
+            response.message = 'Something went wrong..';
+        }
+        res.send(response);
+        res.end();
+    });
+
+  }else{
+
+    response.status = false;
+    response.message = 'Something went wrong..';
+    res.send(response);
+    res.end();
+  }
 };
 
 

@@ -3,6 +3,7 @@
  */
 var express = require('express');
 var users = require('../controllers/users');
+var teams = require('../controllers/teams');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Header = require('../../public/assets/header.server');
@@ -25,6 +26,7 @@ module.exports = function(app, passport) {
   app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
   app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
+  app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
   app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);
@@ -53,7 +55,7 @@ module.exports = function(app, passport) {
       console.log(req.user);
       console.log('req.session');
       console.log(req.session);
-
+	
       var html = App(JSON.stringify(res.locals.data || {}), req.url);
           html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)

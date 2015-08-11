@@ -13,6 +13,7 @@ import Survey from 'components/Survey.react';
 import MyProfile from 'components/MyProfile.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
 import MyManagerInfo from 'components/MyManager.react';
+import MyTeam from 'components/MyTeam.react';
 import Tabs from 'components/Tabs.react';
 import Surveyforms from 'components/Customsurveyforms.react';
 import Takesurvey from 'components/Takesurvey.react';
@@ -33,6 +34,7 @@ const routes = (
     <Route name="takesurvey" handler={Takesurvey} />
     <Route name="survey" handler={Survey} />
     <Route name="myprofile" handler={MyProfile} />
+    <Route name="myteam" handler={MyTeam} />
     <Route name="tabs" handler={Tabs} />
     <Route name="mycompany" handler={MyCompanyInfo} />
     <Route name="mymanager" handler={MyManagerInfo} />

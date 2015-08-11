@@ -1,28 +1,28 @@
 import React from 'react';
 import Immutable from 'immutable';
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
+import TeamActions from 'actions/TeamActions';
+import TeamStore from 'stores/TeamStore';
 import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
-export default class MyManager extends React.Component {
+export default class MyTeam extends React.Component {
 
   constructor (props) {
     super(props);
     mixins(Navigation, this);
-    this.state = UserStore.getState();
+    this.state = TeamStore.getState();
     this.state.canSubmit = false;
     this.validationErrors = {};
   }
 
   componentDidMount () {
-    UserActions.getuserinfo();
-    UserStore.listen(this._onChange);
+    // TeamActions.getuserinfo();
+    TeamStore.listen(this._onChange);
   }
 
   componentWillUnmount () {
-    UserStore.unlisten(this._onChange);
+    TeamStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
@@ -35,12 +35,11 @@ export default class MyManager extends React.Component {
 
   _onChange = (state) => {
     this.setState(state);
-    console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
     console.log(model);
-    UserActions.saveManagerInfo(model);
+    TeamActions.createTeam(model);
   }
 
   render() {
@@ -48,8 +47,16 @@ export default class MyManager extends React.Component {
     let renderedResult;
 
     let message;
+    
+    let teamUserList;
 
-    let userInfo = this.state.userDetails;
+    if(this.state.hasTeam){
+        teamUserList = this.state.teams.map((data, key) => {
+        return (
+          <li className="list-group-item"><div className="row">{data.teamname}</div></li>
+        );
+      });
+    }
 
     if (this.state.message != '' ) {
       message = (
@@ -59,6 +66,8 @@ export default class MyManager extends React.Component {
       );
     }
 
+    
+
     renderedResult = (
       <div className="container">
         <ul className="pagination">
@@ -66,28 +75,19 @@ export default class MyManager extends React.Component {
           <li><a href="/myprofile">My Profile</a></li>
           <li><a href="/mycompany">My Company</a></li>
           <li><a href="/mymanager">My Manager</a></li>
+          <li><a href="/myteam">My Teams</a></li>
         </ul>
-        <h2>My Manager</h2>
+        <h2>My Team</h2>
         {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit}
              onValid={this.enableButton}
               onInvalid={this.disableButton} >
 
                <MyOwnInput
-               name="email"
-               autocomplete="off"
+               name="teamname"
                className="form-control"
-               value={userInfo.mymanager}
-               disabled={( userInfo.mymanager === '' || userInfo.mymanager === undefined ) ? false:true}
-               placeholder="Work Email"
-               validations="isEmail"
-               validationError="This is not a valid email"
-               required/>
-
-               <MyOwnInput
-               name="type"
-               type="hidden"
-               value="savemanager"
+               placeholder="My team name"
+               validationError="Team name is required"
                required/>
 
                <button type="submit" className="btn btn-default"
@@ -100,9 +100,12 @@ export default class MyManager extends React.Component {
     return (
         <div className="login">
           {renderedResult}
+         <ul className="list-group">
+          {teamUserList}
+         </ul>
         </div>
     );
 
   }
 }
-MyManager.contextTypes = { router: React.PropTypes.func };
+MyTeam.contextTypes = { router: React.PropTypes.func };

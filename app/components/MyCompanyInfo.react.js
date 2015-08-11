@@ -6,7 +6,7 @@ import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
-export default class MyProfile extends React.Component {
+export default class MyCompanyInfo extends React.Component {
 
   constructor (props) {
     super(props);
@@ -157,4 +157,4 @@ export default class MyProfile extends React.Component {
 
   }
 }
-MyProfile.contextTypes = { router: React.PropTypes.func };
+MyCompanyInfo.contextTypes = { router: React.PropTypes.func };

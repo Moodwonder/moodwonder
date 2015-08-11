@@ -1,0 +1,42 @@
+import TeamActions from 'actions/TeamActions';
+import alt from 'altInstance';
+
+/**
+ * TeamStore
+ */
+class TeamStore {
+
+  constructor () {
+
+      this.isServerCallWaiting    =    true;
+      this.hasError               =    false;
+      this.hasTeam                =    false;
+      this.teams                  =    {};
+      this.message                =    '';
+      this.canSubmit              =    false;
+
+      this.bindListeners({
+        handleCreateTeamSuccess: TeamActions.CREATETEAMSUCCESS,
+        handleGetTeamSuccess: TeamActions.GETTEAMSUCCESS
+      });
+  }
+
+  handleCreateTeamSuccess (response) {
+      this.isServerCallWaiting    =    false;
+      this.hasError               =    !response.status;
+      this.message                =    response.message;
+      this.emitChange();
+  }
+
+  handleGetTeamSuccess (response) {
+      this.isServerCallWaiting    =    false;
+      this.hasError               =    !response.status;
+      this.message                =    response.message;
+      this.teams                  =    response.data;
+      this.emitChange();
+  }
+
+}
+
+// Export newly created Store
+export default alt.createStore(TeamStore, 'TeamStore');
