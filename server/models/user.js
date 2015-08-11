@@ -18,7 +18,7 @@ var UserSchema = new mongoose.Schema({
   report_frequency: {type: String, default: 'Weekly'},
   password: String,
   profile_image: {type: String, default: ''},
-  usertype: String,
+  usertype: {type: String, default: 'user'},
   teamname: String,
   mymanager: [{ _id: String, email: String }],
   company_info :
