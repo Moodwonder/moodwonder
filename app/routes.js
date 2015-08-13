@@ -18,6 +18,7 @@ import Tabs from 'components/Tabs.react';
 import Surveyforms from 'components/Customsurveyforms.react';
 import Takesurvey from 'components/Takesurvey.react';
 import NotFound from 'components/404.react';
+import Languages from 'components/Languages.react';
 import Test1 from 'components/test1';
 import Test2 from 'components/test2';
 
@@ -38,6 +39,7 @@ const routes = (
     <Route name="tabs" handler={Tabs} />
     <Route name="mycompany" handler={MyCompanyInfo} />
     <Route name="mymanager" handler={MyManagerInfo} />
+    <Route name="languages" handler={Languages} />
     <Route name="test1" handler={Test1} />
     <Route name="test2" handler={Test2} />
     <DefaultRoute handler={Index} />

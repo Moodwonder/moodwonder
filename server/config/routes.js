@@ -11,6 +11,7 @@ var App = require('../../public/assets/app.server');
 var surveys = require('../controllers/surveys');
 var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
+var language = require('../controllers/language');
 
 module.exports = function(app, passport) {
   // user routes
@@ -34,6 +35,9 @@ module.exports = function(app, passport) {
   app.get('/getsurveyform', customSurvey.getSurveyForm);
   app.post('/deleteform', customSurvey.deleteForm);
   app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
+  app.post('/addlanguage', language.addLanguage);
+  app.get('/getlanguages', language.getLanguages);
+  app.get('/getpage', language.getPage);
 
   app.get('*', function (req, res, next) {
 
