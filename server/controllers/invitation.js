@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var Team = require('../models/team');
 var User = require('../models/user');
+var Invite = require('../models/invite');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
@@ -18,27 +19,62 @@ response.status = false;
 response.message = 'Error';
 
 /**
- * Create new team
+ * Invite a user
  *
  * Accept : -  @teamname
  */
-exports.checkTeam = function(req, res, next) {
+exports.sendInvitation = function(req, res, next) {
 
-  var company = req.user.company_info[0].companyname;
+	var type = req.body.invitetype;
 
-  var where = { company_info: { $elemMatch: { 'companyname': company }} , 'usertype': 'manager' };
-  // console.log(where);
+	var data = req.body.data;
+	var email = data.email;
 
-  User.findOne(where, function(err, existingUser) {
-    if(existingUser) {
-        next();
-    }else{
-        response.status = false;
-        response.message = "You can't complete this action, Your company is not found in our system";
-        res.send(response);
-        res.end();
-    }
-  });
+	if( type == 'Team' ) {
+		var inviteString = email + Date.now();
+		inviteString = crypto.createHash('md5').update(inviteString).digest("hex");
+		var invite =  new Invite({
+		email: req.body.email,
+		type: type,
+		link: inviteString,
+		data: data
+		});
+
+		Invite.findOne({email: email}, function(err, existingInvite) {
+		if(existingInvite) {
+			response.status = false;
+			response.message = 'Invitation already sent';
+			res.send(response);
+			res.end();
+		}else{
+			invite.save(function(err) {
+				if(!err){
+
+					var transporter = nodemailer.createTransport();
+					transporter.sendMail({
+						from: 'admin@moodewonder.com',
+						to: email,
+						subject: 'Moodwonder invitation',
+						html: "<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/signup/'+inviteString
+					});
+					response.status = true;
+					response.message = 'Invitation sent';
+					res.send(response);
+					res.end();
+				}else{
+					res.send(response);
+					res.end();
+				}
+			});
+		}
+		});
+	}else{
+	response.status = false;
+	response.message = 'Something went wrong';
+	res.send(response);
+	res.end();
+	}
+
 };
 
 /**
@@ -95,7 +131,7 @@ exports.getMyTeams = function(req, res, next) {
 };
 
 /**
- * Add a member to team
+ * get my teams
  *
  */
 exports.addMemberToTeam = function(req, res, next) {
@@ -162,11 +198,10 @@ exports.addMemberToTeam = function(req, res, next) {
 
 
 			}else{
-				// Calling another controller for Invite a user with the given e-mail id
-				// Calling invite.js/sendInvitation()
-				req.body.invitetype = 'Team';
-				req.body.data = { 'email': member_email, 'team': existingTeam };
-				next();
+				response.status = false;
+				response.message = 'E-mail id not exist in the system';
+				res.send(response);
+				res.end();
 			}
 		  });
     }else{
@@ -179,53 +214,3 @@ exports.addMemberToTeam = function(req, res, next) {
   
 };
 
-/**
- * get my teams
- *
- */
-exports.removeMemberFromTeam = function(req, res, next) {
-
-  var team_id = req.body.team_id;
-  var member_id = req.body.member_id;
-  var member_id = req.body.member_id;
-
-  if( team_id != '' && member_id != '') {
-
-  var where = { _id: new ObjectId(team_id) }
-
-  // check the team is exist or not
-  Team.findOne(where, function(err, existingTeam) {
-    if(existingTeam) {
-		
-		// User not exist in this group, Insert this user into this team
-		member_id = new ObjectId(member_id);
-		Team.update({ "_id" : existingTeam._id },{$pull: {member_ids: { _id: member_id }}},function(err){
-			if(err){
-				response.status = false;
-				response.message = "Something went wrong";
-				res.send(response);
-				res.end();
-			}else{
-				response.status = true;
-				response.message = "Member removed";
-				res.send(response);
-				res.end();
-			}
-		});
-					
-    }else{
-        response.status = false;
-        response.message = 'Team not exist';
-        res.send(response);
-        res.end();
-    }
-  });
-
-
-  }else{
-    response.status = false;
-    response.message = 'Something went wrong';
-    res.send(response);
-    res.end();
-  }
-};

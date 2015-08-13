@@ -12,12 +12,13 @@ export default class MyTeam extends React.Component {
     super(props);
     mixins(Navigation, this);
     this.state = TeamStore.getState();
-    this.state.canSubmit = false;
+    this.state.canSubmit  = false;
+    this.state.canSubmitAddMember = true;
     this.validationErrors = {};
   }
 
   componentDidMount () {
-    // TeamActions.getuserinfo();
+    TeamActions.getTeams();
     TeamStore.listen(this._onChange);
   }
 
@@ -42,6 +43,16 @@ export default class MyTeam extends React.Component {
     TeamActions.createTeam(model);
   }
 
+  _onAddMemberSubmit = (model) => {
+    TeamActions.addMemberToTeam(model);
+  }
+
+  onRemoveMember = (key, team_id, member_id,num) => {
+	  console.log(team_id);
+	  console.log(member_id);
+      TeamActions.removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id });
+  }
+
   render() {
 
     let renderedResult;
@@ -52,8 +63,38 @@ export default class MyTeam extends React.Component {
 
     if(this.state.hasTeam){
         teamUserList = this.state.teams.map((data, key) => {
+
+        let members;
+        members = data.members.map((mem, key) => {
+			let mem_id = mem._id;
+            return (
+                <ul>
+                    <li>{mem.member_name}<a onClick={this.onRemoveMember.bind(this,data._id,mem_id,mem._id)} > Remove</a></li>
+                </ul>
+            );
+        });
         return (
-          <li className="list-group-item"><div className="row">{data.teamname}</div></li>
+          <li className="list-group-item">
+          <div className="row">{data.name}</div>
+            <Formsy.Form onValidSubmit={this._onAddMemberSubmit} >
+
+               <MyOwnInput
+               name="membername"
+               className="form-control"
+               placeholder="Work email"
+               required/>
+
+               <MyOwnInput
+               type="hidden"
+               name="team_id"
+               value={data._id}
+               required/>
+
+               <button type="submit" className="btn btn-default"
+               disabled={!this.state.canSubmitAddMember}>Submit</button>
+               {members}
+            </Formsy.Form>
+          </li>
         );
       });
     }

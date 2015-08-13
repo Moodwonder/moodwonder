@@ -95,7 +95,7 @@ const utils = {
       data: JSON.stringify(data)
     });
   },
-  
+
   /*
    * Ajaxcall for save company details
    */

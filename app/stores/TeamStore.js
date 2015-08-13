@@ -17,8 +17,17 @@ class TeamStore {
 
       this.bindListeners({
         handleCreateTeamSuccess: TeamActions.CREATETEAMSUCCESS,
-        handleGetTeamSuccess: TeamActions.GETTEAMSUCCESS
+        handleGetTeamSuccess: TeamActions.GETTEAMSUCCESS,
+        handleAddMemberSuccess: TeamActions.MEMBERADDSUCCESS,
+        handleRemoveMemberSuccess: TeamActions.MEMBERREMOVESUCCESS
       });
+  }
+
+  handleAddMemberSuccess (response) {
+      this.isServerCallWaiting    =    false;
+      this.hasError               =    !response.status;
+      this.message                =    response.message;
+      this.emitChange();
   }
 
   handleCreateTeamSuccess (response) {
@@ -31,8 +40,16 @@ class TeamStore {
   handleGetTeamSuccess (response) {
       this.isServerCallWaiting    =    false;
       this.hasError               =    !response.status;
+      this.hasTeam                =     response.status;
       this.message                =    response.message;
       this.teams                  =    response.data;
+      this.emitChange();
+  }
+
+  handleRemoveMemberSuccess (response) {
+      this.isServerCallWaiting    =    false;
+      this.hasError               =    !response.status;
+      this.message                =    response.message;
       this.emitChange();
   }
 

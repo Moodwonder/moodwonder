@@ -350,3 +350,50 @@ body {
     border: none;
     padding: 5px;
 }
+
+
+
+.autocomplete {
+    position: relative;
+}
+.autocomplete input {
+    border: 1px solid #aaa;
+    outline: 0 none;
+    padding: 5px;
+    width: 388px;
+}
+.autocomplete input:focus {
+    border-color: #09c;
+}
+.loading .autocomplete__result {
+    color: #bbb;
+}
+.autocomplete__result {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    box-shadow: 2px 1px 4px 1px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 68px;
+    width: 388px;
+}
+.autocomplete__result ul {
+    margin: 0;
+    max-height: 200px;
+    overflow: auto;
+    padding: 0;
+    width: 100%;
+}
+.autocomplete__result li {
+    list-style: outside none none;
+    padding: 5px;
+}
+.autocomplete__result li:hover {
+    background: #fec none repeat scroll 0 0;
+}
+.autocomplete__result li.active {
+    background: #ddd none repeat scroll 0 0;
+}
+.autocomplete__empty {
+    padding: 5px;
+}
+

@@ -13,7 +13,35 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  getMyTeams: (data) => {
+      return $.ajax({
+      url: '/getmyteams',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({})
+    });
+  },
+
+  addMemberToMyTeam: (data) => {
+      return $.ajax({
+      url: '/addmembertoteam',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
+  removeMemberFromMyTeam: (data) => {
+      return $.ajax({
+      url: '/removememberfromteam',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
+
 
 };
 

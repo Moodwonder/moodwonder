@@ -30,6 +30,7 @@ exports.encryptPassword = function(req, res, next){
         if (!err){
           bcrypt.hash(password, salt, null, function (err, hash) {
             if (!err){
+              req.body.real_password = req.body.password;
               req.body.password = hash;
               next();
             }
@@ -101,7 +102,7 @@ exports.getUsers = function(req, res) {
     if(!err) {
       res.json(lists);
     } else {
-      console.log('Error in first query');
+      // console.log('Error in first query');
     }
   });
 };
@@ -110,6 +111,8 @@ exports.getUsers = function(req, res) {
  * Get a User
  */
 exports.getUserInfo = function(req, res) {
+
+  console.log(req.user);
   var condition = { '_id': new ObjectId(req.user._id) };
   User.findOne(condition,function(err, lists) {
     if(!err) {
@@ -119,11 +122,15 @@ exports.getUserInfo = function(req, res) {
       response.data = { 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
       if(req.query.type == 'company' ){
             if(lists.company_info[0] != undefined){
-          response.data = lists.company_info[0];
-        }
+               response.data = lists.company_info[0];
+            }
 
       }else{
-      response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email };
+
+          if(lists.mymanager[0] == undefined){
+              lists.mymanager[0] = { 'email': '' };
+          }
+          response.data = { 'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email };
       }
       res.json(response);
     } else {
@@ -143,12 +150,6 @@ exports.test = function(req, res) {
  * Logout
  */
 exports.getLogout = function(req, res, next) {
-  sess._id = null;
-  sess.email = null;
-  sess.name = null;
-  delete sess._id;
-  delete sess.email;
-  delete sess.name;
   req.session.destroy();
   req.logout();
   next();
@@ -212,7 +213,7 @@ exports.postSignupStep1 = function(req, res, next) {
  *
  * Accept : -  @password
  */
-exports.postSignupStep2 = function(req, res) {
+exports.postSignupStep2 = function(req, res, next) {
 
   var verifyString = req.body.hash.trim();
   var password = req.body.password.trim();
@@ -246,9 +247,9 @@ exports.postSignupStep2 = function(req, res) {
 
           response.status = true;
           response.message = 'Password created';
-          sess = req.session;
-          sess._id = document._id.valueOf();
-          console.log('saveed');
+          req.body.email = document.email;
+          req.body.password = req.body.real_password;
+          next();
         }else{
 
           response.status = false;
@@ -349,7 +350,7 @@ exports.postSaveUserInfo = function(req, res, next) {
       delete model.password;
     }
 
-    var conditions = { '_id': new ObjectId(sess._id) }
+    var conditions = { '_id': new ObjectId(req.user._id) }
     , update = model
     , options = { multi: false };
 
@@ -431,7 +432,7 @@ exports.postSaveCompanyInfo = function(req, res) {
 
   var model = { 'company_info': [model] };
 
-  var conditions = { '_id': new ObjectId(sess._id) }
+  var conditions = { '_id': new ObjectId(req.user._id) }
   , update = model
   , options = { multi: false };
 
@@ -560,4 +561,59 @@ exports.updateUser = function(req, res) {
   }
 };
 
+/**
+ * Get users in each team
+ */
+exports.usersInTeams = function(req, res) {
+
+    var team_users_result = [];
+    var teamlength = req.body.resdata.length;
+
+    // Checking number of teams
+    if(teamlength > 0){
+        response.status = true;
+        response.message = 'Success';
+
+        // Looping through each team
+        req.body.resdata.map(function(data, key) {
+
+            // Taking all user ids from `member_ids` property
+            var ids = [];
+            data.member_ids.map(function(member, key) {
+                ids[key] = member._id;
+            });
+
+            // Where condition to fetch users from `User` collection
+            var where = { '_id': { $in: ids } };
+
+            // Trying to fetch users
+            User.find(where).exec(function(err, lists) {
+
+                if(!err) {
+                    // Filtering required data such as _id,full name, usertype
+                    var userData = [];
+                    lists.map(function(users, key) {
+                        userData[key] = { '_id': users._id, 'member_name': users.firstname + ' ' + users.lastname, 'usertype': users.usertype }
+                    });
+                    // Assigning team name and members data into final result
+                    team_users_result = team_users_result.concat([{ "_id": data._id, "name": data.teamname, "members": userData }]);
+                } else {
+                    // Handling error case 
+                    team_users_result = team_users_result.concat([{ "_id": data._id, "name": data.teamname, "members": {} }]);
+                }
+
+                if(teamlength == (key+1)){
+                    // Exiting from the Callback function
+                    response.data = team_users_result;
+                    res.send(response);
+                    res.end();
+                }
+            });
+        });
+    }else {
+        response.status = false;
+        response.message = 'No teams';
+        response.data = {};
+    }
+};
 

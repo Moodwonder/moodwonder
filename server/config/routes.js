@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
   // user routes
   app.post('/login', users.postLogin);
   app.post('/usersignupstep1', users.postSignupStep1, users.postForgotPassword);
-  app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2);
+  app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2, users.postLogin);
   app.post('/signup', users.postSignUp);
   app.get('/logout', users.getLogout);
   app.get('/test', users.test);
@@ -28,6 +28,9 @@ module.exports = function(app, passport) {
   app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
   app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
+  app.post('/getmyteams', users.checkLogin, teams.getMyTeams, users.usersInTeams);
+  app.post('/addmembertoteam', users.checkLogin, teams.addMemberToTeam, invitation.sendInvitation );
+  app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam );
   app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);
@@ -53,12 +56,12 @@ module.exports = function(app, passport) {
   });
 
   app.get('*', function (req, res, next) {
-      console.log('res.locals.data');
-      console.log(res.locals.data);
-      console.log('req.user');
-      console.log(req.user);
-      console.log('req.session');
-      console.log(req.session);
+      // console.log('res.locals.data');
+      // console.log(res.locals.data);
+      // console.log('req.user');
+      // console.log(req.user);
+      // console.log('req.session');
+      // console.log(req.session);
 	
       var html = App(JSON.stringify(res.locals.data || {}), req.url);
           html = html.replace("TITLE", Header.title)
