@@ -18,7 +18,7 @@ const utils = {
       contentType: 'application/json'
     });
   },
-  
+
   getPage: (data) => {
       return $.ajax({
       url: '/getpage',
@@ -26,7 +26,7 @@ const utils = {
       contentType: 'application/json',
       data: data
     });
-  },
+  }
 
 };
 

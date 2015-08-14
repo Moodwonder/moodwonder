@@ -34,23 +34,23 @@ class LanguageActions {
   languages (data) {
       this.dispatch(data);
   }
-  
+
   getPage (data) {
       this.dispatch();
       LanguageWebAPIUtils.getPage(data)
       .then((response, textStatus) => {
-          if (response.status === true) {
-              this.actions.pagesuccess(response);
+          if (response.status === 'success') {
+              this.actions.pagesuccess(response.pagedata);
           }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
-  
+
   pagesuccess (data) {
       this.dispatch(data);
   }
-  
+
 
 }
 

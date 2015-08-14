@@ -55,38 +55,57 @@ exports.getPage = function (req, res) {
     switch (page) {
 
         case 'home':
+            modelObj = {};
             modelObj = Homepage;
+//            Homepage.findOne({language: language}).exec(function (err, result) {
+//                var response = {};
+//                if (!err) {
+//                    response.status = 'success';
+//                    response.pagedata = result;
+//                } else {
+//                    response.status = 'failure';
+//                    response.pagedata = [];
+//                }
+//                console.log(response);
+//                res.send(response);
+//                res.end();
+//            });
             break;
-        
+
         case 'signup':
+            modelObj = {};
             modelObj = Signuppage;
+//            Signuppage.findOne({language: language}).exec(function (err, result) {
+//                var response = {};
+//                if (!err) {
+//                    response.status = 'success';
+//                    response.pagedata = result;
+//                } else {
+//                    response.status = 'failure';
+//                    response.pagedata = [];
+//                }
+//                res.send(response);
+//                res.end();
+//            });
             break;
-        
+
         default:
-            modelObj = Homepage;
+            //modelObj = Homepage;
             break;
 
     }
 
-    var condition = {'language': language};
-    modelObj.findOne(condition, function (err, data) {
+    modelObj.findOne({language: language}).exec(function (err, result) {
         var response = {};
         if (!err) {
-            response.status = true;
-            response.message = 'success';
-            response.data = data;
-            response.page = page;
-            console.log(response);            
-            res.json(response);
-            res.end();
+            response.status = 'success';
+            response.pagedata = result;
         } else {
-            response.status = false;
-            response.message = 'failure';
-            response.data = {};
-            response.page = page;
-            res.json(response);
-            res.end();
+            response.status = 'failure';
+            response.pagedata = [];
         }
+        res.send(response);
+        res.end();
     });
 
 

@@ -8,19 +8,19 @@ import Logout from 'components/Logout.react';
 import Signup from 'components/Signup.react';
 import ForgotPassword from 'components/ForgotPassword.react';
 import CreatePassword from 'components/CreatePassword.react';
-import Customsurvey from 'components/Customsurvey.react';
+import Customsurvey from 'components/customsurvey/Customsurvey.react';
 import Survey from 'components/Survey.react';
 import MyProfile from 'components/MyProfile.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
 import MyManagerInfo from 'components/MyManager.react';
 import MyTeam from 'components/MyTeam.react';
 import Tabs from 'components/Tabs.react';
-import Surveyforms from 'components/Customsurveyforms.react';
-import Takesurvey from 'components/Takesurvey.react';
+import Surveyforms from 'components/customsurvey/Customsurveyforms.react';
+import Takesurvey from 'components/customsurvey/Takesurvey.react';
 import NotFound from 'components/404.react';
-import Languages from 'components/Languages.react';
+import Languages from 'components/language/Languages.react';
 import Test1 from 'components/test1';
-import Test2 from 'components/test2';
+import Test2 from 'components/customsurvey/test2';
 
 const routes = (
   <Route name="app" path="/" handler={App} >
