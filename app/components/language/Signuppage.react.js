@@ -60,12 +60,12 @@ export default class Signuppage extends React.Component {
           <br/>
           <div className="form-group">
             <label>SIGNUP_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.SIGNUP_TITLE} />
+            <input type="text" value={pagedata.SIGNUP_TITLE} />&nbsp;&nbsp;
             <textarea name="SIGNUP_TITLE">{pagedata.SIGNUP_TITLE}</textarea>
           </div>
           <div className="form-group">
             <label>SUB_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.SUB_TITLE} />
+            <input type="text" value={pagedata.SUB_TITLE} />&nbsp;&nbsp;
             <textarea name="SUB_TITLE">{pagedata.SUB_TITLE}</textarea>
           </div>
           <div className="form-group">

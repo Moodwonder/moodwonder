@@ -45,7 +45,8 @@ export default class Navigation extends React.Component {
           loginOrOut = [
               <li><Link className="navigation__item" to="login">Log in</Link></li>,
               <li><Link to="signup" className="navigation__item" activeClassName="navigation__item--active">Signup</Link></li>,
-              <li><Link to="customsurvey" className="navigation__item">Customsurvey</Link></li>
+              <li><Link to="customsurvey" className="navigation__item">Customsurvey</Link></li>,
+              <li><Link to="languages" className="navigation__item">Languages</Link></li>
           ];
       }
       return (

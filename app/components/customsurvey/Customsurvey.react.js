@@ -345,7 +345,6 @@ export default class Customsurvey extends React.Component {
       <div className="container">
         <div className="form-group">
           <a href="#" onClick={this.onFormListsClick}>List forms</a>&nbsp;&nbsp;
-          <a href="#" onClick={this.onSurveyClick}>Take a survey</a>
         </div>
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
