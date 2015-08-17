@@ -1,5 +1,7 @@
 var _ = require('lodash');
 var User = require('../models/user');
+var Invite = require('../models/invite');
+var Team = require('../models/team');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
@@ -170,7 +172,7 @@ exports.postSignupStep1 = function(req, res, next) {
     next();
     return;
   }
-  console.log('>>>>>>>>>> '+type);
+
   var verifystring = email + Date.now();
   verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
   var user =  new User({
@@ -185,20 +187,76 @@ exports.postSignupStep1 = function(req, res, next) {
 		res.send(response);
 		res.end();
     }else{
-		user.save(function(err) {
+		user.save(function(err,newuser) {
 		    if(!err){
 
-			var transporter = nodemailer.createTransport();
-			transporter.sendMail({
-				from: 'admin@moodewonder.com',
-				to: email,
-				subject: 'Create password',
-				html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
-			});
+				var transporter = nodemailer.createTransport();
+				transporter.sendMail({
+					from: 'admin@moodewonder.com',
+					to: email,
+					subject: 'Create password',
+					html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
+				});
+
 				response.status = true;
 				response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
-				res.send(response);
-				res.end();
+				
+				// if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
+				console.log('--req.body.hash----'+req.body.hash);
+				if(req.body.hash != ''){
+					
+					var invite =  new Invite({
+					email: email,
+					type: 'Team',
+					link: req.body.hash
+					});
+					
+
+					Invite.findOne({email: email}, function(err, existingInvite) {
+						if(existingInvite) {
+							
+							var team_id = existingInvite.data[0].team._id;
+
+							var where = { _id: new ObjectId(team_id) }
+							// console.log(member_email);
+							// check the team is exist or not
+							Team.findOne(where, function(err, existingTeam) {
+								if(existingTeam) {
+
+									// User not exist in this group, Insert this user into this team
+									Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: newuser._id }}},function(err){
+										if(err){
+											response.status = false;
+											response.messages = ['Error when adding a new member'];
+											res.send(response);
+											res.end();
+										}else{
+											response.status = true;
+											response.messages = ['Member added'];
+											res.send(response);
+											res.end();
+										}
+									});
+									
+								}else{
+									response.status = false;
+									response.messages = ['Team not exist'];
+									res.send(response);
+									res.end();
+								}
+							});
+						}else{
+							response.status = true;
+							response.messages = ['Error when processing your invitation'];
+							res.send(response);
+							res.end();
+						}
+					});
+				}else {
+					res.send(response);
+					res.end();
+				}
+			
 			}else{
 				res.send(response);
 				res.end();

@@ -27,6 +27,7 @@ const routes = (
     <Route name="logout" handler={Logout} />
     <Route name="index" handler={Index} />
     <Route name="signup" handler={Signup} />
+    <Route name="signup/:hash" handler={Signup} />
     <Route name="forgotpassword" handler={ForgotPassword} />
     <Route name="createpassword/:hash" handler={CreatePassword} />
     <Route name="customsurvey" handler={Customsurvey} />

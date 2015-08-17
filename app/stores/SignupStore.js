@@ -10,8 +10,10 @@ class SignupStore {
       this.user = {};
       this.isSignupWaiting = false;
       this.message = '';
+      this.messages = [];
       this.isRegistered = false;
       this.canSubmit = false;
+      this.inviteEmail = '';
       this.notificationReact = {
         message: 'Invalid E-mail!',
         action: 'X',
@@ -45,6 +47,9 @@ class SignupStore {
       if (this.message !== '') {
           this.notificationReact.message = this.message;
           this.notificationReact.isActive = true;
+      }
+      if (response.messages.constructor === Array) {
+          this.messages = response.messages;
       }
       this.emitChange();
   }

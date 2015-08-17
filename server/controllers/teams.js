@@ -163,7 +163,7 @@ exports.addMemberToTeam = function(req, res, next) {
 
 			}else{
 				// Calling another controller for Invite a user with the given e-mail id
-				// Calling invite.js/sendInvitation()
+				// Calling invitation.js/sendInvitation()
 				req.body.invitetype = 'Team';
 				req.body.data = { 'email': member_email, 'team': existingTeam };
 				next();

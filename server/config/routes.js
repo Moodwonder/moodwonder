@@ -44,15 +44,26 @@ module.exports = function(app, passport) {
   app.get('/getpage', language.getPage);
   app.post('/updatepagekeys', language.updatePageKeys);
 
+  // Set variables from server side
+  app.get('/signup/:hash', invitation.handleSignup);
+
   app.get('*', function (req, res, next) {
 
       if (/(\.png$|\.map$|\.jpg$)/.test(req.url)) return;
 
           var user = req.user ? {authenticated: true, isWaiting: false} : {authenticated: false, isWaiting: false};
+          var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
+ 
+          // To set state of a component from server
+          // Must follow this format below
+          // yourStore{ your: params }
+          // You will get the params using the following code in your components
+          // this.state.yourState
 
           res.locals.data = {
               UserStore: {user: user},
-              CreatePswdStore: { user: {uid : req.user ? req.user._id : null } }
+              CreatePswdStore: { user: {uid : req.user ? req.user._id : null } },
+              SignupStore: { inviteEmail: inviteEmail }
           };
           next();
   });

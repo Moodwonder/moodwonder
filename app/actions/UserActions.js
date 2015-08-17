@@ -41,7 +41,7 @@ class UserActions {
   saveuserdetailssuccess (response) {
       this.dispatch(response);
   }
-  
+
   // Save user details
   saveManagerInfo (data) {
       this.dispatch();

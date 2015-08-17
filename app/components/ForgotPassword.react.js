@@ -7,86 +7,86 @@ import { MyOwnInput } from 'components/Formsy-components';
 export default class Signup extends React.Component {
 
   constructor (props) {
-    super(props);
-    this.state = SignupStore.getState();
-    this.state.canSubmit = false;
-    this.validationErrors = {};
+      super(props);
+      this.state = SignupStore.getState();
+      this.state.canSubmit = false;
+      this.validationErrors = {};
   }
 
   componentDidMount () {
-    SignupStore.listen(this._onChange);
+      SignupStore.listen(this._onChange);
   }
 
   componentWillUnmount () {
-    SignupStore.unlisten(this._onChange);
+      SignupStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
-    this.setState({canSubmit: true});
+      this.setState({canSubmit: true});
   }
 
   disableButton = () => {
-    this.setState({canSubmit: false});
+      this.setState({canSubmit: false});
   }
 
   _onChange = (state) => {
-    this.setState(state);
+      this.setState(state);
   }
 
   formSubmit = (e) => { e.preventDefault(); }
 
   _onSignupStep1Submit = (model) => {
-    const email = model.email.trim();
-    SignupActions.usersignupstep1({
-      email: email,
-      type: 'forgotpassword'
-    });
+      const email = model.email.trim();
+      SignupActions.usersignupstep1({
+        email: email,
+        type: 'forgotpassword'
+      });
   }
 
   showNotification = (message) => {
       this.setState({
-        notificationReact: {
-          ...this.state.notificationReact,
-          isActive: true,
-          message: message
-        }
+          notificationReact: {
+            ...this.state.notificationReact,
+            isActive: true,
+            message: message
+          }
       });
   }
 
   isValidEmailAddress = (emailAddress) => {
-    var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-    return pattern.test(emailAddress);
+      let pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+      return pattern.test(emailAddress);
   }
 
   _onEmailChange = (e) => {
-    const email = React.findDOMNode(this.refs.email).value.trim();
-    if (!this.isValidEmailAddress(email)) {
-      this.setState({
-        notificationReact: {
-          ...this.state.notificationReact,
-          isActive: true
-        }
-      });
-    }
+      const email = React.findDOMNode(this.refs.email).value.trim();
+      if (!this.isValidEmailAddress(email)) {
+          this.setState({
+              notificationReact: {
+                  ...this.state.notificationReact,
+                  isActive: true
+              }
+          });
+      }
   }
 
   handleNotificationClick = (notification) => {
-    if (notification === 'email') {
-      this.setState({
-        notificationReact: {
-          ...this.state.notificationReact,
-          isActive: false
-        }
-      });
-    }
+      if (notification === 'email') {
+          this.setState({
+              notificationReact: {
+                  ...this.state.notificationReact,
+                  isActive: false
+              }
+          });
+      }
   }
 
   render () {
-    let renderedResult;
-    let message;
+      let renderedResult;
+      let message;
 
-    if (this.state.isRegistered) {
-        renderedResult = (
+      if (this.state.isRegistered) {
+          renderedResult = (
             <div className="login__container">
                 <fieldset className="login__fieldset">
                    <div className="alert alert-info">
@@ -94,15 +94,15 @@ export default class Signup extends React.Component {
                    </div>
                 </fieldset>
             </div>
-        );
+          );
 
-    }else {
+      }else {
 
-        if (this.state.isSignupWaiting) {
-            message = (<h3 className="login__header">Processing...</h3>);
-        }
+          if (this.state.isSignupWaiting) {
+              message = (<h3 className="login__header">Processing...</h3>);
+          }
 
-        renderedResult = (
+          renderedResult = (
             <div className="container">
                 <h2>Forgot password</h2>
                 {message}
@@ -122,14 +122,14 @@ export default class Signup extends React.Component {
                   onDismiss={this.handleNotificationClick.bind(null, 'email')}
                 />
             </div>
-        );
+          );
 
-    }
-    return (
+      }
+      return (
         <div className="login">
            {renderedResult}
         </div>
-    );
+      );
   }
 }
 

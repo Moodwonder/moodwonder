@@ -1,107 +1,106 @@
 import React from 'react';
-import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
+import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
 export default class MyManager extends React.Component {
 
   constructor (props) {
-    super(props);
-    mixins(Navigation, this);
-    this.state = UserStore.getState();
-    this.state.canSubmit = false;
-    this.validationErrors = {};
+      super(props);
+      mixins(Navigation, this);
+      this.state = UserStore.getState();
+      this.state.canSubmit = false;
+      this.validationErrors = {};
   }
 
   componentDidMount () {
-    UserActions.getuserinfo();
-    UserStore.listen(this._onChange);
+      UserActions.getuserinfo();
+      UserStore.listen(this._onChange);
   }
 
   componentWillUnmount () {
-    UserStore.unlisten(this._onChange);
+      UserStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
-    this.setState({canSubmit: true});
+      this.setState({canSubmit: true});
   }
 
   disableButton = () => {
-    this.setState({canSubmit: false});
+      this.setState({canSubmit: false});
   }
 
   _onChange = (state) => {
-    this.setState(state);
-    console.log(this.state.userDetails);
+      this.setState(state);
+      console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
-    console.log(model);
-    UserActions.saveManagerInfo(model);
+      console.log(model);
+      UserActions.saveManagerInfo(model);
   }
 
   render() {
 
-    let renderedResult;
+      let renderedResult;
 
-    let message;
+      let message;
 
-    let userInfo = this.state.userDetails;
+      let userInfo = this.state.userDetails;
 
-    if (this.state.message != '' ) {
-      message = (
-        <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-          {this.state.message}
+      if (this.state.message !== '' ) {
+          message = (
+              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
+                {this.state.message}
+              </div>
+          );
+      }
+
+      renderedResult = (
+        <div className="container">
+          <ul className="pagination">
+            <li><a href="/survey">Survey</a></li>
+            <li><a href="/myprofile">My Profile</a></li>
+            <li><a href="/mycompany">My Company</a></li>
+            <li><a href="/mymanager">My Manager</a></li>
+          </ul>
+          <h2>My Manager</h2>
+          {message}
+          <Formsy.Form onValidSubmit={this._onSaveSubmit}
+            onValid={this.enableButton}
+            onInvalid={this.disableButton} >
+
+            <MyOwnInput
+            name="email"
+            autocomplete="off"
+            className="form-control"
+            value={userInfo.mymanager}
+            disabled={( userInfo.mymanager === '' || userInfo.mymanager === undefined ) ? false:true}
+            placeholder="Work Email"
+            validations="isEmail"
+            validationError="This is not a valid email"
+            required/>
+
+            <MyOwnInput
+            name="type"
+            type="hidden"
+            value="savemanager"
+            required/>
+
+            <button type="submit" className="btn btn-default"
+            disabled={!this.state.canSubmit}>Submit</button>
+          </Formsy.Form>
         </div>
       );
-    }
-
-    renderedResult = (
-      <div className="container">
-        <ul className="pagination">
-          <li><a href="/survey">Survey</a></li>
-          <li><a href="/myprofile">My Profile</a></li>
-          <li><a href="/mycompany">My Company</a></li>
-          <li><a href="/mymanager">My Manager</a></li>
-        </ul>
-        <h2>My Manager</h2>
-        {message}
-            <Formsy.Form onValidSubmit={this._onSaveSubmit}
-             onValid={this.enableButton}
-              onInvalid={this.disableButton} >
-
-               <MyOwnInput
-               name="email"
-               autocomplete="off"
-               className="form-control"
-               value={userInfo.mymanager}
-               disabled={( userInfo.mymanager === '' || userInfo.mymanager === undefined ) ? false:true}
-               placeholder="Work Email"
-               validations="isEmail"
-               validationError="This is not a valid email"
-               required/>
-
-               <MyOwnInput
-               name="type"
-               type="hidden"
-               value="savemanager"
-               required/>
-
-               <button type="submit" className="btn btn-default"
-               disabled={!this.state.canSubmit}>Submit</button>
-            </Formsy.Form>
-      </div>
-    );
 
 
-    return (
-        <div className="login">
-          {renderedResult}
-        </div>
-    );
+      return (
+          <div className="login">
+            {renderedResult}
+          </div>
+      );
 
   }
 }

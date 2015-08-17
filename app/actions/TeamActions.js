@@ -64,6 +64,7 @@ class TeamActions {
       CommonWebAPIUtils.removeMemberFromMyTeam(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
+                this.actions.getTeams ();
                 this.actions.memberremovesuccess(response);
             }
         }, () => {

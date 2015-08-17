@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
@@ -9,57 +8,57 @@ import mixins from 'es6-mixins';
 export default class MyCompanyInfo extends React.Component {
 
   constructor (props) {
-    super(props);
-    mixins(Navigation, this);
-    this.state = UserStore.getState();
-    this.state.canSubmit = false;
-    this.validationErrors = {};
+      super(props);
+      mixins(Navigation, this);
+      this.state = UserStore.getState();
+      this.state.canSubmit = false;
+      this.validationErrors = {};
   }
 
   componentDidMount () {
-    UserActions.getcompanyinfo();
-    UserStore.listen(this._onChange);
+      UserActions.getcompanyinfo();
+      UserStore.listen(this._onChange);
   }
 
   componentWillUnmount () {
-    UserStore.unlisten(this._onChange);
+      UserStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
-    this.setState({canSubmit: true});
+      this.setState({canSubmit: true});
   }
 
   disableButton = () => {
-    this.setState({canSubmit: false});
+      this.setState({canSubmit: false});
   }
 
   _onChange = (state) => {
-    this.setState(state);
-    console.log(this.state.userDetails);
+      this.setState(state);
+      console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
-	console.log(model);
-    UserActions.saveCompanyInfo(model);
+      console.log(model);
+      UserActions.saveCompanyInfo(model);
   }
 
   render() {
 
-    let renderedResult;
+      let renderedResult;
 
-    let message;
+      let message;
 
-    var userInfo = this.state.userDetails;
+      let userInfo = this.state.userDetails;
 
-    if (this.state.message != '' ) {
-      message = (
-        <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-          {this.state.message}
-        </div>
-      );
-    }
+      if (this.state.message !== '' ) {
+          message = (
+              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
+                {this.state.message}
+              </div>
+          );
+      }
 
-    renderedResult = (
+      renderedResult = (
       <div className="container">
         <ul className="pagination">
           <li><a href="/survey">Survey</a></li>
@@ -125,7 +124,7 @@ export default class MyCompanyInfo extends React.Component {
                placeholder="Address"
                validationError="Address is required"
                required/>
-               
+
                <MyOwnInput
                name="website"
                className="form-control"
@@ -133,7 +132,6 @@ export default class MyCompanyInfo extends React.Component {
                placeholder="Website"
                validationError="Website is required"
                required/>
-               
 
                <MyOwnSelect
                name="companysize"
@@ -146,14 +144,14 @@ export default class MyCompanyInfo extends React.Component {
                <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>
       </div>
-    );
+      );
 
 
-    return (
+      return (
         <div className="login">
           {renderedResult}
         </div>
-    );
+      );
 
   }
 }
