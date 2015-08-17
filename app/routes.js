@@ -20,7 +20,6 @@ import Takesurvey from 'components/customsurvey/Takesurvey.react';
 import NotFound from 'components/404.react';
 import Languages from 'components/language/Languages.react';
 import Test1 from 'components/test1';
-import Test2 from 'components/customsurvey/test2';
 
 const routes = (
   <Route name="app" path="/" handler={App} >
@@ -41,7 +40,6 @@ const routes = (
     <Route name="mymanager" handler={MyManagerInfo} />
     <Route name="languages" handler={Languages} />
     <Route name="test1" handler={Test1} />
-    <Route name="test2" handler={Test2} />
     <DefaultRoute handler={Index} />
     <NotFoundRoute name="404" handler={NotFound} />
   </Route>

@@ -1,73 +1,78 @@
 import React from 'react';
-// import Immutable from 'immutable';
-// import UserWebAPIUtils from 'utils/UserWebAPIUtils';
-// import $ from 'jquery';
 // import Validation, { Validator } from 'rc-form-validation';
 import getFormData from 'get-form-data';
-import _ from 'underscore';
-import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
-import CustomSurveyActions from 'actions/CustomSurveyActions';
-//import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
-import CustomSurveyStore from 'stores/CustomSurveyStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import LanguageActions from 'actions/LanguageActions';
 
 export default class Signuppage extends React.Component {
 
   constructor(props) {
       super(props);
       mixins(Navigation, this);
-      //this.state = CustomSurveyStore.getState();
   }
 
   componentDidMount() {
-      //CustomSurveyActions.getSurveyForm();
-      //CustomSurveyStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
-      //CustomSurveyStore.unlisten(this._onChange);
+
   }
 
   _onChange = () => {
-      this.setState({});
+      // this.setState({});
   }
 
-  onCancelHome = (e) => {
+  onCancelSignup = (e) => {
       e.preventDefault();
   }
 
-  onSubmitHome = (e) => {
+  onSubmitSignup = (e) => {
       e.preventDefault();
-      let formData = document.querySelector('#surveyForm');
+      let formData = document.querySelector('#signupForm');
       let data = getFormData(formData, {trim: true});
-      let surveyResults = [];
-      //let form = this.state.form;
-      //let qcount = _.size(form.questions);
+      let signup = signup || {};
 
+      signup.language = data['language'];
+      signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
+      signup.SUB_TITLE = data['SUB_TITLE'];
 
+      let pageid = data['_id'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
-          let results = {};
-          results.surveyresults = surveyResults;
-          //CustomSurveyResultsActions.saveSurveyResults(results);
+          LanguageActions.updatePageKeys(pageid, 'signup', signup);
+          console.log(JSON.stringify(signup));
       }
   }
 
   render() {
-      
+
+      let pagedata = this.props.pagedata;
+      console.log(pagedata);
+
+
       return (
       <div className="container">
-        <h2>Signup page details</h2>
-        <form id="homepageForm">
-          <input type="hidden" name="pageid" value="" />
-          <input type="hidden" name="language" value="" />
+        <h2>Signup page details - {pagedata._id}</h2>
+        <h2>{pagedata.SIGNUP_TITLE}</h2>
+        <form id="signupForm">
+          <input type="hidden" name="_id" value={pagedata._id} />
+          <input type="hidden" name="language" value={pagedata.language} />
           <br/>
           <div className="form-group">
-            <input type="text" name="" />
+            <label>SIGNUP_TITLE</label>&nbsp;&nbsp;
+            <input type="text" value={pagedata.SIGNUP_TITLE} />
+            <textarea name="SIGNUP_TITLE">{pagedata.SIGNUP_TITLE}</textarea>
+          </div>
+          <div className="form-group">
+            <label>SUB_TITLE</label>&nbsp;&nbsp;
+            <input type="text" value={pagedata.SUB_TITLE} />
+            <textarea name="SUB_TITLE">{pagedata.SUB_TITLE}</textarea>
+          </div>
+          <div className="form-group">
             <br/><br/>
-            <button className="btn btn-danger" onClick={this.onCancelHome}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-primary" onClick={this.onSubmitHome}>Submit</button>
+            <button className="btn btn-danger" onClick={this.onCancelSignup}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button className="btn btn-primary" onClick={this.onSubmitSignup}>Submit</button>
           </div>
         </form>
       </div>

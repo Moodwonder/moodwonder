@@ -28,14 +28,14 @@ const utils = {
     });
   },
 
-  updatePageKeys: (id, data) => {
+  updatePageKeys: (id, page, data) => {
       return $.ajax({
       url: '/updatepagekeys',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({id: id, data: JSON.stringify(data)})
+      data: JSON.stringify({id: id, page: page, data: JSON.stringify(data)})
     });
-  },
+  }
 
 };
 

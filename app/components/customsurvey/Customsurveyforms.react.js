@@ -50,7 +50,7 @@ export default class Customsurveyforms extends React.Component {
       let id = e.target.id;
       CustomSurveyActions.deleteForm(id);
   }
-  
+
   onTakeASurvey = (e) => {
       e.preventDefault();
       let id = e.target.id;

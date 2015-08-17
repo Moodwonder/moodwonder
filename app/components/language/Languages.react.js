@@ -6,7 +6,7 @@ import LanguageStore from 'stores/LanguageStore';
 import Languageoptions from 'components/language/Languageoptions.react';
 import Homepage from 'components/language/Homepage.react';
 import Signuppage from 'components/language/Signuppage.react';
-import _ from 'underscore';
+import Loginpage from 'components/language/Loginpage.react';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
@@ -82,9 +82,11 @@ export default class Languages extends React.Component {
       let page = this.state.page;
       let language = this.state.language;
       let contents = '';
-      let fields = '';
       let pagekeys = pagekeys || {};
       pagekeys.pagekey = pagedata;
+      console.log(page);
+      console.log(language);
+      console.log(pagedata);
 
       switch(page){
           case 'home':
@@ -92,11 +94,11 @@ export default class Languages extends React.Component {
               break;
 
           case 'signup':
-              contents = (<Signuppage />);
+              contents = (<Signuppage pagedata={pagekeys.pagekey}/>);
               break;
 
           case 'login':
-              contents = (<Signuppage />);
+              contents = (<Loginpage pagedata={pagekeys.pagekey}/>);
               break;
 
           default: break;

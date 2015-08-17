@@ -51,9 +51,9 @@ class LanguageActions {
       this.dispatch(data);
   }
 
-  updatePageKeys (id, data) {
+  updatePageKeys (id, page, data) {
       this.dispatch();
-      LanguageWebAPIUtils.updatePageKeys(id, data)
+      LanguageWebAPIUtils.updatePageKeys(id, page, data)
       .then((response, textStatus) => {
           if (textStatus === 'success') {
               this.actions.pagekeyssuccess(true);

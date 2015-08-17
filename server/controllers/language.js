@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Languages = require('../models/languages');
 var Homepage = require('../models/homepage');
 var Signuppage = require('../models/signuppage');
+var Loginpage = require('../models/loginpage');
 
 /**
  * Add new language
@@ -89,6 +90,11 @@ exports.getPage = function (req, res) {
 //            });
             break;
 
+        case 'login':
+            modelObj = {};
+            modelObj = Loginpage;
+            break;
+
         default:
             //modelObj = Homepage;
             break;
@@ -104,6 +110,7 @@ exports.getPage = function (req, res) {
             response.status = 'failure';
             response.pagedata = [];
         }
+        //console.log(response);
         res.send(response);
         res.end();
     });
@@ -117,21 +124,54 @@ exports.getPage = function (req, res) {
  */
 exports.updatePageKeys = function (req, res) {
 
-    var data = JSON.parse(req.body.data);
-    //var _id = mongoose.Types.ObjectId('55cdddddba6a1767742a4a1d');
+    var page = req.body.page;
     var id = mongoose.Types.ObjectId(req.body.id);
-    var language = data.language;
-    var items = data.items;
+    var data = JSON.parse(req.body.data);
 
-    console.log(id);
-    console.log(items);
-    console.log(language);
+
+    console.log('page');
+    console.log(page);
+
 
     var condition = {_id: id};
-    var update = {language: language, items: items};
+    var update = {};
     var options = {multi: false};
 
-    Homepage.update(condition, update, options, function (err) {
+    switch (page) {
+
+        case 'home':
+            modelObj = {};
+            modelObj = Homepage;
+            update = {}
+            update = {language: data.language, items: data.items};
+            break;
+
+        case 'signup':
+            modelObj = {};
+            modelObj = Signuppage;
+            update = {}
+            update = {SIGNUP_TITLE: data.SIGNUP_TITLE, SUB_TITLE: data.SUB_TITLE};
+            break;
+            
+        case 'login':
+            modelObj = {};
+            modelObj = Loginpage;
+            update = {}
+            update = {
+                      LOIGN_TITLE: data.LOIGN_TITLE, 
+                      USERNAME: data.USERNAME,
+                      PASSWORD: data.PASSWORD,
+                      FORGOT_PASSWORD: data.FORGOT_PASSWORD
+                     };
+            break;
+
+        default:
+            //modelObj = Homepage;
+            break;
+
+    }
+
+    modelObj.update(condition, update, options, function (err) {
         var response = {};
         if (!err) {
             response.status = 'success';

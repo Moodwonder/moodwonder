@@ -3,11 +3,11 @@ import Immutable from 'immutable';
 
 export default class Index extends React.Component {
   constructor(props) {
-    super(props);
+      super(props);
   }
 
   render() {
-    return (
+      return (
       <div className="container">
         <h1>Moodwonder</h1>
       </div>
