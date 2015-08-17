@@ -18,14 +18,14 @@ export default function UniversalRenderer(alt, routes, html) {
     if (typeof window === 'undefined') {
 
         if (html) {
-              render = (state, url) => {
-                  const markup = renderToMarkup(alt, routes, state, url);
-                  return html.replace('CONTENT', markup);
-              };
+            render = (state, url) => {
+                const markup = renderToMarkup(alt, routes, state, url);
+                return html.replace('CONTENT', markup);
+            };
         } else {
-              render = (state, url) => {
-                  return renderToMarkup(alt, routes, state, url);
-              };
+            render = (state, url) => {
+                return renderToMarkup(alt, routes, state, url);
+            };
         }
     } else {
         render = Iso.bootstrap((state, _, container) => {
