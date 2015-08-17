@@ -120,7 +120,6 @@ export default class Languages extends React.Component {
           <div className="form-group">
             <label>Select a page:</label>&nbsp;&nbsp;
             <select className="navigation__item" name="page" onChange={this.onSelectPage}>
-              <option value="0">Select one</option>
               <option value="home">Home</option>
               <option value="signup">Signup</option>
               <option value="login">Login</option>
@@ -130,7 +129,6 @@ export default class Languages extends React.Component {
           </div>
         </form>
         <div className="form-group">
-         <span>Page id - {pagekeys.pagekey._id}</span>
          {contents}
         </div>
       </div>

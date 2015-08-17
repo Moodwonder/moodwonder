@@ -56,7 +56,6 @@ export default class Signuppage extends React.Component {
       return (
       <div className="container">
         <h2>Login page details - {pagedata._id}</h2>
-        <h2>{pagedata.LOIGN_TITLE}</h2>
         <form id="signupForm">
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
