@@ -50,6 +50,13 @@ export default class Customsurveyforms extends React.Component {
       let id = e.target.id;
       CustomSurveyActions.deleteForm(id);
   }
+  
+  onTakeASurvey = (e) => {
+      e.preventDefault();
+      let id = e.target.id;
+      //CustomSurveyActions.deleteForm(id);
+      window.location.assign('/takesurvey/' + id);
+  }
 
   render() {
       let forms = this.state.forms;
@@ -61,6 +68,9 @@ export default class Customsurveyforms extends React.Component {
                 <td className="text-center">{form._id}</td>
                 <td className="text-center">{form.surveytitle}</td>
                 <td className="text-center">{form.createddate}</td>
+                <td className="text-center">
+                  <a href="#" onClick={this.onTakeASurvey} id={form._id}>take a survey</a>
+                </td>
                 <td className="text-center">
                   <a href="#" onClick={this.onDeleteForm} id={form._id}>delete</a>
                 </td>
@@ -78,6 +88,7 @@ export default class Customsurveyforms extends React.Component {
                   <th className="text-center">Id</th>
                   <th className="text-center">Title</th>
                   <th className="text-center">Date</th>
+                  <th>&nbsp;</th>
                   <th>&nbsp;</th>
                 </tr>
               </thead>

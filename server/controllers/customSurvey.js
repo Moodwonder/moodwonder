@@ -61,10 +61,10 @@ exports.deleteForm = function (req, res) {
  */
 exports.getSurveyForm = function (req, res) {
     //var _id = mongoose.Types.ObjectId('55c2095cf4c9dcbd398b980e');
-    var _id = mongoose.Types.ObjectId('55c1d17afb9268842662ead3');
     //var _id = mongoose.Types.ObjectId('55c33e2e1b7da50e28954600');
+    var id = mongoose.Types.ObjectId(req.query.id);
     
-    CustomSurvey.findOne({_id: _id}).exec(function (err, form) {
+    CustomSurvey.findOne({_id: id}).exec(function (err, form) {
         var response = {};
         if (!err) {
             response.status = 'success';

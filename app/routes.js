@@ -32,7 +32,7 @@ const routes = (
     <Route name="createpassword/:hash" handler={CreatePassword} />
     <Route name="customsurvey" handler={Customsurvey} />
     <Route name="surveyforms" handler={Surveyforms} />
-    <Route name="takesurvey" handler={Takesurvey} />
+    <Route name="takesurvey/:key" handler={Takesurvey} />
     <Route name="survey" handler={Survey} />
     <Route name="myprofile" handler={MyProfile} />
     <Route name="myteam" handler={MyTeam} />

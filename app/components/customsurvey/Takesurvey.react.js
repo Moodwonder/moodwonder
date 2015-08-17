@@ -21,8 +21,11 @@ export default class Takesurvey extends React.Component {
   }
 
   componentDidMount() {
-      CustomSurveyActions.getSurveyForm();
+      let id = this.props.params.key;
+      CustomSurveyActions.getSurveyForm(id);
       CustomSurveyStore.listen(this._onChange);
+      //console.log('this.props.params.key');
+      //console.log(this.props.params.key);
   }
 
   componentWillUnmount() {
@@ -73,6 +76,7 @@ export default class Takesurvey extends React.Component {
       if (window.confirm('Are you sure you want to submit survey details ?')) {
           let results = {};
           results.surveyresults = surveyResults;
+          console.log(results);
           CustomSurveyResultsActions.saveSurveyResults(results);
       }
   }

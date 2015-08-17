@@ -28,11 +28,12 @@ const utils = {
     });
   },
 
-  getSurveyForm: () => {
+  getSurveyForm: (id) => {
       return $.ajax({
       url: '/getsurveyform',
       type: 'GET',
-      contentType: 'application/json'
+      //contentType: 'application/json',
+      data: {id: id}
     });
   },
 

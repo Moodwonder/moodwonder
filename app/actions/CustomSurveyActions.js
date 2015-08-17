@@ -35,9 +35,9 @@ class CustomSurveyActions {
       this.dispatch(data);
   }
 
-  getSurveyForm () {
+  getSurveyForm (id) {
       this.dispatch();
-      CustomSurveyWebAPIUtils.getSurveyForm()
+      CustomSurveyWebAPIUtils.getSurveyForm(id)
       .then((response, textStatus) => {
           if (response.status === 'success') {
               this.actions.handlesurveyform(response.form);
