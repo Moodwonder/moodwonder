@@ -60,12 +60,14 @@ export default class MyCompanyInfo extends React.Component {
 
       renderedResult = (
       <div className="container">
-        <ul className="pagination">
-          <li><a href="/survey">Survey</a></li>
-          <li><a href="/myprofile">My Profile</a></li>
-          <li><a href="/mycompany">My Company</a></li>
-          <li><a href="/mymanager">My Manager</a></li>
-        </ul>
+          <ul className="pagination">
+            <li><a href="/survey">Survey</a></li>
+            <li><a href="/myprofile">My Profile</a></li>
+            <li><a href="/mycompany">My Company</a></li>
+            <li><a href="/mymanager">My Manager</a></li>
+            <li><a href="/myteam">My Teams</a></li>
+          </ul>
+
         <h2>My Company Info</h2>
         {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >

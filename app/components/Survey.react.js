@@ -68,7 +68,10 @@ export default class Survey extends React.Component {
             <li><a href="/survey">Survey</a></li>
             <li><a href="/myprofile">My Profile</a></li>
             <li><a href="/mycompany">My Company</a></li>
+            <li><a href="/mymanager">My Manager</a></li>
+            <li><a href="/myteam">My Teams</a></li>
           </ul>
+
           {message}
           <ul className="list-group">
             {items}
