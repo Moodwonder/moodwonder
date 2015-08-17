@@ -9,64 +9,64 @@ import mixins from 'es6-mixins';
 export default class Login extends React.Component {
 
   constructor(props) {
-    super(props);
-    mixins(Navigation, this);
-    this.state = UserStore.getState();
-    this.state.canSubmit = false;
-    this.validationErrors = {};
+      super(props);
+      mixins(Navigation, this);
+      this.state = UserStore.getState();
+      this.state.canSubmit = false;
+      this.validationErrors = {};
   }
 
   componentDidMount() {
-    UserStore.listen(this._onChange);
+      UserStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
-    UserStore.unlisten(this._onChange);
+      UserStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
-    this.setState({canSubmit: true});
+      this.setState({canSubmit: true});
   }
 
   disableButton = () => {
-    this.setState({canSubmit: false});
+      this.setState({canSubmit: false});
   }
 
   _onChange = (state) => {
-    this.setState(state);
-    if(this.state.isLoggedIn){
-		window.location.assign('/survey');
-       //this.context.router.transitionTo('/survey');
-    }
+      this.setState(state);
+      if(this.state.isLoggedIn){
+          window.location.assign('/survey');
+          //this.context.router.transitionTo('/survey');
+      }
   }
 
   _onLoginSubmit = (model) => {
-    var email = model.email.trim();
-    var password = model.password.trim();
-    UserActions.manuallogin({
-      email: email,
-      password: password
-    });
+      let email = model.email.trim();
+      let password = model.password.trim();
+      UserActions.manuallogin({
+        email: email,
+        password: password
+      });
   }
 
   render() {
-    let renderedResult;
-    let message;
+      let renderedResult;
+      let message;
 
-    if (this.state.isLoggedIn) {
-        let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        renderedResult = (
-          <div className="container">
-            <h2 className="login__header">Welcome {currentUser.name}</h2>
-          </div>
-        );
+      if (this.state.isLoggedIn) {
+          let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+          renderedResult = (
+            <div className="container">
+              <h2 className="login__header">Welcome {currentUser.name}</h2>
+            </div>
+          );
 
-    }else {
-        if (this.state.isLogginWaiting) {
-            message = (<h3 className="login__header">Processing...</h3>);
-        }
+      }else {
+          if (this.state.isLogginWaiting) {
+              message = (<h3 className="login__header">Processing...</h3>);
+          }
 
-        renderedResult = (
+          renderedResult = (
           <div className="container">
             <h2>Login here..</h2>
             {message}
@@ -86,18 +86,18 @@ export default class Login extends React.Component {
                    validationError="This is not a valid email"
                    required/>
                    <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
-                   <div class="form-group" ><a href="/forgotpassword" >Forgot password</a></div>
+                   <div className="form-group" ><a href="/forgotpassword" >Forgot password</a></div>
                 </Formsy.Form>
           </div>
         );
 
-    }
+      }
 
-    return (
-        <div className="login">
-          {renderedResult}
-        </div>
-    );
+      return (
+          <div className="login">
+            {renderedResult}
+          </div>
+      );
 
   }
 }
