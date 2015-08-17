@@ -70,7 +70,8 @@ export default class Homepage extends React.Component {
                <div className="form-group" id={index}>
                  <label>{index}&nbsp;:&nbsp;</label>&nbsp;&nbsp;
                  <label>{item.item_key}</label>&nbsp;&nbsp;
-                 <textarea name={item.item_key}>{item.item_value}</textarea>&nbsp;&nbsp;
+                 <input value={item.item_value} />&nbsp;&nbsp;
+                 <textarea name={item.item_key}></textarea>&nbsp;&nbsp;
                  <label>{item.description}</label>
                  <input type="hidden" name="description" value={item.description} />
                  <br/>
