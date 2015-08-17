@@ -4,7 +4,7 @@ import Navigation from 'components/Navigation.react';
 
 export default class App extends React.Component {
   render() {
-    return (
+      return (
       <div>
         <Navigation />
         <RouteHandler />
