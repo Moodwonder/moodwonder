@@ -26,7 +26,16 @@ const utils = {
       contentType: 'application/json',
       data: data
     });
-  }
+  },
+
+  updatePageKeys: (id, data) => {
+      return $.ajax({
+      url: '/updatepagekeys',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({id: id, data: JSON.stringify(data)})
+    });
+  },
 
 };
 

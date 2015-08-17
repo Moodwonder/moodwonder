@@ -4,6 +4,7 @@
 var express = require('express');
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
+ var invitation = require('../controllers/invitation');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Header = require('../../public/assets/header.server');
@@ -41,6 +42,7 @@ module.exports = function(app, passport) {
   app.post('/addlanguage', language.addLanguage);
   app.get('/getlanguages', language.getLanguages);
   app.get('/getpage', language.getPage);
+  app.post('/updatepagekeys', language.updatePageKeys);
 
   app.get('*', function (req, res, next) {
 

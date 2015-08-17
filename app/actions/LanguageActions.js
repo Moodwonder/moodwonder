@@ -51,6 +51,22 @@ class LanguageActions {
       this.dispatch(data);
   }
 
+  updatePageKeys (id, data) {
+      this.dispatch();
+      LanguageWebAPIUtils.updatePageKeys(id, data)
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.pagekeyssuccess(true);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  pagekeyssuccess (data) {
+      this.dispatch(data);
+  }
+
 
 }
 

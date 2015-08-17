@@ -112,6 +112,40 @@ exports.getPage = function (req, res) {
 
 };
 
+/**
+ * Update page keys
+ */
+exports.updatePageKeys = function (req, res) {
+
+    var data = JSON.parse(req.body.data);
+    //var _id = mongoose.Types.ObjectId('55cdddddba6a1767742a4a1d');
+    var id = mongoose.Types.ObjectId(req.body.id);
+    var language = data.language;
+    var items = data.items;
+
+    console.log(id);
+    console.log(items);
+    console.log(language);
+
+    var condition = {_id: id};
+    var update = {language: language, items: items};
+    var options = {multi: false};
+
+    Homepage.update(condition, update, options, function (err) {
+        var response = {};
+        if (!err) {
+            response.status = 'success';
+        } else {
+            response.status = 'failure';
+        }
+        console.log(response);
+        res.json(response);
+        res.end();
+    });
+
+
+};
+
 
 
 
