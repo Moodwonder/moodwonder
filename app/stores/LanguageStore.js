@@ -9,7 +9,7 @@ class LanguageStore {
 
       this.languages = [];//Immutable.Map({});
       this.home = [];
-      this.pagedata = Immutable.Map({});;
+      this.pagedata = Immutable.Map({});
 
       this.bindListeners({
           handleAddLanguage: LanguageActions.ADDLANGUAGESUCCESS,
