@@ -53,6 +53,18 @@ export default class Login extends React.Component {
       let renderedResult;
       let message;
 
+      if (this.state.message !== '') {
+          message = (
+                <div className="login__container">
+                      <fieldset className="login__fieldset">
+                         <div className="alert alert-info">
+                              {this.state.message}
+                         </div>
+                      </fieldset>
+                </div>
+            );
+      }
+
       if (this.state.isLoggedIn) {
           let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
           renderedResult = (

@@ -82,8 +82,6 @@ export default class Signup extends React.Component {
       let message;
       let multimessages;
 
-      console.log(this.state.messages);
-
       if (this.state.messages) {
 
           multimessages = this.state.messages.map((mes, key) => {
