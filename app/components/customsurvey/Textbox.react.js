@@ -13,7 +13,7 @@ export default class Textbox extends React.Component {
       return (
       <div id={index} key={index} className="container">
         <br/>
-        <span>Textbox - {index}</span>
+        <span>Textbox</span>
       </div>
     );
   }

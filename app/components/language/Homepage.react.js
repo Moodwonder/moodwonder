@@ -11,7 +11,17 @@ export default class Homepage extends React.Component {
   constructor(props) {
       super(props);
       mixins(Navigation, this);
-      //this.state = CustomSurveyStore.getState();
+      this.state = {
+          formstatus: false
+      };
+  }
+
+  componentDidMount() {
+      this.setState({formstatus: false});
+  }
+
+  componentWillUnmount() {
+
   }
 
   onCancelHome = (e) => {
@@ -45,23 +55,30 @@ export default class Homepage extends React.Component {
           results.surveyresults = surveyResults;
           // LanguageActions.updatePageKeys(pageid, JSON.stringify(home));
           LanguageActions.updatePageKeys(pageid, 'home', home);
+          this.setState({formstatus: true});
       }
   }
 
   render() {
 
+      let formstatus = this.state.formstatus;
       let pagedata = this.props.pagedata;
       let fields = '';
-      console.log('id');
-      console.log(pagedata._id);
-
+      let statusmessage = '';
       let qcount = _.size(pagedata.items);
       let items = [];
+
       for(let i = 0; i < qcount; i++ ){
           items.push(pagedata.items[i]);
       }
 
-      console.log(items);
+      if(formstatus) {
+          // statusmessage = 'Form submitted.';
+          statusmessage = (<div className="alert alert-success">
+                            <strong>Success!</strong> Form submitted.
+                           </div>
+                          );
+      }
 
       let index = 0;
       fields = items.map((item) => {
@@ -70,7 +87,8 @@ export default class Homepage extends React.Component {
                <div className="form-group" id={index}>
                  <label>{index}&nbsp;:&nbsp;</label>&nbsp;&nbsp;
                  <label>{item.item_key}</label>&nbsp;&nbsp;
-                 <textarea name={item.item_key}>{item.item_value}</textarea>&nbsp;&nbsp;
+                 <input value={item.item_value} />&nbsp;&nbsp;
+                 <textarea name={item.item_key}></textarea>&nbsp;&nbsp;
                  <label>{item.description}</label>
                  <input type="hidden" name="description" value={item.description} />
                  <br/>
@@ -80,6 +98,7 @@ export default class Homepage extends React.Component {
 
       return (
       <div className="container">
+        {statusmessage}
         <h2>Home page details - {pagedata._id}</h2>
         <form id="homepageForm">
            <input type="hidden" name="_id" value={pagedata._id} />

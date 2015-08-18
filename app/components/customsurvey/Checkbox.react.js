@@ -30,7 +30,7 @@ export default class Checkbox extends React.Component {
       return (
       <div id={index} key={index} className="container">
         <br/>
-        <span>Checkbox option - {index}</span>
+        <span>Checkbox option</span>
         <div className="form-group">
           <input type="checkbox" ref={index} name={index}/>
           <input

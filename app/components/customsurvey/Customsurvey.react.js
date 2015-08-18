@@ -28,7 +28,8 @@ export default class Customsurvey extends React.Component {
         textbox: [],
         tIndex: 1,
         textarea: [],
-        txIndex: 1
+        txIndex: 1,
+        formstatus: false
     };
   }
 
@@ -36,6 +37,7 @@ export default class Customsurvey extends React.Component {
       //console.log(this.state.questions);
       //console.log(this.state.qIndex);
       CustomSurveyStore.listen(this._onChange);
+      this.setState({formstatus: false});
   }
 
   componentWillUnmount() {
@@ -110,6 +112,7 @@ export default class Customsurvey extends React.Component {
       if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
           console.log('yes');
           CustomSurveyActions.createCustomSurveyForm(survey);
+          this.setState({formstatus: true});
       }
   }
 
@@ -280,7 +283,17 @@ export default class Customsurvey extends React.Component {
       let checkbox = this.state.checkbox;
       let textbox = this.state.textbox;
       let textarea = this.state.textarea;
-      console.log(this.state.isSurveyCreated);
+      let formstatus = this.state.formstatus;
+      let statusmessage = '';
+      // console.log(this.state.isSurveyCreated);
+
+      if(formstatus) {
+          // statusmessage = 'Form submitted.';
+          statusmessage = (<div className="alert alert-success">
+                            <strong>Success!</strong> Form submitted.
+                           </div>
+                          );
+      }
 
       let sno = 1;
       let contents = questions.map((qid) => {
@@ -345,8 +358,8 @@ export default class Customsurvey extends React.Component {
       <div className="container">
         <div className="form-group">
           <a href="#" onClick={this.onFormListsClick}>List forms</a>&nbsp;&nbsp;
-          <a href="#" onClick={this.onSurveyClick}>Take a survey</a>
         </div>
+        {statusmessage}
         <h2>Custom Survey Generation.</h2>
         <form id="surveyForm">
           <div className="form-group">

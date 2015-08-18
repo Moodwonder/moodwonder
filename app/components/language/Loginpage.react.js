@@ -62,22 +62,22 @@ export default class Signuppage extends React.Component {
           <br/>
           <div className="form-group">
             <label>LOIGN_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.LOIGN_TITLE} />
+            <input type="text" value={pagedata.LOIGN_TITLE} />&nbsp;&nbsp;
             <textarea name="LOIGN_TITLE">{pagedata.LOIGN_TITLE}</textarea>
           </div>
           <div className="form-group">
             <label>USERNAME</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.USERNAME} />
+            <input type="text" value={pagedata.USERNAME} />&nbsp;&nbsp;
             <textarea name="USERNAME">{pagedata.USERNAME}</textarea>
           </div>
           <div className="form-group">
             <label>PASSWORD</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.PASSWORD} />
+            <input type="text" value={pagedata.PASSWORD} />&nbsp;&nbsp;
             <textarea name="PASSWORD">{pagedata.PASSWORD}</textarea>
           </div>
           <div className="form-group">
             <label>FORGOT_PASSWORD</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.FORGOT_PASSWORD} />
+            <input type="text" value={pagedata.FORGOT_PASSWORD} />&nbsp;&nbsp;
             <textarea name="FORGOT_PASSWORD">{pagedata.FORGOT_PASSWORD}</textarea>
           </div>
           <div className="form-group">
