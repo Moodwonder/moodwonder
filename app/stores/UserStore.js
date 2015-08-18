@@ -27,7 +27,7 @@ class UserStore {
 
       this.bindListeners({
         handleLoginAttempt: UserActions.MANUALLOGIN,
-        handleLoginSuccess: UserActions.LOGINSUCCESS,
+        handleLoginResponse: UserActions.LOGINRESPONSE,
         handleLogoutAttempt: UserActions.LOGOUT,
         handleUserInfoSuccess: UserActions.USERINFOSUCCESS,
         handleCompanyInfoSuccess: UserActions.COMPANYINFOSUCCESS,
@@ -49,12 +49,14 @@ class UserStore {
       this.emitChange();
   }
 
-  handleLoginSuccess (response) {
+  handleLoginResponse (response) {
       this.isLogginWaiting = false;
       this.message = response.message;
       this.isLoggedIn = response.status;
-      sessionStorage.setItem('isAuthenticated', true);
-      sessionStorage.setItem('currentUser', JSON.stringify(response));
+      if(this.isLoggedIn) {
+          sessionStorage.setItem('isAuthenticated', true);
+          sessionStorage.setItem('currentUser', JSON.stringify(response));
+      }
       this.emitChange();
   }
 

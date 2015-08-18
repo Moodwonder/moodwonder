@@ -9,7 +9,7 @@ var validations = require('../controllers/validationRules');
 var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
-
+var emailTemplate = require('../email/emailtemplates');
 
 /**
  *  JSON response format
@@ -43,7 +43,7 @@ exports.sendInvitation = function(req, res, next) {
 		Invite.findOne({email: email}, function(err, existingInvite) {
 		if(existingInvite) {
 			response.status = false;
-			response.message = 'Invitation already sent';
+			response.message = 'Waiting to accept invitation';
 			res.send(response);
 			res.end();
 		}else{
@@ -51,11 +51,17 @@ exports.sendInvitation = function(req, res, next) {
 				if(!err){
 
 					var transporter = nodemailer.createTransport();
+					var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
+					"<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/signup/'+inviteString+
+					"<br><br> Best wishes"+
+					"<br> Moodwonder Team";
+					body = emailTemplate.general(body);
+			
 					transporter.sendMail({
 						from: 'admin@moodewonder.com',
 						to: email,
 						subject: 'Moodwonder invitation',
-						html: "<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/signup/'+inviteString
+						html: body
 					});
 					response.status = true;
 					response.message = 'Invitation sent';

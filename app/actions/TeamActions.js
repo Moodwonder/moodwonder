@@ -13,6 +13,7 @@ class TeamActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.createteamsuccess(response);
+                this.actions.getTeams ();
             }
         }, () => {
         });
@@ -47,6 +48,7 @@ class TeamActions {
       CommonWebAPIUtils.addMemberToMyTeam(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
+                this.actions.getTeams ();
                 this.actions.memberaddsuccess(response);
             }
         }, () => {

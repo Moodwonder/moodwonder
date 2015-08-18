@@ -28,16 +28,16 @@ class SurveyActions {
       SurveyWebAPIUtils.saveEngagementSurveyResult(surveyResult)
       .then((response) => {
           if (response) {
-              this.actions.saveEngagementSuccess();
+              this.actions.savesurveysuccess(response);
           }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
-  saveEngagementSuccess()
+  savesurveysuccess(response)
   {
-      this.dispatch({ 'success': '5' });
+      this.dispatch(response);
   }
 
 }

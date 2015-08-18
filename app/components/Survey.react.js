@@ -42,12 +42,19 @@ export default class Survey extends React.Component {
           });
       }
 
-      if(this.state.message !== ''){
+      if (this.state.hasError) {
           message = (
-              <div className="alert alert-warning">
-                {this.state.message}
-                </div>
-            );
+            <div className="alert alert-warning">
+              {this.state.message}
+            </div>
+          );
+      }
+      else if (this.state.message !== '') {
+          message = (
+            <div className="alert alert-info">
+              {this.state.message}
+            </div>
+          );
       }
 
       let submitButton = '';
