@@ -13,7 +13,7 @@ class UserActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
-                this.actions.loginsuccess(response);
+                this.actions.loginresponse(response);
             }
         }, () => {
             // Dispatch another event for a bad login
@@ -21,7 +21,7 @@ class UserActions {
   }
 
   // Keep this function name in lower case, otherwise it will not be available in 'Store'
-  loginsuccess (response) {
+  loginresponse (response) {
       this.dispatch(response);
   }
 

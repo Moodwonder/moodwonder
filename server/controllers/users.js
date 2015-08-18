@@ -9,6 +9,7 @@ var validations = require('../controllers/validationRules');
 var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
+var emailTemplate = require('../email/emailtemplates');
 
 
 /**
@@ -78,6 +79,7 @@ exports.postLogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if(err) return next(err);
     if(!user) {
+      response.status    = false;
       response.message   = info.message;
       res.send(response);
       res.end();
@@ -145,7 +147,19 @@ exports.getUserInfo = function(req, res) {
  * Get test
  */
 exports.test = function(req, res) {
-	res.send(req);
+				var body = "Hi,<br><br> To complete your registration and verify your email please use the following link"+
+				"<br><b>Click here :</b>"+ 'http://'+req.get('host') +"/createpassword/sdfdsfsdfsdfsdf"+
+				"<br> Best wishes"+
+				"<br> Moodwonder Team";
+    body = emailTemplate.general(body);
+	var transporter = nodemailer.createTransport();
+	transporter.sendMail({
+		from: 'admin@moodewonder.com',
+		to: 'sijo.vijayan@titechnologies.in',
+		subject: 'Test mail',
+		html: body
+	});
+	res.send({});
 };
 
 /**
@@ -191,11 +205,16 @@ exports.postSignupStep1 = function(req, res, next) {
 		    if(!err){
 
 				var transporter = nodemailer.createTransport();
+				var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>"+
+				"<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
+				"<br><br> Best wishes"+
+				"<br> Moodwonder Team";
+				body = emailTemplate.general(body);
 				transporter.sendMail({
 					from: 'admin@moodewonder.com',
 					to: email,
 					subject: 'Create password',
-					html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
+					html: body
 				});
 
 				response.status = true;
@@ -456,7 +475,7 @@ exports.postSaveManagerInfo = function(req, res) {
       if(!err){
 
         response.status    =   true;
-        response.message   =   'User details saved';
+        response.message   =   'Manager info updated';
       }else{
 
         response.status    =   false;
@@ -534,11 +553,17 @@ exports.postForgotPassword = function(req, res) {
 		    if(!err){
 
 			var transporter = nodemailer.createTransport();
+			var body = "Hi,<br><br> To reset your password please use the following link <br>"+
+			"<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
+			"<br><br> Best wishes"+
+			"<br> Moodwonder Team";
+			body = emailTemplate.general(body);
+			
 			transporter.sendMail({
 				from: 'admin@moodewonder.com',
 				to: email,
 				subject: 'Reset password',
-				html: "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring
+				html: body
 			});
 				response.status = true;
 				response.message = 'We have sent you an email with reset password link';
@@ -571,6 +596,10 @@ exports.findUserByEmailId = function(req, res, next) {
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if(existingUser) {
         req.body.searchData = existingUser;
+        next();
+    }else if(req.url === '/savemanagerdetails'){
+        var searchData = { '_id': '0', 'email': req.body.email };
+        req.body.searchData = searchData;
         next();
     }else{
         response.status = false;

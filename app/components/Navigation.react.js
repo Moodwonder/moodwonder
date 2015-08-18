@@ -32,15 +32,21 @@ export default class Navigation extends React.Component {
   render () {
       let loginOrOut;
       if (this.state.user.get('authenticated')) {
-          loginOrOut = (
+          loginOrOut = [
             <li>
                   <Link
                         onClick={this._onLogout}
                         className="navigation__item"
                         to="logout">Logout
                   </Link>
+            </li>,
+            <li>
+                  <Link
+                        className="navigation__item"
+                        to="myprofile">My Account
+                  </Link>
             </li>
-          );
+          ];
       } else {
           loginOrOut = [
               <li><Link className="navigation__item" to="login">Log in</Link></li>,

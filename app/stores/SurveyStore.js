@@ -7,10 +7,12 @@ class SurveyStore {
 
       this.questions = {};
       this.hasQuestions = false;
+      this.hasError = false;
       this.message = '';
 
       this.bindListeners({
-      handleSurveys: SurveyActions.GETQUESTIONS
+      handleSurveys: SurveyActions.GETQUESTIONS,
+      handleSaveSurveys: SurveyActions.SAVESURVEYSUCCESS
     });
   }
 
@@ -19,6 +21,12 @@ class SurveyStore {
       console.log(data);
       this.questions = data;
       this.hasQuestions = true;
+      this.emitChange();
+  }
+
+  handleSaveSurveys (response) {
+      this.message = response.message;
+      this.hasError = !response.status;
       this.emitChange();
   }
 

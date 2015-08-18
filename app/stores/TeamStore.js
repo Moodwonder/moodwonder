@@ -41,7 +41,9 @@ class TeamStore {
       this.isServerCallWaiting    =    false;
       this.hasError               =    !response.status;
       this.hasTeam                =     response.status;
-      this.message                =    response.message;
+      if( this.hasError ||  !this.hasTeam ){
+          this.message            =    response.message;
+      }
       this.teams                  =    response.data;
       this.emitChange();
   }

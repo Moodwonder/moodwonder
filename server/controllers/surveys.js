@@ -26,9 +26,9 @@ exports.saveEngagementSurveyResult = function(req, res) {
   if(req.user._id != '') {
     EngagementResults.create(qry, function (err, candies) {
       if (!err){
-          res.json({'status':true,'message':'query success'});
+          res.json({'status':true,'message':'Your mood is updated'});
       }else{
-          res.json({'status':false,'message':'query failed'});
+          res.json({'status':false,'message':'Error: something went wrong..'});
       }
     });
   }else{
