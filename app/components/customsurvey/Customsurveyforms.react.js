@@ -65,7 +65,6 @@ export default class Customsurveyforms extends React.Component {
       items = forms.map((form) => {
           return (<tr>
                 <td className="text-center">{sno++}</td>
-                <td className="text-center">{form._id}</td>
                 <td className="text-center">{form.surveytitle}</td>
                 <td className="text-center">{form.createddate}</td>
                 <td className="text-center">
@@ -85,7 +84,6 @@ export default class Customsurveyforms extends React.Component {
               <thead>
                 <tr className="info">
                   <th className="text-center">#No</th>
-                  <th className="text-center">Id</th>
                   <th className="text-center">Title</th>
                   <th className="text-center">Date</th>
                   <th>&nbsp;</th>

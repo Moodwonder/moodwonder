@@ -158,7 +158,7 @@ export default class Takesurvey extends React.Component {
 
       return (
       <div className="container">
-        <h2>{form.surveytitle} - {form._id}</h2>
+        <h2>{form.surveytitle}</h2>
         <form id="surveyForm">
           <input type="hidden" name="surveyid" value={form._id} />
           <input type="hidden" name="surveytitle" value={form.surveytitle} />
