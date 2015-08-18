@@ -69,10 +69,12 @@ export default class MyTeam extends React.Component {
                        </ul>
                   );
               });
-              return (
+              return [
+                  <li className="list-group-item">{data.name}</li>,
                   <li className="list-group-item">
-                      <div className="row">{data.name}</div>
-                      <Formsy.Form onValidSubmit={this._onAddMemberSubmit} >
+                    <div className="row">
+                      <div className="col-sm-4">
+                        <Formsy.Form onValidSubmit={this._onAddMemberSubmit} >
 
                           <MyOwnInput
                           name="membername"
@@ -89,9 +91,13 @@ export default class MyTeam extends React.Component {
                           <button type="submit" className="btn btn-default"
                           disabled={!this.state.canSubmitAddMember}>Submit</button>
                           {members}
-                      </Formsy.Form>
+                        </Formsy.Form>
+                      </div>
+                      <div className="col-sm-4"></div>
+                      <div className="col-sm-4"></div>
+                    </div>
                   </li>
-              );
+              ];
           });
       }
 
@@ -135,9 +141,12 @@ export default class MyTeam extends React.Component {
       return (
             <div className="login">
               {renderedResult}
-             <ul className="list-group">
-              {teamUserList}
-             </ul>
+            <br></br>
+            <div className="container">
+              <ul className="list-group">
+                {teamUserList}
+              </ul>
+            </div>
             </div>
       );
 

@@ -48,7 +48,7 @@ class SignupStore {
           this.notificationReact.message = this.message;
           this.notificationReact.isActive = true;
       }
-      if (response.messages.constructor === Array) {
+      if (response.messages !== undefined && response.messages.constructor === Array) {
           this.messages = response.messages;
       }
       this.emitChange();

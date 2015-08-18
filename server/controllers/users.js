@@ -182,7 +182,7 @@ exports.postSignupStep1 = function(req, res, next) {
   var type = req.body.type;
 
   if (type == 'forgotpassword') {
-	console.log('------'+type);
+    // console.log('------'+type);
     next();
     return;
   }
@@ -566,7 +566,7 @@ exports.postForgotPassword = function(req, res) {
 				html: body
 			});
 				response.status = true;
-				response.message = 'We have sent you an email with reset password link';
+				response.message = 'Please check  your email for resetting password"';
 				res.send(response);
 				res.end();
 			}else{
