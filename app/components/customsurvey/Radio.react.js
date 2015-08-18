@@ -31,7 +31,7 @@ export default class Radio extends React.Component {
       return (
       <div id={index} key={index} className="container">
         <br/>
-        <span>Radio option - {index}</span>
+        <span>Radio option</span>
         <div className="form-group">
           <input type="radio" ref={index} name={index}/>
           <input

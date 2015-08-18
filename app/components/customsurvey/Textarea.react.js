@@ -13,7 +13,7 @@ export default class Textarea extends React.Component {
       return (
       <div id={index} key={index} className="container">
         <br/>
-        <span>Textarea - {index}</span>
+        <span>Textarea</span>
       </div>
     );
   }
