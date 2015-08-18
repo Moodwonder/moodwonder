@@ -38,7 +38,7 @@ export default class Homepage extends React.Component {
 
       return (
       <div className="container">
-        <h2>Signup page details - {pagedata._id}</h2>
+        <h2>Home page details</h2>
         <form id="homeForm">
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
