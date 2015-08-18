@@ -1,9 +1,9 @@
 import React from 'react';
 // import Validation, { Validator } from 'rc-form-validation';
-import getFormData from 'get-form-data';
+// import getFormData from 'get-form-data';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import LanguageActions from 'actions/LanguageActions';
+// import LanguageActions from 'actions/LanguageActions';
 
 export default class Signuppage extends React.Component {
 
@@ -29,23 +29,28 @@ export default class Signuppage extends React.Component {
 
   onSubmitLogin = (e) => {
       e.preventDefault();
-      let formData = document.querySelector('#signupForm');
-      let data = getFormData(formData, {trim: true});
-      let login = login || {};
-
-      login.language = data['language'];
-      login.LOIGN_TITLE = data['LOIGN_TITLE'];
-      login.USERNAME = data['USERNAME'];
-      login.PASSWORD = data['PASSWORD'];
-      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
-
-      let pageid = data['_id'];
-
-      if (window.confirm('Are you sure you want to submit the changes ?')) {
-          LanguageActions.updatePageKeys(pageid, 'login', login);
-          console.log(JSON.stringify(login));
-      }
+      this.props.onClick(this);
   }
+
+//  onSubmitLogin = (e) => {
+//      e.preventDefault();
+//      let formData = document.querySelector('#signupForm');
+//      let data = getFormData(formData, {trim: true});
+//      let login = login || {};
+//
+//      login.language = data['language'];
+//      login.LOIGN_TITLE = data['LOIGN_TITLE'];
+//      login.USERNAME = data['USERNAME'];
+//      login.PASSWORD = data['PASSWORD'];
+//      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
+//
+//      let pageid = data['_id'];
+//
+//      if (window.confirm('Are you sure you want to submit the changes ?')) {
+//          LanguageActions.updatePageKeys(pageid, 'login', login);
+//          console.log(JSON.stringify(login));
+//      }
+//  }
 
   render() {
 

@@ -1,9 +1,7 @@
 import React from 'react';
 // import Validation, { Validator } from 'rc-form-validation';
-import getFormData from 'get-form-data';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import LanguageActions from 'actions/LanguageActions';
 
 export default class Signuppage extends React.Component {
 
@@ -29,21 +27,9 @@ export default class Signuppage extends React.Component {
 
   onSubmitSignup = (e) => {
       e.preventDefault();
-      let formData = document.querySelector('#signupForm');
-      let data = getFormData(formData, {trim: true});
-      let signup = signup || {};
-
-      signup.language = data['language'];
-      signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
-      signup.SUB_TITLE = data['SUB_TITLE'];
-
-      let pageid = data['_id'];
-
-      if (window.confirm('Are you sure you want to submit the changes ?')) {
-          LanguageActions.updatePageKeys(pageid, 'signup', signup);
-          console.log(JSON.stringify(signup));
-      }
+      this.props.onClick(this);
   }
+
 
   render() {
 

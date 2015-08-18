@@ -143,7 +143,7 @@ exports.updatePageKeys = function (req, res) {
             modelObj = {};
             modelObj = Homepage;
             update = {}
-            update = {language: data.language, items: data.items};
+            update = {HOME_TITLE: data.HOME_TITLE};
             break;
 
         case 'signup':

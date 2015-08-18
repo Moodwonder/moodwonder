@@ -18,6 +18,7 @@ export default class Languages extends React.Component {
       this.state = {
          page: 'home',
          language: 'english',
+         formstatus: false,
          pagedata: LanguageStore.getState().pagedata
      };
   }
@@ -31,6 +32,7 @@ export default class Languages extends React.Component {
       //this.setState({page: 'home'});
       //this.setState({language: 'engligh'});
       LanguageActions.getPage({page: this.state.page, language: this.state.language});
+      this.setState({formstatus: false});
   }
 
   componentWillUnmount() {
@@ -67,6 +69,7 @@ export default class Languages extends React.Component {
       let language = e.target.value;
       LanguageActions.getPage({page: this.state.page, language: language});
       this.setState({language: language});
+      this.setState({formstatus: false});
   }
 
   onSelectPage = (e, child) => {
@@ -76,33 +79,98 @@ export default class Languages extends React.Component {
       this.setState({page: page});
   }
 
+  /**
+   * Signup page submit
+   */
+  onSubmitSignup = (e) => {
+      let formData = document.querySelector('#signupForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let signup = signup || {};
+
+      signup.language = data['language'];
+      signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
+      signup.SUB_TITLE = data['SUB_TITLE'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          LanguageActions.updatePageKeys(pageid, 'signup', signup);
+          this.setState({formstatus: true});
+      }
+  }
+
+  /**
+   * Home page submit
+   */
+  onSubmitHome = (e) => {
+      let formData = document.querySelector('#homeForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let home = home || {};
+
+      home.language = data['language'];
+      home.HOME_TITLE = data['HOME_TITLE'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          LanguageActions.updatePageKeys(pageid, 'home', home);
+          this.setState({formstatus: true});
+      }
+  }
+
+  /**
+   * Login page submit
+   */
+  onSubmitLogin = (e) => {
+      let formData = document.querySelector('#signupForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let login = login || {};
+
+      login.language = data['language'];
+      login.LOIGN_TITLE = data['LOIGN_TITLE'];
+      login.USERNAME = data['USERNAME'];
+      login.PASSWORD = data['PASSWORD'];
+      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          LanguageActions.updatePageKeys(pageid, 'login', login);
+          this.setState({formstatus: true});
+      }
+  }
+
   render() {
       let languages = this.state.languages;
       let pagedata = this.state.pagedata;
       let page = this.state.page;
-      let language = this.state.language;
+      // let language = this.state.language;
+      let formstatus = this.state.formstatus;
       let contents = '';
       let pagekeys = pagekeys || {};
       pagekeys.pagekey = pagedata;
-      console.log(page);
-      console.log(language);
-      console.log(pagedata);
+      let statusmessage = '';
+
+      if(formstatus) {
+          statusmessage = (<div className="alert alert-success">
+                            <strong>Success!</strong> Form submitted.
+                           </div>
+                          );
+      }
 
       switch(page){
           case 'home':
-              contents = (<Homepage pagedata={pagekeys.pagekey}/>);
+              contents = (<Homepage pagedata={pagekeys.pagekey} onClick={this.onSubmitHome}/>);
               break;
 
           case 'signup':
-              contents = (<Signuppage pagedata={pagekeys.pagekey}/>);
+              contents = (<Signuppage pagedata={pagekeys.pagekey} onClick={this.onSubmitSignup}/>);
               break;
 
           case 'login':
-              contents = (<Loginpage pagedata={pagekeys.pagekey}/>);
+              contents = (<Loginpage pagedata={pagekeys.pagekey} onClick={this.onSubmitLogin}/>);
               break;
 
           default: break;
       }
+
 
       return (
       <div className="container">
@@ -128,6 +196,9 @@ export default class Languages extends React.Component {
             <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
           </div>
         </form>
+        <div className="form-group">
+         {statusmessage}
+        </div>
         <div className="form-group">
          {contents}
         </div>
