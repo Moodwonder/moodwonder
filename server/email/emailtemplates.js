@@ -2,7 +2,7 @@ const emailtemplates = {
 
 
  mailHeader: "<div style='background-color:#eeeeee'>" +
-    "               <div style='background-color:#00bcd4;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;padding-top:5px;padding-bottom:5px;'>" +
+    "               <div style='background-color:#cccccc;background-image:none;background-repeat:repeat;background-position:top left;background-attachment:scroll;padding-top:5px;padding-bottom:5px;'>" +
                     "<div style='padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto'>" +
                     "<div style='margin-right:-15px;margin-left:-15px;'>" +
                     "<div style='position: relative;min-height: 1px;padding-right: 15px;padding-left: 15px'>" +
@@ -23,7 +23,7 @@ const emailtemplates = {
                     "</div>" +
                     "</div>" +
                     "</div>" +
-                    "<div style='height: auto;background: #fec107;padding: 15px 0px 15px 0px;'>" +
+                    "<div style='height: auto;background: #eeeeee;padding: 15px 0px 15px 0px;'>" +
                     "<div  style='padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto'>" +
                     "<div style='margin-right:-15px;margin-left:-15px;'>" +
                     "<div class='col-md-4 footer-logo'> <a href='#'></div>" +
