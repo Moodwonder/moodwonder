@@ -39,12 +39,6 @@ export default class Navigation extends React.Component {
                         className="navigation__item"
                         to="logout">Logout
                   </Link>
-            </li>,
-            <li>
-                  <Link
-                        className="navigation__item"
-                        to="myprofile">My Account
-                  </Link>
             </li>
           ];
       } else {
@@ -62,12 +56,6 @@ export default class Navigation extends React.Component {
                   <div>
                         <ul className="nav navbar-nav  navbar-right">
                           { loginOrOut }
-                          <li>
-                            <Link to="customsurvey" className="navigation__item">Customsurvey</Link>
-                          </li>
-                          <li>
-                            <Link to="languages" className="navigation__item">Languages</Link>
-                          </li>
                           <li>
                               <a className="navigation__item">
                               <select className="navigation__item">

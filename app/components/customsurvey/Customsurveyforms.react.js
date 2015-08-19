@@ -4,7 +4,7 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyFormsStore from 'stores/CustomSurveyFormsStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-
+import Submenu from 'components/Submenu.react';
 
 export default class Customsurveyforms extends React.Component {
 
@@ -79,6 +79,10 @@ export default class Customsurveyforms extends React.Component {
 
       return (
       <div className="container">
+      <Submenu />
+        <div className="form-group">
+          <a href="/customsurvey" >Create survey</a>
+        </div>
         <h2>Survey Forms.</h2>
             <table className="table table-striped table-hover">
               <thead>

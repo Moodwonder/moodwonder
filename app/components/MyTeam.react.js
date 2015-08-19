@@ -4,6 +4,7 @@ import TeamStore from 'stores/TeamStore';
 import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import Submenu from 'components/Submenu.react';
 
 export default class MyTeam extends React.Component {
 
@@ -111,13 +112,7 @@ export default class MyTeam extends React.Component {
 
       renderedResult = (
         <div className="container">
-            <ul className="pagination">
-              <li><a href="/survey">Survey</a></li>
-              <li><a href="/myprofile">My Profile</a></li>
-              <li><a href="/mycompany">My Company</a></li>
-              <li><a href="/mymanager">My Manager</a></li>
-              <li><a href="/myteam">My Teams</a></li>
-            </ul>
+            <Submenu />
             <h2>My Team</h2>
             {message}
                   <Formsy.Form onValidSubmit={this._onSaveSubmit}
