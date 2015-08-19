@@ -5,6 +5,7 @@ import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
+import Editable from 'components/Editable.react';
 
 export default class MyTeam extends React.Component {
 
@@ -14,6 +15,8 @@ export default class MyTeam extends React.Component {
       this.state = TeamStore.getState();
       this.state.canSubmit  = false;
       this.state.canSubmitAddMember = true;
+      this.state.CreateTeamForm = false;
+      this.state.EditUI = false;
       this.validationErrors = {};
   }
 
@@ -43,6 +46,10 @@ export default class MyTeam extends React.Component {
       TeamActions.createTeam(model);
   }
 
+  _onUpdateTeamName = (model) => {
+      TeamActions.updateTeam(model);
+  }
+
   _onAddMemberSubmit = (model) => {
       TeamActions.addMemberToTeam(model);
   }
@@ -51,9 +58,13 @@ export default class MyTeam extends React.Component {
       TeamActions.removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id });
   }
 
+  showCreateTeamForm = () => {
+      this.setState({CreateTeamForm: true});
+  }
+
   render() {
 
-      let renderedResult;
+      let CreateTeamUI;
 
       let message;
 
@@ -71,7 +82,9 @@ export default class MyTeam extends React.Component {
                   );
               });
               return [
-                  <li className="list-group-item">{data.name}</li>,
+                  <li className="list-group-item">
+                   <Editable onSave={this._onUpdateTeamName} teamid={data._id} value={data.name} />
+                  </li>,
                   <li className="list-group-item">
                     <div className="row">
                       <div className="col-sm-4">
@@ -94,8 +107,7 @@ export default class MyTeam extends React.Component {
                           {members}
                         </Formsy.Form>
                       </div>
-                      <div className="col-sm-4"></div>
-                      <div className="col-sm-4"></div>
+                      <div className="col-sm-8"></div>
                     </div>
                   </li>
               ];
@@ -110,39 +122,58 @@ export default class MyTeam extends React.Component {
           );
       }
 
-      renderedResult = (
-        <div className="container">
-            <Submenu />
-            <h2>My Team</h2>
-            {message}
-                  <Formsy.Form onValidSubmit={this._onSaveSubmit}
-                   onValid={this.enableButton}
-                    onInvalid={this.disableButton} >
+      if (this.state.CreateTeamForm) {
+          CreateTeamUI = (
+              <div className="col-sm-6">
+              <ul className="list-group">
+              <li className="list-group-item">
+              <Formsy.Form onValidSubmit={this._onSaveSubmit}
+                onValid={this.enableButton}
+                onInvalid={this.disableButton} >
 
-                     <MyOwnInput
-                     name="teamname"
-                     className="form-control"
-                     placeholder="My team name"
-                     validationError="Team name is required"
-                     required/>
+                 <MyOwnInput
+                 name="teamname"
+                 className="form-control"
+                 placeholder="My team name"
+                 validationError="Team name is required"
+                 required/>
 
-                     <button type="submit" className="btn btn-default"
-                     disabled={!this.state.canSubmit}>Submit</button>
-                  </Formsy.Form>
-        </div>
-      );
-
+                 <button type="submit" className="btn btn-default"
+                 disabled={!this.state.canSubmit}>Submit</button>
+              </Formsy.Form>
+              </li>
+              </ul>
+              </div>
+          );
+      }
 
       return (
+        <div className="container">
+          <Submenu />
+          <h2>MY TEAM</h2>
+          <div className="well">
+            <div className="row">
+              <div className="col-sm-6">To fully utilize moodwonder, We recommed that you setup your suboridinates</div>
+              <div className="col-sm-4"><button type="button" onClick={this.showCreateTeamForm} className="btn btn-primary">Create Team</button></div>
+            </div>
+
             <div className="login">
-              {renderedResult}
+              {message}
+              <br></br>
+            <div className="row">
+              {CreateTeamUI}
+            </div>
             <br></br>
-            <div className="container">
+            <div className="row">
+              <div className="col-sm-6">
               <ul className="list-group">
                 {teamUserList}
               </ul>
             </div>
             </div>
+            </div>
+        </div>
+        </div>
       );
 
   }

@@ -73,6 +73,44 @@ exports.createTeam = function(req, res, next) {
 };
 
 /**
+ * Update team name
+ *
+ * Accept : -  @teamname,@teamid
+ */
+exports.updateTeam = function(req, res, next) {
+
+  var teamname = req.body.teamname;
+  var teamid   = req.body.teamid;
+
+  var where = { "_id" : new ObjectId(teamid), "manager_id" : new ObjectId(req.user._id) };
+  // console.log(where);
+
+  Team.findOne(where, function(err, existingTeam) {
+    if(existingTeam) {
+		Team.update(where,{ "teamname": teamname },function(err){
+			if(err){
+				response.status = false;
+				response.message = "Something went wrong";
+				res.send(response);
+				res.end();
+			}else{
+				response.status = true;
+				response.message = "Team name updated";
+				res.send(response);
+				res.end();
+			}
+		});
+    }else{
+        response.status = false;
+        response.message = "You don't have permission to change this team name";
+        res.send(response);
+        res.end();
+    }
+  });
+
+};
+
+/**
  * get my teams
  *
  */
