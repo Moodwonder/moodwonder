@@ -11,6 +11,7 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import Submenu from 'components/Submenu.react';
 
 export default class Takesurvey extends React.Component {
 
@@ -158,6 +159,7 @@ export default class Takesurvey extends React.Component {
 
       return (
       <div className="container">
+      <Submenu />
         <h2>{form.surveytitle}</h2>
         <form id="surveyForm">
           <input type="hidden" name="surveyid" value={form._id} />

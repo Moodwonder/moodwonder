@@ -1,6 +1,7 @@
 import React from 'react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
+import Submenu from 'components/Submenu.react';
 
 export default class Survey extends React.Component {
 
@@ -71,14 +72,7 @@ export default class Survey extends React.Component {
 
       return (
         <div className="container Survey-list">
-          <ul className="pagination">
-            <li><a href="/survey">Survey</a></li>
-            <li><a href="/myprofile">My Profile</a></li>
-            <li><a href="/mycompany">My Company</a></li>
-            <li><a href="/mymanager">My Manager</a></li>
-            <li><a href="/myteam">My Teams</a></li>
-          </ul>
-
+        <Submenu />
           {message}
           <ul className="list-group">
             {items}

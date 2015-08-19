@@ -10,6 +10,7 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import Submenu from 'components/Submenu.react';
 
 
 export default class Customsurvey extends React.Component {
@@ -356,6 +357,7 @@ export default class Customsurvey extends React.Component {
 
       return (
       <div className="container">
+      <Submenu />
         <div className="form-group">
           <a href="#" onClick={this.onFormListsClick}>
             <b>Custom Survey Listing</b>
