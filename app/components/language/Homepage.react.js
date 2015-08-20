@@ -1,28 +1,38 @@
 import React from 'react';
-// import Validation, { Validator } from 'rc-form-validation';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
+import PageActions from 'actions/PageActions';
+import PageStore from 'stores/PageStore';
 
 export default class Homepage extends React.Component {
 
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
+      this.state = PageStore.getState();
+      this.state = {
+          pagedata: [],
+          language: props.language,
+          HOME_TITLE: ''
+      };
   }
 
+
   componentDidMount() {
+      PageStore.listen(this._onChange);
+      PageActions.getPage({page: 'home', language: this.state.language});
   }
 
   componentWillUnmount() {
-
+      PageStore.unlisten(this._onChange);
   }
 
   _onChange = () => {
-      // this.setState({});
-  }
+      this.setState({
+          pagedata: PageStore.getState().pagedata
+      });
 
-  onCancelHome = (e) => {
-      e.preventDefault();
+      let pagedata = this.state.pagedata;
+      this.setState({
+          HOME_TITLE: pagedata.HOME_TITLE
+      });
   }
 
   onSubmitHome = (e) => {
@@ -30,28 +40,39 @@ export default class Homepage extends React.Component {
       this.props.onClick(this);
   }
 
+  onChangeKeys = (e, key) => {
+      e.preventDefault();
+      this.setState({ [key]: e.target.value });
+  }
+
 
   render() {
 
-      let pagedata = this.props.pagedata;
-      console.log(pagedata);
+      let pagedata = this.state.pagedata;
+      let HOME_TITLE = this.state.HOME_TITLE;
+
 
       return (
       <div className="container">
-        <h2>Home page details</h2>
-        <form id="homeForm">
+        <h4>Edit - Home page keys</h4>
+        <form id="homeForm" className="form-horizontal">
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
-          <br/>
           <div className="form-group">
-            <label>HOME_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.HOME_TITLE} />&nbsp;&nbsp;
-            <textarea name="HOME_TITLE">{pagedata.HOME_TITLE}</textarea>
+            <label className="col-sm-2 control-label">HOME_TITLE</label>
+            <div className="col-sm-10">
+              <input type="text"
+                     name="HOME_TITLE"
+                     className="form-control"
+                     value={HOME_TITLE}
+                     onChange={this.onChangeKeys.bind(this, 'HOME_TITLE')} />
+            </div>
           </div>
           <div className="form-group">
-            <br/><br/>
-            <button className="btn btn-danger" onClick={this.onCancelHome}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-primary" onClick={this.onSubmitHome}>Submit</button>
+            <label className="col-sm-2 control-label">&nbsp;</label>
+            <div className="col-sm-10">
+              <button className="btn btn-primary" onClick={this.onSubmitHome}>Update</button>
+            </div>
           </div>
         </form>
       </div>
@@ -60,5 +81,4 @@ export default class Homepage extends React.Component {
 
 }
 
-Homepage.contextTypes = { router: React.PropTypes.func };
 

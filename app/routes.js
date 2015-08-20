@@ -19,6 +19,7 @@ import Surveyforms from 'components/customsurvey/Customsurveyforms.react';
 import Takesurvey from 'components/customsurvey/Takesurvey.react';
 import NotFound from 'components/404.react';
 import Languages from 'components/language/Languages.react';
+import Pages from 'components/language/Pages.react';
 import Test1 from 'components/test1';
 import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
@@ -29,6 +30,8 @@ const routes = (
     <Route name="appadmin" path="/admin" handler={Admin} >
         <Route name="admin" handler={Adminlogin} />
         <Route name="/admin/login" handler={Adminlogin} />
+        <Route name="/admin/languages" handler={Languages} />
+        <Route name="/admin/pages" handler={Pages} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>
@@ -49,7 +52,6 @@ const routes = (
       <Route name="tabs" handler={Tabs} />
       <Route name="mycompany" handler={MyCompanyInfo} />
       <Route name="mymanager" handler={MyManagerInfo} />
-      <Route name="languages" handler={Languages} />
       <Route name="test1" handler={Test1} />
       <DefaultRoute handler={Index} />
       <NotFoundRoute name="404" handler={NotFound} />

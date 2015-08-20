@@ -1,37 +1,26 @@
 import React from 'react';
-// import Immutable from 'immutable';
 import getFormData from 'get-form-data';
 import LanguageActions from 'actions/LanguageActions';
 import LanguageStore from 'stores/LanguageStore';
-import Languageoptions from 'components/language/Languageoptions.react';
-import Homepage from 'components/language/Homepage.react';
-import Signuppage from 'components/language/Signuppage.react';
-import Loginpage from 'components/language/Loginpage.react';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
 
 export default class Languages extends React.Component {
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
-      this.state = LanguageStore.getState();
       this.state = {
-         page: 'home',
-         language: 'english',
          formstatus: false,
-         pagedata: LanguageStore.getState().pagedata
+         languages: [],
+         addlanguageform: false,
+         editlanguage: '',
+         editcode: '',
+         editid: '',
+         editlanguageform: false,
+         showform: false
      };
   }
 
   componentDidMount() {
-      LanguageStore.listen(this._onChange);
       LanguageActions.getLanguages();
-      //let query = query || {};
-      //query.page = this.state.page;
-      //query.language = this.state.language;
-      //this.setState({page: 'home'});
-      //this.setState({language: 'engligh'});
-      LanguageActions.getPage({page: this.state.page, language: this.state.language});
+      LanguageStore.listen(this._onChange);
       this.setState({formstatus: false});
   }
 
@@ -41,8 +30,7 @@ export default class Languages extends React.Component {
 
   _onChange = () => {
       this.setState({
-          languages: LanguageStore.getState().languages,
-          pagedata: LanguageStore.getState().pagedata
+          languages: LanguageStore.getState().languages
       });
   }
 
@@ -50,103 +38,141 @@ export default class Languages extends React.Component {
       e.preventDefault();
       let form = document.querySelector('#languageForm');
       let data = getFormData(form, {trim: true});
-      //console.log(JSON.stringify(data));
       let language = language || {};
       language.language = data['language'];
       language.code = data['code'];
-      // console.log(language);
-      let languages = this.state.languages;
-      languages.push(data['language']);
-      this.setState({languages: languages});
+      let id = data['id'];
+
       if (window.confirm('Are sure you want to add new Language.')) {
-          //console.log('yes');
-          LanguageActions.addLanguage(language);
+          if(id === '') {
+              LanguageActions.addLanguage(language);
+          } else {
+              LanguageActions.editLanguage(id, language);
+          }
       }
   }
 
-  onSelectLanguage = (e, child) => {
-      //let qid = child.props.qid;
-      let language = e.target.value;
-      LanguageActions.getPage({page: this.state.page, language: language});
-      this.setState({language: language});
-      this.setState({formstatus: false});
+  onAddNewLanguage = (e) => {
+      e.preventDefault();
+      this.setState({addlanguageform: true});
+      this.setState({editlanguageform: false});
+      this.setState({showform: true});
+      this.setState({editcode: ''});
+      this.setState({editid: ''});
+      this.setState({editlanguage: ''});
   }
 
-  onSelectPage = (e, child) => {
-      //let qid = child.props.qid;
-      let page = e.target.value;
-      LanguageActions.getPage({page: page, language: this.state.language});
-      this.setState({page: page});
+  onDeleteLanguage = (e) => {
+      e.preventDefault();
+      this.setState({showform: false});
+      let id = e.target.id;
+      LanguageActions.deleteLanguage(id);
   }
 
-  /**
-   * Signup page submit
-   */
-  onSubmitSignup = (e) => {
-      let formData = document.querySelector('#signupForm');
-      let data = getFormData(formData, {trim: true});
-      let pageid = data['_id'];
-      let signup = signup || {};
+  onEditLanguage = (e, child) => {
+      this.setState({addlanguageform: false});
+      this.setState({showform: true});
+      let id = e.target.id;
+      let languages = this.state.languages;
 
-      signup.language = data['language'];
-      signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
-      signup.SUB_TITLE = data['SUB_TITLE'];
-
-      if (window.confirm('Are you sure you want to submit the changes ?')) {
-          LanguageActions.updatePageKeys(pageid, 'signup', signup);
-          this.setState({formstatus: true});
+      for (let i = 0; i < languages.length; i++) {
+          let language = languages[i];
+          if (language._id === id) {
+              this.setState({editlanguage: language.language});
+              this.setState({editcode: language.code});
+              this.setState({editid: language._id});
+              this.setState({editlanguageform: true});
+          }
       }
   }
 
-  /**
-   * Home page submit
-   */
-  onSubmitHome = (e) => {
-      let formData = document.querySelector('#homeForm');
-      let data = getFormData(formData, {trim: true});
-      let pageid = data['_id'];
-      let home = home || {};
-
-      home.language = data['language'];
-      home.HOME_TITLE = data['HOME_TITLE'];
-
-      if (window.confirm('Are you sure you want to submit the changes ?')) {
-          LanguageActions.updatePageKeys(pageid, 'home', home);
-          this.setState({formstatus: true});
-      }
+  onChangeLanguage = (e) => {
+      this.setState({editlanguage: e.target.value});
   }
 
-  /**
-   * Login page submit
-   */
-  onSubmitLogin = (e) => {
-      let formData = document.querySelector('#signupForm');
-      let data = getFormData(formData, {trim: true});
-      let pageid = data['_id'];
-      let login = login || {};
-
-      login.language = data['language'];
-      login.LOIGN_TITLE = data['LOIGN_TITLE'];
-      login.USERNAME = data['USERNAME'];
-      login.PASSWORD = data['PASSWORD'];
-      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
-
-      if (window.confirm('Are you sure you want to submit the changes ?')) {
-          LanguageActions.updatePageKeys(pageid, 'login', login);
-          this.setState({formstatus: true});
-      }
+  onChangeCode = (e) => {
+      this.setState({editcode: e.target.value});
   }
+
 
   render() {
       let languages = this.state.languages;
-      let pagedata = this.state.pagedata;
-      let page = this.state.page;
-      // let language = this.state.language;
       let formstatus = this.state.formstatus;
-      let contents = '';
-      let pagekeys = pagekeys || {};
-      pagekeys.pagekey = pagedata;
+      let addlanguageform = this.state.addlanguageform;
+      let editlanguageform = this.state.editlanguageform;
+      let showform = this.state.showform;
       let statusmessage = '';
+      let formcontents = '';
+      let items = '';
+      let sno = 1;
+
+      items = languages.map((language) => {
+          return (<tr>
+                <td className="text-center">{sno++}</td>
+                <td className="text-center">{language.language}</td>
+                <td className="text-center">{language.code}</td>
+                <td className="text-center">
+                  <a href="#"
+                     onClick={this.onEditLanguage}
+                     code={language.code}
+                     language={language.language}
+                     id={language._id}>Edit</a>
+                  &nbsp;/&nbsp;
+                  <a href="#" onClick={this.onDeleteLanguage} id={language._id}>Delete</a>
+                </td>
+              </tr>
+              );
+      });
+
+      if(showform) {
+
+          let formtitle = '';
+          if (addlanguageform) {
+              formtitle = 'Add New Language';
+          } else if (editlanguageform) {
+              formtitle = 'Edit Language';
+          }
+
+          formcontents = (
+                  <div className="form-group">
+                    <h4>{formtitle}</h4>
+                    <br/>
+                    <form id="languageForm" className="form-horizontal">
+                      <div className="form-group">
+                        <label className="col-sm-2 control-label">Language</label>
+                        <div className="col-sm-10">
+                          <input type="text"
+                                 className="form-control"
+                                 name="language"
+                                 value={this.state.editlanguage}
+                                 onChange={this.onChangeLanguage}
+                                 ref="language"
+                                 placeholder="language"/>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label className="col-sm-2 control-label">Code</label>
+                        <div className="col-sm-10">
+                          <input type="text"
+                                 className="form-control"
+                                 name="code"
+                                 value={this.state.editcode}
+                                 onChange={this.onChangeCode}
+                                 ref="code"
+                                 placeholder="code"/>
+                        </div>
+                        <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
+                      </div>
+                      <div className="form-group">
+                        <label className="col-sm-2 control-label">&nbsp;</label>
+                        <div className="col-sm-10">
+                          <button className="btn btn-primary" onClick={this.onLanguageSubmit}>Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  );
+      }
 
       if(formstatus) {
           statusmessage = (<div className="alert alert-success">
@@ -155,58 +181,41 @@ export default class Languages extends React.Component {
                           );
       }
 
-      switch(page){
-          case 'home':
-              contents = (<Homepage pagedata={pagekeys.pagekey} onClick={this.onSubmitHome}/>);
-              break;
-
-          case 'signup':
-              contents = (<Signuppage pagedata={pagekeys.pagekey} onClick={this.onSubmitSignup}/>);
-              break;
-
-          case 'login':
-              contents = (<Loginpage pagedata={pagekeys.pagekey} onClick={this.onSubmitLogin}/>);
-              break;
-
-          default: break;
-      }
-
-
       return (
       <div className="container">
         <h2>Languages</h2>
-        <form id="languageForm">
+        <br/>
         <div className="form-group">
-          <input type="text" name="language" id="language" ref="language" placeholder="language"/>&nbsp;&nbsp;
-          <input type="text" name="code" id="code" ref="code" placeholder="code"/>&nbsp;&nbsp;
-          <button className="btn btn-primary" onClick={this.onLanguageSubmit}>Add Language</button>
+          <a href="#" onClick={this.onAddNewLanguage}>Add New Language</a>
         </div>
-        </form>
-        <br/><br/>
-        <h4>Update page keys</h4>
-        <form id="pageForm">
-          <div className="form-group">
-            <label>Select a page:</label>&nbsp;&nbsp;
-            <select className="navigation__item" name="page" onChange={this.onSelectPage}>
-              <option value="home">Home</option>
-              <option value="signup">Signup</option>
-              <option value="login">Login</option>
-            </select>&nbsp;&nbsp;
-            <label>Select language:</label>&nbsp;&nbsp;
-            <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
-          </div>
-        </form>
+
+        <div className="form-group">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr className="info">
+                  <th className="text-center"></th>
+                  <th className="text-center">Language</th>
+                  <th className="text-center">Code</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items}
+              </tbody>
+            </table>
+        </div>
+
         <div className="form-group">
          {statusmessage}
         </div>
+
         <div className="form-group">
-         {contents}
+         <br/><br/>
+         {formcontents}
         </div>
+
       </div>
     );
   }
 }
-
-Languages.contextTypes = { router: React.PropTypes.func };
-
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
+import AdminActions from 'actions/AdminActions';
+import AdminStore from 'stores/AdminStore';
 import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
@@ -11,17 +11,19 @@ export default class Adminlogin extends React.Component {
   constructor(props) {
       super(props);
       mixins(Navigation, this);
-      this.state = UserStore.getState();
-      this.state.canSubmit = false;
+      this.state = AdminStore.getState();
+      this.state = {
+        canSubmit: false
+      };
       this.validationErrors = {};
   }
 
   componentDidMount() {
-      UserStore.listen(this._onChange);
+      AdminStore.listen(this._onChange);
   }
 
   componentWillUnmount() {
-      UserStore.unlisten(this._onChange);
+      AdminStore.unlisten(this._onChange);
   }
 
   enableButton = () => {
@@ -32,38 +34,26 @@ export default class Adminlogin extends React.Component {
       this.setState({canSubmit: false});
   }
 
-  _onChange = (state) => {
-      this.setState(state);
-      if(this.state.isLoggedIn){
-          window.location.assign('/survey');
+  _onChange = () => {
+      this.setState({
+          isAuthenticated: AdminStore.getState().isAuthenticated
+      });
+
+      if(this.state.isAuthenticated){
+          window.location.assign('/admin/dashboard');
           //this.context.router.transitionTo('/survey');
       }
   }
 
   _onLoginSubmit = (model) => {
-      let email = model.email.trim();
+      let username = model.username.trim();
       let password = model.password.trim();
-      UserActions.manuallogin({
-        email: email,
-        password: password
-      });
+      console.log({ username: username, password: password });
+      AdminActions.login({ username: username, password: password });
   }
 
   render() {
-      let renderedResult;
-      let message;
-
-      if (this.state.message !== '') {
-          message = (
-                <div className="login__container">
-                      <fieldset className="login__fieldset">
-                         <div className="alert alert-info">
-                              {this.state.message}
-                         </div>
-                      </fieldset>
-                </div>
-            );
-      }
+      let renderedResult = '';
 
       if (this.state.isLoggedIn) {
           let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -74,28 +64,23 @@ export default class Adminlogin extends React.Component {
           );
 
       }else {
-          if (this.state.isLogginWaiting) {
-              message = (<h3 className="login__header">Processing...</h3>);
-          }
 
           renderedResult = (
           <div className="container">
             <h2>Admin login..</h2>
-            {message}
                 <Formsy.Form onValidSubmit={this._onLoginSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                    <MyOwnInput
-                   name="email"
+                   name="username"
                    className="form-control"
-                   placeholder="Email"
-                   validations="isEmail"
-                   validationError="This is not a valid email"
+                   placeholder="Username"
+                   validationError="Username required."
                    required/>
                    <MyOwnInput
                    type="password"
                    name="password"
                    className="form-control"
                    placeholder="Password"
-                   validationError="This is not a valid email"
+                   validationError="Password required."
                    required/>
                    <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
                 </Formsy.Form>
@@ -113,5 +98,5 @@ export default class Adminlogin extends React.Component {
   }
 }
 
-Adminlogin.propTypes = { user: React.PropTypes.instanceOf(Immutable.Map) };
+Adminlogin.propTypes = { adminuser: React.PropTypes.instanceOf(Immutable.Map) };
 Adminlogin.contextTypes = { router: React.PropTypes.func };

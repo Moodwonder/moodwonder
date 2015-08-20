@@ -1,28 +1,39 @@
 import React from 'react';
-// import Validation, { Validator } from 'rc-form-validation';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
+import PageActions from 'actions/PageActions';
+import PageStore from 'stores/PageStore';
 
 export default class Signuppage extends React.Component {
 
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
+      this.state = PageStore.getState();
+      this.state = {
+          pagedata: [],
+          language: props.language,
+          SIGNUP_TITLE: '',
+          SUB_TITLE: ''
+      };
   }
 
   componentDidMount() {
+      PageStore.listen(this._onChange);
+      PageActions.getPage({page: 'signup', language: this.state.language});
   }
 
   componentWillUnmount() {
-
+      PageStore.unlisten(this._onChange);
   }
 
   _onChange = () => {
-      // this.setState({});
-  }
+      this.setState({
+          pagedata: PageStore.getState().pagedata
+      });
 
-  onCancelSignup = (e) => {
-      e.preventDefault();
+      let pagedata = this.state.pagedata;
+      this.setState({
+          SIGNUP_TITLE: pagedata.SIGNUP_TITLE,
+          SUB_TITLE: pagedata.SUB_TITLE
+      });
   }
 
   onSubmitSignup = (e) => {
@@ -30,34 +41,53 @@ export default class Signuppage extends React.Component {
       this.props.onClick(this);
   }
 
+  onChangeKeys = (e, key) => {
+      e.preventDefault();
+      this.setState({ [key]: e.target.value });
+  }
+
 
   render() {
 
-      let pagedata = this.props.pagedata;
-      console.log(pagedata);
+      let pagedata = this.state.pagedata;
+      let SIGNUP_TITLE = this.state.SIGNUP_TITLE;
+      let SUB_TITLE = this.state.SUB_TITLE;
 
 
       return (
       <div className="container">
-        <h2>Signup page details</h2>
-        <form id="signupForm">
+        <h4>Edit - Signup page keys</h4>
+        <form id="signupForm" className="form-horizontal">
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
-          <br/>
+
           <div className="form-group">
-            <label>SIGNUP_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.SIGNUP_TITLE} />&nbsp;&nbsp;
-            <textarea name="SIGNUP_TITLE">{pagedata.SIGNUP_TITLE}</textarea>
+            <label className="col-sm-2 control-label">SIGNUP_TITLE</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="SIGNUP_TITLE"
+                     type="text"
+                     value={SIGNUP_TITLE}
+                     onChange={this.onChangeKeys.bind(this, 'SIGNUP_TITLE')} />
+            </div>
           </div>
+
           <div className="form-group">
-            <label>SUB_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.SUB_TITLE} />&nbsp;&nbsp;
-            <textarea name="SUB_TITLE">{pagedata.SUB_TITLE}</textarea>
+            <label className="col-sm-2 control-label">SUB_TITLE</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="SUB_TITLE"
+                     type="text"
+                     value={SUB_TITLE}
+                     onChange={this.onChangeKeys.bind(this, 'SUB_TITLE')} />
+            </div>
           </div>
+
           <div className="form-group">
-            <br/><br/>
-            <button className="btn btn-danger" onClick={this.onCancelSignup}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-primary" onClick={this.onSubmitSignup}>Submit</button>
+            <label className="col-sm-2 control-label"></label>
+            <div className="col-sm-10">
+              <button className="btn btn-primary" onClick={this.onSubmitSignup}>Submit</button>
+            </div>
           </div>
         </form>
       </div>
@@ -66,5 +96,4 @@ export default class Signuppage extends React.Component {
 
 }
 
-Signuppage.contextTypes = { router: React.PropTypes.func };
 

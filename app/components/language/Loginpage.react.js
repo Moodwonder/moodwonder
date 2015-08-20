@@ -1,26 +1,44 @@
 import React from 'react';
-// import Validation, { Validator } from 'rc-form-validation';
-// import getFormData from 'get-form-data';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
-// import LanguageActions from 'actions/LanguageActions';
+import PageActions from 'actions/PageActions';
+import PageStore from 'stores/PageStore';
+
 
 export default class Signuppage extends React.Component {
 
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
+      this.state = PageStore.getState();
+      this.state = {
+          pagedata: [],
+          language: props.language,
+          LOIGN_TITLE: '',
+          USERNAME: '',
+          PASSWORD: '',
+          FORGOT_PASSWORD: ''
+      };
   }
 
   componentDidMount() {
+      PageStore.listen(this._onChange);
+      PageActions.getPage({page: 'login', language: this.state.language});
   }
 
   componentWillUnmount() {
-
+      PageStore.unlisten(this._onChange);
   }
 
   _onChange = () => {
-      // this.setState({});
+      this.setState({
+          pagedata: PageStore.getState().pagedata
+      });
+
+      let pagedata = this.state.pagedata;
+      this.setState({
+          LOIGN_TITLE: pagedata.LOIGN_TITLE,
+          USERNAME: pagedata.USERNAME,
+          PASSWORD: pagedata.PASSWORD,
+          FORGOT_PASSWORD: pagedata.FORGOT_PASSWORD
+      });
   }
 
   onCancelLogin = (e) => {
@@ -32,63 +50,72 @@ export default class Signuppage extends React.Component {
       this.props.onClick(this);
   }
 
-//  onSubmitLogin = (e) => {
-//      e.preventDefault();
-//      let formData = document.querySelector('#signupForm');
-//      let data = getFormData(formData, {trim: true});
-//      let login = login || {};
-//
-//      login.language = data['language'];
-//      login.LOIGN_TITLE = data['LOIGN_TITLE'];
-//      login.USERNAME = data['USERNAME'];
-//      login.PASSWORD = data['PASSWORD'];
-//      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
-//
-//      let pageid = data['_id'];
-//
-//      if (window.confirm('Are you sure you want to submit the changes ?')) {
-//          LanguageActions.updatePageKeys(pageid, 'login', login);
-//          console.log(JSON.stringify(login));
-//      }
-//  }
+  onChangeKeys = (e, key) => {
+      e.preventDefault();
+      this.setState({ [key]: e.target.value });
+  }
+
 
   render() {
 
-      let pagedata = this.props.pagedata;
-      console.log(pagedata);
+      let pagedata = this.state.pagedata;
+      let LOIGN_TITLE = this.state.LOIGN_TITLE;
+      let USERNAME = this.state.USERNAME;
+      let PASSWORD = this.state.PASSWORD;
+      let FORGOT_PASSWORD = this.state.FORGOT_PASSWORD;
 
 
       return (
       <div className="container">
-        <h2>Login page details</h2>
-        <form id="signupForm">
+        <h4>Edit - Login page keys</h4>
+        <form id="signupForm" className="form-horizontal">
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
-          <br/>
           <div className="form-group">
-            <label>LOIGN_TITLE</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.LOIGN_TITLE} />&nbsp;&nbsp;
-            <textarea name="LOIGN_TITLE">{pagedata.LOIGN_TITLE}</textarea>
+            <label className="col-sm-2 control-label">LOIGN_TITLE</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="LOIGN_TITLE"
+                     type="text"
+                     value={LOIGN_TITLE}
+                     onChange={this.onChangeKeys.bind(this, 'LOIGN_TITLE')} />
+            </div>
           </div>
           <div className="form-group">
-            <label>USERNAME</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.USERNAME} />&nbsp;&nbsp;
-            <textarea name="USERNAME">{pagedata.USERNAME}</textarea>
+            <label className="col-sm-2 control-label">USERNAME</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     type="text"
+                     name="USERNAME"
+                     value={USERNAME}
+                     onChange={this.onChangeKeys.bind(this, 'USERNAME')} />
+            </div>
           </div>
           <div className="form-group">
-            <label>PASSWORD</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.PASSWORD} />&nbsp;&nbsp;
-            <textarea name="PASSWORD">{pagedata.PASSWORD}</textarea>
+            <label className="col-sm-2 control-label">PASSWORD</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     type="text"
+                     name="PASSWORD"
+                     value={PASSWORD}
+                     onChange={this.onChangeKeys.bind(this, 'PASSWORD')} />
+            </div>
           </div>
           <div className="form-group">
-            <label>FORGOT_PASSWORD</label>&nbsp;&nbsp;
-            <input type="text" value={pagedata.FORGOT_PASSWORD} />&nbsp;&nbsp;
-            <textarea name="FORGOT_PASSWORD">{pagedata.FORGOT_PASSWORD}</textarea>
+            <label className="col-sm-2 control-label">FORGOT_PASSWORD</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     type="text"
+                     name="FORGOT_PASSWORD"
+                     value={FORGOT_PASSWORD}
+                     onChange={this.onChangeKeys.bind(this, 'FORGOT_PASSWORD')} />
+            </div>
           </div>
           <div className="form-group">
-            <br/><br/>
-            <button className="btn btn-danger" onClick={this.onCancelLogin}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-primary" onClick={this.onSubmitLogin}>Submit</button>
+            <label className="col-sm-2 control-label"></label>
+            <div className="col-sm-10">
+              <button className="btn btn-primary" onClick={this.onSubmitLogin}>Submit</button>
+            </div>
           </div>
         </form>
       </div>
@@ -97,5 +124,5 @@ export default class Signuppage extends React.Component {
 
 }
 
-Signuppage.contextTypes = { router: React.PropTypes.func };
+
 

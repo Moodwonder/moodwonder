@@ -11,6 +11,15 @@ const utils = {
     });
   },
 
+  editLanguage: (id, data) => {
+      return $.ajax({
+      url: '/editlanguage',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({id: id, data: JSON.stringify(data)})
+    });
+  },
+
   getLanguages: () => {
       return $.ajax({
       url: '/getlanguages',
@@ -34,6 +43,15 @@ const utils = {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({id: id, page: page, data: JSON.stringify(data)})
+    });
+  },
+
+  deleteLanguage: (id) => {
+      return $.ajax({
+      url: '/deletelanguage',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({id: id})
     });
   }
 

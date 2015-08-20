@@ -19,6 +19,22 @@ class LanguageActions {
       this.dispatch(data);
   }
 
+  editLanguage (id, data) {
+      this.dispatch();
+      LanguageWebAPIUtils.editLanguage(id, data)
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.editlanguagesuccess(true);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  editlanguagesuccess (data) {
+      this.dispatch(data);
+  }
+
   getLanguages () {
       this.dispatch();
       LanguageWebAPIUtils.getLanguages()
@@ -35,38 +51,21 @@ class LanguageActions {
       this.dispatch(data);
   }
 
-  getPage (data) {
+  deleteLanguage (id) {
       this.dispatch();
-      LanguageWebAPIUtils.getPage(data)
+      LanguageWebAPIUtils.deleteLanguage(id)
       .then((response, textStatus) => {
           if (response.status === 'success') {
-              this.actions.pagesuccess(response.pagedata);
+              this.actions.deletelanguagesuccess(id);
           }
       }, () => {
         // Dispatch another event for a bad request
       });
   }
 
-  pagesuccess (data) {
-      this.dispatch(data);
+  deletelanguagesuccess (id) {
+      this.dispatch(id);
   }
-
-  updatePageKeys (id, page, data) {
-      this.dispatch();
-      LanguageWebAPIUtils.updatePageKeys(id, page, data)
-      .then((response, textStatus) => {
-          if (textStatus === 'success') {
-              this.actions.pagekeyssuccess(true);
-          }
-      }, () => {
-        // Dispatch another event for a bad request
-      });
-  }
-
-  pagekeyssuccess (data) {
-      this.dispatch(data);
-  }
-
 
 }
 
