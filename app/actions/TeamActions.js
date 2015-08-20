@@ -24,6 +24,23 @@ class TeamActions {
       this.dispatch(response);
   }
 
+  // Update team name
+  updateTeam (data) {
+      this.dispatch();
+      CommonWebAPIUtils.updateMyTeam(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.updateteamsuccess(response);
+                this.actions.getTeams ();
+            }
+        }, () => {
+        });
+  }
+
+  // response handler for updateTeam()
+  updateteamsuccess (response) {
+      this.dispatch(response);
+  }
 
   // Get My Teams
   getTeams (data) {

@@ -29,7 +29,8 @@ module.exports = function(app, passport) {
   app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
   app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
-  app.post('/createteam', users.checkLogin, teams.createTeam, users.updateUser);
+  app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
+  app.post('/updateteam', users.checkLogin, teams.updateTeam);
   app.post('/getmyteams', users.checkLogin, teams.getMyTeams, users.usersInTeams);
   app.post('/addmembertoteam', users.checkLogin, teams.addMemberToTeam, invitation.sendInvitation );
   app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam );

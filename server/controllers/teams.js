@@ -18,25 +18,49 @@ response.status = false;
 response.message = 'Error';
 
 /**
- * Create new team
+ * Chech the team is already exist or not
  *
  * Accept : -  @teamname
  */
 exports.checkTeam = function(req, res, next) {
 
-  var company = req.user.company_info[0].companyname;
+  var teamname = req.body.teamname;
 
-  var where = { company_info: { $elemMatch: { 'companyname': company }} , 'usertype': 'manager' };
+  /*
+  var company_info = req.user.company_info[0];
+  if(company_info.companyname !== undefined){
+		// get company admin _id
+  }else{
+		
+  }
+  */
+
+
+  var where = { "manager_id" : new ObjectId(req.user._id), "teamname": teamname };
   // console.log(where);
 
-  User.findOne(where, function(err, existingUser) {
-    if(existingUser) {
-        next();
-    }else{
+  Team.findOne(where, function(err, existingTeam) {
+    if(existingTeam) {
         response.status = false;
-        response.message = "You can't complete this action, Your company is not found in our system";
+        response.message = "Team name is already exist within your teams";
         res.send(response);
         res.end();
+    }else{
+        if(existingTeam.admin_id === undefined || existingTeam.admin_id === "0" ){
+            next();
+        }else {
+			where = { "teamname": teamname, "admin_id": existingTeam.admin_id };
+			Team.findOne(where, function(err, existingTeam) {
+				if(existingTeam) {
+					response.status = false;
+					response.message = "Team name is already exist within your company";
+					res.send(response);
+					res.end();
+				}else{
+					next();
+				}
+			});
+        }
     }
   });
 };
@@ -70,6 +94,44 @@ exports.createTeam = function(req, res, next) {
           res.end();
       }
   });
+};
+
+/**
+ * Update team name
+ *
+ * Accept : -  @teamname,@teamid
+ */
+exports.updateTeam = function(req, res, next) {
+
+  var teamname = req.body.teamname;
+  var teamid   = req.body.teamid;
+
+  var where = { "_id" : new ObjectId(teamid), "manager_id" : new ObjectId(req.user._id) };
+  // console.log(where);
+
+  Team.findOne(where, function(err, existingTeam) {
+    if(existingTeam) {
+		Team.update(where,{ "teamname": teamname },function(err){
+			if(err){
+				response.status = false;
+				response.message = "Something went wrong";
+				res.send(response);
+				res.end();
+			}else{
+				response.status = true;
+				response.message = "Team name updated";
+				res.send(response);
+				res.end();
+			}
+		});
+    }else{
+        response.status = false;
+        response.message = "You don't have permission to change this team name";
+        res.send(response);
+        res.end();
+    }
+  });
+
 };
 
 /**

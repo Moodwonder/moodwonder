@@ -4,7 +4,7 @@ import React from 'react';
  * Component for submenu
  *
  */
-export default class Tabs extends React.Component {
+export default class Submenu extends React.Component {
 
   constructor(props) {
       super(props);

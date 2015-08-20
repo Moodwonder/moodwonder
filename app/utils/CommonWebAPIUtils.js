@@ -15,6 +15,15 @@ const utils = {
     });
   },
 
+  updateMyTeam: (data) => {
+      return $.ajax({
+      url: '/updateteam',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
   getMyTeams: (data) => {
       return $.ajax({
       url: '/getmyteams',
