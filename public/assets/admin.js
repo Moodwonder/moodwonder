@@ -41721,16 +41721,16 @@
 	 *
 	 */
 
-	var Tabs = (function (_React$Component) {
-	    function Tabs(props) {
-	        _classCallCheck(this, Tabs);
+	var Submenu = (function (_React$Component) {
+	    function Submenu(props) {
+	        _classCallCheck(this, Submenu);
 
-	        _get(Object.getPrototypeOf(Tabs.prototype), "constructor", this).call(this, props);
+	        _get(Object.getPrototypeOf(Submenu.prototype), "constructor", this).call(this, props);
 	    }
 
-	    _inherits(Tabs, _React$Component);
+	    _inherits(Submenu, _React$Component);
 
-	    _createClass(Tabs, [{
+	    _createClass(Submenu, [{
 	        key: "componentDidMount",
 	        value: function componentDidMount() {}
 	    }, {
@@ -41800,10 +41800,10 @@
 	        }
 	    }]);
 
-	    return Tabs;
+	    return Submenu;
 	})(_react2["default"].Component);
 
-	exports["default"] = Tabs;
+	exports["default"] = Submenu;
 	module.exports = exports["default"];
 
 /***/ },
@@ -46114,6 +46114,10 @@
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
+	var _componentsEditableReact = __webpack_require__(292);
+
+	var _componentsEditableReact2 = _interopRequireDefault(_componentsEditableReact);
+
 	var MyTeam = (function (_React$Component) {
 	    function MyTeam(props) {
 	        var _this = this;
@@ -46139,6 +46143,10 @@
 	            _actionsTeamActions2['default'].createTeam(model);
 	        };
 
+	        this._onUpdateTeamName = function (model) {
+	            _actionsTeamActions2['default'].updateTeam(model);
+	        };
+
 	        this._onAddMemberSubmit = function (model) {
 	            _actionsTeamActions2['default'].addMemberToTeam(model);
 	        };
@@ -46147,10 +46155,16 @@
 	            _actionsTeamActions2['default'].removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id });
 	        };
 
+	        this.showCreateTeamForm = function () {
+	            _this.setState({ CreateTeamForm: true });
+	        };
+
 	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	        this.state = _storesTeamStore2['default'].getState();
 	        this.state.canSubmit = false;
 	        this.state.canSubmitAddMember = true;
+	        this.state.CreateTeamForm = false;
+	        this.state.EditUI = false;
 	        this.validationErrors = {};
 	    }
 
@@ -46172,7 +46186,7 @@
 	        value: function render() {
 	            var _this2 = this;
 
-	            var renderedResult = undefined;
+	            var CreateTeamUI = undefined;
 
 	            var message = undefined;
 
@@ -46202,7 +46216,7 @@
 	                    return [_react2['default'].createElement(
 	                        'li',
 	                        { className: 'list-group-item' },
-	                        data.name
+	                        _react2['default'].createElement(_componentsEditableReact2['default'], { onSave: _this2._onUpdateTeamName, teamid: data._id, value: data.name })
 	                    ), _react2['default'].createElement(
 	                        'li',
 	                        { className: 'list-group-item' },
@@ -46234,8 +46248,7 @@
 	                                    members
 	                                )
 	                            ),
-	                            _react2['default'].createElement('div', { className: 'col-sm-4' }),
-	                            _react2['default'].createElement('div', { className: 'col-sm-4' })
+	                            _react2['default'].createElement('div', { className: 'col-sm-8' })
 	                        )
 	                    )];
 	                });
@@ -46249,48 +46262,93 @@
 	                );
 	            }
 
-	            renderedResult = _react2['default'].createElement(
+	            if (this.state.CreateTeamForm) {
+	                CreateTeamUI = _react2['default'].createElement(
+	                    'div',
+	                    { className: 'col-sm-6' },
+	                    _react2['default'].createElement(
+	                        'ul',
+	                        { className: 'list-group' },
+	                        _react2['default'].createElement(
+	                            'li',
+	                            { className: 'list-group-item' },
+	                            _react2['default'].createElement(
+	                                Formsy.Form,
+	                                { onValidSubmit: this._onSaveSubmit,
+	                                    onValid: this.enableButton,
+	                                    onInvalid: this.disableButton },
+	                                _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                                    name: 'teamname',
+	                                    className: 'form-control',
+	                                    placeholder: 'My team name',
+	                                    validationError: 'Team name is required',
+	                                    required: true }),
+	                                _react2['default'].createElement(
+	                                    'button',
+	                                    { type: 'submit', className: 'btn btn-default',
+	                                        disabled: !this.state.canSubmit },
+	                                    'Submit'
+	                                )
+	                            )
+	                        )
+	                    )
+	                );
+	            }
+
+	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'container' },
 	                _react2['default'].createElement(_componentsSubmenuReact2['default'], null),
 	                _react2['default'].createElement(
 	                    'h2',
 	                    null,
-	                    'My Team'
+	                    'MY TEAM'
 	                ),
-	                message,
-	                _react2['default'].createElement(
-	                    Formsy.Form,
-	                    { onValidSubmit: this._onSaveSubmit,
-	                        onValid: this.enableButton,
-	                        onInvalid: this.disableButton },
-	                    _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
-	                        name: 'teamname',
-	                        className: 'form-control',
-	                        placeholder: 'My team name',
-	                        validationError: 'Team name is required',
-	                        required: true }),
-	                    _react2['default'].createElement(
-	                        'button',
-	                        { type: 'submit', className: 'btn btn-default',
-	                            disabled: !this.state.canSubmit },
-	                        'Submit'
-	                    )
-	                )
-	            );
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'login' },
-	                renderedResult,
-	                _react2['default'].createElement('br', null),
 	                _react2['default'].createElement(
 	                    'div',
-	                    { className: 'container' },
+	                    { className: 'well' },
 	                    _react2['default'].createElement(
-	                        'ul',
-	                        { className: 'list-group' },
-	                        teamUserList
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-6' },
+	                            'To fully utilize moodwonder, We recommed that you setup your suboridinates'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-4' },
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { type: 'button', onClick: this.showCreateTeamForm, className: 'btn btn-primary' },
+	                                'Create Team'
+	                            )
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'login' },
+	                        message,
+	                        _react2['default'].createElement('br', null),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            CreateTeamUI
+	                        ),
+	                        _react2['default'].createElement('br', null),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'col-sm-6' },
+	                                _react2['default'].createElement(
+	                                    'ul',
+	                                    { className: 'list-group' },
+	                                    teamUserList
+	                                )
+	                            )
+	                        )
 	                    )
 	                )
 	            );
@@ -46361,16 +46419,38 @@
 	            this.dispatch(response);
 	        }
 	    }, {
+	        key: 'updateTeam',
+
+	        // Update team name
+	        value: function updateTeam(data) {
+	            var _this2 = this;
+
+	            this.dispatch();
+	            _utilsCommonWebAPIUtils2['default'].updateMyTeam(data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    _this2.actions.updateteamsuccess(response);
+	                    _this2.actions.getTeams();
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'updateteamsuccess',
+
+	        // response handler for updateTeam()
+	        value: function updateteamsuccess(response) {
+	            this.dispatch(response);
+	        }
+	    }, {
 	        key: 'getTeams',
 
 	        // Get My Teams
 	        value: function getTeams(data) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].getMyTeams(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this2.actions.getteamsuccess(response);
+	                    _this3.actions.getteamsuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46386,13 +46466,13 @@
 
 	        // To add a member To my team
 	        value: function addMemberToTeam(data) {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].addMemberToMyTeam(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this3.actions.getTeams();
-	                    _this3.actions.memberaddsuccess(response);
+	                    _this4.actions.getTeams();
+	                    _this4.actions.memberaddsuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46408,13 +46488,13 @@
 
 	        // To remove a member from my team
 	        value: function removeMemberFromTeam(data) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].removeMemberFromMyTeam(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this4.actions.getTeams();
-	                    _this4.actions.memberremovesuccess(response);
+	                    _this5.actions.getTeams();
+	                    _this5.actions.memberremovesuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46458,6 +46538,15 @@
 	  createMyTeam: function createMyTeam(data) {
 	    return _jquery2['default'].ajax({
 	      url: '/createteam',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  updateMyTeam: function updateMyTeam(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/updateteam',
 	      type: 'POST',
 	      contentType: 'application/json',
 	      data: JSON.stringify(data)
@@ -46537,6 +46626,7 @@
 
 	        this.bindListeners({
 	            handleCreateTeamSuccess: _actionsTeamActions2['default'].CREATETEAMSUCCESS,
+	            handleUpdateTeamSuccess: _actionsTeamActions2['default'].UPDATETEAMSUCCESS,
 	            handleGetTeamSuccess: _actionsTeamActions2['default'].GETTEAMSUCCESS,
 	            handleAddMemberSuccess: _actionsTeamActions2['default'].MEMBERADDSUCCESS,
 	            handleRemoveMemberSuccess: _actionsTeamActions2['default'].MEMBERREMOVESUCCESS
@@ -46554,6 +46644,14 @@
 	    }, {
 	        key: 'handleCreateTeamSuccess',
 	        value: function handleCreateTeamSuccess(response) {
+	            this.isServerCallWaiting = false;
+	            this.hasError = !response.status;
+	            this.message = response.message;
+	            this.emitChange();
+	        }
+	    }, {
+	        key: 'handleUpdateTeamSuccess',
+	        value: function handleUpdateTeamSuccess(response) {
 	            this.isServerCallWaiting = false;
 	            this.hasError = !response.status;
 	            this.message = response.message;
@@ -51388,6 +51486,121 @@
 
 	// Export our newly created Store
 	exports['default'] = _altInstance2['default'].createStore(PageStore, 'PageStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 292 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	/*
+	 * Component for Editable UI
+	 *
+	 */
+
+	var Editable = (function (_React$Component) {
+	  function Editable(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, Editable);
+
+	    _get(Object.getPrototypeOf(Editable.prototype), 'constructor', this).call(this, props);
+
+	    this.changeValue = function (event) {
+	      _this.setState({ value: event.target.value });
+	    };
+
+	    this.onEditClick = function () {
+	      _this.setState({ Edit: true });
+	    };
+
+	    this.onSaveClick = function (teamname, teamid) {
+	      _this.props.onSave({ teamname: teamname, teamid: teamid });
+	    };
+
+	    this.state = {
+	      Edit: false,
+	      value: props.value
+	    };
+	  }
+
+	  _inherits(Editable, _React$Component);
+
+	  _createClass(Editable, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var buttonlabel = 'Edit';
+
+	      var inputORLable = _react2['default'].createElement(
+	        'label',
+	        { htmlFor: 'email' },
+	        this.props.value
+	      );
+
+	      var actionButton = _react2['default'].createElement(
+	        'button',
+	        { type: 'button', className: 'btn btn-default', onClick: this.onEditClick },
+	        buttonlabel
+	      );
+
+	      if (this.state.Edit) {
+	        buttonlabel = 'Save';
+	        inputORLable = _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'email', onChange: this.changeValue, value: this.state.value });
+
+	        actionButton = _react2['default'].createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-default', onClick: this.onSaveClick.bind(this, this.state.value, this.props.teamid) },
+	          buttonlabel
+	        );
+	      }
+
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-8' },
+	          inputORLable
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-4' },
+	          actionButton
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Editable;
+	})(_react2['default'].Component);
+
+	exports['default'] = Editable;
 	module.exports = exports['default'];
 
 /***/ }
