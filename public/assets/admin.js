@@ -25787,9 +25787,9 @@
 
 	var _componentsLanguageLanguagesReact2 = _interopRequireDefault(_componentsLanguageLanguagesReact);
 
-	var _componentsLanguagePagesReact = __webpack_require__(289);
+	var _componentsPagesPagesReact = __webpack_require__(293);
 
-	var _componentsLanguagePagesReact2 = _interopRequireDefault(_componentsLanguagePagesReact);
+	var _componentsPagesPagesReact2 = _interopRequireDefault(_componentsPagesPagesReact);
 
 	var _componentsTest1 = __webpack_require__(281);
 
@@ -25814,7 +25814,7 @@
 	    _react2['default'].createElement(_reactRouter.Route, { name: 'admin', handler: _componentsLoginAdminloginReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.Route, { name: '/admin/login', handler: _componentsLoginAdminloginReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.Route, { name: '/admin/languages', handler: _componentsLanguageLanguagesReact2['default'] }),
-	    _react2['default'].createElement(_reactRouter.Route, { name: '/admin/pages', handler: _componentsLanguagePagesReact2['default'] }),
+	    _react2['default'].createElement(_reactRouter.Route, { name: '/admin/pages', handler: _componentsPagesPagesReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.DefaultRoute, { handler: _componentsLoginAdminloginReact2['default'] }),
 	    _react2['default'].createElement(_reactRouter.NotFoundRoute, { name: '404page', handler: _components404React2['default'] })
 	  ),
@@ -49817,614 +49817,12 @@
 
 /***/ },
 /* 274 */,
-/* 275 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _underscore = __webpack_require__(267);
-
-	var _underscore2 = _interopRequireDefault(_underscore);
-
-	var Languageoptions = (function (_React$Component) {
-	    function Languageoptions(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, Languageoptions);
-
-	        _get(Object.getPrototypeOf(Languageoptions.prototype), 'constructor', this).call(this, props);
-
-	        this.onSelectLanguage = function (e) {
-	            _this.props.onChange(e, _this);
-	        };
-	    }
-
-	    _inherits(Languageoptions, _React$Component);
-
-	    _createClass(Languageoptions, [{
-	        key: 'render',
-	        value: function render() {
-	            var languages = this.props.languages;
-	            var options = '';
-	            var lcount = _underscore2['default'].size(languages);
-	            if (lcount > 0) {
-	                options = languages.map(function (language) {
-	                    return _react2['default'].createElement(
-	                        'option',
-	                        { value: language },
-	                        language
-	                    );
-	                });
-	            }
-
-	            return _react2['default'].createElement(
-	                'select',
-	                { className: 'form-control', onChange: this.onSelectLanguage },
-	                options
-	            );
-	        }
-	    }]);
-
-	    return Languageoptions;
-	})(_react2['default'].Component);
-
-	exports['default'] = Languageoptions;
-	module.exports = exports['default'];
-
-/***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _actionsPageActions = __webpack_require__(290);
-
-	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
-
-	var _storesPageStore = __webpack_require__(291);
-
-	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
-
-	var Homepage = (function (_React$Component) {
-	    function Homepage(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, Homepage);
-
-	        _get(Object.getPrototypeOf(Homepage.prototype), 'constructor', this).call(this, props);
-
-	        this._onChange = function () {
-	            _this.setState({
-	                pagedata: _storesPageStore2['default'].getState().pagedata
-	            });
-
-	            var pagedata = _this.state.pagedata;
-	            _this.setState({
-	                HOME_TITLE: pagedata.HOME_TITLE
-	            });
-	        };
-
-	        this.onSubmitHome = function (e) {
-	            e.preventDefault();
-	            _this.props.onClick(_this);
-	        };
-
-	        this.onChangeKeys = function (e, key) {
-	            e.preventDefault();
-	            _this.setState(_defineProperty({}, key, e.target.value));
-	        };
-
-	        this.state = _storesPageStore2['default'].getState();
-	        this.state = {
-	            pagedata: [],
-	            language: props.language,
-	            HOME_TITLE: ''
-	        };
-	    }
-
-	    _inherits(Homepage, _React$Component);
-
-	    _createClass(Homepage, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            _storesPageStore2['default'].listen(this._onChange);
-	            _actionsPageActions2['default'].getPage({ page: 'home', language: this.state.language });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            _storesPageStore2['default'].unlisten(this._onChange);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            var pagedata = this.state.pagedata;
-	            var HOME_TITLE = this.state.HOME_TITLE;
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2['default'].createElement(
-	                    'h4',
-	                    null,
-	                    'Edit - Home page keys'
-	                ),
-	                _react2['default'].createElement(
-	                    'form',
-	                    { id: 'homeForm', className: 'form-horizontal' },
-	                    _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
-	                    _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { className: 'col-sm-2 control-label' },
-	                            'HOME_TITLE'
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement('input', { type: 'text',
-	                                name: 'HOME_TITLE',
-	                                className: 'form-control',
-	                                value: HOME_TITLE,
-	                                onChange: this.onChangeKeys.bind(this, 'HOME_TITLE') })
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { className: 'col-sm-2 control-label' },
-	                            ' '
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement(
-	                                'button',
-	                                { className: 'btn btn-primary', onClick: this.onSubmitHome },
-	                                'Update'
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Homepage;
-	})(_react2['default'].Component);
-
-	exports['default'] = Homepage;
-	module.exports = exports['default'];
-
-/***/ },
+/* 275 */,
+/* 276 */,
 /* 277 */,
 /* 278 */,
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _actionsPageActions = __webpack_require__(290);
-
-	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
-
-	var _storesPageStore = __webpack_require__(291);
-
-	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
-
-	var Signuppage = (function (_React$Component) {
-	    function Signuppage(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, Signuppage);
-
-	        _get(Object.getPrototypeOf(Signuppage.prototype), 'constructor', this).call(this, props);
-
-	        this._onChange = function () {
-	            _this.setState({
-	                pagedata: _storesPageStore2['default'].getState().pagedata
-	            });
-
-	            var pagedata = _this.state.pagedata;
-	            _this.setState({
-	                SIGNUP_TITLE: pagedata.SIGNUP_TITLE,
-	                SUB_TITLE: pagedata.SUB_TITLE
-	            });
-	        };
-
-	        this.onSubmitSignup = function (e) {
-	            e.preventDefault();
-	            _this.props.onClick(_this);
-	        };
-
-	        this.onChangeKeys = function (e, key) {
-	            e.preventDefault();
-	            _this.setState(_defineProperty({}, key, e.target.value));
-	        };
-
-	        this.state = _storesPageStore2['default'].getState();
-	        this.state = {
-	            pagedata: [],
-	            language: props.language,
-	            SIGNUP_TITLE: '',
-	            SUB_TITLE: ''
-	        };
-	    }
-
-	    _inherits(Signuppage, _React$Component);
-
-	    _createClass(Signuppage, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            _storesPageStore2['default'].listen(this._onChange);
-	            _actionsPageActions2['default'].getPage({ page: 'signup', language: this.state.language });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            _storesPageStore2['default'].unlisten(this._onChange);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            var pagedata = this.state.pagedata;
-	            var SIGNUP_TITLE = this.state.SIGNUP_TITLE;
-	            var SUB_TITLE = this.state.SUB_TITLE;
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2['default'].createElement(
-	                    'h4',
-	                    null,
-	                    'Edit - Signup page keys'
-	                ),
-	                _react2['default'].createElement(
-	                    'form',
-	                    { id: 'signupForm', className: 'form-horizontal' },
-	                    _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
-	                    _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { className: 'col-sm-2 control-label' },
-	                            'SIGNUP_TITLE'
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement('input', { className: 'form-control',
-	                                name: 'SIGNUP_TITLE',
-	                                type: 'text',
-	                                value: SIGNUP_TITLE,
-	                                onChange: this.onChangeKeys.bind(this, 'SIGNUP_TITLE') })
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { className: 'col-sm-2 control-label' },
-	                            'SUB_TITLE'
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement('input', { className: 'form-control',
-	                                name: 'SUB_TITLE',
-	                                type: 'text',
-	                                value: SUB_TITLE,
-	                                onChange: this.onChangeKeys.bind(this, 'SUB_TITLE') })
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement('label', { className: 'col-sm-2 control-label' }),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement(
-	                                'button',
-	                                { className: 'btn btn-primary', onClick: this.onSubmitSignup },
-	                                'Submit'
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Signuppage;
-	})(_react2['default'].Component);
-
-	exports['default'] = Signuppage;
-	module.exports = exports['default'];
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _actionsPageActions = __webpack_require__(290);
-
-	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
-
-	var _storesPageStore = __webpack_require__(291);
-
-	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
-
-	var Signuppage = (function (_React$Component) {
-	  function Signuppage(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, Signuppage);
-
-	    _get(Object.getPrototypeOf(Signuppage.prototype), 'constructor', this).call(this, props);
-
-	    this._onChange = function () {
-	      _this.setState({
-	        pagedata: _storesPageStore2['default'].getState().pagedata
-	      });
-
-	      var pagedata = _this.state.pagedata;
-	      _this.setState({
-	        LOIGN_TITLE: pagedata.LOIGN_TITLE,
-	        USERNAME: pagedata.USERNAME,
-	        PASSWORD: pagedata.PASSWORD,
-	        FORGOT_PASSWORD: pagedata.FORGOT_PASSWORD
-	      });
-	    };
-
-	    this.onCancelLogin = function (e) {
-	      e.preventDefault();
-	    };
-
-	    this.onSubmitLogin = function (e) {
-	      e.preventDefault();
-	      _this.props.onClick(_this);
-	    };
-
-	    this.onChangeKeys = function (e, key) {
-	      e.preventDefault();
-	      _this.setState(_defineProperty({}, key, e.target.value));
-	    };
-
-	    this.state = _storesPageStore2['default'].getState();
-	    this.state = {
-	      pagedata: [],
-	      language: props.language,
-	      LOIGN_TITLE: '',
-	      USERNAME: '',
-	      PASSWORD: '',
-	      FORGOT_PASSWORD: ''
-	    };
-	  }
-
-	  _inherits(Signuppage, _React$Component);
-
-	  _createClass(Signuppage, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      _storesPageStore2['default'].listen(this._onChange);
-	      _actionsPageActions2['default'].getPage({ page: 'login', language: this.state.language });
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      _storesPageStore2['default'].unlisten(this._onChange);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-
-	      var pagedata = this.state.pagedata;
-	      var LOIGN_TITLE = this.state.LOIGN_TITLE;
-	      var USERNAME = this.state.USERNAME;
-	      var PASSWORD = this.state.PASSWORD;
-	      var FORGOT_PASSWORD = this.state.FORGOT_PASSWORD;
-
-	      return _react2['default'].createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2['default'].createElement(
-	          'h4',
-	          null,
-	          'Edit - Login page keys'
-	        ),
-	        _react2['default'].createElement(
-	          'form',
-	          { id: 'signupForm', className: 'form-horizontal' },
-	          _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
-	          _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2['default'].createElement(
-	              'label',
-	              { className: 'col-sm-2 control-label' },
-	              'LOIGN_TITLE'
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'col-sm-10' },
-	              _react2['default'].createElement('input', { className: 'form-control',
-	                name: 'LOIGN_TITLE',
-	                type: 'text',
-	                value: LOIGN_TITLE,
-	                onChange: this.onChangeKeys.bind(this, 'LOIGN_TITLE') })
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2['default'].createElement(
-	              'label',
-	              { className: 'col-sm-2 control-label' },
-	              'USERNAME'
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'col-sm-10' },
-	              _react2['default'].createElement('input', { className: 'form-control',
-	                type: 'text',
-	                name: 'USERNAME',
-	                value: USERNAME,
-	                onChange: this.onChangeKeys.bind(this, 'USERNAME') })
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2['default'].createElement(
-	              'label',
-	              { className: 'col-sm-2 control-label' },
-	              'PASSWORD'
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'col-sm-10' },
-	              _react2['default'].createElement('input', { className: 'form-control',
-	                type: 'text',
-	                name: 'PASSWORD',
-	                value: PASSWORD,
-	                onChange: this.onChangeKeys.bind(this, 'PASSWORD') })
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2['default'].createElement(
-	              'label',
-	              { className: 'col-sm-2 control-label' },
-	              'FORGOT_PASSWORD'
-	            ),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'col-sm-10' },
-	              _react2['default'].createElement('input', { className: 'form-control',
-	                type: 'text',
-	                name: 'FORGOT_PASSWORD',
-	                value: FORGOT_PASSWORD,
-	                onChange: this.onChangeKeys.bind(this, 'FORGOT_PASSWORD') })
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'div',
-	            { className: 'form-group' },
-	            _react2['default'].createElement('label', { className: 'col-sm-2 control-label' }),
-	            _react2['default'].createElement(
-	              'div',
-	              { className: 'col-sm-10' },
-	              _react2['default'].createElement(
-	                'button',
-	                { className: 'btn btn-primary', onClick: this.onSubmitLogin },
-	                'Submit'
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Signuppage;
-	})(_react2['default'].Component);
-
-	exports['default'] = Signuppage;
-	module.exports = exports['default'];
-
-/***/ },
+/* 279 */,
+/* 280 */,
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -51004,299 +50402,7 @@
 	module.exports = "<!doctype html>\n<html lang=\"\">\n\n<head>\n    <title>TITLE</title>\n\n    META\n\n    LINK\n\n</head>\n<body>\n<div class=\"app\">CONTENT</div>\n\n<script type=\"text/javascript\" charset=\"utf-8\" src=\"/assets/admin.js\"></script>\n</body>\n</html>\n";
 
 /***/ },
-/* 289 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	// import Immutable from 'immutable';
-
-	var _getFormData = __webpack_require__(252);
-
-	var _getFormData2 = _interopRequireDefault(_getFormData);
-
-	var _actionsPageActions = __webpack_require__(290);
-
-	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
-
-	var _storesPageStore = __webpack_require__(291);
-
-	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
-
-	var _componentsLanguageLanguageoptionsReact = __webpack_require__(275);
-
-	var _componentsLanguageLanguageoptionsReact2 = _interopRequireDefault(_componentsLanguageLanguageoptionsReact);
-
-	var _componentsLanguageHomepageReact = __webpack_require__(276);
-
-	var _componentsLanguageHomepageReact2 = _interopRequireDefault(_componentsLanguageHomepageReact);
-
-	var _componentsLanguageSignuppageReact = __webpack_require__(279);
-
-	var _componentsLanguageSignuppageReact2 = _interopRequireDefault(_componentsLanguageSignuppageReact);
-
-	var _componentsLanguageLoginpageReact = __webpack_require__(280);
-
-	var _componentsLanguageLoginpageReact2 = _interopRequireDefault(_componentsLanguageLoginpageReact);
-
-	var Pages = (function (_React$Component) {
-	    function Pages(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, Pages);
-
-	        _get(Object.getPrototypeOf(Pages.prototype), 'constructor', this).call(this, props);
-
-	        this._onChange = function () {
-	            _this.setState({
-	                languages: _storesPageStore2['default'].getState().languages,
-	                pagedata: _storesPageStore2['default'].getState().pagedata
-	            });
-	        };
-
-	        this.onSelectLanguage = function (e, child) {
-	            //let qid = child.props.qid;
-	            var language = e.target.value;
-	            _actionsPageActions2['default'].getPage({ page: _this.state.page, language: language });
-	            _this.setState({ language: language });
-	            _this.setState({ formstatus: false });
-	        };
-
-	        this.onSelectPage = function (e, child) {
-	            //let qid = child.props.qid;
-	            var page = e.target.value;
-	            _actionsPageActions2['default'].getPage({ page: page, language: _this.state.language });
-	            _this.setState({ page: page });
-	        };
-
-	        this.onSubmitSignup = function (e) {
-	            var formData = document.querySelector('#signupForm');
-	            var data = (0, _getFormData2['default'])(formData, { trim: true });
-	            var pageid = data['_id'];
-	            var signup = signup || {};
-
-	            signup.language = data['language'];
-	            signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
-	            signup.SUB_TITLE = data['SUB_TITLE'];
-
-	            if (window.confirm('Are you sure you want to submit the changes ?')) {
-	                _actionsPageActions2['default'].updatePageKeys(pageid, 'signup', signup);
-	                _this.setState({ formstatus: true });
-	            }
-	        };
-
-	        this.onSubmitHome = function (e) {
-	            var formData = document.querySelector('#homeForm');
-	            var data = (0, _getFormData2['default'])(formData, { trim: true });
-	            var pageid = data['_id'];
-	            var home = home || {};
-
-	            home.language = data['language'];
-	            home.HOME_TITLE = data['HOME_TITLE'];
-
-	            if (window.confirm('Are you sure you want to submit the changes ?')) {
-	                _actionsPageActions2['default'].updatePageKeys(pageid, 'home', home);
-	                _this.setState({ formstatus: true });
-	            }
-	        };
-
-	        this.onSubmitLogin = function (e) {
-	            var formData = document.querySelector('#signupForm');
-	            var data = (0, _getFormData2['default'])(formData, { trim: true });
-	            var pageid = data['_id'];
-	            var login = login || {};
-
-	            login.language = data['language'];
-	            login.LOIGN_TITLE = data['LOIGN_TITLE'];
-	            login.USERNAME = data['USERNAME'];
-	            login.PASSWORD = data['PASSWORD'];
-	            login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
-
-	            if (window.confirm('Are you sure you want to submit the changes ?')) {
-	                _actionsPageActions2['default'].updatePageKeys(pageid, 'login', login);
-	                _this.setState({ formstatus: true });
-	            }
-	        };
-
-	        this.state = _storesPageStore2['default'].getState();
-	        this.state = {
-	            page: 'home',
-	            language: 'english',
-	            formstatus: false,
-	            pagedata: []
-	        };
-	    }
-
-	    _inherits(Pages, _React$Component);
-
-	    _createClass(Pages, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            _storesPageStore2['default'].listen(this._onChange);
-	            _actionsPageActions2['default'].getLanguages();
-	            _actionsPageActions2['default'].getPage({ page: this.state.page, language: this.state.language });
-	            this.setState({ formstatus: false });
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            _storesPageStore2['default'].unlisten(this._onChange);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var languages = this.state.languages;
-	            var pagedata = this.state.pagedata;
-	            var page = this.state.page;
-	            var formstatus = this.state.formstatus;
-	            var contents = '';
-	            var pagekeys = pagekeys || {};
-	            pagekeys.pagekey = pagedata;
-	            var statusmessage = '';
-
-	            if (formstatus) {
-	                statusmessage = _react2['default'].createElement(
-	                    'div',
-	                    { className: 'alert alert-success' },
-	                    _react2['default'].createElement(
-	                        'strong',
-	                        null,
-	                        'Success!'
-	                    ),
-	                    ' Form submitted.'
-	                );
-	            }
-
-	            switch (page) {
-	                case 'home':
-	                    contents = _react2['default'].createElement(_componentsLanguageHomepageReact2['default'], { language: this.state.language, onClick: this.onSubmitHome });
-	                    break;
-
-	                case 'signup':
-	                    contents = _react2['default'].createElement(_componentsLanguageSignuppageReact2['default'], { language: this.state.language, onClick: this.onSubmitSignup });
-	                    break;
-
-	                case 'login':
-	                    contents = _react2['default'].createElement(_componentsLanguageLoginpageReact2['default'], { language: this.state.language, onClick: this.onSubmitLogin });
-	                    break;
-
-	                default:
-	                    break;
-	            }
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2['default'].createElement(
-	                    'h2',
-	                    null,
-	                    'Language - Pages'
-	                ),
-	                _react2['default'].createElement('br', null),
-	                _react2['default'].createElement('br', null),
-	                _react2['default'].createElement(
-	                    'form',
-	                    { id: 'pageForm', className: 'form-horizontal' },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { htmlFor: 'inputPage', className: 'col-sm-2 control-label' },
-	                            'Select Page : '
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement(
-	                                'select',
-	                                { className: 'form-control', id: 'inputPage', name: 'page', onChange: this.onSelectPage },
-	                                _react2['default'].createElement(
-	                                    'option',
-	                                    { value: 'home' },
-	                                    'Home'
-	                                ),
-	                                _react2['default'].createElement(
-	                                    'option',
-	                                    { value: 'signup' },
-	                                    'Signup'
-	                                ),
-	                                _react2['default'].createElement(
-	                                    'option',
-	                                    { value: 'login' },
-	                                    'Login'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'form-group' },
-	                        _react2['default'].createElement(
-	                            'label',
-	                            { htmlFor: 'inputPage', className: 'col-sm-2 control-label' },
-	                            'Select language : '
-	                        ),
-	                        _react2['default'].createElement(
-	                            'div',
-	                            { className: 'col-sm-10' },
-	                            _react2['default'].createElement(_componentsLanguageLanguageoptionsReact2['default'], { languages: languages, onChange: this.onSelectLanguage })
-	                        )
-	                    )
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'form-group' },
-	                    statusmessage
-	                ),
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'form-group' },
-	                    _react2['default'].createElement('br', null),
-	                    _react2['default'].createElement('br', null),
-	                    contents
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Pages;
-	})(_react2['default'].Component);
-
-	exports['default'] = Pages;
-	module.exports = exports['default'];
-
-	/**
-	 * Signup page submit
-	 */
-
-	/**
-	 * Home page submit
-	 */
-
-	/**
-	 * Login page submit
-	 */
-
-/***/ },
+/* 289 */,
 /* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -51601,6 +50707,905 @@
 	})(_react2['default'].Component);
 
 	exports['default'] = Editable;
+	module.exports = exports['default'];
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	// import Immutable from 'immutable';
+
+	var _getFormData = __webpack_require__(252);
+
+	var _getFormData2 = _interopRequireDefault(_getFormData);
+
+	var _actionsPageActions = __webpack_require__(290);
+
+	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
+
+	var _storesPageStore = __webpack_require__(291);
+
+	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
+
+	var _componentsPagesLanguageoptionsReact = __webpack_require__(294);
+
+	var _componentsPagesLanguageoptionsReact2 = _interopRequireDefault(_componentsPagesLanguageoptionsReact);
+
+	var _componentsPagesHomepageReact = __webpack_require__(295);
+
+	var _componentsPagesHomepageReact2 = _interopRequireDefault(_componentsPagesHomepageReact);
+
+	var _componentsPagesSignuppageReact = __webpack_require__(296);
+
+	var _componentsPagesSignuppageReact2 = _interopRequireDefault(_componentsPagesSignuppageReact);
+
+	var _componentsPagesLoginpageReact = __webpack_require__(297);
+
+	var _componentsPagesLoginpageReact2 = _interopRequireDefault(_componentsPagesLoginpageReact);
+
+	var Pages = (function (_React$Component) {
+	    function Pages(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, Pages);
+
+	        _get(Object.getPrototypeOf(Pages.prototype), 'constructor', this).call(this, props);
+
+	        this._onChange = function () {
+	            _this.setState({
+	                languages: _storesPageStore2['default'].getState().languages,
+	                pagedata: _storesPageStore2['default'].getState().pagedata
+	            });
+	        };
+
+	        this.onSelectLanguage = function (e, child) {
+	            //let qid = child.props.qid;
+	            var language = e.target.value;
+	            _actionsPageActions2['default'].getPage({ page: _this.state.page, language: language });
+	            _this.setState({ language: language });
+	            _this.setState({ formstatus: false });
+	        };
+
+	        this.onSelectPage = function (e, child) {
+	            //let qid = child.props.qid;
+	            var page = e.target.value;
+	            _actionsPageActions2['default'].getPage({ page: page, language: _this.state.language });
+	            _this.setState({ page: page });
+	        };
+
+	        this.onSubmitSignup = function (e) {
+	            var formData = document.querySelector('#signupForm');
+	            var data = (0, _getFormData2['default'])(formData, { trim: true });
+	            var pageid = data['_id'];
+	            var signup = signup || {};
+
+	            signup.language = data['language'];
+	            signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
+	            signup.SUB_TITLE = data['SUB_TITLE'];
+
+	            if (window.confirm('Are you sure you want to submit the changes ?')) {
+	                _actionsPageActions2['default'].updatePageKeys(pageid, 'signup', signup);
+	                _this.setState({ formstatus: true });
+	            }
+	        };
+
+	        this.onSubmitHome = function (e) {
+	            var formData = document.querySelector('#homeForm');
+	            var data = (0, _getFormData2['default'])(formData, { trim: true });
+	            var pageid = data['_id'];
+	            var home = home || {};
+
+	            home.language = data['language'];
+	            home.HOME_TITLE = data['HOME_TITLE'];
+
+	            if (window.confirm('Are you sure you want to submit the changes ?')) {
+	                _actionsPageActions2['default'].updatePageKeys(pageid, 'home', home);
+	                _this.setState({ formstatus: true });
+	            }
+	        };
+
+	        this.onSubmitLogin = function (e) {
+	            var formData = document.querySelector('#signupForm');
+	            var data = (0, _getFormData2['default'])(formData, { trim: true });
+	            var pageid = data['_id'];
+	            var login = login || {};
+
+	            login.language = data['language'];
+	            login.LOIGN_TITLE = data['LOIGN_TITLE'];
+	            login.USERNAME = data['USERNAME'];
+	            login.PASSWORD = data['PASSWORD'];
+	            login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
+
+	            if (window.confirm('Are you sure you want to submit the changes ?')) {
+	                _actionsPageActions2['default'].updatePageKeys(pageid, 'login', login);
+	                _this.setState({ formstatus: true });
+	            }
+	        };
+
+	        this.state = _storesPageStore2['default'].getState();
+	        this.state = {
+	            page: 'home',
+	            language: 'english',
+	            formstatus: false,
+	            pagedata: []
+	        };
+	    }
+
+	    _inherits(Pages, _React$Component);
+
+	    _createClass(Pages, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _storesPageStore2['default'].listen(this._onChange);
+	            _actionsPageActions2['default'].getLanguages();
+	            _actionsPageActions2['default'].getPage({ page: this.state.page, language: this.state.language });
+	            this.setState({ formstatus: false });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _storesPageStore2['default'].unlisten(this._onChange);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var languages = this.state.languages;
+	            var pagedata = this.state.pagedata;
+	            var page = this.state.page;
+	            var formstatus = this.state.formstatus;
+	            var contents = '';
+	            var pagekeys = pagekeys || {};
+	            pagekeys.pagekey = pagedata;
+	            var statusmessage = '';
+
+	            if (formstatus) {
+	                statusmessage = _react2['default'].createElement(
+	                    'div',
+	                    { className: 'alert alert-success' },
+	                    _react2['default'].createElement(
+	                        'strong',
+	                        null,
+	                        'Success!'
+	                    ),
+	                    ' Form submitted.'
+	                );
+	            }
+
+	            switch (page) {
+	                case 'home':
+	                    contents = _react2['default'].createElement(_componentsPagesHomepageReact2['default'], { language: this.state.language, onClick: this.onSubmitHome });
+	                    break;
+
+	                case 'signup':
+	                    contents = _react2['default'].createElement(_componentsPagesSignuppageReact2['default'], { language: this.state.language, onClick: this.onSubmitSignup });
+	                    break;
+
+	                case 'login':
+	                    contents = _react2['default'].createElement(_componentsPagesLoginpageReact2['default'], { language: this.state.language, onClick: this.onSubmitLogin });
+	                    break;
+
+	                default:
+	                    break;
+	            }
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2['default'].createElement(
+	                    'h2',
+	                    null,
+	                    'Language - Pages'
+	                ),
+	                _react2['default'].createElement('br', null),
+	                _react2['default'].createElement('br', null),
+	                _react2['default'].createElement(
+	                    'form',
+	                    { id: 'pageForm', className: 'form-horizontal' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { htmlFor: 'inputPage', className: 'col-sm-2 control-label' },
+	                            'Select Page : '
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement(
+	                                'select',
+	                                { className: 'form-control', id: 'inputPage', name: 'page', onChange: this.onSelectPage },
+	                                _react2['default'].createElement(
+	                                    'option',
+	                                    { value: 'home' },
+	                                    'Home'
+	                                ),
+	                                _react2['default'].createElement(
+	                                    'option',
+	                                    { value: 'signup' },
+	                                    'Signup'
+	                                ),
+	                                _react2['default'].createElement(
+	                                    'option',
+	                                    { value: 'login' },
+	                                    'Login'
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { htmlFor: 'inputPage', className: 'col-sm-2 control-label' },
+	                            'Select language : '
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement(_componentsPagesLanguageoptionsReact2['default'], { languages: languages, onChange: this.onSelectLanguage })
+	                        )
+	                    )
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    statusmessage
+	                ),
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'form-group' },
+	                    _react2['default'].createElement('br', null),
+	                    _react2['default'].createElement('br', null),
+	                    contents
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Pages;
+	})(_react2['default'].Component);
+
+	exports['default'] = Pages;
+	module.exports = exports['default'];
+
+	/**
+	 * Signup page submit
+	 */
+
+	/**
+	 * Home page submit
+	 */
+
+	/**
+	 * Login page submit
+	 */
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _underscore = __webpack_require__(267);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	var Languageoptions = (function (_React$Component) {
+	    function Languageoptions(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, Languageoptions);
+
+	        _get(Object.getPrototypeOf(Languageoptions.prototype), 'constructor', this).call(this, props);
+
+	        this.onSelectLanguage = function (e) {
+	            _this.props.onChange(e, _this);
+	        };
+	    }
+
+	    _inherits(Languageoptions, _React$Component);
+
+	    _createClass(Languageoptions, [{
+	        key: 'render',
+	        value: function render() {
+	            var languages = this.props.languages;
+	            var options = '';
+	            var lcount = _underscore2['default'].size(languages);
+	            if (lcount > 0) {
+	                options = languages.map(function (language) {
+	                    return _react2['default'].createElement(
+	                        'option',
+	                        { value: language },
+	                        language
+	                    );
+	                });
+	            }
+
+	            return _react2['default'].createElement(
+	                'select',
+	                { className: 'form-control', onChange: this.onSelectLanguage },
+	                options
+	            );
+	        }
+	    }]);
+
+	    return Languageoptions;
+	})(_react2['default'].Component);
+
+	exports['default'] = Languageoptions;
+	module.exports = exports['default'];
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _actionsPageActions = __webpack_require__(290);
+
+	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
+
+	var _storesPageStore = __webpack_require__(291);
+
+	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
+
+	var Homepage = (function (_React$Component) {
+	    function Homepage(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, Homepage);
+
+	        _get(Object.getPrototypeOf(Homepage.prototype), 'constructor', this).call(this, props);
+
+	        this._onChange = function () {
+	            _this.setState({
+	                pagedata: _storesPageStore2['default'].getState().pagedata
+	            });
+
+	            var pagedata = _this.state.pagedata;
+	            _this.setState({
+	                HOME_TITLE: pagedata.HOME_TITLE
+	            });
+	        };
+
+	        this.onSubmitHome = function (e) {
+	            e.preventDefault();
+	            _this.props.onClick(_this);
+	        };
+
+	        this.onChangeKeys = function (e, key) {
+	            e.preventDefault();
+	            _this.setState(_defineProperty({}, key, e.target.value));
+	        };
+
+	        this.state = _storesPageStore2['default'].getState();
+	        this.state = {
+	            pagedata: [],
+	            language: props.language,
+	            HOME_TITLE: ''
+	        };
+	    }
+
+	    _inherits(Homepage, _React$Component);
+
+	    _createClass(Homepage, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _storesPageStore2['default'].listen(this._onChange);
+	            _actionsPageActions2['default'].getPage({ page: 'home', language: this.state.language });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _storesPageStore2['default'].unlisten(this._onChange);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            var pagedata = this.state.pagedata;
+	            var HOME_TITLE = this.state.HOME_TITLE;
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2['default'].createElement(
+	                    'h4',
+	                    null,
+	                    'Edit - Home page keys'
+	                ),
+	                _react2['default'].createElement(
+	                    'form',
+	                    { id: 'homeForm', className: 'form-horizontal' },
+	                    _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
+	                    _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { className: 'col-sm-2 control-label' },
+	                            'HOME_TITLE'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement('input', { type: 'text',
+	                                name: 'HOME_TITLE',
+	                                className: 'form-control',
+	                                value: HOME_TITLE,
+	                                onChange: this.onChangeKeys.bind(this, 'HOME_TITLE') })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { className: 'col-sm-2 control-label' },
+	                            ' '
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { className: 'btn btn-primary', onClick: this.onSubmitHome },
+	                                'Update'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Homepage;
+	})(_react2['default'].Component);
+
+	exports['default'] = Homepage;
+	module.exports = exports['default'];
+
+/***/ },
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _actionsPageActions = __webpack_require__(290);
+
+	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
+
+	var _storesPageStore = __webpack_require__(291);
+
+	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
+
+	var Signuppage = (function (_React$Component) {
+	    function Signuppage(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, Signuppage);
+
+	        _get(Object.getPrototypeOf(Signuppage.prototype), 'constructor', this).call(this, props);
+
+	        this._onChange = function () {
+	            _this.setState({
+	                pagedata: _storesPageStore2['default'].getState().pagedata
+	            });
+
+	            var pagedata = _this.state.pagedata;
+	            _this.setState({
+	                SIGNUP_TITLE: pagedata.SIGNUP_TITLE,
+	                SUB_TITLE: pagedata.SUB_TITLE
+	            });
+	        };
+
+	        this.onSubmitSignup = function (e) {
+	            e.preventDefault();
+	            _this.props.onClick(_this);
+	        };
+
+	        this.onChangeKeys = function (e, key) {
+	            e.preventDefault();
+	            _this.setState(_defineProperty({}, key, e.target.value));
+	        };
+
+	        this.state = _storesPageStore2['default'].getState();
+	        this.state = {
+	            pagedata: [],
+	            language: props.language,
+	            SIGNUP_TITLE: '',
+	            SUB_TITLE: ''
+	        };
+	    }
+
+	    _inherits(Signuppage, _React$Component);
+
+	    _createClass(Signuppage, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _storesPageStore2['default'].listen(this._onChange);
+	            _actionsPageActions2['default'].getPage({ page: 'signup', language: this.state.language });
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _storesPageStore2['default'].unlisten(this._onChange);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            var pagedata = this.state.pagedata;
+	            var SIGNUP_TITLE = this.state.SIGNUP_TITLE;
+	            var SUB_TITLE = this.state.SUB_TITLE;
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2['default'].createElement(
+	                    'h4',
+	                    null,
+	                    'Edit - Signup page keys'
+	                ),
+	                _react2['default'].createElement(
+	                    'form',
+	                    { id: 'signupForm', className: 'form-horizontal' },
+	                    _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
+	                    _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { className: 'col-sm-2 control-label' },
+	                            'SIGNUP_TITLE'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement('input', { className: 'form-control',
+	                                name: 'SIGNUP_TITLE',
+	                                type: 'text',
+	                                value: SIGNUP_TITLE,
+	                                onChange: this.onChangeKeys.bind(this, 'SIGNUP_TITLE') })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement(
+	                            'label',
+	                            { className: 'col-sm-2 control-label' },
+	                            'SUB_TITLE'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement('input', { className: 'form-control',
+	                                name: 'SUB_TITLE',
+	                                type: 'text',
+	                                value: SUB_TITLE,
+	                                onChange: this.onChangeKeys.bind(this, 'SUB_TITLE') })
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'form-group' },
+	                        _react2['default'].createElement('label', { className: 'col-sm-2 control-label' }),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-10' },
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { className: 'btn btn-primary', onClick: this.onSubmitSignup },
+	                                'Submit'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Signuppage;
+	})(_react2['default'].Component);
+
+	exports['default'] = Signuppage;
+	module.exports = exports['default'];
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _actionsPageActions = __webpack_require__(290);
+
+	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
+
+	var _storesPageStore = __webpack_require__(291);
+
+	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
+
+	var Signuppage = (function (_React$Component) {
+	  function Signuppage(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, Signuppage);
+
+	    _get(Object.getPrototypeOf(Signuppage.prototype), 'constructor', this).call(this, props);
+
+	    this._onChange = function () {
+	      _this.setState({
+	        pagedata: _storesPageStore2['default'].getState().pagedata
+	      });
+
+	      var pagedata = _this.state.pagedata;
+	      _this.setState({
+	        LOIGN_TITLE: pagedata.LOIGN_TITLE,
+	        USERNAME: pagedata.USERNAME,
+	        PASSWORD: pagedata.PASSWORD,
+	        FORGOT_PASSWORD: pagedata.FORGOT_PASSWORD
+	      });
+	    };
+
+	    this.onCancelLogin = function (e) {
+	      e.preventDefault();
+	    };
+
+	    this.onSubmitLogin = function (e) {
+	      e.preventDefault();
+	      _this.props.onClick(_this);
+	    };
+
+	    this.onChangeKeys = function (e, key) {
+	      e.preventDefault();
+	      _this.setState(_defineProperty({}, key, e.target.value));
+	    };
+
+	    this.state = _storesPageStore2['default'].getState();
+	    this.state = {
+	      pagedata: [],
+	      language: props.language,
+	      LOIGN_TITLE: '',
+	      USERNAME: '',
+	      PASSWORD: '',
+	      FORGOT_PASSWORD: ''
+	    };
+	  }
+
+	  _inherits(Signuppage, _React$Component);
+
+	  _createClass(Signuppage, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _storesPageStore2['default'].listen(this._onChange);
+	      _actionsPageActions2['default'].getPage({ page: 'login', language: this.state.language });
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _storesPageStore2['default'].unlisten(this._onChange);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var pagedata = this.state.pagedata;
+	      var LOIGN_TITLE = this.state.LOIGN_TITLE;
+	      var USERNAME = this.state.USERNAME;
+	      var PASSWORD = this.state.PASSWORD;
+	      var FORGOT_PASSWORD = this.state.FORGOT_PASSWORD;
+
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'container' },
+	        _react2['default'].createElement(
+	          'h4',
+	          null,
+	          'Edit - Login page keys'
+	        ),
+	        _react2['default'].createElement(
+	          'form',
+	          { id: 'signupForm', className: 'form-horizontal' },
+	          _react2['default'].createElement('input', { type: 'hidden', name: '_id', value: pagedata._id }),
+	          _react2['default'].createElement('input', { type: 'hidden', name: 'language', value: pagedata.language }),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2['default'].createElement(
+	              'label',
+	              { className: 'col-sm-2 control-label' },
+	              'LOIGN_TITLE'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'col-sm-10' },
+	              _react2['default'].createElement('input', { className: 'form-control',
+	                name: 'LOIGN_TITLE',
+	                type: 'text',
+	                value: LOIGN_TITLE,
+	                onChange: this.onChangeKeys.bind(this, 'LOIGN_TITLE') })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2['default'].createElement(
+	              'label',
+	              { className: 'col-sm-2 control-label' },
+	              'USERNAME'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'col-sm-10' },
+	              _react2['default'].createElement('input', { className: 'form-control',
+	                type: 'text',
+	                name: 'USERNAME',
+	                value: USERNAME,
+	                onChange: this.onChangeKeys.bind(this, 'USERNAME') })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2['default'].createElement(
+	              'label',
+	              { className: 'col-sm-2 control-label' },
+	              'PASSWORD'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'col-sm-10' },
+	              _react2['default'].createElement('input', { className: 'form-control',
+	                type: 'text',
+	                name: 'PASSWORD',
+	                value: PASSWORD,
+	                onChange: this.onChangeKeys.bind(this, 'PASSWORD') })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2['default'].createElement(
+	              'label',
+	              { className: 'col-sm-2 control-label' },
+	              'FORGOT_PASSWORD'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'col-sm-10' },
+	              _react2['default'].createElement('input', { className: 'form-control',
+	                type: 'text',
+	                name: 'FORGOT_PASSWORD',
+	                value: FORGOT_PASSWORD,
+	                onChange: this.onChangeKeys.bind(this, 'FORGOT_PASSWORD') })
+	            )
+	          ),
+	          _react2['default'].createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2['default'].createElement('label', { className: 'col-sm-2 control-label' }),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'col-sm-10' },
+	              _react2['default'].createElement(
+	                'button',
+	                { className: 'btn btn-primary', onClick: this.onSubmitLogin },
+	                'Submit'
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Signuppage;
+	})(_react2['default'].Component);
+
+	exports['default'] = Signuppage;
 	module.exports = exports['default'];
 
 /***/ }

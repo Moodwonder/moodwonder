@@ -19,7 +19,7 @@ import Surveyforms from 'components/customsurvey/Customsurveyforms.react';
 import Takesurvey from 'components/customsurvey/Takesurvey.react';
 import NotFound from 'components/404.react';
 import Languages from 'components/language/Languages.react';
-import Pages from 'components/language/Pages.react';
+import Pages from 'components/pages/Pages.react';
 import Test1 from 'components/test1';
 import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
