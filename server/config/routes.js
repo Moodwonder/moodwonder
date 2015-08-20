@@ -13,6 +13,7 @@ var surveys = require('../controllers/surveys');
 var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
+var admin = require('../controllers/admin');
 
 module.exports = function(app, passport) {
   // user routes
@@ -42,9 +43,12 @@ module.exports = function(app, passport) {
   app.post('/deleteform', customSurvey.deleteForm);
   app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
   app.post('/addlanguage', language.addLanguage);
+  app.post('/editlanguage', language.editLanguage);
   app.get('/getlanguages', language.getLanguages);
   app.get('/getpage', language.getPage);
   app.post('/updatepagekeys', language.updatePageKeys);
+  app.post('/adminlogin', admin.login);
+  app.post('/deletelanguage', language.deleteLanguage);
 
   // Set variables from server side
   app.get('/signup/:hash', invitation.handleSignup);

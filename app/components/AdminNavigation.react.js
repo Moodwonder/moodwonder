@@ -42,6 +42,12 @@ export default class AdminNavigation extends React.Component {
                           <li>
                             <Link to="/admin" className="navigation__item">Admin</Link>
                           </li>
+                          <li>
+                            <Link to="/admin/languages" className="navigation__item">Languages</Link>
+                          </li>
+                          <li>
+                            <Link to="/admin/pages" className="navigation__item">Pages</Link>
+                          </li>
                         </ul>
                   </div>
             </div>

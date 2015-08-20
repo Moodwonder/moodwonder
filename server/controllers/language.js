@@ -24,6 +24,32 @@ exports.addLanguage = function (req, res) {
 };
 
 /**
+ * Edit language
+ */
+exports.editLanguage = function (req, res) {
+
+    var data = JSON.parse(req.body.data);
+    var code = data.code;
+    var language = data.language;
+
+    var condition = {_id: mongoose.Types.ObjectId(req.body.id)};
+    var update = {code: code, language: language};
+    var options = {multi: false};
+
+    Languages.update(condition, update, options, function (err, callback) {
+        var response = {};
+        if (!err) {
+            response.status = 'success';
+        } else {
+            response.status = 'failure';
+        }
+        res.json(response);
+        res.end();
+    });
+
+};
+
+/**
  * Get all languages
  */
 exports.getLanguages = function (req, res) {
@@ -42,6 +68,23 @@ exports.getLanguages = function (req, res) {
         res.end();
     });
 
+};
+
+/**
+ * Get all custome survey forms 
+ */
+exports.deleteLanguage = function (req, res) {
+    var _id = mongoose.Types.ObjectId(req.body.id);
+    Languages.remove({_id: _id}, function (err) {
+        var response = {};
+        if (!err) {
+            response.status = 'success';
+        } else {
+            response.status = 'failure';
+        }
+        res.json(response);
+        res.end();
+    });
 };
 
 /**
@@ -101,11 +144,11 @@ exports.getPage = function (req, res) {
 
     }
 
-    modelObj.findOne({language: language}).exec(function (err, result) {
+    modelObj.findOne({language: language}).exec(function (err, pagedata) {
         var response = {};
         if (!err) {
             response.status = 'success';
-            response.pagedata = result;
+            response.pagedata = pagedata;
         } else {
             response.status = 'failure';
             response.pagedata = [];
@@ -152,17 +195,17 @@ exports.updatePageKeys = function (req, res) {
             update = {}
             update = {SIGNUP_TITLE: data.SIGNUP_TITLE, SUB_TITLE: data.SUB_TITLE};
             break;
-            
+
         case 'login':
             modelObj = {};
             modelObj = Loginpage;
             update = {}
             update = {
-                      LOIGN_TITLE: data.LOIGN_TITLE, 
-                      USERNAME: data.USERNAME,
-                      PASSWORD: data.PASSWORD,
-                      FORGOT_PASSWORD: data.FORGOT_PASSWORD
-                     };
+                LOIGN_TITLE: data.LOIGN_TITLE,
+                USERNAME: data.USERNAME,
+                PASSWORD: data.PASSWORD,
+                FORGOT_PASSWORD: data.FORGOT_PASSWORD
+            };
             break;
 
         default:
