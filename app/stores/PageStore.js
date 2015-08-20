@@ -26,6 +26,7 @@ class PageStore {
   }
 
   handleLanguages (data) {
+      this.languages = [];
       for (let lng of data) {
           this.languages.push(lng.language);
       }

@@ -50552,6 +50552,7 @@
 	    }, {
 	        key: 'handleLanguages',
 	        value: function handleLanguages(data) {
+	            this.languages = [];
 	            var _iteratorNormalCompletion = true;
 	            var _didIteratorError = false;
 	            var _iteratorError = undefined;
