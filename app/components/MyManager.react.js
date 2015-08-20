@@ -5,6 +5,7 @@ import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
+import InviteOthers from 'components/InviteOthers.react';
 
 export default class MyManager extends React.Component {
 
@@ -35,11 +36,9 @@ export default class MyManager extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
-      console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
-      console.log(model);
       UserActions.saveManagerInfo(model);
   }
 
@@ -73,7 +72,6 @@ export default class MyManager extends React.Component {
             autocomplete="off"
             className="form-control"
             value={userInfo.mymanager}
-            disabled={( userInfo.mymanager === '' || userInfo.mymanager === undefined ) ? false:true}
             placeholder="Work Email"
             validations="isEmail"
             validationError="This is not a valid email"
@@ -88,6 +86,7 @@ export default class MyManager extends React.Component {
             <button type="submit" className="btn btn-default"
             disabled={!this.state.canSubmit}>Submit</button>
           </Formsy.Form>
+          <InviteOthers />
         </div>
       );
 

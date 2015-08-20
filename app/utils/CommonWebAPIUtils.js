@@ -49,8 +49,16 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
-  }
+  },
 
+  inviteSignup: (data) => {
+      return $.ajax({
+      url: '/invitesignup',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  }
 
 };
 

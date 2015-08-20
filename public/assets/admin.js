@@ -64,7 +64,7 @@
 
 	var _routesJs2 = _interopRequireDefault(_routesJs);
 
-	var _adminHtml = __webpack_require__(281);
+	var _adminHtml = __webpack_require__(286);
 
 	var _adminHtml2 = _interopRequireDefault(_adminHtml);
 
@@ -25747,55 +25747,55 @@
 
 	var _componentsCustomsurveyCustomsurveyReact2 = _interopRequireDefault(_componentsCustomsurveyCustomsurveyReact);
 
-	var _componentsSurveyReact = __webpack_require__(251);
+	var _componentsSurveyReact = __webpack_require__(252);
 
 	var _componentsSurveyReact2 = _interopRequireDefault(_componentsSurveyReact);
 
-	var _componentsMyProfileReact = __webpack_require__(255);
+	var _componentsMyProfileReact = __webpack_require__(256);
 
 	var _componentsMyProfileReact2 = _interopRequireDefault(_componentsMyProfileReact);
 
-	var _componentsMyCompanyInfoReact = __webpack_require__(256);
+	var _componentsMyCompanyInfoReact = __webpack_require__(257);
 
 	var _componentsMyCompanyInfoReact2 = _interopRequireDefault(_componentsMyCompanyInfoReact);
 
-	var _componentsMyManagerReact = __webpack_require__(257);
+	var _componentsMyManagerReact = __webpack_require__(258);
 
 	var _componentsMyManagerReact2 = _interopRequireDefault(_componentsMyManagerReact);
 
-	var _componentsMyTeamReact = __webpack_require__(258);
+	var _componentsMyTeamReact = __webpack_require__(263);
 
 	var _componentsMyTeamReact2 = _interopRequireDefault(_componentsMyTeamReact);
 
-	var _componentsTabsReact = __webpack_require__(262);
+	var _componentsTabsReact = __webpack_require__(267);
 
 	var _componentsTabsReact2 = _interopRequireDefault(_componentsTabsReact);
 
-	var _componentsCustomsurveyCustomsurveyformsReact = __webpack_require__(263);
+	var _componentsCustomsurveyCustomsurveyformsReact = __webpack_require__(268);
 
 	var _componentsCustomsurveyCustomsurveyformsReact2 = _interopRequireDefault(_componentsCustomsurveyCustomsurveyformsReact);
 
-	var _componentsCustomsurveyTakesurveyReact = __webpack_require__(265);
+	var _componentsCustomsurveyTakesurveyReact = __webpack_require__(270);
 
 	var _componentsCustomsurveyTakesurveyReact2 = _interopRequireDefault(_componentsCustomsurveyTakesurveyReact);
 
-	var _components404React = __webpack_require__(268);
+	var _components404React = __webpack_require__(273);
 
 	var _components404React2 = _interopRequireDefault(_components404React);
 
-	var _componentsLanguageLanguagesReact = __webpack_require__(269);
+	var _componentsLanguageLanguagesReact = __webpack_require__(274);
 
 	var _componentsLanguageLanguagesReact2 = _interopRequireDefault(_componentsLanguageLanguagesReact);
 
-	var _componentsTest1 = __webpack_require__(277);
+	var _componentsTest1 = __webpack_require__(282);
 
 	var _componentsTest12 = _interopRequireDefault(_componentsTest1);
 
-	var _componentsAdminReact = __webpack_require__(278);
+	var _componentsAdminReact = __webpack_require__(283);
 
 	var _componentsAdminReact2 = _interopRequireDefault(_componentsAdminReact);
 
-	var _componentsLoginAdminloginReact = __webpack_require__(280);
+	var _componentsLoginAdminloginReact = __webpack_require__(285);
 
 	var _componentsLoginAdminloginReact2 = _interopRequireDefault(_componentsLoginAdminloginReact);
 
@@ -25872,13 +25872,13 @@
 	var _componentsNavigationReact2 = _interopRequireDefault(_componentsNavigationReact);
 
 	var App = (function (_React$Component) {
+	  _inherits(App, _React$Component);
+
 	  function App() {
 	    _classCallCheck(this, App);
 
 	    _get(Object.getPrototypeOf(App.prototype), 'constructor', this).apply(this, arguments);
 	  }
-
-	  _inherits(App, _React$Component);
 
 	  _createClass(App, [{
 	    key: 'render',
@@ -25937,6 +25937,8 @@
 	var _storesUserStore2 = _interopRequireDefault(_storesUserStore);
 
 	var Navigation = (function (_React$Component) {
+	    _inherits(Navigation, _React$Component);
+
 	    function Navigation(props) {
 	        var _this = this;
 
@@ -25956,8 +25958,6 @@
 
 	        this.state = _storesUserStore2['default'].getState();
 	    }
-
-	    _inherits(Navigation, _React$Component);
 
 	    _createClass(Navigation, [{
 	        key: 'componentDidMount',
@@ -40716,13 +40716,13 @@
 	var _immutable2 = _interopRequireDefault(_immutable);
 
 	var Index = (function (_React$Component) {
+	  _inherits(Index, _React$Component);
+
 	  function Index(props) {
 	    _classCallCheck(this, Index);
 
 	    _get(Object.getPrototypeOf(Index.prototype), 'constructor', this).call(this, props);
 	  }
-
-	  _inherits(Index, _React$Component);
 
 	  _createClass(Index, [{
 	    key: 'render',
@@ -40795,6 +40795,8 @@
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
 	var Login = (function (_React$Component) {
+	    _inherits(Login, _React$Component);
+
 	    function Login(props) {
 	        var _this = this;
 
@@ -40832,8 +40834,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(Login, _React$Component);
 
 	    _createClass(Login, [{
 	        key: 'componentDidMount',
@@ -41990,13 +41990,13 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var Logout = (function (_React$Component) {
+	  _inherits(Logout, _React$Component);
+
 	  function Logout() {
 	    _classCallCheck(this, Logout);
 
 	    _get(Object.getPrototypeOf(Logout.prototype), "constructor", this).apply(this, arguments);
 	  }
-
-	  _inherits(Logout, _React$Component);
 
 	  _createClass(Logout, [{
 	    key: "render",
@@ -42060,6 +42060,8 @@
 	var _componentsFormsyComponents = __webpack_require__(224);
 
 	var Signup = (function (_React$Component) {
+	    _inherits(Signup, _React$Component);
+
 	    function Signup(props) {
 	        var _this = this;
 
@@ -42126,8 +42128,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(Signup, _React$Component);
 
 	    _createClass(Signup, [{
 	        key: 'componentDidMount',
@@ -42675,6 +42675,8 @@
 	var _componentsFormsyComponents = __webpack_require__(224);
 
 	var Signup = (function (_React$Component) {
+	    _inherits(Signup, _React$Component);
+
 	    function Signup(props) {
 	        var _this = this;
 
@@ -42745,8 +42747,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(Signup, _React$Component);
 
 	    _createClass(Signup, [{
 	        key: 'componentDidMount',
@@ -42874,6 +42874,8 @@
 	var _storesCreatePswdStore2 = _interopRequireDefault(_storesCreatePswdStore);
 
 	var CreatePassword = (function (_React$Component) {
+	    _inherits(CreatePassword, _React$Component);
+
 	    function CreatePassword(props) {
 	        var _this = this;
 
@@ -42948,8 +42950,6 @@
 	            }
 	        };
 	    }
-
-	    _inherits(CreatePassword, _React$Component);
 
 	    _createClass(CreatePassword, [{
 	        key: 'componentDidMount',
@@ -43197,21 +43197,21 @@
 	// import $ from 'jquery';
 	// import Validation, { Validator } from 'rc-form-validation';
 
-	var _componentsCustomsurveyQuestionReact = __webpack_require__(241);
+	var _componentsCustomsurveyQuestionReact = __webpack_require__(245);
 
 	var _componentsCustomsurveyQuestionReact2 = _interopRequireDefault(_componentsCustomsurveyQuestionReact);
 
-	var _getFormData = __webpack_require__(246);
+	var _getFormData = __webpack_require__(250);
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
 	// import _ from 'underscore';
 
-	var _actionsCustomSurveyActions = __webpack_require__(247);
+	var _actionsCustomSurveyActions = __webpack_require__(242);
 
 	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
 
-	var _storesCustomSurveyStore = __webpack_require__(249);
+	var _storesCustomSurveyStore = __webpack_require__(241);
 
 	var _storesCustomSurveyStore2 = _interopRequireDefault(_storesCustomSurveyStore);
 
@@ -43221,11 +43221,13 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var Customsurvey = (function (_React$Component) {
+	    _inherits(Customsurvey, _React$Component);
+
 	    function Customsurvey(props) {
 	        var _this = this;
 
@@ -43698,8 +43700,6 @@
 	        };
 	    }
 
-	    _inherits(Customsurvey, _React$Component);
-
 	    _createClass(Customsurvey, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
@@ -44029,6 +44029,283 @@
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _immutable = __webpack_require__(217);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	var _actionsCustomSurveyActions = __webpack_require__(242);
+
+	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
+
+	var _utilsImmutableHelpers = __webpack_require__(244);
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var CustomSurveyStore = (function () {
+	    function CustomSurveyStore() {
+	        _classCallCheck(this, CustomSurveyStore);
+
+	        this.isSurveyCreated = false;
+	        this.form = _immutable2['default'].Map({});
+
+	        this.bindListeners({
+	            handleCustomSurveyForm: _actionsCustomSurveyActions2['default'].CREATESURVEYFORM,
+	            handleSurveyForm: _actionsCustomSurveyActions2['default'].HANDLESURVEYFORM
+	        });
+	    }
+
+	    _createClass(CustomSurveyStore, [{
+	        key: 'bootstrap',
+	        value: function bootstrap() {
+	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.form)) {
+	                this.form = (0, _utilsImmutableHelpers.fromJSOrdered)(this.form);
+	            }
+	        }
+	    }, {
+	        key: 'handleCustomSurveyForm',
+	        value: function handleCustomSurveyForm(data) {
+	            this.isSurveyCreated = true;
+	            this.emitChange();
+	        }
+	    }, {
+	        key: 'handleSurveyForm',
+	        value: function handleSurveyForm(data) {
+	            this.form = data;
+	            this.emitChange();
+	        }
+	    }]);
+
+	    return CustomSurveyStore;
+	})();
+
+	// Export our newly created Store
+	exports['default'] = _altInstance2['default'].createStore(CustomSurveyStore, 'CustomSurveyStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var _utilsCustomSurveyWebAPIUtils = __webpack_require__(243);
+
+	var _utilsCustomSurveyWebAPIUtils2 = _interopRequireDefault(_utilsCustomSurveyWebAPIUtils);
+
+	var CustomSurveyActions = (function () {
+	    function CustomSurveyActions() {
+	        _classCallCheck(this, CustomSurveyActions);
+	    }
+
+	    _createClass(CustomSurveyActions, [{
+	        key: 'createCustomSurveyForm',
+	        value: function createCustomSurveyForm(data) {
+	            var _this = this;
+
+	            this.dispatch();
+	            _utilsCustomSurveyWebAPIUtils2['default'].createCustomSurveyForm(data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    _this.actions.createsurveyform(true);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'createsurveyform',
+	        value: function createsurveyform(data) {
+	            this.dispatch(data);
+	        }
+	    }, {
+	        key: 'getCustomSurveyForms',
+	        value: function getCustomSurveyForms() {
+	            var _this2 = this;
+
+	            this.dispatch();
+	            _utilsCustomSurveyWebAPIUtils2['default'].getCustomSurveyForms().then(function (response, textStatus) {
+	                if (response.status === 'success') {
+	                    _this2.actions.surveyforms(response.forms);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'surveyforms',
+	        value: function surveyforms(data) {
+	            this.dispatch(data);
+	        }
+	    }, {
+	        key: 'getSurveyForm',
+	        value: function getSurveyForm(id) {
+	            var _this3 = this;
+
+	            this.dispatch();
+	            _utilsCustomSurveyWebAPIUtils2['default'].getSurveyForm(id).then(function (response, textStatus) {
+	                if (response.status === 'success') {
+	                    _this3.actions.handlesurveyform(response.form);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'handlesurveyform',
+	        value: function handlesurveyform(data) {
+	            this.dispatch(data);
+	        }
+	    }, {
+	        key: 'deleteForm',
+	        value: function deleteForm(id) {
+	            var _this4 = this;
+
+	            this.dispatch();
+	            _utilsCustomSurveyWebAPIUtils2['default'].deleteForm(id).then(function (response, textStatus) {
+	                if (response.status === 'success') {
+	                    _this4.actions.deleteaform(id);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'deleteaform',
+	        value: function deleteaform(id) {
+	            this.dispatch(id);
+	        }
+	    }]);
+
+	    return CustomSurveyActions;
+	})();
+
+	exports['default'] = _altInstance2['default'].createActions(CustomSurveyActions);
+	module.exports = exports['default'];
+
+	// Dispatch another event for a bad request
+
+	// Dispatch another event for a bad request
+
+	// Dispatch another event for a bad request
+
+	// Dispatch another event for a bad request
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _jquery = __webpack_require__(220);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var utils = {
+
+	  createCustomSurveyForm: function createCustomSurveyForm(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/createsurveyform',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  getCustomSurveyForms: function getCustomSurveyForms() {
+	    return _jquery2['default'].ajax({
+	      url: '/getsurveyforms',
+	      type: 'GET',
+	      contentType: 'application/json'
+	    });
+	  },
+
+	  deleteForm: function deleteForm(id) {
+	    return _jquery2['default'].ajax({
+	      url: '/deleteform',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify({ id: id })
+	    });
+	  },
+
+	  getSurveyForm: function getSurveyForm(id) {
+	    return _jquery2['default'].ajax({
+	      url: '/getsurveyform',
+	      type: 'GET',
+	      //contentType: 'application/json',
+	      data: { id: id }
+	    });
+	  },
+
+	  saveSurveyResults: function saveSurveyResults(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/savesurveyresults',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  }
+
+	};
+
+	exports['default'] = utils;
+	module.exports = exports['default'];
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.fromJSGreedy = fromJSGreedy;
+	exports.fromJSOrdered = fromJSOrdered;
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _immutable = __webpack_require__(217);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	function fromJSGreedy(js) {
+	  return typeof js !== 'object' || js === null ? js : Array.isArray(js) ? _immutable2['default'].Seq(js).map(fromJSGreedy).toList() : _immutable2['default'].Seq(js).map(fromJSGreedy).toMap();
+	}
+
+	function fromJSOrdered(js) {
+	  return typeof js !== 'object' || js === null ? js : Array.isArray(js) ? _immutable2['default'].Seq(js).map(fromJSGreedy).toList() : _immutable2['default'].Seq(js).map(fromJSGreedy).toOrderedMap();
+	}
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -44041,23 +44318,25 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _componentsCustomsurveyRadioReact = __webpack_require__(242);
+	var _componentsCustomsurveyRadioReact = __webpack_require__(246);
 
 	var _componentsCustomsurveyRadioReact2 = _interopRequireDefault(_componentsCustomsurveyRadioReact);
 
-	var _componentsCustomsurveyCheckboxReact = __webpack_require__(243);
+	var _componentsCustomsurveyCheckboxReact = __webpack_require__(247);
 
 	var _componentsCustomsurveyCheckboxReact2 = _interopRequireDefault(_componentsCustomsurveyCheckboxReact);
 
-	var _componentsCustomsurveyTextboxReact = __webpack_require__(244);
+	var _componentsCustomsurveyTextboxReact = __webpack_require__(248);
 
 	var _componentsCustomsurveyTextboxReact2 = _interopRequireDefault(_componentsCustomsurveyTextboxReact);
 
-	var _componentsCustomsurveyTextareaReact = __webpack_require__(245);
+	var _componentsCustomsurveyTextareaReact = __webpack_require__(249);
 
 	var _componentsCustomsurveyTextareaReact2 = _interopRequireDefault(_componentsCustomsurveyTextareaReact);
 
 	var Question = (function (_React$Component) {
+	    _inherits(Question, _React$Component);
+
 	    function Question(props) {
 	        var _this = this;
 
@@ -44106,8 +44385,6 @@
 
 	        this.state = {};
 	    }
-
-	    _inherits(Question, _React$Component);
 
 	    _createClass(Question, [{
 	        key: 'render',
@@ -44275,7 +44552,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 242 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44299,6 +44576,8 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var Radio = (function (_React$Component) {
+	    _inherits(Radio, _React$Component);
+
 	    function Radio(props) {
 	        var _this = this;
 
@@ -44315,8 +44594,6 @@
 	            _this.props.changeRadio(key, formdata, field);
 	        };
 	    }
-
-	    _inherits(Radio, _React$Component);
 
 	    _createClass(Radio, [{
 	        key: 'render',
@@ -44371,7 +44648,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 243 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44395,6 +44672,8 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var Checkbox = (function (_React$Component) {
+	    _inherits(Checkbox, _React$Component);
+
 	    function Checkbox(props) {
 	        var _this = this;
 
@@ -44411,8 +44690,6 @@
 	            _this.props.changeCheckbox(key, formdata, field);
 	        };
 	    }
-
-	    _inherits(Checkbox, _React$Component);
 
 	    _createClass(Checkbox, [{
 	        key: 'render',
@@ -44468,7 +44745,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 244 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44492,13 +44769,13 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var Textbox = (function (_React$Component) {
+	  _inherits(Textbox, _React$Component);
+
 	  function Textbox(props) {
 	    _classCallCheck(this, Textbox);
 
 	    _get(Object.getPrototypeOf(Textbox.prototype), "constructor", this).call(this, props);
 	  }
-
-	  _inherits(Textbox, _React$Component);
 
 	  _createClass(Textbox, [{
 	    key: "render",
@@ -44526,7 +44803,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 245 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -44550,13 +44827,13 @@
 	var _react2 = _interopRequireDefault(_react);
 
 	var Textarea = (function (_React$Component) {
+	  _inherits(Textarea, _React$Component);
+
 	  function Textarea(props) {
 	    _classCallCheck(this, Textarea);
 
 	    _get(Object.getPrototypeOf(Textarea.prototype), "constructor", this).call(this, props);
 	  }
-
-	  _inherits(Textarea, _React$Component);
 
 	  _createClass(Textarea, [{
 	    key: "render",
@@ -44584,7 +44861,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 246 */
+/* 250 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44769,284 +45046,121 @@
 	module.exports = getFormData
 
 /***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var _utilsCustomSurveyWebAPIUtils = __webpack_require__(248);
-
-	var _utilsCustomSurveyWebAPIUtils2 = _interopRequireDefault(_utilsCustomSurveyWebAPIUtils);
-
-	var CustomSurveyActions = (function () {
-	    function CustomSurveyActions() {
-	        _classCallCheck(this, CustomSurveyActions);
-	    }
-
-	    _createClass(CustomSurveyActions, [{
-	        key: 'createCustomSurveyForm',
-	        value: function createCustomSurveyForm(data) {
-	            var _this = this;
-
-	            this.dispatch();
-	            _utilsCustomSurveyWebAPIUtils2['default'].createCustomSurveyForm(data).then(function (response, textStatus) {
-	                if (textStatus === 'success') {
-	                    _this.actions.createsurveyform(true);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'createsurveyform',
-	        value: function createsurveyform(data) {
-	            this.dispatch(data);
-	        }
-	    }, {
-	        key: 'getCustomSurveyForms',
-	        value: function getCustomSurveyForms() {
-	            var _this2 = this;
-
-	            this.dispatch();
-	            _utilsCustomSurveyWebAPIUtils2['default'].getCustomSurveyForms().then(function (response, textStatus) {
-	                if (response.status === 'success') {
-	                    _this2.actions.surveyforms(response.forms);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'surveyforms',
-	        value: function surveyforms(data) {
-	            this.dispatch(data);
-	        }
-	    }, {
-	        key: 'getSurveyForm',
-	        value: function getSurveyForm(id) {
-	            var _this3 = this;
-
-	            this.dispatch();
-	            _utilsCustomSurveyWebAPIUtils2['default'].getSurveyForm(id).then(function (response, textStatus) {
-	                if (response.status === 'success') {
-	                    _this3.actions.handlesurveyform(response.form);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'handlesurveyform',
-	        value: function handlesurveyform(data) {
-	            this.dispatch(data);
-	        }
-	    }, {
-	        key: 'deleteForm',
-	        value: function deleteForm(id) {
-	            var _this4 = this;
-
-	            this.dispatch();
-	            _utilsCustomSurveyWebAPIUtils2['default'].deleteForm(id).then(function (response, textStatus) {
-	                if (response.status === 'success') {
-	                    _this4.actions.deleteaform(id);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'deleteaform',
-	        value: function deleteaform(id) {
-	            this.dispatch(id);
-	        }
-	    }]);
-
-	    return CustomSurveyActions;
-	})();
-
-	exports['default'] = _altInstance2['default'].createActions(CustomSurveyActions);
-	module.exports = exports['default'];
-
-	// Dispatch another event for a bad request
-
-	// Dispatch another event for a bad request
-
-	// Dispatch another event for a bad request
-
-	// Dispatch another event for a bad request
-
-/***/ },
-/* 248 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _jquery = __webpack_require__(220);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var utils = {
-
-	  createCustomSurveyForm: function createCustomSurveyForm(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/createsurveyform',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  },
-
-	  getCustomSurveyForms: function getCustomSurveyForms() {
-	    return _jquery2['default'].ajax({
-	      url: '/getsurveyforms',
-	      type: 'GET',
-	      contentType: 'application/json'
-	    });
-	  },
-
-	  deleteForm: function deleteForm(id) {
-	    return _jquery2['default'].ajax({
-	      url: '/deleteform',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify({ id: id })
-	    });
-	  },
-
-	  getSurveyForm: function getSurveyForm(id) {
-	    return _jquery2['default'].ajax({
-	      url: '/getsurveyform',
-	      type: 'GET',
-	      //contentType: 'application/json',
-	      data: { id: id }
-	    });
-	  },
-
-	  saveSurveyResults: function saveSurveyResults(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/savesurveyresults',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  }
-
-	};
-
-	exports['default'] = utils;
-	module.exports = exports['default'];
-
-/***/ },
-/* 249 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _immutable = __webpack_require__(217);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	var _actionsCustomSurveyActions = __webpack_require__(247);
-
-	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
-
-	var _utilsImmutableHelpers = __webpack_require__(250);
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var CustomSurveyStore = (function () {
-	    function CustomSurveyStore() {
-	        _classCallCheck(this, CustomSurveyStore);
-
-	        this.isSurveyCreated = false;
-	        this.form = _immutable2['default'].Map({});
-
-	        this.bindListeners({
-	            handleCustomSurveyForm: _actionsCustomSurveyActions2['default'].CREATESURVEYFORM,
-	            handleSurveyForm: _actionsCustomSurveyActions2['default'].HANDLESURVEYFORM
-	        });
-	    }
-
-	    _createClass(CustomSurveyStore, [{
-	        key: 'bootstrap',
-	        value: function bootstrap() {
-	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.form)) {
-	                this.form = (0, _utilsImmutableHelpers.fromJSOrdered)(this.form);
-	            }
-	        }
-	    }, {
-	        key: 'handleCustomSurveyForm',
-	        value: function handleCustomSurveyForm(data) {
-	            this.isSurveyCreated = true;
-	            this.emitChange();
-	        }
-	    }, {
-	        key: 'handleSurveyForm',
-	        value: function handleSurveyForm(data) {
-	            this.form = data;
-	            this.emitChange();
-	        }
-	    }]);
-
-	    return CustomSurveyStore;
-	})();
-
-	// Export our newly created Store
-	exports['default'] = _altInstance2['default'].createStore(CustomSurveyStore, 'CustomSurveyStore');
-	module.exports = exports['default'];
-
-/***/ },
-/* 250 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-	exports.fromJSGreedy = fromJSGreedy;
-	exports.fromJSOrdered = fromJSOrdered;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _immutable = __webpack_require__(217);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	function fromJSGreedy(js) {
-	  return typeof js !== 'object' || js === null ? js : Array.isArray(js) ? _immutable2['default'].Seq(js).map(fromJSGreedy).toList() : _immutable2['default'].Seq(js).map(fromJSGreedy).toMap();
-	}
-
-	function fromJSOrdered(js) {
-	  return typeof js !== 'object' || js === null ? js : Array.isArray(js) ? _immutable2['default'].Seq(js).map(fromJSGreedy).toList() : _immutable2['default'].Seq(js).map(fromJSGreedy).toOrderedMap();
-	}
-
-/***/ },
 /* 251 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	/*
+	 * Component for submenu
+	 *
+	 */
+
+	var Submenu = (function (_React$Component) {
+	    _inherits(Submenu, _React$Component);
+
+	    function Submenu(props) {
+	        _classCallCheck(this, Submenu);
+
+	        _get(Object.getPrototypeOf(Submenu.prototype), "constructor", this).call(this, props);
+	    }
+
+	    _createClass(Submenu, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {}
+	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2["default"].createElement(
+	                "ul",
+	                { className: "pagination" },
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/survey" },
+	                        "Engagement Survey"
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/myprofile" },
+	                        "My Profile"
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/mycompany" },
+	                        "My Company"
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/mymanager" },
+	                        "My Manager"
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/myteam" },
+	                        "My Teams"
+	                    )
+	                ),
+	                _react2["default"].createElement(
+	                    "li",
+	                    null,
+	                    _react2["default"].createElement(
+	                        "a",
+	                        { href: "/surveyforms" },
+	                        "Custom survey"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Submenu;
+	})(_react2["default"].Component);
+
+	exports["default"] = Submenu;
+	module.exports = exports["default"];
+
+/***/ },
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45069,19 +45183,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _actionsSurveyActions = __webpack_require__(252);
+	var _actionsSurveyActions = __webpack_require__(253);
 
 	var _actionsSurveyActions2 = _interopRequireDefault(_actionsSurveyActions);
 
-	var _storesSurveyStore = __webpack_require__(254);
+	var _storesSurveyStore = __webpack_require__(255);
 
 	var _storesSurveyStore2 = _interopRequireDefault(_storesSurveyStore);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var Survey = (function (_React$Component) {
+	    _inherits(Survey, _React$Component);
+
 	    function Survey(props) {
 	        var _this = this;
 
@@ -45103,8 +45219,6 @@
 
 	        this.state = _storesSurveyStore2['default'].getState();
 	    }
-
-	    _inherits(Survey, _React$Component);
 
 	    _createClass(Survey, [{
 	        key: 'componentDidMount',
@@ -45208,7 +45322,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45227,7 +45341,7 @@
 
 	var _altInstance2 = _interopRequireDefault(_altInstance);
 
-	var _utilsSurveyWebAPIUtils = __webpack_require__(253);
+	var _utilsSurveyWebAPIUtils = __webpack_require__(254);
 
 	var _utilsSurveyWebAPIUtils2 = _interopRequireDefault(_utilsSurveyWebAPIUtils);
 
@@ -45286,7 +45400,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45327,7 +45441,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45342,7 +45456,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _actionsSurveyActions = __webpack_require__(252);
+	var _actionsSurveyActions = __webpack_require__(253);
 
 	var _actionsSurveyActions2 = _interopRequireDefault(_actionsSurveyActions);
 
@@ -45391,7 +45505,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45430,11 +45544,13 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var MyProfile = (function (_React$Component) {
+	    _inherits(MyProfile, _React$Component);
+
 	    function MyProfile(props) {
 	        var _this = this;
 
@@ -45465,8 +45581,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(MyProfile, _React$Component);
 
 	    _createClass(MyProfile, [{
 	        key: 'componentDidMount',
@@ -45583,7 +45697,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45622,11 +45736,13 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var MyCompanyInfo = (function (_React$Component) {
+	    _inherits(MyCompanyInfo, _React$Component);
+
 	    function MyCompanyInfo(props) {
 	        var _this = this;
 
@@ -45657,8 +45773,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(MyCompanyInfo, _React$Component);
 
 	    _createClass(MyCompanyInfo, [{
 	        key: 'componentDidMount',
@@ -45790,7 +45904,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45829,11 +45943,17 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
+	var _componentsInviteOthersReact = __webpack_require__(259);
+
+	var _componentsInviteOthersReact2 = _interopRequireDefault(_componentsInviteOthersReact);
+
 	var MyManager = (function (_React$Component) {
+	    _inherits(MyManager, _React$Component);
+
 	    function MyManager(props) {
 	        var _this = this;
 
@@ -45851,11 +45971,9 @@
 
 	        this._onChange = function (state) {
 	            _this.setState(state);
-	            console.log(_this.state.userDetails);
 	        };
 
 	        this._onSaveSubmit = function (model) {
-	            console.log(model);
 	            _actionsUserActions2['default'].saveManagerInfo(model);
 	        };
 
@@ -45864,8 +45982,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(MyManager, _React$Component);
 
 	    _createClass(MyManager, [{
 	        key: 'componentDidMount',
@@ -45916,7 +46032,6 @@
 	                        autocomplete: 'off',
 	                        className: 'form-control',
 	                        value: userInfo.mymanager,
-	                        disabled: userInfo.mymanager === '' || userInfo.mymanager === undefined ? false : true,
 	                        placeholder: 'Work Email',
 	                        validations: 'isEmail',
 	                        validationError: 'This is not a valid email',
@@ -45932,7 +46047,8 @@
 	                            disabled: !this.state.canSubmit },
 	                        'Submit'
 	                    )
-	                )
+	                ),
+	                _react2['default'].createElement(_componentsInviteOthersReact2['default'], null)
 	            );
 
 	            return _react2['default'].createElement(
@@ -45952,7 +46068,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45975,11 +46091,349 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _actionsTeamActions = __webpack_require__(259);
+	var _componentsFormsyComponents = __webpack_require__(224);
+
+	var _actionsInviteActions = __webpack_require__(260);
+
+	var _actionsInviteActions2 = _interopRequireDefault(_actionsInviteActions);
+
+	var _storesInviteStore = __webpack_require__(262);
+
+	var _storesInviteStore2 = _interopRequireDefault(_storesInviteStore);
+
+	/*
+	 * Component for Invite Others Widget
+	 *
+	 */
+
+	var InviteOthers = (function (_React$Component) {
+	    _inherits(InviteOthers, _React$Component);
+
+	    function InviteOthers(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, InviteOthers);
+
+	        _get(Object.getPrototypeOf(InviteOthers.prototype), 'constructor', this).call(this, props);
+
+	        this.enableButton = function () {
+	            _this.setState({ canSubmit: true });
+	        };
+
+	        this.disableButton = function () {
+	            _this.setState({ canSubmit: false });
+	        };
+
+	        this._onChange = function (state) {
+	            _this.setState(state);
+	        };
+
+	        this._onSaveSubmit = function (model) {
+	            _actionsInviteActions2['default'].invitePeople(model);
+	        };
+
+	        this.state = _storesInviteStore2['default'].getState();
+	        this.state.canSubmit = false;
+	        this.validationErrors = {};
+	    }
+
+	    _createClass(InviteOthers, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _storesInviteStore2['default'].listen(this._onChange);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var message = undefined;
+
+	            if (this.state.message !== '') {
+	                console.log(this.state.message);
+	                message = _react2['default'].createElement(
+	                    'div',
+	                    { className: this.state.hasError ? 'alert alert-warning' : 'alert alert-info' },
+	                    this.state.message
+	                );
+	            }
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'row' },
+	                _react2['default'].createElement(
+	                    'h4',
+	                    null,
+	                    'Invite others'
+	                ),
+	                message,
+	                _react2['default'].createElement(
+	                    Formsy.Form,
+	                    { onValidSubmit: this._onSaveSubmit,
+	                        onValid: this.enableButton,
+	                        onInvalid: this.disableButton },
+	                    _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                        name: 'email',
+	                        autocomplete: 'off',
+	                        className: 'form-control',
+	                        placeholder: 'Work Email',
+	                        validations: 'isEmail',
+	                        validationError: 'This is not a valid email',
+	                        required: true }),
+	                    _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                        name: 'invitetype',
+	                        type: 'hidden',
+	                        value: 'Signup'
+	                    }),
+	                    _react2['default'].createElement(
+	                        'button',
+	                        { type: 'submit', className: 'btn btn-default',
+	                            disabled: !this.state.canSubmit },
+	                        'Submit'
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return InviteOthers;
+	})(_react2['default'].Component);
+
+	exports['default'] = InviteOthers;
+	module.exports = exports['default'];
+
+/***/ },
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var _utilsCommonWebAPIUtils = __webpack_require__(261);
+
+	var _utilsCommonWebAPIUtils2 = _interopRequireDefault(_utilsCommonWebAPIUtils);
+
+	/**
+	 * InviteActions
+	 */
+
+	var InviteActions = (function () {
+	    function InviteActions() {
+	        _classCallCheck(this, InviteActions);
+	    }
+
+	    _createClass(InviteActions, [{
+	        key: 'invitePeople',
+
+	        // Invite People
+	        value: function invitePeople(data) {
+	            var _this = this;
+
+	            this.dispatch();
+	            _utilsCommonWebAPIUtils2['default'].inviteSignup(data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    _this.actions.invitesignupsuccess(response);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'invitesignupsuccess',
+
+	        // response handler for inviteSignup()
+	        value: function invitesignupsuccess(response) {
+	            this.dispatch(response);
+	        }
+	    }]);
+
+	    return InviteActions;
+	})();
+
+	exports['default'] = _altInstance2['default'].createActions(InviteActions);
+	module.exports = exports['default'];
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _jquery = __webpack_require__(220);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var utils = {
+	  /*
+	   * @param {Object} payload to be sent to server
+	   * @return {Promise}
+	   */
+
+	  createMyTeam: function createMyTeam(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/createteam',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  updateMyTeam: function updateMyTeam(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/updateteam',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  getMyTeams: function getMyTeams(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/getmyteams',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify({})
+	    });
+	  },
+
+	  addMemberToMyTeam: function addMemberToMyTeam(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/addmembertoteam',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  removeMemberFromMyTeam: function removeMemberFromMyTeam(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/removememberfromteam',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  },
+
+	  inviteSignup: function inviteSignup(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/invitesignup',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  }
+
+	};
+
+	exports['default'] = utils;
+	module.exports = exports['default'];
+
+/***/ },
+/* 262 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _actionsInviteActions = __webpack_require__(260);
+
+	var _actionsInviteActions2 = _interopRequireDefault(_actionsInviteActions);
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	/**
+	 * InviteStore
+	 */
+
+	var InviteStore = (function () {
+	    function InviteStore() {
+	        _classCallCheck(this, InviteStore);
+
+	        this.isServerCallWaiting = true;
+	        this.hasError = false;
+	        this.message = '';
+	        this.canSubmit = false;
+
+	        this.bindListeners({
+	            handleInviteSignupSuccess: _actionsInviteActions2['default'].INVITESIGNUPSUCCESS
+	        });
+	    }
+
+	    _createClass(InviteStore, [{
+	        key: 'handleInviteSignupSuccess',
+	        value: function handleInviteSignupSuccess(response) {
+	            console.log(response);
+	            this.isServerCallWaiting = false;
+	            this.hasError = !response.status;
+	            this.message = response.message;
+	            this.emitChange();
+	        }
+	    }]);
+
+	    return InviteStore;
+	})();
+
+	// Export newly created Store
+	exports['default'] = _altInstance2['default'].createStore(InviteStore, 'InviteStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 263 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _actionsTeamActions = __webpack_require__(264);
 
 	var _actionsTeamActions2 = _interopRequireDefault(_actionsTeamActions);
 
-	var _storesTeamStore = __webpack_require__(261);
+	var _storesTeamStore = __webpack_require__(265);
 
 	var _storesTeamStore2 = _interopRequireDefault(_storesTeamStore);
 
@@ -45991,11 +46445,17 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
+	var _componentsEditableReact = __webpack_require__(266);
+
+	var _componentsEditableReact2 = _interopRequireDefault(_componentsEditableReact);
+
 	var MyTeam = (function (_React$Component) {
+	    _inherits(MyTeam, _React$Component);
+
 	    function MyTeam(props) {
 	        var _this = this;
 
@@ -46020,22 +46480,32 @@
 	            _actionsTeamActions2['default'].createTeam(model);
 	        };
 
+	        this._onUpdateTeamName = function (model) {
+	            _actionsTeamActions2['default'].updateTeam(model);
+	        };
+
 	        this._onAddMemberSubmit = function (model) {
 	            _actionsTeamActions2['default'].addMemberToTeam(model);
 	        };
 
-	        this.onRemoveMember = function (team_id, member_id) {
-	            _actionsTeamActions2['default'].removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id });
+	        this.onRemoveMember = function (team_id, member_id, account_type) {
+	            if (confirm('Are you sure ?') === true) {
+	                _actionsTeamActions2['default'].removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id, 'account_type': account_type });
+	            }
+	        };
+
+	        this.showCreateTeamForm = function () {
+	            _this.setState({ CreateTeamForm: true });
 	        };
 
 	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	        this.state = _storesTeamStore2['default'].getState();
 	        this.state.canSubmit = false;
 	        this.state.canSubmitAddMember = true;
+	        this.state.CreateTeamForm = false;
+	        this.state.EditUI = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(MyTeam, _React$Component);
 
 	    _createClass(MyTeam, [{
 	        key: 'componentDidMount',
@@ -46053,7 +46523,7 @@
 	        value: function render() {
 	            var _this2 = this;
 
-	            var renderedResult = undefined;
+	            var CreateTeamUI = undefined;
 
 	            var message = undefined;
 
@@ -46065,16 +46535,24 @@
 	                    var members = undefined;
 	                    members = data.members.map(function (mem, key) {
 	                        return _react2['default'].createElement(
-	                            'ul',
-	                            null,
+	                            'div',
+	                            { className: 'row' },
 	                            _react2['default'].createElement(
-	                                'li',
-	                                null,
-	                                mem.member_name,
-	                                ' ',
+	                                'div',
+	                                { className: 'col-sm-4' },
+	                                mem.member_email
+	                            ),
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'col-sm-4' },
+	                                mem.member_name
+	                            ),
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'col-sm-4' },
 	                                _react2['default'].createElement(
 	                                    'a',
-	                                    { onClick: _this2.onRemoveMember.bind(_this2, data._id, mem._id) },
+	                                    { onClick: _this2.onRemoveMember.bind(_this2, data._id, mem._id, mem.usertype) },
 	                                    ' Remove'
 	                                )
 	                            )
@@ -46083,10 +46561,25 @@
 	                    return [_react2['default'].createElement(
 	                        'li',
 	                        { className: 'list-group-item' },
-	                        data.name
+	                        _react2['default'].createElement(_componentsEditableReact2['default'], { onSave: _this2._onUpdateTeamName, teamid: data._id, value: data.name })
 	                    ), _react2['default'].createElement(
 	                        'li',
 	                        { className: 'list-group-item' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'col-sm-4' },
+	                                _react2['default'].createElement(
+	                                    'h4',
+	                                    null,
+	                                    'SUBORDINATES'
+	                                )
+	                            )
+	                        ),
+	                        members,
+	                        _react2['default'].createElement('br', null),
 	                        _react2['default'].createElement(
 	                            'div',
 	                            { className: 'row' },
@@ -46111,12 +46604,10 @@
 	                                        { type: 'submit', className: 'btn btn-default',
 	                                            disabled: !_this2.state.canSubmitAddMember },
 	                                        'Submit'
-	                                    ),
-	                                    members
+	                                    )
 	                                )
 	                            ),
-	                            _react2['default'].createElement('div', { className: 'col-sm-4' }),
-	                            _react2['default'].createElement('div', { className: 'col-sm-4' })
+	                            _react2['default'].createElement('div', { className: 'col-sm-8' })
 	                        )
 	                    )];
 	                });
@@ -46130,48 +46621,93 @@
 	                );
 	            }
 
-	            renderedResult = _react2['default'].createElement(
+	            if (this.state.CreateTeamForm) {
+	                CreateTeamUI = _react2['default'].createElement(
+	                    'div',
+	                    { className: 'col-sm-8' },
+	                    _react2['default'].createElement(
+	                        'ul',
+	                        { className: 'list-group' },
+	                        _react2['default'].createElement(
+	                            'li',
+	                            { className: 'list-group-item' },
+	                            _react2['default'].createElement(
+	                                Formsy.Form,
+	                                { onValidSubmit: this._onSaveSubmit,
+	                                    onValid: this.enableButton,
+	                                    onInvalid: this.disableButton },
+	                                _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                                    name: 'teamname',
+	                                    className: 'form-control',
+	                                    placeholder: 'My team name',
+	                                    validationError: 'Team name is required',
+	                                    required: true }),
+	                                _react2['default'].createElement(
+	                                    'button',
+	                                    { type: 'submit', className: 'btn btn-default',
+	                                        disabled: !this.state.canSubmit },
+	                                    'Submit'
+	                                )
+	                            )
+	                        )
+	                    )
+	                );
+	            }
+
+	            return _react2['default'].createElement(
 	                'div',
 	                { className: 'container' },
 	                _react2['default'].createElement(_componentsSubmenuReact2['default'], null),
 	                _react2['default'].createElement(
 	                    'h2',
 	                    null,
-	                    'My Team'
+	                    'MY TEAM'
 	                ),
-	                message,
-	                _react2['default'].createElement(
-	                    Formsy.Form,
-	                    { onValidSubmit: this._onSaveSubmit,
-	                        onValid: this.enableButton,
-	                        onInvalid: this.disableButton },
-	                    _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
-	                        name: 'teamname',
-	                        className: 'form-control',
-	                        placeholder: 'My team name',
-	                        validationError: 'Team name is required',
-	                        required: true }),
-	                    _react2['default'].createElement(
-	                        'button',
-	                        { type: 'submit', className: 'btn btn-default',
-	                            disabled: !this.state.canSubmit },
-	                        'Submit'
-	                    )
-	                )
-	            );
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'login' },
-	                renderedResult,
-	                _react2['default'].createElement('br', null),
 	                _react2['default'].createElement(
 	                    'div',
-	                    { className: 'container' },
+	                    { className: 'well' },
 	                    _react2['default'].createElement(
-	                        'ul',
-	                        { className: 'list-group' },
-	                        teamUserList
+	                        'div',
+	                        { className: 'row' },
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-6' },
+	                            'To fully utilize moodwonder, We recommed that you setup your suboridinates'
+	                        ),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'col-sm-4' },
+	                            _react2['default'].createElement(
+	                                'button',
+	                                { type: 'button', onClick: this.showCreateTeamForm, className: 'btn btn-primary' },
+	                                'Create Team'
+	                            )
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'login' },
+	                        message,
+	                        _react2['default'].createElement('br', null),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            CreateTeamUI
+	                        ),
+	                        _react2['default'].createElement('br', null),
+	                        _react2['default'].createElement(
+	                            'div',
+	                            { className: 'row' },
+	                            _react2['default'].createElement(
+	                                'div',
+	                                { className: 'col-sm-8' },
+	                                _react2['default'].createElement(
+	                                    'ul',
+	                                    { className: 'list-group' },
+	                                    teamUserList
+	                                )
+	                            )
+	                        )
 	                    )
 	                )
 	            );
@@ -46187,7 +46723,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 259 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46206,7 +46742,7 @@
 
 	var _altInstance2 = _interopRequireDefault(_altInstance);
 
-	var _utilsCommonWebAPIUtils = __webpack_require__(260);
+	var _utilsCommonWebAPIUtils = __webpack_require__(261);
 
 	var _utilsCommonWebAPIUtils2 = _interopRequireDefault(_utilsCommonWebAPIUtils);
 
@@ -46242,16 +46778,38 @@
 	            this.dispatch(response);
 	        }
 	    }, {
+	        key: 'updateTeam',
+
+	        // Update team name
+	        value: function updateTeam(data) {
+	            var _this2 = this;
+
+	            this.dispatch();
+	            _utilsCommonWebAPIUtils2['default'].updateMyTeam(data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    _this2.actions.updateteamsuccess(response);
+	                    _this2.actions.getTeams();
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'updateteamsuccess',
+
+	        // response handler for updateTeam()
+	        value: function updateteamsuccess(response) {
+	            this.dispatch(response);
+	        }
+	    }, {
 	        key: 'getTeams',
 
 	        // Get My Teams
 	        value: function getTeams(data) {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].getMyTeams(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this2.actions.getteamsuccess(response);
+	                    _this3.actions.getteamsuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46267,13 +46825,13 @@
 
 	        // To add a member To my team
 	        value: function addMemberToTeam(data) {
-	            var _this3 = this;
+	            var _this4 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].addMemberToMyTeam(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this3.actions.getTeams();
-	                    _this3.actions.memberaddsuccess(response);
+	                    _this4.actions.getTeams();
+	                    _this4.actions.memberaddsuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46289,13 +46847,13 @@
 
 	        // To remove a member from my team
 	        value: function removeMemberFromTeam(data) {
-	            var _this4 = this;
+	            var _this5 = this;
 
 	            this.dispatch();
 	            _utilsCommonWebAPIUtils2['default'].removeMemberFromMyTeam(data).then(function (response, textStatus) {
 	                if (textStatus === 'success') {
-	                    _this4.actions.getTeams();
-	                    _this4.actions.memberremovesuccess(response);
+	                    _this5.actions.getTeams();
+	                    _this5.actions.memberremovesuccess(response);
 	                }
 	            }, function () {});
 	        }
@@ -46315,70 +46873,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _jquery = __webpack_require__(220);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var utils = {
-	  /*
-	   * @param {Object} payload to be sent to server
-	   * @return {Promise}
-	   */
-
-	  createMyTeam: function createMyTeam(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/createteam',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  },
-
-	  getMyTeams: function getMyTeams(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/getmyteams',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify({})
-	    });
-	  },
-
-	  addMemberToMyTeam: function addMemberToMyTeam(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/addmembertoteam',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  },
-
-	  removeMemberFromMyTeam: function removeMemberFromMyTeam(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/removememberfromteam',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  }
-
-	};
-
-	exports['default'] = utils;
-	module.exports = exports['default'];
-
-/***/ },
-/* 261 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46393,7 +46888,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var _actionsTeamActions = __webpack_require__(259);
+	var _actionsTeamActions = __webpack_require__(264);
 
 	var _actionsTeamActions2 = _interopRequireDefault(_actionsTeamActions);
 
@@ -46418,6 +46913,7 @@
 
 	        this.bindListeners({
 	            handleCreateTeamSuccess: _actionsTeamActions2['default'].CREATETEAMSUCCESS,
+	            handleUpdateTeamSuccess: _actionsTeamActions2['default'].UPDATETEAMSUCCESS,
 	            handleGetTeamSuccess: _actionsTeamActions2['default'].GETTEAMSUCCESS,
 	            handleAddMemberSuccess: _actionsTeamActions2['default'].MEMBERADDSUCCESS,
 	            handleRemoveMemberSuccess: _actionsTeamActions2['default'].MEMBERREMOVESUCCESS
@@ -46435,6 +46931,14 @@
 	    }, {
 	        key: 'handleCreateTeamSuccess',
 	        value: function handleCreateTeamSuccess(response) {
+	            this.isServerCallWaiting = false;
+	            this.hasError = !response.status;
+	            this.message = response.message;
+	            this.emitChange();
+	        }
+	    }, {
+	        key: 'handleUpdateTeamSuccess',
+	        value: function handleUpdateTeamSuccess(response) {
 	            this.isServerCallWaiting = false;
 	            this.hasError = !response.status;
 	            this.message = response.message;
@@ -46470,7 +46974,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 262 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46493,11 +46997,132 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _componentsMyProfileReact = __webpack_require__(255);
+	/*
+	 * Component for Editable UI
+	 *
+	 */
+
+	var Editable = (function (_React$Component) {
+	  _inherits(Editable, _React$Component);
+
+	  function Editable(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, Editable);
+
+	    _get(Object.getPrototypeOf(Editable.prototype), 'constructor', this).call(this, props);
+
+	    this.changeValue = function (event) {
+	      _this.setState({ value: event.target.value });
+	    };
+
+	    this.onEditClick = function () {
+	      _this.setState({ Edit: true });
+	    };
+
+	    this.onSaveClick = function (teamname, teamid) {
+	      if (_this.props.value !== _this.state.value && teamname.trim() !== '') {
+	        _this.props.onSave({ teamname: teamname, teamid: teamid });
+	      }
+	    };
+
+	    this.state = {
+	      Edit: false,
+	      value: props.value
+	    };
+	  }
+
+	  _createClass(Editable, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var buttonlabel = 'Edit';
+
+	      var inputORLable = _react2['default'].createElement(
+	        'label',
+	        { htmlFor: 'email' },
+	        this.props.value
+	      );
+
+	      var actionButton = _react2['default'].createElement(
+	        'button',
+	        { type: 'button', className: 'btn btn-default', onClick: this.onEditClick },
+	        buttonlabel
+	      );
+
+	      if (this.state.Edit) {
+	        buttonlabel = 'Save';
+	        inputORLable = _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'email', onChange: this.changeValue, value: this.state.value });
+
+	        actionButton = _react2['default'].createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-default', onClick: this.onSaveClick.bind(this, this.state.value, this.props.teamid) },
+	          buttonlabel
+	        );
+	      }
+
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-8' },
+	          inputORLable
+	        ),
+	        _react2['default'].createElement('div', { className: 'col-sm-1' }),
+	        _react2['default'].createElement('div', { className: 'col-sm-1' }),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-1' },
+	          actionButton
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Editable;
+	})(_react2['default'].Component);
+
+	exports['default'] = Editable;
+	module.exports = exports['default'];
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _componentsMyProfileReact = __webpack_require__(256);
 
 	var _componentsMyProfileReact2 = _interopRequireDefault(_componentsMyProfileReact);
 
 	var Tabs = (function (_React$Component) {
+	  _inherits(Tabs, _React$Component);
+
 	  function Tabs(props) {
 	    _classCallCheck(this, Tabs);
 
@@ -46507,8 +47132,6 @@
 	      console.log(event);
 	    };
 	  }
-
-	  _inherits(Tabs, _React$Component);
 
 	  _createClass(Tabs, [{
 	    key: 'componentDidMount',
@@ -46637,7 +47260,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 263 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46662,11 +47285,11 @@
 
 	// import Immutable from 'immutable';
 
-	var _actionsCustomSurveyActions = __webpack_require__(247);
+	var _actionsCustomSurveyActions = __webpack_require__(242);
 
 	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
 
-	var _storesCustomSurveyFormsStore = __webpack_require__(264);
+	var _storesCustomSurveyFormsStore = __webpack_require__(269);
 
 	var _storesCustomSurveyFormsStore2 = _interopRequireDefault(_storesCustomSurveyFormsStore);
 
@@ -46676,11 +47299,13 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var Customsurveyforms = (function (_React$Component) {
+	    _inherits(Customsurveyforms, _React$Component);
+
 	    function Customsurveyforms(props) {
 	        var _this = this;
 
@@ -46726,8 +47351,6 @@
 	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	        this.state = _storesCustomSurveyFormsStore2['default'].getState();
 	    }
-
-	    _inherits(Customsurveyforms, _React$Component);
 
 	    _createClass(Customsurveyforms, [{
 	        key: 'componentDidMount',
@@ -46861,7 +47484,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 264 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46880,11 +47503,11 @@
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
-	var _actionsCustomSurveyActions = __webpack_require__(247);
+	var _actionsCustomSurveyActions = __webpack_require__(242);
 
 	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
 
-	var _utilsImmutableHelpers = __webpack_require__(250);
+	var _utilsImmutableHelpers = __webpack_require__(244);
 
 	var _altInstance = __webpack_require__(199);
 
@@ -46934,7 +47557,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 265 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46962,25 +47585,25 @@
 	// import $ from 'jquery';
 	// import Validation, { Validator } from 'rc-form-validation';
 
-	var _getFormData = __webpack_require__(246);
+	var _getFormData = __webpack_require__(250);
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
-	var _underscore = __webpack_require__(266);
+	var _underscore = __webpack_require__(271);
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
-	var _actionsCustomSurveyResultsActions = __webpack_require__(267);
+	var _actionsCustomSurveyResultsActions = __webpack_require__(272);
 
 	var _actionsCustomSurveyResultsActions2 = _interopRequireDefault(_actionsCustomSurveyResultsActions);
 
-	var _actionsCustomSurveyActions = __webpack_require__(247);
+	var _actionsCustomSurveyActions = __webpack_require__(242);
 
 	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
 
 	//import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
 
-	var _storesCustomSurveyStore = __webpack_require__(249);
+	var _storesCustomSurveyStore = __webpack_require__(241);
 
 	var _storesCustomSurveyStore2 = _interopRequireDefault(_storesCustomSurveyStore);
 
@@ -46990,11 +47613,13 @@
 
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
-	var _componentsSubmenuReact = __webpack_require__(282);
+	var _componentsSubmenuReact = __webpack_require__(251);
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
 	var Takesurvey = (function (_React$Component) {
+	    _inherits(Takesurvey, _React$Component);
+
 	    function Takesurvey(props) {
 	        var _this = this;
 
@@ -47075,8 +47700,6 @@
 	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	        this.state = _storesCustomSurveyStore2['default'].getState();
 	    }
-
-	    _inherits(Takesurvey, _React$Component);
 
 	    _createClass(Takesurvey, [{
 	        key: 'componentDidMount',
@@ -47231,7 +47854,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 266 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -48785,7 +49408,7 @@
 
 
 /***/ },
-/* 267 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48804,7 +49427,7 @@
 
 	var _altInstance2 = _interopRequireDefault(_altInstance);
 
-	var _utilsCustomSurveyWebAPIUtils = __webpack_require__(248);
+	var _utilsCustomSurveyWebAPIUtils = __webpack_require__(243);
 
 	var _utilsCustomSurveyWebAPIUtils2 = _interopRequireDefault(_utilsCustomSurveyWebAPIUtils);
 
@@ -48858,7 +49481,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 268 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -48884,14 +49507,14 @@
 	// import Immutable from 'immutable';
 
 	var List = (function (_React$Component) {
+	  _inherits(List, _React$Component);
+
 	  function List(props) {
 	    _classCallCheck(this, List);
 
 	    _get(Object.getPrototypeOf(List.prototype), "constructor", this).call(this, props);
 	    this.state = {};
 	  }
-
-	  _inherits(List, _React$Component);
 
 	  _createClass(List, [{
 	    key: "componentDidMount",
@@ -48919,7 +49542,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 269 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -48944,31 +49567,31 @@
 
 	// import Immutable from 'immutable';
 
-	var _getFormData = __webpack_require__(246);
+	var _getFormData = __webpack_require__(250);
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
-	var _actionsLanguageActions = __webpack_require__(271);
+	var _actionsLanguageActions = __webpack_require__(276);
 
 	var _actionsLanguageActions2 = _interopRequireDefault(_actionsLanguageActions);
 
-	var _storesLanguageStore = __webpack_require__(273);
+	var _storesLanguageStore = __webpack_require__(278);
 
 	var _storesLanguageStore2 = _interopRequireDefault(_storesLanguageStore);
 
-	var _componentsLanguageLanguageoptionsReact = __webpack_require__(274);
+	var _componentsLanguageLanguageoptionsReact = __webpack_require__(279);
 
 	var _componentsLanguageLanguageoptionsReact2 = _interopRequireDefault(_componentsLanguageLanguageoptionsReact);
 
-	var _componentsLanguageHomepageReact = __webpack_require__(270);
+	var _componentsLanguageHomepageReact = __webpack_require__(275);
 
 	var _componentsLanguageHomepageReact2 = _interopRequireDefault(_componentsLanguageHomepageReact);
 
-	var _componentsLanguageSignuppageReact = __webpack_require__(275);
+	var _componentsLanguageSignuppageReact = __webpack_require__(280);
 
 	var _componentsLanguageSignuppageReact2 = _interopRequireDefault(_componentsLanguageSignuppageReact);
 
-	var _componentsLanguageLoginpageReact = __webpack_require__(276);
+	var _componentsLanguageLoginpageReact = __webpack_require__(281);
 
 	var _componentsLanguageLoginpageReact2 = _interopRequireDefault(_componentsLanguageLoginpageReact);
 
@@ -48979,6 +49602,8 @@
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
 	var Languages = (function (_React$Component) {
+	    _inherits(Languages, _React$Component);
+
 	    function Languages(props) {
 	        var _this = this;
 
@@ -49084,8 +49709,6 @@
 	            pagedata: _storesLanguageStore2['default'].getState().pagedata
 	        };
 	    }
-
-	    _inherits(Languages, _React$Component);
 
 	    _createClass(Languages, [{
 	        key: 'componentDidMount',
@@ -49256,7 +49879,7 @@
 	 */
 
 /***/ },
-/* 270 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49288,6 +49911,8 @@
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
 	var Homepage = (function (_React$Component) {
+	  _inherits(Homepage, _React$Component);
+
 	  function Homepage(props) {
 	    var _this = this;
 
@@ -49308,8 +49933,6 @@
 
 	    (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	  }
-
-	  _inherits(Homepage, _React$Component);
 
 	  _createClass(Homepage, [{
 	    key: 'componentDidMount',
@@ -49388,7 +50011,7 @@
 	// this.setState({});
 
 /***/ },
-/* 271 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49407,7 +50030,7 @@
 
 	var _altInstance2 = _interopRequireDefault(_altInstance);
 
-	var _utilsLanguageWebAPIUtils = __webpack_require__(272);
+	var _utilsLanguageWebAPIUtils = __webpack_require__(277);
 
 	var _utilsLanguageWebAPIUtils2 = _interopRequireDefault(_utilsLanguageWebAPIUtils);
 
@@ -49501,7 +50124,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 272 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49559,7 +50182,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 273 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49578,11 +50201,11 @@
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
-	var _actionsLanguageActions = __webpack_require__(271);
+	var _actionsLanguageActions = __webpack_require__(276);
 
 	var _actionsLanguageActions2 = _interopRequireDefault(_actionsLanguageActions);
 
-	var _utilsImmutableHelpers = __webpack_require__(250);
+	var _utilsImmutableHelpers = __webpack_require__(244);
 
 	var _altInstance = __webpack_require__(199);
 
@@ -49668,7 +50291,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 274 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49691,11 +50314,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _underscore = __webpack_require__(266);
+	var _underscore = __webpack_require__(271);
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
 	var Languageoptions = (function (_React$Component) {
+	    _inherits(Languageoptions, _React$Component);
+
 	    function Languageoptions(props) {
 	        var _this = this;
 
@@ -49707,8 +50332,6 @@
 	            _this.props.onChange(e, _this);
 	        };
 	    }
-
-	    _inherits(Languageoptions, _React$Component);
 
 	    _createClass(Languageoptions, [{
 	        key: 'render',
@@ -49741,7 +50364,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 275 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49773,6 +50396,8 @@
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
 	var Signuppage = (function (_React$Component) {
+	  _inherits(Signuppage, _React$Component);
+
 	  function Signuppage(props) {
 	    var _this = this;
 
@@ -49793,8 +50418,6 @@
 
 	    (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	  }
-
-	  _inherits(Signuppage, _React$Component);
 
 	  _createClass(Signuppage, [{
 	    key: 'componentDidMount',
@@ -49890,7 +50513,7 @@
 	// this.setState({});
 
 /***/ },
-/* 276 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49925,6 +50548,8 @@
 	// import LanguageActions from 'actions/LanguageActions';
 
 	var Signuppage = (function (_React$Component) {
+	  _inherits(Signuppage, _React$Component);
+
 	  function Signuppage(props) {
 	    var _this = this;
 
@@ -49945,8 +50570,6 @@
 
 	    (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
 	  }
-
-	  _inherits(Signuppage, _React$Component);
 
 	  _createClass(Signuppage, [{
 	    key: 'componentDidMount',
@@ -50097,7 +50720,7 @@
 	// this.setState({});
 
 /***/ },
-/* 277 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50123,13 +50746,13 @@
 	// import _ from 'underscore';
 
 	var Test1 = (function (_React$Component) {
+	  _inherits(Test1, _React$Component);
+
 	  function Test1(props) {
 	    _classCallCheck(this, Test1);
 
 	    _get(Object.getPrototypeOf(Test1.prototype), 'constructor', this).call(this, props);
 	  }
-
-	  _inherits(Test1, _React$Component);
 
 	  _createClass(Test1, [{
 	    key: 'render',
@@ -50150,7 +50773,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 278 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50177,18 +50800,18 @@
 
 	// import Navigation from 'components/Navigation.react';
 
-	var _componentsAdminNavigationReact = __webpack_require__(279);
+	var _componentsAdminNavigationReact = __webpack_require__(284);
 
 	var _componentsAdminNavigationReact2 = _interopRequireDefault(_componentsAdminNavigationReact);
 
 	var Admin = (function (_React$Component) {
+	  _inherits(Admin, _React$Component);
+
 	  function Admin() {
 	    _classCallCheck(this, Admin);
 
 	    _get(Object.getPrototypeOf(Admin.prototype), 'constructor', this).apply(this, arguments);
 	  }
-
-	  _inherits(Admin, _React$Component);
 
 	  _createClass(Admin, [{
 	    key: 'render',
@@ -50209,7 +50832,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 279 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50242,6 +50865,8 @@
 	// import UserStore from 'stores/UserStore';
 
 	var AdminNavigation = (function (_React$Component) {
+	    _inherits(AdminNavigation, _React$Component);
+
 	    function AdminNavigation(props) {
 	        var _this = this;
 
@@ -50256,8 +50881,6 @@
 
 	        this._onLogout = function () {};
 	    }
-
-	    _inherits(AdminNavigation, _React$Component);
 
 	    _createClass(AdminNavigation, [{
 	        key: 'componentDidMount',
@@ -50323,7 +50946,7 @@
 	// UserActions.logout();
 
 /***/ },
-/* 280 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50367,6 +50990,8 @@
 	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
 
 	var Adminlogin = (function (_React$Component) {
+	    _inherits(Adminlogin, _React$Component);
+
 	    function Adminlogin(props) {
 	        var _this = this;
 
@@ -50404,8 +51029,6 @@
 	        this.state.canSubmit = false;
 	        this.validationErrors = {};
 	    }
-
-	    _inherits(Adminlogin, _React$Component);
 
 	    _createClass(Adminlogin, [{
 	        key: 'componentDidMount',
@@ -50513,124 +51136,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 281 */
+/* 286 */
 /***/ function(module, exports) {
 
 	module.exports = "<!doctype html>\n<html lang=\"\">\n\n<head>\n    <title>TITLE</title>\n\n    META\n\n    LINK\n\n</head>\n<body>\n<div class=\"app\">CONTENT</div>\n\n<script type=\"text/javascript\" charset=\"utf-8\" src=\"/assets/admin.js\"></script>\n</body>\n</html>\n";
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	/*
-	 * Component for submenu
-	 *
-	 */
-
-	var Tabs = (function (_React$Component) {
-	    function Tabs(props) {
-	        _classCallCheck(this, Tabs);
-
-	        _get(Object.getPrototypeOf(Tabs.prototype), "constructor", this).call(this, props);
-	    }
-
-	    _inherits(Tabs, _React$Component);
-
-	    _createClass(Tabs, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {}
-	    }, {
-	        key: "componentWillUnmount",
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: "render",
-	        value: function render() {
-	            return _react2["default"].createElement(
-	                "ul",
-	                { className: "pagination" },
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/survey" },
-	                        "Engagement Survey"
-	                    )
-	                ),
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/myprofile" },
-	                        "My Profile"
-	                    )
-	                ),
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/mycompany" },
-	                        "My Company"
-	                    )
-	                ),
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/mymanager" },
-	                        "My Manager"
-	                    )
-	                ),
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/myteam" },
-	                        "My Teams"
-	                    )
-	                ),
-	                _react2["default"].createElement(
-	                    "li",
-	                    null,
-	                    _react2["default"].createElement(
-	                        "a",
-	                        { href: "/surveyforms" },
-	                        "Custom survey"
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Tabs;
-	})(_react2["default"].Component);
-
-	exports["default"] = Tabs;
-	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);

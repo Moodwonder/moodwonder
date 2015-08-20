@@ -147,19 +147,19 @@ exports.getUserInfo = function(req, res) {
  * Get test
  */
 exports.test = function(req, res) {
-				var body = "Hi,<br><br> To complete your registration and verify your email please use the following link"+
-				"<br><b>Click here :</b>"+ 'http://'+req.get('host') +"/createpassword/sdfdsfsdfsdfsdf"+
-				"<br> Best wishes"+
-				"<br> Moodwonder Team";
+                var body = "Hi,<br><br> To complete your registration and verify your email please use the following link"+
+                "<br><b>Click here :</b>"+ 'http://'+req.get('host') +"/createpassword/sdfdsfsdfsdfsdf"+
+                "<br> Best wishes"+
+                "<br> Moodwonder Team";
     body = emailTemplate.general(body);
-	var transporter = nodemailer.createTransport();
-	transporter.sendMail({
-		from: 'admin@moodewonder.com',
-		to: 'sijo.vijayan@titechnologies.in',
-		subject: 'Test mail',
-		html: body
-	});
-	res.send({});
+    var transporter = nodemailer.createTransport();
+    transporter.sendMail({
+        from: 'admin@moodewonder.com',
+        to: 'sijo.vijayan@titechnologies.in',
+        subject: 'Test mail',
+        html: body
+    });
+    res.send({});
 };
 
 /**
@@ -196,92 +196,92 @@ exports.postSignupStep1 = function(req, res, next) {
 
   User.findOne({email: req.body.email}, function(err, existingUser) {
     if(existingUser) {
-		response.status = false;
-		response.message = 'The email address you have entered is already registered';
-		res.send(response);
-		res.end();
+        response.status = false;
+        response.message = 'The email address you have entered is already registered';
+        res.send(response);
+        res.end();
     }else{
-		user.save(function(err,newuser) {
-		    if(!err){
+        user.save(function(err,newuser) {
+            if(!err){
 
-				var transporter = nodemailer.createTransport();
-				var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>"+
-				"<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
-				"<br><br> Best wishes"+
-				"<br> Moodwonder Team";
-				body = emailTemplate.general(body);
-				transporter.sendMail({
-					from: 'admin@moodewonder.com',
-					to: email,
-					subject: 'Create password',
-					html: body
-				});
+                var transporter = nodemailer.createTransport();
+                var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>"+
+                "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
+                "<br><br> Best wishes"+
+                "<br> Moodwonder Team";
+                body = emailTemplate.general(body);
+                transporter.sendMail({
+                    from: 'admin@moodewonder.com',
+                    to: email,
+                    subject: 'Create password',
+                    html: body
+                });
 
-				response.status = true;
-				response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
-				
-				// if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
-				console.log('--req.body.hash----'+req.body.hash);
-				if(req.body.hash != ''){
-					
-					var invite =  new Invite({
-					email: email,
-					type: 'Team',
-					link: req.body.hash
-					});
-					
+                response.status = true;
+                response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
+                
+                // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
+                console.log('--req.body.hash----'+req.body.hash);
+                if(req.body.hash != ''){
+                    
+                    var invite =  new Invite({
+                    email: email,
+                    type: 'Team',
+                    link: req.body.hash
+                    });
+                    
 
-					Invite.findOne({email: email}, function(err, existingInvite) {
-						if(existingInvite) {
-							
-							var team_id = existingInvite.data[0].team._id;
+                    Invite.findOne({email: email}, function(err, existingInvite) {
+                        if(existingInvite) {
+                            
+                            var team_id = existingInvite.data[0].team._id;
 
-							var where = { _id: new ObjectId(team_id) }
-							// console.log(member_email);
-							// check the team is exist or not
-							Team.findOne(where, function(err, existingTeam) {
-								if(existingTeam) {
+                            var where = { _id: new ObjectId(team_id) }
+                            // console.log(member_email);
+                            // check the team is exist or not
+                            Team.findOne(where, function(err, existingTeam) {
+                                if(existingTeam) {
 
-									// User not exist in this group, Insert this user into this team
-									Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: newuser._id }}},function(err){
-										if(err){
-											response.status = false;
-											response.messages = ['Error when adding a new member'];
-											res.send(response);
-											res.end();
-										}else{
-											response.status = true;
-											response.messages = ['Member added'];
-											res.send(response);
-											res.end();
-										}
-									});
-									
-								}else{
-									response.status = false;
-									response.messages = ['Team not exist'];
-									res.send(response);
-									res.end();
-								}
-							});
-						}else{
-							response.status = true;
-							response.messages = ['Error when processing your invitation'];
-							res.send(response);
-							res.end();
-						}
-					});
-				}else {
-					res.send(response);
-					res.end();
-				}
-			
-			}else{
-				res.send(response);
-				res.end();
-			}
-		});
-	}
+                                    // User not exist in this group, Insert this user into this team
+                                    Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: newuser._id }}},function(err){
+                                        if(err){
+                                            response.status = false;
+                                            response.messages = ['Error when adding a new member'];
+                                            res.send(response);
+                                            res.end();
+                                        }else{
+                                            response.status = true;
+                                            response.messages = ['Member added'];
+                                            res.send(response);
+                                            res.end();
+                                        }
+                                    });
+                                    
+                                }else{
+                                    response.status = false;
+                                    response.messages = ['Team not exist'];
+                                    res.send(response);
+                                    res.end();
+                                }
+                            });
+                        }else{
+                            response.status = true;
+                            response.messages = ['Error when processing your invitation'];
+                            res.send(response);
+                            res.end();
+                        }
+                    });
+                }else {
+                    res.send(response);
+                    res.end();
+                }
+            
+            }else{
+                res.send(response);
+                res.end();
+            }
+        });
+    }
   });
 };
 
@@ -549,38 +549,38 @@ exports.postForgotPassword = function(req, res) {
     , update = { verifylink: verifystring }
     , options = { multi: false };
     
-		User.update(conditions, update, options, function(err) {
-		    if(!err){
+        User.update(conditions, update, options, function(err) {
+            if(!err){
 
-			var transporter = nodemailer.createTransport();
-			var body = "Hi,<br><br> To reset your password please use the following link <br>"+
-			"<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
-			"<br><br> Best wishes"+
-			"<br> Moodwonder Team";
-			body = emailTemplate.general(body);
-			
-			transporter.sendMail({
-				from: 'admin@moodewonder.com',
-				to: email,
-				subject: 'Reset password',
-				html: body
-			});
-				response.status = true;
-				response.message = 'Please check  your email for resetting password"';
-				res.send(response);
-				res.end();
-			}else{
-				res.send(response);
-				res.end();
-			}
-		});
+            var transporter = nodemailer.createTransport();
+            var body = "Hi,<br><br> To reset your password please use the following link <br>"+
+            "<b>Click here :</b>"+ 'http://'+req.get('host') +'/createpassword/'+verifystring+
+            "<br><br> Best wishes"+
+            "<br> Moodwonder Team";
+            body = emailTemplate.general(body);
+            
+            transporter.sendMail({
+                from: 'admin@moodewonder.com',
+                to: email,
+                subject: 'Reset password',
+                html: body
+            });
+                response.status = true;
+                response.message = 'Please check  your email for resetting password"';
+                res.send(response);
+                res.end();
+            }else{
+                res.send(response);
+                res.end();
+            }
+        });
 
     }else{
-		response.status = false;
-		response.message = 'Your e-mail id is not exist in our database';
-		res.send(response);
-		res.end();
-	}
+        response.status = false;
+        response.message = 'Your e-mail id is not exist in our database';
+        res.send(response);
+        res.end();
+    }
   });
 };
 
@@ -666,6 +666,7 @@ exports.usersInTeams = function(req, res) {
 
             // Taking all user ids from `member_ids` property
             var ids = [];
+            var teamid = data._id;
             data.member_ids.map(function(member, key) {
                 ids[key] = member._id;
             });
@@ -676,25 +677,43 @@ exports.usersInTeams = function(req, res) {
             // Trying to fetch users
             User.find(where).exec(function(err, lists) {
 
+                var userData = [];
+                var team = {};
                 if(!err) {
                     // Filtering required data such as _id,full name, usertype
-                    var userData = [];
+                    
                     lists.map(function(users, key) {
-                        userData[key] = { '_id': users._id, 'member_name': users.firstname + ' ' + users.lastname, 'usertype': users.usertype }
+                        userData[key] = { '_id': users._id, 'member_email': users.email, 'member_name': users.firstname + ' ' + users.lastname, 'usertype': users.usertype }
                     });
                     // Assigning team name and members data into final result
-                    team_users_result = team_users_result.concat([{ "_id": data._id, "name": data.teamname, "members": userData }]);
+                    team = { "_id": data._id, "name": data.teamname, "members": userData };
                 } else {
                     // Handling error case 
-                    team_users_result = team_users_result.concat([{ "_id": data._id, "name": data.teamname, "members": {} }]);
+                    team = { "_id": data._id, "name": data.teamname, "members": {} };
                 }
 
-                if(teamlength == (key+1)){
-                    // Exiting from the Callback function
-                    response.data = team_users_result;
-                    res.send(response);
-                    res.end();
-                }
+                // Fetching user details from Invitations
+                var elemMatch = { "team" :  teamid };
+                where = { type : "Team", reference: { $elemMatch: elemMatch } };
+                Invite.find(where).exec(function(err, lists) {
+
+                    if(!err) {
+                        // Filtering required data such as _id,full name, usertype
+                        lists.map(function(invities, key) {
+                            userData.push({ '_id': invities._id, 'member_email': invities.email, 'member_name': 'Invited', 'usertype': 'invited' });
+                        });
+                        team = { "_id": data._id, "name": data.teamname, "members": userData };
+                    }
+
+                    team_users_result = team_users_result.concat(team);
+
+                    if(teamlength == (key+1)){
+                        // Exiting from the Callback function
+                        response.data = team_users_result;
+                        res.send(response);
+                        res.end();
+                    }
+                });
             });
         });
     }else {

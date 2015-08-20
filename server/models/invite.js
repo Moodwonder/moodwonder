@@ -12,6 +12,7 @@ var InviteSchema = new mongoose.Schema({
   email: {type: String, default: ''},
   type: {type: String, default: ''},
   link: {type: String, default: ''},
+  reference: [],
   data: []
 });
 
