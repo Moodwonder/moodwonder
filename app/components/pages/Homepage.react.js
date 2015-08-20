@@ -6,7 +6,7 @@ export default class Homepage extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = PageStore.getState();
+      // this.state = PageStore.getState();
       this.state = {
           pagedata: [],
           language: props.language,
@@ -40,9 +40,9 @@ export default class Homepage extends React.Component {
       this.props.onClick(this);
   }
 
-  onChangeKeys = (e, key) => {
+  onChangeHomeTitle = (e) => {
       e.preventDefault();
-      this.setState({ [key]: e.target.value });
+      this.setState({ HOME_TITLE: e.target.value });
   }
 
 
@@ -65,7 +65,7 @@ export default class Homepage extends React.Component {
                      name="HOME_TITLE"
                      className="form-control"
                      value={HOME_TITLE}
-                     onChange={this.onChangeKeys.bind(this, 'HOME_TITLE')} />
+                     onChange={this.onChangeHomeTitle} />
             </div>
           </div>
           <div className="form-group">

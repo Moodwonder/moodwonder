@@ -6,7 +6,7 @@ export default class Signuppage extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = PageStore.getState();
+      // this.state = PageStore.getState();
       this.state = {
           pagedata: [],
           language: props.language,
@@ -46,6 +46,17 @@ export default class Signuppage extends React.Component {
       this.setState({ [key]: e.target.value });
   }
 
+  onChangeSignupTitle = (e) => {
+      e.preventDefault();
+      this.setState({ SIGNUP_TITLE: e.target.value });
+  }
+
+  onChangeSubTitle = (e) => {
+      e.preventDefault();
+      this.setState({ SUB_TITLE: e.target.value });
+  }
+
+
 
   render() {
 
@@ -68,7 +79,7 @@ export default class Signuppage extends React.Component {
                      name="SIGNUP_TITLE"
                      type="text"
                      value={SIGNUP_TITLE}
-                     onChange={this.onChangeKeys.bind(this, 'SIGNUP_TITLE')} />
+                     onChange={this.onChangeSignupTitle} />
             </div>
           </div>
 
@@ -79,7 +90,7 @@ export default class Signuppage extends React.Component {
                      name="SUB_TITLE"
                      type="text"
                      value={SUB_TITLE}
-                     onChange={this.onChangeKeys.bind(this, 'SUB_TITLE')} />
+                     onChange={this.onChangeSubTitle} />
             </div>
           </div>
 

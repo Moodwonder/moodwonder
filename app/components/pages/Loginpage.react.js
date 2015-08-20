@@ -7,7 +7,7 @@ export default class Signuppage extends React.Component {
 
   constructor(props) {
       super(props);
-      this.state = PageStore.getState();
+      // this.state = PageStore.getState();
       this.state = {
           pagedata: [],
           language: props.language,
@@ -50,9 +50,24 @@ export default class Signuppage extends React.Component {
       this.props.onClick(this);
   }
 
-  onChangeKeys = (e, key) => {
+  onChangeLoginTitle = (e) => {
       e.preventDefault();
-      this.setState({ [key]: e.target.value });
+      this.setState({ LOIGN_TITLE: e.target.value });
+  }
+
+  onChangeUsername = (e) => {
+      e.preventDefault();
+      this.setState({ USERNAME: e.target.value });
+  }
+
+  onChangePassword = (e) => {
+      e.preventDefault();
+      this.setState({ PASSWORD: e.target.value });
+  }
+
+  onChangeFPassword = (e) => {
+      e.preventDefault();
+      this.setState({ FORGOT_PASSWORD: e.target.value });
   }
 
 
@@ -78,7 +93,7 @@ export default class Signuppage extends React.Component {
                      name="LOIGN_TITLE"
                      type="text"
                      value={LOIGN_TITLE}
-                     onChange={this.onChangeKeys.bind(this, 'LOIGN_TITLE')} />
+                     onChange={this.onChangeLoginTitle} />
             </div>
           </div>
           <div className="form-group">
@@ -88,7 +103,7 @@ export default class Signuppage extends React.Component {
                      type="text"
                      name="USERNAME"
                      value={USERNAME}
-                     onChange={this.onChangeKeys.bind(this, 'USERNAME')} />
+                     onChange={this.onChangeUsername} />
             </div>
           </div>
           <div className="form-group">
@@ -98,7 +113,7 @@ export default class Signuppage extends React.Component {
                      type="text"
                      name="PASSWORD"
                      value={PASSWORD}
-                     onChange={this.onChangeKeys.bind(this, 'PASSWORD')} />
+                     onChange={this.onChangePassword} />
             </div>
           </div>
           <div className="form-group">
@@ -108,7 +123,7 @@ export default class Signuppage extends React.Component {
                      type="text"
                      name="FORGOT_PASSWORD"
                      value={FORGOT_PASSWORD}
-                     onChange={this.onChangeKeys.bind(this, 'FORGOT_PASSWORD')} />
+                     onChange={this.onChangeFPassword} />
             </div>
           </div>
           <div className="form-group">

@@ -116,12 +116,12 @@ export default class Pages extends React.Component {
 
   render() {
       let languages = this.state.languages;
-      let pagedata = this.state.pagedata;
       let page = this.state.page;
       let formstatus = this.state.formstatus;
       let contents = '';
-      let pagekeys = pagekeys || {};
-      pagekeys.pagekey = pagedata;
+      //let pagedata = this.state.pagedata;
+      //let pagekeys = pagekeys || {};
+      //pagekeys.pagekey = pagedata;
       let statusmessage = '';
 
       if(formstatus) {
