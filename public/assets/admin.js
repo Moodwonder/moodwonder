@@ -64,7 +64,7 @@
 
 	var _routesJs2 = _interopRequireDefault(_routesJs);
 
-	var _adminHtml = __webpack_require__(288);
+	var _adminHtml = __webpack_require__(289);
 
 	var _adminHtml2 = _interopRequireDefault(_adminHtml);
 
@@ -25767,39 +25767,39 @@
 
 	var _componentsMyTeamReact2 = _interopRequireDefault(_componentsMyTeamReact);
 
-	var _componentsTabsReact = __webpack_require__(263);
+	var _componentsTabsReact = __webpack_require__(264);
 
 	var _componentsTabsReact2 = _interopRequireDefault(_componentsTabsReact);
 
-	var _componentsCustomsurveyCustomsurveyformsReact = __webpack_require__(264);
+	var _componentsCustomsurveyCustomsurveyformsReact = __webpack_require__(265);
 
 	var _componentsCustomsurveyCustomsurveyformsReact2 = _interopRequireDefault(_componentsCustomsurveyCustomsurveyformsReact);
 
-	var _componentsCustomsurveyTakesurveyReact = __webpack_require__(266);
+	var _componentsCustomsurveyTakesurveyReact = __webpack_require__(267);
 
 	var _componentsCustomsurveyTakesurveyReact2 = _interopRequireDefault(_componentsCustomsurveyTakesurveyReact);
 
-	var _components404React = __webpack_require__(269);
+	var _components404React = __webpack_require__(270);
 
 	var _components404React2 = _interopRequireDefault(_components404React);
 
-	var _componentsLanguageLanguagesReact = __webpack_require__(270);
+	var _componentsLanguageLanguagesReact = __webpack_require__(271);
 
 	var _componentsLanguageLanguagesReact2 = _interopRequireDefault(_componentsLanguageLanguagesReact);
 
-	var _componentsPagesPagesReact = __webpack_require__(293);
+	var _componentsPagesPagesReact = __webpack_require__(275);
 
 	var _componentsPagesPagesReact2 = _interopRequireDefault(_componentsPagesPagesReact);
 
-	var _componentsTest1 = __webpack_require__(281);
+	var _componentsTest1 = __webpack_require__(282);
 
 	var _componentsTest12 = _interopRequireDefault(_componentsTest1);
 
-	var _componentsAdminReact = __webpack_require__(282);
+	var _componentsAdminReact = __webpack_require__(283);
 
 	var _componentsAdminReact2 = _interopRequireDefault(_componentsAdminReact);
 
-	var _componentsLoginAdminloginReact = __webpack_require__(284);
+	var _componentsLoginAdminloginReact = __webpack_require__(285);
 
 	var _componentsLoginAdminloginReact2 = _interopRequireDefault(_componentsLoginAdminloginReact);
 
@@ -46114,7 +46114,7 @@
 
 	var _componentsSubmenuReact2 = _interopRequireDefault(_componentsSubmenuReact);
 
-	var _componentsEditableReact = __webpack_require__(292);
+	var _componentsEditableReact = __webpack_require__(263);
 
 	var _componentsEditableReact2 = _interopRequireDefault(_componentsEditableReact);
 
@@ -46710,6 +46710,121 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	/*
+	 * Component for Editable UI
+	 *
+	 */
+
+	var Editable = (function (_React$Component) {
+	  function Editable(props) {
+	    var _this = this;
+
+	    _classCallCheck(this, Editable);
+
+	    _get(Object.getPrototypeOf(Editable.prototype), 'constructor', this).call(this, props);
+
+	    this.changeValue = function (event) {
+	      _this.setState({ value: event.target.value });
+	    };
+
+	    this.onEditClick = function () {
+	      _this.setState({ Edit: true });
+	    };
+
+	    this.onSaveClick = function (teamname, teamid) {
+	      _this.props.onSave({ teamname: teamname, teamid: teamid });
+	    };
+
+	    this.state = {
+	      Edit: false,
+	      value: props.value
+	    };
+	  }
+
+	  _inherits(Editable, _React$Component);
+
+	  _createClass(Editable, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      var buttonlabel = 'Edit';
+
+	      var inputORLable = _react2['default'].createElement(
+	        'label',
+	        { htmlFor: 'email' },
+	        this.props.value
+	      );
+
+	      var actionButton = _react2['default'].createElement(
+	        'button',
+	        { type: 'button', className: 'btn btn-default', onClick: this.onEditClick },
+	        buttonlabel
+	      );
+
+	      if (this.state.Edit) {
+	        buttonlabel = 'Save';
+	        inputORLable = _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'email', onChange: this.changeValue, value: this.state.value });
+
+	        actionButton = _react2['default'].createElement(
+	          'button',
+	          { type: 'button', className: 'btn btn-default', onClick: this.onSaveClick.bind(this, this.state.value, this.props.teamid) },
+	          buttonlabel
+	        );
+	      }
+
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-8' },
+	          inputORLable
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'col-sm-4' },
+	          actionButton
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Editable;
+	})(_react2['default'].Component);
+
+	exports['default'] = Editable;
+	module.exports = exports['default'];
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
 	var _componentsMyProfileReact = __webpack_require__(257);
 
 	var _componentsMyProfileReact2 = _interopRequireDefault(_componentsMyProfileReact);
@@ -46854,7 +46969,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46883,7 +46998,7 @@
 
 	var _actionsCustomSurveyActions2 = _interopRequireDefault(_actionsCustomSurveyActions);
 
-	var _storesCustomSurveyFormsStore = __webpack_require__(265);
+	var _storesCustomSurveyFormsStore = __webpack_require__(266);
 
 	var _storesCustomSurveyFormsStore2 = _interopRequireDefault(_storesCustomSurveyFormsStore);
 
@@ -47078,7 +47193,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47151,7 +47266,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47183,11 +47298,11 @@
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
-	var _underscore = __webpack_require__(267);
+	var _underscore = __webpack_require__(268);
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
-	var _actionsCustomSurveyResultsActions = __webpack_require__(268);
+	var _actionsCustomSurveyResultsActions = __webpack_require__(269);
 
 	var _actionsCustomSurveyResultsActions2 = _interopRequireDefault(_actionsCustomSurveyResultsActions);
 
@@ -47448,7 +47563,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -49002,7 +49117,7 @@
 
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49075,7 +49190,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -49136,7 +49251,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49163,11 +49278,11 @@
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
-	var _actionsLanguageActions = __webpack_require__(271);
+	var _actionsLanguageActions = __webpack_require__(272);
 
 	var _actionsLanguageActions2 = _interopRequireDefault(_actionsLanguageActions);
 
-	var _storesLanguageStore = __webpack_require__(273);
+	var _storesLanguageStore = __webpack_require__(274);
 
 	var _storesLanguageStore2 = _interopRequireDefault(_storesLanguageStore);
 
@@ -49502,7 +49617,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49521,7 +49636,7 @@
 
 	var _altInstance2 = _interopRequireDefault(_altInstance);
 
-	var _utilsLanguageWebAPIUtils = __webpack_require__(272);
+	var _utilsLanguageWebAPIUtils = __webpack_require__(273);
 
 	var _utilsLanguageWebAPIUtils2 = _interopRequireDefault(_utilsLanguageWebAPIUtils);
 
@@ -49615,7 +49730,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49691,7 +49806,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49710,13 +49825,13 @@
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
-	var _actionsLanguageActions = __webpack_require__(271);
+	var _actionsLanguageActions = __webpack_require__(272);
 
 	var _actionsLanguageActions2 = _interopRequireDefault(_actionsLanguageActions);
 
 	var _utilsImmutableHelpers = __webpack_require__(246);
 
-	var _utilsLanguageWebAPIUtils = __webpack_require__(272);
+	var _utilsLanguageWebAPIUtils = __webpack_require__(273);
 
 	var _utilsLanguageWebAPIUtils2 = _interopRequireDefault(_utilsLanguageWebAPIUtils);
 
@@ -49816,902 +49931,7 @@
 	// Dispatch another event for a bad request
 
 /***/ },
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	// import _ from 'underscore';
-
-	var Test1 = (function (_React$Component) {
-	  function Test1(props) {
-	    _classCallCheck(this, Test1);
-
-	    _get(Object.getPrototypeOf(Test1.prototype), 'constructor', this).call(this, props);
-	  }
-
-	  _inherits(Test1, _React$Component);
-
-	  _createClass(Test1, [{
-	    key: 'render',
-	    value: function render() {
-
-	      return _react2['default'].createElement(
-	        'span',
-	        null,
-	        'Test'
-	      );
-	    }
-	  }]);
-
-	  return Test1;
-	})(_react2['default'].Component);
-
-	exports['default'] = Test1;
-	module.exports = exports['default'];
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(160);
-
-	// import Navigation from 'components/Navigation.react';
-
-	var _componentsAdminNavigationReact = __webpack_require__(283);
-
-	var _componentsAdminNavigationReact2 = _interopRequireDefault(_componentsAdminNavigationReact);
-
-	var Admin = (function (_React$Component) {
-	  function Admin() {
-	    _classCallCheck(this, Admin);
-
-	    _get(Object.getPrototypeOf(Admin.prototype), 'constructor', this).apply(this, arguments);
-	  }
-
-	  _inherits(Admin, _React$Component);
-
-	  _createClass(Admin, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2['default'].createElement(
-	        'div',
-	        null,
-	        _react2['default'].createElement(_componentsAdminNavigationReact2['default'], null),
-	        _react2['default'].createElement(_reactRouter.RouteHandler, null)
-	      );
-	    }
-	  }]);
-
-	  return Admin;
-	})(_react2['default'].Component);
-
-	exports['default'] = Admin;
-	module.exports = exports['default'];
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(160);
-
-	var _immutable = __webpack_require__(220);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	// import UserActions from 'actions/UserActions';
-	// import UserStore from 'stores/UserStore';
-
-	var AdminNavigation = (function (_React$Component) {
-	    function AdminNavigation(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, AdminNavigation);
-
-	        _get(Object.getPrototypeOf(AdminNavigation.prototype), 'constructor', this).call(this, props);
-	        // this.state = UserStore.getState();
-
-	        this._onChange = function () {
-	            _this.setState({});
-	        };
-
-	        this._onLogout = function () {};
-	    }
-
-	    _inherits(AdminNavigation, _React$Component);
-
-	    _createClass(AdminNavigation, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            return _react2['default'].createElement(
-	                'nav',
-	                { className: 'navbar navbar-default', role: 'navigation' },
-	                _react2['default'].createElement(
-	                    'div',
-	                    { className: 'container-fluid' },
-	                    _react2['default'].createElement(
-	                        'div',
-	                        { className: 'navbar-header' },
-	                        _react2['default'].createElement(
-	                            _reactRouter.Link,
-	                            { to: '/', className: 'navbar-brand navigation__item', activeClassName: 'navigation__item--active' },
-	                            'Moodwonder'
-	                        )
-	                    ),
-	                    _react2['default'].createElement(
-	                        'div',
-	                        null,
-	                        _react2['default'].createElement(
-	                            'ul',
-	                            { className: 'nav navbar-nav  navbar-right' },
-	                            _react2['default'].createElement(
-	                                'li',
-	                                null,
-	                                _react2['default'].createElement(
-	                                    _reactRouter.Link,
-	                                    { to: '/admin', className: 'navigation__item' },
-	                                    'Admin'
-	                                )
-	                            ),
-	                            _react2['default'].createElement(
-	                                'li',
-	                                null,
-	                                _react2['default'].createElement(
-	                                    _reactRouter.Link,
-	                                    { to: '/admin/languages', className: 'navigation__item' },
-	                                    'Languages'
-	                                )
-	                            ),
-	                            _react2['default'].createElement(
-	                                'li',
-	                                null,
-	                                _react2['default'].createElement(
-	                                    _reactRouter.Link,
-	                                    { to: '/admin/pages', className: 'navigation__item' },
-	                                    'Pages'
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return AdminNavigation;
-	})(_react2['default'].Component);
-
-	exports['default'] = AdminNavigation;
-
-	AdminNavigation.propTypes = { user: _react2['default'].PropTypes.instanceOf(_immutable2['default'].Map) };
-	module.exports = exports['default'];
-
-	// UserStore.listen(this._onChange);
-
-	// UserStore.unlisten(this._onChange);
-
-	// user: UserStore.getState().user
-
-	// UserActions.logout();
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _immutable = __webpack_require__(220);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	var _actionsAdminActions = __webpack_require__(285);
-
-	var _actionsAdminActions2 = _interopRequireDefault(_actionsAdminActions);
-
-	var _storesAdminStore = __webpack_require__(287);
-
-	var _storesAdminStore2 = _interopRequireDefault(_storesAdminStore);
-
-	var _componentsFormsyComponents = __webpack_require__(221);
-
-	var _reactRouter = __webpack_require__(160);
-
-	var _es6Mixins = __webpack_require__(226);
-
-	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
-
-	var Adminlogin = (function (_React$Component) {
-	    function Adminlogin(props) {
-	        var _this = this;
-
-	        _classCallCheck(this, Adminlogin);
-
-	        _get(Object.getPrototypeOf(Adminlogin.prototype), 'constructor', this).call(this, props);
-
-	        this.enableButton = function () {
-	            _this.setState({ canSubmit: true });
-	        };
-
-	        this.disableButton = function () {
-	            _this.setState({ canSubmit: false });
-	        };
-
-	        this._onChange = function () {
-	            _this.setState({
-	                isAuthenticated: _storesAdminStore2['default'].getState().isAuthenticated
-	            });
-
-	            if (_this.state.isAuthenticated) {
-	                window.location.assign('/admin/dashboard');
-	                //this.context.router.transitionTo('/survey');
-	            }
-	        };
-
-	        this._onLoginSubmit = function (model) {
-	            var username = model.username.trim();
-	            var password = model.password.trim();
-	            console.log({ username: username, password: password });
-	            _actionsAdminActions2['default'].login({ username: username, password: password });
-	        };
-
-	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
-	        this.state = _storesAdminStore2['default'].getState();
-	        this.state = {
-	            canSubmit: false
-	        };
-	        this.validationErrors = {};
-	    }
-
-	    _inherits(Adminlogin, _React$Component);
-
-	    _createClass(Adminlogin, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            _storesAdminStore2['default'].listen(this._onChange);
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            _storesAdminStore2['default'].unlisten(this._onChange);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var renderedResult = '';
-
-	            if (this.state.isLoggedIn) {
-	                var currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-	                renderedResult = _react2['default'].createElement(
-	                    'div',
-	                    { className: 'container' },
-	                    _react2['default'].createElement(
-	                        'h2',
-	                        { className: 'login__header' },
-	                        'Welcome ',
-	                        currentUser.name
-	                    )
-	                );
-	            } else {
-
-	                renderedResult = _react2['default'].createElement(
-	                    'div',
-	                    { className: 'container' },
-	                    _react2['default'].createElement(
-	                        'h2',
-	                        null,
-	                        'Admin login..'
-	                    ),
-	                    _react2['default'].createElement(
-	                        Formsy.Form,
-	                        { onValidSubmit: this._onLoginSubmit, onValid: this.enableButton, onInvalid: this.disableButton },
-	                        _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
-	                            name: 'username',
-	                            className: 'form-control',
-	                            placeholder: 'Username',
-	                            validationError: 'Username required.',
-	                            required: true }),
-	                        _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
-	                            type: 'password',
-	                            name: 'password',
-	                            className: 'form-control',
-	                            placeholder: 'Password',
-	                            validationError: 'Password required.',
-	                            required: true }),
-	                        _react2['default'].createElement(
-	                            'button',
-	                            { type: 'submit', className: 'btn btn-default', disabled: !this.state.canSubmit },
-	                            'Submit'
-	                        )
-	                    )
-	                );
-	            }
-
-	            return _react2['default'].createElement(
-	                'div',
-	                { className: 'login' },
-	                renderedResult
-	            );
-	        }
-	    }]);
-
-	    return Adminlogin;
-	})(_react2['default'].Component);
-
-	exports['default'] = Adminlogin;
-
-	Adminlogin.propTypes = { adminuser: _react2['default'].PropTypes.instanceOf(_immutable2['default'].Map) };
-	Adminlogin.contextTypes = { router: _react2['default'].PropTypes.func };
-	module.exports = exports['default'];
-
-/***/ },
-/* 285 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var _utilsAdminWebAPIUtils = __webpack_require__(286);
-
-	var _utilsAdminWebAPIUtils2 = _interopRequireDefault(_utilsAdminWebAPIUtils);
-
-	var AdminActions = (function () {
-	    function AdminActions() {
-	        _classCallCheck(this, AdminActions);
-	    }
-
-	    _createClass(AdminActions, [{
-	        key: 'login',
-
-	        /**
-	         * Login function
-	         */
-	        value: function login(data) {
-	            var _this = this;
-
-	            this.dispatch();
-	            _utilsAdminWebAPIUtils2['default'].login(data).then(function (response, textStatus) {
-	                if (textStatus === 'success') {
-	                    // Dispatch another event for successful login
-	                    _this.actions.loginsuccess(response);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'loginsuccess',
-
-	        // Keep this function name in lower case, otherwise it will not be available in 'Store'
-	        value: function loginsuccess(response) {
-	            this.dispatch(response);
-	        }
-	    }]);
-
-	    return AdminActions;
-	})();
-
-	exports['default'] = _altInstance2['default'].createActions(AdminActions);
-	module.exports = exports['default'];
-
-	// Dispatch another event for a bad login
-
-/***/ },
-/* 286 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	var _jquery = __webpack_require__(218);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	var utils = {
-
-	  login: function login(data) {
-	    return _jquery2['default'].ajax({
-	      url: '/adminlogin',
-	      type: 'POST',
-	      contentType: 'application/json',
-	      data: JSON.stringify(data)
-	    });
-	  }
-
-	};
-
-	exports['default'] = utils;
-	module.exports = exports['default'];
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _immutable = __webpack_require__(220);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	var _actionsAdminActions = __webpack_require__(285);
-
-	var _actionsAdminActions2 = _interopRequireDefault(_actionsAdminActions);
-
-	var _utilsImmutableHelpers = __webpack_require__(246);
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var AdminStore = (function () {
-	    function AdminStore() {
-	        _classCallCheck(this, AdminStore);
-
-	        this.isAuthenticated = false;
-	        this.adminuser = _immutable2['default'].Map({});
-
-	        this.bindListeners({
-	            handleLoginSuccess: _actionsAdminActions2['default'].LOGINSUCCESS
-	        });
-	    }
-
-	    _createClass(AdminStore, [{
-	        key: 'bootstrap',
-	        value: function bootstrap() {
-	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.adminuser)) {
-	                this.adminuser = (0, _utilsImmutableHelpers.fromJSOrdered)(this.adminuser);
-	            }
-	        }
-	    }, {
-	        key: 'handleLoginSuccess',
-	        value: function handleLoginSuccess(data) {
-	            this.isAuthenticated = true;
-	            this.adminuser = data;
-	            this.emitChange();
-	        }
-	    }]);
-
-	    return AdminStore;
-	})();
-
-	/**
-	 * Export our newly created Store
-	 */
-	exports['default'] = _altInstance2['default'].createStore(AdminStore, 'AdminStore');
-	module.exports = exports['default'];
-
-/***/ },
-/* 288 */
-/***/ function(module, exports) {
-
-	module.exports = "<!doctype html>\n<html lang=\"\">\n\n<head>\n    <title>TITLE</title>\n\n    META\n\n    LINK\n\n</head>\n<body>\n<div class=\"app\">CONTENT</div>\n\n<script type=\"text/javascript\" charset=\"utf-8\" src=\"/assets/admin.js\"></script>\n</body>\n</html>\n";
-
-/***/ },
-/* 289 */,
-/* 290 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var _utilsLanguageWebAPIUtils = __webpack_require__(272);
-
-	var _utilsLanguageWebAPIUtils2 = _interopRequireDefault(_utilsLanguageWebAPIUtils);
-
-	var PageActions = (function () {
-	    function PageActions() {
-	        _classCallCheck(this, PageActions);
-	    }
-
-	    _createClass(PageActions, [{
-	        key: 'getLanguages',
-	        value: function getLanguages() {
-	            var _this = this;
-
-	            this.dispatch();
-	            _utilsLanguageWebAPIUtils2['default'].getLanguages().then(function (response, textStatus) {
-	                if (response.status === 'success') {
-	                    _this.actions.languages(response.languages);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'languages',
-	        value: function languages(data) {
-	            this.dispatch(data);
-	        }
-	    }, {
-	        key: 'getPage',
-	        value: function getPage(data) {
-	            var _this2 = this;
-
-	            this.dispatch();
-	            _utilsLanguageWebAPIUtils2['default'].getPage(data).then(function (response, textStatus) {
-	                if (response.status === 'success') {
-	                    _this2.actions.pagesuccess(response.pagedata);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'pagesuccess',
-	        value: function pagesuccess(data) {
-	            this.dispatch(data);
-	        }
-	    }, {
-	        key: 'updatePageKeys',
-	        value: function updatePageKeys(id, page, data) {
-	            var _this3 = this;
-
-	            this.dispatch();
-	            _utilsLanguageWebAPIUtils2['default'].updatePageKeys(id, page, data).then(function (response, textStatus) {
-	                if (textStatus === 'success') {
-	                    _this3.actions.pagekeyssuccess(true);
-	                }
-	            }, function () {});
-	        }
-	    }, {
-	        key: 'pagekeyssuccess',
-	        value: function pagekeyssuccess(data) {
-	            this.dispatch(data);
-	        }
-	    }]);
-
-	    return PageActions;
-	})();
-
-	exports['default'] = _altInstance2['default'].createActions(PageActions);
-	module.exports = exports['default'];
-
-	// Dispatch another event for a bad request
-
-	// Dispatch another event for a bad request
-
-	// Dispatch another event for a bad request
-
-/***/ },
-/* 291 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	    value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var _immutable = __webpack_require__(220);
-
-	var _immutable2 = _interopRequireDefault(_immutable);
-
-	var _actionsPageActions = __webpack_require__(290);
-
-	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
-
-	var _utilsImmutableHelpers = __webpack_require__(246);
-
-	var _altInstance = __webpack_require__(199);
-
-	var _altInstance2 = _interopRequireDefault(_altInstance);
-
-	var PageStore = (function () {
-	    function PageStore() {
-	        _classCallCheck(this, PageStore);
-
-	        this.languages = []; //Immutable.Map({});
-	        this.home = [];
-	        this.pagedata = []; //Immutable.Map({});
-	        this.on('init', this.bootstrap);
-	        this.on('bootstrap', this.bootstrap);
-
-	        this.bindListeners({
-	            handleLanguages: _actionsPageActions2['default'].LANGUAGES,
-	            handlePage: _actionsPageActions2['default'].PAGESUCCESS
-	        });
-	    }
-
-	    _createClass(PageStore, [{
-	        key: 'bootstrap',
-	        value: function bootstrap() {
-	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.pagedata)) {
-	                this.pagedata = (0, _utilsImmutableHelpers.fromJSOrdered)(this.pagedata);
-	            }
-	        }
-	    }, {
-	        key: 'handleLanguages',
-	        value: function handleLanguages(data) {
-	            this.languages = [];
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-
-	            try {
-	                for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var lng = _step.value;
-
-	                    this.languages.push(lng.language);
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator['return']) {
-	                        _iterator['return']();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
-	            }
-
-	            this.emitChange();
-	        }
-	    }, {
-	        key: 'handlePage',
-	        value: function handlePage(data) {
-	            this.pagedata = data;
-	            this.emitChange();
-	        }
-	    }]);
-
-	    return PageStore;
-	})();
-
-	// Export our newly created Store
-	exports['default'] = _altInstance2['default'].createStore(PageStore, 'PageStore');
-	module.exports = exports['default'];
-
-/***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(4);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	/*
-	 * Component for Editable UI
-	 *
-	 */
-
-	var Editable = (function (_React$Component) {
-	  function Editable(props) {
-	    var _this = this;
-
-	    _classCallCheck(this, Editable);
-
-	    _get(Object.getPrototypeOf(Editable.prototype), 'constructor', this).call(this, props);
-
-	    this.changeValue = function (event) {
-	      _this.setState({ value: event.target.value });
-	    };
-
-	    this.onEditClick = function () {
-	      _this.setState({ Edit: true });
-	    };
-
-	    this.onSaveClick = function (teamname, teamid) {
-	      _this.props.onSave({ teamname: teamname, teamid: teamid });
-	    };
-
-	    this.state = {
-	      Edit: false,
-	      value: props.value
-	    };
-	  }
-
-	  _inherits(Editable, _React$Component);
-
-	  _createClass(Editable, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-
-	      var buttonlabel = 'Edit';
-
-	      var inputORLable = _react2['default'].createElement(
-	        'label',
-	        { htmlFor: 'email' },
-	        this.props.value
-	      );
-
-	      var actionButton = _react2['default'].createElement(
-	        'button',
-	        { type: 'button', className: 'btn btn-default', onClick: this.onEditClick },
-	        buttonlabel
-	      );
-
-	      if (this.state.Edit) {
-	        buttonlabel = 'Save';
-	        inputORLable = _react2['default'].createElement('input', { type: 'text', className: 'form-control', ref: 'email', onChange: this.changeValue, value: this.state.value });
-
-	        actionButton = _react2['default'].createElement(
-	          'button',
-	          { type: 'button', className: 'btn btn-default', onClick: this.onSaveClick.bind(this, this.state.value, this.props.teamid) },
-	          buttonlabel
-	        );
-	      }
-
-	      return _react2['default'].createElement(
-	        'div',
-	        { className: 'row' },
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'col-sm-8' },
-	          inputORLable
-	        ),
-	        _react2['default'].createElement(
-	          'div',
-	          { className: 'col-sm-4' },
-	          actionButton
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Editable;
-	})(_react2['default'].Component);
-
-	exports['default'] = Editable;
-	module.exports = exports['default'];
-
-/***/ },
-/* 293 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50740,27 +49960,27 @@
 
 	var _getFormData2 = _interopRequireDefault(_getFormData);
 
-	var _actionsPageActions = __webpack_require__(290);
+	var _actionsPageActions = __webpack_require__(277);
 
 	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
 
-	var _storesPageStore = __webpack_require__(291);
+	var _storesPageStore = __webpack_require__(278);
 
 	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
 
-	var _componentsPagesLanguageoptionsReact = __webpack_require__(294);
+	var _componentsPagesLanguageoptionsReact = __webpack_require__(276);
 
 	var _componentsPagesLanguageoptionsReact2 = _interopRequireDefault(_componentsPagesLanguageoptionsReact);
 
-	var _componentsPagesHomepageReact = __webpack_require__(295);
+	var _componentsPagesHomepageReact = __webpack_require__(279);
 
 	var _componentsPagesHomepageReact2 = _interopRequireDefault(_componentsPagesHomepageReact);
 
-	var _componentsPagesSignuppageReact = __webpack_require__(296);
+	var _componentsPagesSignuppageReact = __webpack_require__(280);
 
 	var _componentsPagesSignuppageReact2 = _interopRequireDefault(_componentsPagesSignuppageReact);
 
-	var _componentsPagesLoginpageReact = __webpack_require__(297);
+	var _componentsPagesLoginpageReact = __webpack_require__(281);
 
 	var _componentsPagesLoginpageReact2 = _interopRequireDefault(_componentsPagesLoginpageReact);
 
@@ -51004,7 +50224,7 @@
 	 */
 
 /***/ },
-/* 294 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51027,7 +50247,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _underscore = __webpack_require__(267);
+	var _underscore = __webpack_require__(268);
 
 	var _underscore2 = _interopRequireDefault(_underscore);
 
@@ -51077,7 +50297,200 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 295 */
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var _utilsLanguageWebAPIUtils = __webpack_require__(273);
+
+	var _utilsLanguageWebAPIUtils2 = _interopRequireDefault(_utilsLanguageWebAPIUtils);
+
+	var PageActions = (function () {
+	    function PageActions() {
+	        _classCallCheck(this, PageActions);
+	    }
+
+	    _createClass(PageActions, [{
+	        key: 'getLanguages',
+	        value: function getLanguages() {
+	            var _this = this;
+
+	            this.dispatch();
+	            _utilsLanguageWebAPIUtils2['default'].getLanguages().then(function (response, textStatus) {
+	                if (response.status === 'success') {
+	                    _this.actions.languages(response.languages);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'languages',
+	        value: function languages(data) {
+	            this.dispatch(data);
+	        }
+	    }, {
+	        key: 'getPage',
+	        value: function getPage(data) {
+	            var _this2 = this;
+
+	            this.dispatch();
+	            _utilsLanguageWebAPIUtils2['default'].getPage(data).then(function (response, textStatus) {
+	                if (response.status === 'success') {
+	                    _this2.actions.pagesuccess(response.pagedata);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'pagesuccess',
+	        value: function pagesuccess(data) {
+	            this.dispatch(data);
+	        }
+	    }, {
+	        key: 'updatePageKeys',
+	        value: function updatePageKeys(id, page, data) {
+	            var _this3 = this;
+
+	            this.dispatch();
+	            _utilsLanguageWebAPIUtils2['default'].updatePageKeys(id, page, data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    _this3.actions.pagekeyssuccess(true);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'pagekeyssuccess',
+	        value: function pagekeyssuccess(data) {
+	            this.dispatch(data);
+	        }
+	    }]);
+
+	    return PageActions;
+	})();
+
+	exports['default'] = _altInstance2['default'].createActions(PageActions);
+	module.exports = exports['default'];
+
+	// Dispatch another event for a bad request
+
+	// Dispatch another event for a bad request
+
+	// Dispatch another event for a bad request
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _immutable = __webpack_require__(220);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	var _actionsPageActions = __webpack_require__(277);
+
+	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
+
+	var _utilsImmutableHelpers = __webpack_require__(246);
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var PageStore = (function () {
+	    function PageStore() {
+	        _classCallCheck(this, PageStore);
+
+	        this.languages = []; //Immutable.Map({});
+	        this.home = [];
+	        this.pagedata = []; //Immutable.Map({});
+	        this.on('init', this.bootstrap);
+	        this.on('bootstrap', this.bootstrap);
+
+	        this.bindListeners({
+	            handleLanguages: _actionsPageActions2['default'].LANGUAGES,
+	            handlePage: _actionsPageActions2['default'].PAGESUCCESS
+	        });
+	    }
+
+	    _createClass(PageStore, [{
+	        key: 'bootstrap',
+	        value: function bootstrap() {
+	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.pagedata)) {
+	                this.pagedata = (0, _utilsImmutableHelpers.fromJSOrdered)(this.pagedata);
+	            }
+	        }
+	    }, {
+	        key: 'handleLanguages',
+	        value: function handleLanguages(data) {
+	            this.languages = [];
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
+
+	            try {
+	                for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var lng = _step.value;
+
+	                    this.languages.push(lng.language);
+	                }
+	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator['return']) {
+	                        _iterator['return']();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+
+	            this.emitChange();
+	        }
+	    }, {
+	        key: 'handlePage',
+	        value: function handlePage(data) {
+	            this.pagedata = data;
+	            this.emitChange();
+	        }
+	    }]);
+
+	    return PageStore;
+	})();
+
+	// Export our newly created Store
+	exports['default'] = _altInstance2['default'].createStore(PageStore, 'PageStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51100,11 +50513,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _actionsPageActions = __webpack_require__(290);
+	var _actionsPageActions = __webpack_require__(277);
 
 	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
 
-	var _storesPageStore = __webpack_require__(291);
+	var _storesPageStore = __webpack_require__(278);
 
 	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
 
@@ -51226,7 +50639,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 296 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51251,11 +50664,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _actionsPageActions = __webpack_require__(290);
+	var _actionsPageActions = __webpack_require__(277);
 
 	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
 
-	var _storesPageStore = __webpack_require__(291);
+	var _storesPageStore = __webpack_require__(278);
 
 	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
 
@@ -51404,7 +50817,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 297 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51427,11 +50840,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _actionsPageActions = __webpack_require__(290);
+	var _actionsPageActions = __webpack_require__(277);
 
 	var _actionsPageActions2 = _interopRequireDefault(_actionsPageActions);
 
-	var _storesPageStore = __webpack_require__(291);
+	var _storesPageStore = __webpack_require__(278);
 
 	var _storesPageStore2 = _interopRequireDefault(_storesPageStore);
 
@@ -51629,6 +51042,585 @@
 
 	exports['default'] = Signuppage;
 	module.exports = exports['default'];
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	// import _ from 'underscore';
+
+	var Test1 = (function (_React$Component) {
+	  function Test1(props) {
+	    _classCallCheck(this, Test1);
+
+	    _get(Object.getPrototypeOf(Test1.prototype), 'constructor', this).call(this, props);
+	  }
+
+	  _inherits(Test1, _React$Component);
+
+	  _createClass(Test1, [{
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2['default'].createElement(
+	        'span',
+	        null,
+	        'Test'
+	      );
+	    }
+	  }]);
+
+	  return Test1;
+	})(_react2['default'].Component);
+
+	exports['default'] = Test1;
+	module.exports = exports['default'];
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
+
+	// import Navigation from 'components/Navigation.react';
+
+	var _componentsAdminNavigationReact = __webpack_require__(284);
+
+	var _componentsAdminNavigationReact2 = _interopRequireDefault(_componentsAdminNavigationReact);
+
+	var Admin = (function (_React$Component) {
+	  function Admin() {
+	    _classCallCheck(this, Admin);
+
+	    _get(Object.getPrototypeOf(Admin.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _inherits(Admin, _React$Component);
+
+	  _createClass(Admin, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement(_componentsAdminNavigationReact2['default'], null),
+	        _react2['default'].createElement(_reactRouter.RouteHandler, null)
+	      );
+	    }
+	  }]);
+
+	  return Admin;
+	})(_react2['default'].Component);
+
+	exports['default'] = Admin;
+	module.exports = exports['default'];
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(160);
+
+	var _immutable = __webpack_require__(220);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	// import UserActions from 'actions/UserActions';
+	// import UserStore from 'stores/UserStore';
+
+	var AdminNavigation = (function (_React$Component) {
+	    function AdminNavigation(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, AdminNavigation);
+
+	        _get(Object.getPrototypeOf(AdminNavigation.prototype), 'constructor', this).call(this, props);
+	        // this.state = UserStore.getState();
+
+	        this._onChange = function () {
+	            _this.setState({});
+	        };
+
+	        this._onLogout = function () {};
+	    }
+
+	    _inherits(AdminNavigation, _React$Component);
+
+	    _createClass(AdminNavigation, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2['default'].createElement(
+	                'nav',
+	                { className: 'navbar navbar-default', role: 'navigation' },
+	                _react2['default'].createElement(
+	                    'div',
+	                    { className: 'container-fluid' },
+	                    _react2['default'].createElement(
+	                        'div',
+	                        { className: 'navbar-header' },
+	                        _react2['default'].createElement(
+	                            _reactRouter.Link,
+	                            { to: '/', className: 'navbar-brand navigation__item', activeClassName: 'navigation__item--active' },
+	                            'Moodwonder'
+	                        )
+	                    ),
+	                    _react2['default'].createElement(
+	                        'div',
+	                        null,
+	                        _react2['default'].createElement(
+	                            'ul',
+	                            { className: 'nav navbar-nav  navbar-right' },
+	                            _react2['default'].createElement(
+	                                'li',
+	                                null,
+	                                _react2['default'].createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/admin', className: 'navigation__item' },
+	                                    'Admin'
+	                                )
+	                            ),
+	                            _react2['default'].createElement(
+	                                'li',
+	                                null,
+	                                _react2['default'].createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/admin/languages', className: 'navigation__item' },
+	                                    'Languages'
+	                                )
+	                            ),
+	                            _react2['default'].createElement(
+	                                'li',
+	                                null,
+	                                _react2['default'].createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/admin/pages', className: 'navigation__item' },
+	                                    'Pages'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return AdminNavigation;
+	})(_react2['default'].Component);
+
+	exports['default'] = AdminNavigation;
+
+	AdminNavigation.propTypes = { user: _react2['default'].PropTypes.instanceOf(_immutable2['default'].Map) };
+	module.exports = exports['default'];
+
+	// UserStore.listen(this._onChange);
+
+	// UserStore.unlisten(this._onChange);
+
+	// user: UserStore.getState().user
+
+	// UserActions.logout();
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _immutable = __webpack_require__(220);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	var _actionsAdminActions = __webpack_require__(286);
+
+	var _actionsAdminActions2 = _interopRequireDefault(_actionsAdminActions);
+
+	var _storesAdminStore = __webpack_require__(288);
+
+	var _storesAdminStore2 = _interopRequireDefault(_storesAdminStore);
+
+	var _componentsFormsyComponents = __webpack_require__(221);
+
+	var _reactRouter = __webpack_require__(160);
+
+	var _es6Mixins = __webpack_require__(226);
+
+	var _es6Mixins2 = _interopRequireDefault(_es6Mixins);
+
+	var Adminlogin = (function (_React$Component) {
+	    function Adminlogin(props) {
+	        var _this = this;
+
+	        _classCallCheck(this, Adminlogin);
+
+	        _get(Object.getPrototypeOf(Adminlogin.prototype), 'constructor', this).call(this, props);
+
+	        this.enableButton = function () {
+	            _this.setState({ canSubmit: true });
+	        };
+
+	        this.disableButton = function () {
+	            _this.setState({ canSubmit: false });
+	        };
+
+	        this._onChange = function () {
+	            _this.setState({
+	                isAuthenticated: _storesAdminStore2['default'].getState().isAuthenticated
+	            });
+
+	            if (_this.state.isAuthenticated) {
+	                window.location.assign('/admin/dashboard');
+	                //this.context.router.transitionTo('/survey');
+	            }
+	        };
+
+	        this._onLoginSubmit = function (model) {
+	            var username = model.username.trim();
+	            var password = model.password.trim();
+	            console.log({ username: username, password: password });
+	            _actionsAdminActions2['default'].login({ username: username, password: password });
+	        };
+
+	        (0, _es6Mixins2['default'])(_reactRouter.Navigation, this);
+	        this.state = _storesAdminStore2['default'].getState();
+	        this.state = {
+	            canSubmit: false
+	        };
+	        this.validationErrors = {};
+	    }
+
+	    _inherits(Adminlogin, _React$Component);
+
+	    _createClass(Adminlogin, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            _storesAdminStore2['default'].listen(this._onChange);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            _storesAdminStore2['default'].unlisten(this._onChange);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var renderedResult = '';
+
+	            if (this.state.isLoggedIn) {
+	                var currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+	                renderedResult = _react2['default'].createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2['default'].createElement(
+	                        'h2',
+	                        { className: 'login__header' },
+	                        'Welcome ',
+	                        currentUser.name
+	                    )
+	                );
+	            } else {
+
+	                renderedResult = _react2['default'].createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2['default'].createElement(
+	                        'h2',
+	                        null,
+	                        'Admin login..'
+	                    ),
+	                    _react2['default'].createElement(
+	                        Formsy.Form,
+	                        { onValidSubmit: this._onLoginSubmit, onValid: this.enableButton, onInvalid: this.disableButton },
+	                        _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                            name: 'username',
+	                            className: 'form-control',
+	                            placeholder: 'Username',
+	                            validationError: 'Username required.',
+	                            required: true }),
+	                        _react2['default'].createElement(_componentsFormsyComponents.MyOwnInput, {
+	                            type: 'password',
+	                            name: 'password',
+	                            className: 'form-control',
+	                            placeholder: 'Password',
+	                            validationError: 'Password required.',
+	                            required: true }),
+	                        _react2['default'].createElement(
+	                            'button',
+	                            { type: 'submit', className: 'btn btn-default', disabled: !this.state.canSubmit },
+	                            'Submit'
+	                        )
+	                    )
+	                );
+	            }
+
+	            return _react2['default'].createElement(
+	                'div',
+	                { className: 'login' },
+	                renderedResult
+	            );
+	        }
+	    }]);
+
+	    return Adminlogin;
+	})(_react2['default'].Component);
+
+	exports['default'] = Adminlogin;
+
+	Adminlogin.propTypes = { adminuser: _react2['default'].PropTypes.instanceOf(_immutable2['default'].Map) };
+	Adminlogin.contextTypes = { router: _react2['default'].PropTypes.func };
+	module.exports = exports['default'];
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var _utilsAdminWebAPIUtils = __webpack_require__(287);
+
+	var _utilsAdminWebAPIUtils2 = _interopRequireDefault(_utilsAdminWebAPIUtils);
+
+	var AdminActions = (function () {
+	    function AdminActions() {
+	        _classCallCheck(this, AdminActions);
+	    }
+
+	    _createClass(AdminActions, [{
+	        key: 'login',
+
+	        /**
+	         * Login function
+	         */
+	        value: function login(data) {
+	            var _this = this;
+
+	            this.dispatch();
+	            _utilsAdminWebAPIUtils2['default'].login(data).then(function (response, textStatus) {
+	                if (textStatus === 'success') {
+	                    // Dispatch another event for successful login
+	                    _this.actions.loginsuccess(response);
+	                }
+	            }, function () {});
+	        }
+	    }, {
+	        key: 'loginsuccess',
+
+	        // Keep this function name in lower case, otherwise it will not be available in 'Store'
+	        value: function loginsuccess(response) {
+	            this.dispatch(response);
+	        }
+	    }]);
+
+	    return AdminActions;
+	})();
+
+	exports['default'] = _altInstance2['default'].createActions(AdminActions);
+	module.exports = exports['default'];
+
+	// Dispatch another event for a bad login
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _jquery = __webpack_require__(218);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var utils = {
+
+	  login: function login(data) {
+	    return _jquery2['default'].ajax({
+	      url: '/adminlogin',
+	      type: 'POST',
+	      contentType: 'application/json',
+	      data: JSON.stringify(data)
+	    });
+	  }
+
+	};
+
+	exports['default'] = utils;
+	module.exports = exports['default'];
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _immutable = __webpack_require__(220);
+
+	var _immutable2 = _interopRequireDefault(_immutable);
+
+	var _actionsAdminActions = __webpack_require__(286);
+
+	var _actionsAdminActions2 = _interopRequireDefault(_actionsAdminActions);
+
+	var _utilsImmutableHelpers = __webpack_require__(246);
+
+	var _altInstance = __webpack_require__(199);
+
+	var _altInstance2 = _interopRequireDefault(_altInstance);
+
+	var AdminStore = (function () {
+	    function AdminStore() {
+	        _classCallCheck(this, AdminStore);
+
+	        this.isAuthenticated = false;
+	        this.adminuser = _immutable2['default'].Map({});
+
+	        this.bindListeners({
+	            handleLoginSuccess: _actionsAdminActions2['default'].LOGINSUCCESS
+	        });
+	    }
+
+	    _createClass(AdminStore, [{
+	        key: 'bootstrap',
+	        value: function bootstrap() {
+	            if (!_immutable2['default'].OrderedMap.isOrderedMap(this.adminuser)) {
+	                this.adminuser = (0, _utilsImmutableHelpers.fromJSOrdered)(this.adminuser);
+	            }
+	        }
+	    }, {
+	        key: 'handleLoginSuccess',
+	        value: function handleLoginSuccess(data) {
+	            this.isAuthenticated = true;
+	            this.adminuser = data;
+	            this.emitChange();
+	        }
+	    }]);
+
+	    return AdminStore;
+	})();
+
+	/**
+	 * Export our newly created Store
+	 */
+	exports['default'] = _altInstance2['default'].createStore(AdminStore, 'AdminStore');
+	module.exports = exports['default'];
+
+/***/ },
+/* 289 */
+/***/ function(module, exports) {
+
+	module.exports = "<!doctype html>\n<html lang=\"\">\n\n<head>\n    <title>TITLE</title>\n\n    META\n\n    LINK\n\n</head>\n<body>\n<div class=\"app\">CONTENT</div>\n\n<script type=\"text/javascript\" charset=\"utf-8\" src=\"/assets/admin.js\"></script>\n</body>\n</html>\n";
 
 /***/ }
 /******/ ]);
