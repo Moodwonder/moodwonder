@@ -54,8 +54,10 @@ export default class MyTeam extends React.Component {
       TeamActions.addMemberToTeam(model);
   }
 
-  onRemoveMember = (team_id, member_id) => {
-      TeamActions.removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id });
+  onRemoveMember = (team_id, member_id,account_type) => {
+      if (confirm("Are you sure ?") === true) {
+          TeamActions.removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id, 'account_type': account_type });
+      }
   }
 
   showCreateTeamForm = () => {
@@ -76,9 +78,11 @@ export default class MyTeam extends React.Component {
               let members;
               members = data.members.map((mem, key) => {
                   return (
-                      <ul>
-                          <li>{mem.member_name} <a onClick={this.onRemoveMember.bind(this,data._id,mem._id)} > Remove</a></li>
-                       </ul>
+                    <div className="row">
+                      <div className="col-sm-4">{mem.member_email}</div>
+                      <div className="col-sm-4">{mem.member_name}</div>
+                      <div className="col-sm-4"><a onClick={this.onRemoveMember.bind(this,data._id,mem._id,mem.usertype)} > Remove</a></div>
+                    </div>
                   );
               });
               return [
@@ -86,6 +90,11 @@ export default class MyTeam extends React.Component {
                    <Editable onSave={this._onUpdateTeamName} teamid={data._id} value={data.name} />
                   </li>,
                   <li className="list-group-item">
+                    <div className="row">
+                      <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
+                    </div>
+                    {members}
+                    <br></br>
                     <div className="row">
                       <div className="col-sm-4">
                         <Formsy.Form onValidSubmit={this._onAddMemberSubmit} >
@@ -104,7 +113,6 @@ export default class MyTeam extends React.Component {
 
                           <button type="submit" className="btn btn-default"
                           disabled={!this.state.canSubmitAddMember}>Submit</button>
-                          {members}
                         </Formsy.Form>
                       </div>
                       <div className="col-sm-8"></div>
@@ -124,7 +132,7 @@ export default class MyTeam extends React.Component {
 
       if (this.state.CreateTeamForm) {
           CreateTeamUI = (
-              <div className="col-sm-6">
+              <div className="col-sm-8">
               <ul className="list-group">
               <li className="list-group-item">
               <Formsy.Form onValidSubmit={this._onSaveSubmit}
@@ -165,7 +173,7 @@ export default class MyTeam extends React.Component {
             </div>
             <br></br>
             <div className="row">
-              <div className="col-sm-6">
+              <div className="col-sm-8">
               <ul className="list-group">
                 {teamUserList}
               </ul>

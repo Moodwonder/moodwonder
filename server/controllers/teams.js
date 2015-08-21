@@ -33,19 +33,7 @@ exports.checkTeam = function(req, res, next) {
   }else{
 		
   }
-  */
-
-
-  var where = { "manager_id" : new ObjectId(req.user._id), "teamname": teamname };
-  // console.log(where);
-
-  Team.findOne(where, function(err, existingTeam) {
-    if(existingTeam) {
-        response.status = false;
-        response.message = "Team name is already exist within your teams";
-        res.send(response);
-        res.end();
-    }else{
+  *
         if(existingTeam.admin_id === undefined || existingTeam.admin_id === "0" ){
             next();
         }else {
@@ -61,6 +49,21 @@ exports.checkTeam = function(req, res, next) {
 				}
 			});
         }
+  * 
+  */
+
+
+  var where = { "manager_id" : new ObjectId(req.user._id), "teamname": teamname };
+  // console.log(where);
+
+  Team.findOne(where, function(err, existingTeam) {
+    if(existingTeam) {
+        response.status = false;
+        response.message = "Team name is already exist within your teams";
+        res.send(response);
+        res.end();
+    }else{
+        next();
     }
   });
 };
@@ -249,45 +252,52 @@ exports.removeMemberFromTeam = function(req, res, next) {
 
   var team_id = req.body.team_id;
   var member_id = req.body.member_id;
-  var member_id = req.body.member_id;
+  var account_type = req.body.account_type;
 
-  if( team_id != '' && member_id != '') {
+  if( account_type == "invited") {
+      // If the user type is 'invites' then remove this from 'invites' collection
+      next();
+  }
+  else {
+  
+		if( team_id != '' && member_id != '') {
 
-  var where = { _id: new ObjectId(team_id) }
+		var where = { _id: new ObjectId(team_id) }
 
-  // check the team is exist or not
-  Team.findOne(where, function(err, existingTeam) {
-    if(existingTeam) {
-		
-		// User not exist in this group, Insert this user into this team
-		member_id = new ObjectId(member_id);
-		Team.update({ "_id" : existingTeam._id },{$pull: {member_ids: { _id: member_id }}},function(err){
-			if(err){
-				response.status = false;
-				response.message = "Something went wrong";
-				res.send(response);
-				res.end();
-			}else{
-				response.status = true;
-				response.message = "Member removed";
-				res.send(response);
-				res.end();
-			}
+		// check the team is exist or not
+		Team.findOne(where, function(err, existingTeam) {
+		if(existingTeam) {
+			
+			// User not exist in this group, Insert this user into this team
+			member_id = new ObjectId(member_id);
+			Team.update({ "_id" : existingTeam._id },{$pull: {member_ids: { _id: member_id }}},function(err){
+				if(err){
+					response.status = false;
+					response.message = "Something went wrong";
+					res.send(response);
+					res.end();
+				}else{
+					response.status = true;
+					response.message = "Member removed";
+					res.send(response);
+					res.end();
+				}
+			});
+						
+		}else{
+			response.status = false;
+			response.message = 'Team not exist';
+			res.send(response);
+			res.end();
+		}
 		});
-					
-    }else{
-        response.status = false;
-        response.message = 'Team not exist';
-        res.send(response);
-        res.end();
-    }
-  });
 
 
-  }else{
-    response.status = false;
-    response.message = 'Something went wrong';
-    res.send(response);
-    res.end();
+		}else{
+		response.status = false;
+		response.message = 'Something went wrong';
+		res.send(response);
+		res.end();
+		}
   }
 };

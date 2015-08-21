@@ -1,29 +1,26 @@
 import React from 'react';
-import UserActions from 'actions/UserActions';
-import UserStore from 'stores/UserStore';
 import { MyOwnInput } from 'components/Formsy-components';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
-import InviteOthers from 'components/InviteOthers.react';
+import InviteActions from 'actions/InviteActions';
+import InviteStore from 'stores/InviteStore';
 
-export default class MyManager extends React.Component {
+/*
+ * Component for Invite Others Widget
+ *
+ */
+export default class InviteOthers extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
       super(props);
-      mixins(Navigation, this);
-      this.state = UserStore.getState();
+      this.state = InviteStore.getState();
       this.state.canSubmit = false;
       this.validationErrors = {};
   }
 
-  componentDidMount () {
-      UserActions.getuserinfo();
-      UserStore.listen(this._onChange);
+  componentDidMount() {
+      InviteStore.listen(this._onChange);
   }
 
-  componentWillUnmount () {
-      UserStore.unlisten(this._onChange);
+  componentWillUnmount() {
   }
 
   enableButton = () => {
@@ -39,29 +36,23 @@ export default class MyManager extends React.Component {
   }
 
   _onSaveSubmit = (model) => {
-      UserActions.saveManagerInfo(model);
+      InviteActions.invitePeople(model);
   }
 
   render() {
-
-      let renderedResult;
-
       let message;
 
-      let userInfo = this.state.userDetails;
-
       if (this.state.message !== '' ) {
+          console.log(this.state.message);
           message = (
               <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
                 {this.state.message}
               </div>
           );
       }
-
-      renderedResult = (
-        <div className="container">
-          <Submenu />
-          <h2>My Manager</h2>
+      return (
+        <div className="row">
+           <h4>Invite others</h4>
           {message}
           <Formsy.Form onValidSubmit={this._onSaveSubmit}
             onValid={this.enableButton}
@@ -71,32 +62,21 @@ export default class MyManager extends React.Component {
             name="email"
             autocomplete="off"
             className="form-control"
-            value={userInfo.mymanager}
             placeholder="Work Email"
             validations="isEmail"
             validationError="This is not a valid email"
             required/>
 
             <MyOwnInput
-            name="type"
+            name="invitetype"
             type="hidden"
-            value="savemanager"
-            required/>
+            value="Signup"
+            />
 
             <button type="submit" className="btn btn-default"
             disabled={!this.state.canSubmit}>Submit</button>
           </Formsy.Form>
-          <InviteOthers />
         </div>
       );
-
-
-      return (
-          <div className="login">
-            {renderedResult}
-          </div>
-      );
-
   }
 }
-MyManager.contextTypes = { router: React.PropTypes.func };

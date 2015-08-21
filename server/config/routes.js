@@ -4,7 +4,7 @@
 var express = require('express');
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
- var invitation = require('../controllers/invitation');
+var invitation = require('../controllers/invitation');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Header = require('../../public/assets/header.server');
@@ -30,10 +30,11 @@ module.exports = function(app, passport) {
   app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
   app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
   app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
-  app.post('/updateteam', users.checkLogin, teams.updateTeam);
+  app.post('/updateteam', users.checkLogin, teams.checkTeam, teams.updateTeam);
   app.post('/getmyteams', users.checkLogin, teams.getMyTeams, users.usersInTeams);
   app.post('/addmembertoteam', users.checkLogin, teams.addMemberToTeam, invitation.sendInvitation );
-  app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam );
+  app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation );
+  app.post('/invitesignup', users.checkLogin, invitation.sendInvitation );
   app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
   app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
   app.post('/createsurveyform', customSurvey.createForm);

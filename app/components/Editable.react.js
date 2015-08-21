@@ -30,7 +30,9 @@ export default class Editable extends React.Component {
   }
 
   onSaveClick = (teamname,teamid) => {
-      this.props.onSave({teamname:teamname,teamid:teamid});
+      if(this.props.value !== this.state.value && teamname.trim() !== ''){
+          this.props.onSave({teamname:teamname,teamid:teamid});
+      }
   }
 
   render() {
@@ -61,7 +63,9 @@ export default class Editable extends React.Component {
           <div className="col-sm-8">
            {inputORLable}
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-1"></div>
+          <div className="col-sm-1"></div>
+          <div className="col-sm-1">
            {actionButton}
           </div>
         </div>
