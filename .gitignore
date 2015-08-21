@@ -3,3 +3,5 @@
 /public/assets/app.server.js
 /public/assets/header.server.js
 /server/config/secrets.js
+/nbproject/private/
+/public/assets/admin.js
