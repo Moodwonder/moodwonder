@@ -1,7 +1,7 @@
 import React from 'react';
-import Immutable from 'immutable';
+import RequireAuth from 'utils/requireAuth';
 
-export default class Dashboard extends React.Component {
+export default RequireAuth(class Dashboard extends React.Component {
   constructor(props) {
       super(props);
   }
@@ -13,9 +13,4 @@ export default class Dashboard extends React.Component {
       </div>
     );
   }
-}
-
-Dashboard.propTypes = {
-  topics: React.PropTypes.instanceOf(Immutable.OrderedMap),
-  newTopic: React.PropTypes.string
-};
+});

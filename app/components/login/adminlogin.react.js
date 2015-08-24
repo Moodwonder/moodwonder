@@ -13,7 +13,8 @@ export default class Adminlogin extends React.Component {
       mixins(Navigation, this);
       this.state = AdminStore.getState();
       this.state = {
-        canSubmit: false
+        canSubmit: false,
+        isAuth: AdminStore.getState().isAuth
       };
       this.validationErrors = {};
   }
@@ -36,12 +37,14 @@ export default class Adminlogin extends React.Component {
 
   _onChange = () => {
       this.setState({
-          isAuthenticated: AdminStore.getState().isAuthenticated
+          isAuth: AdminStore.getState().isAuth
       });
 
-      if(this.state.isAuthenticated){
+      if(this.state.isAuth === "true"){
           window.location.assign('/admin/dashboard');
           //this.context.router.transitionTo('/survey');
+      } else {
+          window.location.assign('/admin');
       }
   }
 

@@ -35,7 +35,7 @@ module.exports = function (app, passport) {
         // If secure is set, and you access your site over HTTP, the cookie will not be set
         cookie: {
             httpOnly: true,
-            maxAge: new Date(Date.now() + (2 * 24 * 60 * 60 * 1000))
+            maxAge: new Date(Date.now() + (1 * 24 * 60 * 60 * 1000))
         },
         store: new MongoStore({url: secrets.db, autoReconnect: true})
     };

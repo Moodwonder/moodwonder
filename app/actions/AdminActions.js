@@ -10,7 +10,7 @@ class AdminActions {
       this.dispatch();
       AdminWebAPIUtils.login(data)
         .then((response, textStatus) => {
-            if (textStatus === 'success') {
+            if (response.status === 'success') {
                 // Dispatch another event for successful login
                 this.actions.loginsuccess(response);
             }
@@ -19,9 +19,25 @@ class AdminActions {
         });
   }
 
-  // Keep this function name in lower case, otherwise it will not be available in 'Store'
   loginsuccess (response) {
       this.dispatch(response);
+  }
+
+  logout () {
+      this.dispatch();
+      AdminWebAPIUtils.logout()
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                // Dispatch another event for successful login
+                this.actions.logoutsuccess();
+            }
+        }, () => {
+            // Dispatch another event for a bad login
+        });
+  }
+
+  logoutsuccess () {
+      this.dispatch();
   }
 
 }

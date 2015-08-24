@@ -7,8 +7,10 @@ import Languageoptions from 'components/pages/Languageoptions.react';
 import Homepage from 'components/pages/Homepage.react';
 import Signuppage from 'components/pages/Signuppage.react';
 import Loginpage from 'components/pages/Loginpage.react';
+import RequireAuth from 'utils/requireAuth';
 
-export default class Pages extends React.Component {
+
+export default RequireAuth(class Pages extends React.Component {
   constructor(props) {
       super(props);
       this.state = PageStore.getState();
@@ -180,7 +182,7 @@ export default class Pages extends React.Component {
       </div>
     );
   }
-}
+});
 
 
 

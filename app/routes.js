@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, DefaultRoute, NotFoundRoute } from 'react-router';
 
+
 import App from 'components/App.react';
 import Index from 'components/Index.react';
 import Login from 'components/Login.react';
@@ -23,15 +24,18 @@ import Pages from 'components/pages/Pages.react';
 import Test1 from 'components/test1';
 import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
-// import Dashboard from 'components/dashboard/dashboard.react';
+import Adminlogout from 'components/login/Logout.react';
+import Dashboard from 'components/dashboard/dashboard.react';
 
 const routes = (
   <Route>
     <Route name="appadmin" path="/admin" handler={Admin} >
         <Route name="admin" handler={Adminlogin} />
         <Route name="/admin/login" handler={Adminlogin} />
+        <Route name="/admin/logout" handler={Adminlogout} />
         <Route name="/admin/languages" handler={Languages} />
         <Route name="/admin/pages" handler={Pages} />
+        <Route name="/admin/dashboard" handler={Dashboard} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>

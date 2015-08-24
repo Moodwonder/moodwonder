@@ -1,35 +1,54 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Immutable from 'immutable';
-// import UserActions from 'actions/UserActions';
-// import UserStore from 'stores/UserStore';
+import AdminActions from 'actions/AdminActions';
+import AdminStore from 'stores/AdminStore';
 
 export default class AdminNavigation extends React.Component {
 
   constructor (props) {
       super(props);
-      // this.state = UserStore.getState();
+      this.state = {
+          isAuth: AdminStore.getState().isAuth
+      };
   }
 
   componentDidMount () {
-      // UserStore.listen(this._onChange);
+      AdminStore.listen(this._onChange);
+      let isAuth = localStorage.getItem('isAuth');
+      this.setState({isAuth: isAuth});
   }
 
   componentWillUnmount () {
-      // UserStore.unlisten(this._onChange);
+      AdminStore.unlisten(this._onChange);
   }
 
   _onChange = () => {
       this.setState({
-        // user: UserStore.getState().user
+        isAuth: AdminStore.getState().isAuth
       });
   }
 
   _onLogout = () => {
-      // UserActions.logout();
+      AdminActions.logout();
   }
 
   render () {
+
+      let loginOrOut;
+
+      if (this.state.isAuth === "true") {
+          loginOrOut = [
+            <li><Link onClick={this._onLogout} className="navigation__item" to="/admin">Logout</Link></li>,
+            <li><Link to="/admin/languages" className="navigation__item">Languages</Link></li>,
+            <li><Link to="/admin/pages" className="navigation__item">Pages</Link></li>
+          ];
+      } else {
+          loginOrOut = [
+              <li><Link className="navigation__item" to="/admin">Log in</Link></li>
+          ];
+      }
+
 
       return (
         <nav className="navbar navbar-default" role="navigation">
@@ -39,15 +58,7 @@ export default class AdminNavigation extends React.Component {
                   </div>
                   <div>
                         <ul className="nav navbar-nav  navbar-right">
-                          <li>
-                            <Link to="/admin" className="navigation__item">Admin</Link>
-                          </li>
-                          <li>
-                            <Link to="/admin/languages" className="navigation__item">Languages</Link>
-                          </li>
-                          <li>
-                            <Link to="/admin/pages" className="navigation__item">Pages</Link>
-                          </li>
+                         {loginOrOut}
                         </ul>
                   </div>
             </div>

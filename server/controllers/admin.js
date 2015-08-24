@@ -1,3 +1,4 @@
+var express = require('express');
 var _ = require('lodash');
 var Admin = require('../models/admin');
 var passport = require('passport');
@@ -7,6 +8,7 @@ var validations = require('../controllers/validationRules');
 var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
+var LocalStrategy = require('passport-local').Strategy;
 
 
 /**
@@ -72,12 +74,30 @@ exports.checkLogin = function (req, res, next) {
  * Login
  */
 exports.login = function (req, res, next) {
+
     // Do email and password validation for the server
-    passport.authenticate('admin', function (err, user, info) {
+    passport.use('local-admin', new LocalStrategy({
+        usernameField: 'username'
+    }, function (username, password, done) {
+        Admin.findOne({username: username}, function (err, user) {
+            if (!user)
+                return done(null, false, {message: 'Username ' + username + ' not found'});
+            user.comparePassword(password, function (err, isMatch) {
+                if (isMatch) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, {message: 'Invalid username or password'});
+                }
+            });
+        });
+    }));
+
+    //passport.authenticate('local', function (err, user, info) {
+    passport.authenticate('local-admin', function (err, user, info) {
         if (err)
             return next(err);
         if (!user) {
-            response.status = false;
+            response.status = 'failure';
             response.message = info.message;
             res.send(response);
             res.end();
@@ -87,7 +107,7 @@ exports.login = function (req, res, next) {
         req.logIn(user, function (err) {
             if (err)
                 return next(err);
-            response.status = true;
+            response.status = 'success';
             response.message = 'Success! You are logged in';
             response.user = user;
             res.send(response);
@@ -100,8 +120,20 @@ exports.login = function (req, res, next) {
  * Logout
  */
 exports.logout = function (req, res, next) {
-    req.session.destroy();
     req.logout();
+    //req.logOut();
+    req.session.destroy();
+    next();
+};
+
+exports.getLoggedIn = function (req, res, next) {
+    // Do email and password validation for the server
+    // console.log(req);
+    if (req.user) {
+        res.json({authenticated: true});
+    } else {
+        res.json({authenticated: false});
+    }
     next();
 };
 

@@ -48,11 +48,14 @@ module.exports = function (app, passport) {
     app.post('/addlanguage', language.addLanguage);
     app.post('/editlanguage', language.editLanguage);
     app.post('/updatepagekeys', language.updatePageKeys);
-    app.post('/adminlogin', admin.login);
     app.post('/deletelanguage', language.deleteLanguage);
     app.get('/getpage', language.getPage);
     app.get('/getlanguages', language.getLanguages);
 
+    app.post('/adminlogin', admin.login);
+    app.get('/adminlogout', admin.logout);
+    app.get('/loggedin', admin.getLoggedIn);
+    
     // Set variables from server side
     app.get('/signup/:hash', invitation.handleSignup);
 
@@ -81,8 +84,8 @@ module.exports = function (app, passport) {
     app.get('*', function (req, res, next) {
         // console.log('res.locals.data');
         // console.log(res.locals.data);
-        // console.log('req.user');
-        // console.log(req.user);
+        console.log('req.user');
+        console.log(req.user);
         // console.log('req.session');
         // console.log(req.session);
 

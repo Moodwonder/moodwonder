@@ -2,8 +2,10 @@ import React from 'react';
 import getFormData from 'get-form-data';
 import LanguageActions from 'actions/LanguageActions';
 import LanguageStore from 'stores/LanguageStore';
+import RequireAuth from 'utils/requireAuth';
 
-export default class Languages extends React.Component {
+
+export default RequireAuth(class Languages extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
@@ -217,5 +219,5 @@ export default class Languages extends React.Component {
       </div>
     );
   }
-}
+});
 

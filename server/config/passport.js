@@ -2,7 +2,7 @@
  * Initializing passport.js 
  */
 var User = require('../models/user');
-var local = require('./passport/local');
+var local = require('./passport/user-local');
 
 /**
  * Expose
