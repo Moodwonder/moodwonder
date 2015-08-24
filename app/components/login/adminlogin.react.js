@@ -21,6 +21,9 @@ export default class Adminlogin extends React.Component {
 
   componentDidMount() {
       AdminStore.listen(this._onChange);
+      if(localStorage.getItem('isAuth') === "true") {
+          window.location.assign('/admin/dashboard');
+      }
   }
 
   componentWillUnmount() {
