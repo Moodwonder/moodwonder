@@ -13,6 +13,7 @@ class TeamStore {
       this.hasTeam                =    false;
       this.teams                  =    {};
       this.message                =    '';
+      this.messages               =    [];
       this.canSubmit              =    false;
 
       this.bindListeners({
@@ -28,6 +29,7 @@ class TeamStore {
       this.isServerCallWaiting    =    false;
       this.hasError               =    !response.status;
       this.message                =    response.message;
+      this.messages               =    response.messages;
       this.emitChange();
   }
 

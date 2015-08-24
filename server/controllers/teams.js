@@ -165,82 +165,97 @@ exports.getMyTeams = function(req, res, next) {
  */
 exports.addMemberToTeam = function(req, res, next) {
 
-  var membername = req.body.membername;
-  // Making e-mail id using membername
+  //function for exiting from the callback function
+  function checkExitCondition(key){
+	if(total_member_email == (key+1)){
+		// Go to invitation.sendInvitation() route if there is non member emails
+		if(invite_member_email.length>0){
+			next();
+		}
+		else{
+			response.status = false;
+			response.message = '';
+			response.messages = feedback;
+			res.send(response);
+			res.end();
+		}
+	}
+  }
 
+  var membername = req.body.membername;
+  var feedback   = [];
+  
+  // Extracting domain name for making e-mail id
   var domainname = req.user.company_info[0].website;
   domainname = domainname.replace("http://www.", '');
   domainname = domainname.replace("http://", '');
   domainname = domainname.replace("https://www.", '');
   domainname = domainname.replace("https://", '');
   domainname = '@'+domainname;
+  var member_email = [];
+  var invite_member_email = [];
+
+
+  membername.map(function(value, key) {
+	// Making e-mail id
+	member_email[key] = value+domainname;
+	if(member_email[key] == req.user.email) {
+	  feedback.push(email+': You are the team leader');
+	}
+  });
   
-  var member_email = membername+domainname;
-
-  if(member_email == req.user.email) {
-      response.status = false;
-      response.message = 'You are the team leader';
-      res.send(response);
-      res.end();
-  }
-
+  var total_member_email = member_email.length;
   var team_id = req.body.team_id;
+  
+  member_email.map(function(value, key) {
+	var where = { _id: new ObjectId(team_id) }
+	
+	// check the team is exist or not
+	Team.findOne(where, function(err, existingTeam) {
+		if(existingTeam) {
 
-  var where = { _id: new ObjectId(team_id) }
-  // console.log(member_email);
-  // check the team is exist or not
-  Team.findOne(where, function(err, existingTeam) {
-    if(existingTeam) {
-
-		  // check the user is exist or not
-		  User.findOne({email: member_email }, function(err, existingUser) {
-			if(existingUser) {
-				
-				// check the member already exist in the group
-				var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
-				// console.log(where);
-
-				Team.findOne(where_mem_exist, function(err, existingMember) {
-				if(existingMember) {
+			// check the user is exist or not
+			var current_member_email = value;
+			User.findOne({email: current_member_email }, function(err, existingUser) {
+				if(existingUser) {
 					
-					response.status = true;
-					response.message = "This user is already exist in the team";
-					res.send(response);
-					res.end();
-				}else{
-					// User not exist in this group, Insert this user into this team
-					Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
-						if(err){
-							response.status = false;
-							response.message = "Something went wrong";
-							res.send(response);
-							res.end();
+					// check the member already exist in the group
+					var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+
+					Team.findOne(where_mem_exist, function(err, existingMember) {
+						if(existingMember) {
+							feedback.push(current_member_email+': This user is already exist in the team');
+							checkExitCondition(key);
 						}else{
-							response.status = true;
-							response.message = "Member added";
-							res.send(response);
-							res.end();
+							// User not exist in this group, Insert this user into this team
+							Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
+								if(err){
+									feedback.push('Unknown error with :'+ current_member_email);
+								}else{
+									feedback.push(current_member_email+': Added as a member');
+								}
+								checkExitCondition(key);
+							});
 						}
 					});
+				}else{
+					// Calling another controller for Invite a user with the given e-mail id
+					// Calling invitation.js/sendInvitation()
+					invite_member_email.push(current_member_email);
+					req.body.invitetype = 'Team';
+					req.body.data = { 'email': invite_member_email, 'team': existingTeam ,feedback: feedback };
+					checkExitCondition(key);
 				}
-				});
-
-
-			}else{
-				// Calling another controller for Invite a user with the given e-mail id
-				// Calling invitation.js/sendInvitation()
-				req.body.invitetype = 'Team';
-				req.body.data = { 'email': member_email, 'team': existingTeam };
-				next();
-			}
-		  });
-    }else{
-        response.status = false;
-        response.message = 'Team not exist';
-        res.send(response);
-        res.end();
-    }
+			});
+		}else{
+			response.status = false;
+			response.message = 'Team not exist';
+			res.send(response);
+			res.end();
+		}
+		});
   });
+
   
 };
 
