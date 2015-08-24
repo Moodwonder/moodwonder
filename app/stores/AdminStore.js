@@ -10,12 +10,14 @@ class AdminStore {
       this.isAuthenticated = false;
       this.adminuser = [];//Immutable.Map({});
       this.isAuth = "false";
+      this.authFailure = "false";
       this.aData = [];
       this.on('init', this.bootstrap);
       this.on('bootstrap', this.bootstrap);
 
       this.bindListeners({
         handleLoginSuccess: AdminActions.LOGINSUCCESS,
+        handleLoginFailure: AdminActions.LOGINFAILURE,
         handleLogoutSuccess: AdminActions.LOGOUTSUCCESS
       });
   }
@@ -33,7 +35,20 @@ class AdminStore {
       localStorage.setItem('isAuth', true);
       localStorage.setItem('aData', data);
       this.isAuth = "true";
+      this.authFailure = "false";
       this.aData = data;
+      this.emitChange();
+  }
+
+  handleLoginFailure (data) {
+
+      this.isAuthenticated = false;
+      this.adminuser = [];
+      localStorage.setItem('isAuth', false);
+      localStorage.setItem('aData', []);
+      this.isAuth = "false";
+      this.authFailure = "true";
+      this.aData = [];
       this.emitChange();
   }
 

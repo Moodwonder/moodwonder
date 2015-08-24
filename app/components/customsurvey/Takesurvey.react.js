@@ -19,14 +19,14 @@ export default class Takesurvey extends React.Component {
       super(props);
       mixins(Navigation, this);
       this.state = CustomSurveyStore.getState();
+      this.state.formstatus = false;
   }
 
   componentDidMount() {
       let id = this.props.params.key;
       CustomSurveyActions.getSurveyForm(id);
       CustomSurveyStore.listen(this._onChange);
-      //console.log('this.props.params.key');
-      //console.log(this.props.params.key);
+      this.setState({formstatus: false});
   }
 
   componentWillUnmount() {
@@ -79,12 +79,14 @@ export default class Takesurvey extends React.Component {
           results.surveyresults = surveyResults;
           console.log(results);
           CustomSurveyResultsActions.saveSurveyResults(results);
+          this.setState({formstatus: true});
       }
   }
 
   render() {
       let form = this.state.form;
-      console.log(form);
+      let formstatus = this.state.formstatus;
+      let statusmessage = '';
       let questions = [];
       let fields = '';
       let qcount = _.size(form.questions);
@@ -151,6 +153,13 @@ export default class Takesurvey extends React.Component {
               );
       });
 
+      if(formstatus) {
+          statusmessage = (<div className="alert alert-success">
+                            <strong>Success!</strong> Form submitted.
+                           </div>
+                          );
+      }
+
       let content = (
         <div className="form-group">
           {fields}
@@ -160,6 +169,7 @@ export default class Takesurvey extends React.Component {
       return (
       <div className="container">
       <Submenu />
+        {statusmessage}
         <h2>{form.surveytitle}</h2>
         <form id="surveyForm">
           <input type="hidden" name="surveyid" value={form._id} />

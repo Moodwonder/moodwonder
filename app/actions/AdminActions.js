@@ -13,6 +13,8 @@ class AdminActions {
             if (response.status === 'success') {
                 // Dispatch another event for successful login
                 this.actions.loginsuccess(response);
+            } else if (response.status === 'failure') {
+                this.actions.loginfailure(response);
             }
         }, () => {
             // Dispatch another event for a bad login
@@ -20,6 +22,10 @@ class AdminActions {
   }
 
   loginsuccess (response) {
+      this.dispatch(response);
+  }
+
+  loginfailure (response) {
       this.dispatch(response);
   }
 

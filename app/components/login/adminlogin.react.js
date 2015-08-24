@@ -14,7 +14,8 @@ export default class Adminlogin extends React.Component {
       this.state = AdminStore.getState();
       this.state = {
         canSubmit: false,
-        isAuth: AdminStore.getState().isAuth
+        isAuth: AdminStore.getState().isAuth,
+        authFailure: AdminStore.getState().authFailure
       };
       this.validationErrors = {};
   }
@@ -40,7 +41,8 @@ export default class Adminlogin extends React.Component {
 
   _onChange = () => {
       this.setState({
-          isAuth: AdminStore.getState().isAuth
+          isAuth: AdminStore.getState().isAuth,
+          authFailure: AdminStore.getState().authFailure
       });
 
       if(this.state.isAuth === "true"){
@@ -60,7 +62,13 @@ export default class Adminlogin extends React.Component {
 
   render() {
       let renderedResult = '';
-
+      let authFailure = this.state.authFailure;
+      let logStatus = '';
+      if(authFailure === "true") {
+          logStatus = (<div className="alert alert-danger">
+                        <strong>Error!</strong> Invalid username or password.
+                       </div>);
+      }
       if (this.state.isLoggedIn) {
           let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
           renderedResult = (
@@ -74,6 +82,7 @@ export default class Adminlogin extends React.Component {
           renderedResult = (
           <div className="container">
             <h2>Admin login..</h2>
+                {logStatus}
                 <Formsy.Form onValidSubmit={this._onLoginSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                    <MyOwnInput
                    name="username"
