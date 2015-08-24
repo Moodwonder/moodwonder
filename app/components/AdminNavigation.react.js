@@ -39,9 +39,9 @@ export default class AdminNavigation extends React.Component {
 
       if (this.state.isAuth === "true") {
           loginOrOut = [
-            <li><Link onClick={this._onLogout} className="navigation__item" to="/admin">Logout</Link></li>,
             <li><Link to="/admin/languages" className="navigation__item">Languages</Link></li>,
-            <li><Link to="/admin/pages" className="navigation__item">Pages</Link></li>
+            <li><Link to="/admin/pages" className="navigation__item">Pages</Link></li>,
+            <li><Link onClick={this._onLogout} className="navigation__item" to="/admin">Logout</Link></li>
           ];
       } else {
           loginOrOut = [
