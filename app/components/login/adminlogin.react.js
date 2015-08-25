@@ -1,8 +1,8 @@
 import React from 'react';
 import Immutable from 'immutable';
+import getFormData from 'get-form-data';
 import AdminActions from 'actions/AdminActions';
 import AdminStore from 'stores/AdminStore';
-import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 
@@ -22,9 +22,6 @@ export default class Adminlogin extends React.Component {
 
   componentDidMount() {
       AdminStore.listen(this._onChange);
-      if(localStorage.getItem('isAuth') === "true") {
-          window.location.assign('/admin/dashboard');
-      }
   }
 
   componentWillUnmount() {
@@ -46,16 +43,20 @@ export default class Adminlogin extends React.Component {
       });
 
       if(this.state.isAuth === "true"){
-          window.location.assign('/admin/dashboard');
-          //this.context.router.transitionTo('/survey');
+          //window.location.assign('/admin/dashboard');
+          this.context.router.transitionTo('/admin/dashboard');
       } else {
-          window.location.assign('/admin');
+          //window.location.assign('/admin');
+          this.context.router.transitionTo('/admin');
       }
   }
 
-  _onLoginSubmit = (model) => {
-      let username = model.username.trim();
-      let password = model.password.trim();
+  onAdminLogin = (e) => {
+      e.preventDefault();
+      let form = document.querySelector('#adminLogin');
+      let data = getFormData(form, {trim: true});
+      let username = data['username'];
+      let password = data['password'];
       console.log({ username: username, password: password });
       AdminActions.login({ username: username, password: password });
   }
@@ -69,40 +70,25 @@ export default class Adminlogin extends React.Component {
                         <strong>Error!</strong> Invalid username or password.
                        </div>);
       }
-      if (this.state.isLoggedIn) {
-          let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-          renderedResult = (
-            <div className="container">
-              <h2 className="login__header">Welcome {currentUser.name}</h2>
-            </div>
-          );
 
-      }else {
-
-          renderedResult = (
+      renderedResult = (
           <div className="container">
             <h2>Admin login..</h2>
                 {logStatus}
-                <Formsy.Form onValidSubmit={this._onLoginSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
-                   <MyOwnInput
-                   name="username"
-                   className="form-control"
-                   placeholder="Username"
-                   validationError="Username required."
-                   required/>
-                   <MyOwnInput
-                   type="password"
-                   name="password"
-                   className="form-control"
-                   placeholder="Password"
-                   validationError="Password required."
-                   required/>
-                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
-                </Formsy.Form>
+                <form id="adminLogin">
+                  <div className="form-group">
+                    <input type="text" className="form-control" name="username" placeholder="username"/>
+                  </div>
+                  <div className="form-group">
+                    <input type="password" className="form-control" name="password" placeholder="password"/>
+                  </div>
+                  <br/>
+                  <div className="form-group">
+                    <button className="btn btn-primary" onClick={this.onAdminLogin}>Submit</button>
+                  </div>
+                </form>
           </div>
         );
-
-      }
 
       return (
           <div className="login">
