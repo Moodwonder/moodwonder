@@ -28,7 +28,7 @@ exports.sendInvitation = function(req, res, next) {
 	var type         =    req.body.invitetype;
 	var data         =    req.body.data;
 	var emails       =    [];
-	var feedback     =    req.body.data.feedback;
+	var feedback     =    ( typeof req.body.data !== 'undefined' ) ? req.body.data.feedback : [];
 	var total_emails =    0;
 
 	//function for exiting from the callback function

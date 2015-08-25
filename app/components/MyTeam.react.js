@@ -133,8 +133,9 @@ export default class MyTeam extends React.Component {
           });
       }
 
-      if (this.state.messages  && this.state.messages[0] !== '' ) {
+      if (this.state.messages  && this.state.messages[0] !== undefined ) {
 
+          console.log(this.state.messages[0]);
           let wrapper = this.state.messages.map((value, key) => {
               return [<div>{value}</div>];
           });

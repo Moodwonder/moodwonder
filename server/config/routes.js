@@ -84,8 +84,8 @@ module.exports = function (app, passport) {
     app.get('*', function (req, res, next) {
         // console.log('res.locals.data');
         // console.log(res.locals.data);
-        console.log('req.user');
-        console.log(req.user);
+        // console.log('req.user');
+        // console.log(req.user);
         // console.log('req.session');
         // console.log(req.session);
 

@@ -69,7 +69,7 @@ let MyOwnSelect = React.createClass({
       return (
       <div className={elementWrapper}>
         <select className={this.props.className} name={this.props.name} onChange={this.changeValue}
-        value={this.props.value} >
+        defaultValue={this.props.value} value={this.getValue()}>
             <option value=''>{this.props.placeholder}</option>
             {options}
         </select>
