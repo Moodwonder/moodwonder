@@ -99,6 +99,7 @@ exports.postLogin = function (req, res, next) {
 
     // Do email and password validation for the server
     passport.authenticate('local-user', function (err, user, info) {
+        console.log(user);
         if (err)
             return next(err);
         if (!user) {
@@ -249,6 +250,7 @@ exports.postSignupStep1 = function (req, res, next) {
                     console.log('--req.body.hash----' + req.body.hash);
                     if (req.body.hash != '') {
 
+                        console.log('has hash');
                         var invite = new Invite({
                             email: email,
                             type: 'Team',
@@ -275,6 +277,28 @@ exports.postSignupStep1 = function (req, res, next) {
                                                 res.send(response);
                                                 res.end();
                                             } else {
+                                                // Find e-mail id of the user who invited this user
+                                                User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                    if (existingUser) {
+                                                        // console.log('has user');
+                                                        var conditions = {'_id': new ObjectId(newuser._id)}
+                                                        , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                        , options = {multi: false};
+
+                                                        // Set manager info
+                                                        User.update(conditions, update, options, function (err) {
+                                                            if (!err) {
+                                                                // console.log('updated manager');
+                                                            } else {
+                                                                // console.log('not updated manager');
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        // console.log('has no user');
+                                                    }
+                                                });
+
                                                 response.status = true;
                                                 response.messages = ['Member added'];
                                                 res.send(response);
@@ -356,9 +380,9 @@ exports.postSignupStep2 = function (req, res, next) {
 
                         response.status = false;
                         response.message = 'Something went wrong..';
+                        res.send(response);
+                        res.end();
                     }
-                    res.send(response);
-                    res.end();
                 });
             } else {
 

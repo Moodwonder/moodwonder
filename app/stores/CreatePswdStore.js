@@ -7,9 +7,10 @@ import alt from 'altInstance';
 class CreatePswdStore {
 
   constructor () {
-      this.user = {};
-      this.message = '';
-      this.hasError = false;
+      this.user      =   {};
+      this.message   =   '';
+      this.hasError  =   false;
+      this.responseStatus =   false;
       this.bindListeners({
       handleSignupStep2Feedback: CreatePswdActions.SIGNUPSTEP2FEEDBACK
     });
@@ -18,6 +19,7 @@ class CreatePswdStore {
   handleSignupStep2Feedback (response) {
       this.message = response.message;
       this.hasError = !response.status;
+      this.responseStatus = response.status;
       this.emitChange();
   }
 

@@ -41,6 +41,10 @@ export default class CreatePassword extends React.Component {
       if(this.state.hasError){
           this.showNotification(this.state.message);
       }
+      if(this.state.responseStatus){
+          window.location.assign('/survey');
+          //this.context.router.transitionTo('/survey');
+      }
   }
 
   formSubmit = (e) => { e.preventDefault(); }
