@@ -7,6 +7,7 @@ import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
 import InviteOthers from 'components/InviteOthers.react';
 
+
 export default class MyManager extends React.Component {
 
   constructor (props) {

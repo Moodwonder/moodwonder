@@ -6,6 +6,7 @@ import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
 import Editable from 'components/Editable.react';
+import AddAnotherUI from 'components/AddAnotherUI.react';
 
 export default class MyTeam extends React.Component {
 
@@ -51,6 +52,9 @@ export default class MyTeam extends React.Component {
   }
 
   _onAddMemberSubmit = (model) => {
+      if(typeof model.membername === 'string'){
+          model.membername = [model.membername];
+      }
       TeamActions.addMemberToTeam(model);
   }
 
@@ -70,9 +74,16 @@ export default class MyTeam extends React.Component {
 
       let message;
 
+      let messages;
+
       let teamUserList;
 
+      let addTeamsWidget;
+
       if(this.state.hasTeam){
+
+          addTeamsWidget = (<AddAnotherUI data={ this.state.teams } id={1} onSave={this._onAddMemberSubmit} />);
+
           teamUserList = this.state.teams.map((data, key) => {
 
               let members;
@@ -122,12 +133,18 @@ export default class MyTeam extends React.Component {
           });
       }
 
-      if (this.state.message !== '' ) {
-          message = (
-              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                  {this.state.message}
-               </div>
+      if (this.state.messages  && this.state.messages[0] !== undefined ) {
+
+          console.log(this.state.messages[0]);
+          let wrapper = this.state.messages.map((value, key) => {
+              return [<div>{value}</div>];
+          });
+          messages = (
+              <div className='alert alert-info'>
+                  {wrapper}
+              </div>
           );
+
       }
 
       if (this.state.CreateTeamForm) {
@@ -166,6 +183,7 @@ export default class MyTeam extends React.Component {
             </div>
 
             <div className="login">
+              {messages}
               {message}
               <br></br>
             <div className="row">
@@ -174,10 +192,13 @@ export default class MyTeam extends React.Component {
             <br></br>
             <div className="row">
               <div className="col-sm-8">
-              <ul className="list-group">
-                {teamUserList}
-              </ul>
-            </div>
+                <ul className="list-group">
+                  {teamUserList}
+                </ul>
+              </div>
+              <div className="col-sm-4">
+                 {addTeamsWidget}
+              </div>
             </div>
             </div>
         </div>

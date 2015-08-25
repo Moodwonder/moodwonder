@@ -140,7 +140,7 @@ exports.getUsers = function (req, res) {
  */
 exports.getUserInfo = function (req, res) {
 
-    console.log(req.user);
+    // console.log(req.user);
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
         if (!err) {
