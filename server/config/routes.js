@@ -66,6 +66,12 @@ module.exports = function (app, passport) {
 
         var user = req.user ? {authenticated: true, isWaiting: false} : {authenticated: false, isWaiting: false};
         var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
+        var AppStore = { isAuthenticated: false, userType: false };
+        if(typeof req.user !== 'undefined' && req.user !== null ){
+            // console.log('req.user');
+            // console.log((req.user === null) );
+            AppStore = {isAuthenticated: true, userType: req.user.usertype };
+        }
 
         // To set state of a component from server
         // Must follow this format below
@@ -76,7 +82,8 @@ module.exports = function (app, passport) {
         res.locals.data = {
             UserStore: {user: user},
             CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
-            SignupStore: {inviteEmail: inviteEmail}
+            SignupStore: {inviteEmail: inviteEmail},
+            AppStore: AppStore
         };
         next();
     });
