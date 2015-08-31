@@ -52,8 +52,10 @@ exports.editLanguage = function (req, res) {
 /**
  * Get all languages
  */
-exports.getLanguages = function (req, res) {
-
+exports.getLanguages = function (req, res) { 
+    
+    //console.log('req');
+    //console.log(req);
     Languages.find({}).exec(function (err, languages) {
         var response = {};
         if (!err) {

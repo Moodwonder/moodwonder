@@ -11,7 +11,8 @@ var crypto = require('crypto');
  */
 var adminSchema = new mongoose.Schema({
     username: {type: String, default: ''},
-    password: String
+    password: String,
+    role: {type: String, default: 'ADMIN'}
 }, {
     collection: 'admin'
 });
