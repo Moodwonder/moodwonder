@@ -80,13 +80,13 @@ export default class Login extends React.Component {
 
           renderedResult = (
           <div className="container">
-            <h2>Login here..</h2>
+            <h2>LGN_TITLE</h2>
             {message}
                 <Formsy.Form onValidSubmit={this._onLoginSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                    <MyOwnInput
                    name="email"
                    className="form-control"
-                   placeholder="Email"
+                   placeholder="LGN_USERNAME"
                    validations="isEmail"
                    validationError="This is not a valid email"
                    required/>
@@ -94,11 +94,11 @@ export default class Login extends React.Component {
                    type="password"
                    name="password"
                    className="form-control"
-                   placeholder="Password"
+                   placeholder="LGN_PASSWORD"
                    validationError="This is not a valid email"
                    required/>
-                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
-                   <div className="form-group" ><a href="/forgotpassword" >Forgot password</a></div>
+                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>LGN_BTN_SUBMIT</button>
+                   <div className="form-group" ><a href="/forgotpassword" >LGN_FORGOT_PASSWORD</a></div>
                 </Formsy.Form>
           </div>
         );
