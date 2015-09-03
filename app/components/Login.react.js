@@ -3,14 +3,14 @@ import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { MyOwnInput } from 'components/Formsy-components';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
+// import mixins from 'es6-mixins';
 
 export default class Login extends React.Component {
 
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
+      // mixins(Navigation, this);
+      // No need of mixins in ES6 pattern
       this.state = UserStore.getState();
       this.state.canSubmit = false;
       this.validationErrors = {};
