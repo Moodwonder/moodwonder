@@ -54,7 +54,9 @@ export default class AdminNavigation extends React.Component {
         <nav className="navbar navbar-default" role="navigation">
             <div className="container-fluid">
                   <div className="navbar-header">
-                        <Link to="/" className="navbar-brand navigation__item" activeClassName="navigation__item--active">Moodwonder</Link>
+                        <ul className="nav navbar-nav  navbar-left">
+                            <li><a href="/" className="navbar-brand navigation__item">Moodwonder</a></li>
+                        </ul>
                   </div>
                   <div>
                         <ul className="nav navbar-nav  navbar-right">

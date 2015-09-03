@@ -9,7 +9,7 @@ export default class Index extends React.Component {
   render() {
       return (
       <div className="container">
-        <h1>Moodwonder</h1>
+        <h1>HOM_TITLE</h1>
       </div>
     );
   }

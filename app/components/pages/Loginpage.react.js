@@ -11,10 +11,11 @@ export default class Signuppage extends React.Component {
       this.state = {
           pagedata: [],
           language: props.language,
-          LOIGN_TITLE: '',
-          USERNAME: '',
-          PASSWORD: '',
-          FORGOT_PASSWORD: ''
+          LGN_TITLE: '',
+          LGN_USERNAME: '',
+          LGN_PASSWORD: '',
+          LGN_FORGOT_PASSWORD: '',
+          LGN_BTN_SUBMIT: ''  
       };
   }
 
@@ -34,10 +35,11 @@ export default class Signuppage extends React.Component {
 
       let pagedata = this.state.pagedata;
       this.setState({
-          LOIGN_TITLE: pagedata.LOIGN_TITLE,
-          USERNAME: pagedata.USERNAME,
-          PASSWORD: pagedata.PASSWORD,
-          FORGOT_PASSWORD: pagedata.FORGOT_PASSWORD
+          LGN_TITLE: pagedata.LGN_TITLE,
+          LGN_USERNAME: pagedata.LGN_USERNAME,
+          LGN_PASSWORD: pagedata.LGN_PASSWORD,
+          LGN_FORGOT_PASSWORD: pagedata.LGN_FORGOT_PASSWORD,
+          LGN_BTN_SUBMIT: pagedata.LGN_BTN_SUBMIT
       });
   }
 
@@ -52,32 +54,38 @@ export default class Signuppage extends React.Component {
 
   onChangeLoginTitle = (e) => {
       e.preventDefault();
-      this.setState({ LOIGN_TITLE: e.target.value });
+      this.setState({ LGN_TITLE: e.target.value });
   }
 
   onChangeUsername = (e) => {
       e.preventDefault();
-      this.setState({ USERNAME: e.target.value });
+      this.setState({ LGN_USERNAME: e.target.value });
   }
 
   onChangePassword = (e) => {
       e.preventDefault();
-      this.setState({ PASSWORD: e.target.value });
+      this.setState({ LGN_PASSWORD: e.target.value });
   }
 
   onChangeFPassword = (e) => {
       e.preventDefault();
-      this.setState({ FORGOT_PASSWORD: e.target.value });
+      this.setState({ LGN_FORGOT_PASSWORD: e.target.value });
   }
-
+  
+  onChangeBtnSubmit = (e) => {
+      e.preventDefault();
+      this.setState({ LGN_BTN_SUBMIT: e.target.value });
+  }
+  
 
   render() {
 
       let pagedata = this.state.pagedata;
-      let LOIGN_TITLE = this.state.LOIGN_TITLE;
-      let USERNAME = this.state.USERNAME;
-      let PASSWORD = this.state.PASSWORD;
-      let FORGOT_PASSWORD = this.state.FORGOT_PASSWORD;
+      let LGN_TITLE = this.state.LGN_TITLE;
+      let LGN_USERNAME = this.state.LGN_USERNAME;
+      let LGN_PASSWORD = this.state.LGN_PASSWORD;
+      let LGN_FORGOT_PASSWORD = this.state.LGN_FORGOT_PASSWORD;
+      let LGN_BTN_SUBMIT = this.state.LGN_BTN_SUBMIT;
 
 
       return (
@@ -87,43 +95,53 @@ export default class Signuppage extends React.Component {
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
           <div className="form-group">
-            <label className="col-sm-2 control-label">LOIGN_TITLE</label>
+            <label className="col-sm-2 control-label">LGN_TITLE</label>
             <div className="col-sm-10">
               <input className="form-control"
-                     name="LOIGN_TITLE"
+                     name="LGN_TITLE"
                      type="text"
-                     value={LOIGN_TITLE}
+                     value={LGN_TITLE}
                      onChange={this.onChangeLoginTitle} />
             </div>
           </div>
           <div className="form-group">
-            <label className="col-sm-2 control-label">USERNAME</label>
+            <label className="col-sm-2 control-label">LGN_USERNAME</label>
             <div className="col-sm-10">
               <input className="form-control"
                      type="text"
-                     name="USERNAME"
-                     value={USERNAME}
+                     name="LGN_USERNAME"
+                     value={LGN_USERNAME}
                      onChange={this.onChangeUsername} />
             </div>
           </div>
           <div className="form-group">
-            <label className="col-sm-2 control-label">PASSWORD</label>
+            <label className="col-sm-2 control-label">LGN_PASSWORD</label>
             <div className="col-sm-10">
               <input className="form-control"
                      type="text"
-                     name="PASSWORD"
-                     value={PASSWORD}
+                     name="LGN_PASSWORD"
+                     value={LGN_PASSWORD}
                      onChange={this.onChangePassword} />
             </div>
           </div>
           <div className="form-group">
-            <label className="col-sm-2 control-label">FORGOT_PASSWORD</label>
+            <label className="col-sm-2 control-label">LGN_FORGOT_PASSWORD</label>
             <div className="col-sm-10">
               <input className="form-control"
                      type="text"
-                     name="FORGOT_PASSWORD"
-                     value={FORGOT_PASSWORD}
+                     name="LGN_FORGOT_PASSWORD"
+                     value={LGN_FORGOT_PASSWORD}
                      onChange={this.onChangeFPassword} />
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="col-sm-2 control-label">LGN_BTN_SUBMIT</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     type="text"
+                     name="LGN_BTN_SUBMIT"
+                     value={LGN_BTN_SUBMIT}
+                     onChange={this.onChangeBtnSubmit} />
             </div>
           </div>
           <div className="form-group">

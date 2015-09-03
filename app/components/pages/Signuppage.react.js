@@ -10,8 +10,9 @@ export default class Signuppage extends React.Component {
       this.state = {
           pagedata: [],
           language: props.language,
-          SIGNUP_TITLE: '',
-          SUB_TITLE: ''
+          SGN_TITLE: '',
+          SGN_WORK_EMAIL: '',
+          SGN_BTN_SUBMIT: ''
       };
   }
 
@@ -31,8 +32,9 @@ export default class Signuppage extends React.Component {
 
       let pagedata = this.state.pagedata;
       this.setState({
-          SIGNUP_TITLE: pagedata.SIGNUP_TITLE,
-          SUB_TITLE: pagedata.SUB_TITLE
+          SGN_TITLE: pagedata.SGN_TITLE,
+          SGN_WORK_EMAIL: pagedata.SGN_WORK_EMAIL,
+          SGN_BTN_SUBMIT: pagedata.SGN_BTN_SUBMIT
       });
   }
 
@@ -48,12 +50,17 @@ export default class Signuppage extends React.Component {
 
   onChangeSignupTitle = (e) => {
       e.preventDefault();
-      this.setState({ SIGNUP_TITLE: e.target.value });
+      this.setState({ SGN_TITLE: e.target.value });
   }
 
-  onChangeSubTitle = (e) => {
+  onChangeWorkEmail = (e) => {
       e.preventDefault();
-      this.setState({ SUB_TITLE: e.target.value });
+      this.setState({ SGN_WORK_EMAIL: e.target.value });
+  }
+
+  onChangeBtnSubmit = (e) => {
+      e.preventDefault();
+      this.setState({ SGN_BTN_SUBMIT: e.target.value });
   }
 
 
@@ -61,8 +68,9 @@ export default class Signuppage extends React.Component {
   render() {
 
       let pagedata = this.state.pagedata;
-      let SIGNUP_TITLE = this.state.SIGNUP_TITLE;
-      let SUB_TITLE = this.state.SUB_TITLE;
+      let SGN_TITLE = this.state.SGN_TITLE;
+      let SGN_WORK_EMAIL = this.state.SGN_WORK_EMAIL;
+      let SGN_BTN_SUBMIT = this.state.SGN_BTN_SUBMIT;
 
 
       return (
@@ -73,24 +81,35 @@ export default class Signuppage extends React.Component {
           <input type="hidden" name="language" value={pagedata.language} />
 
           <div className="form-group">
-            <label className="col-sm-2 control-label">SIGNUP_TITLE</label>
+            <label className="col-sm-2 control-label">SGN_TITLE</label>
             <div className="col-sm-10">
               <input className="form-control"
-                     name="SIGNUP_TITLE"
+                     name="SGN_TITLE"
                      type="text"
-                     value={SIGNUP_TITLE}
+                     value={SGN_TITLE}
                      onChange={this.onChangeSignupTitle} />
             </div>
           </div>
 
           <div className="form-group">
-            <label className="col-sm-2 control-label">SUB_TITLE</label>
+            <label className="col-sm-2 control-label">SGN_WORK_EMAIL</label>
             <div className="col-sm-10">
               <input className="form-control"
-                     name="SUB_TITLE"
+                     name="SGN_WORK_EMAIL"
                      type="text"
-                     value={SUB_TITLE}
-                     onChange={this.onChangeSubTitle} />
+                     value={SGN_WORK_EMAIL}
+                     onChange={this.onChangeWorkEmail} />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="col-sm-2 control-label">SGN_BTN_SUBMIT</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="SGN_BTN_SUBMIT"
+                     type="text"
+                     value={SGN_BTN_SUBMIT}
+                     onChange={this.onChangeBtnSubmit} />
             </div>
           </div>
 

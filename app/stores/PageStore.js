@@ -28,7 +28,8 @@ class PageStore {
   handleLanguages (data) {
       this.languages = [];
       for (let lng of data) {
-          this.languages.push(lng.language);
+          //this.languages.push(lng.language);
+          this.languages.push(lng.code);
       }
       this.emitChange();
   }

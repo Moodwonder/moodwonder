@@ -10,7 +10,7 @@ export default class Homepage extends React.Component {
       this.state = {
           pagedata: [],
           language: props.language,
-          HOME_TITLE: ''
+          HOM_TITLE: ''
       };
   }
 
@@ -31,7 +31,7 @@ export default class Homepage extends React.Component {
 
       let pagedata = this.state.pagedata;
       this.setState({
-          HOME_TITLE: pagedata.HOME_TITLE
+          HOM_TITLE: pagedata.HOM_TITLE
       });
   }
 
@@ -42,14 +42,14 @@ export default class Homepage extends React.Component {
 
   onChangeHomeTitle = (e) => {
       e.preventDefault();
-      this.setState({ HOME_TITLE: e.target.value });
+      this.setState({ HOM_TITLE: e.target.value });
   }
 
 
   render() {
 
       let pagedata = this.state.pagedata;
-      let HOME_TITLE = this.state.HOME_TITLE;
+      let HOM_TITLE = this.state.HOM_TITLE;
 
 
       return (
@@ -59,12 +59,12 @@ export default class Homepage extends React.Component {
           <input type="hidden" name="_id" value={pagedata._id} />
           <input type="hidden" name="language" value={pagedata.language} />
           <div className="form-group">
-            <label className="col-sm-2 control-label">HOME_TITLE</label>
+            <label className="col-sm-2 control-label">HOM_TITLE</label>
             <div className="col-sm-10">
               <input type="text"
-                     name="HOME_TITLE"
+                     name="HOM_TITLE"
                      className="form-control"
-                     value={HOME_TITLE}
+                     value={HOM_TITLE}
                      onChange={this.onChangeHomeTitle} />
             </div>
           </div>

@@ -16,7 +16,7 @@ export default RequireAuth(class Pages extends React.Component {
       this.state = PageStore.getState();
       this.state = {
          page: 'home',
-         language: 'english',
+         language: 'EN',
          formstatus: false,
          pagedata: []
      };
@@ -67,8 +67,9 @@ export default RequireAuth(class Pages extends React.Component {
       let signup = signup || {};
 
       signup.language = data['language'];
-      signup.SIGNUP_TITLE = data['SIGNUP_TITLE'];
-      signup.SUB_TITLE = data['SUB_TITLE'];
+      signup.SGN_TITLE = data['SGN_TITLE'];
+      signup.SGN_WORK_EMAIL = data['SGN_WORK_EMAIL'];
+      signup.SGN_BTN_SUBMIT = data['SGN_BTN_SUBMIT'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'signup', signup);
@@ -86,7 +87,7 @@ export default RequireAuth(class Pages extends React.Component {
       let home = home || {};
 
       home.language = data['language'];
-      home.HOME_TITLE = data['HOME_TITLE'];
+      home.HOM_TITLE = data['HOM_TITLE'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'home', home);
@@ -104,10 +105,11 @@ export default RequireAuth(class Pages extends React.Component {
       let login = login || {};
 
       login.language = data['language'];
-      login.LOIGN_TITLE = data['LOIGN_TITLE'];
-      login.USERNAME = data['USERNAME'];
-      login.PASSWORD = data['PASSWORD'];
-      login.FORGOT_PASSWORD = data['FORGOT_PASSWORD'];
+      login.LGN_TITLE = data['LGN_TITLE'];
+      login.LGN_USERNAME = data['LGN_USERNAME'];
+      login.LGN_PASSWORD = data['LGN_PASSWORD'];
+      login.LGN_FORGOT_PASSWORD = data['LGN_FORGOT_PASSWORD'];
+      login.LGN_BTN_SUBMIT = data['LGN_BTN_SUBMIT'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'login', login);

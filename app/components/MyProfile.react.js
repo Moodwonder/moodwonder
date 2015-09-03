@@ -5,6 +5,7 @@ import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
+import LanguageContants from 'constants/LanguageConstants';
 
 export default class MyProfile extends React.Component {
 
@@ -98,7 +99,7 @@ export default class MyProfile extends React.Component {
           className="form-control"
           value={userInfo.language}
           placeholder="Language"
-          options={['EN', 'FL']}
+          options={[LanguageContants.EN, LanguageContants.FI]}
           />
 
           <MyOwnSelect

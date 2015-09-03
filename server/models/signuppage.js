@@ -11,8 +11,9 @@ var crypto = require('crypto');
  */
 var signupPageSchema = new mongoose.Schema({
     language: {type: String, default: ''},
-    SIGNUP_TITLE: {type: String, default: ''},
-    SUB_TITLE: {type: String, default: ''}    
+    SGN_TITLE: {type: String, default: ''},
+    SGN_WORK_EMAIL: {type: String, default: ''},
+    SGN_BTN_SUBMIT: {type: String, default: ''}
 }, {
     collection: 'signuppage'
 });

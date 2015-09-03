@@ -117,15 +117,14 @@ export default class Signup extends React.Component {
 
           renderedResult = (
                 <div className="container">
-                      <h2>Signup here..</h2>
-                      <h3>for free</h3>
+                      <h2>SGN_TITLE</h2>
                       {message}
                       {multimessages}
                       <Formsy.Form onValidSubmit={this._onSignupStep1Submit} onValid={this.enableButton} onInvalid={this.disableButton} >
                          <MyOwnInput
                          name="email"
                          className="form-control"
-                         placeholder="Work email"
+                         placeholder="SGN_WORK_EMAIL"
                          validations="isEmail"
                          validationError="This is not a valid email"
                          value={this.state.inviteEmail}
@@ -138,7 +137,7 @@ export default class Signup extends React.Component {
                          value={this.props.params.hash}
                          />
 
-                         <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
+                         <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>SGN_BTN_SUBMIT</button>
                       </Formsy.Form>
                       <Notification
                         {...this.state.notificationReact}

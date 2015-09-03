@@ -11,10 +11,11 @@ var crypto = require('crypto');
  */
 var loginPageSchema = new mongoose.Schema({
     language: {type: String, default: ''},
-    LOIGN_TITLE: {type: String, default: ''},
-    USERNAME: {type: String, default: ''},
-    PASSWORD: {type: String, default: ''},
-    FORGOT_PASSWORD: {type: String, default: ''}
+    LGN_TITLE: {type: String, default: ''},
+    LGN_USERNAME: {type: String, default: ''},
+    LGN_PASSWORD: {type: String, default: ''},
+    LGN_FORGOT_PASSWORD: {type: String, default: ''},
+    LGN_BTN_SUBMIT: {type: String, default: ''}
 }, {
     collection: 'loginpage'
 });

@@ -11,7 +11,7 @@ var crypto = require('crypto');
  */
 var homePageSchema = new mongoose.Schema({
     language: {type: String, default: ''},
-    HOME_TITLE: {type: String, default: ''}
+    HOM_TITLE: {type: String, default: ''}
 }, {
     collection: 'homepage'
 });

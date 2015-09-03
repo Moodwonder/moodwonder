@@ -188,14 +188,18 @@ exports.updatePageKeys = function (req, res) {
             modelObj = {};
             modelObj = Homepage;
             update = {}
-            update = {HOME_TITLE: data.HOME_TITLE};
+            update = {HOM_TITLE: data.HOM_TITLE};
             break;
 
         case 'signup':
             modelObj = {};
             modelObj = Signuppage;
             update = {}
-            update = {SIGNUP_TITLE: data.SIGNUP_TITLE, SUB_TITLE: data.SUB_TITLE};
+            update = {
+                SGN_TITLE: data.SGN_TITLE, 
+                SGN_WORK_EMAIL: data.SGN_WORK_EMAIL,
+                SGN_BTN_SUBMIT: data.SGN_BTN_SUBMIT
+            };
             break;
 
         case 'login':
@@ -203,10 +207,11 @@ exports.updatePageKeys = function (req, res) {
             modelObj = Loginpage;
             update = {}
             update = {
-                LOIGN_TITLE: data.LOIGN_TITLE,
-                USERNAME: data.USERNAME,
-                PASSWORD: data.PASSWORD,
-                FORGOT_PASSWORD: data.FORGOT_PASSWORD
+                LGN_TITLE: data.LGN_TITLE,
+                LGN_USERNAME: data.LGN_USERNAME,
+                LGN_PASSWORD: data.LGN_PASSWORD,
+                LGN_FORGOT_PASSWORD: data.LGN_FORGOT_PASSWORD,
+                LGN_BTN_SUBMIT: data.LGN_BTN_SUBMIT
             };
             break;
 

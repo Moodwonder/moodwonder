@@ -1,5 +1,6 @@
 import alt from 'altInstance';
 import UserWebAPIUtils from 'utils/UserWebAPIUtils';
+import Cookie from 'utils/Cookie';
 
 /**
  * UserActions
@@ -13,6 +14,9 @@ class UserActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
+                if(response.user.language) {
+                    Cookie.setCookie('lang', response.user.language, 30);
+                }
                 this.actions.loginresponse(response);
             }
         }, () => {
