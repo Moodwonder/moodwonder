@@ -15,7 +15,7 @@ export default class Signuppage extends React.Component {
           LGN_USERNAME: '',
           LGN_PASSWORD: '',
           LGN_FORGOT_PASSWORD: '',
-          LGN_BTN_SUBMIT: ''  
+          LGN_BTN_SUBMIT: ''
       };
   }
 
@@ -71,12 +71,12 @@ export default class Signuppage extends React.Component {
       e.preventDefault();
       this.setState({ LGN_FORGOT_PASSWORD: e.target.value });
   }
-  
+
   onChangeBtnSubmit = (e) => {
       e.preventDefault();
       this.setState({ LGN_BTN_SUBMIT: e.target.value });
   }
-  
+
 
   render() {
 
