@@ -28,21 +28,20 @@ class EmployeeOfTheMonthStore {
   }
 
   handleSaveVote (response) {
-	this.message = response.message;
-	this.hasError = !response.status;
-	this.modal = false;
-	this.voteStatus = true;
+      this.message = response.message;
+      this.hasError = !response.status;
+      this.modal = false;
+      this.voteStatus = true;
 
-	CommonWebAPIUtils.getAllEmployees()
-	.then((response, textStatus) => {
-	  if (textStatus === 'success') {
-		this.employees = response;
-		this.hasEmployees = true;
-		this.emitChange();
-	  }
-	}, () => {
-	// Dispatch another event for a bad request
-	});
+      CommonWebAPIUtils.getAllEmployees()
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.employees = response;
+                this.hasEmployees = true;
+                this.emitChange();
+            }
+        }, () => {
+        });
   }
 
 }

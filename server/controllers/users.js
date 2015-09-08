@@ -831,6 +831,7 @@ exports.getAllEmployees = function (req, res) {
 					}
 					
 				var employees = [];
+				var mytotalvotes = 0;
 				lists.map(function (data, key) {
 
 					var votes = 0;
@@ -843,13 +844,16 @@ exports.getAllEmployees = function (req, res) {
 						votes = cemp.total;
 						if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
 							myvote = true;
+							mytotalvotes++;
 						}
 					}
 					employees[key] = { _id: data._id, photo: data.profile_image, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote };
 				});
 				response.status = true;
 				response.message = 'success';
-				response.data = employees;
+				response.data = {};
+				response.data.employees = employees;
+				response.data.mytotalvotes = mytotalvotes;
 				res.send(response);
 				
 				}
