@@ -16,6 +16,7 @@ var Languages = require('../models/languages');
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
 var invitation = require('../controllers/invitation');
+var voting = require('../controllers/voting');
 var surveys = require('../controllers/surveys');
 var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
@@ -66,6 +67,9 @@ module.exports = function (app, passport) {
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
 
+    app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
+    app.post('/postvote', users.checkLogin, voting.postVote);
+    
     // Set variables from server side
     app.get('/signup/:hash', invitation.handleSignup);
 

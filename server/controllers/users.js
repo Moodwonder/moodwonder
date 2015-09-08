@@ -3,6 +3,7 @@ var _ = require('lodash');
 var User = require('../models/user');
 var Invite = require('../models/invite');
 var Team = require('../models/team');
+var Vote = require('../models/vote');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
@@ -774,5 +775,97 @@ exports.usersInTeams = function (req, res) {
         response.message = 'No teams';
         response.data = {};
     }
+};
+
+/**
+ * Get get all employees by company name
+ */
+exports.getAllEmployees = function (req, res) {
+
+	var mycompany = '';
+	try {
+		mycompany = req.user.company_info[0].companyname;
+	} catch (ex) {
+		mycompany = false;
+	}
+
+	var date = new Date();
+	// date with YYYY-MM-DD format
+	var cdate = JSON.stringify(date).substring(1, 11);
+	var yearmonth = cdate.substring(0, 7);
+
+    if(mycompany){
+		var elmatch = { companyname: mycompany };
+		User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
+			if (!err) {
+
+			Vote.aggregate([
+				{
+					$match: {
+						postdate:
+						{
+							$regex : new RegExp(yearmonth,'i')
+						},
+						company: mycompany
+					}
+				},
+				{
+					$group : {
+						_id : "$votefor_userid",
+						total : { $sum : 1 },
+						user_ids: {
+							$push: "$user_id"
+						 }
+					}
+				}
+			],
+				function (err, result) {
+
+					var emp_meta = {};
+					if (err) {
+						console.log(err);
+					}else{
+						result.map(function (data, key) {
+							emp_meta[data._id] = data;
+						});
+					}
+					
+				var employees = [];
+				lists.map(function (data, key) {
+
+					var votes = 0;
+					var myvote = false;
+					if(emp_meta[data._id] !== undefined){
+						var cemp = emp_meta[data._id];
+						var userids = emp_meta[data._id].user_ids;
+						var user_ids = [];
+						userids.map(function (id, key) { user_ids[key] = id.toString(); });
+						votes = cemp.total;
+						if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
+							myvote = true;
+						}
+					}
+					employees[key] = { _id: data._id, photo: data.profile_image, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote };
+				});
+				response.status = true;
+				response.message = 'success';
+				response.data = employees;
+				res.send(response);
+				
+				}
+			);
+
+			} else {
+				response.status = false;
+				response.message = 'Something went wrong';
+				response.data = employees;
+				res.send(response);
+			}
+		});
+	}else{
+        response.status = false;
+        response.message = 'Please select your company first.';
+        res.send(response);
+	}
 };
 
