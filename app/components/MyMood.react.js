@@ -3,6 +3,7 @@ import React from 'react';
 import getFormData from 'get-form-data';
 import MoodActions from 'actions/MoodActions';
 import MoodStore from 'stores/MoodStore';
+import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
 
 
@@ -18,7 +19,7 @@ let chartoptions = {
     scaleStepWidth: 1,
     scaleStartValue: 0,
     scaleShowLabels: true,
-    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>"
+    tooltipTemplate: "<%= value %>"
     // multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
     // scaleLineColor: 'black'
 };
@@ -222,9 +223,9 @@ export default class MyMood extends React.Component {
 
       return (
        <div className="container">
-            {modal}
-            <h2>Mood Rating..</h2>
-                <br/>
+            <Submenu />
+               <br/>
+               {modal}
                 <form id="moodRating">
                   <div className="form-group">
                     <label>Rate your mood</label>
