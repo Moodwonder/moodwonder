@@ -33,36 +33,54 @@ exports.postVote = function(req, res, next) {
 	var cdate = JSON.stringify(date).substring(1, 11);
 	
 	var yearmonth = "/^"+cdate.substring(0, 6)+"/"
-	, conditions = { "company": mycompany, "votefor_userid": votefor_userid, "user_id": new ObjectId(req.user._id), postdate : { $regex : /^2015-09/ } };
+	, conditions = { "company": mycompany, "user_id": new ObjectId(req.user._id), postdate : { $regex : /^2015-09/ } };
 
-        // check already voted or not
-        Vote.findOne(conditions, function (err, document) {
-            if (document) {
+	// checking all ready done 5 votes for this month
+	
+	Vote.find(conditions, function (err, document) {
+		var alreadyvoted = false;
+		var mytotalvotes = 0;
+		document.map(function (data, key){
+			mytotalvotes++;
+			// check already voted or not
+			if(data.votefor_userid === votefor_userid){
+				alreadyvoted = true;
+			}
+		});
 
-				response.status = false;
-				response.message = 'Already voted for this user';
+		// check already voted or not
+		if(alreadyvoted){
+
+			response.status = false;
+			response.message = 'Already voted for this user';
+			res.send(response);
+			res.end();
+		}
+		else if(mytotalvotes < 5){
+
+			// add a record with new vote
+			conditions.votefor_userid = votefor_userid;
+			conditions.postdate = cdate;
+			conditions.comment = comment;
+			var vote = new Vote(conditions);
+			vote.save(function (err) {
+				if (!err) {
+					response.status = true;
+					response.message = 'success';
+				} else {
+					response.status = false;
+					response.message = 'something went wrong';
+				}
 				res.send(response);
 				res.end();
-            } else {
+			});
+		} else {
 
-				// add a record with new vote
-				conditions.postdate = cdate;
-				conditions.comment = comment;
-
-				var vote = new Vote(conditions);
-
-				vote.save(function (err) {
-					if (!err) {
-						response.status = true;
-						response.message = 'success';
-					} else {
-						response.status = false;
-						response.message = 'something went wrong';
-					}
-					res.send(response);
-					res.end();
-				});
-            }
-        });
+			response.status = false;
+			response.message = 'You cannot vote for more than 5 people';
+			res.send(response);
+			res.end();
+		}
+	});
 };
 

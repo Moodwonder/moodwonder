@@ -87,6 +87,15 @@ export default class EmployeeOfTheMonth extends React.Component {
           });
       }
 
+      let message;
+      if (this.state.message !== '' ) {
+          message = (
+              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
+                {this.state.message}
+              </div>
+          );
+      }
+
       let modal;
       if(this.state.modal){
           modal = (
@@ -118,6 +127,7 @@ export default class EmployeeOfTheMonth extends React.Component {
       return (
         <div className="container Survey-list">
         <Submenu />
+        {message}
         <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
           <div className="row">
            {employees}
