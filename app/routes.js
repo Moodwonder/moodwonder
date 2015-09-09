@@ -21,11 +21,12 @@ import Takesurvey from 'components/customsurvey/Takesurvey.react';
 import NotFound from 'components/404.react';
 import Languages from 'components/language/Languages.react';
 import Pages from 'components/pages/Pages.react';
-import Test1 from 'components/test1';
 import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
 import Adminlogout from 'components/login/Logout.react';
 import Dashboard from 'components/dashboard/dashboard.react';
+import MyMood from 'components/MyMood.react';
+import Test1 from 'components/test1';
 
 const routes = (
   <Route>
@@ -56,6 +57,7 @@ const routes = (
       <Route name="tabs" handler={Tabs} />
       <Route name="mycompany" handler={MyCompanyInfo} />
       <Route name="mymanager" handler={MyManagerInfo} />
+      <Route name="mymood" handler={MyMood} />
       <Route name="test1" handler={Test1} />
       <DefaultRoute handler={Index} />
       <NotFoundRoute name="404" handler={NotFound} />

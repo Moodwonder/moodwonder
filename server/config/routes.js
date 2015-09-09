@@ -21,6 +21,7 @@ var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
 var admin = require('../controllers/admin');
+var mood = require('../controllers/mood');
 
 var Navigation = require('../languagesettings/nav');
 
@@ -47,7 +48,7 @@ module.exports = function (app, passport) {
     app.get('/test', users.test);
     app.get('/getusers', users.getUsers);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
-
+    
     app.post('/createsurveyform', customSurvey.createForm);
     app.post('/deleteform', customSurvey.deleteForm);
     app.get('/getsurveyforms', customSurvey.getForms);
@@ -65,6 +66,9 @@ module.exports = function (app, passport) {
     app.post('/adminlogin', admin.login);
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
+    
+    app.post('/addmood', mood.addMoodRate);
+    app.get('/mymoods', mood.getMyMoods);
 
     // Set variables from server side
     app.get('/signup/:hash', invitation.handleSignup);
@@ -100,8 +104,8 @@ module.exports = function (app, passport) {
     });
 
     function getPageKeys(page, lang, html, callback) {
-        console.log('page');
-        console.log(page);
+        // console.log('page');
+        // console.log(page);
 
         var modelObj = modelObj || {};
 

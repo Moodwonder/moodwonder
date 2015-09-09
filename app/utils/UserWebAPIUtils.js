@@ -106,6 +106,29 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  /*
+   * Add mood rating
+   */
+  addMood: (data) => {
+      return $.ajax({
+      url: '/addmood',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
+  /*
+   * Get user moods
+   */
+  getMyMoods: () => {
+      return $.ajax({
+      url: '/mymoods',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };
