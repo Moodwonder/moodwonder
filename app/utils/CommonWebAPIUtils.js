@@ -58,6 +58,24 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  getAllEmployees: (data) => {
+      return $.ajax({
+      url: '/getallemployees',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({})
+    });
+  },
+
+  saveVote: (data) => {
+      return $.ajax({
+      url: '/postvote',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
 
 };

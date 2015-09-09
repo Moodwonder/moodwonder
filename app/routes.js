@@ -27,6 +27,8 @@ import Adminlogout from 'components/login/Logout.react';
 import Dashboard from 'components/dashboard/dashboard.react';
 import MyMood from 'components/MyMood.react';
 import Test1 from 'components/test1';
+import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
+
 
 const routes = (
   <Route>
@@ -58,6 +60,7 @@ const routes = (
       <Route name="mycompany" handler={MyCompanyInfo} />
       <Route name="mymanager" handler={MyManagerInfo} />
       <Route name="mymood" handler={MyMood} />
+      <Route name="employeeofthemonth" handler={EmployeeOfTheMonth} />
       <Route name="test1" handler={Test1} />
       <DefaultRoute handler={Index} />
       <NotFoundRoute name="404" handler={NotFound} />

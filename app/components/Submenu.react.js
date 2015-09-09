@@ -26,6 +26,7 @@ export default class Submenu extends React.Component {
             <li><a href="/myteam">My Teams</a></li>
             <li><a href="/surveyforms">Custom survey</a></li>
             <li><a href="/mymood">My Mood</a></li>
+            <li><a href="/employeeofthemonth">Employee of the month</a></li>
           </ul>
       );
   }

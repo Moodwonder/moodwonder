@@ -3,6 +3,7 @@ const config = {
     // Add to homescreen for Chrome on Android
     { "rel": "icon", "sizes": "192x192", "href": "" },
     { "rel": "stylesheet", "href": "/assets/styles/popup.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/custom.css" },
     { "rel": "stylesheet", "href": "/assets/styles/bootstrap.min.css" }
   ],
   meta: [
