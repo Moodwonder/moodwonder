@@ -100,7 +100,7 @@ exports.getMyMoods = function (req, res) {
         if (!err) {
             response.status = 'success';
             response.data = moods;
-            console.log(moods);
+            //console.log(moods);
         } else {
             response.status = 'failure';
             response.data = [];
