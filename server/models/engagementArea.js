@@ -13,8 +13,9 @@ var crypto = require('crypto');
  */
 var engagementAreaSchema = new mongoose.Schema({
     mood: {type: String, default: ''},
-    description: {type: String}
-},{
+    description: {type: String},
+    status: {type: String, default: 'active'}
+}, {
     collection: 'engagementAreas'
 });
 module.exports = mongoose.model('engagementAreas', engagementAreaSchema);

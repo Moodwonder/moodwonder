@@ -28,6 +28,7 @@ import Dashboard from 'components/dashboard/dashboard.react';
 import MyMood from 'components/MyMood.react';
 import Test1 from 'components/test1';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
+import Engagementarea from 'components/engagementarea/Engagementarea.react';
 
 
 const routes = (
@@ -39,6 +40,7 @@ const routes = (
         <Route name="/admin/languages" handler={Languages} />
         <Route name="/admin/pages" handler={Pages} />
         <Route name="/admin/dashboard" handler={Dashboard} />
+        <Route name="/admin/engagementarea" handler={Engagementarea} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>

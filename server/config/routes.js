@@ -23,6 +23,7 @@ var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
 var admin = require('../controllers/admin');
 var mood = require('../controllers/mood');
+var EngagementArea = require('../controllers/engagementArea');
 
 var Navigation = require('../languagesettings/nav');
 
@@ -70,6 +71,11 @@ module.exports = function (app, passport) {
     
     app.post('/addmood', mood.addMoodRate);
     app.get('/mymoods', mood.getMyMoods);
+  
+    app.post('/addengagement', EngagementArea.addEngagement);
+    app.post('/editengagement', EngagementArea.editEngagement);
+    app.post('/deleteengagement', EngagementArea.deleteEngagement);
+    app.get('/getengagementareas', EngagementArea.engagementAreas);
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
