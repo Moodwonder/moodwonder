@@ -56,7 +56,7 @@ export default class App extends React.Component {
               handler = noPermission;
           }
       }
-      
+
       if (this.state.isAuthenticated) {
           leftnav = (<Leftnav />);
           rightnav = (<Rightnav />);
@@ -65,7 +65,7 @@ export default class App extends React.Component {
       return (
         <div>
           <Navigation />
-          <div classname="wrapper">
+          <div className="wrapper">
             {leftnav}
             <div className="middleContainer">
               {handler}
