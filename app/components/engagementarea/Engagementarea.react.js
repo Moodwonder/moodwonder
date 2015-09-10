@@ -116,6 +116,23 @@ export default RequireAuth(class Engagementarea extends React.Component {
       this.setState({editdescription: description});
   }
 
+  onChangeStatus = (e, child) => {
+      e.preventDefault();
+      let id = e.target.id;
+      let item = document.getElementById(id);
+
+      let engagementarea = engagementarea || {};
+      if(item.getAttribute("data-status") === 'active') {
+          engagementarea.status = 'inactive';
+      } else {
+          engagementarea.status = 'active';
+      }
+      engagementarea.mood = item.getAttribute("data-mood");
+      engagementarea.description = item.getAttribute("data-description");
+
+      EngagementAreaActions.editEngagement(id, engagementarea);
+  }
+
   onListEngagements = (e) => {
       e.preventDefault();
       this.setState({showlists: true});
@@ -149,7 +166,15 @@ export default RequireAuth(class Engagementarea extends React.Component {
                 <td className="text-center">{sno++}</td>
                 <td className="text-center">{engagementarea.mood}</td>
                 <td className="text-center">{engagementarea.description}</td>
-                <td className="text-center">{engagementarea.status}</td>
+                <td className="text-center">
+                    <a href="#"
+                       id={engagementarea._id}
+                       data-mood={engagementarea.mood}
+                       data-description={engagementarea.description}
+                       data-status={engagementarea.status}
+                       onClick={this.onChangeStatus}
+                       >{engagementarea.status}</a>
+                </td>
                 <td className="text-center">
                   <a href="#"
                      onClick={this.onEditEngagement}
