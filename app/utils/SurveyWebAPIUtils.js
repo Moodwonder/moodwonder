@@ -1,9 +1,7 @@
 import $ from 'jquery';
 
 const utils = {
-      /*
-      * Get Engagement areas
-      */
+
   getEngagementSurvey: () => {
       return $.ajax({
       url: '/getengagementsurvey',
@@ -11,12 +9,21 @@ const utils = {
       contentType: 'application/json'
     });
   },
+
   saveEngagementSurveyResult: (surveyResult) => {
       return $.ajax({
       url: '/saveengagementsurveyresult',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(surveyResult)
+    });
+  },
+
+  getLastSurvey: () => {
+      return $.ajax({
+      url: '/getlastengagementsurvey',
+      type: 'GET',
+      contentType: 'application/json'
     });
   }
 

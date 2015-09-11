@@ -35,7 +35,6 @@ module.exports = function (app, passport) {
     app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2, users.postLogin);
     app.post('/signup', users.postSignUp);
     app.post('/usersignup', users.postUserSignUp);
-    app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
     app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
     app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
@@ -45,11 +44,14 @@ module.exports = function (app, passport) {
     app.post('/addmembertoteam', users.checkLogin, teams.addMemberToTeam, invitation.sendInvitation);
     app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation);
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
-    app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
     app.get('/logout', users.getLogout);
     app.get('/test', users.test);
     app.get('/getusers', users.getUsers);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
+    
+    app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
+    app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
+    app.get('/getlastengagementsurvey', users.checkLogin, surveys.getLastSurvey);
     
     app.post('/createsurveyform', customSurvey.createForm);
     app.post('/deleteform', customSurvey.deleteForm);

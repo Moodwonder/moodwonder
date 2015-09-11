@@ -3,13 +3,11 @@ import SurveyWebAPIUtils from 'utils/SurveyWebAPIUtils';
 
 class SurveyActions {
 
-  getallquestions() {
+  getEngagementSurvey() {
       this.dispatch();
       SurveyWebAPIUtils.getEngagementSurvey()
       .then((response, textStatus) => {
-          console.log(textStatus);
           if (textStatus === 'success') {
-              console.log(response);
               this.actions.getquestions(response);
           }
       }, () => {
@@ -19,7 +17,6 @@ class SurveyActions {
 
   getquestions(data)
   {
-      console.log('getquestions(data)');
       this.dispatch(data);
   }
 
@@ -36,6 +33,23 @@ class SurveyActions {
   }
 
   savesurveysuccess(response)
+  {
+      this.dispatch(response);
+  }
+
+  getLastSurvey() {
+      this.dispatch();
+      SurveyWebAPIUtils.getLastSurvey()
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.lastsurveysuccess(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  lastsurveysuccess(response)
   {
       this.dispatch(response);
   }
