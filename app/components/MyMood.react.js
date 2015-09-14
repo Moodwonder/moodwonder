@@ -158,7 +158,7 @@ export default class MyMood extends React.Component {
 //      }
 
       //console.log('Graphdata');
-      //console.log(Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults));
+      Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
 
 
       moodoptions = engagementmoods.map((data, key) => {
