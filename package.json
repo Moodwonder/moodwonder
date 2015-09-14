@@ -6,10 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "build": "webpack --progress",
-    "watch": "webpack --watch --progress",
+    "build": "webpack --progress && node postpublish.js",
+    "watch": "webpack --watch --progress && node postpublish.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "webpack -p"
+    "postpublish": "node postpublish.js",
+    "postinstall": "webpack -p && node postpublish.js"
   },
   "esLintConfig": {
     "parser": "babel-eslint",
