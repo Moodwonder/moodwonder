@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import request from 'superagent';
 
 const utils = {
   /*
@@ -82,6 +83,23 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  /*
+   * Ajaxcall for update user photo
+   */
+  updateUserPhoto: (file, _this) => {
+
+      let req = request.post('/updateuserphoto');
+      req
+      .part()
+      .set('Content-Disposition', 'attachment; name="profilephoto"; filename="'+file.name+'"')
+      .set('Content-Type', file.type)
+      .write(file);
+
+      req.end(function(res){
+          _this.actions.updateuserphotosuccess(res);
+      });
   },
 
   /*

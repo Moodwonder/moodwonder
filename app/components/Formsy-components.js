@@ -42,6 +42,9 @@ let MyOwnSelect = React.createClass({
 
   changeValue: function (event) {
       this.setValue(event.currentTarget.value);
+      if(typeof this.props.onChange !== 'undefined'){
+          this.props.onChange(event.currentTarget.value);
+      }
   },
   render: function () {
 
@@ -62,7 +65,7 @@ let MyOwnSelect = React.createClass({
       let options = this.props.options.map((data, key) => {
 
           return (
-          <option value={data} >{data}</option>
+          <option key={key} value={data} >{data}</option>
           );
       });
 

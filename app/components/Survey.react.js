@@ -21,7 +21,7 @@ export default class Survey extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
-      console.log(state);
+      //console.log(state);
   }
 
   _onSurveySubmit = () => {

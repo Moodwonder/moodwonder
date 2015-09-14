@@ -46,6 +46,17 @@ class UserActions {
       this.dispatch(response);
   }
 
+  // Update user image
+  updateUserImage (data) {
+      this.dispatch();
+      UserWebAPIUtils.updateUserPhoto(data, this);
+  }
+
+
+  updateuserphotosuccess (response) {
+      this.dispatch(response);
+  }
+
   // Save user details
   saveManagerInfo (data) {
       this.dispatch();

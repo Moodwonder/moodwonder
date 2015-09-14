@@ -2,3 +2,31 @@
 	display: block;
 	padding-left: 15px;
 }
+.error{
+	color:red;
+}
+.dz-default.dz-message{
+    width: 200px;
+    height: 200px;
+    border: 1px dashed;
+}
+.filepicker.dropzone{
+    position: relative;
+}
+.dz-preview.dz-processing {
+    top: 0px;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    float: left;
+    overflow: hidden;
+}
+.propic-wrapper{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+.propic-wrapper img{
+    width: 100%;
+    height: 100%;
+}

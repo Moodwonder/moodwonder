@@ -9,6 +9,10 @@ var autoIncrement = require('mongoose-auto-increment');
 var Admin = require('./models/admin');
 var User = require('./models/user');
 
+var multer = require("multer");
+var path = require('path');
+app.use(multer());
+
 // Find the appropriate database to connect to, default to localhost if not found.
 var connect = function () {
     mongoose.connect(secrets.db, function (err, res) {

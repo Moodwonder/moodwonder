@@ -13,12 +13,28 @@ export default class MyCompanyInfo extends React.Component {
       mixins(Navigation, this);
       this.state = UserStore.getState();
       this.state.canSubmit = false;
+      this.state.countries = [];
+      this.state.states = [];
+      this.state.cities = [];
       this.validationErrors = {};
   }
 
   componentDidMount () {
       UserActions.getcompanyinfo();
       UserStore.listen(this._onChange);
+  }
+
+  componentWillUpdate () {
+
+      if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
+          this.onChangeContinent(this.state.userDetails.continent);
+      }
+      if(this.state.states.length <= 0 && this.state.userDetails.country!==''){
+          this.onChangeCountries(this.state.userDetails.country);
+      }
+      if(this.state.cities.length <= 0 && this.state.userDetails.state!==''){
+          this.onChangeStates(this.state.userDetails.state);
+      }
   }
 
   componentWillUnmount () {
@@ -33,9 +49,72 @@ export default class MyCompanyInfo extends React.Component {
       this.setState({canSubmit: false});
   }
 
+  getContinent = () => {
+      let continents = [];
+      this.state.places.map((value, key) => {
+          continents[key] = value.continent;
+      });
+      return continents;
+  }
+
+  onChangeContinent = (continent) => {
+
+      let countries = ['Other'];
+      this.state.places.map((contObj, contkey) => {
+          if(contObj.continent === continent){
+              if(typeof contObj.countries !== 'undefined'){
+                  contObj.countries.map((countryObj, key) => {
+                      countries[key] = countryObj.country;
+                  });
+              }
+          }
+      });
+      this.setState( { countries: countries, states: [], cities: [] } );
+  }
+
+  onChangeCountries = (country) => {
+
+      let states = ['Other'];
+      this.state.places.map((contObj, contkey) => {
+          if(typeof contObj.countries !== 'undefined'){
+              contObj.countries.map((countryObj, countrykey) => {
+                  if(countryObj.country === country){
+                      if(typeof countryObj.states !== 'undefined'){
+                          countryObj.states.map((statesObj, stateskey) => {
+                              states[stateskey] = statesObj.state;
+                          });
+                      }
+                  }
+              });
+          }
+      });
+      this.setState( { states: states, cities: [] } );
+  }
+
+  onChangeStates = (state) => {
+
+      let cities = ['Other'];
+      this.state.places.map((contObj, contkey) => {
+          if(typeof contObj.countries !== 'undefined'){
+              contObj.countries.map((countryObj, countrykey) => {
+                  if(typeof countryObj.states !== 'undefined'){
+                      countryObj.states.map((statesObj, stateskey) => {
+                          if(statesObj.state === state){
+                              console.log(statesObj.state);
+                              if(typeof statesObj.city !== 'undefined'){
+                                  cities = statesObj.city;
+                              }
+                          }
+                      });
+                  }
+              });
+          }
+      });
+      this.setState( { cities: cities } );
+  }
+
   _onChange = (state) => {
       this.setState(state);
-      console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
@@ -86,7 +165,8 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.continent}
                placeholder="Continent"
-               options={['ASIA']}
+               options={this.getContinent()}
+               onChange={this.onChangeContinent}
                />
 
                <MyOwnSelect
@@ -94,7 +174,8 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.country}
                placeholder="Country"
-               options={['United states of america']}
+               options={this.state.countries}
+               onChange={this.onChangeCountries}
                />
 
                <MyOwnSelect
@@ -102,7 +183,8 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.state}
                placeholder="State"
-               options={['New york']}
+               options={this.state.states}
+               onChange={this.onChangeStates}
                />
 
                <MyOwnSelect
@@ -110,7 +192,7 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.city}
                placeholder="city"
-               options={['my city']}
+               options={this.state.cities}
                />
 
                <MyOwnInput

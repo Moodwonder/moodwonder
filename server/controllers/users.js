@@ -13,7 +13,8 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
 var LocalStrategy = require('passport-local').Strategy;
-
+var fs = require('fs');
+var path = require('path');
 
 /**
  *  JSON response format
@@ -160,7 +161,9 @@ exports.getUserInfo = function (req, res) {
                 if (lists.mymanager[0] == undefined) {
                     lists.mymanager[0] = {'email': ''};
                 }
-                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email};
+                
+                var profileimage = (lists.profile_image !== '') ? '/images/profilepics/'+lists.profile_image : '';
+                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage};
             }
             res.json(response);
         } else {
@@ -502,6 +505,66 @@ exports.postSaveUserInfo = function (req, res, next) {
 };
 
 /**
+ * Update user photo
+ *
+ * Accept :
+ * @profilephoto:
+ * 
+ */
+exports.UpdateUserPhoto = function (req, res) {
+
+    var ext=path.extname(req.files.profilephoto.name);
+    console.log(req.files);
+    console.log(typeof req.files.profilephoto);
+    if(typeof req.files.profilephoto != 'undefined')
+    {
+        if((ext!=".jpg")&&(ext!=".png")&&(ext!=".jpeg")&&(ext!=".gif"))
+        {
+
+            response.image=false;
+            res.send(response);
+            res.end();
+            return;
+        }else{
+
+            imagename     = new Date().getTime() +req.files.profilephoto.originalname;
+            var oldPath   =   req.files.profilephoto.path;
+            var newPath   =   path.join(__dirname,'..','..')+"/public/images/profilepics/" + imagename;
+            var source    =   fs.createReadStream(oldPath);
+            var dest      =   fs.createWriteStream(newPath);
+            source.pipe(dest);
+            source.on('end', function () {
+
+                var conditions = {'_id': new ObjectId(req.user._id)}
+                      ,update  = {'profile_image': imagename }
+                     , options = {multi: false};
+
+                // Set manager info
+                User.update(conditions, update, options, function (err) {
+                    if (!err) {
+                        response.status  = true;
+                        response.message = 'Profile picture updated.';
+                        response.image   = '/images/profilepics/' + imagename;
+                    } else {
+                        response.status  = false;
+                        response.message = 'Something went wrong..';
+                    }
+                    res.send(response);
+                    res.end();
+                });
+                
+            });
+            source.on('error', function (err) {
+                response.status  = false;
+                response.message = 'Something went wrong..';
+                res.send(response);
+                res.end();
+            });
+        }
+    }
+};
+
+/**
  * Save user details
  *
  * Accept :
@@ -782,94 +845,94 @@ exports.usersInTeams = function (req, res) {
  */
 exports.getAllEmployees = function (req, res) {
 
-	var mycompany = '';
-	try {
-		mycompany = req.user.company_info[0].companyname;
-	} catch (ex) {
-		mycompany = false;
-	}
+    var mycompany = '';
+    try {
+        mycompany = req.user.company_info[0].companyname;
+    } catch (ex) {
+        mycompany = false;
+    }
 
-	var date = new Date();
-	// date with YYYY-MM-DD format
-	var cdate = JSON.stringify(date).substring(1, 11);
-	var yearmonth = cdate.substring(0, 7);
+    var date = new Date();
+    // date with YYYY-MM-DD format
+    var cdate = JSON.stringify(date).substring(1, 11);
+    var yearmonth = cdate.substring(0, 7);
 
     if(mycompany){
-		var elmatch = { companyname: mycompany };
-		User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
-			if (!err) {
+        var elmatch = { companyname: mycompany };
+        User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
+            if (!err) {
 
-			Vote.aggregate([
-				{
-					$match: {
-						postdate:
-						{
-							$regex : new RegExp(yearmonth,'i')
-						},
-						company: mycompany
-					}
-				},
-				{
-					$group : {
-						_id : "$votefor_userid",
-						total : { $sum : 1 },
-						user_ids: {
-							$push: "$user_id"
-						 }
-					}
-				}
-			],
-				function (err, result) {
+            Vote.aggregate([
+                {
+                    $match: {
+                        postdate:
+                        {
+                            $regex : new RegExp(yearmonth,'i')
+                        },
+                        company: mycompany
+                    }
+                },
+                {
+                    $group : {
+                        _id : "$votefor_userid",
+                        total : { $sum : 1 },
+                        user_ids: {
+                            $push: "$user_id"
+                         }
+                    }
+                }
+            ],
+                function (err, result) {
 
-					var emp_meta = {};
-					if (err) {
-						console.log(err);
-					}else{
-						result.map(function (data, key) {
-							emp_meta[data._id] = data;
-						});
-					}
-					
-				var employees = [];
-				var mytotalvotes = 0;
-				lists.map(function (data, key) {
+                    var emp_meta = {};
+                    if (err) {
+                        console.log(err);
+                    }else{
+                        result.map(function (data, key) {
+                            emp_meta[data._id] = data;
+                        });
+                    }
+                    
+                var employees = [];
+                var mytotalvotes = 0;
+                lists.map(function (data, key) {
 
-					var votes = 0;
-					var myvote = false;
-					if(emp_meta[data._id] !== undefined){
-						var cemp = emp_meta[data._id];
-						var userids = emp_meta[data._id].user_ids;
-						var user_ids = [];
-						userids.map(function (id, key) { user_ids[key] = id.toString(); });
-						votes = cemp.total;
-						if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
-							myvote = true;
-							mytotalvotes++;
-						}
-					}
-					employees[key] = { _id: data._id, photo: data.profile_image, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote };
-				});
-				response.status = true;
-				response.message = 'success';
-				response.data = {};
-				response.data.employees = employees;
-				response.data.mytotalvotes = mytotalvotes;
-				res.send(response);
-				
-				}
-			);
+                    var votes = 0;
+                    var myvote = false;
+                    if(emp_meta[data._id] !== undefined){
+                        var cemp = emp_meta[data._id];
+                        var userids = emp_meta[data._id].user_ids;
+                        var user_ids = [];
+                        userids.map(function (id, key) { user_ids[key] = id.toString(); });
+                        votes = cemp.total;
+                        if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
+                            myvote = true;
+                            mytotalvotes++;
+                        }
+                    }
+                    employees[key] = { _id: data._id, photo: data.profile_image, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote };
+                });
+                response.status = true;
+                response.message = 'success';
+                response.data = {};
+                response.data.employees = employees;
+                response.data.mytotalvotes = mytotalvotes;
+                res.send(response);
+                
+                }
+            );
 
-			} else {
-				response.status = false;
-				response.message = 'Something went wrong';
-				response.data = employees;
-				res.send(response);
-			}
-		});
-	}else{
+            } else {
+                response.status = false;
+                response.message = 'Something went wrong';
+                response.data = employees;
+                res.send(response);
+            }
+        });
+    }else{
         response.status = false;
         response.message = 'Please select your company first.';
         res.send(response);
-	}
+    }
 };
 

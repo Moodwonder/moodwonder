@@ -16,9 +16,10 @@ class UserStore {
       this.userDetails = {
        'fname': '', 'lname': '', 'email': '', 'language': '',
        'reportfrequency': '', 'password': '', 'companyname': '', 'industry': '',
-       'continent': '', 'country': '', 'state': '',
+       'continent': '', 'country': '', 'state': '', 'profile_image': '',
        'city': '', 'address': '', 'website': '', 'companysize': ''
        };
+      this.profile_image = false;
       this.message = '';
       this.isLoggedIn = false;
       this.canSubmit = false;
@@ -32,6 +33,7 @@ class UserStore {
         handleUserInfoSuccess: UserActions.USERINFOSUCCESS,
         handleCompanyInfoSuccess: UserActions.COMPANYINFOSUCCESS,
         handleSaveUserDetailsSuccess: UserActions.SAVEUSERDETAILSSUCCESS,
+        handleUpdateUserPhotoSuccess: UserActions.UPDATEUSERPHOTOSUCCESS,
         handleSaveManagerDetailsSuccess: UserActions.SAVEMANAGERDETAILSSUCCESS,
         handleSaveCompanySuccess: UserActions.SAVECOMPANYSUCCESS,
         handleLogoutSuccess: UserActions.LOGOUTSUCCESS
@@ -67,6 +69,13 @@ class UserStore {
       this.emitChange();
   }
 
+  handleUpdateUserPhotoSuccess (response) {
+      this.isServerCallWaiting = false;
+      this.hasError = !response.status;
+      this.message = response.message;
+      this.emitChange();
+  }
+
   handleSaveManagerDetailsSuccess (response) {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
@@ -87,6 +96,7 @@ class UserStore {
       this.message = response.message;
       if (!this.hasError) {
           this.userDetails = response.data;
+          this.profile_image = response.data.profile_image;
           // To ignore initial message
           this.message = '';
       }

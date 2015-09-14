@@ -33,7 +33,7 @@ export default class App extends React.Component {
 
       // user only pages
       let pages = ["/","/survey","/login","/forgotpassword","/signup","/createpassword","/admin"];
-      if( pages.indexOf(path) === -1 ){
+      if(path.indexOf("/signup") === -1 && pages.indexOf(path) === -1){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
           }

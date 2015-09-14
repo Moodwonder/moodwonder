@@ -22,6 +22,7 @@ var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
 var admin = require('../controllers/admin');
+var common = require('../controllers/common');
 
 var Navigation = require('../languagesettings/nav');
 
@@ -35,6 +36,7 @@ module.exports = function (app, passport) {
     app.post('/usersignup', users.postUserSignUp);
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
+    app.post('/updateuserphoto', users.checkLogin, users.UpdateUserPhoto);
     app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
     app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
     app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
@@ -71,13 +73,14 @@ module.exports = function (app, passport) {
     app.post('/postvote', users.checkLogin, voting.postVote);
     
     // Set variables from server side
+    app.get('/mycompany', common.handlePlaces);
     app.get('/signup/:hash', invitation.handleSignup);
 
     app.get('*', function (req, res, next) {
 
         if (/(\.png$|\.map$|\.jpg$)/.test(req.url))
             return;
-        var user = req.user ? {authenticated: true, isWaiting: false} : {authenticated: false, isWaiting: false};
+        var user = req.user ? {authenticated: true, isWaiting: false } : {authenticated: false, isWaiting: false};
         var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
 
         var AppStore = { isAuthenticated: false, userType: false };
@@ -94,11 +97,10 @@ module.exports = function (app, passport) {
         // this.state.yourState
 
         res.locals.data = {
-            UserStore: {user: user},
+            UserStore: { user: user, places: req.body.places },
             CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
             SignupStore: {inviteEmail: inviteEmail},
             AppStore: AppStore
-
         };
         next();
     });
