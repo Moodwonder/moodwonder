@@ -30,16 +30,17 @@ class SurveyStore {
       this.emitChange();
   }
 
-  handleSaveSurveys (response) {
-      // this.message = response.message;
-      // this.hasError = !response.status;
+  handleSaveSurveys (res) {
+
       this.savedstatus = true;
-      if(response.status) {
+      if(res.status) {
           SurveyWebAPIUtils.getLastSurvey()
           .then((response, textStatus) => {
-              if (textStatus === 'success') {
+              if (response.status) {
                   this.lastsurvey = [];
                   this.lastsurvey = response.data;
+                  this.lastmood = [];
+                  this.lastmood = response.lastmood;
                   this.emitChange();
               }
           }, () => {

@@ -11,31 +11,31 @@ const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
 
-        console.log(engagementmood);
-        console.log(surveyresults);
+        //console.log(engagementmood);
+        //console.log(surveyresults);
         switch (graphperiod) {
             case 'all_time' :
-                console.log(graphperiod);
+                //console.log(graphperiod);
                 break;
 
             case 'last_12_months' :
-                console.log(graphperiod);
+                //console.log(graphperiod);
                 break;
 
             case 'last_6_ months' :
-                console.log(graphperiod);
+                //console.log(graphperiod);
                 break;
 
             case 'last_3_months' :
-                console.log(graphperiod);
+                //console.log(graphperiod);
                 break;
 
             case 'last_month' :
-                console.log(graphperiod);
+                //console.log(graphperiod);
                 break;
 
             default :
-                console.log('default - all_time');
+                //console.log('default - all_time');
                 break;
         }
         return;

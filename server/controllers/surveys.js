@@ -83,7 +83,7 @@ exports.saveEngagementSurveyResult = function (req, res) {
         });
 
     }
-    res.json(response);
+    res.send({status: true});
     res.end();
 };
 
@@ -113,8 +113,6 @@ exports.getLastSurvey = function (req, res) {
                 response.status = 'success';
                 response.data = rows;
                 response.lastmood = lastmood;
-                console.log('response');
-                console.log(response);
             } else {
                 response.status = 'failure';
                 response.data = [];
