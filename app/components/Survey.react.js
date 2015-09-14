@@ -2,6 +2,8 @@ import React from 'react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Submenu from 'components/Submenu.react';
+import Sliderrow from 'components/SliderRow.react';
+import getFormData from 'get-form-data';
 
 export default class Survey extends React.Component {
 
@@ -11,8 +13,9 @@ export default class Survey extends React.Component {
   }
 
   componentDidMount() {
-      SurveyActions.getallquestions();
+      SurveyActions.getEngagementSurvey();
       SurveyStore.listen(this._onChange);
+      SurveyActions.getLastSurvey();
   }
 
   componentWillUnmount() {
@@ -21,13 +24,20 @@ export default class Survey extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
-      //console.log(state);
+      if(this.state.savedstatus) {
+          window.location.assign('/mymood');
+      }
   }
 
   _onSurveySubmit = () => {
+      let form = document.querySelector('#engagementForm');
+      let formData = getFormData(form, {trim: true});
       const surveyResult = this.state.questions.map((data, key) => {
-          return { 'engagementarea_id': data._id, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
+          //return { 'mood': data.mood, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
+          let rating = formData[data.mood];
+          return { 'mood': data.mood, 'rating': rating, 'comment_title': '', 'comment': '' };
       });
+      //console.log(JSON.stringify(surveyResult));
       SurveyActions.saveEngagementSurvey(surveyResult);
   }
 
@@ -35,10 +45,23 @@ export default class Survey extends React.Component {
 
       let items = '';
       let message = '';
+      let slno = 1;
+      let lastsurvey = this.state.lastsurvey;
+      let lastrated = '';
+
       if(this.state.hasQuestions){
           items = this.state.questions.map((data, key) => {
+              for (let i = 0; i < lastsurvey.length; i++) {
+                  let surveydetail = lastsurvey[i];
+                  if (surveydetail.mood === data.mood) {
+                      lastrated = surveydetail.rating;
+                  }
+              }
+
               return (
-                  <li className="list-group-item"><div className="row"><div className="col-sm-6" >{data.mood} : {data.description}</div> <div className="col-sm-6" ><input type="text" ref={data._id} /> </div></div></li>
+                  <li className="list-group-item">
+                    <Sliderrow slno={slno++} mood={data.mood} description={data.description} lastrated={lastrated} />
+                  </li>
               );
           });
       }
@@ -74,10 +97,12 @@ export default class Survey extends React.Component {
         <div className="container Survey-list">
         <Submenu />
           {message}
-          <ul className="list-group">
-            {items}
-            {submitButton}
-          </ul>
+          <form id="engagementForm">
+            <ul className="list-group">
+              {items}
+              {submitButton}
+            </ul>
+          </form>
         </div>
       );
   }

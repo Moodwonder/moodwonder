@@ -1,7 +1,8 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
 import Navigation from 'components/Navigation.react';
-import Footer from 'components/Footer.react';
+import Leftnav from 'components/Leftnav.react';
+import Rightnav from 'components/Rightnav.react';
 import AppStore from 'stores/AppStore';
 
 export default class App extends React.Component {
@@ -25,6 +26,8 @@ export default class App extends React.Component {
   render() {
 
       let handler      = (<RouteHandler />);
+      let leftnav;
+      let rightnav;
       let noPermission = (
         <div>
          <span> You do not have sufficient permissions to access this page </span>
@@ -33,8 +36,8 @@ export default class App extends React.Component {
       let path = this.context.router.getCurrentPathname();
 
       // user only pages
-      let pages = ["/","/survey","/login","/forgotpassword","/signup","/createpassword","/admin","/test1"];
-      if(path.indexOf("/signup") === -1 && pages.indexOf(path) === -1){
+      let pages = ["/","/login","/forgotpassword","/signup","/createpassword","/admin","/test1"];
+      if( pages.indexOf(path) === -1 ){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
           }
@@ -54,12 +57,21 @@ export default class App extends React.Component {
           }
       }
 
+      if (this.state.isAuthenticated) {
+          leftnav = (<Leftnav />);
+          rightnav = (<Rightnav />);
+      }
+
       return (
         <div>
           <Navigation />
-          {handler}
-          <br/><br/>
-          <Footer />
+          <div className="wrapper">
+            {leftnav}
+            <div className="middleContainer">
+              {handler}
+            </div>
+            {rightnav}
+          </div>
         </div>
       );
   }

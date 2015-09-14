@@ -22,7 +22,10 @@ var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
 var admin = require('../controllers/admin');
+
 var common = require('../controllers/common');
+var mood = require('../controllers/mood');
+var EngagementArea = require('../controllers/engagementArea');
 
 var Navigation = require('../languagesettings/nav');
 
@@ -34,7 +37,6 @@ module.exports = function (app, passport) {
     app.post('/usersignupstep2', users.encryptPassword, users.postSignupStep2, users.postLogin);
     app.post('/signup', users.postSignUp);
     app.post('/usersignup', users.postUserSignUp);
-    app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
     app.post('/updateuserphoto', users.checkLogin, users.UpdateUserPhoto);
     app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
@@ -45,12 +47,16 @@ module.exports = function (app, passport) {
     app.post('/addmembertoteam', users.checkLogin, teams.addMemberToTeam, invitation.sendInvitation);
     app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation);
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
-    app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
     app.get('/logout', users.getLogout);
     app.get('/test', users.test);
     app.get('/getusers', users.getUsers);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
-
+    
+    app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
+    app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
+    app.get('/getlastengagementsurvey', users.checkLogin, surveys.getLastSurvey);
+    app.get('/getengagementresults', users.checkLogin, surveys.getSurveyResults);
+    
     app.post('/createsurveyform', customSurvey.createForm);
     app.post('/deleteform', customSurvey.deleteForm);
     app.get('/getsurveyforms', customSurvey.getForms);
@@ -68,6 +74,14 @@ module.exports = function (app, passport) {
     app.post('/adminlogin', admin.login);
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
+    
+    app.post('/addmood', mood.addMoodRate);
+    app.get('/mymoods', mood.getMyMoods);
+  
+    app.post('/addengagement', EngagementArea.addEngagement);
+    app.post('/editengagement', EngagementArea.editEngagement);
+    app.post('/deleteengagement', EngagementArea.deleteEngagement);
+    app.get('/getengagementareas', EngagementArea.engagementAreas);
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
@@ -106,8 +120,8 @@ module.exports = function (app, passport) {
     });
 
     function getPageKeys(page, lang, html, callback) {
-        console.log('page');
-        console.log(page);
+        // console.log('page');
+        // console.log(page);
 
         var modelObj = modelObj || {};
 

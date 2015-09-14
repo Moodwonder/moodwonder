@@ -69,7 +69,8 @@ class LanguageStore {
               let language = languages[i];
               if (language._id === id) {
                   languages.splice(i, 1);
-                  this.setState({languages: languages});
+                  this.languages = [];
+                  this.languages = languages;
               }
           }
       }
