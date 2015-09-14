@@ -7,15 +7,19 @@
 //var res = _(data).where({mood: 'mood'});
 //console.log(res);
 
+import _ from 'underscore';
+
+let data = [];
 const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
 
         //console.log(engagementmood);
-        //console.log(surveyresults);
+        //console.log(JSON.stringify(surveyresults));
         switch (graphperiod) {
             case 'all_time' :
-                //console.log(graphperiod);
+                data = _(surveyresults).where({mood: engagementmood});
+                console.log(JSON.stringify(data));
                 break;
 
             case 'last_12_months' :
@@ -35,10 +39,9 @@ const graphdata = {
                 break;
 
             default :
-                //console.log('default - all_time');
                 break;
         }
-        return;
+        return data;
     }
 
 

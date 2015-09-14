@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var EngagementArea = require('../models/engagementArea');
 var EngagementResults = require('../models/engagementResults');
 
+
 /**
  * GET /getEngagementSurvey
  */
@@ -16,6 +17,8 @@ exports.getEngagementSurvey = function (req, res) {
         }
     });
 };
+
+
 
 /**
  * POST /saveEngagementSurveyResult
@@ -39,13 +42,25 @@ exports.saveEngagementSurveyResult_bk = function (req, res) {
 };
 
 
+
+function getEngagementResultsByDate(user_id, createddate, callback) {
+
+    var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: createddate}};
+    EngagementResults.find(condition).sort({_id: -1}).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+
+
 /**
  * save survey results
  */
 exports.saveEngagementSurveyResult = function (req, res) {
 
     var surveyresults = req.body;
-
     var today = new Date();
     var year = today.getFullYear();
     var month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -53,38 +68,48 @@ exports.saveEngagementSurveyResult = function (req, res) {
     var hour = ('0' + today.getHours()).slice(-2);
     var minutes = ('0' + today.getMinutes()).slice(-2);
     var seconds = ('0' + today.getSeconds()).slice(-2);
-    var datestring = year + '-' + month + '-' + day;
+    var datestring = year + '-' + month + '-' + (day);
     var timestring = hour + ':' + minutes + ':' + seconds;
-
+    var user_id = mongoose.Types.ObjectId(req.user._id);
 
     var created = created || {};
     created.d = datestring;
     created.t = timestring;
-
     var length = surveyresults.length;
     var response = {};
 
-    for (var i = 0; i < length; i++) {
+    getEngagementResultsByDate(user_id, datestring, function (data) {
 
-        var row = {};
-        row.user_id = mongoose.Types.ObjectId(req.user._id);
-        row.mood = surveyresults[i]['mood'];
-        row.rating = surveyresults[i]['rating'];
-        row.comment_title = surveyresults[i]['comment_title'];
-        row.comment = surveyresults[i]['comment'];
-        row.created = created;
+        if (data.length > 0) {
+            var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: datestring}};
+            EngagementResults.remove(condition).exec(function (err) {
+                if (!err) {
 
-        EngagementResults.create(row, function (err, item) {
-            if (!err) {
-                response.status = true;
-            } else {
-                response.status = false;
-            }
-        });
+                }
+            });
+        }
 
-    }
-    res.send({status: true});
-    res.end();
+        for (var i = 0; i < length; i++) {
+            var row = {};
+            row.user_id = mongoose.Types.ObjectId(req.user._id);
+            row.mood = surveyresults[i]['mood'];
+            row.rating = surveyresults[i]['rating'];
+            row.comment_title = surveyresults[i]['comment_title'];
+            row.comment = surveyresults[i]['comment'];
+            row.created = created;
+
+            EngagementResults.create(row, function (err, item) {
+                if (!err) {
+                    response.status = true;
+                } else {
+                    response.status = false;
+                }
+            });
+
+        }
+        res.send({status: true});
+        res.end();
+    });
 };
 
 
@@ -104,7 +129,6 @@ exports.getLastSurvey = function (req, res) {
     var condition = {user_id: user_id};
     var orderby = {_id: -1}; // -1: DESC; 1: ASC
     var limit = 13;
-
     getLasteRatedMood(user_id, function (lastmood) {
 
         EngagementResults.find(condition).sort(orderby).limit(limit).exec(function (err, rows) {
@@ -122,19 +146,15 @@ exports.getLastSurvey = function (req, res) {
             res.send(response);
             res.end();
         });
-
     });
 };
-
-
-
 
 
 exports.getSurveyResults = function (req, res) {
 
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var condition = {user_id: user_id};
-    var orderby = {_id: -1}; // -1: DESC; 1: ASC
+    var orderby = {_id: 1}; // -1: DESC; 1: ASC
 
     getLasteRatedMood(user_id, function (lastmood) {
 
@@ -155,7 +175,6 @@ exports.getSurveyResults = function (req, res) {
             res.send(response);
             res.end();
         });
-
     });
 };
 
