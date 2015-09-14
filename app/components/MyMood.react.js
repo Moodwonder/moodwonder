@@ -5,6 +5,10 @@ import MoodActions from 'actions/MoodActions';
 import MoodStore from 'stores/MoodStore';
 import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
+import MoodSlider from 'components/MoodSlider.react';
+import SurveyActions from 'actions/SurveyActions';
+import SurveyStore from 'stores/SurveyStore';
+import Graphdata from 'utils/Graphdata';
 
 
 let chartoptions = {
@@ -32,29 +36,46 @@ export default class MyMood extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-          moodrate: '',
           moods: [],
-          popup: false
+          popup: false,
+          questions: [],
+          surveyresults: [],
+          lastsurvey: [],
+          lastmood: [],
+          graphperiod: 'all_time',
+          graphengagement: 'mw_index'
       };
+      this.engagementmoods = [];
   }
 
   componentDidMount() {
-      let form = document.querySelector('#moodRating');
-      let data = getFormData(form, {trim: true});
-      let moodrate = data['moodrate'];
-      this.setState({moodrate: moodrate});
-      //MoodActions.getMyMoods('559f8d6601c08d2c1d25f448');
       MoodActions.getMyMoods();
+      SurveyActions.getEngagementSurvey();
+      SurveyActions.getEngagementResults();
       MoodStore.listen(this._onChange);
+      SurveyStore.listen(this._onMoodChange);
   }
 
   componentWillUnmount() {
       MoodStore.unlisten(this._onChange);
+      SurveyStore.unlisten(this._onMoodChange);
   }
 
   _onChange = () => {
       this.setState({
          moods : MoodStore.getState().moods
+      });
+  }
+
+  _onMoodChange = () => {
+      this.setState({
+         questions : SurveyStore.getState().questions,
+         surveyresults: SurveyStore.getState().surveyresults,
+         lastmood: SurveyStore.getState().lastmood
+      });
+
+      this.engagementmoods = this.state.questions.map((data, key) => {
+          return data.mood;
       });
   }
 
@@ -67,20 +88,19 @@ export default class MyMood extends React.Component {
       let commentData = getFormData(commentForm, {trim: true});
 
       let moodrate = data['moodrate'];
+      let surveyResult = [];
 
-      let mood = mood || {};
-      mood.rating = moodrate;
-      //mood.user_id = '559f8d6601c08d2c1d25f448';
-      mood.title = commentData['title'];
-      mood.description = commentData['description'];
-      MoodActions.addMood(mood);
+      surveyResult = this.engagementmoods.map((data, key) => {
+          let mood = mood || {};
+          mood.rating = moodrate;
+          mood.comment_title = commentData['comment_title'];
+          mood.comment = commentData['comment'];
+          mood.mood = data;
+          return mood;
+      });
+
+      SurveyActions.saveEngagementSurvey(surveyResult);
       this.setState({ popup : false });
-  }
-
-  onChangeMood = (e) => {
-      e.preventDefault();
-      let moodrate = e.target.value;
-      this.setState({moodrate: moodrate});
   }
 
   onPopupClose = (e) => {
@@ -93,14 +113,58 @@ export default class MyMood extends React.Component {
       this.setState({ popup : true });
   }
 
+  onChangeGraphPeriod = (e) => {
+      e.preventDefault();
+      let graphperiod = e.target.value;
+      this.setState({ graphperiod : graphperiod });
+  }
+
+  onChangeGraphEngagement = (e) => {
+      e.preventDefault();
+      let graphengagement = e.target.value;
+      this.setState({ graphengagement : graphengagement });
+  }
+
+
+
+
 
   render() {
-      let moodrate = this.state.moodrate;
       let moods = this.state.moods;
       let popup = this.state.popup;
+      let surveyresults = this.state.surveyresults;
+      let lastMood = this.state.lastmood;
+      let graphperiod = this.state.graphperiod;
+      let graphengagement = this.state.graphengagement;
       let xlabel = [];
       let ydata = [];
-      let lastMood = lastMood || {};
+      let engagementmoods = this.engagementmoods;
+      let moodoptions = '';
+
+
+//      let index = surveyresults.length - 1;
+//      for(let surveyresult of surveyresults) {
+//          if(i >= 0) {
+//              xlabel[index] = surveyresult.datetime;
+//              ydata[index] = surveyresult.rating;
+//          }
+//
+//          if (index === (surveyresults.length - 1) && (surveyresult.mood === 'mood')) {
+//              lastMood.rating = surveyresult.rating;
+//              lastMood.datetime = surveyresult.datetime;
+//          }
+//
+//          index--;
+//      }
+
+      console.log('Graphdata');
+      console.log(Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults));
+
+
+      moodoptions = engagementmoods.map((data, key) => {
+          return (<option value={data}>{data}</option>);
+      });
+
 
       let i = moods.length - 1;
       for(let mood of moods) {
@@ -109,10 +173,10 @@ export default class MyMood extends React.Component {
               ydata[i] = mood.rating;
           }
 
-          if (i === (moods.length - 1)) {
-              lastMood.rating = mood.rating;
-              lastMood.datetime = mood.datetime;
-          }
+//          if (i === (moods.length - 1)) {
+//              lastMood.rating = mood.rating;
+//              lastMood.datetime = mood.datetime;
+//          }
 
           i--;
       }
@@ -144,8 +208,9 @@ export default class MyMood extends React.Component {
       chartdata.datasets = datasets;
 
       let lastRated = '';
+
       if(lastMood.rating) {
-          lastRated = (<span>Last rated {lastMood.rating}</span>);
+          lastRated = lastMood.rating;
       }
 
       let modal = '';
@@ -161,7 +226,7 @@ export default class MyMood extends React.Component {
                             <div className="modal-body">
                                 <form id="commentForm">
                                     <div className="form-group">
-                                        <select name="title">
+                                        <select name="comment_title">
                                             <option value="">What happened...?</option>
                                             <optgroup label="Company, Strategy &amp; Values">
                                                 <option value="63">Company event organized</option>
@@ -206,7 +271,7 @@ export default class MyMood extends React.Component {
                                             </optgroup>
                                         </select>
                                         <br/>
-                                        <textarea name="description" id="description" placeholder="How would you improve employee engagement?"></textarea>
+                                        <textarea name="comment" id="comment" placeholder="How would you improve employee engagement?"></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -229,19 +294,31 @@ export default class MyMood extends React.Component {
                 <form id="moodRating">
                   <div className="form-group">
                     <label>Rate your mood</label>
-                     <input type="range" id="moodrate" name="moodrate" max="5" min="1" defaultValue="3.7" step="0.1" title={moodrate} onChange={this.onChangeMood} />
-                     <label>{moodrate}</label>
-                     <br/>
-                     {lastRated}
+                    <MoodSlider lastrated={lastRated} />
                   </div>
                   <br/>
                   <div className="form-group">
                     <button className="btn btn-primary" onClick={this.onPopupShow}>Submit</button>
                   </div>
                 </form>
-                <br/><br/>
+                <br/><br/><br/>
                 <div className="form-group">
                     <label> Moodwonder trend</label>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    <label>Show me</label>
+                    <select name="graphperiod" onChange={this.onChangeGraphPeriod}>
+                        <option value="all_time">All time</option>
+                        <option value="last_12_months">Last 12 months</option>
+                        <option value="last_6_ months">Last 6 months</option>
+                        <option value="last_3_months">Last 3 months</option>
+                        <option value="last_month">Last month</option>
+                    </select>
+                    <span>&nbsp;&nbsp;</span>
+                    <label>from</label>
+                    <select name="graphengagement" onChange={this.onChangeGraphEngagement}>
+                        <option value="mw_index">MW-Index</option>
+                        {moodoptions}
+                    </select>
                     <br/><br/>
                     <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
                 </div>

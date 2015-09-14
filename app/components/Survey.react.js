@@ -35,7 +35,7 @@ export default class Survey extends React.Component {
       const surveyResult = this.state.questions.map((data, key) => {
           //return { 'mood': data.mood, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
           let rating = formData[data.mood];
-          return { 'mood': data.mood, 'rating': rating };
+          return { 'mood': data.mood, 'rating': rating, 'comment_title': '', 'comment': '' };
       });
       //console.log(JSON.stringify(surveyResult));
       SurveyActions.saveEngagementSurvey(surveyResult);
@@ -55,7 +55,6 @@ export default class Survey extends React.Component {
                   let surveydetail = lastsurvey[i];
                   if (surveydetail.mood === data.mood) {
                       lastrated = surveydetail.rating;
-                      console.log(lastrated);
                   }
               }
 

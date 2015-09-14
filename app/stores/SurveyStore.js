@@ -12,11 +12,15 @@ class SurveyStore {
       this.message = '';
       this.savedstatus = false;
       this.lastsurvey = [];
+      this.surveyresults = [];
+      this.lastmood = [];
+
 
       this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS,
       handleSaveSurveys: SurveyActions.SAVESURVEYSUCCESS,
-      handleLastSurvey: SurveyActions.LASTSURVEYSUCCESS
+      handleLastSurvey: SurveyActions.LASTSURVEYSUCCESS,
+      handleEngagementResults: SurveyActions.ENGAGEMENTRESULTSSUCCESS
     });
   }
 
@@ -47,6 +51,16 @@ class SurveyStore {
   handleLastSurvey (response) {
       this.lastsurvey = [];
       this.lastsurvey = response.data;
+      this.lastmood = [];
+      this.lastmood = response.lastmood;
+      this.emitChange();
+  }
+
+  handleEngagementResults (response) {
+      this.surveyresults = [];
+      this.surveyresults = response.data;
+      this.lastmood = [];
+      this.lastmood = response.lastmood;
       this.emitChange();
   }
 

@@ -54,6 +54,23 @@ class SurveyActions {
       this.dispatch(response);
   }
 
+  getEngagementResults() {
+      this.dispatch();
+      SurveyWebAPIUtils.getEngagementResults()
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.engagementresultssuccess(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  engagementresultssuccess(data)
+  {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);

@@ -23,6 +23,8 @@ var engagementResultsSchema = new mongoose.Schema({
     user_id: {type: String, default: ''},
     mood: {type: String},
     rating: {type: Number},
+    comment_title: {type: String, default: ''},
+    comment: {type: String, default: ''},
     created: {
         d: {type: String},
         t: {type: String}

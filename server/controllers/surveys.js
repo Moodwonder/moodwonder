@@ -70,6 +70,8 @@ exports.saveEngagementSurveyResult = function (req, res) {
         row.user_id = mongoose.Types.ObjectId(req.user._id);
         row.mood = surveyresults[i]['mood'];
         row.rating = surveyresults[i]['rating'];
+        row.comment_title = surveyresults[i]['comment_title'];
+        row.comment = surveyresults[i]['comment'];
         row.created = created;
 
         EngagementResults.create(row, function (err, item) {
@@ -86,6 +88,16 @@ exports.saveEngagementSurveyResult = function (req, res) {
 };
 
 
+function getLasteRatedMood(user_id, callback) {
+    // Last rated mood 
+    EngagementResults.findOne({user_id: user_id, mood: 'Mood'}).sort({_id: -1}).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+
 exports.getLastSurvey = function (req, res) {
 
     var user_id = mongoose.Types.ObjectId(req.user._id);
@@ -93,19 +105,59 @@ exports.getLastSurvey = function (req, res) {
     var orderby = {_id: -1}; // -1: DESC; 1: ASC
     var limit = 13;
 
-    EngagementResults.find(condition).sort(orderby).limit(limit).exec(function (err, rows) {
-        var response = {};
-        if (!err) {
-            response.status = 'success';
-            response.data = rows;
-            //console.log(rows);
-        } else {
-            response.status = 'failure';
-            response.data = [];
-            console.log('Error in getLastSurvey');
-        }
-        res.send(response);
-        res.end();
+    getLasteRatedMood(user_id, function (lastmood) {
+
+        EngagementResults.find(condition).sort(orderby).limit(limit).exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.data = rows;
+                response.lastmood = lastmood;
+                console.log('response');
+                console.log(response);
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.lastmood = [];
+                console.log('Error in getLastSurvey');
+            }
+            res.send(response);
+            res.end();
+        });
+
+    });
+};
+
+
+
+
+
+exports.getSurveyResults = function (req, res) {
+
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    var orderby = {_id: -1}; // -1: DESC; 1: ASC
+
+    getLasteRatedMood(user_id, function (lastmood) {
+
+        EngagementResults.find(condition).sort(orderby).exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.data = rows;
+                response.lastmood = lastmood;
+                //console.log('getSurveyResults');
+                // console.log(response);
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.lastmood = [];
+                console.log('Error in getLastSurvey');
+            }
+            res.send(response);
+            res.end();
+        });
+
     });
 };
 

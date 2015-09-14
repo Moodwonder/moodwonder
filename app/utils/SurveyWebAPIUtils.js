@@ -25,6 +25,14 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getEngagementResults: () => {
+      return $.ajax({
+      url: '/getengagementresults',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };
