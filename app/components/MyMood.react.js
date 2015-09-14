@@ -1,8 +1,6 @@
 import React from 'react';
 // import $ from 'jquery';
 import getFormData from 'get-form-data';
-import MoodActions from 'actions/MoodActions';
-import MoodStore from 'stores/MoodStore';
 import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
 import MoodSlider from 'components/MoodSlider.react';
@@ -36,7 +34,6 @@ export default class MyMood extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-          moods: [],
           popup: false,
           questions: [],
           surveyresults: [],
@@ -49,22 +46,13 @@ export default class MyMood extends React.Component {
   }
 
   componentDidMount() {
-      MoodActions.getMyMoods();
       SurveyActions.getEngagementSurvey();
       SurveyActions.getEngagementResults();
-      MoodStore.listen(this._onChange);
       SurveyStore.listen(this._onMoodChange);
   }
 
   componentWillUnmount() {
-      MoodStore.unlisten(this._onChange);
       SurveyStore.unlisten(this._onMoodChange);
-  }
-
-  _onChange = () => {
-      this.setState({
-         moods : MoodStore.getState().moods
-      });
   }
 
   _onMoodChange = () => {
@@ -127,59 +115,45 @@ export default class MyMood extends React.Component {
 
 
 
-
-
   render() {
-      let moods = this.state.moods;
       let popup = this.state.popup;
       let surveyresults = this.state.surveyresults;
-      let lastMood = this.state.lastmood;
+      //let lastMood = (typeof this.state.lastmood !== null) ? this.state.lastmood : null;
+      let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       let graphperiod = this.state.graphperiod;
       let graphengagement = this.state.graphengagement;
       let xlabel = [];
       let ydata = [];
+      let yMoodData = [];
       let engagementmoods = this.engagementmoods;
       let moodoptions = '';
-
-
-//      let index = surveyresults.length - 1;
-//      for(let surveyresult of surveyresults) {
-//          if(i >= 0) {
-//              xlabel[index] = surveyresult.datetime;
-//              ydata[index] = surveyresult.rating;
-//          }
-//
-//          if (index === (surveyresults.length - 1) && (surveyresult.mood === 'mood')) {
-//              lastMood.rating = surveyresult.rating;
-//              lastMood.datetime = surveyresult.datetime;
-//          }
-//
-//          index--;
-//      }
-
-      //console.log('Graphdata');
-      Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
 
 
       moodoptions = engagementmoods.map((data, key) => {
           return (<option value={data}>{data}</option>);
       });
 
+      let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
+      let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
 
-      let i = moods.length - 1;
-      for(let mood of moods) {
-          if(i >= 0) {
-              xlabel[i] = mood.datetime;
-              ydata[i] = mood.rating;
+      let count = graphData.length - 1;
+      let index = 0;
+      for(let data of graphData) {
+          if(index <= count) {
+              xlabel[index] = data.created.d;
+              ydata[index] = data.rating;
           }
-
-//          if (i === (moods.length - 1)) {
-//              lastMood.rating = mood.rating;
-//              lastMood.datetime = mood.datetime;
-//          }
-
-          i--;
+          index++;
       }
+
+      let mIndex = 0;
+      for(let mood of moodGraph) {
+          if(mIndex <= count) {
+              yMoodData[mIndex] = mood.rating;
+          }
+          mIndex++;
+      }
+
 
       if (xlabel.length === 0) {
           let today = new Date();
@@ -191,7 +165,7 @@ export default class MyMood extends React.Component {
 
       let chartdata =  chartdata || {};
       let data = {
-            label: "Second Dataset",
+            label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
             pointColor: "rgba(151,187,205,1)",
@@ -201,15 +175,27 @@ export default class MyMood extends React.Component {
             data: ydata
           };
 
+      let mooddata = {
+            label: "Second Dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(200,127,105,1)",
+            pointColor: "rgba(200,127,105,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: yMoodData
+          };
+
       let datasets = [];
       datasets.push(data);
+      datasets.push(mooddata);
 
       chartdata.labels = xlabel;
       chartdata.datasets = datasets;
 
       let lastRated = '';
 
-      if(lastMood.rating) {
+      if(lastMood !== null) {
           lastRated = lastMood.rating;
       }
 
