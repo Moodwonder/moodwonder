@@ -2,6 +2,8 @@ import _ from 'underscore';
 
 let data = [];
 let period = 0;
+let results = [];
+
 
 const graphdata = {
 
@@ -37,6 +39,8 @@ const graphdata = {
         if(period > 0) {
             surveyresults = this.filterByDate(period, surveyresults);
         }
+
+        results = surveyresults;
 
         if (engagementmood === 'mw_index') {
 
@@ -75,7 +79,34 @@ const graphdata = {
         let ndatestring = nyear + '-' + nmonth + '-' + nday;
 
         return _.filter(rows, function(v) { return v.created.d >= ndatestring; });
+    },
+    
+    getEngagementStatitics: function (period, mood, results) {
+        
+        let statitics = statitics || {};
+        let resultrows = this.getEngagementGraphData(period, mood, results);
+        
+        let lowest = _.min(resultrows, function(o){return o.rating;});
+        statitics.lowest = lowest.rating;
+        
+        let highest = _.max(resultrows, function(o){return o.rating;});
+         statitics.highest = highest.rating;
+         
+        let current = _.sortBy(resultrows, function(o) { return o.created.d; }).reverse();
+        for (let eCurrent of current) {
+            statitics.current = eCurrent.rating;
+            break;
+        }
+        
+        let start = _.sortBy(resultrows, function(o) { return o.created.d; });
+        for (let eStart of start) {
+            statitics.start = eStart.rating;
+            break;
+        }
+        
+        return statitics;
     }
+    
 
 
 

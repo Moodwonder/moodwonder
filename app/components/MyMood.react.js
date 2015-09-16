@@ -134,9 +134,11 @@ export default class MyMood extends React.Component {
           return (<option value={data}>{data}</option>);
       });
 
-      let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
-
+      let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
+      let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
+      
+      
       let count = graphData.length - 1;
       let index = 0;
       for(let data of graphData) {
@@ -293,7 +295,7 @@ export default class MyMood extends React.Component {
                     <label> Moodwonder trend</label>
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <label>Show me</label>
-                    <select name="graphperiod" onChange={this.onChangeGraphPeriod}>
+                    <select name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
                         <option value="all_time">All time</option>
                         <option value="last_12_months">Last 12 months</option>
                         <option value="last_6_ months">Last 6 months</option>
@@ -302,10 +304,18 @@ export default class MyMood extends React.Component {
                     </select>
                     <span>&nbsp;&nbsp;</span>
                     <label>from</label>
-                    <select name="graphengagement" onChange={this.onChangeGraphEngagement}>
+                    <select name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
                         <option value="mw_index">MW-Index</option>
                         {moodoptions}
                     </select>
+                    <br/><br/>
+                    <span>At Start - {engagementStatitics.start}</span>
+                    <br/>
+                    <span>Highest - {engagementStatitics.highest}</span>
+                    <br/>
+                    <span>Lowest - {engagementStatitics.lowest}</span>
+                    <br/>
+                    <span>Current - {engagementStatitics.current}</span>
                     <br/><br/>
                     <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
                 </div>
