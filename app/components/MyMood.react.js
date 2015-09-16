@@ -137,8 +137,8 @@ export default class MyMood extends React.Component {
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
       let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
-      
-      
+
+
       let count = graphData.length - 1;
       let index = 0;
       for(let data of graphData) {
