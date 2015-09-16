@@ -89,6 +89,7 @@ export default class MyMood extends React.Component {
 
       SurveyActions.saveEngagementSurvey(surveyResult);
       this.setState({ popup : false });
+      SurveyActions.getEngagementResults();
   }
 
   onPopupClose = (e) => {
