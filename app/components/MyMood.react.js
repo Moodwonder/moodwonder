@@ -7,6 +7,7 @@ import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Graphdata from 'utils/Graphdata';
+import MoodRatings from 'utils/MoodRatings';
 
 
 let chartoptions = {
@@ -137,6 +138,44 @@ export default class MyMood extends React.Component {
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
       let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
+
+      let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
+      let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
+      let improvedAreas = MoodRatings.getMostImprovedAreas(surveyresults);
+      let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
+
+      let topthree = topThreeAreas.map((data, key) => {
+          return (<span>
+                    {data.mood} : <progress min="1" max="5" value={data.rating}></progress>
+                    <label>{data.rating}</label>
+                    <br/>
+                  </span>);
+      });
+
+      let worstthree = worstThreeAreas.map((data, key) => {
+          return (<span>
+                    {data.mood} : <progress min="1" max="5" value={data.rating}></progress>
+                    <label>{data.rating}</label>
+                    <br/>
+                  </span>);
+      });
+
+      let improvedareas = improvedAreas.map((data, key) => {
+          return (<span>
+                    {data.mood} : <progress min="1" max="5" value={data.difference}></progress>
+                    <label>{data.difference}</label>
+                    <br/>
+                  </span>);
+      });
+
+      let worstareas = worstAreas.map((data, key) => {
+          return (<span>
+                    {data.mood} : <progress min="1" max="5" value={data.difference}></progress>
+                    <label>{data.difference}</label>
+                    <br/>
+                  </span>);
+      });
+
 
       let count = graphData.length - 1;
       let index = 0;
@@ -279,6 +318,7 @@ export default class MyMood extends React.Component {
             <Submenu />
                <br/>
                {modal}
+               <h3>Engagement Graph</h3>
                 <form id="moodRating">
                   <div className="form-group">
                     <label>Rate your mood</label>
@@ -315,12 +355,38 @@ export default class MyMood extends React.Component {
                     <span>Lowest - {engagementStatitics.lowest}</span>
                     <br/>
                     <span>Current - {engagementStatitics.current}</span>
-                    <br/><br/>
+                    <br/>
                     <span>30 Days change : {engagementStatitics.thirtydayschange}</span>
-                    <br/><br/>
+                    <br/>
                     <span>Week change : {engagementStatitics.weekchange}</span>
                     <br/><br/>
                     <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
+                </div>
+                <br/><br/><br/>
+                <h3>Quick Statistics</h3>
+                <br/><br/><br/>
+                <h3>Mood Ratings</h3>
+                <div>
+                    <div>
+                        <br/>
+                        <h4>My Top 3 areas</h4>
+                        {topthree}
+                    </div>
+                    <div>
+                        <br/>
+                        <h4>My Worst 3 areas</h4>
+                        {worstthree}
+                    </div>
+                    <div>
+                        <br/>
+                        <h4>My Most Improved Areas (Last 1 Month)</h4>
+                        {improvedareas}
+                    </div>
+                    <div>
+                        <br/>
+                        <h4>My least improved areas (Last 1 Month)</h4>
+                        {worstareas}
+                    </div>
                 </div>
           </div>
     );

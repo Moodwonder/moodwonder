@@ -8,7 +8,7 @@ const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
 
-        //console.log(JSON.stringify(surveyresults));
+        console.log(JSON.stringify(surveyresults));
         switch (graphperiod) {
             case 'all_time' :
                 period = 0;
@@ -102,8 +102,6 @@ const graphdata = {
 
         let statitics = statitics || {};
         let resultrows = this.getEngagementGraphData(period, mood, results);
-
-        console.log(JSON.stringify(resultrows));
 
         let lowest = _.min(resultrows, function(o){return o.rating;});
         statitics.lowest = lowest.rating;
