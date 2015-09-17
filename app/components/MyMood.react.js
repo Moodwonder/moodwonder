@@ -138,7 +138,6 @@ export default class MyMood extends React.Component {
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
       let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
 
-
       let count = graphData.length - 1;
       let index = 0;
       for(let data of graphData) {
@@ -316,6 +315,10 @@ export default class MyMood extends React.Component {
                     <span>Lowest - {engagementStatitics.lowest}</span>
                     <br/>
                     <span>Current - {engagementStatitics.current}</span>
+                    <br/><br/>
+                    <span>30 Days change : {engagementStatitics.thirtydayschange}</span>
+                    <br/><br/>
+                    <span>Week change : {engagementStatitics.weekchange}</span>
                     <br/><br/>
                     <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
                 </div>

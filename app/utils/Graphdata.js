@@ -2,7 +2,7 @@ import _ from 'underscore';
 
 let data = [];
 let period = 0;
-
+let periodflag = 'month';
 
 const graphdata = {
 
@@ -12,31 +12,47 @@ const graphdata = {
         switch (graphperiod) {
             case 'all_time' :
                 period = 0;
+                periodflag = 'month';
                 break;
 
             case 'last_12_months' :
                 period = 12;
+                periodflag = 'month';
                 break;
 
             case 'last_6_ months' :
                 period = 6;
+                periodflag = 'month';
                 break;
 
             case 'last_3_months' :
                 period = 3;
+                periodflag = 'month';
                 break;
 
             case 'last_month' :
                 period = 1;
+                periodflag = 'month';
+                break;
+
+            case '30_days' :
+                period = 30;
+                periodflag = 'day';
+                break;
+
+            case 'week_change' :
+                period = 7;
+                periodflag = 'day';
                 break;
 
             default :
                 period = 0;
+                periodflag = 'month';
                 break;
         }
 
         if(period > 0) {
-            surveyresults = this.filterByDate(period, surveyresults);
+            surveyresults = this.filterByDate(period, surveyresults, periodflag);
         }
 
         if (engagementmood === 'mw_index') {
@@ -58,7 +74,7 @@ const graphdata = {
         return data;
     },
 
-    filterByDate: function (months, rows) {
+    filterByDate: function (months, rows, flag) {
 
         let today = new Date();
         let year = today.getFullYear();
@@ -67,7 +83,11 @@ const graphdata = {
         let datestring = year + '-' + month + '-' + day;
 
         let date = new Date(datestring);
-        date.setMonth(date.getMonth() - months); // Subtracted number of months here.
+        if (flag === 'month') {
+            date.setMonth(date.getMonth() - months); // Subtracted number of months here.
+        } else {
+            date.setDate(date.getDate() - months); // Subtracted number of days here.
+        }
         let ndate = new Date(date);
 
         let nyear = ndate.getFullYear();
@@ -82,6 +102,8 @@ const graphdata = {
 
         let statitics = statitics || {};
         let resultrows = this.getEngagementGraphData(period, mood, results);
+
+        console.log(JSON.stringify(resultrows));
 
         let lowest = _.min(resultrows, function(o){return o.rating;});
         statitics.lowest = lowest.rating;
@@ -101,9 +123,35 @@ const graphdata = {
             break;
         }
 
-        return statitics;
-    }
+        statitics.thirtydayschange = this.getDaysChange('30_days', mood, results);
 
+        statitics.weekchange = this.getDaysChange('week_change', mood, results);
+
+
+        return statitics;
+    },
+
+    getDaysChange: function (period, mood, results) {
+
+        let statitics = statitics || {};
+        let resultrows = this.getEngagementGraphData(period, mood, results);
+        let rows = _.sortBy(resultrows, function(o) { return o.created.d; });
+
+        let length = rows.length - 1;
+        let i = 0;
+        for (let row of rows) {
+            if(i === 0) {
+                statitics.rate1 = row.rating;
+            }
+            if(i === length) {
+                statitics.rate2 = row.rating;
+            }
+            i++;
+        }
+
+        return (statitics.rate2 - statitics.rate1).toFixed(1);
+
+    }
 
 
 
