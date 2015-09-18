@@ -37,6 +37,40 @@ class EmployeeOfTheMonthActions {
       this.dispatch(response);
   }
 
+  chooseEOTM(data) {
+      this.dispatch();
+      CommonWebAPIUtils.chooseEOTM(data)
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.setemployeeofthemonth(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  setemployeeofthemonth(data)
+  {
+      this.dispatch(data);
+  }
+
+  getempmonthreview(data) {
+      this.dispatch();
+      CommonWebAPIUtils.getEmpMonthView(data)
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.getempview(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  getempview(data)
+  {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(EmployeeOfTheMonthActions);

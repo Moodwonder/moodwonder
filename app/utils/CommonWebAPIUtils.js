@@ -76,6 +76,24 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  getEmpMonthView: (data) => {
+      return $.ajax({
+      url: '/getempmonthview',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
+  chooseEOTM: (data) => {
+      return $.ajax({
+      url: '/chooseemployeeofthemonth',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
 
 };

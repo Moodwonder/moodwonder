@@ -28,6 +28,7 @@ import Dashboard from 'components/dashboard/dashboard.react';
 import MyMood from 'components/MyMood.react';
 import Test1 from 'components/test1';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
+import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 
@@ -112,6 +113,9 @@ const routes = (
     </Route>
     <Route name="employeeofthemonth" path="/employeeofthemonth" handler={Appuser} >
       <Route name="" handler={EmployeeOfTheMonth} />
+    </Route>
+    <Route name="allemployees" path="/allemployees" handler={Appuser} >
+      <Route name="" handler={Employees} />
     </Route>
     <Route name="app" path="/" handler={App} >
       <Route name="login" handler={Login} />
