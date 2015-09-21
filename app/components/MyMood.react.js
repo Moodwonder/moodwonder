@@ -233,7 +233,7 @@ export default class MyMood extends React.Component {
       let worstthreevscompany;
       if(worstThreeVsCompany.length > 0) {
           worstthreevscompany = worstThreeVsCompany.map((data, key) => {
-          return (<span className="styled">
+              return (<span className="styled">
                     {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                     <label>{data.avg}</label>
                     <br/>
@@ -246,7 +246,7 @@ export default class MyMood extends React.Component {
       let topthreevscompany;
       if(topThreeVsCompany.length > 0) {
           topthreevscompany = topThreeVsCompany.map((data, key) => {
-          return (<span className="styled">
+              return (<span className="styled">
                       {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                       <label>{data.avg}</label>
                       <br/>
