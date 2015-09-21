@@ -86,6 +86,9 @@ module.exports = function (app, passport) {
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
+    app.post('/getempmonthview', users.checkLogin, voting.getEmpMonthView);
+    // app.post('/chooseemployeeofthemonth', users.checkLogin, users.isAdmin, voting.chooseEmployeeOfTheMonth);
+    app.post('/chooseemployeeofthemonth', users.checkLogin, voting.chooseEmployeeOfTheMonth);
     
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);

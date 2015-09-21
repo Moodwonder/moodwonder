@@ -6,8 +6,12 @@ class EmployeeOfTheMonthStore {
 
   constructor () {
 
+      // All employees
       this.employees = {};
       this.hasEmployees = false;
+      // record of a single employee
+      this.employee = {};
+      this.hasEmployee = false;
       this.hasError = false;
       this.modal = false;
       this.emp_id = 0;
@@ -17,6 +21,8 @@ class EmployeeOfTheMonthStore {
 
       this.bindListeners({
       handleGetEmployees: EmployeeOfTheMonthActions.GETEMPLOYEES,
+      handleSetEOTM: EmployeeOfTheMonthActions.SETEMPLOYEEOFTHEMONTH,
+      handleGetEMPView: EmployeeOfTheMonthActions.GETEMPVIEW,
       handleSaveVote: EmployeeOfTheMonthActions.SAVEVOTESUCCESS
     });
   }
@@ -28,9 +34,11 @@ class EmployeeOfTheMonthStore {
   }
 
   handleSaveVote (response) {
+      console.log('handleSaveVote..');
       this.message = response.message;
       this.hasError = !response.status;
       this.modal = false;
+      this.modalBox = false;
       this.voteStatus = true;
 
       CommonWebAPIUtils.getAllEmployees()
@@ -42,6 +50,20 @@ class EmployeeOfTheMonthStore {
             }
         }, () => {
         });
+  }
+
+  handleSetEOTM (data) {
+      this.message = data.message;
+      this.hasEmployees = true;
+      this.modalBox = false;
+      this.emitChange();
+  }
+
+  handleGetEMPView (data) {
+      this.employee = data;
+      this.modalBox = true;
+      this.hasEmployee = true;
+      this.emitChange();
   }
 
 }

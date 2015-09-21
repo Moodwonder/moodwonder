@@ -4,6 +4,7 @@ var User = require('../models/user');
 var Invite = require('../models/invite');
 var Team = require('../models/team');
 var Vote = require('../models/vote');
+var EOTM = require('../models/employeeOfTheMonth');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
@@ -15,6 +16,10 @@ var emailTemplate = require('../email/emailtemplates');
 var LocalStrategy = require('passport-local').Strategy;
 var fs = require('fs');
 var path = require('path');
+
+
+PRO_PIC_PATH = '/images/profilepics/';
+
 
 /**
  *  JSON response format
@@ -162,7 +167,7 @@ exports.getUserInfo = function (req, res) {
                     lists.mymanager[0] = {'email': ''};
                 }
                 
-                var profileimage = (lists.profile_image !== '') ? '/images/profilepics/'+lists.profile_image : '';
+                var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
                 response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage};
             }
             res.json(response);
@@ -544,7 +549,7 @@ exports.UpdateUserPhoto = function (req, res) {
                     if (!err) {
                         response.status  = true;
                         response.message = 'Profile picture updated.';
-                        response.image   = '/images/profilepics/' + imagename;
+                        response.image   = PRO_PIC_PATH + imagename;
                     } else {
                         response.status  = false;
                         response.message = 'Something went wrong..';
@@ -892,33 +897,44 @@ exports.getAllEmployees = function (req, res) {
                             emp_meta[data._id] = data;
                         });
                     }
-                    
-                var employees = [];
-                var mytotalvotes = 0;
-                lists.map(function (data, key) {
 
-                    var votes = 0;
-                    var myvote = false;
-                    if(emp_meta[data._id] !== undefined){
-                        var cemp = emp_meta[data._id];
-                        var userids = emp_meta[data._id].user_ids;
-                        var user_ids = [];
-                        userids.map(function (id, key) { user_ids[key] = id.toString(); });
-                        votes = cemp.total;
-                        if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
-                            myvote = true;
-                            mytotalvotes++;
-                        }
-                    }
-                    employees[key] = { _id: data._id, photo: data.profile_image, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote };
-                });
-                response.status = true;
-                response.message = 'success';
-                response.data = {};
-                response.data.employees = employees;
-                response.data.mytotalvotes = mytotalvotes;
-                res.send(response);
-                
+					EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+
+						var employees = [];
+						var mytotalvotes = 0;
+						lists.map(function (data, key) {
+
+							var votes         =   0;
+							var myvote        =   false;
+							var empofthemonth =   false;
+							if(emp_meta[data._id] !== undefined){
+								var cemp      =   emp_meta[data._id];
+								var userids   =   emp_meta[data._id].user_ids;
+								var user_ids  =   [];
+
+								// set employee of the month status
+								try {
+									if(emp.emp_id === data._id){
+										empofthemonth =   true;
+									}
+								} catch (ex) {}
+								userids.map(function (id, key) { user_ids[key] = id.toString(); });
+								votes         =  cemp.total;
+								if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
+									myvote    =  true;
+									mytotalvotes++;
+								}
+							}
+							var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+							employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
+						});
+						response.status = true;
+						response.message = 'success';
+						response.data = {};
+						response.data.employees = employees;
+						response.data.mytotalvotes = mytotalvotes;
+						res.send(response);
+					});
                 }
             );
 
@@ -934,5 +950,20 @@ exports.getAllEmployees = function (req, res) {
         response.message = 'Please select your company first.';
         res.send(response);
     }
+};
+
+/**
+ * Get get all employees by company name
+ */
+exports.isAdmin = function (req, res, next) {
+	if(req.user.usertype === 'admin'){
+		// redirect to next route
+		next();
+	}else{
+        response.status = false;
+        response.message = "You need administrator permission to perform this action.";
+        res.send(response);
+	}
+
 };
 

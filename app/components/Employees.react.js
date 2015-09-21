@@ -11,6 +11,7 @@ export default class EmployeeOfTheMonth extends React.Component {
       this.filtered = [];
       this.mytotalvotes = 0;
       this.hasData = false;
+      this.Data = {};
   }
 
   componentDidMount() {
@@ -29,16 +30,18 @@ export default class EmployeeOfTheMonth extends React.Component {
       this.hasData = this.state.hasEmployees;
   }
 
-      _onPopClick = (emp_id) => {
+      _onPopClick = (data) => {
+          console.log('_onPopClick..');
           this.setState({
-             modal:true,
-             emp_id:emp_id
+             modalBox:true
           });
+          this.Data = data;
       }
 
     _onPopClose = (emp_id) => {
+        console.log('_onPopClose..');
         this.setState({
-           modal:false
+           modalBox:false
         });
     }
 
@@ -71,10 +74,10 @@ export default class EmployeeOfTheMonth extends React.Component {
       }
   }
 
-  _onVoteSubmit = (e) => {
-      if(parseInt(this.mytotalvotes) < 5){
-          let comment = React.findDOMNode(this.refs.comment).value.trim();
-          EOTMActions.saveVote({ emp_id: this.state.emp_id, comment: comment });
+  _onChooseSubmit = (e) => {
+      if(this.Data._id !== undefined && this.Data._id !== ""){
+          console.log(this.Data);
+          EOTMActions.chooseEOTM({ emp_id: this.Data._id });
       }
   }
 
@@ -97,23 +100,22 @@ export default class EmployeeOfTheMonth extends React.Component {
       }
 
       let modal;
-      if(this.state.modal){
+      if(this.state.modalBox){
           modal = (
                 <div className="modal fade in cmodal-show" id="myModal" role="dialog">
                 <div className="modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
                       <button type="button" onClick={this._onPopClose} className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Vote</h4>
+                      <h4 className="modal-title">Award employee of the month</h4>
                     </div>
                     <div className="modal-body">
                         <form role="form">
                           <div className="form-group">
-                            <label>Comment</label>
-                            <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                            <EmployeeMonthlyStats data={this.Data}/>
                           </div>
-                        <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}  className="btn btn-default" >Vote</button>
-                        <button type="button" onClick={this._onPopClose} className="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" onClick={this._onChooseSubmit}  className="btn btn-default" >Yes, Proceed </button>
+                        <button type="button" onClick={this._onPopClose} className="btn btn-default" data-dismiss="modal">Cancel</button>
                         </form>
                     </div>
                     <div className="modal-footer">
@@ -146,26 +148,77 @@ class VoteWidget extends React.Component {
   }
 
   _onModalClick = (state) => {
-      if(this.props.votes !== undefined){
-          this.props.click(this.props._id);
-      }
+      this.props.click(this.props);
   }
 
   render() {
 
       let classname = "btn btn-info";
-      if(this.props.active){
-          classname = "btn btn-success";
-      }
 
       return (
        <div className="col-sm-4 userprofilebox">
         <img src={this.props.photo} alt="Profile Photo"/>
         <div>{this.props.name}</div>
         <div>{this.props.votes} votes</div>
-        <button type="button" onClick={this._onModalClick} className={classname} >vote</button>
+        <button type="button" onClick={this._onModalClick} className={classname} >View details</button>
        </div>
       );
   }
 
+}
+
+
+class EmployeeMonthlyStats extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state = EOTMStore.getState();
+      //console.log(EOTMStore.getState());
+  }
+
+  componentDidMount() {
+      if(this.props.data._id !== undefined){
+          EOTMActions.getempmonthreview({ emp_id: this.props.data._id });
+      }
+      EOTMStore.listen(this._onChange);
+
+  }
+
+  _onChange = (state) => {
+      this.setState(state);
+  }
+
+  render() {
+
+      let data = [<div className="ui loader">Loading comments....</div>];
+      let employee = this.state.employee;
+      let comments = '';
+      if(this.state.hasEmployee){
+          comments = employee.data.comments.map((data, key) => {
+              return (
+              <div>
+                  <span>{data.name} : </span>
+                  <span> {data.comment}</span>
+              </div>
+              );
+          });
+      }
+
+      if(this.state.hasEmployee){
+          data = (
+              <div>
+               {comments}
+              </div>
+          );
+      }
+      return (
+       <div className="col-sm-4 userprofilebox">
+            <img src={this.props.data.photo} alt="Profile Photo"/>
+            <div>{this.props.data.name}</div>
+            <div>{this.props.data.votes} votes</div>
+            <div>Comments</div>
+         {data}
+       </div>
+      );
+  }
 }
