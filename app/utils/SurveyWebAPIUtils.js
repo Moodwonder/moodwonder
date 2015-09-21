@@ -33,6 +33,14 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getResultsByCompany: () => {
+      return $.ajax({
+      url: '/getresultsbycompany',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

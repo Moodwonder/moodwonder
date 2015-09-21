@@ -14,13 +14,16 @@ class SurveyStore {
       this.lastsurvey = [];
       this.surveyresults = [];
       this.lastmood = [];
+      this.companysurvey = [];
+      this.currentuserid = '';
 
 
       this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS,
       handleSaveSurveys: SurveyActions.SAVESURVEYSUCCESS,
       handleLastSurvey: SurveyActions.LASTSURVEYSUCCESS,
-      handleEngagementResults: SurveyActions.ENGAGEMENTRESULTSSUCCESS
+      handleEngagementResults: SurveyActions.ENGAGEMENTRESULTSSUCCESS,
+      handleResultsByCompany: SurveyActions.RESULTSBYCOMPANY
     });
   }
 
@@ -62,6 +65,13 @@ class SurveyStore {
       this.surveyresults = response.data;
       this.lastmood = [];
       this.lastmood = response.lastmood;
+      this.emitChange();
+  }
+
+  handleResultsByCompany (response) {
+      this.companysurvey = [];
+      this.companysurvey = response.data;
+      this.currentuserid = response.currentuser;
       this.emitChange();
   }
 

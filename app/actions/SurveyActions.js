@@ -71,6 +71,23 @@ class SurveyActions {
       this.dispatch(data);
   }
 
+  getResultsByCompany() {
+      this.dispatch();
+      SurveyWebAPIUtils.getResultsByCompany()
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.resultsbycompany(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  resultsbycompany(data)
+  {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);
