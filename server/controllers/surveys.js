@@ -173,7 +173,7 @@ exports.getSurveyResults = function (req, res) {
         
         
         
-function getUsersByComapany(company, callback) {
+function getUsersByCompany(company, callback) {
     
     User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {
         if (docs != 'undefined') {
@@ -196,22 +196,22 @@ function getResultsByUserId(uid, callback) {
 
 
 exports.getResultsByComapny = function (req, res) {
-    console.log('req.user');
-    console.log(req.user);
+    //console.log('req.user');
+    //console.log(req.user);
     var currentUser = req.user;
     var company = currentUser.company_info[0].companyname;
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var condition = {user_id: user_id};
     var orderby = {_id: 1}; // -1: DESC; 1: ASC
 
-    getUsersByComapany(company, function (docs) {
+    getUsersByCompany(company, function (docs) {
 
         var ids = _(docs).map(function (g, key) {
             return g._id;
         });
         
-        console.log('ids');
-        console.log(ids);
+        //console.log('ids');
+        //console.log(ids);
         var result = result || {};
         result.currentuser = req.user._id;
         EngagementResults.find({user_id: { $in: ids }}).sort(orderby).lean().exec(function (err, rows) {
@@ -225,6 +225,115 @@ exports.getResultsByComapny = function (req, res) {
                 response.data = [];
                 response.currentuser = req.user._id;
                 console.log('Error in getResultsByComapny');
+            }
+            res.send(response);
+            res.end();
+        });
+    
+    
+    });
+
+};
+
+
+
+function getUsersByIndustry(industry, company, callback) {
+    var condition = {company_info: {$elemMatch: {companyname: company, industry: industry}}};
+    
+    User.find(condition).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+
+exports.getResultsByIndustry = function (req, res) {
+    //console.log('req.user');
+    //console.log(req.user);
+    var currentUser = req.user;
+    var company = currentUser.company_info[0].companyname;
+    var industry = currentUser.company_info[0].industry;
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    var orderby = {_id: 1}; // -1: DESC; 1: ASC
+
+    getUsersByIndustry(industry, company, function (docs) {
+
+        var ids = _(docs).map(function (g, key) {
+            return g._id;
+        });
+        
+        //console.log('ids');
+        //console.log(ids);
+        var result = result || {};
+        result.currentuser = req.user._id;
+        EngagementResults.find({user_id: { $in: ids }}).sort(orderby).lean().exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.currentuser = req.user._id;
+                response.data = rows;
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.currentuser = req.user._id;
+                console.log('Error in getResultsByIndustry');
+            }
+            res.send(response);
+            res.end();
+        });
+    
+    
+    });
+
+};
+
+
+function getUsersByCountry(country, company, callback) {
+    var condition = {company_info: {$elemMatch: {companyname: company, country: country}}};
+    
+    User.find(condition).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+
+exports.getResultsByCountry = function (req, res) {
+    //console.log('req.user');
+    //console.log(req.user);
+    var currentUser = req.user;
+    var company = currentUser.company_info[0].companyname;
+    var country = currentUser.company_info[0].country;
+    //console.log('country');
+    //console.log(country);
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    var orderby = {_id: 1}; // -1: DESC; 1: ASC
+
+    getUsersByCountry(country, company, function (docs) {
+
+        var ids = _(docs).map(function (g, key) {
+            return g._id;
+        });
+        
+        //console.log('ids');
+        //console.log(ids);
+        var result = result || {};
+        result.currentuser = req.user._id;
+        EngagementResults.find({user_id: { $in: ids }}).sort(orderby).lean().exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.currentuser = req.user._id;
+                response.data = rows;
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.currentuser = req.user._id;
+                console.log('Error in getResultsByCountry');
             }
             res.send(response);
             res.end();

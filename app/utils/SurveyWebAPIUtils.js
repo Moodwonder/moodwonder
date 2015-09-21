@@ -41,6 +41,22 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getResultsByIndustry: () => {
+      return $.ajax({
+      url: '/getresultsbyindustry',
+      type: 'GET',
+      contentType: 'application/json'
+    });
+  },
+
+  getResultsByCountry: () => {
+      return $.ajax({
+      url: '/getresultsbycountry',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

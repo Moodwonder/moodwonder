@@ -49,6 +49,8 @@ export default class MyMood extends React.Component {
           quickstatisticstab: false,
           moodratingstab: false,
           companysurvey: [],
+          industrysurvey: [],
+          countrysurvey: [],
           currentuserid: ''
       };
       this.engagementmoods = [];
@@ -58,6 +60,8 @@ export default class MyMood extends React.Component {
       SurveyActions.getEngagementSurvey();
       SurveyActions.getEngagementResults();
       SurveyActions.getResultsByCompany();
+      SurveyActions.getResultsByIndustry();
+      SurveyActions.getResultsByCountry();
       SurveyStore.listen(this._onMoodChange);
   }
 
@@ -70,6 +74,8 @@ export default class MyMood extends React.Component {
          questions : SurveyStore.getState().questions,
          surveyresults: SurveyStore.getState().surveyresults,
          companysurvey: SurveyStore.getState().companysurvey,
+         industrysurvey: SurveyStore.getState().industrysurvey,
+         countrysurvey: SurveyStore.getState().countrysurvey,
          currentuserid: SurveyStore.getState().currentuserid,
          lastmood: SurveyStore.getState().lastmood
       });
@@ -166,11 +172,13 @@ export default class MyMood extends React.Component {
       let quickstatisticstab = this.state.quickstatisticstab;
       let moodratingstab = this.state.moodratingstab;
       let companysurvey = this.state.companysurvey;
+      let industrysurvey = this.state.industrysurvey;
+      let countrysurvey = this.state.countrysurvey;
       let currentuserid = this.state.currentuserid;
 
-      console.log('currentuserid');
-      console.log(currentuserid);
-      //console.log('companysurvey');
+      //console.log('currentuserid');
+      //console.log(currentuserid);
+      console.log('companysurvey');
       //console.log(JSON.stringify(companysurvey));
 
       let xlabel = [];
@@ -197,6 +205,8 @@ export default class MyMood extends React.Component {
       let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
       let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
       let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
+      let meVsIndustry = MoodRatings.getMeVsIndustry(industrysurvey, currentuserid);
+      let meVsCountry = MoodRatings.getMeVsCountry(countrysurvey, currentuserid);
 
       let topthree = topThreeAreas.map((data, key) => {
           return (<span className="styled">
@@ -255,10 +265,42 @@ export default class MyMood extends React.Component {
       } else {
           topthreevscompany = 'You don\'t have any higher areas.';
       }
+
+      let mevsindustry;
+      if (meVsIndustry.length > 0) {
+          mevsindustry = meVsIndustry.map((data, key) => {
+              return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+                    <label>{data.diff}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          mevsindustry = 'No data available.';
+      }
+
+      let mevscountry;
+      if (meVsCountry.length > 0) {
+          mevscountry  = meVsCountry.map((data, key) => {
+              return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+                    <label>{data.diff}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          mevscountry = 'No data available. Please add team members in your company';
+      }
       // End : MoodRatings
 
       // Start : Quick Statistics
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+      let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
+      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
+      let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+
+
       let bCount = lastRatings.length - 1;
       let bIndex = 0;
       let bXLabel = [];
@@ -491,26 +533,42 @@ export default class MyMood extends React.Component {
                             <h4>My Top 3 areas</h4>
                             {topthree}
                         </div>
+                        <br/>
                         <div>
                             <h4>My Worst 3 areas</h4>
                             {worstthree}
                         </div>
+                        <br/>
                         <div>
                             <h4>My Most Improved Areas (Last 1 Month)</h4>
                             {improvedareas}
                         </div>
+                        <br/>
                         <div>
                             <h4>My least improved areas (Last 1 Month)</h4>
                             {worstareas}
                         </div>
+                        <br/>
                         <div>
                             <h4>Top 3 areas higher than company average</h4>
                             {topthreevscompany}
                         </div>
+                        <br/>
                         <div>
                             <h4>Worst 3 areas lower than company average</h4>
                             {worstthreevscompany}
                         </div>
+                        <br/>
+                        <div>
+                            <h4>Me Vs Companies (Industry)</h4>
+                            {mevsindustry}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>Me Vs Companies (Country)</h4>
+                            {mevscountry}
+                        </div>
+                        <br/>
                     </div>
                </div>
           );
@@ -521,9 +579,36 @@ export default class MyMood extends React.Component {
           quickStatisticsTabContent = (
               <div>
                   <h3>Quick Statistics</h3>
-                  <label>Comparison of my responses</label>
+                  <div>
+                    <label>Number of employees</label>
+                    <br/>
+                    {totalEmployees + ' Employees'}
+                  </div>
                   <br/>
-                  <BarChart data={barchartdata} options={barChartOptions} width="600" height="300" redraw/>
+                  <div>
+                    <label>Number of responses (last 1 month)</label>
+                    <br/>
+                    {lastMonthResponses + ' Response(s) submitted'}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>My employee engagement</label>
+                    <br/>
+                    {myEmployeeEngagement}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Employees at risk of leaving</label>
+                    <br/>
+                    {employeeAtRisk + ' out of ' + totalEmployees}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Comparison of my responses</label>
+                    <br/>
+                    <BarChart data={barchartdata} options={barChartOptions} width="600" height="300" redraw/>
+                  </div>
+                  <br/>
               </div>
           );
       }
