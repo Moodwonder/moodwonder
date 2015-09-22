@@ -67,6 +67,54 @@ const quickstatistics = {
         }
 
         return employee;
+    },
+
+    getTimeSinceLastPosted: function (companysurvey) {
+
+        let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
+        let postid = _(lastPost).map(function(g, key) {
+            return g._id;
+        });
+
+        let montharray = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+
+        function countup(yr, m, d, h, min, sec) {
+
+            let today = new Date();
+            let todayy = today.getYear();
+            if (todayy < 1000) {
+                todayy += 1900;
+            }
+            let todaym = today.getMonth();
+            let todayd = today.getDate();
+            let todayh = today.getHours();
+            let todaymin = today.getMinutes();
+            let todaysec = today.getSeconds();
+            let todaystring = montharray[todaym] + " " + todayd + ", " + todayy + " " + todayh + ":" + todaymin + ":" + todaysec;
+            let futurestring = montharray[m] + " " + d + ", " + yr + " " + h + ":" + min + ":" + sec;
+            //let dd = Date.parse(futurestring) - Date.parse(todaystring);
+            let dd = Date.parse(todaystring) - Date.parse(futurestring);
+            let dday = Math.floor(dd / (60 * 60 * 1000 * 24) * 1);
+            let dhour = Math.floor((dd % (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1);
+            let dmin = Math.floor(((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1);
+            // let dsec = Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
+
+            return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
+        }
+
+        let timestamp = postid.toString().substring(0,8);
+        let pDate = new Date( parseInt( timestamp, 16 ) * 1000 );
+        let pYear = pDate.getYear();
+        if (pYear < 1000) {
+            pYear += 1900;
+        }
+        let pMonth = pDate.getMonth();
+        let pDay = pDate.getDate();
+        let pHour = pDate.getHours();
+        let pMin = pDate.getMinutes();
+        let pSec = pDate.getSeconds();
+
+        return countup(pYear, pMonth, pDay, pHour, pMin, pSec);
     }
 
 };

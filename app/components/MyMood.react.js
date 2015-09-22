@@ -299,6 +299,7 @@ export default class MyMood extends React.Component {
       let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
       let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
 
 
       let bCount = lastRatings.length - 1;
@@ -586,21 +587,27 @@ export default class MyMood extends React.Component {
                   </div>
                   <br/>
                   <div>
+                    <label>Employees at risk of leaving</label>
+                    <br/>
+                    {employeeAtRisk + ' out of ' + totalEmployees}
+                  </div>
+                  <br/>
+                  <div>
                     <label>Number of responses (last 1 month)</label>
                     <br/>
                     {lastMonthResponses + ' Response(s) submitted'}
                   </div>
                   <br/>
                   <div>
-                    <label>My employee engagement</label>
+                    <label>Time since last response</label>
                     <br/>
-                    {myEmployeeEngagement}
+                    {timeSinceLastPost}
                   </div>
                   <br/>
                   <div>
-                    <label>Employees at risk of leaving</label>
+                    <label>My employee engagement</label>
                     <br/>
-                    {employeeAtRisk + ' out of ' + totalEmployees}
+                    {myEmployeeEngagement}
                   </div>
                   <br/>
                   <div>
