@@ -763,7 +763,7 @@ exports.updateUser = function (req, res) {
 
     if (req.user && req.body.update) {
 
-        var conditions = {'_id': req.user._id}
+        var conditions = { '_id': new ObjectId(req.user._id) }
         , update = req.body.update
                 , options = {multi: false};
 
