@@ -22,7 +22,7 @@ export default class Logout extends React.Component {
           window.location.assign('/');
       }
   }
-  
+
   render() {
       return (
       <div className="container">
