@@ -8,7 +8,7 @@ const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
 
-        console.log(JSON.stringify(surveyresults));
+        //console.log(JSON.stringify(surveyresults));
         switch (graphperiod) {
             case 'all_time' :
                 period = 0;

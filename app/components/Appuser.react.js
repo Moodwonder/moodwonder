@@ -66,11 +66,13 @@ export default class App extends React.Component {
         <div>
           <Navigation />
           <div className="wrapper">
-            {leftnav}
-            <div className="middleContainer">
-              {handler}
+            <div className="pusher">
+                {leftnav}
+                <div className="middleContainer">
+                    {handler}
+                    {rightnav}
+                </div>
             </div>
-            {rightnav}
           </div>
         </div>
       );

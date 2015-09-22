@@ -83,6 +83,144 @@ const moodratings = {
         let improvedareas = _.first(_.uniq(finalArray, function(row) { return row.difference; }),3);
         return improvedareas;
 
+    },
+
+    getAreasVsCompany: function (companysurvey, uid, mode) {
+
+        //Start: Find User Avg
+        let userresults = _(companysurvey).where({user_id: uid});
+        let uCount = _.countBy(userresults,'mood').Mood;
+        let uGroupResults = _(userresults).groupBy(function(result) {
+                return result.mood;
+            });
+        let uData = _(uGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/uCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1)
+                       };
+            });
+        //End: Find User Avg
+
+        //Start: Find Company Avg
+
+        //let companyresults = _.filter(companysurvey, function(row){
+        //        return row.user_id != uid;
+        //    });
+        let cCount = _.countBy(companysurvey,'mood').Mood;
+        let cGroupResults = _(companysurvey).groupBy(function(result) {
+                return result.mood;
+            });
+        let cData = _(cGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/cCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1)
+                       };
+            });
+        //End: Find Company Avg
+
+        let _topThree = [];
+        let _worstThree = [];
+
+        for (let u of uData) {
+            for (let c of cData) {
+                if(u.mood === c.mood) {
+                    if(u.avg > c.avg) {
+                        _topThree.push(u);
+                    } else if (u.avg < c.avg) {
+                        _worstThree.push(u);
+                    }
+                }
+            }
+        }
+
+        if (mode === "_TOP") {
+            return _.first(_.sortBy(_topThree, function(o) { return o.avg; }).reverse(), 3);
+        } else if (mode === "_WORST") {
+            return _.first(_.sortBy(_worstThree, function(o) { return o.avg; }), 3);
+        }
+
+    },
+
+    getMeVsIndustry: function (industrysurvey, uid) {
+
+        let userresults = _(industrysurvey).where({user_id: uid});
+        let uCount = _.countBy(userresults,'mood').Mood;
+        let uGroupResults = _(userresults).groupBy(function(result) {
+                return result.mood;
+            });
+        let uData = _(uGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/uCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1) };
+            });
+
+        //let companyresults = _.filter(industrysurvey, function(row){
+        //        return row.user_id != uid;
+        //    });
+        let cCount = _.countBy(industrysurvey,'mood').Mood;
+        let cGroupResults = _(industrysurvey).groupBy(function(result) {
+                return result.mood;
+            });
+        let cData = _(cGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/cCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1) };
+            });
+
+        let _INUSTRYDIFF = [];
+
+        for (let u of uData) {
+            for (let c of cData) {
+                if(u.mood === c.mood) {
+                    u.diff = (u.avg - c.avg).toFixed(1);
+                    _INUSTRYDIFF.push(u);
+                }
+            }
+        }
+
+        return _.sortBy(_INUSTRYDIFF, function(o) { return o.diff; }).reverse();
+
+    },
+
+    getMeVsCountry: function (countrysurvey, uid) {
+
+        let userresults = _(countrysurvey).where({user_id: uid});
+        let uCount = _.countBy(userresults,'mood').Mood;
+        let uGroupResults = _(userresults).groupBy(function(result) {
+                return result.mood;
+            });
+        let uData = _(uGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/uCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1) };
+            });
+
+        //let companyresults = _.filter(countrysurvey, function(row){
+        //        return row.user_id != uid;
+        //    });
+        let cCount = _.countBy(countrysurvey,'mood').Mood;
+        let cGroupResults = _(countrysurvey).groupBy(function(result) {
+                return result.mood;
+            });
+        let cData = _(cGroupResults).map(function(g, key) {
+                return {    mood : key,
+                            avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/cCount).toFixed(1),
+                            sum: (_(g).reduce(function(m,x) { return m + x.rating; }, 0)).toFixed(1) };
+            });
+
+        let countryDiff = [];
+
+        for (let u of uData) {
+            for (let c of cData) {
+                if(u.mood === c.mood) {
+                    u.diff = (u.avg - c.avg).toFixed(1);
+                    countryDiff.push(u);
+                }
+            }
+        }
+
+        return _.sortBy(countryDiff, function(o) { return o.diff; }).reverse();
+
     }
 
 };

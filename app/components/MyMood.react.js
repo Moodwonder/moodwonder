@@ -3,11 +3,13 @@ import React from 'react';
 import getFormData from 'get-form-data';
 import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
+let BarChart = require("react-chartjs").Bar;
 import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Graphdata from 'utils/Graphdata';
 import MoodRatings from 'utils/MoodRatings';
+import QuickStatistics from 'utils/QuickStatistics';
 
 
 let chartoptions = {
@@ -20,6 +22,7 @@ let chartoptions = {
     scaleGridLineWidth : 1,
     scaleSteps: 6,
     scaleStepWidth: 1,
+    responsive: false,
     scaleStartValue: 0,
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"
@@ -41,7 +44,14 @@ export default class MyMood extends React.Component {
           lastsurvey: [],
           lastmood: [],
           graphperiod: 'all_time',
-          graphengagement: 'mw_index'
+          graphengagement: 'mw_index',
+          engagementgraphtab: true,
+          quickstatisticstab: false,
+          moodratingstab: false,
+          companysurvey: [],
+          industrysurvey: [],
+          countrysurvey: [],
+          currentuserid: ''
       };
       this.engagementmoods = [];
   }
@@ -49,6 +59,9 @@ export default class MyMood extends React.Component {
   componentDidMount() {
       SurveyActions.getEngagementSurvey();
       SurveyActions.getEngagementResults();
+      SurveyActions.getResultsByCompany();
+      SurveyActions.getResultsByIndustry();
+      SurveyActions.getResultsByCountry();
       SurveyStore.listen(this._onMoodChange);
   }
 
@@ -60,6 +73,10 @@ export default class MyMood extends React.Component {
       this.setState({
          questions : SurveyStore.getState().questions,
          surveyresults: SurveyStore.getState().surveyresults,
+         companysurvey: SurveyStore.getState().companysurvey,
+         industrysurvey: SurveyStore.getState().industrysurvey,
+         countrysurvey: SurveyStore.getState().countrysurvey,
+         currentuserid: SurveyStore.getState().currentuserid,
          lastmood: SurveyStore.getState().lastmood
       });
 
@@ -115,6 +132,33 @@ export default class MyMood extends React.Component {
       this.setState({ graphengagement : graphengagement });
   }
 
+  engagementGraphClick = (e) => {
+      e.preventDefault();
+      this.setState({
+          engagementgraphtab: true,
+          quickstatisticstab : false,
+          moodratingstab : false
+      });
+  }
+
+  quickStatisticsClick = (e) => {
+      e.preventDefault();
+      this.setState({
+          engagementgraphtab: false,
+          quickstatisticstab : true,
+          moodratingstab : false
+      });
+  }
+
+  moodRatingsClick = (e) => {
+      e.preventDefault();
+      this.setState({
+          engagementgraphtab: false,
+          quickstatisticstab : false,
+          moodratingstab : true
+      });
+  }
+
 
 
   render() {
@@ -124,59 +168,185 @@ export default class MyMood extends React.Component {
       let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       let graphperiod = this.state.graphperiod;
       let graphengagement = this.state.graphengagement;
+      let engagementgraphtab = this.state.engagementgraphtab;
+      let quickstatisticstab = this.state.quickstatisticstab;
+      let moodratingstab = this.state.moodratingstab;
+      let companysurvey = this.state.companysurvey;
+      let industrysurvey = this.state.industrysurvey;
+      let countrysurvey = this.state.countrysurvey;
+      let currentuserid = this.state.currentuserid;
+
+      //console.log('currentuserid');
+      //console.log(currentuserid);
+      console.log('companysurvey');
+      //console.log(JSON.stringify(companysurvey));
+
       let xlabel = [];
       let ydata = [];
       let yMoodData = [];
+
+      // Start : Rate your mood
       let engagementmoods = this.engagementmoods;
       let moodoptions = '';
-
-
       moodoptions = engagementmoods.map((data, key) => {
           return (<option value={data}>{data}</option>);
       });
+      // End : Rate your mood
+
 
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
       let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
 
+      // Start : MoodRatings
       let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
       let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
       let improvedAreas = MoodRatings.getMostImprovedAreas(surveyresults);
       let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
+      let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
+      let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
+      let meVsIndustry = MoodRatings.getMeVsIndustry(industrysurvey, currentuserid);
+      let meVsCountry = MoodRatings.getMeVsCountry(countrysurvey, currentuserid);
 
       let topthree = topThreeAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <progress min="1" max="5" value={data.rating}></progress>
+          return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.rating}></meter>
                     <label>{data.rating}</label>
                     <br/>
                   </span>);
       });
 
       let worstthree = worstThreeAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <progress min="1" max="5" value={data.rating}></progress>
+          return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.rating}></meter>
                     <label>{data.rating}</label>
                     <br/>
                   </span>);
       });
 
       let improvedareas = improvedAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <progress min="1" max="5" value={data.difference}></progress>
+          return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.difference}></meter>
                     <label>{data.difference}</label>
                     <br/>
                   </span>);
       });
 
       let worstareas = worstAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <progress min="1" max="5" value={data.difference}></progress>
+          return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.difference}></meter>
                     <label>{data.difference}</label>
                     <br/>
                   </span>);
       });
 
+      let worstthreevscompany;
+      if(worstThreeVsCompany.length > 0) {
+          worstthreevscompany = worstThreeVsCompany.map((data, key) => {
+              return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
+                    <label>{data.avg}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          worstthreevscompany = 'You don\'t have any worst areas.';
+      }
 
+      let topthreevscompany;
+      if(topThreeVsCompany.length > 0) {
+          topthreevscompany = topThreeVsCompany.map((data, key) => {
+              return (<span className="styled">
+                      {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
+                      <label>{data.avg}</label>
+                      <br/>
+                    </span>);
+          });
+      } else {
+          topthreevscompany = 'You don\'t have any higher areas.';
+      }
+
+      let mevsindustry;
+      if (meVsIndustry.length > 0) {
+          mevsindustry = meVsIndustry.map((data, key) => {
+              return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+                    <label>{data.diff}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          mevsindustry = 'No data available.';
+      }
+
+      let mevscountry;
+      if (meVsCountry.length > 0) {
+          mevscountry  = meVsCountry.map((data, key) => {
+              return (<span className="styled">
+                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+                    <label>{data.diff}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          mevscountry = 'No data available. Please add team members in your company';
+      }
+      // End : MoodRatings
+
+      // Start : Quick Statistics
+      let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+      let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
+      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
+      let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
+
+
+      let bCount = lastRatings.length - 1;
+      let bIndex = 0;
+      let bXLabel = [];
+      let bYLdata = [];
+      for(let data of lastRatings) {
+          if(bIndex <= bCount) {
+              bXLabel[bIndex] = data.mood;
+              bYLdata[bIndex] = data.rating;
+          }
+          bIndex++;
+      }
+
+      let barChartOptions = {
+          showScale: true,
+          scaleOverride: true,
+          scaleSteps: 6,
+          scaleStepWidth: 1,
+          scaleStartValue: 0,
+          scaleGridLineWidth : 1,
+          scaleLineWidth: 0.5,
+          animation: false,
+          barShowStroke: true,
+          //barValueSpacing : 5
+          barDatasetSpacing : 1
+      };
+
+      let barchartdata =  barchartdata || {};
+      let bardataset = {
+            label: "Mood ratings",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: bYLdata
+          };
+
+      let bardatasets = [];
+      bardatasets.push(bardataset);
+
+      barchartdata.labels = bXLabel;
+      barchartdata.datasets = bardatasets;
+      // End : Quick Statistics
+
+
+      // Start : Engagement Graph
       let count = graphData.length - 1;
       let index = 0;
       for(let data of graphData) {
@@ -233,9 +403,10 @@ export default class MyMood extends React.Component {
 
       chartdata.labels = xlabel;
       chartdata.datasets = datasets;
+      // End : Engagement Graph
+
 
       let lastRated = '';
-
       if(lastMood !== null) {
           lastRated = lastMood.rating;
       }
@@ -312,14 +483,149 @@ export default class MyMood extends React.Component {
             );
       }
 
+      let engagementGraphTabContent = '';
+      if (engagementgraphtab) {
+          engagementGraphTabContent = (
+                  <div>
+                    <h3>Engagement Graph</h3>
+                        <div className="form-group">
+                            <label> Moodwonder trend</label>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <label>Show me</label>
+                            <select name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
+                                <option value="all_time">All time</option>
+                                <option value="last_12_months">Last 12 months</option>
+                                <option value="last_6_ months">Last 6 months</option>
+                                <option value="last_3_months">Last 3 months</option>
+                                <option value="last_month">Last month</option>
+                            </select>
+                            <span>&nbsp;&nbsp;</span>
+                            <label>from</label>
+                            <select name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                <option value="mw_index">MW-Index</option>
+                                {moodoptions}
+                            </select>
+                            <br/><br/>
+                            <span>At Start - {engagementStatitics.start}</span>
+                            <br/>
+                            <span>Highest - {engagementStatitics.highest}</span>
+                            <br/>
+                            <span>Lowest - {engagementStatitics.lowest}</span>
+                            <br/>
+                            <span>Current - {engagementStatitics.current}</span>
+                            <br/>
+                            <span>30 Days change : {engagementStatitics.thirtydayschange}</span>
+                            <br/>
+                            <span>Week change : {engagementStatitics.weekchange}</span>
+                            <br/><br/>
+                            <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
+                        </div>
+                  </div>
+          );
+      }
+
+      let moodRatingsTabContent = '';
+      if (moodratingstab) {
+          moodRatingsTabContent = (
+               <div>
+                   <h3>Mood Ratings</h3>
+                   <div>
+                        <div>
+                            <h4>My Top 3 areas</h4>
+                            {topthree}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>My Worst 3 areas</h4>
+                            {worstthree}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>My Most Improved Areas (Last 1 Month)</h4>
+                            {improvedareas}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>My least improved areas (Last 1 Month)</h4>
+                            {worstareas}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>Top 3 areas higher than company average</h4>
+                            {topthreevscompany}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>Worst 3 areas lower than company average</h4>
+                            {worstthreevscompany}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>Me Vs Companies (Industry)</h4>
+                            {mevsindustry}
+                        </div>
+                        <br/>
+                        <div>
+                            <h4>Me Vs Companies (Country)</h4>
+                            {mevscountry}
+                        </div>
+                        <br/>
+                    </div>
+               </div>
+          );
+      }
+
+      let quickStatisticsTabContent = '';
+      if (quickstatisticstab) {
+          quickStatisticsTabContent = (
+              <div>
+                  <h3>Quick Statistics</h3>
+                  <div>
+                    <label>Number of employees</label>
+                    <br/>
+                    {totalEmployees + ' Employees'}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Employees at risk of leaving</label>
+                    <br/>
+                    {employeeAtRisk + ' out of ' + totalEmployees}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Number of responses (last 1 month)</label>
+                    <br/>
+                    {lastMonthResponses + ' Response(s) submitted'}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Time since last response</label>
+                    <br/>
+                    {timeSinceLastPost}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>My employee engagement</label>
+                    <br/>
+                    {myEmployeeEngagement}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>Comparison of my responses</label>
+                    <br/>
+                    <BarChart data={barchartdata} options={barChartOptions} width="600" height="300" redraw/>
+                  </div>
+                  <br/>
+              </div>
+          );
+      }
+
 
       return (
        <div className="container">
             <Submenu />
-               <br/>
                {modal}
-               <h3>Engagement Graph</h3>
-                <form id="moodRating">
+               <form id="moodRating">
                   <div className="form-group">
                     <label>Rate your mood</label>
                     <MoodSlider lastrated={lastRated} />
@@ -328,66 +634,17 @@ export default class MyMood extends React.Component {
                   <div className="form-group">
                     <button className="btn btn-primary" onClick={this.onPopupShow}>Submit</button>
                   </div>
-                </form>
-                <br/><br/><br/>
-                <div className="form-group">
-                    <label> Moodwonder trend</label>
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <label>Show me</label>
-                    <select name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
-                        <option value="all_time">All time</option>
-                        <option value="last_12_months">Last 12 months</option>
-                        <option value="last_6_ months">Last 6 months</option>
-                        <option value="last_3_months">Last 3 months</option>
-                        <option value="last_month">Last month</option>
-                    </select>
-                    <span>&nbsp;&nbsp;</span>
-                    <label>from</label>
-                    <select name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
-                        <option value="mw_index">MW-Index</option>
-                        {moodoptions}
-                    </select>
-                    <br/><br/>
-                    <span>At Start - {engagementStatitics.start}</span>
-                    <br/>
-                    <span>Highest - {engagementStatitics.highest}</span>
-                    <br/>
-                    <span>Lowest - {engagementStatitics.lowest}</span>
-                    <br/>
-                    <span>Current - {engagementStatitics.current}</span>
-                    <br/>
-                    <span>30 Days change : {engagementStatitics.thirtydayschange}</span>
-                    <br/>
-                    <span>Week change : {engagementStatitics.weekchange}</span>
-                    <br/><br/>
-                    <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
-                </div>
-                <br/><br/><br/>
-                <h3>Quick Statistics</h3>
-                <br/><br/><br/>
-                <h3>Mood Ratings</h3>
-                <div>
-                    <div>
-                        <br/>
-                        <h4>My Top 3 areas</h4>
-                        {topthree}
-                    </div>
-                    <div>
-                        <br/>
-                        <h4>My Worst 3 areas</h4>
-                        {worstthree}
-                    </div>
-                    <div>
-                        <br/>
-                        <h4>My Most Improved Areas (Last 1 Month)</h4>
-                        {improvedareas}
-                    </div>
-                    <div>
-                        <br/>
-                        <h4>My least improved areas (Last 1 Month)</h4>
-                        {worstareas}
-                    </div>
-                </div>
+               </form>
+               <br/><br/>
+               <div>
+                   <a href="#" onClick={this.engagementGraphClick}>Engagement Graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                   <a href="#" onClick={this.quickStatisticsClick}>Quick Statistics</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                   <a href="#" onClick={this.moodRatingsClick}>Mood Ratings</a>
+               </div>
+                <br/><br/>
+                {engagementGraphTabContent}
+                {quickStatisticsTabContent}
+                {moodRatingsTabContent}
           </div>
     );
   }

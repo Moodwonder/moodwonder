@@ -71,6 +71,57 @@ class SurveyActions {
       this.dispatch(data);
   }
 
+  getResultsByCompany() {
+      this.dispatch();
+      SurveyWebAPIUtils.getResultsByCompany()
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.resultsbycompany(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  resultsbycompany(data)
+  {
+      this.dispatch(data);
+  }
+
+  getResultsByIndustry() {
+      this.dispatch();
+      SurveyWebAPIUtils.getResultsByIndustry()
+      .then((response, textStatus) => {
+          if (response.status === 'success') {
+              this.actions.resultsbyindustry(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  resultsbyindustry(data)
+  {
+      this.dispatch(data);
+  }
+
+  getResultsByCountry() {
+      this.dispatch();
+      SurveyWebAPIUtils.getResultsByCountry()
+      .then((response, textStatus) => {
+          if (response.status === 'success') {
+              this.actions.resultsbycountry(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  resultsbycountry(data)
+  {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);
