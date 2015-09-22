@@ -178,7 +178,7 @@ export default class MyMood extends React.Component {
 
       //console.log('currentuserid');
       //console.log(currentuserid);
-      console.log('companysurvey');
+      //console.log('companysurvey');
       //console.log(JSON.stringify(companysurvey));
 
       let xlabel = [];

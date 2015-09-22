@@ -114,7 +114,11 @@ const quickstatistics = {
         let pMin = pDate.getMinutes();
         let pSec = pDate.getSeconds();
 
-        return countup(pYear, pMonth, pDay, pHour, pMin, pSec);
+        if (postid) {
+            return countup(pYear, pMonth, pDay, pHour, pMin, pSec);
+        } else {
+            return "No posts.";
+        }
     }
 
 };
