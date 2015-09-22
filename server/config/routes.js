@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
     app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation);
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
     app.get('/logout', users.getLogout);
-    app.get('/test', users.test);
+    app.get('/test', users.sendEOTMstats);
     app.get('/getusers', users.getUsers);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     

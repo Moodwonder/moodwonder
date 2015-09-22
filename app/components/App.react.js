@@ -28,13 +28,17 @@ export default class App extends React.Component {
       let noPermission = (
         <div>
          <span> You do not have sufficient permissions to access this page </span>
+         <span> Please login to continue <a href="/login">Login</a> </span>
         </div>
       );
       let path = this.context.router.getCurrentPathname();
 
       // user only pages
       let pages = ["/","/survey","/login","/forgotpassword","/signup","/createpassword","/admin","/test1","/allemployees"];
-      if(path.indexOf("/signup") === -1 && pages.indexOf(path) === -1){
+
+      let condition1 = (path.indexOf("/signup") === -1 && pages.indexOf(path) === -1);
+      let condition2 = (path.indexOf("/createpassword") === -1 && pages.indexOf(path) === -1);
+      if(condition1 && condition2){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
           }
