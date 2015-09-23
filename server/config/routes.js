@@ -59,6 +59,7 @@ module.exports = function (app, passport) {
     app.get('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
+    app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
     
     app.post('/createsurveyform', customSurvey.createForm);
     app.post('/deleteform', customSurvey.deleteForm);

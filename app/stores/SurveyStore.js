@@ -17,7 +17,9 @@ class SurveyStore {
       this.companysurvey = [];
       this.industrysurvey = [];
       this.countrysurvey = [];
+      this.engagedmanagers = [];
       this.currentuserid = '';
+      this.totalcompanyusers = '';
 
 
       this.bindListeners({
@@ -27,7 +29,8 @@ class SurveyStore {
       handleEngagementResults: SurveyActions.ENGAGEMENTRESULTSSUCCESS,
       handleResultsByCompany: SurveyActions.RESULTSBYCOMPANY,
       handleResultsByIndustry: SurveyActions.RESULTSBYINDUSTRY,
-      handleResultsByCountry: SurveyActions.RESULTSBYCOUNTRY
+      handleResultsByCountry: SurveyActions.RESULTSBYCOUNTRY,
+      handleEngagingManagers: SurveyActions.MOSTENGAGINGMANAGERS
     });
   }
 
@@ -76,6 +79,7 @@ class SurveyStore {
       this.companysurvey = [];
       this.companysurvey = response.data;
       this.currentuserid = response.currentuser;
+      this.totalcompanyusers = response.totalcompanyusers;
       this.emitChange();
   }
 
@@ -90,6 +94,12 @@ class SurveyStore {
       this.countrysurvey = [];
       this.countrysurvey = response.data;
       this.currentuserid = response.currentuser;
+      this.emitChange();
+  }
+
+  handleEngagingManagers (response) {
+      this.engagedmanagers = [];
+      this.engagedmanagers = response.data;
       this.emitChange();
   }
 

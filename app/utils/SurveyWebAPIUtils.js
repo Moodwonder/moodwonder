@@ -57,6 +57,14 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getMostEngagingManagers: () => {
+      return $.ajax({
+      url: '/getengagingmanagers',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

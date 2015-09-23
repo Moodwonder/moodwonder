@@ -36,26 +36,27 @@ export default class App extends React.Component {
       let path = this.context.router.getCurrentPathname();
 
       // user only pages
-      let pages = ["/","/login","/forgotpassword","/signup","/createpassword","/admin","/test1"];
+      let pages = ["/","/login","/forgotpassword","/signup","/createpassword","/admin","/test1","/myteam"];
       if( pages.indexOf(path) === -1 ){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
           }
       }
       // admin and manager only pages
-      pages = ["/surveyforms","/myteam","/customsurvey"];
+      pages = ["/surveyforms","/customsurvey"];
       if( pages.indexOf(path) >= 0){
           if( (!this.state.isAuthenticated) || this.state.userType !== 'manager' ){
               handler = noPermission;
           }
       }
+
       // admin only pages
-      pages = ["/surveyforms"];
-      if( pages.indexOf(path) >= 0){
-          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
-              handler = noPermission;
-          }
-      }
+//      pages = ["/surveyforms"];
+//      if( pages.indexOf(path) >= 0){
+//          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
+//              handler = noPermission;
+//          }
+//      }
 
       if (this.state.isAuthenticated) {
           leftnav = (<Leftnav />);
