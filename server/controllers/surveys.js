@@ -2,7 +2,6 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 var EngagementArea = require('../models/engagementArea');
 var EngagementResults = require('../models/engagementResults');
-var EngagementResults = require('../models/engagementResults');
 var User = require('../models/user');
 var Team = require('../models/team');
 

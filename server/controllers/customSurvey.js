@@ -8,12 +8,13 @@ var CustomSurvey = require('../models/customSurvey');
  */
 exports.createForm = function (req, res) {
     var query = req.body;
-    //console.log(query);
+    query.user_id = mongoose.Types.ObjectId(req.user._id);
+    
     CustomSurvey.create(query, function (err, candies) {
         if (!err) {
-            res.json({'status': true, 'message': 'query success'});
+            res.json({status: true, message: 'query success'});
         } else {
-            res.json({'status': false, 'message': 'query failed'});
+            res.json({status: false, message: 'query failed'});
         }
     });
 };
@@ -22,7 +23,11 @@ exports.createForm = function (req, res) {
  * Get all custome survey forms 
  */
 exports.getForms = function (req, res) {
-    CustomSurvey.find({}).exec(function (err, forms) {
+    
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    
+    CustomSurvey.find(condition).sort({_id: -1}).exec(function (err, forms) {
         var response = {};
         if (!err) {
             response.status = 'success';
