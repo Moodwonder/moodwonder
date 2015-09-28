@@ -30,7 +30,8 @@ export default class App extends React.Component {
       let rightnav;
       let noPermission = (
         <div>
-         <span> You do not have sufficient permissions to access this page </span>
+         <p> You do not have sufficient permissions to access this page. </p>
+         <p> Please login to continue <a href="/login">Login</a> </p>
         </div>
       );
       let path = this.context.router.getCurrentPathname();

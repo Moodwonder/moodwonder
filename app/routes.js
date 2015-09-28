@@ -25,6 +25,7 @@ import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
 import Adminlogout from 'components/login/Logout.react';
 import Dashboard from 'components/dashboard/dashboard.react';
+import Users from 'components/users/Users.react';
 import MyMood from 'components/MyMood.react';
 import Test1 from 'components/test1';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
@@ -81,6 +82,7 @@ const routes = (
         <Route name="/admin/pages" handler={Pages} />
         <Route name="/admin/dashboard" handler={Dashboard} />
         <Route name="/admin/engagementarea" handler={Engagementarea} />
+        <Route name="/admin/users" handler={Users} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>

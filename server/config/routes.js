@@ -49,7 +49,6 @@ module.exports = function (app, passport) {
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
     app.get('/logout', users.getLogout);
     app.get('/test', users.sendEOTMstats);
-    app.get('/getusers', users.getUsers);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
@@ -91,6 +90,9 @@ module.exports = function (app, passport) {
     app.post('/getempmonthview', users.checkLogin, voting.getEmpMonthView);
     // app.post('/chooseemployeeofthemonth', users.checkLogin, users.isAdmin, voting.chooseEmployeeOfTheMonth);
     app.post('/chooseemployeeofthemonth', users.checkLogin, voting.chooseEmployeeOfTheMonth);
+
+    // Admin API calls
+    app.post('/getallusers', admin.checkLogin, users.getallusers);
     
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);
