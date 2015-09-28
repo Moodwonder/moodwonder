@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
@@ -49,11 +49,7 @@ export default class Navigation extends React.Component {
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
             <li>
-                  <Link
-                        onClick={this._onLogout}
-                        className="navigation__item"
-                        to="logout">Logout
-                  </Link>
+                  <a href="/logout" onClick={this._onLogout} className="navigation__item">Logout</a>
             </li>
           ];
       } else {

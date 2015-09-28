@@ -106,3 +106,7 @@ meter {
 .styled meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     background: #86CC00;
 }
+
+.form-group .datepicker {
+    width: 263px;
+}
