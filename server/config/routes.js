@@ -65,6 +65,9 @@ module.exports = function (app, passport) {
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
+    app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
+    app.get('/takesurvey/:hash', customSurvey.handleTakeSurvey);
+    
 
     app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
 
