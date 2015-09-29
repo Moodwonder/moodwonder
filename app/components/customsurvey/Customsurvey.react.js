@@ -35,7 +35,8 @@ export default class Customsurvey extends React.Component {
         txIndex: 1,
         formstatus: false,
         freezedate: '',
-        today: ''
+        today: '',
+        organization: []
     };
   }
 
@@ -46,6 +47,7 @@ export default class Customsurvey extends React.Component {
       let dToday = ('0' + today.getDate()).slice(-2);
       today = yToday + '-' + mToday + '-' + dToday;
 
+      CustomSurveyActions.getOrganization();
       CustomSurveyStore.listen(this._onChange);
       this.setState({formstatus: false});
       this.setState({freezedate: today});
@@ -59,7 +61,8 @@ export default class Customsurvey extends React.Component {
 
   _onChange = () => {
       this.setState({
-          isSurveySaved: CustomSurveyStore.getState().isSurveySaved
+          isSurveySaved: CustomSurveyStore.getState().isSurveySaved,
+          organization: CustomSurveyStore.getState().organization
       });
   }
 
@@ -90,7 +93,7 @@ export default class Customsurvey extends React.Component {
           survey.targetlevel = data['targetlevel'];
           survey.targetvalue = data['targetvalue'];
       }
-      survey.target_teamid = 2;
+
       survey.questions = [];
       let keys = Object.keys(data);
 
@@ -130,6 +133,11 @@ export default class Customsurvey extends React.Component {
       if (survey.surveytitle === '' || survey.surveytitle === null) {
 
           alert('Please enter survey title.');
+          errorFlag = true;
+
+      } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
+
+          alert('Please create a team or add your company first.');
           errorFlag = true;
 
       } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
@@ -189,7 +197,7 @@ export default class Customsurvey extends React.Component {
 
       if(!errorFlag) {
           if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
-              console.log(JSON.stringify(survey));
+              //console.log(JSON.stringify(survey));
               CustomSurveyActions.createCustomSurveyForm(survey);
               this.setState({formstatus: true});
           }
@@ -207,8 +215,8 @@ export default class Customsurvey extends React.Component {
   }
 
   onRemoveQuestion = (child) => {
-      console.log(child.refs);
-      console.log(child.props);
+      //console.log(child.refs);
+      //console.log(child.props);
       let qid = child.props.qid;
       let questions = this.state.questions;
       let key = questions.indexOf(qid);
@@ -369,8 +377,29 @@ export default class Customsurvey extends React.Component {
       let formstatus = this.state.formstatus;
       let freezedate = this.state.freezedate;
       let today = this.state.today;
+      let organization = this.state.organization;
       let statusmessage = '';
 
+      let teamoption = '';
+      let companyoption = '';
+      let teams = [];
+
+      if (organization.companyname !== '') {
+          companyoption = (<option value={organization.companyname}>
+                            {organization.companyname}
+                           </option>);
+      }
+
+      let teamdata = organization.teams;
+
+      for(let key in teamdata) {
+          let team = teamdata[key];
+          teams.push({_id: team._id, teamname: team.teamname});
+      }
+
+      teamoption = (teams).map((team) => {
+          return (<option value={team._id}>{team.teamname}</option>);
+      });
 
       if(formstatus) {
           statusmessage = (<div className="alert alert-success">
@@ -464,8 +493,9 @@ export default class Customsurvey extends React.Component {
             <br/>
             <input type="radio" name="targetgroup" value="organization" defaultChecked/>&nbsp; Org &nbsp;
             <select name="target_teamid" className="navigation__item">
-              <option value="company">Company</option>
-              <option value="team">Team</option>
+              <option value="0">Select company or team</option>
+              {companyoption}
+              {teamoption}
             </select>
             <br/>
             <input type="radio" name="targetgroup" value="survey" />&nbsp; Survey &nbsp;
