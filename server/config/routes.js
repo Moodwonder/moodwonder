@@ -98,6 +98,8 @@ module.exports = function (app, passport) {
 
     // Admin API calls
     app.post('/getallusers', admin.checkLogin, users.getallusers);
+    app.post('/getuser', admin.checkLogin, users.getUserInfoById);
+    app.post('/updateuser', admin.checkLogin, users.updateUser);
     
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);
