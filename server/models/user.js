@@ -33,7 +33,8 @@ var UserSchema = new mongoose.Schema({
       website : String,
       companysize : String
     }],
-  verifylink: {type: String, default: ''}
+  verifylink: {type: String, default: ''},
+  userstatus: {type: String, default: 'Active'}
 });
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import RequireAuth from 'utils/requireAuth';
 import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
@@ -42,10 +43,15 @@ class DataTable extends React.Component {
         }catch(err){
             console.log(err);
         }
+        this.hasData = false;
+        this.rows = false;
     }
 
     componentWillReceiveProps() {
-        this.setTable(this.state.currentPage);
+        if(this.props.data){
+            this.rows = this.props.data.rows;
+            this.setTable(this.state.currentPage);
+        }
     }
 
     setTable = (page) => {
@@ -54,21 +60,21 @@ class DataTable extends React.Component {
 
             let totalPages = 0;
             // Data for the current page
-            let rows = this.props.data.rows;
+            let rows = this.rows;
 
-            if( this.props.data && this.props.data.rows !== undefined ){
+            if( this.props.data && this.rows !== undefined ){
 
                 // find total rows
-                let totalRows = this.props.data.rows.length;
-                
+                let totalRows = this.rows.length;
                 let rowsPerPage = 3;
                 rowsPerPage--;
-                
+
                 // find total pages
                 totalPages = parseInt(totalRows/rowsPerPage);
                 if( (totalRows % rowsPerPage) !== 0 ){
-                     totalPages++;
+                    totalPages++;
                 }
+
                 //if no page var is given, set start to 0
                 // start row
                 let start = 0;
@@ -77,7 +83,7 @@ class DataTable extends React.Component {
                     // first item to display on this page
                     start = page * rowsPerPage;
                     start++;
-                    console.log(start);
+                    // console.log(start);
                 }
 
                 // End row
@@ -85,8 +91,8 @@ class DataTable extends React.Component {
 
                 rows = [];
                 for( let i = 0, dataIndex = start; dataIndex <= end; dataIndex++, i++ ){
-                    if(this.props.data.rows[dataIndex] !== undefined ){
-                        rows[i] = this.props.data.rows[dataIndex];
+                    if(this.rows[dataIndex] !== undefined ){
+                        rows[i] = this.rows[dataIndex];
                     }
                 }
             }
@@ -102,6 +108,28 @@ class DataTable extends React.Component {
     // http://carlosrocha.github.io/react-data-components/
     onChangePage = (page) => {
         this.setTable((page));
+    }
+
+    _onSearch = (e) => {
+        let text = e.target.value.trim();
+        if(text !== ''){
+            if(this.hasData){
+                this.filtered = [];
+                let i =0;
+                this.props.data.rows.map((data, key) => {
+                    if((data[1].column.toLowerCase()).indexOf(text.toLowerCase()) === 0){
+                        this.filtered[i] = data;
+                        i++;
+                    }
+                });
+                this.hasData = true;
+                this.rows = this.filtered;
+                this.setTable(0);
+            }
+        }else{
+            this.rows = this.props.data.rows;
+            this.setTable(0);
+        }
     }
 
     render() {
@@ -121,6 +149,7 @@ class DataTable extends React.Component {
 
                 rows = this.state.rows.map((row, key) => {
 
+                    this.hasData = true;
                     let columns = row.map((column, key) => {
                         // Skip column from display
                         if(column.display !== false){
@@ -129,6 +158,8 @@ class DataTable extends React.Component {
                                 content = ( <span className="true">Yes</span> );
                             }else if( column.column === false ){
                                 content = ( <span className="true">No</span> );
+                            }else if( this.props.data.header[key] === 'Name' ){
+                                content = ( <Link to={ `/admin/userdetails/${row[0].column}` } className="navigation__item">{column.column}</Link> );
                             }else{
                                 content = column.column;
                             }
@@ -146,6 +177,7 @@ class DataTable extends React.Component {
 
         return (
         <div>
+        <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
         <table className={tableClass}>
           <tr>
             {header}

@@ -22,6 +22,38 @@ class AdminUserActions {
       this.dispatch(response);
   }
 
+  // Get details of a user
+  getUsersDetails (uid) {
+      this.dispatch();
+      AdminWebAPIUtils.getUser(uid)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.setuserdetails(response);
+            }
+        }, () => {
+        });
+  }
+
+  setuserdetails (response) {
+      this.dispatch(response);
+  }
+
+  // Get details of a user
+  updateUserDetails (data) {
+      this.dispatch();
+      AdminWebAPIUtils.updateUser(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.updateuserdetails(response);
+            }
+        }, () => {
+        });
+  }
+
+  updateuserdetails (response) {
+      this.dispatch(response);
+  }
+
 }
 
 export default alt.createActions(AdminUserActions);

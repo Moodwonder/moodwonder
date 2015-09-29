@@ -12,6 +12,22 @@ const utils = {
       type: 'POST',
       contentType: 'application/json'
     });
+  },
+  getUser: (data) => {
+      return $.ajax({
+      url: '/getuser',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+  updateUser: (data) => {
+      return $.ajax({
+      url: '/updateuser',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
 
 };

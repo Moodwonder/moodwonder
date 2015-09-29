@@ -156,42 +156,42 @@ exports.postLogin = function (req, res, next) {
  */
 exports.getallusers = function (req, res) {
 
-	var response = {};
-	response.status = false;
-	response.message = 'Error';
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
 
     User.find({}).exec(function (err, lists) {
         if (!err) {
-			response.status = true;
-			response.message = 'success';
+            response.status = true;
+            response.message = 'success';
 
-			// formatting user data for table
-			var data = {};
-			data.header = ['Id','Name', 'Email', 'Type', 'Verify Status', 'Country', 'Company name', 'Company size', 'Language'];
-			data.rows   = [];
-			data.class = "table";
-			if(lists !== null){
-				lists.map(function(user, key){
-					var hasComp = (user.company_info.length > 0);
-					var Comp    = (hasComp)? user.company_info[0]:{};
-					data.rows[key] =  [
-					  {
-						  column: user._id,
-						  display:false
-					  }
-					 ,{column: (user.firstname+' '+user.lastname) }
-					 ,{column:user.email}
-					 ,{column:user.usertype}
-					 ,{column: (user.verifylink === "1") ? true : false }
-					 ,{column: (hasComp && Comp.country !== undefined )? Comp.country: '' }
-					 ,{column: (hasComp && Comp.companyname !== undefined )? Comp.companyname: '' }
-					 ,{column: (hasComp && Comp.companysize !== undefined )? Comp.companysize: '' }
-					 ,{column:user.language}
-					];
-				});
-				
-			}
-			response.data = data;
+            // formatting user data for table
+            var data = {};
+            data.header = ['Id','Name', 'Email', 'Type', 'Verify Status', 'Country', 'Company name', 'Company size', 'Language'];
+            data.rows   = [];
+            data.class = "table";
+            if(lists !== null){
+                lists.map(function(user, key){
+                    var hasComp = (user.company_info.length > 0);
+                    var Comp    = (hasComp)? user.company_info[0]:{};
+                    data.rows[key] =  [
+                      {
+                          column: user._id,
+                          display:false
+                      }
+                     ,{column: (user.firstname+' '+user.lastname) }
+                     ,{column:user.email}
+                     ,{column:user.usertype}
+                     ,{column: (user.verifylink === "1") ? true : false }
+                     ,{column: (hasComp && Comp.country !== undefined )? Comp.country: '' }
+                     ,{column: (hasComp && Comp.companyname !== undefined )? Comp.companyname: '' }
+                     ,{column: (hasComp && Comp.companysize !== undefined )? Comp.companysize: '' }
+                     ,{column:user.language}
+                    ];
+                });
+                
+            }
+            response.data = data;
             res.json(response);
         } else {
             res.json(response);
@@ -204,8 +204,8 @@ exports.getallusers = function (req, res) {
  */
 exports.getUserInfo = function (req, res) {
 
-	response.status = false;
-	response.message = 'Error';
+    response.status = false;
+    response.message = 'Error';
 
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
@@ -1131,13 +1131,13 @@ var job = new CronJob({
       { $group : { _id : "$comp.companyname" } }
     ],
     function (err, lists) {
-		var d = new Date();
-		// It will return previous month number
-		// Since it is start from 0
-		var m = d.getMonth();
-		var y = d.getFullYear();
-		m = (m < 10) ? ("0" + m) : m;
-		var ym = y+'-'+m;
+        var d = new Date();
+        // It will return previous month number
+        // Since it is start from 0
+        var m = d.getMonth();
+        var y = d.getFullYear();
+        m = (m < 10) ? ("0" + m) : m;
+        var ym = y+'-'+m;
         if (!err) {
             var totalCompanies = lists.length;
             var i = 0;
@@ -1160,3 +1160,88 @@ var job = new CronJob({
   start: true
 });
 job.start();
+
+/**
+ * Get a User By Id
+ */
+exports.getUserInfoById = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+    var _id = req.body._id;
+    if( _id !== undefined && _id !== ''){
+        var condition = {'_id': new ObjectId(_id)};
+        User.findOne(condition, function (err, lists) {
+            if (!err && !null) {
+                response = {};
+                response.status = true;
+                response.message = 'success';
+                response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'userstatus': false };
+                if (req.query.type == 'company') {
+                    if (lists.company_info[0] != undefined) {
+                        response.data = lists.company_info[0];
+                    }
+
+                } else {
+
+                    if (lists.mymanager[0] == undefined) {
+                        lists.mymanager[0] = {'email': ''};
+                    }
+                    
+                    var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
+                    response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'userstatus': lists.userstatus };
+                }
+                res.json(response);
+            } else {
+                res.json(response);
+            }
+        });
+    }else{
+        response.message = 'Invalid user Id';
+        res.json(response);
+    }
+};
+
+/**
+ * Get a User Details By Id
+ */
+exports.updateUser = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Unknown error';
+    //console.log(req.body);
+
+    var model = req.body;
+    var hasBody = (req.body !== undefined);
+    var hasUserId = ( hasBody && model._id !== undefined && model._id !== '' );
+
+    if( hasBody && hasUserId){
+		var updateQuery = {};
+		var conditionQuery = { _id : new ObjectId(model._id) };
+		var options = { multi: false };
+		if(model.userstatus !== undefined){
+			updateQuery.userstatus = (model.userstatus) ? 'Active':'Inactive';
+		}
+
+        User.update(conditionQuery, updateQuery, options, function (err) {
+
+            if (!err) {
+
+                response.status = true;
+                response.message = 'User details updated..';
+            } else {
+
+                response.status = false;
+                response.message = 'Something went wrong..';
+            }
+            res.send(response);
+            res.end();
+        });
+
+	}else{
+		res.json(response);
+	}
+
+};
