@@ -25,7 +25,8 @@ export default class Survey extends React.Component {
   _onChange = (state) => {
       this.setState(state);
       if(this.state.savedstatus) {
-          window.location.assign('/mymood');
+          //window.location.assign('/mymood');
+          window.location.assign('/openendedsurvey');
       }
   }
 

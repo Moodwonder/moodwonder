@@ -28,6 +28,7 @@ var mood = require('../controllers/mood');
 var EngagementArea = require('../controllers/engagementArea');
 
 var Navigation = require('../languagesettings/nav');
+var openEndedSurvey = require('../controllers/openEndedSurvey');
 
 
 module.exports = function (app, passport) {
@@ -101,6 +102,9 @@ module.exports = function (app, passport) {
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);
     app.get('/signup/:hash', invitation.handleSignup);
+    
+    app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
+    app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
 
     app.get('*', function (req, res, next) {
 

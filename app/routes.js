@@ -32,6 +32,7 @@ import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
 import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
+import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
 
 //const routes = (
 //  <Route>
@@ -88,6 +89,9 @@ const routes = (
     </Route>
     <Route name="survey" path="/survey" handler={Appuser} >
       <Route name="" handler={Survey} />
+    </Route>
+    <Route name="openendedsurvey" path="/openendedsurvey" handler={Appuser} >
+      <Route name="" handler={OpenEndedQuestions} />
     </Route>
     <Route name="myprofile" path="/myprofile" handler={Appuser} >
       <Route name="" handler={MyProfile} />
