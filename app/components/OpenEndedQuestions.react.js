@@ -58,7 +58,7 @@ export default class OpenEndedQuestions extends React.Component {
 
   render() {
       let savesurveyflag = this.state.savesurveyflag;
-      
+
       let statusmessage = '';
       if(savesurveyflag) {
           statusmessage = (<div className="alert alert-success">
