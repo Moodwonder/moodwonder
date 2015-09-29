@@ -152,14 +152,49 @@ exports.postLogin = function (req, res, next) {
 
 
 /**
- * Get all Users
+ * Get all Users for admin only
  */
-exports.getUsers = function (req, res) {
+exports.getallusers = function (req, res) {
+
+	var response = {};
+	response.status = false;
+	response.message = 'Error';
+
     User.find({}).exec(function (err, lists) {
         if (!err) {
-            res.json(lists);
+			response.status = true;
+			response.message = 'success';
+
+			// formatting user data for table
+			var data = {};
+			data.header = ['Id','Name', 'Email', 'Type', 'Verify Status', 'Country', 'Company name', 'Company size', 'Language'];
+			data.rows   = [];
+			data.class = "table";
+			if(lists !== null){
+				lists.map(function(user, key){
+					var hasComp = (user.company_info.length > 0);
+					var Comp    = (hasComp)? user.company_info[0]:{};
+					data.rows[key] =  [
+					  {
+						  column: user._id,
+						  display:false
+					  }
+					 ,{column: (user.firstname+' '+user.lastname) }
+					 ,{column:user.email}
+					 ,{column:user.usertype}
+					 ,{column: (user.verifylink === "1") ? true : false }
+					 ,{column: (hasComp && Comp.country !== undefined )? Comp.country: '' }
+					 ,{column: (hasComp && Comp.companyname !== undefined )? Comp.companyname: '' }
+					 ,{column: (hasComp && Comp.companysize !== undefined )? Comp.companysize: '' }
+					 ,{column:user.language}
+					];
+				});
+				
+			}
+			response.data = data;
+            res.json(response);
         } else {
-            // console.log('Error in first query');
+            res.json(response);
         }
     });
 };
@@ -169,10 +204,12 @@ exports.getUsers = function (req, res) {
  */
 exports.getUserInfo = function (req, res) {
 
-    // console.log(req.user);
+	response.status = false;
+	response.message = 'Error';
+
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
-        if (!err) {
+        if (!err && !null) {
             response = {};
             response.status = true;
             response.message = 'success';
