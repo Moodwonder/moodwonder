@@ -1,16 +1,12 @@
 import _ from 'underscore';
 
-const quickstatistics = {
+const companyquickstatistics = {
 
     getLastRatings: function (surveyresults) {
-        return _.first(_.sortBy(surveyresults, function(o) { return o.created.d; }).reverse(),13);
+        return _.first(_.sortBy(surveyresults, function(o) { return o._id; }).reverse(),13);
     },
 
-    getTotalEmployees: function (companysurvey) {
-        return _.uniq(companysurvey, function(person) { return person.user_id; }).length;
-    },
-
-    getLastMonthResponses: function (companysurvey, uid) {
+    getLastMonthResponses: function (companysurvey) {
         let today = new Date();
         let year = today.getFullYear();
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -26,9 +22,7 @@ const quickstatistics = {
         let nday = ('0' + ndate.getDate()).slice(-2);
         let ndatestring = nyear + '-' + nmonth + '-' + nday;
 
-        let userresults = _(companysurvey).where({user_id: uid});
-        //let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
-        let results = _.filter(userresults, function(v) { return v.created.d >= ndatestring; });
+        let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
         let uGroupResults = _(results).groupBy(function(result) {
                 return result.mood;
             });
@@ -37,16 +31,16 @@ const quickstatistics = {
 
     },
 
-    getMyEmployeeEngagement: function (companysurvey, uid) {
+    getCompanyEmployeeEngagement: function (companysurvey) {
 
-        let userresults = _(companysurvey).where({user_id: uid});
-        let eng = _.first(_.sortBy(userresults, function(o) { return o._id; }).reverse(), 13);
+        let len = ((companysurvey.length) / 13);
+
         let sum = 0;
-        for(let u of eng) {
+        for(let u of companysurvey) {
             sum = sum + u.rating;
         }
 
-        return ((sum/13).toFixed(1));
+        return ((sum/(13 * len)).toFixed(1));
     },
 
     getEmployeeAtRisk: function (companysurvey) {
@@ -71,10 +65,9 @@ const quickstatistics = {
         return employee;
     },
 
-    getTimeSinceLastPosted: function (companysurvey, uid) {
-        let userresults = _(companysurvey).where({user_id: uid});
-        let lastPost = _.first(_.sortBy(userresults, function(o) { return o._id; }).reverse(), 1);
-        //let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
+    getTimeSinceLastPosted: function (companysurvey) {
+
+        let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
         let postid = _(lastPost).map(function(g, key) {
             return g._id;
         });
@@ -126,4 +119,4 @@ const quickstatistics = {
 
 };
 
-export default quickstatistics;
+export default companyquickstatistics;

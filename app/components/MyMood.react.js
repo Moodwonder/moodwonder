@@ -303,10 +303,12 @@ export default class MyMood extends React.Component {
       // Start : Quick Statistics
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
       //let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
-      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
       let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
-      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
+      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
+      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
 
       let topmanagers;
       if (engagedmanagers.length > 0) {

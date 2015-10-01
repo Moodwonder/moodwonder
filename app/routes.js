@@ -34,6 +34,7 @@ import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
+import MyCompany from 'components/MyCompany.react';
 
 //const routes = (
 //  <Route>
@@ -98,7 +99,7 @@ const routes = (
     <Route name="myprofile" path="/myprofile" handler={Appuser} >
       <Route name="" handler={MyProfile} />
     </Route>
-    <Route name="mycompany" path="/mycompany" handler={Appuser} >
+    <Route name="company" path="/mycompany" handler={Appuser} >
       <Route name="" handler={MyCompanyInfo} />
     </Route>
     <Route name="mymanager" path="/mymanager" handler={Appuser} >
@@ -118,6 +119,9 @@ const routes = (
     </Route>
     <Route name="mymood" path="/mymood" handler={Appuser} >
       <Route name="" handler={MyMood} />
+    </Route>
+    <Route name="my_company" path="/my_company" handler={Appuser} >
+      <Route name="" handler={MyCompany} />
     </Route>
     <Route name="employeeofthemonth" path="/employeeofthemonth" handler={Appuser} >
       <Route name="" handler={EmployeeOfTheMonth} />

@@ -65,6 +65,15 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  //Start: Company statistics.
+  getCompanyData: () => {
+      return $.ajax({
+      url: '/getcompanydata',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

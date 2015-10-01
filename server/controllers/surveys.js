@@ -536,6 +536,60 @@ exports.getMostEngagingManagers = function (req, res) {
 };
 
 
+// Start : Company statistics
+function getCompanyESurveyUsers(company, currentUser, callback) {
+    
+    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+function getCompanyESurvey(employees, currentUser, callback) {
+    
+        var ids = _(employees).map(function (employee, key) {
+            return employee._id;
+        });
+        
+        EngagementResults.find({user_id: { $in: ids }}).sort({_id: -1}).lean().exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.currentuser = currentUser._id;
+                response.data = rows;
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.currentuser = currentUser._id;
+                console.log('Error in getCompanyESurvey');
+            }
+            callback(response);
+        });
+}
+
+exports.getCompanyStatisticsData = function (req, res) {
+    
+    var currentUser = req.user;
+    var company = currentUser.company_info[0].companyname;
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    
+    getCompanyESurveyUsers(company, currentUser, function (employees) {
+
+        getCompanyESurvey(employees, currentUser, function (results) {
+            var response = {};
+            response.data = results;
+            response.totalemployees = employees.length;
+            res.send(response);
+            res.end();
+        });
+    
+    });
+
+};
+
+
 
 
 
