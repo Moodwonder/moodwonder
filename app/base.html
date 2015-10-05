@@ -8,6 +8,56 @@
 
     LINK
 
+<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>
+ <script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="/assets/visibility.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="/assets/sidebar.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="/assets/dropdown.js"></script>
+  <script type="text/javascript" charset="utf-8"  src="/assets/popup.js"></script>
+  <script>
+  $(document)
+    .ready(function() {
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
+      $('.ui.menu a.item')
+        .on('click', function() {
+          $(this)
+            .addClass('active')
+            .siblings()
+            .removeClass('active')
+          ;
+        })
+      ;
+    })
+  ;
+  </script>
+  <script>
+  $(document)
+    .ready(function() {
+
+      // fix menu when passed
+      $('.masthead')
+        .visibility({
+          once: false,
+          onBottomPassed: function() {
+            $('.fixed.menu').transition('show');
+          },
+          onBottomPassedReverse: function() {
+            $('.fixed.menu').transition('show');
+          }
+        })
+      ;
+
+      // create sidebar and attach to menu open
+      $('.ui.sidebar')
+        .sidebar('attach events', '.toc.item')
+      ;
+
+    })
+  ;
+  </script>
 </head>
 <body>
 <div class="app">CONTENT</div>

@@ -57,18 +57,23 @@ export default class App extends React.Component {
       }
 
       return (
-        <div>
+          <div>
           <Navigation />
+          <div className="ui vertical inverted sidebar menu "> <a href="#" className="slide-side"></a> <a className="active item"><i className="smile icon"></i>My Mood </a> <a className="item"><i className="setting icon"></i> My Account </a> <a className="item"><i className="building icon"></i>My Company</a> </div>
+
           <div className="wrapper">
             <div className="pusher">
+				<div className="ui inverted vertical masthead center aligned "> </div>
                 {leftnav}
-                <div className="middleContainer">
-                    {handler}
-                    {rightnav}
-                </div>
+				<div className="ui segment  width padding-top-110 ">
+					<div className="ui main ">
+						{handler}
+						{rightnav}
+					</div>
+				</div>
             </div>
           </div>
-        </div>
+          </div>
       );
   }
 }
