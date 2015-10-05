@@ -28,6 +28,7 @@ var mood = require('../controllers/mood');
 var EngagementArea = require('../controllers/engagementArea');
 
 var Navigation = require('../languagesettings/nav');
+var openEndedSurvey = require('../controllers/openEndedSurvey');
 
 
 module.exports = function (app, passport) {
@@ -48,8 +49,7 @@ module.exports = function (app, passport) {
     app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation);
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
     app.get('/logout', users.getLogout);
-    app.get('/test', users.test);
-    app.get('/getusers', users.getUsers);
+    app.get('/test', users.sendEOTMstats);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
@@ -59,11 +59,16 @@ module.exports = function (app, passport) {
     app.get('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
+    app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
+    app.get('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
     
-    app.post('/createsurveyform', customSurvey.createForm);
-    app.post('/deleteform', customSurvey.deleteForm);
-    app.get('/getsurveyforms', customSurvey.getForms);
-    app.get('/getsurveyform', customSurvey.getSurveyForm);
+    app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
+    app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
+    app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
+    app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
+    app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
+    app.get('/takesurvey/:hash', customSurvey.handleTakeSurvey);
+    
 
     app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
 
@@ -91,10 +96,18 @@ module.exports = function (app, passport) {
     app.post('/getempmonthview', users.checkLogin, voting.getEmpMonthView);
     // app.post('/chooseemployeeofthemonth', users.checkLogin, users.isAdmin, voting.chooseEmployeeOfTheMonth);
     app.post('/chooseemployeeofthemonth', users.checkLogin, voting.chooseEmployeeOfTheMonth);
+
+    // Admin API calls
+    app.post('/getallusers', admin.checkLogin, users.getallusers);
+    app.post('/getuser', admin.checkLogin, users.getUserInfoById);
+    app.post('/updateuser', admin.checkLogin, users.updateUser);
     
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);
     app.get('/signup/:hash', invitation.handleSignup);
+    
+    app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
+    app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
 
     app.get('*', function (req, res, next) {
 

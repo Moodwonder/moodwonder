@@ -353,3 +353,13 @@
         User Overrides
 *******************************/
 
+<<<<<<< HEAD
+=======
+.styled meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: #86CC00;
+}
+
+.form-group .datepicker {
+    width: 263px;
+}
+>>>>>>> 5b8589580468dccf7dd37f602a0904355d43af44

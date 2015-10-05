@@ -67,6 +67,22 @@ class CustomSurveyActions {
       this.dispatch(id);
   }
 
+  getOrganization () {
+      this.dispatch();
+      CustomSurveyWebAPIUtils.getOrganization()
+      .then((response, textStatus) => {
+          if (response.status === 'success') {
+              this.actions.handleorganization(response.data);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  handleorganization (data) {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(CustomSurveyActions);

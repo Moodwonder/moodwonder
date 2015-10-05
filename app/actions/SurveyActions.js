@@ -122,6 +122,41 @@ class SurveyActions {
       this.dispatch(data);
   }
 
+  getMostEngagingManagers() {
+      this.dispatch();
+      SurveyWebAPIUtils.getMostEngagingManagers()
+      .then((response, textStatus) => {
+          if (response.status === 'success') {
+              this.actions.mostengagingmanagers(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  mostengagingmanagers(data)
+  {
+      this.dispatch(data);
+  }
+
+  //Start: Company statistics.
+  getCompanyData() {
+      this.dispatch();
+      SurveyWebAPIUtils.getCompanyData()
+      .then((response, textStatus) => {
+          if (textStatus === 'success') {
+              this.actions.companydata(response);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  companydata(data)
+  {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);

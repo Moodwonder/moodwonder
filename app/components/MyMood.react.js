@@ -51,7 +51,9 @@ export default class MyMood extends React.Component {
           companysurvey: [],
           industrysurvey: [],
           countrysurvey: [],
-          currentuserid: ''
+          engagedmanagers: [],
+          currentuserid: '',
+          totalcompanyusers: ''
       };
       this.engagementmoods = [];
   }
@@ -62,6 +64,7 @@ export default class MyMood extends React.Component {
       SurveyActions.getResultsByCompany();
       SurveyActions.getResultsByIndustry();
       SurveyActions.getResultsByCountry();
+      SurveyActions.getMostEngagingManagers();
       SurveyStore.listen(this._onMoodChange);
   }
 
@@ -77,6 +80,8 @@ export default class MyMood extends React.Component {
          industrysurvey: SurveyStore.getState().industrysurvey,
          countrysurvey: SurveyStore.getState().countrysurvey,
          currentuserid: SurveyStore.getState().currentuserid,
+         engagedmanagers: SurveyStore.getState().engagedmanagers,
+         totalcompanyusers: SurveyStore.getState().totalcompanyusers,
          lastmood: SurveyStore.getState().lastmood
       });
 
@@ -174,11 +179,13 @@ export default class MyMood extends React.Component {
       let companysurvey = this.state.companysurvey;
       let industrysurvey = this.state.industrysurvey;
       let countrysurvey = this.state.countrysurvey;
+      let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
+      let totalcompanyusers = this.state.totalcompanyusers;
 
       //console.log('currentuserid');
       //console.log(currentuserid);
-      console.log('companysurvey');
+      //console.log('companysurvey');
       //console.log(JSON.stringify(companysurvey));
 
       let xlabel = [];
@@ -295,12 +302,25 @@ export default class MyMood extends React.Component {
 
       // Start : Quick Statistics
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
-      let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
-      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      //let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
+      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
+      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
       let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
-      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
+      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
+      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
 
+      let topmanagers;
+      if (engagedmanagers.length > 0) {
+          topmanagers = engagedmanagers.map((data, index) => {
+              return (<span className="styled">
+                    <label>{index+1} : {data.name + "  ["  + data.avg + "]"}</label>
+                    <br/>
+                  </span>);
+          });
+      } else {
+          topmanagers = '';
+      }
 
       let bCount = lastRatings.length - 1;
       let bIndex = 0;
@@ -583,13 +603,13 @@ export default class MyMood extends React.Component {
                   <div>
                     <label>Number of employees</label>
                     <br/>
-                    {totalEmployees + ' Employees'}
+                    {totalcompanyusers + ' Employees'}
                   </div>
                   <br/>
                   <div>
                     <label>Employees at risk of leaving</label>
                     <br/>
-                    {employeeAtRisk + ' out of ' + totalEmployees}
+                    {employeeAtRisk + ' out of ' + totalcompanyusers}
                   </div>
                   <br/>
                   <div>
@@ -608,6 +628,12 @@ export default class MyMood extends React.Component {
                     <label>My employee engagement</label>
                     <br/>
                     {myEmployeeEngagement}
+                  </div>
+                  <br/>
+                  <div>
+                    <label>The most engaging managers</label>
+                    <br/>
+                    {topmanagers}
                   </div>
                   <br/>
                   <div>

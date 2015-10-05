@@ -1,34 +1,253 @@
-var _ = require('lodash');
+var _ = require('underscore');
 var mongoose = require('mongoose');
 var CustomSurvey = require('../models/customSurvey');
+var User = require('../models/user');
+var Team = require('../models/team');
+var emailTemplate = require('../email/emailtemplates');
+var nodemailer = require("nodemailer");
+var EngagementResults = require('../models/engagementResults');
 
 
-/**
- * POST /customSurvey
- */
-exports.createForm = function (req, res) {
-    var query = req.body;
-    //console.log(query);
+exports.handleTakeSurvey = function(req, res, next) {
+
+  var hash = req.params.hash;
+  if(req.user) {
+      res.clearCookie('takesurvey');
+      next();
+  } else {
+      res.cookie('takesurvey', hash);
+      res.redirect('/login');
+  }
+  
+
+};
+
+
+function saveSurvey(query, usercompany, callback) {
     CustomSurvey.create(query, function (err, candies) {
         if (!err) {
-            res.json({'status': true, 'message': 'query success'});
+            console.log('New custom survey created.');
+            callback(true);
         } else {
-            res.json({'status': false, 'message': 'query failed'});
+            console.log('Error custom survey saving.');
+            callback(false);
         }
     });
+} 
+
+function getSurveyForm(query, usercompany, callback) {
+    var condition = {surveytitle: query.surveytitle};
+    CustomSurvey.find(condition).lean().exec(function (err, form) {
+        if (form != 'undefined') {
+            callback(form);
+        }
+    });
+}
+
+
+
+function getCompanyMembers(query, form, usercompany, callback) {
+    
+    // Get members by matching company
+    var condition = {company_info: {$elemMatch: {companyname: usercompany}}};
+    User.find(condition).lean().exec(function (err, users) {
+        if (users != 'undefined') {
+            callback(users);
+        }
+    });
+    
+}
+
+function getTeamMemberIds(query, form, callback) {
+    
+    //Get members from team
+    var condition = {_id: mongoose.Types.ObjectId(query.target_teamid), manager_id: query.user_id};
+    Team.find(condition).lean().exec(function (err, teams) {
+        if (teams != 'undefined') {
+            callback(teams);
+        }
+    });
+}
+
+function getTeamMemberDetails(query, memberIds, callback) {
+    
+    // Get members by matching company
+    var condition = {_id: {$in: memberIds}};
+    User.find(condition).lean().exec(function (err, users) {
+        if (users != 'undefined') {
+            callback(users);
+        }
+    });
+}
+
+function getEngagementResults(query, form, members, callback) {
+    
+    // Get members engagement results
+    var memberIds = [];
+    for (var mKey in members) {
+        memberIds.push(members[mKey]._id);
+    }
+    
+    var condition = {user_id: {$in: memberIds}};
+    EngagementResults.find(condition).lean().exec(function (err, results) {
+        if (results != 'undefined') {
+            callback(results);
+        }
+    });
+}   
+
+
+
+
+exports.createForm = function (req, res) {
+    var query = req.body;
+    query.user_id = mongoose.Types.ObjectId(req.user._id);
+    
+    var usercompany = req.user.company_info[0].companyname;
+    
+    saveSurvey(query, usercompany, function(status){
+        
+        if(status) {
+            
+            getSurveyForm(query, usercompany, function(form){
+                
+                if(query.targetgroup == 'organization') {
+                    
+                    if(query.target_teamid === usercompany) {
+                        
+                        //Get members by matching company
+                        getCompanyMembers(query, form, usercompany, function(members){
+                            
+                            for (var mkey in members) {
+                                var member = members[mkey];
+                                var transporter = nodemailer.createTransport();
+                                var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
+                                            "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                            "<br><br> Best wishes" +
+                                            "<br> Moodwonder Team";
+                                body = emailTemplate.general(body);
+                                transporter.sendMail({
+                                    from: 'admin@moodewonder.com',
+                                    to: member.email,
+                                    //to: 'useremailtestacc@gmail.com',
+                                    subject: 'Take a survey',
+                                    html: body
+                                });
+                            }
+                            res.json({status: true, message: 'query success'});
+                        });
+
+                    } else {
+                        
+                        //Get members from team
+                        getTeamMemberIds(query, form, function(members){
+                            var member = members[0];
+                            getTeamMemberDetails(query, member.member_ids, function(users){
+                                for (var ukey in users) {
+                                var user = users[ukey];
+                                var transporter = nodemailer.createTransport();
+                                var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
+                                            "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                            "<br><br> Best wishes" +
+                                            "<br> Moodwonder Team";
+                                body = emailTemplate.general(body);
+                                transporter.sendMail({
+                                    from: 'admin@moodewonder.com',
+                                    to: user.email,
+                                    //to: 'useremailtestacc@gmail.com',
+                                    subject: 'Take a survey',
+                                    html: body
+                                });
+                            }
+                            res.json({status: true, message: 'query success'});
+                            });
+                            
+                        });
+                    }
+                    
+                } else if(query.targetgroup == 'survey') {
+                    getCompanyMembers(query, form, usercompany, function(members){
+                        
+                        getEngagementResults(query, form, members, function(posts){
+                            
+                            var _USERCOUNT = members.length;
+
+                            var survey = [];
+                            for (var mKey in members) {
+
+                                var temp = {};      
+                                var user = members[mKey];
+                                temp.user_id = user._id;
+                                temp.email = user.email;
+                                
+                                var userposts = _.filter(posts, function(v) { return v.user_id == user._id; });
+                                var recentposts = _.first(_.sortBy(userposts, function(o) { return o._id; }).reverse(), 13);
+                                var sum = _(userposts).reduce(function(m,x) { return m + x.rating; }, 0);
+                                var avg = (sum/13).toFixed(1);
+                                 
+                                temp.sum = sum;
+                                temp.avg = avg;
+                                //temp.recentposts = recentposts;		
+                                survey.push(temp); 		    
+                            }
+
+                            survey = _.sortBy(survey, function(o) { return o.avg; }).reverse();
+
+                            var sValue = query.targetvalue;
+                            var sLevel = query.targetlevel;
+                            sValue = Math.ceil((_USERCOUNT * sValue ) / 100);
+                            
+                            if(sLevel == 'above') {
+                                survey = _.first(survey, sValue);
+                            } else {
+                                survey = _.last(survey, sValue);
+                            }
+                            
+                            for (var skey in survey) {
+                                var data = survey[skey];
+                                var transporter = nodemailer.createTransport();
+                                var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
+                                            "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                            "<br><br> Best wishes" +
+                                            "<br> Moodwonder Team";
+                                body = emailTemplate.general(body);
+                                transporter.sendMail({
+                                    from: 'admin@moodewonder.com',
+                                    to: data.email,
+                                    subject: 'Take a survey',
+                                    html: body
+                                });
+                            }
+                            
+                            
+                            res.json({status: true, message: 'query success'});
+                        });
+                        
+                    });
+                }
+            });
+            
+        }
+        
+    });
+    
+    
 };
 
 /**
  * Get all custome survey forms 
  */
 exports.getForms = function (req, res) {
-    CustomSurvey.find({}).exec(function (err, forms) {
+    
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    
+    CustomSurvey.find(condition).sort({_id: -1}).exec(function (err, forms) {
         var response = {};
         if (!err) {
             response.status = 'success';
             response.forms = forms;
-            //res.json(forms);
-            //console.log(forms);
+            
         } else {
             response.status = 'failure';
             response.forms = [];
@@ -60,8 +279,7 @@ exports.deleteForm = function (req, res) {
  * Get custome survey form by _id 
  */
 exports.getSurveyForm = function (req, res) {
-    //var _id = mongoose.Types.ObjectId('55c2095cf4c9dcbd398b980e');
-    //var _id = mongoose.Types.ObjectId('55c33e2e1b7da50e28954600');
+    
     var id = mongoose.Types.ObjectId(req.query.id);
     
     CustomSurvey.findOne({_id: id}).exec(function (err, form) {
@@ -69,9 +287,7 @@ exports.getSurveyForm = function (req, res) {
         if (!err) {
             response.status = 'success';
             response.form = form;
-            console.log(form);
-            //res.json(forms);
-            //console.log(forms);
+            
         } else {
             response.status = 'failure';
             response.form = [];
@@ -79,6 +295,50 @@ exports.getSurveyForm = function (req, res) {
         res.send(response);
         res.end();
     });
+};
+
+
+function getTeams(companyname, manager_id, callback) {
+    
+    var condition = {manager_id: manager_id};
+    
+    Team.find(condition).lean().exec(function (err, rows) {
+        if (rows != 'undefined') {
+            callback(rows);
+        }
+    });
+   
+}
+
+
+exports.getOrganisation = function (req, res) {
+
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var companyname = req.user.company_info[0].companyname;
+
+    
+    getTeams(companyname, user_id, function(teams) {
+        var response = {};
+        var data = {};
+
+        if(!companyname) {
+            companyname = '';
+        }
+
+        if(teams.length == 0 ) {
+            teams = [];
+        }
+
+        data.companyname = companyname;
+        data.teams = teams;
+        response.data = data;
+        response.status = 'success';
+        
+        res.send(response);
+        res.end();
+        
+    });
+
 };
 
 

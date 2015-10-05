@@ -44,6 +44,14 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  getOrganization: () => {
+      return $.ajax({
+      url: '/getorganization',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

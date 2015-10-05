@@ -20,6 +20,27 @@ var path = require('path');
 
 PRO_PIC_PATH = '/images/profilepics/';
 
+function dateByNumber(num) {
+    // 1 for January
+    num = num-1;
+    var month = new Array();
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+
+    var d = new Date();
+    return month[num];
+}
+
 
 /**
  *  JSON response format
@@ -86,7 +107,7 @@ exports.checkLogin = function (req, res, next) {
  * Login
  */
 exports.postLogin = function (req, res, next) {
-
+    
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
@@ -131,14 +152,49 @@ exports.postLogin = function (req, res, next) {
 
 
 /**
- * Get all Users
+ * Get all Users for admin only
  */
-exports.getUsers = function (req, res) {
+exports.getallusers = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+
     User.find({}).exec(function (err, lists) {
         if (!err) {
-            res.json(lists);
+            response.status = true;
+            response.message = 'success';
+
+            // formatting user data for table
+            var data = {};
+            data.header = ['Id','Name', 'Email', 'Type', 'Verify Status', 'Country', 'Company name', 'Company size', 'Language'];
+            data.rows   = [];
+            data.class = "table";
+            if(lists !== null){
+                lists.map(function(user, key){
+                    var hasComp = (user.company_info.length > 0);
+                    var Comp    = (hasComp)? user.company_info[0]:{};
+                    data.rows[key] =  [
+                      {
+                          column: user._id,
+                          display:false
+                      }
+                     ,{column: (user.firstname+' '+user.lastname) }
+                     ,{column:user.email}
+                     ,{column:user.usertype}
+                     ,{column: (user.verifylink === "1") ? true : false }
+                     ,{column: (hasComp && Comp.country !== undefined )? Comp.country: '' }
+                     ,{column: (hasComp && Comp.companyname !== undefined )? Comp.companyname: '' }
+                     ,{column: (hasComp && Comp.companysize !== undefined )? Comp.companysize: '' }
+                     ,{column:user.language}
+                    ];
+                });
+                
+            }
+            response.data = data;
+            res.json(response);
         } else {
-            // console.log('Error in first query');
+            res.json(response);
         }
     });
 };
@@ -148,10 +204,12 @@ exports.getUsers = function (req, res) {
  */
 exports.getUserInfo = function (req, res) {
 
-    // console.log(req.user);
+    response.status = false;
+    response.message = 'Error';
+
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
-        if (!err) {
+        if (!err && !null) {
             response = {};
             response.status = true;
             response.message = 'success';
@@ -742,7 +800,7 @@ exports.updateUser = function (req, res) {
 
     if (req.user && req.body.update) {
 
-        var conditions = {'_id': req.user._id}
+        var conditions = { '_id': new ObjectId(req.user._id) }
         , update = req.body.update
                 , options = {multi: false};
 
@@ -867,26 +925,26 @@ exports.getAllEmployees = function (req, res) {
         User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
             if (!err) {
 
-            Vote.aggregate([
-                {
-                    $match: {
-                        postdate:
-                        {
-                            $regex : new RegExp(yearmonth,'i')
-                        },
-                        company: mycompany
+                Vote.aggregate([
+                    {
+                        $match: {
+                            postdate:
+                            {
+                                $regex : new RegExp(yearmonth,'i')
+                            },
+                            company: mycompany
+                        }
+                    },
+                    {
+                        $group : {
+                            _id : "$votefor_userid",
+                            total : { $sum : 1 },
+                            user_ids: {
+                                $push: "$user_id"
+                             }
+                        }
                     }
-                },
-                {
-                    $group : {
-                        _id : "$votefor_userid",
-                        total : { $sum : 1 },
-                        user_ids: {
-                            $push: "$user_id"
-                         }
-                    }
-                }
-            ],
+                ],
                 function (err, result) {
 
                     var emp_meta = {};
@@ -898,43 +956,43 @@ exports.getAllEmployees = function (req, res) {
                         });
                     }
 
-					EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
 
-						var employees = [];
-						var mytotalvotes = 0;
-						lists.map(function (data, key) {
+                        var employees = [];
+                        var mytotalvotes = 0;
+                        lists.map(function (data, key) {
 
-							var votes         =   0;
-							var myvote        =   false;
-							var empofthemonth =   false;
-							if(emp_meta[data._id] !== undefined){
-								var cemp      =   emp_meta[data._id];
-								var userids   =   emp_meta[data._id].user_ids;
-								var user_ids  =   [];
+                            var votes         =   0;
+                            var myvote        =   false;
+                            var empofthemonth =   false;
+                            if(emp_meta[data._id] !== undefined){
+                                var cemp      =   emp_meta[data._id];
+                                var userids   =   emp_meta[data._id].user_ids;
+                                var user_ids  =   [];
 
-								// set employee of the month status
-								try {
-									if(emp.emp_id === data._id){
-										empofthemonth =   true;
-									}
-								} catch (ex) {}
-								userids.map(function (id, key) { user_ids[key] = id.toString(); });
-								votes         =  cemp.total;
-								if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
-									myvote    =  true;
-									mytotalvotes++;
-								}
-							}
-							var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
-							employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
-						});
-						response.status = true;
-						response.message = 'success';
-						response.data = {};
-						response.data.employees = employees;
-						response.data.mytotalvotes = mytotalvotes;
-						res.send(response);
-					});
+                                // set employee of the month status
+                                try {
+                                    if(emp.emp_id === data._id){
+                                        empofthemonth =   true;
+                                    }
+                                } catch (ex) {}
+                                userids.map(function (id, key) { user_ids[key] = id.toString(); });
+                                votes         =  cemp.total;
+                                if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
+                                    myvote    =  true;
+                                    mytotalvotes++;
+                                }
+                            }
+                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
+                        });
+                        response.status = true;
+                        response.message = 'success';
+                        response.data = {};
+                        response.data.employees = employees;
+                        response.data.mytotalvotes = mytotalvotes;
+                        res.send(response);
+                    });
                 }
             );
 
@@ -956,14 +1014,234 @@ exports.getAllEmployees = function (req, res) {
  * Get get all employees by company name
  */
 exports.isAdmin = function (req, res, next) {
-	if(req.user.usertype === 'admin'){
-		// redirect to next route
-		next();
-	}else{
+    if(req.user.usertype === 'admin'){
+        // redirect to next route
+        next();
+    }else{
         response.status = false;
         response.message = "You need administrator permission to perform this action.";
         res.send(response);
-	}
+    }
 
 };
 
+/**
+ * Wanning !!!!!! : Cron job function
+ *
+ * Function to loop through all employees in the users collection and sending e-mail
+ * with `employee of the month` statistics , showing how many votes he got and who got the most votes in the company
+ *
+ * Send employee of the month statistics
+ */
+exports.sendEOTMstats = function (req, res) {
+
+};
+
+var CronJob = require('cron').CronJob;
+var job = new CronJob({
+  cronTime: '10 30 06 22 * 1-5',
+  onTick: function() {
+
+    var transporter = nodemailer.createTransport();
+    function company(mycompany,EOTMdate){
+        var elmatch = { companyname: mycompany };
+        User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
+            if (!err) {
+
+                Vote.aggregate([
+                    {
+                        $match: {
+                            postdate:
+                            {
+                                $regex : new RegExp(EOTMdate,'i')
+                            },
+                            company: mycompany
+                        }
+                    },
+                    {
+                        $group : {
+                            _id : "$votefor_userid",
+                            total : { $sum : 1 },
+                            user_ids: {
+                                $push: "$user_id"
+                             }
+                        }
+                    }
+                ],
+                function (err, result) {
+                    var emp_meta = {};
+                    if (err) {
+                        console.log(err);
+                    }else{
+                        result.map(function (data, key) {
+                            emp_meta[data._id] = data;
+                        });
+                    }
+
+                    EOTM.findOne({ date: { $regex : new RegExp(EOTMdate,'i') }, company: mycompany }, function(err, emp){
+                        var mailDate = [];
+                        lists.map(function (data, key) {
+
+                            var empofthemonth =   false;
+                            if(emp !== null){
+                                empofthemonth =   emp.emp_details[0].firstname +' '+emp.emp_details[0].lastname;
+                            }
+                            var votes         =   0;
+                            if(emp_meta[data._id] !== undefined){
+                                var cemp      =   emp_meta[data._id];
+                                var userids   =   emp_meta[data._id].user_ids;
+                                var user_ids  =   [];
+                                userids.map(function (id, key) { user_ids[key] = id.toString(); });
+                                votes         =  cemp.total;
+                            }
+                            mailDate[key]  = { _id: data._id, email: data.email,name: (data.firstname+' '+data.lastname), votes: votes, empofthemonth: empofthemonth };
+                        });
+
+
+                        var monthNum  =  EOTMdate.split("-");
+                        monthNum      =  monthNum[1];
+                        mailDate.map(function (data, key) {
+                            var body = "Hi there,<br><br> Vote summary <br>" +
+                                    "<b> "+data.name+"</b> is the Employee of the Month for <b>"+dateByNumber(monthNum)+"</b>"+
+                                    "<br>"+
+                                    "<br>Number of votes you got : <b>"+data.votes+"</b>"+
+                                    "<br><br> Best wishes" +
+                                    "<br> Moodwonder Team";
+                            body = emailTemplate.general(body);
+                            transporter.sendMail({
+                                from: 'admin@moodewonder.com',
+                                to: data.email,
+                                subject: 'Vote Summary',
+                                html: body
+                            });
+                        });
+
+                    });
+                });
+
+            } else {
+                console.log('Cron job error');
+            }
+        });
+    }
+
+    User.aggregate(
+    [
+      { $group : { _id : "$_id", comp : { $first : "$company_info" } } },
+      { $group : { _id : "$comp.companyname" } }
+    ],
+    function (err, lists) {
+        var d = new Date();
+        // It will return previous month number
+        // Since it is start from 0
+        var m = d.getMonth();
+        var y = d.getFullYear();
+        m = (m < 10) ? ("0" + m) : m;
+        var ym = y+'-'+m;
+        if (!err) {
+            var totalCompanies = lists.length;
+            var i = 0;
+            lists.map(function (data, key) {
+                i++;
+                if(data._id[0]!==undefined && data._id[0]!==''){
+                    //console.log(data._id[0] +'====='+ ym);
+                    company(data._id[0],ym);
+                }
+            });
+            if(totalCompanies === i){
+                console.log('Cron job completed');
+            }
+        } else {
+            console.log('Cron job error');
+            console.log(err);
+        }
+    });
+  },
+  start: true
+});
+job.start();
+
+/**
+ * Get a User By Id
+ */
+exports.getUserInfoById = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+    var _id = req.body._id;
+    if( _id !== undefined && _id !== ''){
+        var condition = {'_id': new ObjectId(_id)};
+        User.findOne(condition, function (err, lists) {
+            if (!err && !null) {
+                response = {};
+                response.status = true;
+                response.message = 'success';
+                response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'userstatus': false };
+                if (req.query.type == 'company') {
+                    if (lists.company_info[0] != undefined) {
+                        response.data = lists.company_info[0];
+                    }
+
+                } else {
+
+                    if (lists.mymanager[0] == undefined) {
+                        lists.mymanager[0] = {'email': ''};
+                    }
+                    
+                    var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
+                    response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'userstatus': lists.userstatus };
+                }
+                res.json(response);
+            } else {
+                res.json(response);
+            }
+        });
+    }else{
+        response.message = 'Invalid user Id';
+        res.json(response);
+    }
+};
+
+/**
+ * Get a User Details By Id
+ */
+exports.updateUser = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Unknown error';
+    //console.log(req.body);
+
+    var model = req.body;
+    var hasBody = (req.body !== undefined);
+    var hasUserId = ( hasBody && model._id !== undefined && model._id !== '' );
+
+    if( hasBody && hasUserId){
+		var updateQuery = {};
+		var conditionQuery = { _id : new ObjectId(model._id) };
+		var options = { multi: false };
+		if(model.userstatus !== undefined){
+			updateQuery.userstatus = (model.userstatus) ? 'Active':'Inactive';
+		}
+
+        User.update(conditionQuery, updateQuery, options, function (err) {
+
+            if (!err) {
+
+                response.status = true;
+                response.message = 'User details updated..';
+            } else {
+
+                response.status = false;
+                response.message = 'Something went wrong..';
+            }
+            res.send(response);
+            res.end();
+        });
+
+	}else{
+		res.json(response);
+	}
+
+};

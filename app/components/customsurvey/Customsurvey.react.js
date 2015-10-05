@@ -1,3 +1,6 @@
+//require('react-date-picker/index.css');
+require('react-date-picker/base.css');
+require('react-date-picker/theme/hackerone.css');
 import React from 'react';
 // import Immutable from 'immutable';
 // import UserWebAPIUtils from 'utils/UserWebAPIUtils';
@@ -11,7 +14,7 @@ import CustomSurveyStore from 'stores/CustomSurveyStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
-
+import DatePicker from 'react-date-picker';
 
 export default class Customsurvey extends React.Component {
 
@@ -30,15 +33,25 @@ export default class Customsurvey extends React.Component {
         tIndex: 1,
         textarea: [],
         txIndex: 1,
-        formstatus: false
+        formstatus: false,
+        freezedate: '',
+        today: '',
+        organization: []
     };
   }
 
   componentDidMount() {
-      //console.log(this.state.questions);
-      //console.log(this.state.qIndex);
+      let today = new Date();
+      let yToday = today.getFullYear();
+      let mToday = ('0' + (today.getMonth() + 1)).slice(-2);
+      let dToday = ('0' + today.getDate()).slice(-2);
+      today = yToday + '-' + mToday + '-' + dToday;
+
+      CustomSurveyActions.getOrganization();
       CustomSurveyStore.listen(this._onChange);
       this.setState({formstatus: false});
+      this.setState({freezedate: today});
+      this.setState({today: today});
   }
 
   componentWillUnmount() {
@@ -48,7 +61,8 @@ export default class Customsurvey extends React.Component {
 
   _onChange = () => {
       this.setState({
-          isSurveySaved: CustomSurveyStore.getState().isSurveySaved
+          isSurveySaved: CustomSurveyStore.getState().isSurveySaved,
+          organization: CustomSurveyStore.getState().organization
       });
   }
 
@@ -68,13 +82,18 @@ export default class Customsurvey extends React.Component {
       let data = getFormData(form, {trim: true});
       let question = this.state.questions;
       let survey = survey || {};
-      console.log(JSON.stringify(data));
+      //console.log(JSON.stringify(data));
 
-      survey.id = 'S1';
-      survey.surveytitle = data.surveytitle;
-      survey.user_id = 1;
-      survey.createddate = '29-july-2015';
-      survey.target_teamid = 2;
+      survey.surveytitle = data['surveytitle'];
+      survey.freezedate = data['freezedate'];
+      survey.targetgroup = data['targetgroup'];
+      if(survey.targetgroup === 'organization') {
+          survey.target_teamid = data['target_teamid'];
+      } else {
+          survey.targetlevel = data['targetlevel'];
+          survey.targetvalue = data['targetvalue'];
+      }
+
       survey.questions = [];
       let keys = Object.keys(data);
 
@@ -109,11 +128,79 @@ export default class Customsurvey extends React.Component {
           survey.questions.push(qTemp);
       }
 
-      console.log(JSON.stringify(survey));
-      if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
-          console.log('yes');
-          CustomSurveyActions.createCustomSurveyForm(survey);
-          this.setState({formstatus: true});
+      //Start: Form validation
+      let errorFlag = false;
+      if (survey.surveytitle === '' || survey.surveytitle === null) {
+
+          alert('Please enter survey title.');
+          errorFlag = true;
+
+      } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
+
+          alert('Please create a team or add your company first.');
+          errorFlag = true;
+
+      } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
+
+          alert('Please enter survey percentage.');
+          errorFlag = true;
+
+      } else {
+
+          for(let qid of question){
+              let id = qid.replace('q', '');
+              if(data['question_' + qid] === '' || data['question_' + qid] === null) {
+
+                  alert('Please enter question ' + id);
+                  errorFlag = true;
+                  break;
+
+              } else if(data['answertype_' + qid] === '0') {
+
+                  alert('Please choose an answer type for question ' + id);
+                  errorFlag = true;
+                  break;
+
+              } else if(data['answertype_' + qid] === 'radio') {
+
+                  let rString = qid + 'r';
+                  for (let key of keys) {
+                      if((key.search(rString) !== -1))
+                      {
+                          if (data[key][0] === '' || data[key][0] === null) {
+                              alert('Radio option empty for question ' + id);
+                              errorFlag = true;
+                              break;
+                          }
+                      }
+                  }
+
+              } else if(data['answertype_' + qid] === 'checkbox') {
+
+                  let cString = qid + 'c';
+                  for (let key of keys) {
+                      if((key.search(cString) !== -1))
+                      {
+                          if (data[key][0] === '' || data[key][0] === null) {
+                              alert('Checkbox option empty for question ' + id);
+                              errorFlag = true;
+                              break;
+                          }
+                      }
+                  }
+              }
+          }
+
+      }
+      //End: Form validation
+
+
+      if(!errorFlag) {
+          if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
+              //console.log(JSON.stringify(survey));
+              CustomSurveyActions.createCustomSurveyForm(survey);
+              this.setState({formstatus: true});
+          }
       }
   }
 
@@ -128,8 +215,8 @@ export default class Customsurvey extends React.Component {
   }
 
   onRemoveQuestion = (child) => {
-      console.log(child.refs);
-      console.log(child.props);
+      //console.log(child.refs);
+      //console.log(child.props);
       let qid = child.props.qid;
       let questions = this.state.questions;
       let key = questions.indexOf(qid);
@@ -186,7 +273,10 @@ export default class Customsurvey extends React.Component {
       state[key] = this.state[key] || {};
       state[key][attr] = event.currentTarget.value;
       this.setState(state);
-      // console.log(this.state);
+  };
+
+  onDateChange = (e) => {
+      this.setState({freezedate: e});
   };
 
   onSelectAnswerType = (e, child) => {
@@ -278,18 +368,40 @@ export default class Customsurvey extends React.Component {
   }
 
   render() {
-      // let qIndex = this.state.qIndex;
+
       let questions = this.state.questions;
       let radio = this.state.radio;
       let checkbox = this.state.checkbox;
       let textbox = this.state.textbox;
       let textarea = this.state.textarea;
       let formstatus = this.state.formstatus;
+      let freezedate = this.state.freezedate;
+      let today = this.state.today;
+      let organization = this.state.organization;
       let statusmessage = '';
-      // console.log(this.state.isSurveyCreated);
+
+      let teamoption = '';
+      let companyoption = '';
+      let teams = [];
+
+      if (organization.companyname !== '') {
+          companyoption = (<option value={organization.companyname}>
+                            {organization.companyname}
+                           </option>);
+      }
+
+      let teamdata = organization.teams;
+
+      for(let key in teamdata) {
+          let team = teamdata[key];
+          teams.push({_id: team._id, teamname: team.teamname});
+      }
+
+      teamoption = (teams).map((team) => {
+          return (<option value={team._id}>{team.teamname}</option>);
+      });
 
       if(formstatus) {
-          // statusmessage = 'Form submitted.';
           statusmessage = (<div className="alert alert-success">
                             <strong>Success!</strong> Form submitted.
                            </div>
@@ -371,22 +483,24 @@ export default class Customsurvey extends React.Component {
           </div>
           <div className="form-group">
             <label>Freeze date:</label>
-            <input type="text" ref="freezedate" name="freezedate" id="freezedate" placeholder="Pick a date"/>
+            <input type="text" ref="freezedate" name="freezedate" id="freezedate" value={freezedate} placeholder="Pick a date"/>
+            <div className="datepicker">
+                <DatePicker minDate={today} onChange={this.onDateChange}/>
+            </div>
           </div>
           <div className="form-group">
             <label>Target group</label>
             <br/>
-            <input type="radio" name="targetgroup" defaultChecked/>&nbsp; Org &nbsp;
-            <select className="navigation__item">
-              <option value="0">Whole company or team</option>
-              <option value="company">Company</option>
-              <option value="team">Team</option>
+            <input type="radio" name="targetgroup" value="organization" defaultChecked/>&nbsp; Org &nbsp;
+            <select name="target_teamid" className="navigation__item">
+              <option value="0">Select company or team</option>
+              {companyoption}
+              {teamoption}
             </select>
             <br/>
-            <input type="radio" name="targetgroup"/>&nbsp; Survey &nbsp;
-            <input type="text" value="10%"/>&nbsp;
-            <select className="navigation__item">
-              <option value="0">Expectations</option>
+            <input type="radio" name="targetgroup" value="survey" />&nbsp; Survey &nbsp;
+            <input type="text"  name="targetvalue" />%&nbsp;&nbsp;&nbsp;
+            <select name="targetlevel" className="navigation__item">
               <option value="above">Above</option>
               <option value="below">Below</option>
             </select>
