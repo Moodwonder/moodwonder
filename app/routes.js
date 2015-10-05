@@ -35,6 +35,7 @@ import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
 import MyCompany from 'components/MyCompany.react';
+import Customsurveyresponses from 'components/customsurvey/Customsurveyresponses.react';
 
 //const routes = (
 //  <Route>
@@ -113,6 +114,9 @@ const routes = (
     </Route>
     <Route name="takesurvey/:key" path="/takesurvey/:key" handler={Appuser} >
       <Route name="" handler={Takesurvey} />
+    </Route>
+    <Route name="surveyresponses/:key" path="/surveyresponses/:key" handler={Appuser} >
+      <Route name="" handler={Customsurveyresponses} />
     </Route>
     <Route name="customsurvey" path="/customsurvey" handler={Appuser} >
       <Route name="" handler={Customsurvey} />

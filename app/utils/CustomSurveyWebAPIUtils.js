@@ -52,6 +52,15 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getSurveyResponses: (id) => {
+      return $.ajax({
+      url: '/getsurveyresponses',
+      type: 'GET',
+      contentType: 'application/json',
+      data: {id: id}
+    });
   }
 
 };
