@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
@@ -49,11 +49,7 @@ export default class Navigation extends React.Component {
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
             <li>
-                  <Link
-                        onClick={this._onLogout}
-                        className="navigation__item"
-                        to="logout">Logout
-                  </Link>
+                  <a href="/logout" onClick={this._onLogout} className="navigation__item">Logout</a>
             </li>
           ];
       } else {
@@ -63,29 +59,44 @@ export default class Navigation extends React.Component {
           ];
       }
       return (
-        <nav className="navbar navbar-default" role="navigation">
-            <div className="container-fluid">
-                  <div className="navbar-header">
-                        <ul className="nav navbar-nav  navbar-left">
-                            <li><a href="/" className="navbar-brand navigation__item">NAV_TITLE</a></li>
-                        </ul>
-                  </div>
-                  <div>
-                        <ul className="nav navbar-nav  navbar-right">
-                          { loginOrOut }
-                          <li>
-                              <a className="navigation__item">
-                              <form id="languageForm" name="languageForm" method="post">
-                              <select className="navigation__item" value={lang} onChange={this.onSelectLanguage}>
+        <nav role="navigation">
+			<div className="ui large top fixed hidden menu">
+    <div className="ui large secondary inverted pointing menu"> <a className="toc item"> <i className="sidebar icon"></i> </a>
+    <div  className="header item"> <img className="logo" src="images/logo.png" alt=""/><img className="logo-mw slide-logo" src="images/logo-mw.png" alt=""/> </div>
+    <div className="ui segment padding-none width-header ">
+        <div className="header-middle-container ">
+        <h2>RATE YOUR MOOD</h2>
+        <p>How are you feeling at work today?</p>
+      </div>
+        <div className="ui slider range  header-middle-container ">
+        <input type="range" />
+      </div>
+        <div  className="header-middle-container">
+        <button className="ui yellow button">Submit</button>
+      </div>
+        <div  className="header-middle-container">
+        <p className="answer">Answer all
+            statements </p>
+      </div>
+      </div>
+    <div className="right item">
+        <div className="ui floating dropdown  icon "> <i className="angle down icon" style={{"float":"right","marginRight":"20"}}></i> <span className="text">Language</span>
+        <select className="navigation__item" value={lang} onChange={this.onSelectLanguage}>
                                     <option value={LanguageContants.EN}>{LanguageContants.EN}</option>
                                     <option value={LanguageContants.FI}>{LanguageContants.FI}</option>
                               </select>
-                              </form>
-                              </a>
-                          </li>
-                        </ul>
-                  </div>
-            </div>
+      </div>
+        <div className="ui compact menu">
+        <div className="ui floating dropdown item"> <i className="ellipsis vertical icon"></i>
+            <div className="menu">
+            <div className="item">My Account</div>
+            <div className="item">{ loginOrOut }</div>
+          </div>
+          </div>
+      </div>
+      </div>
+  </div>
+  </div>
         </nav>
       );
   }

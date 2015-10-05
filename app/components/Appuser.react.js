@@ -30,29 +30,23 @@ export default class App extends React.Component {
       let rightnav;
       let noPermission = (
         <div>
-         <span> You do not have sufficient permissions to access this page </span>
+         <p> You do not have sufficient permissions to access this page. </p>
+         <p> Please login to continue <a href="/login">Login</a> </p>
         </div>
       );
       let path = this.context.router.getCurrentPathname();
 
       // user only pages
-      let pages = ["/","/login","/forgotpassword","/signup","/createpassword","/admin","/test1"];
+      let pages = ["/","/login","/forgotpassword","/signup","/createpassword","/admin","/test1","/myteam"];
       if( pages.indexOf(path) === -1 ){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
           }
       }
       // admin and manager only pages
-      pages = ["/surveyforms","/myteam","/customsurvey"];
+      pages = ["/surveyforms","/customsurvey"];
       if( pages.indexOf(path) >= 0){
           if( (!this.state.isAuthenticated) || this.state.userType !== 'manager' ){
-              handler = noPermission;
-          }
-      }
-      // admin only pages
-      pages = ["/surveyforms"];
-      if( pages.indexOf(path) >= 0){
-          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
               handler = noPermission;
           }
       }
@@ -63,18 +57,23 @@ export default class App extends React.Component {
       }
 
       return (
-        <div>
+          <div>
           <Navigation />
+          <div className="ui vertical inverted sidebar menu "> <a href="#" className="slide-side"></a> <a className="active item"><i className="smile icon"></i>My Mood </a> <a className="item"><i className="setting icon"></i> My Account </a> <a className="item"><i className="building icon"></i>My Company</a> </div>
+
           <div className="wrapper">
             <div className="pusher">
+				<div className="ui inverted vertical masthead center aligned "> </div>
                 {leftnav}
-                <div className="middleContainer">
-                    {handler}
-                    {rightnav}
-                </div>
+				<div className="ui segment  width padding-top-110 ">
+					<div className="ui main ">
+						{handler}
+						{rightnav}
+					</div>
+				</div>
             </div>
           </div>
-        </div>
+          </div>
       );
   }
 }
