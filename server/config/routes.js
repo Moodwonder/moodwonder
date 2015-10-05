@@ -67,10 +67,11 @@ module.exports = function (app, passport) {
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
     app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
-    app.get('/takesurvey/:hash', customSurvey.handleTakeSurvey);
+    app.get('/takesurvey/:hash', users.checkLogin, customSurvey.handleTakeSurvey);
     
 
-    app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
+    app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
+    app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
 
     app.post('/addlanguage', language.addLanguage);
     app.post('/editlanguage', language.editLanguage);

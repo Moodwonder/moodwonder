@@ -1,31 +1,30 @@
-import Immutable from 'immutable';
 import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
-import { fromJSOrdered } from 'utils/immutableHelpers';
 import alt from 'altInstance';
 
 class CustomSurveyResultsStore {
 
   constructor() {
 
-    this.status = false;//Immutable.Map({});
+      this.status = false;
+      this.surveyform = [];
+      this.users = [];
+      this.surveyresponses = [];
 
-    this.on('init', this.bootstrap);
-    this.on('bootstrap', this.bootstrap);
+      this.on('init', this.bootstrap);
+      this.on('bootstrap', this.bootstrap);
 
-    this.bindListeners({
-      handleSurveyResults: CustomSurveyActions.HANDLESURVEYRESULTS
-    });
+      this.bindListeners({
+          handleSurveyResponses: CustomSurveyResultsActions.HANDLESURVEYRESPONSES
+      });
   }
 
-  bootstrap() {
-    //if (!Immutable.OrderedMap.isOrderedMap(this.form)) {
-    //  this.form = fromJSOrdered(this.form);
-    //}
-  }
+  bootstrap() {}
 
-  handleSurveyResults() {
-    this.status = true;
-    this.emitChange();
+  handleSurveyResponses(response) {
+      this.surveyform = response.surveyform;
+      this.users = response.users;
+      this.surveyresponses = response.surveyresponses;
+      this.emitChange();
   }
 
 }

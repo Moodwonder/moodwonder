@@ -51,14 +51,6 @@ export default class App extends React.Component {
           }
       }
 
-      // admin only pages
-//      pages = ["/surveyforms"];
-//      if( pages.indexOf(path) >= 0){
-//          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
-//              handler = noPermission;
-//          }
-//      }
-
       if (this.state.isAuthenticated) {
           leftnav = (<Leftnav />);
           rightnav = (<Rightnav />);
