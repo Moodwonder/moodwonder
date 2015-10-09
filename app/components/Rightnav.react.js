@@ -95,7 +95,7 @@ export default class Rightnav extends React.Component {
                                 <span className="risk">{employeesAtRisk}</span>
                             </div>
                             <div className="ui segment padding-30 ">
-                                No. of responses (last 1 month)
+                                No. of responses
                                 <span className="last-month">{lastMonthResponses}</span>
                             </div>
                         </div>
