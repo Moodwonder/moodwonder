@@ -1,9 +1,10 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
+import AppStore from 'stores/AppStore';
 import Navigation from 'components/Navigation.react';
 import Leftnav from 'components/Leftnav.react';
 import Rightnav from 'components/Rightnav.react';
-import AppStore from 'stores/AppStore';
+import SidebarMenu from 'components/SidebarMenu.react';
 
 export default class App extends React.Component {
 
@@ -14,6 +15,13 @@ export default class App extends React.Component {
 
   componentDidMount () {
       AppStore.listen(this._onChange);
+//      let rootNode = React.findDOMNode(this);
+//
+//      // Initialize the sidebar
+//      $(rootNode).find('.ui.sidebar').sidebar({
+//          context: $(rootNode)
+//      });
+
   }
 
   componentWillUnmount () {
@@ -56,24 +64,23 @@ export default class App extends React.Component {
           rightnav = (<Rightnav />);
       }
 
-      return (
-          <div>
-          <Navigation />
-          <div className="ui vertical inverted sidebar menu "> <a href="#" className="slide-side"></a> <a className="active item"><i className="smile icon"></i>My Mood </a> <a className="item"><i className="setting icon"></i> My Account </a> <a className="item"><i className="building icon"></i>My Company</a> </div>
+      let sitecontent = [
+                    <Navigation />,
+                    <SidebarMenu />,
+                    <div className="pusher">
+                        <div className="ui inverted vertical masthead center aligned "></div>
+                        {leftnav}
+                        <div className="ui segment  width padding-top-110 ">
+                            <div className="ui main">
+                                {handler}
+                                {rightnav}
+                            </div>
+                        </div>
+                    </div>
+              ];
 
-          <div className="wrapper">
-            <div className="pusher">
-				<div className="ui inverted vertical masthead center aligned "> </div>
-                {leftnav}
-				<div className="ui segment  width padding-top-110 ">
-					<div className="ui main ">
-						{handler}
-						{rightnav}
-					</div>
-				</div>
-            </div>
-          </div>
-          </div>
+      return (
+              <span>{sitecontent}</span>
       );
   }
 }

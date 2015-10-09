@@ -1,24 +1,28 @@
 const config = {
   link: [
     // Add to homescreen for Chrome on Android
-    { "rel": "stylesheet", "href": "/assets/styles/reset.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/site.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/container.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/grid.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/header.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/image.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/menu.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/divider.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/dropdown.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/segment.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/button.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/list.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/sidebar.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/transition.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/popup.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/rating.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/card.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/input.css" },
     { "rel": "stylesheet", "href": "/assets/styles/icon.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/input.css" }
+    { "rel": "stylesheet", "href": "/assets/styles/popup.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/transition.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/sidebar.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/list.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/button.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/segment.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/dropdown.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/divider.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/menu.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/image.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/header.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/grid.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/container.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/site.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/reset.css" }
+    //{ "rel": "stylesheet", "href": "/assets/styles/custom_popup.css"},
   ],
+
   meta: [
     { "charset": "utf-8" },
     // Setting IE=edge tells Internet Explorer to use the latest engine to render the page and execute Javascript

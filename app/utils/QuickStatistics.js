@@ -82,7 +82,7 @@ const quickstatistics = {
         let montharray = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 
         function countup(yr, m, d, h, min, sec) {
-
+            let timeArr = [];
             let today = new Date();
             let todayy = today.getYear();
             if (todayy < 1000) {
@@ -102,7 +102,12 @@ const quickstatistics = {
             let dmin = Math.floor(((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1);
             // let dsec = Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
 
-            return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
+            //return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
+            timeArr['day'] = dday;
+            timeArr['hour'] = dhour;
+            timeArr['min'] = dmin;
+
+            return timeArr;
         }
 
         let timestamp = postid.toString().substring(0,8);

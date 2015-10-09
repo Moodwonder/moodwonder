@@ -1,64 +1,137 @@
 import React from 'react';
+// import SurveyActions from 'actions/SurveyActions';
+import SurveyStore from 'stores/SurveyStore';
+import QuickStatistics from 'utils/QuickStatistics';
 
 
 export default class Rightnav extends React.Component {
 
   constructor (props) {
       super(props);
+      this.state = {
+          surveyresults: [],
+          companysurvey: [],
+          currentuserid: '',
+          totalcompanyusers: ''
+      };
   }
 
   componentDidMount () {
-
+      //SurveyActions.getEngagementSurvey();
+      //SurveyActions.getEngagementResults();
+      SurveyStore.listen(this._onMoodChange);
   }
 
   componentWillUnmount () {
-
+      SurveyStore.unlisten(this._onMoodChange);
   }
+
+   _onMoodChange = () => {
+       this.setState({
+         surveyresults: SurveyStore.getState().surveyresults,
+         companysurvey: SurveyStore.getState().companysurvey,
+         currentuserid: SurveyStore.getState().currentuserid,
+         totalcompanyusers: SurveyStore.getState().totalcompanyusers
+      });
+   }
 
 
   render () {
+      let surveyresults = this.state.surveyresults;
+      let companysurvey = this.state.companysurvey;
+      let currentuserid = this.state.currentuserid;
+      let totalcompanyusers = this.state.totalcompanyusers;
+
+      let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
+      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
+      let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+
+      let responseComparison = lastRatings.map((data, index) => {
+          return [
+                        <div className="column padding-ryt">
+                            <div className="ui segment padding-20">
+                                <p>{data.mood}</p>
+                            </div>
+                        </div>,
+
+                        <div className="column padding-ryt">
+                            <div className="ui segment padding-20">
+                                <p><meter min="1" max="5" value={data.rating}></meter></p>
+                            </div>
+                        </div>
+                     ];
+      });
+
+
+      let days = '- ';
+      if(!isNaN(timeSinceLastPost['day'])) {
+          days = timeSinceLastPost['day'];
+      }
+
+      let hours = '- ';
+      if(!isNaN(timeSinceLastPost['hour'])) {
+          hours = timeSinceLastPost['hour'];
+      }
+
+      let mins = '- ';
+      if(!isNaN(timeSinceLastPost['min'])) {
+          mins = timeSinceLastPost['min'];
+      }
+
 
       return (
-        <div className="rightbar">
-             <div className="ui right fixed vertical menu ryt right-menu">
-        <div className="ui segment ryt brdr-none">
-            <div className="item ryt">
-            <div className="ui segment ryt brdr-none">
-                <h4 className="ui header ryt">Quick statistics</h4>
-                <div className="ui segment padding-10"> Number of employees <span className="employees">8</span></div>
-                <div className="ui segment padding-20 "> Employees at risk<span className="risk">6</span></div>
-                <div className="ui segment padding-30 "> Destiny Higgins <span className="last-month">3</span></div>
-              </div>
-          </div>
-            <div className="item ryt">
-            <h4 className="ui header ryt">Time since last response</h4>
-            <div className="ui two column stackable grid  ">
-                <div className="three column row padding-top  ">
-                <div className="column padding-ryt">
-                    <div className="ui segment red-time">
-                    <p>2Days</p>
-                  </div>
-                  </div>
-                <div className="column padding-ryt">
-                    <div className="ui segment red-time">
-                    <p>5Hrs</p>
-                  </div>
-                  </div>
-                <div className="column padding-ryt">
-                    <div className="ui segment red-time">
-                    <p>32Mins</p>
-                  </div>
-                  </div>
-              </div>
-              </div>
-          </div>
-            <div className="item ryt">
-            <h4 className="ui header ryt">Response comparison</h4>
-            <p><img src="images/mood-graph.png" alt="" className="wide"/></p>
-          </div>
-          </div>
-      </div>
-	</div>
+            <div className="ui right fixed vertical menu ryt right-menu">
+                <div className="ui segment ryt brdr-none">
+                    <div className="item ryt">
+                        <div className="ui segment ryt brdr-none">
+                            <h4 className="ui header ryt">Quick statistics</h4>
+                            <div className="ui segment padding-10">
+                                Number of employees
+                                <span className="employees">{totalcompanyusers}</span>
+                            </div>
+                            <div className="ui segment padding-20 ">
+                                Employees at risk
+                                <span className="risk">{employeesAtRisk}</span>
+                            </div>
+                            <div className="ui segment padding-30 ">
+                                No. of responses (last 1 month)
+                                <span className="last-month">{lastMonthResponses}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="item ryt">
+                        <h4 className="ui header ryt">Time since last response</h4>
+                        <div className="ui two column stackable grid  ">
+                            <div className="three column row padding-top  ">
+                                <div className="column padding-ryt">
+                                    <div className="ui segment red-time">
+                                        <p>{days} Days</p>
+                                    </div>
+                                </div>
+                                <div className="column padding-ryt">
+                                    <div className="ui segment red-time">
+                                        <p>{hours} Hrs</p>
+                                    </div>
+                                </div>
+                                <div className="column padding-ryt">
+                                    <div className="ui segment red-time">
+                                        <p>{mins} Mins</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="item ryt">
+                        <h4 className="ui header ryt">Response comparison</h4>
+                        <div className="ui two column stackable grid">
+                            <div className="two column row padding-top">
+                                {responseComparison}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
       );
   }
 

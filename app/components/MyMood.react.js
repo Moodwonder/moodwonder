@@ -1,15 +1,19 @@
 import React from 'react';
-// import $ from 'jquery';
-import getFormData from 'get-form-data';
-import Submenu from 'components/Submenu.react';
+//import getFormData from 'get-form-data';
+//import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
-let BarChart = require("react-chartjs").Bar;
-import MoodSlider from 'components/MoodSlider.react';
+//let BarChart = require("react-chartjs").Bar;
+let Doughnut = require("react-chartjs").Doughnut;
+//import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Graphdata from 'utils/Graphdata';
 import MoodRatings from 'utils/MoodRatings';
 import QuickStatistics from 'utils/QuickStatistics';
+import FullStar from 'components/FullStar.react';
+import HalfStar from 'components/HalfStar.react';
+import BlankStar from 'components/BlankStar.react';
+
 
 
 let chartoptions = {
@@ -90,31 +94,6 @@ export default class MyMood extends React.Component {
       });
   }
 
-  onSubmitMood = (e) => {
-      e.preventDefault();
-      let form = document.querySelector('#moodRating');
-      let data = getFormData(form, {trim: true});
-
-      let commentForm = document.querySelector('#commentForm');
-      let commentData = getFormData(commentForm, {trim: true});
-
-      let moodrate = data['moodrate'];
-      let surveyResult = [];
-
-      surveyResult = this.engagementmoods.map((data, key) => {
-          let mood = mood || {};
-          mood.rating = moodrate;
-          mood.comment_title = commentData['comment_title'];
-          mood.comment = commentData['comment'];
-          mood.mood = data;
-          return mood;
-      });
-
-      SurveyActions.saveEngagementSurvey(surveyResult);
-      this.setState({ popup : false });
-      SurveyActions.getEngagementResults();
-  }
-
   onPopupClose = (e) => {
       e.preventDefault();
       this.setState({ popup : false });
@@ -164,29 +143,48 @@ export default class MyMood extends React.Component {
       });
   }
 
+  isFloat = (n) => {
+      return n === +n && n !== (n|0);
+  }
+
+  getStars = (rating, star) => {
+      let rate =  Math.abs(rating);
+      let intRating =  parseInt(rate);
+      let rows = [];
+      for (let i = 0; i < intRating; i++) {
+          rows.push(<FullStar star={star} />);
+      }
+      if (this.isFloat(rate)) {
+          rows.push(<HalfStar star={star} />);
+      }
+      for (let j = 0; j < (4 - intRating); j++) {
+          rows.push(<BlankStar />);
+      }
+      if (rows.length !== 5) {
+          rows.push(<BlankStar />);
+      }
+
+      return rows;
+  }
+
+
 
 
   render() {
-      let popup = this.state.popup;
+      //let popup = this.state.popup;
       let surveyresults = this.state.surveyresults;
-      //let lastMood = (typeof this.state.lastmood !== null) ? this.state.lastmood : null;
-      let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
+      //let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       let graphperiod = this.state.graphperiod;
       let graphengagement = this.state.graphengagement;
       let engagementgraphtab = this.state.engagementgraphtab;
-      let quickstatisticstab = this.state.quickstatisticstab;
+      //let quickstatisticstab = this.state.quickstatisticstab;
       let moodratingstab = this.state.moodratingstab;
       let companysurvey = this.state.companysurvey;
-      let industrysurvey = this.state.industrysurvey;
-      let countrysurvey = this.state.countrysurvey;
+      //let industrysurvey = this.state.industrysurvey;
+      //let countrysurvey = this.state.countrysurvey;
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
-      let totalcompanyusers = this.state.totalcompanyusers;
-
-      //console.log('currentuserid');
-      //console.log(currentuserid);
-      //console.log('companysurvey');
-      //console.log(JSON.stringify(companysurvey));
+      //let totalcompanyusers = this.state.totalcompanyusers;
 
       let xlabel = [];
       let ydata = [];
@@ -203,7 +201,7 @@ export default class MyMood extends React.Component {
 
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
-      let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
+      //let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
 
       // Start : MoodRatings
       let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
@@ -212,111 +210,203 @@ export default class MyMood extends React.Component {
       let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
       let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
       let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
-      let meVsIndustry = MoodRatings.getMeVsIndustry(industrysurvey, currentuserid);
-      let meVsCountry = MoodRatings.getMeVsCountry(countrysurvey, currentuserid);
+      //let meVsIndustry = MoodRatings.getMeVsIndustry(industrysurvey, currentuserid);
+      //let meVsCountry = MoodRatings.getMeVsCountry(countrysurvey, currentuserid);
 
       let topthree = topThreeAreas.map((data, key) => {
-          return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.rating}></meter>
-                    <label>{data.rating}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.rating, "green");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.rating}</p>
+                                <div data-rating={data.rating} className="ui star rating">
+                                    {rows}
+                                </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                  );
       });
 
       let worstthree = worstThreeAreas.map((data, key) => {
-          return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.rating}></meter>
-                    <label>{data.rating}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.rating, "red");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.rating}</p>
+                            <div data-rating={data.rating} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                  );
       });
 
       let improvedareas = improvedAreas.map((data, key) => {
-          return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.difference}></meter>
-                    <label>{data.difference}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.difference, "green");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.difference}</p>
+                            <div data-rating={data.difference} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                  );
       });
 
       let worstareas = worstAreas.map((data, key) => {
-          return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.difference}></meter>
-                    <label>{data.difference}</label>
-                    <br/>
-                  </span>);
-      });
 
-      let worstthreevscompany;
-      if(worstThreeVsCompany.length > 0) {
-          worstthreevscompany = worstThreeVsCompany.map((data, key) => {
-              return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                    <label>{data.avg}</label>
-                    <br/>
-                  </span>);
-          });
-      } else {
-          worstthreevscompany = 'You don\'t have any worst areas.';
-      }
+          let rows = this.getStars(data.difference, "red");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.difference}</p>
+                            <div data-rating={data.difference} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
+      });
 
       let topthreevscompany;
       if(topThreeVsCompany.length > 0) {
           topthreevscompany = topThreeVsCompany.map((data, key) => {
-              return (<span className="styled">
-                      {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                      <label>{data.avg}</label>
-                      <br/>
-                    </span>);
+
+              let rows = this.getStars(data.avg, "green");
+
+              return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                            <div data-rating={data.avg} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
           });
       } else {
-          topthreevscompany = 'You don\'t have any higher areas.';
+          topthreevscompany = (
+                  <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                            </div>
+                            <div className="title">You don't have any higher areas.</div>
+                        </div>
+                    </div>
+                  );
       }
 
-      let mevsindustry;
-      if (meVsIndustry.length > 0) {
-          mevsindustry = meVsIndustry.map((data, key) => {
-              return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
-                    <label>{data.diff}</label>
-                    <br/>
-                  </span>);
+      let worstthreevscompany;
+      if(worstThreeVsCompany.length > 0) {
+          worstthreevscompany = worstThreeVsCompany.map((data, key) => {
+
+              let rows = this.getStars(data.avg, "red");
+
+              return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                            <div data-rating={data.avg} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
           });
       } else {
-          mevsindustry = 'No data available.';
+          worstthreevscompany = (
+                  <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                            </div>
+                            <div className="title">You don't have any worst areas.</div>
+                        </div>
+                    </div>
+                  );
       }
 
-      let mevscountry;
-      if (meVsCountry.length > 0) {
-          mevscountry  = meVsCountry.map((data, key) => {
-              return (<span className="styled">
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
-                    <label>{data.diff}</label>
-                    <br/>
-                  </span>);
-          });
-      } else {
-          mevscountry = 'No data available. Please add team members in your company';
-      }
+      //let mevsindustry;
+      //if (meVsIndustry.length > 0) {
+      //    mevsindustry = meVsIndustry.map((data, key) => {
+      //        return (<span className="styled">
+      //              {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+      //              <label>{data.diff}</label>
+      //              <br/>
+      //            </span>);
+      //    });
+      //} else {
+      //    mevsindustry = 'No data available.';
+      //}
+
+      //let mevscountry;
+      //if (meVsCountry.length > 0) {
+      //    mevscountry  = meVsCountry.map((data, key) => {
+      //        return (<span className="styled">
+      //              {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.diff}></meter>
+      //              <label>{data.diff}</label>
+      //              <br/>
+      //            </span>);
+      //    });
+      //} else {
+      //    mevscountry = 'No data available. Please add team members in your company';
+      //}
       // End : MoodRatings
 
       // Start : Quick Statistics
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
-      //let totalEmployees = QuickStatistics.getTotalEmployees(companysurvey);
-      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey);
-      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
+      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
-      let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+      //let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
       //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
-      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
+      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
 
       let topmanagers;
       if (engagedmanagers.length > 0) {
           topmanagers = engagedmanagers.map((data, index) => {
-              return (<span className="styled">
-                    <label>{index+1} : {data.name + "  ["  + data.avg + "]"}</label>
-                    <br/>
-                  </span>);
+              let image = "";
+              if (index === 0) {
+                  image = "assets/images/gold.png";
+              } else if (index === 1) {
+                  image = "assets/images/silver.png";
+              } else if (index === 2) {
+                  image = "assets/images/bronge.png";
+              }
+              return (
+                      <div className="ui segment padding-20">
+                        {data.name}
+                        <span className="badge">
+                            <img src={image} alt={data.avg} />
+                        </span>
+                      </div>
+                      );
           });
       } else {
           topmanagers = '';
@@ -334,19 +424,19 @@ export default class MyMood extends React.Component {
           bIndex++;
       }
 
-      let barChartOptions = {
-          showScale: true,
-          scaleOverride: true,
-          scaleSteps: 6,
-          scaleStepWidth: 1,
-          scaleStartValue: 0,
-          scaleGridLineWidth : 1,
-          scaleLineWidth: 0.5,
-          animation: false,
-          barShowStroke: true,
+      //let barChartOptions = {
+      //    showScale: true,
+      //    scaleOverride: true,
+      //    scaleSteps: 6,
+      //    scaleStepWidth: 1,
+      //    scaleStartValue: 0,
+      //    scaleGridLineWidth : 1,
+      //    scaleLineWidth: 0.5,
+      //    animation: false,
+      //    barShowStroke: true,
           //barValueSpacing : 5
-          barDatasetSpacing : 1
-      };
+      //    barDatasetSpacing : 1
+      //};
 
       let barchartdata =  barchartdata || {};
       let bardataset = {
@@ -425,252 +515,309 @@ export default class MyMood extends React.Component {
       chartdata.datasets = datasets;
       // End : Engagement Graph
 
+      // Start: Doughnut Graph
 
-      let lastRated = '';
-      if(lastMood !== null) {
-          lastRated = lastMood.rating;
-      }
+      let empEngagement = {};
+      empEngagement.value = (myEmployeeEngagement);
+      empEngagement.color = "#F7464A";
+      empEngagement.highlight = "#FF5A5E";
+      empEngagement.label = "Employee avg engagement";
 
-      let modal = '';
-      if (popup) {
-          modal = (
-              <div className="modal fade in cmodal-show" id="myModal" role="dialog">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" onClick={this.onPopupClose} data-dismiss="modal">&times;</button>
-                                <h4 className="modal-title">What has changed?</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form id="commentForm">
-                                    <div className="form-group">
-                                        <select name="comment_title">
-                                            <option value="">What happened...?</option>
-                                            <optgroup label="Company, Strategy &amp; Values">
-                                                <option value="63">Company event organized</option>
-                                                <option value="64">New executive level manager started</option>
-                                                <option value="65">Top executive left the company</option>
-                                                <option value="66">Strategy changed</option>
-                                                <option value="67">Strategy is not followed</option>
-                                                <option value="68">Strategy is failing</option>
-                                                <option value="69">Do not believe in our strategy</option>
-                                                <option value="70">Values are not in use</option>
-                                            </optgroup>
-                                            <optgroup label="Daily work &amp; Tasks">
-                                                <option value="38">Got recognition</option>
-                                                <option value="39">Got promotion</option>
-                                                <option value="40">Got raise</option>
-                                                <option value="41">Feedback received</option>
-                                                <option value="42">Targets achieved</option>
-                                                <option value="43">Project success</option>
-                                                <option value="44">Good project progress</option>
-                                                <option value="45">Achieved a lot today</option>
-                                                <option value="46">New tasks received</option>
-                                                <option value="47">New targets agreed</option>
-                                                <option value="48">Changes in job description</option>
-                                                <option value="49">Changes in job title</option>
-                                                <option value="50">Work related trip</option>
-                                                <option value="51">Conference trip</option>
-                                                <option value="52">Training confirmed</option>
-                                                <option value="53">Training attended</option>
-                                                <option value="54">Voluntary work done</option>
-                                                <option value="55">Made a mistake at work</option>
-                                                <option value="56">I am sick</option>
-                                                <option value="57">My child is sick</option>
-                                            </optgroup>
-                                            <optgroup label="My colleagues and team">
-                                                <option value="60">New colleague joined team</option>
-                                                <option value="61">Team event organized</option>
-                                                <option value="62">Colleague is leaving the company</option>
-                                            </optgroup>
-                                            <optgroup label="My manager">
-                                                <option value="58">New boss</option>
-                                                <option value="59">Discussion with boss</option>
-                                            </optgroup>
-                                        </select>
-                                        <br/>
-                                        <textarea name="comment" id="comment" placeholder="How would you improve employee engagement?"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="modal-footer">
-                                <button className="btn btn-primary" onClick={this.onSubmitMood}>Submit</button>
-                                <button type="button" onClick={this.onPopupClose} className="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-              </div>
-            );
-      }
+      let nonEmpEngagement = {};
+      nonEmpEngagement.value = (5 - (myEmployeeEngagement)).toFixed(1);
+      nonEmpEngagement.color = "#ECEFF1";
+      nonEmpEngagement.highlight = "#A8B3C5";
+      nonEmpEngagement.label = "";
+
+      let doughnutData = [empEngagement, nonEmpEngagement];
+
+      let doughnutoptions = {
+          responsive : true,
+          percentageInnerCutout : 60,
+          animateRotate : false
+      };
+      // End: Doughnut Graph
+
+
+      //let lastRated = '';
+      //if(lastMood !== null) {
+      //    lastRated = lastMood.rating;
+      //}
+
 
       let engagementGraphTabContent = '';
       if (engagementgraphtab) {
-          engagementGraphTabContent = (
-                  <div>
-                    <h3>Engagement Graph</h3>
-                        <div className="form-group">
-                            <label> Moodwonder trend</label>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <label>Show me</label>
-                            <select name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
+          engagementGraphTabContent = [
+                    <div className="ui bottom attached segment brdr-none menu">
+                        <div className="ui  column stackable grid container">
+                        <div className="column  brdr-none padding-none">
+                            <div className="ui segment brdr-none padding-none ">
+                            <div className=" right menu mobile">
+                                <select className="ui search dropdown" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                <option value="mw_index">MW-Index</option>
+                                {moodoptions}
+
+                              </select>
+                                <select className="ui dropdown" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
                                 <option value="all_time">All time</option>
                                 <option value="last_12_months">Last 12 months</option>
                                 <option value="last_6_ months">Last 6 months</option>
                                 <option value="last_3_months">Last 3 months</option>
                                 <option value="last_month">Last month</option>
-                            </select>
-                            <span>&nbsp;&nbsp;</span>
-                            <label>from</label>
-                            <select name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
-                                <option value="mw_index">MW-Index</option>
-                                {moodoptions}
-                            </select>
-                            <br/><br/>
-                            <span>At Start - {engagementStatitics.start}</span>
-                            <br/>
-                            <span>Highest - {engagementStatitics.highest}</span>
-                            <br/>
-                            <span>Lowest - {engagementStatitics.lowest}</span>
-                            <br/>
-                            <span>Current - {engagementStatitics.current}</span>
-                            <br/>
-                            <span>30 Days change : {engagementStatitics.thirtydayschange}</span>
-                            <br/>
-                            <span>Week change : {engagementStatitics.weekchange}</span>
-                            <br/><br/>
-                            <LineChart data={chartdata} options={chartoptions} width="600" height="250" redraw/>
+                              </select>
+                              </div>
+                            <div className="clear"></div>
+                            <div className="graph">
+                                <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                    </div>,
+
+                    <div className="clear"></div>,
+                    <div className="ui two column stackable grid ">
+                        <div className="three column row padding-container">
+
+                      </div>
+                    </div>,
+
+                    <div className="ui two column stackable grid ">
+                        <div className="column ">
+                            <div className="ui segment brdr">
+                                <h2>Employee average Engagement</h2>
+                                <div>
+                                    <Doughnut data={doughnutData} options={doughnutoptions} width="250" height="250" redraw/>
+                                </div>
+                            </div>
                         </div>
-                  </div>
-          );
+                        <div className="column">
+                        <div className="ui segment brdr">
+                            <h2>Most engaging manager</h2>
+                            {topmanagers}
+                          </div>
+                      </div>
+                    </div>
+          ];
       }
+
+//      let quickStatisticsTabContent = '';
+//      if (quickstatisticstab) {
+//          quickStatisticsTabContent = (
+//               <div>
+//                   <h3>Mood Ratings</h3>
+//                   <div>
+//                        <div>
+//                            <h4>My Top 3 areas</h4>
+//                            {topthree}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>My Worst 3 areas</h4>
+//                            {worstthree}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>My Most Improved Areas (Last 1 Month)</h4>
+//                            {improvedareas}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>My least improved areas (Last 1 Month)</h4>
+//                            {worstareas}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>Top 3 areas higher than company average</h4>
+//                            {topthreevscompany}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>Worst 3 areas lower than company average</h4>
+//                            {worstthreevscompany}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>Me Vs Companies (Industry)</h4>
+//                            {mevsindustry}
+//                        </div>
+//                        <br/>
+//                        <div>
+//                            <h4>Me Vs Companies (Country)</h4>
+//                            {mevscountry}
+//                        </div>
+//                        <br/>
+//                    </div>
+//               </div>
+//          );
+//      }
 
       let moodRatingsTabContent = '';
       if (moodratingstab) {
           moodRatingsTabContent = (
-               <div>
-                   <h3>Mood Ratings</h3>
-                   <div>
-                        <div>
-                            <h4>My Top 3 areas</h4>
-                            {topthree}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>My Worst 3 areas</h4>
-                            {worstthree}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>My Most Improved Areas (Last 1 Month)</h4>
-                            {improvedareas}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>My least improved areas (Last 1 Month)</h4>
-                            {worstareas}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Top 3 areas higher than company average</h4>
-                            {topthreevscompany}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Worst 3 areas lower than company average</h4>
-                            {worstthreevscompany}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Me Vs Companies (Industry)</h4>
-                            {mevsindustry}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Me Vs Companies (Country)</h4>
-                            {mevscountry}
-                        </div>
-                        <br/>
-                    </div>
-               </div>
-          );
-      }
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
+                    <div className="ui segment brdr-none padding-none width-rating">
+                        <div className="clear"></div>
+                        <div className="ui two cards column stackable">
 
-      let quickStatisticsTabContent = '';
-      if (quickstatisticstab) {
-          quickStatisticsTabContent = (
-              <div>
-                  <h3>Quick Statistics</h3>
-                  <div>
-                    <label>Number of employees</label>
-                    <br/>
-                    {totalcompanyusers + ' Employees'}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Employees at risk of leaving</label>
-                    <br/>
-                    {employeeAtRisk + ' out of ' + totalcompanyusers}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Number of responses (last 1 month)</label>
-                    <br/>
-                    {lastMonthResponses + ' Response(s) submitted'}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Time since last response</label>
-                    <br/>
-                    {timeSinceLastPost}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>My employee engagement</label>
-                    <br/>
-                    {myEmployeeEngagement}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>The most engaging managers</label>
-                    <br/>
-                    {topmanagers}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Comparison of my responses</label>
-                    <br/>
-                    <BarChart data={barchartdata} options={barChartOptions} width="600" height="300" redraw/>
-                  </div>
-                  <br/>
-              </div>
+                            <div className="ui card  box-gry">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY TOP THREE AREAS</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {topthree}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card box-gry">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY WORST THREE AREAS</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container ">
+                                        {worstthree}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY MOST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {improvedareas}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {worstareas}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">TOP 3 AREAS HIGHER THAN COMPANY AVERAGE</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {topthreevscompany}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">WORST 3 AREAS LOWER THAN COMPANY AVERAGE</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {worstthreevscompany}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="ui three cards  column stackable padding-20-mobile">
+                            <div className="ui card box-white">
+                                <div className="content  box-white-border">
+                                    <div className="header two column">
+                                        <div className="column"> <img src="assets/images/avatar/tom.jpg" alt="" /></div>
+                                        <div className="column">
+                                            MY LEAST IMPROVED AREAS
+                                            <br/>
+                                            <span className="small-title">(LAST ONE MONTH) </span>
+                                        </div>
+                                    </div>
+                                    <div className="description"> No date available. Please add team members in your company. </div>
+                                </div>
+                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
+                            </div>
+                            <div className="ui card box-white">
+                                <div className="content  box-white-border">
+                                    <div className="header two column">
+                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /></div>
+                                        <div className="column">
+                                            MY LEAST IMPROVED AREAS
+                                            <br/>
+                                            <span className="small-title">(LAST ONE MONTH)</span>
+                                        </div>
+                                    </div>
+                                    <div className="description"> No date available. Please add team members in your company. </div>
+                                </div>
+                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
+                            </div>
+                            <div className="ui card box-white">
+                                <div className="content box-white-border">
+                                    <div className="header two column">
+                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /> </div>
+                                        <div className="column">
+                                            ME vs COMPANIES
+                                            <br/>
+                                            <span className="small-title">(COUNTRY)</span>
+                                        </div>
+                                    </div>
+                                    <div className="description"> No date available. Please add team members in your company. </div>
+                                </div>
+                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
           );
       }
 
 
       return (
-       <div className="container">
-            <Submenu />
-               {modal}
-               <form id="moodRating">
-                  <div className="form-group">
-                    <label>Rate your mood</label>
-                    <MoodSlider lastrated={lastRated} />
-                  </div>
-                  <br/>
-                  <div className="form-group">
-                    <button className="btn btn-primary" onClick={this.onPopupShow}>Submit</button>
-                  </div>
-               </form>
-               <br/><br/>
-               <div>
-                   <a href="#" onClick={this.engagementGraphClick}>Engagement Graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a href="#" onClick={this.quickStatisticsClick}>Quick Statistics</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a href="#" onClick={this.moodRatingsClick}>Mood Ratings</a>
-               </div>
-                <br/><br/>
+              <div>
+                <div className="ui segment padding-none width-header rate header-middle-container">
+                    <div className="clear"></div>
+                    <div className="">
+                        <h2>RATE YOUR MOOD</h2>
+                        <p>How are you feeling at work today?</p>
+                    </div>
+                    <form id="moodRating">
+                        <div className="ui slider range ">
+                            <input type="range" />
+                        </div>
+                        <div  className="">
+                            <button className="ui yellow button" onClick={this.onSubmitMood}>Submit</button>
+                        </div>
+                    </form>
+                    <div  className="">
+                        <button className="ui yellow button answer positive">Answer all statements</button>
+                    </div>
+                </div>
+
+                <div className="invite-people mobile">
+                    <h2>Invite people anonymously</h2>
+                    <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
+                    <div className="ui input">
+                        <input placeholder="Enter e-mail " type="text" />
+                    </div>
+                    <button className="ui orange button">Invite</button>
+                </div>
+
+                <div className="ui tabular menu tab three column">
+                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
+                    <a className="item mobile column" onClick={this.quickStatisticsClick} href="#"> Custom Survey </a>
+                </div>
                 {engagementGraphTabContent}
-                {quickStatisticsTabContent}
+                <div className="clear"></div>
+                <br/><br/>
+                <div className="clear"></div>
                 {moodRatingsTabContent}
+
           </div>
     );
   }

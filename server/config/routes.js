@@ -84,13 +84,13 @@ module.exports = function (app, passport) {
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
     
-    app.post('/addmood', mood.addMoodRate);
-    app.get('/mymoods', mood.getMyMoods);
+    app.post('/addmood', users.checkLogin, mood.addMoodRate);
+    app.get('/mymoods', users.checkLogin, mood.getMyMoods);
   
-    app.post('/addengagement', EngagementArea.addEngagement);
-    app.post('/editengagement', EngagementArea.editEngagement);
-    app.post('/deleteengagement', EngagementArea.deleteEngagement);
-    app.get('/getengagementareas', EngagementArea.engagementAreas);
+    app.post('/addengagement', users.checkLogin, EngagementArea.addEngagement);
+    app.post('/editengagement', users.checkLogin, EngagementArea.editEngagement);
+    app.post('/deleteengagement', users.checkLogin, EngagementArea.deleteEngagement);
+    app.get('/getengagementareas', users.checkLogin, EngagementArea.engagementAreas);
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
@@ -109,6 +109,14 @@ module.exports = function (app, passport) {
     
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
+    
+    app.use(function noCachePlease(req, res, next) {
+        
+          res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+          res.header("Pragma", "no-cache");
+          res.header("Expires", 0);
+          next();
+    });
 
     app.get('*', function (req, res, next) {
 
@@ -197,12 +205,6 @@ module.exports = function (app, passport) {
         }
 
         getPageKeys(page, lang, html, function (response) {
-
-            //console.log('response');
-            //console.log(response);
-
-            //console.log('lang');
-            //console.log(lang);
 
             var respons = '';
             var nav = '';
