@@ -36,6 +36,7 @@ import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
 import MyCompany from 'components/MyCompany.react';
 import Customsurveyresponses from 'components/customsurvey/Customsurveyresponses.react';
+import Notificationrules from 'components/notificationrules/Notificationrules.react';
 
 //const routes = (
 //  <Route>
@@ -88,6 +89,7 @@ const routes = (
         <Route name="/admin/engagementarea" handler={Engagementarea} />
         <Route name="/admin/users" handler={Users} />
         <Route name="/admin/userdetails/:uid" handler={UserDetails} />
+        <Route name="/admin/rules" handler={Notificationrules} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>

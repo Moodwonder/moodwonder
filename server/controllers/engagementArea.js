@@ -74,7 +74,7 @@ exports.engagementAreas = function (req, res) {
 };
 
 /**
- * Get all custome survey forms 
+ * Delete engagement
  */
 exports.deleteEngagement = function (req, res) {
     var _id = mongoose.Types.ObjectId(req.body.id);

@@ -78,6 +78,7 @@ export default class MyMood extends React.Component {
 
   _onMoodChange = () => {
       this.setState({
+         lastmood: SurveyStore.getState().lastmood,
          questions : SurveyStore.getState().questions,
          surveyresults: SurveyStore.getState().surveyresults,
          companysurvey: SurveyStore.getState().companysurvey,
@@ -85,13 +86,35 @@ export default class MyMood extends React.Component {
          countrysurvey: SurveyStore.getState().countrysurvey,
          currentuserid: SurveyStore.getState().currentuserid,
          engagedmanagers: SurveyStore.getState().engagedmanagers,
-         totalcompanyusers: SurveyStore.getState().totalcompanyusers,
-         lastmood: SurveyStore.getState().lastmood
+         totalcompanyusers: SurveyStore.getState().totalcompanyusers
       });
 
       this.engagementmoods = this.state.questions.map((data, key) => {
           return data.mood;
       });
+
+      let today = new Date();
+      let year = today.getFullYear();
+      let month = ('0' + (today.getMonth() + 1)).slice(-2);
+      let day = ('0' + today.getDate()).slice(-2);
+      let datestring = year + '-' + month + '-' + day;
+
+      if (this.state.lastmood == null || this.state.lastmood == 'undefined') {
+          window.location.assign('/survey');
+      } else {
+
+          let lastSurveyPosted = this.state.lastmood.created.d;
+          let posteddate = new Date(lastSurveyPosted);
+          posteddate.setDate(posteddate.getDate() + 1);
+
+          let nyear = posteddate.getFullYear();
+          let nmonth = ('0' + (posteddate.getMonth() + 1)).slice(-2);
+          let nday = ('0' + posteddate.getDate()).slice(-2);
+          let ndatestring = nyear + '-' + nmonth + '-' + nday;
+          if (ndatestring <= datestring) {
+              window.location.assign('/survey');
+          }
+      }
   }
 
   onPopupClose = (e) => {

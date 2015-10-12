@@ -26,6 +26,7 @@ var admin = require('../controllers/admin');
 var common = require('../controllers/common');
 var mood = require('../controllers/mood');
 var EngagementArea = require('../controllers/engagementArea');
+var notificationRules = require('../controllers/notificationRules');
 
 var Navigation = require('../languagesettings/nav');
 var openEndedSurvey = require('../controllers/openEndedSurvey');
@@ -87,10 +88,14 @@ module.exports = function (app, passport) {
     app.post('/addmood', users.checkLogin, mood.addMoodRate);
     app.get('/mymoods', users.checkLogin, mood.getMyMoods);
   
-    app.post('/addengagement', users.checkLogin, EngagementArea.addEngagement);
-    app.post('/editengagement', users.checkLogin, EngagementArea.editEngagement);
-    app.post('/deleteengagement', users.checkLogin, EngagementArea.deleteEngagement);
-    app.get('/getengagementareas', users.checkLogin, EngagementArea.engagementAreas);
+    app.post('/addengagement', admin.checkLogin, EngagementArea.addEngagement);
+    app.post('/editengagement', admin.checkLogin, EngagementArea.editEngagement);
+    app.post('/deleteengagement', admin.checkLogin, EngagementArea.deleteEngagement);
+    app.get('/getengagementareas', admin.checkLogin, EngagementArea.engagementAreas);
+    
+    app.post('/editrule', admin.checkLogin, notificationRules.editRule);
+    app.post('/deleterule', admin.checkLogin, notificationRules.deleteRule);
+    app.get('/getrules', admin.checkLogin, notificationRules.getRules);
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
@@ -111,11 +116,13 @@ module.exports = function (app, passport) {
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
     
     app.use(function noCachePlease(req, res, next) {
-        
+        if(req.user && req.user.role !== 'ADMIN') {
+          console.log('req.user');
           res.header("Cache-Control", "no-cache, no-store, must-revalidate");
           res.header("Pragma", "no-cache");
           res.header("Expires", 0);
-          next();
+        }
+        next();
     });
 
     app.get('*', function (req, res, next) {
