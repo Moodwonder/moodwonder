@@ -1,5 +1,5 @@
 import React from 'react';
-// import SurveyActions from 'actions/SurveyActions';
+import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import QuickStatistics from 'utils/QuickStatistics';
 
@@ -17,8 +17,9 @@ export default class Rightnav extends React.Component {
   }
 
   componentDidMount () {
-      //SurveyActions.getEngagementSurvey();
-      //SurveyActions.getEngagementResults();
+      SurveyActions.getEngagementSurvey();
+      SurveyActions.getEngagementResults();
+      SurveyActions.getResultsByCompany();
       SurveyStore.listen(this._onMoodChange);
   }
 
