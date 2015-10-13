@@ -8,16 +8,20 @@ class AdminUserStore {
 
   constructor () {
 
-      this.usersTable = false;
-      this.userDetails = false;
-      this.serverCall = false;
-      this.hasError = false;
-      this.message = '';
+      this.usersTable  =  false;
+      this.userDetails =  false;
+      this.userTeams   =  false;
+      this.serverCall  =  false;
+      this.hasError    =  false;
+      this.openEnded   =  false;
+      this.message     =  '';
 
       this.bindListeners({
         handleSetUsers: AdminUserActions.SETALLUSERDETAILS,
         handleSetUser: AdminUserActions.SETUSERDETAILS,
-        handleUpdateUser: AdminUserActions.UPDATEUSERDETAILS
+        handleSetUserTeams: AdminUserActions.SETUSERTEAMS,
+        handleUpdateUser: AdminUserActions.UPDATEUSERDETAILS,
+        handleOpenEnded: AdminUserActions.SETOPENENDED
       });
   }
 
@@ -34,6 +38,18 @@ class AdminUserStore {
   handleUpdateUser (res) {
       this.serverCall = true;
       this.hasError = res.status;
+      this.message = res.message;
+      this.emitChange();
+  }
+
+  handleSetUserTeams (res) {
+      this.userTeams = res.data;
+      this.emitChange();
+  }
+
+  handleOpenEnded (res) {
+      this.openEnded = res.data;
+      this.hasError = !res.status;
       this.message = res.message;
       this.emitChange();
   }

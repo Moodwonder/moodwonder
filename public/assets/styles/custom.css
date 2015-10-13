@@ -37,4 +37,7 @@
     width: 180px;
     height: 220px;
 }
-
+.modal-height-350{
+    height: 350px;
+    overflow-y: scroll;
+}

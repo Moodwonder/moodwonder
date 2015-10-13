@@ -7,9 +7,9 @@ import AdminWebAPIUtils from 'utils/CommonAdminWebAPIUtils';
 class AdminUserActions {
 
   // Get all users in the database
-  getAllUsers () {
+  getAllUsers (data) {
       this.dispatch();
-      AdminWebAPIUtils.getAllUsers()
+      AdminWebAPIUtils.getAllUsers(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.setalluserdetails(response);
@@ -54,6 +54,50 @@ class AdminUserActions {
       this.dispatch(response);
   }
 
+  // Get team details of a user
+  getUsersTeams (data) {
+      this.dispatch();
+      AdminWebAPIUtils.getUserTeams(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.setuserteams(response);
+            }
+        }, () => {
+        });
+  }
+
+  setuserteams (response) {
+      this.dispatch(response);
+  }
+
+  // Getanswer of open ended questions
+  OpenEndedQuestionsAnswers (data) {
+      this.dispatch();
+      AdminWebAPIUtils.getOpenEndedQuestionsAnswers(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.setopenended(response);
+            }
+        }, () => {
+        });
+  }
+
+  setopenended (response) {
+      this.dispatch(response);
+  }
+
+  // Get all team members
+  getTeamsMembers (data) {
+      this.dispatch();
+      AdminWebAPIUtils.getTeamsMembers(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.setuserteams(response);
+            }
+        }, () => {
+        });
+  }
+//searchTeam
 }
 
 export default alt.createActions(AdminUserActions);

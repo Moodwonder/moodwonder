@@ -1,34 +1,108 @@
 import React from 'react';
-import { Link } from 'react-router';
 import RequireAuth from 'utils/requireAuth';
+import AdminCompanyActions from 'actions/AdminCompanyActions';
+import AdminCompanyStore from 'stores/AdminCompanyStore';
+
+import AdminTeamActions from 'actions/AdminTeamActions';
+import AdminTeamsStore from 'stores/AdminTeamsStore';
+
 import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
+
 import Pagination from 'components/Pagination';
 
-export default RequireAuth(class Dashboard extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = AdminUserStore.getState();
-  }
+export default RequireAuth(class AllTeams extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = AdminCompanyStore.getState();
+    }
 
-  componentDidMount(){
-      AdminUserActions.getAllUsers();
-      AdminUserStore.listen(this._onChange);
-  }
+    componentDidMount(){
+        AdminCompanyActions.getAllCompanies({});
+        AdminCompanyStore.listen(this._onChange);
+    }
 
-  _onChange = (state) => {
-      this.setState(state);
-  }
+    _onChange = (state) => {
+        this.setState(state);
+        console.log(state);
+    }
 
-  render() {
+    _onCompanyChange = (e) => {
+        // console.log(e.target.value);
+        if(e.target.value !== ''){
+            AdminTeamActions.getAllTeams({ companyname: e.target.value });
+            AdminTeamsStore.listen(this._onChange);
+        }
+    }
 
-      return (
-      <div className="container">
-        <h1>Users</h1>
-        <DataTable data={this.state.usersTable}/>
-      </div>
-      );
-  }
+    onTabClick = (Tab) => {
+        this.setState({ Tab: Tab });
+    }
+
+    _onTeamSearch = () => {
+        let teamSearchText = React.findDOMNode(this.refs.teamsearch).value.trim();
+        AdminTeamActions.searchTeam({ teamname: teamSearchText });
+        AdminTeamsStore.listen(this._onChange);
+    }
+
+    render() {
+
+        let dataTable;
+        let companylist;
+        if(this.state.companyList){
+            companylist = this.state.companyList.map((data, key) => {
+                return [<option>{data.name}</option>];
+            });
+        }
+
+        if(this.state.TeamList !== undefined && this.state.TeamList){
+            dataTable = [<DataTable data={this.state.TeamList}/>];
+        }
+
+        let activeTab = [];
+        activeTab[0] = 'tab-pane fade';
+        activeTab[1] = 'tab-pane fade';
+
+        if( this.state.Tab !== undefined ){
+            activeTab[this.state.Tab] += ' in active';
+        }else{
+            activeTab[0] += ' in active';
+        }
+
+        let teamSearchResult;
+        if(this.state.SearchTeamList){
+            teamSearchResult = [<DataTable data={this.state.SearchTeamList}/>];
+        }else if(this.state.hasError){
+            teamSearchResult = (<div className="alert alert-info">{this.state.message}</div>);
+        }
+
+        return (
+        <div className="container">
+        <h1>All Teams</h1>
+        <ul className="nav nav-tabs">
+            <li><a onClick={this.onTabClick.bind(this,0)} >Teams</a></li>
+            <li><a onClick={this.onTabClick.bind(this,1)} >Search Teams</a></li>
+        </ul>
+        <div className="tab-content">
+          <div id="home" className={activeTab[0]}>
+                <select className="form-control" onChange={this._onCompanyChange} >
+                  <option value="">--select a company --</option>
+                  {companylist}
+                </select>
+                {dataTable}
+          </div>
+          <div id="menu1" className={activeTab[1]}>
+            <div>
+                <input type="text" ref="teamsearch" placeholder="Search a team" />
+                <button onClick={this._onTeamSearch} >Search</button>
+                {teamSearchResult}
+            </div>
+          </div>
+        </div>
+
+        </div>
+        );
+    }
 });
 
 class DataTable extends React.Component {
@@ -68,7 +142,7 @@ class DataTable extends React.Component {
 
     _onPopClick = (e) => {
         if(e.target.dataset.tag !== ''){
-            AdminUserActions.getUsersTeams({ _id: e.target.dataset.tag });
+            AdminUserActions.getTeamsMembers({ _id: e.target.dataset.tag });
         }
         this.setState({
             modal:true
@@ -137,28 +211,6 @@ class DataTable extends React.Component {
         this.setTable((page));
     }
 
-    _onSearch = (e) => {
-        let text = e.target.value.trim();
-        if(text !== ''){
-            if(this.hasData){
-                this.filtered = [];
-                let i =0;
-                this.props.data.rows.map((data, key) => {
-                    if((data[1].column.toLowerCase()).indexOf(text.toLowerCase()) === 0){
-                        this.filtered[i] = data;
-                        i++;
-                    }
-                });
-                this.hasData = true;
-                this.rows = this.filtered;
-                this.setTable(0);
-            }
-        }else{
-            this.rows = this.props.data.rows;
-            this.setTable(0);
-        }
-    }
-
     render() {
 
         let header;
@@ -169,26 +221,18 @@ class DataTable extends React.Component {
         if(this.state.userTeams){
             teamUserList = this.state.userTeams.map((data, key) => {
 
-                let members;
-                members = data.members.map((mem, key) => {
-                    return (
-                    <div className="row">
-                      <div className="col-sm-6">{mem.member_email}</div>
-                      <div className="col-sm-4">{mem.member_name}</div>
-                    </div>
-                    );
-                });
-                return [
-                  <li className="list-group-item">
-                   {data.name}
-                  </li>,
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
-                    </div>
-                    {members}
-                  </li>
-                ];
+                let members = [<div className="alert alert-info">{this.state.message}</div>];
+                if(data.members.length>0){
+                    members = data.members.map((mem, key) => {
+                        return (
+                        <div className="row">
+                          <div className="col-sm-6">{mem.member_email}</div>
+                          <div className="col-sm-4">{mem.member_name}</div>
+                        </div>
+                        );
+                    });
+                }
+                return members;
             });
         }
 
@@ -208,17 +252,9 @@ class DataTable extends React.Component {
                     let columns = row.map((column, key) => {
                         // Skip column from display
                         if(column.display !== false){
-                            let content;
-                            if( column.column === true ){
-                                content = ( <span className="true">Yes</span> );
-                            }else if( column.column === false ){
-                                content = ( <span className="true">No</span> );
-                            }else if( this.props.data.header[key] === 'Name' ){
-                                content = ( <Link to={ `/admin/userdetails/${row[0].column}` } className="navigation__item">{column.column}</Link> );
-                            }else if( this.props.data.header[key] === 'Type' && column.column === 'manager' ){
+                            let content = column.column;
+                            if(column.popup === true){
                                 content = ( <a data-tag={row[0].column} onClick={this._onPopClick}  className="navigation__item">{column.column}</a> );
-                            }else{
-                                content = column.column;
                             }
                             return [<td>{content}</td>];
                         }
@@ -252,15 +288,17 @@ class DataTable extends React.Component {
                 </div>
             );
         }
+
         return (
 
         <div>
-        <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
         <table className={tableClass}>
+         <tbody>
           <tr>
             {header}
           </tr>
           {rows}
+          </tbody>
         </table>
         <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
         {modal}

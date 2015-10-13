@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var Team = require('../models/team');
 var User = require('../models/user');
+var Company = require('../models/company');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
@@ -24,48 +25,50 @@ response.message = 'Error';
  */
 exports.checkTeam = function(req, res, next) {
 
-  var teamname = req.body.teamname;
+	var  response    = {};
+	response.status  = false;
+	response.message = 'Something went wrong..';
+	var teamname = req.body.teamname;
 
-  /*
-  var company_info = req.user.company_info[0];
-  if(company_info.companyname !== undefined){
-		// get company admin _id
-  }else{
-		
-  }
-  *
-        if(existingTeam.admin_id === undefined || existingTeam.admin_id === "0" ){
-            next();
-        }else {
-			where = { "teamname": teamname, "admin_id": existingTeam.admin_id };
-			Team.findOne(where, function(err, existingTeam) {
-				if(existingTeam) {
-					response.status = false;
-					response.message = "Team name is already exist within your company";
-					res.send(response);
-					res.end();
-				}else{
-					next();
-				}
-			});
-        }
-  * 
-  */
+	var checkWithInCompanay = function(company){
+
+		var where = { "manager_id" : new ObjectId(req.user._id), "teamname": teamname, company_id: company._id };
+		Team.findOne(where, function(err, existingTeam) {
+
+			if(existingTeam) {
+				response.status = false;
+				response.message = "Team name is already exist within your company";
+				res.send(response);
+				res.end();
+			}else{
+				// pass company _id to next route
+				req.body.company_id = company._id;
+				next();
+			}
+		});
+	}
+
+	if(teamname !== undefined && teamname !== ''){
+	  // find team _id from companies collection
+		var email  = req.user.email;
+		var domain = email.substring(email.lastIndexOf("@")+1);
+		domain = domain.substring(0,domain.lastIndexOf("."));
+		var company = { name: domain};
+		Company.findOne(company).exec(function(err,company){
+			if(company){
+				checkWithInCompanay(company);
+			}else{
+			  res.send(response);
+			  res.end();
+			}
+		});
+	}else{
+		response.message = 'Team name is missing.';
+		res.send(response);
+		res.end();
+	}
 
 
-  var where = { "manager_id" : new ObjectId(req.user._id), "teamname": teamname };
-  // console.log(where);
-
-  Team.findOne(where, function(err, existingTeam) {
-    if(existingTeam) {
-        response.status = false;
-        response.message = "Team name is already exist within your teams";
-        res.send(response);
-        res.end();
-    }else{
-        next();
-    }
-  });
 };
 
 /**
@@ -76,10 +79,12 @@ exports.checkTeam = function(req, res, next) {
 exports.createTeam = function(req, res, next) {
 
   var teamname = req.body.teamname;
+  var company_id = req.body.company_id;
   
   var team =  new Team({
       teamname: teamname,
-      manager_id: new ObjectId(req.user._id)
+      manager_id: new ObjectId(req.user._id),
+      company_id: company_id
   });
 
   team.save(function(err) {
@@ -87,6 +92,7 @@ exports.createTeam = function(req, res, next) {
 
           req.body.update  = { 'usertype': 'manager'};
           req.body.resmessage  = 'Team created';
+          req.body._id = req.user._id;
           next();
       }else{
 
@@ -186,12 +192,9 @@ exports.addMemberToTeam = function(req, res, next) {
   var feedback   = [];
   
   // Extracting domain name for making e-mail id
-  var domainname = req.user.company_info[0].website;
-  domainname = domainname.replace("http://www.", '');
-  domainname = domainname.replace("http://", '');
-  domainname = domainname.replace("https://www.", '');
-  domainname = domainname.replace("https://", '');
-  domainname = '@'+domainname;
+  var domainname = req.user.email;
+  domainname     = domainname.substring(domainname.lastIndexOf("@"));
+
   var member_email = [];
   var invite_member_email = [];
 
@@ -200,7 +203,7 @@ exports.addMemberToTeam = function(req, res, next) {
 	// Making e-mail id
 	member_email[key] = value+domainname;
 	if(member_email[key] == req.user.email) {
-	  feedback.push(email+': You are the team leader');
+	  feedback.push(req.user.email+': You are the team leader');
 	}
   });
   
@@ -253,7 +256,7 @@ exports.addMemberToTeam = function(req, res, next) {
 			res.send(response);
 			res.end();
 		}
-		});
+	});
   });
 
   
@@ -315,4 +318,34 @@ exports.removeMemberFromTeam = function(req, res, next) {
 		res.end();
 		}
   }
+};
+
+/**
+ * get teams by id
+ *
+ */
+exports.getTeamsById = function(req, res, next) {
+
+	// console.log(req.body._id);
+	if(req.body._id !== undefined && req.body._id !== ''){
+		var where = { manager_id: new ObjectId(req.body._id) };
+
+		Team.find(where).exec(function(err, lists) {
+			if(!err) {
+				// console.log(lists);
+				req.body.resdata = lists;
+				next();
+			} else {
+				response.status   = false;
+				response.message  = 'Something went wrong..';
+				res.send(response);
+				res.end();
+			}
+		});
+	}else{
+		response.status = false;
+		response.message = 'Something went wrong';
+		res.send(response);
+		res.end();
+	}
 };

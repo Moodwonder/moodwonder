@@ -2,6 +2,7 @@ import React from 'react';
 import RequireAuth from 'utils/requireAuth';
 import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
+import DatePicker from 'react-date-picker';
 
 export default RequireAuth(class UserDetails extends React.Component {
 
@@ -39,10 +40,14 @@ export default RequireAuth(class UserDetails extends React.Component {
         }
     }
 
+    onTabClick = (Tab) => {
+        this.setState({ Tab: Tab });
+    }
+
     render() {
 
         let message;
-        if (this.state.message !== '' ) {
+        if (this.state.hasError && this.state.message !== '' ) {
             message = (
                 <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
                 {this.state.message}
@@ -69,11 +74,42 @@ export default RequireAuth(class UserDetails extends React.Component {
             </ul>
             );
         }
+
+        let Tab = [];
+        Tab[0] = userDetails;
+        Tab[1] = [ <li>No data</li> ];
+        let activeTab = [];
+        activeTab[0] = 'tab-pane fade';
+        activeTab[1] = 'tab-pane fade';
+
+        try{
+            Tab[1] = [ <OpenEndedQuestionsAnswers uid={this.props.params.uid} /> ];
+        }catch(err){
+            console.log(err);
+        }
+
+        if( this.state.Tab !== undefined ){
+            activeTab[this.state.Tab] += ' in active';
+        }else{
+            activeTab[0] += ' in active';
+        }
+
         return (
             <div className="container">
             {message}
             <h1>Users</h1>
-            {userDetails}
+              <ul className="nav nav-tabs">
+                <li><a onClick={this.onTabClick.bind(this,0)} >User Details</a></li>
+                <li><a onClick={this.onTabClick.bind(this,1)} >responses for open ended questions</a></li>
+              </ul>
+                <div className="tab-content">
+                  <div id="home" className={activeTab[0]}>
+                    {Tab[0]}
+                  </div>
+                  <div id="menu1" className={activeTab[1]}>
+                    {Tab[1]}
+                  </div>
+                </div>
             </div>
         );
     }
@@ -83,7 +119,6 @@ class ChangeUserStatus extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
         try{
             let checked = false;
             let statusText = 'Inactive';
@@ -121,6 +156,72 @@ class ChangeUserStatus extends React.Component {
         <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
         {this.state.statusText}
         </div>
+        );
+    }
+}
+
+
+class OpenEndedQuestionsAnswers extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.list = [ <li>No data</li> ];
+        try{
+            this.state = {
+                hasData:false
+            };
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    onData = (data) => {
+        let res;
+        if(data !== undefined){
+            res = data.map((data, key) => {
+                return [ <li key={key} className="list-group-item">{data.q} : {data.a}</li> ];
+            });
+        }else{
+            res = [ <li className="list-group-item"> No record found </li> ];
+        }
+        this.list = res;
+    }
+
+    getAnswers = (date) => {
+        let _id =  false;
+        try{
+            _id = this.props.uid;
+        }catch(err){
+            console.log(err);
+        }
+        let param = { _id: _id };
+        if(date !== undefined){
+            param = { _id: _id, date: date };
+        }
+        AdminUserActions.OpenEndedQuestionsAnswers(param);
+    }
+
+    componentDidMount(){
+        this.getAnswers();
+        AdminUserStore.listen(this._onChange);
+    }
+
+    _onChange = (state) => {
+        if(state.openEnded){
+            this.onData(state.openEnded);
+            this.setState({hasData: true});
+        }
+    }
+
+    render() {
+
+        return (
+            <div>
+                <DatePicker onChange={this.getAnswers}/>
+                <ul className="list-group">
+                  {this.list}
+                </ul>
+            </div>
         );
     }
 }

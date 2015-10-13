@@ -25,8 +25,14 @@ import Admin from 'components/Admin.react';
 import Adminlogin from 'components/login/adminlogin.react';
 import Adminlogout from 'components/login/Logout.react';
 import Dashboard from 'components/dashboard/dashboard.react';
+import Industry from 'components/Industry.react';
+import Continents from 'components/Continents.react';
+import Countries from 'components/Countries.react';
+import States from 'components/States.react';
+import City from 'components/Cities.react';
 import Users from 'components/users/Users.react';
 import UserDetails from 'components/users/UserDetails.react';
+import CompanyAdmins from 'components/CompanyAdmins.react';
 import MyMood from 'components/MyMood.react';
 import Test1 from 'components/test1';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
@@ -34,6 +40,7 @@ import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
+import AllTeams from 'components/AllTeams.react';
 
 //const routes = (
 //  <Route>
@@ -84,8 +91,16 @@ const routes = (
         <Route name="/admin/pages" handler={Pages} />
         <Route name="/admin/dashboard" handler={Dashboard} />
         <Route name="/admin/engagementarea" handler={Engagementarea} />
+        <Route name="/admin/industry" handler={Industry} />
+        <Route name="/admin/continents" handler={Continents} />
+        <Route name="/admin/countries/:id/:continents" handler={Countries} />
+        <Route name="/admin/states/:id/:country" handler={States} />
+        <Route name="/admin/cities/:id/:state" handler={City} />
         <Route name="/admin/users" handler={Users} />
+        <Route name="/admin/companyadmins" handler={CompanyAdmins} />
         <Route name="/admin/userdetails/:uid" handler={UserDetails} />
+        <Route name="/admin/teams" handler={AllTeams} />
+        <Route name="/admin/teams/:id" handler={AllTeams} />
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>
