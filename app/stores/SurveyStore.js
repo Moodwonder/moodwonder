@@ -21,6 +21,12 @@ class SurveyStore {
       this.currentuserid = '';
       this.totalcompanyusers = '';
 
+      //Start :Company statistics
+      this.companyedata = [];
+      this.totalcemployees = '';
+      this.loggeduserid = '';
+      //End :Company statistics
+
 
       this.bindListeners({
       handleSurveys: SurveyActions.GETQUESTIONS,
@@ -30,7 +36,11 @@ class SurveyStore {
       handleResultsByCompany: SurveyActions.RESULTSBYCOMPANY,
       handleResultsByIndustry: SurveyActions.RESULTSBYINDUSTRY,
       handleResultsByCountry: SurveyActions.RESULTSBYCOUNTRY,
-      handleEngagingManagers: SurveyActions.MOSTENGAGINGMANAGERS
+      handleEngagingManagers: SurveyActions.MOSTENGAGINGMANAGERS,
+
+      //Start :Company statistics
+      handleCompanyData: SurveyActions.COMPANYDATA
+      //End :Company statistics
     });
   }
 
@@ -102,6 +112,16 @@ class SurveyStore {
       this.engagedmanagers = response.data;
       this.emitChange();
   }
+
+  //Start :Company statistics
+  handleCompanyData (response) {
+      this.companyedata = [];
+      this.companyedata = response.data.data;
+      this.totalcemployees = response.totalemployees;
+      this.loggeduserid = response.data.currentuser;
+      this.emitChange();
+  }
+  //End :Company statistics
 
 }
 

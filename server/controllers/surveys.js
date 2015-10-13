@@ -78,42 +78,43 @@ var surveyresults = req.body;
         getEngagementResultsByDate(user_id, datestring, function (data) {
 
         if (data.length > 0) {
-        var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: datestring}};
-                EngagementResults.remove(condition).exec(function (err) {
-        if (!err) {
-
-        }
-        });
+            var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: datestring}};
+            EngagementResults.remove(condition).exec(function (err) {
+                if (!err) {}
+            });
         }
 
         for (var i = 0; i < length; i++) {
-        var row = {};
-                row.user_id = mongoose.Types.ObjectId(req.user._id);
-                row.mood = surveyresults[i]['mood'];
-                row.rating = surveyresults[i]['rating'];
-                row.comment_title = surveyresults[i]['comment_title'];
-                row.comment = surveyresults[i]['comment'];
-                row.created = created;
-                EngagementResults.create(row, function (err, item) {
+            var row = {};
+            row.user_id = mongoose.Types.ObjectId(req.user._id);
+            row.mood = surveyresults[i]['mood'];
+            row.rating = surveyresults[i]['rating'];
+            row.comment_title = surveyresults[i]['comment_title'];
+            row.comment = surveyresults[i]['comment'];
+            row.created = created;
+            
+            EngagementResults.create(row, function (err, item) {
                 if (!err) {
-                response.status = true;
+                    response.status = true;
                 } else {
-                response.status = false;
+                    response.status = false;
                 }
-                });
+            });
         }
         res.send({status: true});
-                res.end();
-        });
+        res.end();
+    });
 };
-        function getLasteRatedMood(user_id, callback) {
-        // Last rated mood 
-        EngagementResults.findOne({user_id: user_id, mood: 'Mood'}).sort({_id: - 1}).lean().exec(function (err, docs) {
+
+
+function getLasteRatedMood(user_id, callback) {
+    // Last rated mood 
+    EngagementResults.findOne({user_id: user_id, mood: 'Mood'}).sort({_id: - 1}).lean().exec(function (err, docs) {
         if (docs != 'undefined') {
-        callback(docs);
+            callback(docs);
         }
-        });
-        }
+    });
+}
 
 
 exports.getLastSurvey = function (req, res) {
@@ -235,44 +236,6 @@ exports.getResultsByComapny = function (req, res) {
     });
 
 };
-
-
-exports.getResultsByComapny_bk = function (req, res) {
-    //console.log('req.user');
-    //console.log(req.user);
-    var currentUser = req.user;
-    var company = currentUser.company_info[0].companyname;
-    var user_id = mongoose.Types.ObjectId(req.user._id);
-    var condition = {user_id: user_id};
-    var orderby = {_id: 1}; // -1: DESC; 1: ASC
-
-    getUsersByCompany(company, function (docs) {
-
-        var ids = _(docs).map(function (g, key) {
-            return g._id;
-        });
-        
-        EngagementResults.find({user_id: { $in: ids }}).sort(orderby).lean().exec(function (err, rows) {
-            var response = {};
-            if (!err) {
-                response.status = 'success';
-                response.currentuser = req.user._id;
-                response.data = rows;
-            } else {
-                response.status = 'failure';
-                response.data = [];
-                response.currentuser = req.user._id;
-                console.log('Error in getResultsByComapny');
-            }
-            res.send(response);
-            res.end();
-        });
-    
-    
-    });
-
-};
-
 
 
 function getUsersByIndustry(industry, company, callback) {
@@ -528,6 +491,60 @@ exports.getMostEngagingManagers = function (req, res) {
             
         });
         
+    });
+
+};
+
+
+// Start : Company statistics
+function getCompanyESurveyUsers(company, currentUser, callback) {
+    
+    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
+function getCompanyESurvey(employees, currentUser, callback) {
+    
+        var ids = _(employees).map(function (employee, key) {
+            return employee._id;
+        });
+        
+        EngagementResults.find({user_id: { $in: ids }}).sort({_id: -1}).lean().exec(function (err, rows) {
+            var response = {};
+            if (!err) {
+                response.status = 'success';
+                response.currentuser = currentUser._id;
+                response.data = rows;
+            } else {
+                response.status = 'failure';
+                response.data = [];
+                response.currentuser = currentUser._id;
+                console.log('Error in getCompanyESurvey');
+            }
+            callback(response);
+        });
+}
+
+exports.getCompanyStatisticsData = function (req, res) {
+    
+    var currentUser = req.user;
+    var company = currentUser.company_info[0].companyname;
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    var condition = {user_id: user_id};
+    
+    getCompanyESurveyUsers(company, currentUser, function (employees) {
+
+        getCompanyESurvey(employees, currentUser, function (results) {
+            var response = {};
+            response.data = results;
+            response.totalemployees = employees.length;
+            res.send(response);
+            res.end();
+        });
+    
     });
 
 };

@@ -10,7 +10,7 @@ const quickstatistics = {
         return _.uniq(companysurvey, function(person) { return person.user_id; }).length;
     },
 
-    getLastMonthResponses: function (companysurvey) {
+    getLastMonthResponses: function (companysurvey, uid) {
         let today = new Date();
         let year = today.getFullYear();
         let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -26,7 +26,9 @@ const quickstatistics = {
         let nday = ('0' + ndate.getDate()).slice(-2);
         let ndatestring = nyear + '-' + nmonth + '-' + nday;
 
-        let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
+        let userresults = _(companysurvey).where({user_id: uid});
+        //let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
+        let results = _.filter(userresults, function(v) { return v.created.d >= ndatestring; });
         let uGroupResults = _(results).groupBy(function(result) {
                 return result.mood;
             });
@@ -69,9 +71,10 @@ const quickstatistics = {
         return employee;
     },
 
-    getTimeSinceLastPosted: function (companysurvey) {
-
-        let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
+    getTimeSinceLastPosted: function (companysurvey, uid) {
+        let userresults = _(companysurvey).where({user_id: uid});
+        let lastPost = _.first(_.sortBy(userresults, function(o) { return o._id; }).reverse(), 1);
+        //let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
         let postid = _(lastPost).map(function(g, key) {
             return g._id;
         });
@@ -79,7 +82,7 @@ const quickstatistics = {
         let montharray = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 
         function countup(yr, m, d, h, min, sec) {
-
+            let timeArr = [];
             let today = new Date();
             let todayy = today.getYear();
             if (todayy < 1000) {
@@ -99,7 +102,12 @@ const quickstatistics = {
             let dmin = Math.floor(((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1);
             // let dsec = Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
 
-            return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
+            //return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
+            timeArr['day'] = dday;
+            timeArr['hour'] = dhour;
+            timeArr['min'] = dmin;
+
+            return timeArr;
         }
 
         let timestamp = postid.toString().substring(0,8);

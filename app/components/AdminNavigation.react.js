@@ -47,6 +47,7 @@ export default class AdminNavigation extends React.Component {
             <li><Link to="/admin/continents" className="navigation__item">Continents</Link></li>,
             <li><Link to="/admin/languages" className="navigation__item">Languages</Link></li>,
             <li><Link to="/admin/pages" className="navigation__item">Pages</Link></li>,
+            <li><Link to="/admin/rules" className="navigation__item">Notificationrules</Link></li>,
             <li><Link onClick={this._onLogout} className="navigation__item" to="/admin">Logout</Link></li>
           ];
       } else {

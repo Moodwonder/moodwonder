@@ -26,6 +26,7 @@ var admin = require('../controllers/admin');
 var common = require('../controllers/common');
 var mood = require('../controllers/mood');
 var EngagementArea = require('../controllers/engagementArea');
+var notificationRules = require('../controllers/notificationRules');
 
 var Navigation = require('../languagesettings/nav');
 var openEndedSurvey = require('../controllers/openEndedSurvey');
@@ -60,16 +61,18 @@ module.exports = function (app, passport) {
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
     app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
+    app.get('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
     
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
     app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
-    app.get('/takesurvey/:hash', customSurvey.handleTakeSurvey);
+    app.get('/takesurvey/:hash', users.checkLogin, customSurvey.handleTakeSurvey);
     
 
-    app.post('/savesurveyresults', customSurveyResults.saveSurveyResults);
+    app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
+    app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
 
     app.post('/addlanguage', language.addLanguage);
     app.post('/editlanguage', language.editLanguage);
@@ -82,13 +85,17 @@ module.exports = function (app, passport) {
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
     
-    app.post('/addmood', mood.addMoodRate);
-    app.get('/mymoods', mood.getMyMoods);
+    app.post('/addmood', users.checkLogin, mood.addMoodRate);
+    app.get('/mymoods', users.checkLogin, mood.getMyMoods);
   
-    app.post('/addengagement', EngagementArea.addEngagement);
-    app.post('/editengagement', EngagementArea.editEngagement);
-    app.post('/deleteengagement', EngagementArea.deleteEngagement);
-    app.get('/getengagementareas', EngagementArea.engagementAreas);
+    app.post('/addengagement', admin.checkLogin, EngagementArea.addEngagement);
+    app.post('/editengagement', admin.checkLogin, EngagementArea.editEngagement);
+    app.post('/deleteengagement', admin.checkLogin, EngagementArea.deleteEngagement);
+    app.get('/getengagementareas', admin.checkLogin, EngagementArea.engagementAreas);
+    
+    app.post('/editrule', admin.checkLogin, notificationRules.editRule);
+    app.post('/deleterule', admin.checkLogin, notificationRules.deleteRule);
+    app.get('/getrules', admin.checkLogin, notificationRules.getRules);
 
     app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
     app.post('/postvote', users.checkLogin, voting.postVote);
@@ -122,6 +129,16 @@ module.exports = function (app, passport) {
     
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
+    
+    app.use(function noCachePlease(req, res, next) {
+        if(req.user && req.user.role !== 'ADMIN') {
+          console.log('req.user');
+          res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+          res.header("Pragma", "no-cache");
+          res.header("Expires", 0);
+        }
+        next();
+    });
 
     app.get('*', function (req, res, next) {
 
@@ -210,12 +227,6 @@ module.exports = function (app, passport) {
         }
 
         getPageKeys(page, lang, html, function (response) {
-
-            //console.log('response');
-            //console.log(response);
-
-            //console.log('lang');
-            //console.log(lang);
 
             var respons = '';
             var nav = '';

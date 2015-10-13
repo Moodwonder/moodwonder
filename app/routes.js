@@ -41,6 +41,10 @@ import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
 import AllTeams from 'components/AllTeams.react';
+import MyCompany from 'components/MyCompany.react';
+import Customsurveyresponses from 'components/customsurvey/Customsurveyresponses.react';
+import Notificationrules from 'components/notificationrules/Notificationrules.react';
+
 
 //const routes = (
 //  <Route>
@@ -101,6 +105,8 @@ const routes = (
         <Route name="/admin/userdetails/:uid" handler={UserDetails} />
         <Route name="/admin/teams" handler={AllTeams} />
         <Route name="/admin/teams/:id" handler={AllTeams} />
+        <Route name="/admin/rules" handler={Notificationrules} />
+
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
     </Route>
@@ -113,7 +119,7 @@ const routes = (
     <Route name="myprofile" path="/myprofile" handler={Appuser} >
       <Route name="" handler={MyProfile} />
     </Route>
-    <Route name="mycompany" path="/mycompany" handler={Appuser} >
+    <Route name="company" path="/mycompany" handler={Appuser} >
       <Route name="" handler={MyCompanyInfo} />
     </Route>
     <Route name="mymanager" path="/mymanager" handler={Appuser} >
@@ -128,11 +134,17 @@ const routes = (
     <Route name="takesurvey/:key" path="/takesurvey/:key" handler={Appuser} >
       <Route name="" handler={Takesurvey} />
     </Route>
+    <Route name="surveyresponses/:key" path="/surveyresponses/:key" handler={Appuser} >
+      <Route name="" handler={Customsurveyresponses} />
+    </Route>
     <Route name="customsurvey" path="/customsurvey" handler={Appuser} >
       <Route name="" handler={Customsurvey} />
     </Route>
     <Route name="mymood" path="/mymood" handler={Appuser} >
       <Route name="" handler={MyMood} />
+    </Route>
+    <Route name="my_company" path="/my_company" handler={Appuser} >
+      <Route name="" handler={MyCompany} />
     </Route>
     <Route name="employeeofthemonth" path="/employeeofthemonth" handler={Appuser} >
       <Route name="" handler={EmployeeOfTheMonth} />

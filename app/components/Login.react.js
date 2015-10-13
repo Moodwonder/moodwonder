@@ -40,7 +40,8 @@ export default class Login extends React.Component {
           if(hashkey) {
               window.location.assign('/takesurvey/' + hashkey);
           } else {
-              window.location.assign('/survey');
+              //window.location.assign('/survey');
+              window.location.assign('/mymood');
           }
           //this.context.router.transitionTo('/survey');
       }

@@ -33,6 +33,22 @@ class CustomSurveyResultsActions {
       this.dispatch(data);
   }
 
+  getSurveyResponses (id) {
+      this.dispatch();
+      CustomSurveyWebAPIUtils.getSurveyResponses(id)
+          .then((response, textStatus) => {
+              if (response.status === true) {
+                  this.actions.handlesurveyresponses(response);
+              }
+          }, () => {
+          // Dispatch another event for a bad request
+          });
+  }
+
+  handlesurveyresponses (data) {
+      this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(CustomSurveyResultsActions);

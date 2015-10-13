@@ -1,13 +1,8 @@
 import React from 'react';
-// import Immutable from 'immutable';
-// import UserWebAPIUtils from 'utils/UserWebAPIUtils';
-// import $ from 'jquery';
-// import Validation, { Validator } from 'rc-form-validation';
 import getFormData from 'get-form-data';
 import _ from 'underscore';
 import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
-//import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
@@ -53,7 +48,7 @@ export default class Takesurvey extends React.Component {
 
       for(let i = 1; i <= qcount; i++){
           let survey = survey || {};
-          survey.user_id = 1; // Need to change in future.
+          //survey.user_id = 1; // Need to change in future.
           survey.survey_id = data.surveyid;
           survey.question_id = data['questionid_' + i];
           survey.question = data['question_' + i];
@@ -83,6 +78,14 @@ export default class Takesurvey extends React.Component {
       }
   }
 
+  getTodaysDate = () => {
+      let today = new Date();
+      let year = today.getFullYear();
+      let month = ('0' + (today.getMonth() + 1)).slice(-2);
+      let day = ('0' + today.getDate()).slice(-2);
+      return (year + '-' + month + '-' + day);
+  }
+
   render() {
       let form = this.state.form;
       let formstatus = this.state.formstatus;
@@ -90,6 +93,8 @@ export default class Takesurvey extends React.Component {
       let questions = [];
       let fields = '';
       let qcount = _.size(form.questions);
+
+      let today = this.getTodaysDate();
 
       for(let i = 0; i < qcount; i++ ){
           questions.push(form.questions[i]);
@@ -160,27 +165,39 @@ export default class Takesurvey extends React.Component {
                           );
       }
 
-      let content = (
-        <div className="form-group">
-          {fields}
-        </div>
-      );
+      let content = '';
+      if (today > form.freezedate) {
+          content = (
+                  <div className="form-group">
+                    <label>Survey expired.</label>
+                  </div>
+                  );
+
+      } else {
+          content = (
+             <div className="form-group">
+                 {statusmessage}
+                 <h2>{form.surveytitle}</h2>
+                 <form id="surveyForm">
+                   <input type="hidden" name="surveyid" value={form._id} />
+                   <input type="hidden" name="surveytitle" value={form.surveytitle} />
+                   <div className="form-group">
+                     {fields}
+                   </div>
+                   <br/>
+                   <div className="form-group">
+                     <button className="btn btn-danger" onClick={this.onCancelSurvey}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <button className="btn btn-primary" onClick={this.onSubmitSurvey}>Submit</button>
+                   </div>
+                 </form>
+             </div>
+          );
+      }
 
       return (
       <div className="container">
       <Submenu />
-        {statusmessage}
-        <h2>{form.surveytitle}</h2>
-        <form id="surveyForm">
-          <input type="hidden" name="surveyid" value={form._id} />
-          <input type="hidden" name="surveytitle" value={form.surveytitle} />
-          {content}
-          <br/>
-          <div className="form-group">
-            <button className="btn btn-danger" onClick={this.onCancelSurvey}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button className="btn btn-primary" onClick={this.onSubmitSurvey}>Submit</button>
-          </div>
-        </form>
+      {content}
       </div>
     );
   }

@@ -264,6 +264,8 @@ exports.test = function (req, res) {
  * Logout
  */
 exports.getLogout = function (req, res, next) {
+    console.log('loggedout');
+    console.log(req.user);
     req.logout();
     //req.logOut();
     req.session.destroy();

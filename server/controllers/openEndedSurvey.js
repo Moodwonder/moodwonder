@@ -25,6 +25,16 @@ exports.getQuestions = function (req, res) {
 
 };
 
+function checkUserPostedOpenEndedSurvey(user_id, posteddate, callback) {
+
+    var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'posted.d': {$eq: posteddate}};
+    OpenEndedAnswers.find(condition).sort({_id: - 1}).lean().exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
 exports.saveOpenEndedSurvey = function (req, res) {
 
     var query = req.body;
@@ -47,13 +57,22 @@ exports.saveOpenEndedSurvey = function (req, res) {
     query.posted = posted;
     
     if (req.user._id != '') {
-        
-        OpenEndedAnswers.create(query, function (err, data) {
-            if (!err) {
-                res.json({'status': true, 'message': 'Open ended answers saved'});
-            } else {
-                res.json({'status': false, 'message': 'Error: Open ended answers - something went wrong..'});
+        checkUserPostedOpenEndedSurvey(req.user._id, datestring, function(rows) {
+            
+            if (rows.length > 0) {
+                var condition = {'user_id': mongoose.Types.ObjectId(req.user._id), 'posted.d': {$eq: datestring}};
+                OpenEndedAnswers.remove(condition).exec(function (err) {
+                    if (!err) {}
+                });
             }
+                        
+            OpenEndedAnswers.create(query, function (err, data) {
+                if (!err) {
+                    res.json({'status': true, 'message': 'Open ended answers saved'});
+                } else {
+                    res.json({'status': false, 'message': 'Error: Open ended answers - something went wrong..'});
+                }
+            });
         });
         
     } else {

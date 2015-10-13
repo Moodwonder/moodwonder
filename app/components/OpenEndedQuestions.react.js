@@ -42,9 +42,29 @@ export default class OpenEndedQuestions extends React.Component {
       openended.least_improved_atwo = data['least_improved_atwo'];
       openended.least_improved_athree = data['least_improved_athree'];
 
-      if (window.confirm('Are sure you want to submit Open ended questions?')) {
-          OpenEndedActions.saveAnswers(openended);
-          //console.log(JSON.stringify(openended));
+      let errorFlag =  false;
+
+      if(openended.most_improved_aone === '' || openended.most_improved_aone === null) {
+          errorFlag =  true;
+      } else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
+          errorFlag =  true;
+      }
+
+      if (errorFlag) {
+          alert("Please answer all the questions.");
+      } else {
+          if (window.confirm('Are sure you want to submit Open ended questions?')) {
+              OpenEndedActions.saveAnswers(openended);
+              //console.log(JSON.stringify(openended));
+          }
       }
 
   }

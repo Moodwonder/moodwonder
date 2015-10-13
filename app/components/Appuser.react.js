@@ -1,9 +1,10 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
+import AppStore from 'stores/AppStore';
 import Navigation from 'components/Navigation.react';
 import Leftnav from 'components/Leftnav.react';
 import Rightnav from 'components/Rightnav.react';
-import AppStore from 'stores/AppStore';
+import SidebarMenu from 'components/SidebarMenu.react';
 
 export default class App extends React.Component {
 
@@ -14,6 +15,13 @@ export default class App extends React.Component {
 
   componentDidMount () {
       AppStore.listen(this._onChange);
+//      let rootNode = React.findDOMNode(this);
+//
+//      // Initialize the sidebar
+//      $(rootNode).find('.ui.sidebar').sidebar({
+//          context: $(rootNode)
+//      });
+
   }
 
   componentWillUnmount () {
@@ -31,7 +39,6 @@ export default class App extends React.Component {
       let noPermission = (
         <div>
          <p> You do not have sufficient permissions to access this page. </p>
-         <p> Please login to continue <a href="/login">Login</a> </p>
         </div>
       );
       let path = this.context.router.getCurrentPathname();
@@ -51,32 +58,28 @@ export default class App extends React.Component {
           }
       }
 
-      // admin only pages
-//      pages = ["/surveyforms"];
-//      if( pages.indexOf(path) >= 0){
-//          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
-//              handler = noPermission;
-//          }
-//      }
-
       if (this.state.isAuthenticated) {
           leftnav = (<Leftnav />);
           rightnav = (<Rightnav />);
       }
 
+      let sitecontent = [
+                    <Navigation />,
+                    <SidebarMenu />,
+                    <div className="pusher">
+                        <div className="ui inverted vertical masthead center aligned "></div>
+                        {leftnav}
+                        <div className="ui segment  width padding-top-110 ">
+                            <div className="ui main">
+                                {handler}
+                                {rightnav}
+                            </div>
+                        </div>
+                    </div>
+              ];
+
       return (
-        <div>
-          <Navigation />
-          <div className="wrapper">
-            <div className="pusher">
-                {leftnav}
-                <div className="middleContainer">
-                    {handler}
-                    {rightnav}
-                </div>
-            </div>
-          </div>
-        </div>
+              <span>{sitecontent}</span>
       );
   }
 }
