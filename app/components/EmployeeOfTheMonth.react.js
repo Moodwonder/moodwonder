@@ -29,18 +29,18 @@ export default class EmployeeOfTheMonth extends React.Component {
       this.hasData = this.state.hasEmployees;
   }
 
-      _onPopClick = (emp_id) => {
-          this.setState({
-             modal:true,
-             emp_id:emp_id
-          });
-      }
+  _onPopClick = (emp_id) => {
+      this.setState({
+         modal:true,
+         emp_id:emp_id
+      });
+  }
 
-    _onPopClose = (emp_id) => {
-        this.setState({
-           modal:false
-        });
-    }
+  _onPopClose = (emp_id) => {
+      this.setState({
+         modal:false
+      });
+  }
 
   _onChangeComment = (e) => {
       if(e.target.value.trim() !== ''){

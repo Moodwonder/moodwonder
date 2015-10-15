@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
 var TeamSchema = new mongoose.Schema({
   teamname: {type: String, default: ''},
   manager_id: Schema.Types.ObjectId,
-  admin_id: {type: String, default: '0'},
+  company_id: {type: String, default: '0'},
   member_ids: [{ user_id : Schema.Types.ObjectId }]
 });
 

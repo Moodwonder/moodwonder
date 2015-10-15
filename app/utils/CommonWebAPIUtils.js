@@ -95,7 +95,6 @@ const utils = {
       data: JSON.stringify(data)
     });
   }
-
 };
 
 export default utils;

@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
 import RequireAuth from 'utils/requireAuth';
 import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
 import Pagination from 'components/Pagination';
 
-export default RequireAuth(class Dashboard extends React.Component {
+export default RequireAuth(class CompanyAdmins extends React.Component {
   constructor(props) {
       super(props);
       this.state = AdminUserStore.getState();
   }
 
   componentDidMount(){
-      AdminUserActions.getAllUsers();
+      AdminUserActions.getAllUsers({ type: 'admin' });
       AdminUserStore.listen(this._onChange);
   }
 
@@ -24,7 +23,7 @@ export default RequireAuth(class Dashboard extends React.Component {
 
       return (
       <div className="container">
-        <h1>Users</h1>
+        <h1>Company Admin</h1>
         <DataTable data={this.state.usersTable}/>
       </div>
       );
@@ -165,38 +164,14 @@ class DataTable extends React.Component {
         let rows;
         let tableClass = this.props.data.class;
 
-        let teamUserList;
-        if(this.state.userTeams){
-            teamUserList = this.state.userTeams.map((data, key) => {
-
-                let members;
-                members = data.members.map((mem, key) => {
-                    return (
-                    <div className="row">
-                      <div className="col-sm-6">{mem.member_email}</div>
-                      <div className="col-sm-4">{mem.member_name}</div>
-                    </div>
-                    );
-                });
-                return [
-                  <li className="list-group-item">
-                   {data.name}
-                  </li>,
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
-                    </div>
-                    {members}
-                  </li>
-                ];
-            });
-        }
-
         try
         {
             if(this.state.rows !== undefined){
                 header = this.props.data.header.map((data, key) => {
                     // Skip _id from display, It will only used as a document reference
+                    if(data === 'Language'){
+                        return [<th>Admin</th>];
+                    }
                     if(data !== 'Id'){
                         return [<th>{data}</th>];
                     }
@@ -207,16 +182,15 @@ class DataTable extends React.Component {
                     this.hasData = true;
                     let columns = row.map((column, key) => {
                         // Skip column from display
+                        // console.log(this.props.data.header[key]);
                         if(column.display !== false){
                             let content;
                             if( column.column === true ){
                                 content = ( <span className="true">Yes</span> );
                             }else if( column.column === false ){
                                 content = ( <span className="true">No</span> );
-                            }else if( this.props.data.header[key] === 'Name' ){
-                                content = ( <Link to={ `/admin/userdetails/${row[0].column}` } className="navigation__item">{column.column}</Link> );
-                            }else if( this.props.data.header[key] === 'Type' && column.column === 'manager' ){
-                                content = ( <a data-tag={row[0].column} onClick={this._onPopClick}  className="navigation__item">{column.column}</a> );
+                            }else if( this.props.data.header[key] === 'Language'){
+                                content = ( <ChangeUserStatus data={row} /> );
                             }else{
                                 content = column.column;
                             }
@@ -232,26 +206,6 @@ class DataTable extends React.Component {
             console.log(err);
         }
 
-        let modal;
-        if(this.state.modal){
-            modal = (
-                <div className="modal fade in cmodal-show" id="myModal" role="dialog">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" onClick={this._onPopClose} className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Teams</h4>
-                    </div>
-                    <div className="modal-body modal-height-350">
-                        {teamUserList}
-                    </div>
-                    <div className="modal-footer">
-                    </div>
-                  </div>
-                </div>
-                </div>
-            );
-        }
         return (
 
         <div>
@@ -263,7 +217,54 @@ class DataTable extends React.Component {
           {rows}
         </table>
         <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
-        {modal}
+        </div>
+        );
+    }
+}
+
+class ChangeUserStatus extends React.Component {
+
+    constructor(props) {
+        super(props);
+        try{
+            console.log(this.props.data[3]);
+            let checked = false;
+            let statusText = 'Inactive';
+            if(this.props.data[3].column==='admin'){
+                checked = true;
+                statusText = 'Active';
+            }
+            this.state = {
+                checked: checked,
+                statusText: statusText
+            };
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    onChange = (e) => {
+        if(this.state.checked){
+            this.setState({
+                checked: false,
+                statusText: 'Inactive'
+            });
+        }else{
+            this.setState({
+                checked: true,
+                statusText: 'Active'
+            });
+        }
+        let usertype = !this.state.checked;
+        AdminUserActions.updateUserDetails({ _id: this.props.data[0].column, usertype: usertype ,action: 'change user type'});
+    }
+
+    render() {
+
+        return (
+        <div>
+        <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
+        {this.state.statusText}
         </div>
         );
     }

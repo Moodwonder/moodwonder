@@ -81,6 +81,70 @@ exports.saveOpenEndedSurvey = function (req, res) {
 
 };
 
+// Get open ended survey answer by id and datetime
+exports.getOpenEndedSurveyAnswer = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+
+
+	var FindOpenEndedQuestions = function(callBackFn){
+
+		OpenEndedQuestions.find().lean().exec(function (err, data) {
+			callBackFn(data[0]);
+		});
+	}
+
+	var FindopenEndedAnswers = function(questions){
+		
+		var _id = req.body._id;
+		var date = req.body.date;
+		var whereCondition = { "user_id": _id };
+		// if date is undefined, then take the last record
+		if(date !== undefined){
+			whereCondition = { "user_id": _id, "posted.d": date };
+		}
+
+		OpenEndedAnswers.find(whereCondition).sort({_id:-1}).limit(1).exec(function (err, data) {
+			var response = {};
+			if (!err && data.length !==0 && questions.length !== 0) {
+				data = data[0];
+				var qa = [];
+				qa[0] = { q: questions.most_improved_qone, a: data.most_improved_aone };
+				qa[1] = { q: questions.most_improved_qtwo, a: data.most_improved_atwo };
+				qa[2] = { q: questions.most_improved_qthree, a: data.most_improved_athree };
+				qa[3] = { q: questions.least_improved_qone, a: data.least_improved_aone };
+				qa[4] = { q: questions.least_improved_qtwo, a: data.least_improved_atwo };
+				qa[5] = { q: questions.least_improved_qthree, a: data.least_improved_athree };
+				response.status = true;
+				response.message = 'success';
+				response.data = qa;
+			} else {
+				response.status = false;
+				response.message = 'No record found';
+				response.data = [];
+			}
+			res.json(response);
+			res.end();
+		});
+	}
+
+	try{
+		if(req.body._id !== undefined && req.body._id !== '' ){
+			FindOpenEndedQuestions(FindopenEndedAnswers);
+		}else{
+			res.json(response);
+			res.end();
+		}
+	}catch(e){
+		res.json(response);
+		res.end();
+	}
+
+};
+
+
 
 
 

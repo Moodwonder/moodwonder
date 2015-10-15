@@ -143,7 +143,6 @@ var user_id = mongoose.Types.ObjectId(req.user._id);
         });
 };
 
-
 exports.getSurveyResults = function (req, res) {
 
         var user_id = mongoose.Types.ObjectId(req.user._id);
@@ -171,9 +170,7 @@ exports.getSurveyResults = function (req, res) {
                 });
                 });
 };
-        
-        
-        
+
 function getUsersByCompany(company, callback) {
     
     User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {

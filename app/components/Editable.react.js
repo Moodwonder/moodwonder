@@ -18,7 +18,9 @@ export default class Editable extends React.Component {
   componentDidMount() {
   }
 
-  componentWillUnmount() {
+  componentWillReceiveProps(e) {
+      // to set default
+      this.setState({Edit: false, value: this.props.value });
   }
 
   changeValue = (event) => {
@@ -26,7 +28,7 @@ export default class Editable extends React.Component {
   }
 
   onEditClick = () => {
-      this.setState({Edit: true});
+      this.setState({Edit: true, value: this.props.value });
   }
 
   onSaveClick = (teamname,teamid) => {

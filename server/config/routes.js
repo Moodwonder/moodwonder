@@ -112,7 +112,22 @@ module.exports = function (app, passport) {
     // Admin API calls
     app.post('/getallusers', admin.checkLogin, users.getallusers);
     app.post('/getuser', admin.checkLogin, users.getUserInfoById);
-    app.post('/updateuser', admin.checkLogin, users.updateUser);
+    app.post('/updateuser', admin.checkLogin, users.updateUserByAdmin);
+    app.post('/getuserteamsbyid', admin.checkLogin, teams.getTeamsById, users.usersInTeams);
+    app.post('/getopenended', admin.checkLogin, openEndedSurvey.getOpenEndedSurveyAnswer);
+    app.post('/getallcompanies', admin.checkLogin, users.getAllCompanies);
+    app.post('/getallteamsbycompany', admin.checkLogin, users.getAllTeamsFromCompany);
+    app.post('/getallteamsmembers', admin.checkLogin, users.getAllTeamsMembers, users.usersInTeams);
+    app.post('/searchteam', admin.checkLogin, users.searchTeam);
+    app.post('/addindustry', admin.checkLogin, common.addIndustry);
+    app.post('/getindustries', admin.checkLogin, common.getIndustry);
+    app.post('/getindustries', admin.checkLogin, common.getIndustry);
+    app.post('/updateindustry', admin.checkLogin, common.updateIndustry);
+    app.post('/deleteindustry', admin.checkLogin, common.deleteIndustry);
+    app.post('/addplaces', admin.checkLogin, common.addPlaces);
+    app.post('/getplaces', admin.checkLogin, common.getPlaces);
+    app.post('/updateplaces', admin.checkLogin, common.updatePlaces);
+    app.post('/deleteplaces', admin.checkLogin, common.deletePlaces);
     
     // Set variables from server side
     app.get('/mycompany', common.handlePlaces);
@@ -257,3 +272,4 @@ module.exports = function (app, passport) {
         // res.end(html);
     });
 };
+ 
