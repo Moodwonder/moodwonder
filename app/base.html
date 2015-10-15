@@ -17,30 +17,21 @@
   <script type="text/javascript" charset="utf-8"  src="/assets/popup.js"></script>
   <script type="text/javascript" charset="utf-8"  src="/assets/modal.js"></script>
   
+  <script src="/assets/halfdaughnut/js/jquery.circliful.min.js"></script>
+  
   <script>
   $(document).ready(function() {
       
-      $('.custom.button').popup({
-        popup : $('.custom.popup'),
-        on    : 'click'
-      });
+//      $('.ui.menu .ui.dropdown').dropdown({
+//        on: 'click'
+//      });
       
-      $("#test").on('click', function() {
-        $('.ui.modal').modal('show');
-      });
-      
-
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
-      });
-
       $('.ui.menu a.item')
         .on('click', function() {
           $(this)
             .addClass('active')
             .siblings()
-            .removeClass('active')
-          ;
+            .removeClass('active');
       });
         
   });

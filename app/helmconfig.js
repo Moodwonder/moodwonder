@@ -19,8 +19,9 @@ const config = {
     { "rel": "stylesheet", "href": "/assets/styles/grid.css" },
     { "rel": "stylesheet", "href": "/assets/styles/container.css" },
     { "rel": "stylesheet", "href": "/assets/styles/site.css" },
-    { "rel": "stylesheet", "href": "/assets/styles/reset.css" }
-    //{ "rel": "stylesheet", "href": "/assets/styles/custom_popup.css"},
+    { "rel": "stylesheet", "href": "/assets/styles/reset.css" },
+    { "rel": "stylesheet", "href": "/assets/halfdaughnut/css/jquery.circliful.css"},
+    { "rel": "stylesheet", "href": "/assets/halfdaughnut/css/font-awesome.min.css"}
   ],
 
   meta: [
