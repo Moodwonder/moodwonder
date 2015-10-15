@@ -9,6 +9,7 @@ class PlacesStore {
   constructor () {
 
       this.PlacesList =  false;
+      this.PlacesData =  false;
       this.DataChange   =  false;
       this.hasError     =  false;
       this.message      =  false;
@@ -16,7 +17,8 @@ class PlacesStore {
       this.bindListeners({
         handleAddPlaces: PlacesActions.ADDPLACES,
         handleGetPlaces: PlacesActions.GETPLACES,
-        handleUpdatePlaces: PlacesActions.UPDATEPLACES
+        handleUpdatePlaces: PlacesActions.UPDATEPLACES,
+        handleGetPlacesData: PlacesActions.GETPLACESDATA
       });
   }
 
@@ -32,6 +34,15 @@ class PlacesStore {
           this.message    =  res.message;
       }
       this.PlacesList =  res.data;
+      this.emitChange();
+  }
+
+  handleGetPlacesData (res) {
+      this.hasError     =  !res.status;
+      if(this.hasError){
+          this.message    =  res.message;
+      }
+      this.PlacesData =  res.data;
       this.emitChange();
   }
 

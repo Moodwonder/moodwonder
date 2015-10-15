@@ -46,6 +46,7 @@ let MyOwnSelect = React.createClass({
           this.props.onChange(event.currentTarget.value);
       }
   },
+
   render: function () {
 
       let errorMessage = this.getErrorMessage();
@@ -63,9 +64,8 @@ let MyOwnSelect = React.createClass({
       let elementWrapper = classNames.formGroup.join(' ');
 
       let options = this.props.options.map((data, key) => {
-
           return (
-          <option key={key} value={data} >{data}</option>
+          <option key={key} data={data._id} value={data.text} >{data.text}</option>
           );
       });
 

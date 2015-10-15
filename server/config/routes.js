@@ -122,9 +122,10 @@ module.exports = function (app, passport) {
     app.post('/getplaces', admin.checkLogin, common.getPlaces);
     app.post('/updateplaces', admin.checkLogin, common.updatePlaces);
     app.post('/deleteplaces', admin.checkLogin, common.deletePlaces);
+    app.post('/getplacesdata', admin.checkLogin, common.getPlacesData);
     
     // Set variables from server side
-    app.get('/mycompany', common.handlePlaces);
+    app.get('/mycompany', common.handleGetContinents);
     app.get('/signup/:hash', invitation.handleSignup);
     
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
@@ -161,7 +162,7 @@ module.exports = function (app, passport) {
         // this.state.yourState
 
         res.locals.data = {
-            UserStore: { user: user, places: req.body.places },
+            UserStore: { user: user, continents: req.body.continents },
             CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
             SignupStore: {inviteEmail: inviteEmail},
             AppStore: AppStore

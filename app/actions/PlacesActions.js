@@ -25,10 +25,12 @@ class PlacesActions {
 
   // add new continent
   getPlaces (data) {
+      //console.log(data);
       this.dispatch();
       AdminWebAPIUtils.getPlaces(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
+                //console.log(response);
                 this.actions.getplaces(response);
                // this.actions.getcontinents();
             }
@@ -37,6 +39,7 @@ class PlacesActions {
   }
 
   getplaces (response) {
+      //console.log(response);
       this.dispatch(response);
   }
 
@@ -83,6 +86,22 @@ class PlacesActions {
   }
 
   deleteplaces (response) {
+      this.dispatch(response);
+  }
+
+  // get places like coutry, state, city
+  getPlacesData (data) {
+      //this.dispatch();
+      AdminWebAPIUtils.getPlacesData(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.getplacesdata(response);
+            }
+        }, () => {
+        });
+  }
+
+  getplacesdata (response) {
       this.dispatch(response);
   }
 
