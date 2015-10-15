@@ -41,7 +41,7 @@ export default class Rightnav extends React.Component {
       let surveyresults = this.state.surveyresults;
       let companysurvey = this.state.companysurvey;
       let currentuserid = this.state.currentuserid;
-      let totalcompanyusers = this.state.totalcompanyusers;
+      let totalcompanyusers = (this.state.totalcompanyusers) ? this.state.totalcompanyusers : 0;
 
       let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
       let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
@@ -58,7 +58,7 @@ export default class Rightnav extends React.Component {
 
                         <div className="column padding-ryt">
                             <div className="ui segment padding-20">
-                                <p><meter min="1" max="5" value={data.rating}></meter></p>
+                                <p><meter min="1" max="5" value={data.rating} className="tab-ryt-meter"></meter></p>
                             </div>
                         </div>
                      ];

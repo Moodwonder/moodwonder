@@ -31,6 +31,12 @@ var notificationRules = require('../controllers/notificationRules');
 var Navigation = require('../languagesettings/nav');
 var openEndedSurvey = require('../controllers/openEndedSurvey');
 
+// Cron jobs
+var customsurveyalert = require('../cronjobs/customsurveyalert');
+var managernotifications_mwindex = require('../cronjobs/managernotifications_mwindex');
+var managernotifications_individual = require('../cronjobs/managernotifications_individual');
+var managernotifications_team = require('../cronjobs/managernotifications_team');
+
 
 module.exports = function (app, passport) {
     // user routes

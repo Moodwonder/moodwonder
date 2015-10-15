@@ -3,7 +3,6 @@ import React from 'react';
 //import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
 //let BarChart = require("react-chartjs").Bar;
-let Doughnut = require("react-chartjs").Doughnut;
 //import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
@@ -13,6 +12,7 @@ import QuickStatistics from 'utils/QuickStatistics';
 import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
+import HalfDaughnut from 'components/HalfDaughnut.react';
 
 
 
@@ -60,6 +60,7 @@ export default class MyMood extends React.Component {
           totalcompanyusers: ''
       };
       this.engagementmoods = [];
+      this.mooddropdown = false;
   }
 
   componentDidMount() {
@@ -70,6 +71,34 @@ export default class MyMood extends React.Component {
       SurveyActions.getResultsByCountry();
       SurveyActions.getMostEngagingManagers();
       SurveyStore.listen(this._onMoodChange);
+
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
+
+      $('.graphperiod').dropdown({
+          onChange: this.onChangeGraphPeriod
+      });
+
+      $('.graphengagement').dropdown({
+          onChange: this.onChangeGraphEngagement
+      });
+  }
+
+  componentDidUpdate () {
+      if(this.mooddropdown) {
+          $('.ui.menu .ui.dropdown').dropdown({
+              on: 'click'
+          });
+
+          $('.graphengagement').dropdown({
+              onChange: this.onChangeGraphEngagement
+          });
+
+          $('.graphperiod').dropdown({
+              onChange: this.onChangeGraphPeriod
+          });
+      }
   }
 
   componentWillUnmount() {
@@ -127,20 +156,31 @@ export default class MyMood extends React.Component {
       this.setState({ popup : true });
   }
 
-  onChangeGraphPeriod = (e) => {
-      e.preventDefault();
-      let graphperiod = e.target.value;
-      this.setState({ graphperiod : graphperiod });
+  //onChangeGraphPeriod = (e) => {
+  //    e.preventDefault();
+  //    let graphperiod = e.target.value;
+  //    this.setState({ graphperiod : graphperiod });
+  //}
+
+  onChangeGraphPeriod = (value) => {
+      console.log(value);
+      this.setState({ graphperiod : value });
   }
 
-  onChangeGraphEngagement = (e) => {
-      e.preventDefault();
-      let graphengagement = e.target.value;
-      this.setState({ graphengagement : graphengagement });
+  //onChangeGraphEngagement = (e) => {
+  //    e.preventDefault();
+  //    let graphengagement = e.target.value;
+  //    this.setState({ graphengagement : graphengagement });
+  //}
+
+  onChangeGraphEngagement = (value) => {
+      console.log(value);
+      this.setState({ graphengagement : value });
   }
 
   engagementGraphClick = (e) => {
       e.preventDefault();
+      this.mooddropdown = true;
       this.setState({
           engagementgraphtab: true,
           quickstatisticstab : false,
@@ -150,6 +190,7 @@ export default class MyMood extends React.Component {
 
   quickStatisticsClick = (e) => {
       e.preventDefault();
+      this.mooddropdown = false;
       this.setState({
           engagementgraphtab: false,
           quickstatisticstab : true,
@@ -159,6 +200,7 @@ export default class MyMood extends React.Component {
 
   moodRatingsClick = (e) => {
       e.preventDefault();
+      this.mooddropdown = false;
       this.setState({
           engagementgraphtab: false,
           quickstatisticstab : false,
@@ -224,7 +266,7 @@ export default class MyMood extends React.Component {
 
       let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
       let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
-      //let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
+      let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
 
       // Start : MoodRatings
       let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
@@ -538,34 +580,15 @@ export default class MyMood extends React.Component {
       chartdata.datasets = datasets;
       // End : Engagement Graph
 
-      // Start: Doughnut Graph
-
-      let empEngagement = {};
-      empEngagement.value = (myEmployeeEngagement);
-      empEngagement.color = "#F7464A";
-      empEngagement.highlight = "#FF5A5E";
-      empEngagement.label = "Employee avg engagement";
-
-      let nonEmpEngagement = {};
-      nonEmpEngagement.value = (5 - (myEmployeeEngagement)).toFixed(1);
-      nonEmpEngagement.color = "#ECEFF1";
-      nonEmpEngagement.highlight = "#A8B3C5";
-      nonEmpEngagement.label = "";
-
-      let doughnutData = [empEngagement, nonEmpEngagement];
-
-      let doughnutoptions = {
-          responsive : true,
-          percentageInnerCutout : 60,
-          animateRotate : false
-      };
-      // End: Doughnut Graph
-
-
       //let lastRated = '';
       //if(lastMood !== null) {
       //    lastRated = lastMood.rating;
       //}
+
+      let myEngagement = '';
+      if (myEmployeeEngagement > 0) {
+          myEngagement = (<HalfDaughnut datatext={myEmployeeEngagement} />);
+      }
 
 
       let engagementGraphTabContent = '';
@@ -576,19 +599,18 @@ export default class MyMood extends React.Component {
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
                             <div className=" right menu mobile">
-                                <select className="ui search dropdown" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
-                                <option value="mw_index">MW-Index</option>
-                                {moodoptions}
-
-                              </select>
-                                <select className="ui dropdown" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
-                                <option value="all_time">All time</option>
-                                <option value="last_12_months">Last 12 months</option>
-                                <option value="last_6_ months">Last 6 months</option>
-                                <option value="last_3_months">Last 3 months</option>
-                                <option value="last_month">Last month</option>
-                              </select>
-                              </div>
+                                <select className="ui search dropdown graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                    <option value="mw_index">MW-Index</option>
+                                    {moodoptions}
+                                </select>
+                                <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
+                                    <option value="all_time">All time</option>
+                                    <option value="last_12_months">Last 12 months</option>
+                                    <option value="last_6_ months">Last 6 months</option>
+                                    <option value="last_3_months">Last 3 months</option>
+                                    <option value="last_month">Last month</option>
+                                </select>
+                            </div>
                             <div className="clear"></div>
                             <div className="graph">
                                 <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
@@ -601,7 +623,24 @@ export default class MyMood extends React.Component {
                     <div className="clear"></div>,
                     <div className="ui two column stackable grid ">
                         <div className="three column row padding-container">
-
+                            <div className="column">
+                                <div className="ui segment gry">At Start : {engagementStatitics.start}</div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment gry">Highest : {engagementStatitics.highest}</div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment gry">Lowest : {engagementStatitics.lowest}</div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment gry">Current : {engagementStatitics.current}</div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment gry">30 Days change : {engagementStatitics.thirtydayschange}</div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment gry">Week change : {engagementStatitics.weekchange}</div>
+                            </div>
                       </div>
                     </div>,
 
@@ -610,7 +649,7 @@ export default class MyMood extends React.Component {
                             <div className="ui segment brdr">
                                 <h2>Employee average Engagement</h2>
                                 <div>
-                                    <Doughnut data={doughnutData} options={doughnutoptions} width="250" height="250" redraw/>
+                                    {myEngagement}
                                 </div>
                             </div>
                         </div>
