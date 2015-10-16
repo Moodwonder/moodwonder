@@ -1,6 +1,5 @@
 import React from 'react';
 import RequireAuth from 'utils/requireAuth';
-import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
 import UsersSurveyStatistics from 'components/users/UsersSurveyStatistics.react';
 
@@ -12,12 +11,6 @@ export default RequireAuth(class SurveyStatistics extends React.Component {
     }
 
     componentDidMount(){
-        let _id =  false;
-        try{
-            _id = this.props.params.uid;
-        }catch(err){
-            console.log(err);
-        }
     }
 
     _onChange = (state) => {
