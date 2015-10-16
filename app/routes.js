@@ -31,6 +31,7 @@ import Countries from 'components/Countries.react';
 import States from 'components/States.react';
 import City from 'components/Cities.react';
 import Users from 'components/users/Users.react';
+import SurveyStatistics from 'components/users/SurveyStatistics.react';
 import UserDetails from 'components/users/UserDetails.react';
 import CompanyAdmins from 'components/CompanyAdmins.react';
 import MyMood from 'components/MyMood.react';
@@ -103,6 +104,7 @@ const routes = (
         <Route name="/admin/users" handler={Users} />
         <Route name="/admin/companyadmins" handler={CompanyAdmins} />
         <Route name="/admin/userdetails/:uid" handler={UserDetails} />
+        <Route name="/admin/surveystatistics/:uid" handler={SurveyStatistics} />
         <Route name="/admin/teams" handler={AllTeams} />
         <Route name="/admin/teams/:id" handler={AllTeams} />
         <Route name="/admin/rules" handler={Notificationrules} />

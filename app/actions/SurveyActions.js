@@ -37,9 +37,9 @@ class SurveyActions {
       this.dispatch(response);
   }
 
-  getLastSurvey() {
+  getLastSurvey(data) {
       this.dispatch();
-      SurveyWebAPIUtils.getLastSurvey()
+      SurveyWebAPIUtils.getLastSurvey(data)
       .then((response, textStatus) => {
           if (textStatus === 'success') {
               this.actions.lastsurveysuccess(response);
@@ -54,9 +54,9 @@ class SurveyActions {
       this.dispatch(response);
   }
 
-  getEngagementResults() {
+  getEngagementResults(data) {
       this.dispatch();
-      SurveyWebAPIUtils.getEngagementResults()
+      SurveyWebAPIUtils.getEngagementResults(data)
       .then((response, textStatus) => {
           if (textStatus === 'success') {
               this.actions.engagementresultssuccess(response);

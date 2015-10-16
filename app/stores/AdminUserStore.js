@@ -21,7 +21,8 @@ class AdminUserStore {
         handleSetUser: AdminUserActions.SETUSERDETAILS,
         handleSetUserTeams: AdminUserActions.SETUSERTEAMS,
         handleUpdateUser: AdminUserActions.UPDATEUSERDETAILS,
-        handleOpenEnded: AdminUserActions.SETOPENENDED
+        handleOpenEnded: AdminUserActions.SETOPENENDED,
+        handleSurveyDetails: AdminUserActions.SETSURVEYDETAILS
       });
   }
 
@@ -49,6 +50,13 @@ class AdminUserStore {
 
   handleOpenEnded (res) {
       this.openEnded = res.data;
+      this.hasError = !res.status;
+      this.message = res.message;
+      this.emitChange();
+  }
+
+  handleSurveyDetails (res) {
+      this.userSurveyStatistics = res.data;
       this.hasError = !res.status;
       this.message = res.message;
       this.emitChange();

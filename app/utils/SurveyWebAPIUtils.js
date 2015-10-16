@@ -27,9 +27,9 @@ const utils = {
     });
   },
 
-  getEngagementResults: () => {
+  getEngagementResults: (user_id) => {
       return $.ajax({
-      url: '/getengagementresults',
+      url: '/getengagementresults?user_id='+user_id,
       type: 'GET',
       contentType: 'application/json'
     });
