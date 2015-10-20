@@ -66,6 +66,15 @@ class UserStore {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
       this.message = response.message;
+      if((!this.hasError) && response.type === 'summary'){
+          this.summaryEdit = false;
+      }
+      if((!this.hasError) && response.type === 'personalinfo'){
+          this.personalInfoEdit = false;
+      }
+      if((!this.hasError) && response.type === 'generalinfo'){
+          this.generalInfoEdit = false;
+      }
       this.emitChange();
   }
 
@@ -93,12 +102,11 @@ class UserStore {
   handleUserInfoSuccess (response) {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
-      this.message = response.message;
       if (!this.hasError) {
           this.userDetails = response.data;
           this.profile_image = response.data.profile_image;
-          // To ignore initial message
-          this.message = '';
+      }else{
+          this.message = response.message;
       }
       this.emitChange();
   }

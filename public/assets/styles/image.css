@@ -227,7 +227,8 @@ img.ui.bordered.image {
 .ui.tiny.images svg,
 .ui.tiny.image {
   width: 80px;
-  height: auto;
+  height: 80px;
+  object-fit: cover;
   font-size: 0.85714286rem;
 }
 .ui.small.images .image,

@@ -47,6 +47,7 @@ module.exports = function (app, passport) {
     app.post('/usersignup', users.postUserSignUp);
     app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
     app.post('/updateuserphoto', users.checkLogin, users.UpdateUserPhoto);
+    app.post('/updateuserbanner', users.checkLogin, users.UpdateProfileBanner);
     app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
     app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
     app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);

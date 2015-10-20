@@ -18,6 +18,7 @@ var UserSchema = new mongoose.Schema({
   report_frequency: {type: String, default: 'Weekly'},
   password: String,
   profile_image: {type: String, default: ''},
+  cover_image: {type: String, default: ''},
   usertype: {type: String, default: 'user'},
   teamname: String,
   mymanager: [{ _id: String, email: String }],
@@ -33,6 +34,7 @@ var UserSchema = new mongoose.Schema({
       website : String,
       companysize : String
     }],
+  summary: {type: String, default: ''},
   verifylink: {type: String, default: ''},
   userstatus: {type: String, default: 'Active'}
 });

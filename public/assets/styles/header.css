@@ -67,18 +67,18 @@
 ---------------*/
 
 .ui.header > .icon {
-  display: table-cell;
+  display: inline-block;
   opacity: 1;
   font-size: 1.5em;
   padding-top: 0.14285em;
-  vertical-align: middle;
+  
 }
 
 /* With Text Node */
 .ui.header .icon:only-child {
   display: inline-block;
   padding: 0em;
-  margin-right: 0.75rem;
+  
 }
 
 /*-------------------
@@ -629,6 +629,7 @@ a.ui.inverted.grey.header:hover {
 .ui.dividing.header {
   padding-bottom: 0.21428571rem;
   border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  margin:40px 0 30px 0!important;
 }
 .ui.dividing.header .sub.header {
   padding-bottom: 0.21428571rem;

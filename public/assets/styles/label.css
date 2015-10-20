@@ -661,8 +661,8 @@ a.ui.green.label:hover:before {
 
 .ui.teal.labels .label,
 .ui.teal.label {
-  background-color: #00b5ad !important;
-  border-color: #00b5ad !important;
+  background-color: #4DB6AC  !important;
+  border-color: #26A69A !important;
   color: #ffffff !important;
 }
 .ui.labels .teal.label:before,
@@ -686,7 +686,7 @@ a.ui.teal.label:hover:before {
   background-color: #009c95 !important;
 }
 .ui.teal.ribbon.label {
-  border-color: #00827c !important;
+  border-color: #26A69A  !important;
 }
 
 /*--- Blue ---*/

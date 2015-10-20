@@ -36,6 +36,7 @@ class UserActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.saveuserdetailssuccess(response);
+                this.actions.getuserinfo();
             }
         }, () => {
         });

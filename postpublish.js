@@ -10,6 +10,17 @@ var dir = 'public/images';
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
     dir = 'public/images/profilepics/';
-    fs.mkdirSync(dir);
+    if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
+    }
+    dir = 'public/images/bannerpics/';
+    if (!fs.existsSync(dir)){
+		fs.mkdirSync(dir);
+    }
     console.log('Img dir created...');
+}
+
+dir = 'public/images/bannerpics/';
+if (!fs.existsSync(dir)){
+	fs.mkdirSync(dir);
 }

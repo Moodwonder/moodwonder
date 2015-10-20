@@ -45,19 +45,26 @@ h1, h2, h3, h4, h5 {
 	padding: 0em;
 }
 h1 {
+	font-family: "Brandon-bold";
 	min-height: 1rem;
 	font-size: 2rem;
 }
 h2 {
+	font-family: "Brandon-bold";
 	font-size: 1.714rem;
 }
 h3 {
+	font-family: "Brandon-bold";
 	font-size: 1.28rem;
 }
 h4 {
-	font-size: 1.071rem;
+	font-family: 'Roboto', sans-serif;
+	font-size: 17px;
+	color:#26a69a;
+	font-weight:normal;
 }
 h5 {
+	font-family: "Brandon-bold";
 	font-size: 1rem;
 }
 h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child {
@@ -85,7 +92,7 @@ p:last-child {
 --------------------*/
 
 a {
-	color: #4183c4;
+	color: #64B5F6;
 	text-decoration: none;
 }
 a:hover {
