@@ -1,148 +1,145 @@
 import React from 'react';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
+import PlacesActions from 'actions/PlacesActions';
+import PlacesStore from 'stores/PlacesStore';
 import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import Submenu from 'components/Submenu.react';
+import _ from 'underscore';
 
 export default class MyCompanyInfo extends React.Component {
 
-  constructor (props) {
-      super(props);
-      mixins(Navigation, this);
-      this.state = UserStore.getState();
-      this.state.canSubmit = false;
-      this.state.countries = [];
-      this.state.states = [];
-      this.state.cities = [];
-      this.validationErrors = {};
-  }
+    constructor (props) {
+        super(props);
+        mixins(Navigation, this);
+        this.state = UserStore.getState();
+        this.state.canSubmit = false;
+        this.state.continents = [];
+        this.state.countries = [];
+        this.state.countriesIntial = true;
+        this.state.states = [];
+        this.state.statesIntial = true;
+        this.state.cities = [];
+        this.state.citiesIntial = true;
+        this.validationErrors = {};
+    }
 
-  componentDidMount () {
-      UserActions.getcompanyinfo();
-      UserStore.listen(this._onChange);
-  }
+    componentDidMount () {
 
-  componentWillUpdate () {
+        UserActions.getcompanyinfo();
+        UserStore.listen(this._onChange);
+    }
 
-      if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
-          this.onChangeContinent(this.state.userDetails.continent);
-      }
-      if(this.state.states.length <= 0 && this.state.userDetails.country!==''){
-          this.onChangeCountries(this.state.userDetails.country);
-      }
-      if(this.state.cities.length <= 0 && this.state.userDetails.state!==''){
-          this.onChangeStates(this.state.userDetails.state);
-      }
-  }
+    onChangeContinent = (continent) => {
 
-  componentWillUnmount () {
-      UserStore.unlisten(this._onChange);
-  }
+        if(continent !== undefined){
+            let arr = this.state.continents;
+            let currentContinentObj = _.filter(arr, function(v) { return v.text === continent; });
+            if(currentContinentObj.length>0){
+                let currentContinent_id = currentContinentObj[0]._id;
+                PlacesActions.getPlacesData({ _id: currentContinent_id, placeType: 'country' });
+                PlacesStore.listen(this._onGetPlaces);
+            }
+        }
+    }
 
-  enableButton = () => {
-      this.setState({canSubmit: true});
-  }
+    onChangeCountry = (country) => {
 
-  disableButton = () => {
-      this.setState({canSubmit: false});
-  }
+        let arr = this.state.countries;
+        let currentCountryObj = _.filter(arr, function(v) { return v.text === country; });
+        if(currentCountryObj.length>0){
+            let currentCountryObj_id = currentCountryObj[0]._id;
+            this.setState( { countriesIntial: false } );
+            PlacesActions.getPlacesData({ _id: currentCountryObj_id, placeType: 'state' });
+            PlacesStore.listen(this._onGetPlaces);
+        }
+    }
 
-  getContinent = () => {
-      let continents = [];
-      this.state.places.map((value, key) => {
-          continents[key] = value.continent;
-      });
-      return continents;
-  }
+    onChangeStates = (state) => {
 
-  onChangeContinent = (continent) => {
+        let arr = this.state.states;
+        let currentStateObj = _.filter(arr, function(v) { return v.text === state; });
+        if(currentStateObj.length>0){
+            let currentStateObj_id = currentStateObj[0]._id;
+            this.setState( { statesIntial: false } );
+            PlacesActions.getPlacesData({ _id: currentStateObj_id, placeType: 'city' });
+            PlacesStore.listen(this._onGetPlaces);
+        }
+    }
 
-      let countries = ['Other'];
-      this.state.places.map((contObj, contkey) => {
-          if(contObj.continent === continent){
-              if(typeof contObj.countries !== 'undefined'){
-                  contObj.countries.map((countryObj, key) => {
-                      countries[key] = countryObj.country;
-                  });
-              }
-          }
-      });
-      this.setState( { countries: countries, states: [], cities: [] } );
-  }
+    _onGetPlaces = (states) => {
 
-  onChangeCountries = (country) => {
+        if(this.state.countriesIntial && this.state.states.length <= 0 && this.state.userDetails.country!==''){
 
-      let states = ['Other'];
-      this.state.places.map((contObj, contkey) => {
-          if(typeof contObj.countries !== 'undefined'){
-              contObj.countries.map((countryObj, countrykey) => {
-                  if(countryObj.country === country){
-                      if(typeof countryObj.states !== 'undefined'){
-                          countryObj.states.map((statesObj, stateskey) => {
-                              states[stateskey] = statesObj.state;
-                          });
-                      }
-                  }
-              });
-          }
-      });
-      this.setState( { states: states, cities: [] } );
-  }
+            this.onChangeCountry(this.state.userDetails.country);
+        }
 
-  onChangeStates = (state) => {
+        if(this.state.statesIntial && this.state.cities.length <= 0 && this.state.userDetails.state!==''){
 
-      let cities = ['Other'];
-      this.state.places.map((contObj, contkey) => {
-          if(typeof contObj.countries !== 'undefined'){
-              contObj.countries.map((countryObj, countrykey) => {
-                  if(typeof countryObj.states !== 'undefined'){
-                      countryObj.states.map((statesObj, stateskey) => {
-                          if(statesObj.state === state){
-                              console.log(statesObj.state);
-                              if(typeof statesObj.city !== 'undefined'){
-                                  cities = statesObj.city;
-                              }
-                          }
-                      });
-                  }
-              });
-          }
-      });
-      this.setState( { cities: cities } );
-  }
+            this.onChangeStates(this.state.userDetails.state);
+        }
 
-  _onChange = (state) => {
-      this.setState(state);
-  }
+        if(states.PlacesData.placeType === 'country'){
 
-  _onSaveSubmit = (model) => {
-      console.log(model);
-      UserActions.saveCompanyInfo(model);
-  }
+            this.setState( { countries: this.state.PlacesData.places } );
+        }
 
-  render() {
+        if(states.PlacesData.placeType === 'state'){
 
-      let renderedResult;
+            this.setState( { states: this.state.PlacesData.places } );
+        }
 
-      let message;
+        if(states.PlacesData.placeType === 'city'){
 
-      let userInfo = this.state.userDetails;
+            this.setState( { cities: this.state.PlacesData.places } );
+        }
 
-      if (this.state.message !== '' ) {
-          message = (
+    }
+
+    componentWillUnmount () {
+        UserStore.unlisten(this._onChange);
+    }
+
+    enableButton = () => {
+        this.setState({canSubmit: true});
+    }
+
+    disableButton = () => {
+        this.setState({canSubmit: false});
+    }
+
+    _onChange = (state) => {
+        this.setState(state);
+        if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
+            this.onChangeContinent(this.state.userDetails.continent);
+        }
+    }
+
+    _onSaveSubmit = (model) => {
+        UserActions.saveCompanyInfo(model);
+    }
+
+    render() {
+
+        let renderedResult;
+        let message;
+        let userInfo = this.state.userDetails;
+
+        if (this.state.message !== '' ) {
+            message = (
               <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
                 {this.state.message}
               </div>
-          );
-      }
+            );
+        }
 
-      renderedResult = (
-      <div className="container">
-          <Submenu />
-        <h2>My Company Info</h2>
-        {message}
+        renderedResult = (
+        <div className="container">
+            <Submenu />
+            <h2>My Company Info</h2>
+            {message}
             <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
                <MyOwnInput
                name="companyname"
@@ -165,7 +162,7 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.continent}
                placeholder="Continent"
-               options={this.getContinent()}
+               options={this.state.continents}
                onChange={this.onChangeContinent}
                />
 
@@ -175,7 +172,7 @@ export default class MyCompanyInfo extends React.Component {
                value={userInfo.country}
                placeholder="Country"
                options={this.state.countries}
-               onChange={this.onChangeCountries}
+               onChange={this.onChangeCountry}
                />
 
                <MyOwnSelect
@@ -216,21 +213,19 @@ export default class MyCompanyInfo extends React.Component {
                className="form-control"
                value={userInfo.companysize}
                placeholder="Companysize"
-               options={['Small', 'Medium', 'Big']}
+               options={[ {text: 'Small'}, { text: 'Medium'}, {text: 'Big' }]}
                />
 
                <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>
-      </div>
-      );
+        </div>
+        );
 
-
-      return (
+        return (
         <div className="login">
           {renderedResult}
         </div>
-      );
-
-  }
+        );
+    }
 }
 MyCompanyInfo.contextTypes = { router: React.PropTypes.func };

@@ -144,8 +144,10 @@ var user_id = mongoose.Types.ObjectId(req.user._id);
 };
 
 exports.getSurveyResults = function (req, res) {
+	try{
+        var user_id = ( req.query.user_id !== undefined && req.query.user_id !== 'undefined' && req.query.user_id !== '' ) ? req.query.user_id: req.user._id;
+        user_id = mongoose.Types.ObjectId(user_id);
 
-        var user_id = mongoose.Types.ObjectId(req.user._id);
                 var condition = {user_id: user_id};
                 var orderby = {_id: 1}; // -1: DESC; 1: ASC
 
@@ -169,6 +171,10 @@ exports.getSurveyResults = function (req, res) {
                         res.end();
                 });
                 });
+	}catch(e){
+        res.send({ status: 'error' });
+        res.end();
+	}
 };
 
 function getUsersByCompany(company, callback) {
@@ -548,11 +554,3 @@ exports.getCompanyStatisticsData = function (req, res) {
     });
 
 };
-
-
-
-
-
-
-
-

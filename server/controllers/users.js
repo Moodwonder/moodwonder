@@ -20,6 +20,7 @@ var path = require('path');
 
 
 PRO_PIC_PATH = '/images/profilepics/';
+BANNER_PIC_PATH = '/images/bannerpics/';
 
 function dateByNumber(num) {
     // 1 for January
@@ -42,6 +43,13 @@ function dateByNumber(num) {
     return month[num];
 }
 
+var hasValue = function(val){
+    if(val !== undefined && val !== ''){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 /**
  *  JSON response format
@@ -55,36 +63,42 @@ response.message = 'Error';
  */
 exports.encryptPassword = function (req, res, next) {
 
-    var password = req.body.password.trim();
+	try{
+		var password = req.body.password.trim();
 
-    if (password.length >= 6) {
+		if (password.length >= 6) {
 
-        bcrypt.genSalt(5, function (err, salt) {
+			bcrypt.genSalt(5, function (err, salt) {
 
-            if (!err) {
-                bcrypt.hash(password, salt, null, function (err, hash) {
-                    if (!err) {
-                        req.body.real_password = req.body.password;
-                        req.body.password = hash;
-                        next();
-                    }
-                    else {
-                        // bcrypt.hash Error
-                        response.status = false;
-                        response.message = 'Something went wrong..';
-                        res.send(response);
-                        res.end();
-                    }
-                });
-            } else {
-                // bcrypt.genSalt Error
-                response.status = false;
-                response.message = 'Something went wrong..';
-                res.send(response);
-                res.end();
-            }
-        });
-    } else {
+				if (!err) {
+					bcrypt.hash(password, salt, null, function (err, hash) {
+						if (!err) {
+							req.body.real_password = req.body.password;
+							req.body.password = hash;
+							next();
+						}
+						else {
+							// bcrypt.hash Error
+							response.status = false;
+							response.message = 'Something went wrong..';
+							res.send(response);
+							res.end();
+						}
+					});
+				} else {
+					// bcrypt.genSalt Error
+					response.status = false;
+					response.message = 'Something went wrong..';
+					res.send(response);
+					res.end();
+				}
+			});
+		} else {
+			req.body.real_password = req.body.password;
+			req.body.password = '';
+			next();
+		}
+    } catch(err) {
         req.body.password = '';
         next();
     }
@@ -219,7 +233,7 @@ exports.getUserInfo = function (req, res) {
             response = {};
             response.status = true;
             response.message = 'success';
-            response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': ''};
+            response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': ''};
             if (req.query.type == 'company') {
                 if (lists.company_info[0] != undefined) {
                     response.data = lists.company_info[0];
@@ -232,7 +246,8 @@ exports.getUserInfo = function (req, res) {
                 }
                 
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
-                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage};
+                var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '';
+                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'cover_image': cover_image, 'summary': lists.summary };
             }
             res.json(response);
         } else {
@@ -544,30 +559,15 @@ exports.postUserSignUp = function (req, res, next) {
  * @language,
  * @reportfrequency,
  * @password
+ * @summary
  * 
  */
 exports.postSaveUserInfo = function (req, res, next) {
 
-    var model = req.body;
-
-    if (model.password != '' && model.password.length <= 6) {
-
-        validation = false;
-        response.status = false;
-        response.message = 'Password length should be at least 7 characters';
-        res.send(response);
-        res.end();
-    } else {
-
-        if (model.password == '') {
-            // To delete password object, since has no value
-            delete model.password;
-        }
-
-        var conditions = {'_id': new ObjectId(req.user._id)}
-        , update = model
-                , options = {multi: false};
-
+	var response = {};
+	var saveUserInfo = function(update){
+        var conditions = {'_id': new ObjectId(req.user._id)},
+        options = {multi: false};
         User.update(conditions, update, options, function (err) {
             if (!err) {
 
@@ -578,10 +578,88 @@ exports.postSaveUserInfo = function (req, res, next) {
                 response.status = false;
                 response.message = 'Something went wrong..';
             }
-            res.send(response);
-            res.end();
+			res.send(response);
+			res.end();
         });
-    }
+	}
+
+    var model = req.body;
+    console.log(model);
+
+	if(model !== undefined && hasValue(model.type)){
+
+		var validation = true;
+		var update     = {};
+
+		if( model.type === 'summary' ){
+			var summary = model.summary;
+			if(hasValue(summary)){
+				response.type = 'summary';
+				update = { summary: summary };
+			}else{
+				response.message = 'Summary cannot be empty';
+			}
+		}else if( model.type === 'personalinfo' ){
+
+			var firstname =  model.fname;
+			var lastname  =  model.lname;
+			// password  encrypted at `encryptPassword` route
+			var password  =  model.password;
+			var real_pass =  model.real_password;
+			var cpassword =  model.cpassword;
+    
+			if( hasValue(firstname) && hasValue(lastname) ){
+				response.type = 'personalinfo';
+				var update = { firstname: firstname, lastname: lastname };
+
+				console.log(real_pass);
+				if ( hasValue(real_pass) && hasValue(cpassword) ) {
+
+					if( real_pass !== cpassword ){
+						validation       =  false;
+						response.message =  'New Password and Confirm Password are not equal.';
+					}else if(real_pass.length <=6 ){
+						validation       =  false;
+						response.message = 'Password length should be at least 7 characters';
+					}else{
+						update = { firstname: firstname, lastname: lastname, password: real_pass };
+					}
+				}
+			}else{
+				validation = false;
+				response.message = 'Please fill the required fields';
+			}
+		}else if( model.type === 'generalinfo' ){
+
+			var email             =  model.email;
+			var report_frequency   =  model.report_frequency;
+			var language          =  model.language;
+    
+			if( hasValue(email) && hasValue(report_frequency) && hasValue(language) ){
+				response.type = 'generalinfo';
+				var update = { email: email, report_frequency: report_frequency, language: language };
+			}else{
+				validation = false;
+				response.message = 'Please fill the required fields';
+			}
+		}
+
+		// If validation error
+		if(validation){
+			saveUserInfo(update);
+		}else{
+			response.status = false;
+			res.send(response);
+			res.end();
+		}
+
+	}else{
+		response.status = false;
+		response.message = 'Something went wrong..';
+		res.send(response);
+		res.end();
+	}
+
 };
 
 /**
@@ -1590,3 +1668,63 @@ exports.searchTeam = function (req, res){
 		res.end();
 	}
 }
+
+/**
+ * Update user profile banner
+ *
+ * Accept :
+ * @bannerimage:
+ * 
+ */
+exports.UpdateProfileBanner = function (req, res) {
+
+    var ext=path.extname(req.files.bannerimage.name);
+    console.log(req.files);
+    console.log(typeof req.files.bannerimage);
+    if(typeof req.files.bannerimage != 'undefined')
+    {
+        if((ext!=".jpg")&&(ext!=".png")&&(ext!=".jpeg")&&(ext!=".gif"))
+        {
+
+            response.image=false;
+            res.send(response);
+            res.end();
+            return;
+        }else{
+
+            imagename     = new Date().getTime() +req.files.bannerimage.originalname;
+            var oldPath   =   req.files.bannerimage.path;
+            var newPath   =   path.join(__dirname,'..','..')+"/public/images/bannerpics/" + imagename;
+            var source    =   fs.createReadStream(oldPath);
+            var dest      =   fs.createWriteStream(newPath);
+            source.pipe(dest);
+            source.on('end', function () {
+
+                var conditions = {'_id': new ObjectId(req.user._id)}
+                      ,update  = {'cover_image': imagename }
+                     , options = {multi: false};
+
+                // Set manager info
+                User.update(conditions, update, options, function (err) {
+                    if (!err) {
+                        response.status  = true;
+                        response.message = 'Banner image updated.';
+                        response.image   = PRO_PIC_PATH + imagename;
+                    } else {
+                        response.status  = false;
+                        response.message = 'Something went wrong..';
+                    }
+                    res.send(response);
+                    res.end();
+                });
+                
+            });
+            source.on('error', function (err) {
+                response.status  = false;
+                response.message = 'Something went wrong..';
+                res.send(response);
+                res.end();
+            });
+        }
+    }
+};

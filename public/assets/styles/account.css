@@ -3,7 +3,7 @@
 
 
 .profile-cover {
-	background: url(../../examples/assets/images/cover.jpg) no-repeat center center;
+	background: url(../../assets/images/cover.jpg) no-repeat center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -202,7 +202,7 @@ a.act-cover-image {
 	margin: 20px 0;
 }
 .eom {
-	background: url(../../examples/assets/images/employee-of-the-month.png) no-repeat center center;
+	background: url(../../assets/images/employee-of-the-month.png) no-repeat center center;
 	float: right;
 	width: 150px;
 	top: 20%;
@@ -301,3 +301,4 @@ a.act-cover-image {
 .cast .extra.content {
 	text-align: center;
 }
+

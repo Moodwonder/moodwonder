@@ -19,16 +19,17 @@ var hasValue = function(val){
 /**
  * handlePlaces
  */
-exports.handlePlaces = function(req, res, next) {
+exports.handleGetContinents = function(req, res, next) {
 
-    Place.find({}, function (err, document) {
-        var places = [];
+    Places.Continent.find({}, function (err, document) {
+        var continents = [];
         if(document){
             document.map(function (data, key){
-                places[key] = { continent: data.continent, countries: data.countries };
+                continents[key] = { _id: data._id ,text: data.name };
             });
         }
-        req.body.places = places;
+
+        req.body.continents = continents;
         // going to * route handler
         next();
     });
@@ -687,4 +688,95 @@ exports.deletePlaces = function(req, res) {
         res.send(response);
         res.end();
     }
+};
+
+/**
+ * get Places Data
+ */
+exports.getPlacesData = function(req, res) {
+
+    var response     = {};
+    response.status  = false;
+    response.message = 'Error';
+
+    var modifyData = function(list){
+		var data = [{ _id: 1,  text: 'Other'}];
+		list.map(function(row, key){
+			data[key] = { _id: row._id,  text: row.name};
+		});
+		return data;
+	}
+
+	var placeType =   req.body.placeType;
+	var _id       =   req.body._id;
+
+    if( hasValue(placeType) && placeType === 'continent' ){
+
+		Places.Continent.find({}).exec(function (err, list) {
+			if(!err){
+				response.status  = true;
+				response.message = 'success';
+				response.data    = {};
+				response.data.places    = modifyData(list);
+				response.data.placeType = placeType;
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
+		});
+	}else if( hasValue(placeType) && placeType === 'country' && hasValue(_id) ){
+
+		var condition = { continent_id: _id };
+		Places.Country.find(condition).exec(function (err, list) {
+			if(!err){
+				response.status  = true;
+				response.message = 'success';
+				response.data    = {};
+				response.data.places    = modifyData(list);
+				response.data.placeType = placeType;
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
+		});
+	}else if( hasValue(placeType) && placeType === 'state' && hasValue(_id) ){
+
+		var condition = { country_id: _id };
+		Places.State.find(condition).exec(function (err, list) {
+			if(!err){
+				response.status  = true;
+				response.message = 'success';
+				response.data    = {};
+				response.data.places    = modifyData(list);
+				response.data.placeType = placeType;
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
+		});
+	}else if( hasValue(placeType) && placeType === 'city' && hasValue(_id) ){
+
+		var condition = { state_id: _id };
+		Places.City.find(condition).exec(function (err, list) {
+			if(!err){
+				response.status  = true;
+				response.message = 'success';
+				response.data    = {};
+				response.data.places    = modifyData(list);
+				response.data.placeType = placeType;
+				res.send(response);
+				res.end();
+			}else{
+				res.send(response);
+				res.end();
+			}
+		});
+	}
+
 };

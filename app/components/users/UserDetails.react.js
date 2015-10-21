@@ -71,6 +71,7 @@ export default RequireAuth(class UserDetails extends React.Component {
               <li className="list-group-item">Manager : {this.state.userDetails.mymanager}</li>
               <li className="list-group-item">Report frequency : {this.state.userDetails.reportfrequency}</li>
               <li className="list-group-item">User status : <ChangeUserStatus data={data} /> </li>
+              <li className="list-group-item"><a href={ `/admin/surveystatistics/${this.props.params.uid}` }>Survey Statistics</a></li>
             </ul>
             );
         }

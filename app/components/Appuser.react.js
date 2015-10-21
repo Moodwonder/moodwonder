@@ -36,6 +36,7 @@ export default class App extends React.Component {
       let handler      = (<RouteHandler />);
       let leftnav;
       let rightnav;
+      let pageconter   = 'ui segment  width padding-top-110 ';
       let noPermission = (
         <div>
          <p> You do not have sufficient permissions to access this page. </p>
@@ -63,13 +64,17 @@ export default class App extends React.Component {
           rightnav = (<Rightnav />);
       }
 
+      if(1){
+		  rightnav     = '';
+		  pageconter   = 'ui segment  width-act padding-top-110 ';
+	  }
       let sitecontent = [
                     <Navigation />,
                     <SidebarMenu />,
                     <div className="pusher">
                         <div className="ui inverted vertical masthead center aligned "></div>
                         {leftnav}
-                        <div className="ui segment  width padding-top-110 ">
+                        <div className={pageconter}>
                             <div className="ui main">
                                 {handler}
                                 {rightnav}

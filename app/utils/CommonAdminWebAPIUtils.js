@@ -152,7 +152,17 @@ const utils = {
         contentType: 'application/json',
         data: JSON.stringify(data)
       });
+  },
+
+  getPlacesData: (data) => {
+      return $.ajax({
+        url: '/getplacesdata',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data)
+      });
   }
+
 };
 
 export default utils;

@@ -16,8 +16,8 @@
 
 @font-face {
 	font-family: "Brandon-bold";
-	src: url("../../fonts/Brandon_bld.eot");
-	src: url("../../fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../../fonts/Brandon_bld.woff") format('woff'), url("../../fonts/Brandon_bld.ttf") format('ttf');
+	src: url("../themes/default/assets/fonts/Brandon_bld.eot");
+	src: url("../themes/default/assets/fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../themes/default/assets/fonts/Brandon_bld.woff") format('woff'), url("../themes/default/assets/fonts/Brandon_bld.ttf") format('ttf');
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
@@ -1915,7 +1915,6 @@ Floated Menu / Item
 ---------------*/
 .ui.large.top.fixed.menu {
 	position: fixed;
-        z-index: 12;
 }
 .ui.menu.fixed {
 	position: absolute;
@@ -2120,7 +2119,6 @@ Floated Menu / Item
 }
 .ui.vertical.menu {
 	width: 17%;
-        z-index: 10;
 }
 .right-menu {
 	width: 20%!important;
