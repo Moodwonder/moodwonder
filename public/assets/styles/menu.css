@@ -880,6 +880,7 @@ Floated Menu / Item
 	-ms-flex-direction: column;
 	flex-direction: column;
 	background: #26a69a;
+        z-index:10
 }
 .ui.vertical.menu.ryt {
 	display: block;
@@ -2119,6 +2120,7 @@ Floated Menu / Item
 }
 .ui.vertical.menu {
 	width: 17%;
+        z-index: 10;
 }
 .right-menu {
 	width: 20%!important;
@@ -2205,6 +2207,7 @@ Floated Menu / Item
 @media only screen and (max-width: 767px) {
 .ui.large.top.fixed.menu {
 	display: block !important;
+        z-index: 12;
 }
 .ui.fixed.menu {
 	display: none !important;
