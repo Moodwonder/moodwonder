@@ -29,7 +29,7 @@ export default class Leftnav extends React.Component {
       return (
             <div className="ui left fixed vertical menu ">
                 <div className="profile item">
-                    <img className="ui mini image" src="images/profile-pic.jpg" alt=""/>
+                    <img className="ui mini image" src="/images/profile-pic.jpg" alt=""/>
                     <div className="ui dropdown">
                         <span>{user.fname + " " + user.lname}</span>
                         <i className="angle down icon"></i>

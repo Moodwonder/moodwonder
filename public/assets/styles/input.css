@@ -27,6 +27,7 @@
   display: inline-flex;
   color: #cfd8dc;
   width:100%;
+  margin: 10px 0;
  
 }
 .ui.input input {
@@ -297,7 +298,7 @@
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   margin: 0;
-  font-size: 1em;
+  font-size: 15px;
 }
 .ui.labeled.input > .label:not(.corner) {
   padding-top: 0.78571429em;

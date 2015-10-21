@@ -1,6 +1,8 @@
 const config = {
   link: [
     // Add to homescreen for Chrome on Android
+    { "rel": "stylesheet", "href": "/assets/styles/form.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/label.css" },
     { "rel": "stylesheet", "href": "/assets/styles/rating.css" },
     { "rel": "stylesheet", "href": "/assets/styles/card.css" },
     { "rel": "stylesheet", "href": "/assets/styles/input.css" },

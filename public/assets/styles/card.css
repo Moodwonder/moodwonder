@@ -351,13 +351,7 @@
 	left: 0em;
 	color: rgba(0, 0, 0, 0.4);
 	box-shadow: none;
-	-webkit-transition: color 0.1s ease;
-	transition: color 0.1s ease;
-	-webkit-transition: background-color 1000ms linear;
-	-moz-transition: background-color 1000ms linear;
-	-o-transition: background-color 1000ms linear;
-	-ms-transition: background-color 1000ms linear;
-	transition: background-color 1000ms linear;
+	
 }
 .ui.cards > .card > .extra:hover, .ui.card > .extra:hover {
 	max-width: 100%;
@@ -376,9 +370,8 @@
 	left: 0em;
 	color: #fff;
 	box-shadow: none;
-	-webkit-transition: color 0.1s ease;
-	transition: color 0.1s ease;
-	background: #ef5350;
+	
+	background: #FBBD08;
 }
 .ui.cards > .card > .extra a:not(.ui), .ui.card > .extra a:not(.ui) {
 	color: #ccc;
@@ -429,16 +422,15 @@
 	-webkit-transform: none;
 	-ms-transform: none;
 	transform: none;
+	box-shadow: 0px 1px 0px 0px #bcbdbd, 0px 0px 0px 1px #d4d4d5;
+	
 }
 .ui.cards a.card:hover, .ui.link.cards .card:hover, a.ui.card:hover, .ui.link.card:hover {
 	cursor: pointer;
 	z-index: 5;
 	background: #ffffff;
 	border: none;
-	box-shadow: 0px 1px 3px 0px #bcbdbd, 0px 0px 0px 1px #d4d4d5;
-	-webkit-transform: translateY(-3px);
-	-ms-transform: translateY(-3px);
-	transform: translateY(-3px);
+	
 }
 /*-------------------
        Colors

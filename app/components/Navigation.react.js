@@ -168,8 +168,8 @@ export default class Navigation extends React.Component {
                         <i className="sidebar icon"></i>
                     </a>
                     <div  className="header item">
-                        <img className="logo" src="images/logo.png" alt=""/>
-                        <img className="logo-mw slide-logo" src="images/logo-mw.png" alt=""/>
+                        <img className="logo" src="/images/logo.png" alt=""/>
+                        <img className="logo-mw slide-logo" src="/images/logo-mw.png" alt=""/>
                     </div>
 
                     {ratingSection}

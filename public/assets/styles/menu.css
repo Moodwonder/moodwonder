@@ -31,7 +31,7 @@
 .ui.menu {
 	display: -webkit-box;
 	display: -webkit-flex;
-	display: -ms-flexbox;8883
+	display: -ms-flexbox;
 	display: flex;
 	margin: 1rem 0em;
 	background: #4DB6AC;
@@ -516,7 +516,7 @@
 	position: relative;
 	display: inline-block;
 	outline: none;
-	text-align: left;
+	text-align: right;
 	-webkit-transition: box-shadow 0.1s ease, width 0.1s ease;
 	transition: box-shadow 0.1s ease, width 0.1s ease;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -775,7 +775,7 @@
 .ui.link.menu .item:hover, .ui.menu .dropdown.item:hover, .ui.menu .link.item:hover, .ui.menu a.item:hover {
 	cursor: pointer;
 	background: rgba(0, 0, 0, 0.03);
-	color: rgba(0, 0, 0, 0.95);
+	color: #fff;
 }
 .ui.link.menu .item:hover, .ui.menu .dropdown.item:hover, .ui.menu .link.item:hover, .ui.menu div.item.ryt:hover {
 	background: none!important;
@@ -786,12 +786,13 @@
 
 .ui.link.menu .item:active, .ui.menu .link.item:active, .ui.menu a.item:active {
 	background: rgba(0, 0, 0, 0.03);
-	color: rgba(0, 0, 0, 0.9);
+	color: #fff;
 }
 .ui.link.menu .item:active, .ui.menu .link.item:active, .ui.menu div.item.ryt:active {
 	background: none!important;
 	box-shadow: none!important;
 	cursor: auto;
+        z-index: 10;
 }
 /*--------------
      Active
@@ -888,7 +889,6 @@ Floated Menu / Item
 	-ms-flex-direction: column;
 	flex-direction: column;
 	background: #eceff1;
-        z-index: 10;
 }
 /*--- Item ---*/
 
