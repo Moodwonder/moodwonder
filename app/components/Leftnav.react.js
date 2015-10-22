@@ -14,6 +14,12 @@ export default class Leftnav extends React.Component {
       UserStore.listen(this._onChange);
   }
 
+  componentDidUpdate () {
+      $('.ui.menu .ui.dropdown').dropdown({
+          on: 'click'
+      });
+  }
+
   componentWillUnmount () {
       UserStore.unlisten(this._onChange);
   }
