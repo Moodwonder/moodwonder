@@ -109,9 +109,12 @@ export default class Takesurveybk extends React.Component {
               case 'radio':
                ans = answers.map((answer) => {
                    return (
-                        <span>
-                          <input type="radio" name={'answer_' + qno} value={answer.option} /> {answer.option}&nbsp;&nbsp;
-                        </span>
+                        <div className="field">
+                            <div className="ui radio checkbox">
+                                <input type="radio" name={'answer_' + qno} value={answer.option} tabIndex="0" className="hidden" />
+                                <label>{answer.option}</label>
+                            </div>
+                        </div>
                        );
                });
                break;
@@ -119,41 +122,48 @@ export default class Takesurveybk extends React.Component {
               case 'checkbox':
                ans = answers.map((answer) => {
                    return (
-                        <span>
-                          <input type="checkbox" value={answer.option} name={'answer_' + qno + '_[]'}/> {answer.option}&nbsp;&nbsp;
-                        </span>
+                            <div className="field">
+                                <div className="ui  checkbox">
+                                    <input type="checkbox" value={answer.option} name={'answer_' + qno + '_[]'} tabIndex="0" />
+                                    <label>{answer.option}</label>
+                                </div>
+                            </div>
                        );
                });
                break;
 
               case 'textbox':
                ans = (
-                      <span>
-                        <input type="textbox" name={'answer_' + qno}/>
-                      </span>
-                     );
+                    <div className="field">
+                        <input type="textbox" name={'answer_' + qno} />
+                    </div>
+                    );
                break;
 
               case 'textarea':
                ans = (
-                      <span>
-                       <textarea name={'answer_' + qno}></textarea>
-                      </span>
-                     );
+                    <div className="field">
+                        <textarea name={'answer_' + qno} rows="2"></textarea>
+                    </div>
+                    );
                break;
 
               default: break;
           }
 
           return (
-               <div className="form-group" id={qno}>
-                 <label>{qno}&nbsp;:&nbsp;</label>
-                 <label>{question.question}</label>
-                 <input type="hidden" name={'questionid_' + qno} value={question.question_id} />
-                 <input type="hidden" name={'question_' + qno} value={question.question}/>
-                 <input type="hidden" name={'answer_type_' + qno} value={question.answertype} />
-                 <br/>{ans}
-               </div>
+                <div className="column" id={qno}>
+                    <div className="ui grey circular label">Q.{qno}</div>
+                    <div className="ui left pointing label"> {question.question} </div>
+                    <div className="ui form options">
+                        <input type="hidden" name={'questionid_' + qno} value={question.question_id} />
+                        <input type="hidden" name={'question_' + qno} value={question.question}/>
+                        <input type="hidden" name={'answer_type_' + qno} value={question.answertype} />
+                        <div className="inline fields">
+                            {ans}
+                        </div>
+                    </div>
+                </div>
               );
       });
 
@@ -174,22 +184,28 @@ export default class Takesurveybk extends React.Component {
 
       } else {
           content = (
-             <div className="form-group">
-                 {statusmessage}
-                 <h2>{form.surveytitle}</h2>
-                 <form id="surveyForm">
-                   <input type="hidden" name="surveyid" value={form._id} />
-                   <input type="hidden" name="surveytitle" value={form.surveytitle} />
-                   <div className="form-group">
-                     {fields}
-                   </div>
-                   <br/>
-                   <div className="form-group">
-                     <button className="btn btn-danger" onClick={this.onCancelSurvey}>Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                     <button className="btn btn-primary" onClick={this.onSubmitSurvey}>Submit</button>
-                   </div>
-                 </form>
-             </div>
+            <div className="ui two column stackable grid container">
+                <div className="column">
+                    <h4 className="ui header ryt com">{form.surveytitle}</h4>
+                </div>
+                <div className="column"></div>
+                {statusmessage}
+                <form id="surveyForm">
+                    <input type="hidden" name="surveyid" value={form._id} />
+                    <input type="hidden" name="surveytitle" value={form.surveytitle} />
+                    <div className="column survey">
+                        {fields}
+                        <div className="column">
+                            <div className="ui form options">
+                                <div className="field">
+                                    <button className="ui submit  button cancel" onClick={this.onCancelSurvey}>Cancel</button>
+                                    <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
           );
       }
 
@@ -197,78 +213,7 @@ export default class Takesurveybk extends React.Component {
       <div className="ui bottom attached segment brdr-none menu minus-margin-top">
             <div className="ui segment brdr-none padding-none width-rating">
                 <div className="clear"></div>
-                <div className="ui two column stackable grid container">
-                    <div className="column"> 
-                        <h4 className="ui header ryt com">Custom Survey Test</h4>
-                    </div>
-                    <div className="column"></div>
-                    <div className="column survey">
-                        <div className="column">
-                            <div className="ui grey circular label">Q.1</div>
-                            <div className="ui left pointing label"> Question number one? </div>
-                            <div className="ui form options">
-                                <div className="inline fields">
-                                    <div className="field">
-                                        <div className="ui radio checkbox">
-                                            <input name="fruit" checked="" tabIndex="0" className="hidden" type="radio" />
-                                            <label>Apples</label>
-                                        </div>
-                                    </div>
-                                    <div className="field">
-                                        <div className="ui radio checkbox">
-                                            <input name="fruit" tabIndex="0" className="hidden" type="radio" />
-                                            <label>Oranges</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div className="ui grey circular label">Q.2</div>
-                            <div className="ui left pointing label"> Question number two? </div>
-                            <div className="ui form options">
-                                <div className="inline fields">
-                                    <div className="field">
-                                        <div className="ui  checkbox">
-                                            <input name="fruit" checked="" tabIndex="0"  type="checkbox" />
-                                            <label>Apples</label>
-                                        </div>
-                                    </div>
-                                    <div className="field">
-                                        <div className="ui checkbox">
-                                            <input name="fruit" tabIndex="0"  type="checkbox" />
-                                            <label>Oranges</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div className="ui grey circular label">Q.3</div>
-                            <div className="ui left pointing label"> Question number three? </div>
-                            <div className="ui form options">
-                                <input type="text" placeholder="Question" />
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div className="ui grey circular label">Q.5</div>
-                            <div className="ui left pointing label"> Question number five? </div>
-                            <div className="ui form options">
-                                <div className="field">
-                                    <textarea rows="2"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="column">
-                            <div className="ui form options">
-                                <div className="field">
-                                    <div className="ui submit  button cancel">Cancel</div>
-                                    <div className="ui submit button submitt">Submit</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {content}
             </div>
         </div>
     );
