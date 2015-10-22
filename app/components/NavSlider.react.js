@@ -26,9 +26,7 @@ export default class NavSlider extends React.Component {
 
 
       return (
-              <div className="ui slider range  header-middle-container ">
-                  <input type="range" name="moodrate" max="5" min="1" value={moodrate} step="0.1" title={lastratedvalue} onChange={this.onChangeMood} />
-              </div>
+              <input type="range" name="moodrate" max="5" min="1" value={moodrate} step="0.1" title={lastratedvalue} onChange={this.onChangeMood} />
       );
   }
 }

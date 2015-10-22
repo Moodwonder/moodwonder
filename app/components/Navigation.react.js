@@ -134,16 +134,16 @@ export default class Navigation extends React.Component {
                       <h2>RATE YOUR MOOD</h2>
                       <p>How are you feeling at work today?</p>
                   </div>
-
-                  <form id="moodRating">
-                      <NavSlider lastrated={lastRated} />
-                  </form>
-
+                  <div className="ui slider range  header-middle-container ">
+                        <form id="moodRating">
+                            <NavSlider lastrated={lastRated} />
+                        </form>
+                    </div>
                   <div  className="header-middle-container">
                       <button className="ui yellow button" id="test" onClick={this.onSubmitMood}>Submit</button>
                   </div>
                   <div  className="header-middle-container">
-                      <p className="answer">Answer all statements </p>
+                      <button className="ui positive button answer">Answer all statements</button>
                   </div>
               </div>
         ];
