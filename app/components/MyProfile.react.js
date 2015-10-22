@@ -4,8 +4,7 @@ import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
-import LanguageContants from 'constants/LanguageConstants';
+// import LanguageContants from 'constants/LanguageConstants';
 
 export default class MyProfile extends React.Component {
 
@@ -38,27 +37,27 @@ export default class MyProfile extends React.Component {
   }
 
   fileUploadSuccessProfile = (param,response) => {
-	  let userDetails = this.state.userDetails;
+      let userDetails = this.state.userDetails;
       if(response.status){
-		  userDetails.profile_image = response.image;
+          userDetails.profile_image = response.image;
           this.setState({ userDetails: userDetails });
       }
   }
 
   fileUploadSuccessBanner = (param,response) => {
-	  let userDetails = this.state.userDetails;
+      let userDetails = this.state.userDetails;
       if(response.status){
-		  userDetails.cover_image = response.image;
+          userDetails.cover_image = response.image;
           this.setState({ userDetails: userDetails });
       }
   }
 
   changeProfilePicClick = () => {
-	  $('#dz1 .dz-clickable').trigger('click');
+      $('#dz1 .dz-clickable').trigger('click');
   }
 
   changeBannerPicClick = () => {
-	  $('#dz2 .dz-clickable').trigger('click');
+      $('#dz2 .dz-clickable').trigger('click');
   }
 
   _onChange = (state) => {
@@ -71,10 +70,10 @@ export default class MyProfile extends React.Component {
   }
 
   _onSaveSummary = (model) => {
-	  let summary = document.getElementById('summary').value;
-	  if(summary !== ''){
-		  this._onSaveSubmit({ summary: summary, type: 'summary'});
-	  }
+      let summary = document.getElementById('summary').value;
+      if(summary !== ''){
+          this._onSaveSubmit({ summary: summary, type: 'summary'});
+      }
   }
 
   onEditSummaryClick = () => {
@@ -91,13 +90,13 @@ export default class MyProfile extends React.Component {
 
 
   _onSavePersonalInfo = (model) => {
-	  let fname     =  document.getElementById('fname').value;
-	  let lname     =  document.getElementById('lname').value;
-	  let password  =  document.getElementById('password').value;
-	  let cpassword =  document.getElementById('cpassword').value;
-	  if(fname !== '' && lname !== '' ){
-		  this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
-	  }
+      let fname     =  document.getElementById('fname').value;
+      let lname     =  document.getElementById('lname').value;
+      let password  =  document.getElementById('password').value;
+      let cpassword =  document.getElementById('cpassword').value;
+      if(fname !== '' && lname !== '' ){
+          this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
+      }
   }
 
   onEditPersonalInfoClick = () => {
@@ -110,29 +109,29 @@ export default class MyProfile extends React.Component {
 
   _onChangePersonalInfo = (event) => {
 
-	  let userDetails = this.state.userDetails;
+      let userDetails = this.state.userDetails;
 
-	  if(event.target.id === 'fname'){
-		  userDetails.fname = event.target.value;
-		  this.setState({ userDetails: userDetails });
-	  }
+      if(event.target.id === 'fname'){
+          userDetails.fname = event.target.value;
+          this.setState({ userDetails: userDetails });
+      }
 
-	  if(event.target.id === 'lname'){
-		  userDetails.lname = event.target.value;
-		  this.setState({ userDetails: userDetails });
-	  }
+      if(event.target.id === 'lname'){
+          userDetails.lname = event.target.value;
+          this.setState({ userDetails: userDetails });
+      }
 
   }
 
 
   _onSaveGeneralInfo = (model) => {
-	  let email             =  document.getElementById('email').value;
-	  let reportfrequency   =  document.getElementById('reportfrequency').value;
-	  let language          =  document.getElementById('language').value;
+      let email             =  document.getElementById('email').value;
+      let reportfrequency   =  document.getElementById('reportfrequency').value;
+      let language          =  document.getElementById('language').value;
 
-	  if(email !== '' && reportfrequency !== '' && language !== '' ){
-		  this._onSaveSubmit({ email: email, report_frequency: reportfrequency, language: language, type: 'generalinfo'});
-	  }
+      if(email !== '' && reportfrequency !== '' && language !== '' ){
+          this._onSaveSubmit({ email: email, report_frequency: reportfrequency, language: language, type: 'generalinfo'});
+      }
   }
 
   onEditGeneralInfoClick = () => {
@@ -145,24 +144,22 @@ export default class MyProfile extends React.Component {
 
   _onChangeGeneralInfo = (event) => {
 
-	  let userDetails = this.state.userDetails;
+      let userDetails = this.state.userDetails;
 
-	  if(event.target.id === 'language'){
-		  userDetails.language = event.target.value;
-		  this.setState({ userDetails: userDetails });
-	  }
+      if(event.target.id === 'language'){
+          userDetails.language = event.target.value;
+          this.setState({ userDetails: userDetails });
+      }
 
-	  if(event.target.id === 'reportfrequency'){
-		  userDetails.reportfrequency = event.target.value;
-		  this.setState({ userDetails: userDetails });
-	  }
+      if(event.target.id === 'reportfrequency'){
+          userDetails.reportfrequency = event.target.value;
+          this.setState({ userDetails: userDetails });
+      }
 
   }
 
 
   render() {
-
-      let renderedResult;
 
       let message;
 
@@ -171,7 +168,7 @@ export default class MyProfile extends React.Component {
       if (this.state.message !== '' ) {
           message = (
             <div className={ (this.state.hasError) ? 'ui message' : 'ui message' }>
-				<div className="header">Message</div>
+                <div className="header">Message</div>
                 <p>{this.state.message}</p>
             </div>
           );
@@ -255,144 +252,144 @@ export default class MyProfile extends React.Component {
           console.log('I\'m a simple callback');
       };
 
-	   // Manage user summary
+       // Manage user summary
       let summaryForm = [
-	   <h3 className="ui dividing header">
-			<i className="file text outline icon"></i> Summary
-			<a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
-	   </h3>,
+       <h3 className="ui dividing header">
+            <i className="file text outline icon"></i> Summary
+            <a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
+       </h3>,
 
-	   <p>{userInfo.summary}</p>
+       <p>{userInfo.summary}</p>
       ];
 
       if(this.state.summaryEdit){
-			summaryForm = (
-			<div>
-				<h3 className="ui dividing header">
-					<i className="file text outline icon"></i> Summary
-				</h3>
-				<div className="field">
-					<label>Text</label>
-					<textarea id="summary" name="summary" onChange={this._onChangeSummary} value={this.state.summary}></textarea>
-				</div>
-				<div className="ui submit  button cancel" onClick={this.onCancelEditSummaryClick} >Cancel</div>
-				<div className="ui submit button submitt" onClick={this._onSaveSummary.bind(this)} >Submit</div>
-			</div>
-			);
-	  }
+          summaryForm = (
+            <div>
+                <h3 className="ui dividing header">
+                    <i className="file text outline icon"></i> Summary
+                </h3>
+                <div className="field">
+                    <label>Text</label>
+                    <textarea id="summary" name="summary" onChange={this._onChangeSummary} value={this.state.summary}></textarea>
+                </div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditSummaryClick} >Cancel</div>
+                <div className="ui submit button submitt" onClick={this._onSaveSummary.bind(this)} >Submit</div>
+            </div>
+          );
+      }
 
-	  // Manage user personal info
+      // Manage user personal info
       let personalInfoForm = (
-		<div>
-			<h3 className="ui dividing header">
-				<i className="user icon"></i> Personal Info
-				<a className="action"><i onClick={this.onEditPersonalInfoClick} className="write icon"></i></a>
-			</h3>
-			<div className=" field">
-				<div className="field ui two column stackable grid container">
-					<label className="column">First Name</label>
-					<label className="column">{userInfo.fname}</label>
-				</div>
-				<div className="field ui two column stackable grid container">
-					<label className="column">Last Name</label>
-					<label className="column">{userInfo.lname}</label>
-				</div>
-				<div className="field ui two column stackable grid container">
-					<label className="column">Change Password</label>
-					<label className="column">* * * * * * * *</label>
-				</div>
-				<div className="field ui two column stackable grid container">
-					<label className="column">Confirm Password</label>
-					<label className="column">* * * * * * * *</label>
-				</div>
-			</div>
-		</div>
+        <div>
+            <h3 className="ui dividing header">
+                <i className="user icon"></i> Personal Info
+                <a className="action"><i onClick={this.onEditPersonalInfoClick} className="write icon"></i></a>
+            </h3>
+            <div className=" field">
+                <div className="field ui two column stackable grid container">
+                    <label className="column">First Name</label>
+                    <label className="column">{userInfo.fname}</label>
+                </div>
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Last Name</label>
+                    <label className="column">{userInfo.lname}</label>
+                </div>
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Change Password</label>
+                    <label className="column">* * * * * * * *</label>
+                </div>
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Confirm Password</label>
+                    <label className="column">* * * * * * * *</label>
+                </div>
+            </div>
+        </div>
       );
 
       if(this.state.personalInfoEdit){
-			personalInfoForm = (
-			<div>
-				<h3 className="ui dividing header"><i className="user icon"></i>Personal Info</h3>
-					<div className=" field">
-						<div className="field">
-							<label>First Name*</label>
-							<input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
-						</div>
-						<div className="field">
-							<label>Last Name*</label>
-							<input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text" />
-						</div>
-						<div className="field">
-							<label>Password</label>
-							<input placeholder="Password" id="password" type="password" />
-						</div>
-						<div className="field">
-							<label>Confirm Password</label>
-							<input placeholder="Confirm Password" id="cpassword" type="Password" />
-						</div>
-					</div>
-				<div className="ui submit  button cancel" onClick={this.onCancelEditPersonalInfoClick} >Cancel</div>
-				<div className="ui submit button submitt" onClick={this._onSavePersonalInfo.bind(this)} >Submit</div>
-			</div>
-			);
-	  }
+          personalInfoForm = (
+            <div>
+                <h3 className="ui dividing header"><i className="user icon"></i>Personal Info</h3>
+                    <div className=" field">
+                        <div className="field">
+                            <label>First Name*</label>
+                            <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
+                        </div>
+                        <div className="field">
+                            <label>Last Name*</label>
+                            <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text" />
+                        </div>
+                        <div className="field">
+                            <label>Password</label>
+                            <input placeholder="Password" id="password" type="password" />
+                        </div>
+                        <div className="field">
+                            <label>Confirm Password</label>
+                            <input placeholder="Confirm Password" id="cpassword" type="Password" />
+                        </div>
+                    </div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditPersonalInfoClick} >Cancel</div>
+                <div className="ui submit button submitt" onClick={this._onSavePersonalInfo.bind(this)} >Submit</div>
+            </div>
+          );
+      }
 
-	  // Manage user general info
+      // Manage user general info
       let generalInfoForm = (
-		<div>
-			<h3 className="ui dividing header">
-				<i className="setting icon"></i> General Info
-				<a className="action"><i onClick={this.onEditGeneralInfoClick} className="write icon"></i></a>
-			</h3>
-			<div className=" field">
-				<div className="field ui two column stackable grid container">
-					<label className="column">Work Email</label>
-					<label className="column">{userInfo.email}</label>
-				</div>
-				<div className="field ui two column stackable grid container">
-					<label className="column">Language</label>
-					<label className="column">{userInfo.language}</label>
-				</div>
-				<div className="field ui two column stackable grid container">
-					<label className="column">Report Frequency</label>
-					<label className="column">{userInfo.reportfrequency}</label>
-				</div>
-			</div>
-		</div>
+        <div>
+            <h3 className="ui dividing header">
+                <i className="setting icon"></i> General Info
+                <a className="action"><i onClick={this.onEditGeneralInfoClick} className="write icon"></i></a>
+            </h3>
+            <div className=" field">
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Work Email</label>
+                    <label className="column">{userInfo.email}</label>
+                </div>
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Language</label>
+                    <label className="column">{userInfo.language}</label>
+                </div>
+                <div className="field ui two column stackable grid container">
+                    <label className="column">Report Frequency</label>
+                    <label className="column">{userInfo.reportfrequency}</label>
+                </div>
+            </div>
+        </div>
       );
 
       if(this.state.generalInfoEdit){
-			generalInfoForm = (
-			<div>
-				<h3 className="ui dividing header"><i className="setting icon"></i>General Info</h3>
-					<div className="field">
-						<div className="field">
-							<label>Work Email*</label>
-							<input placeholder="Work Email" onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
-						</div>
-						<div className="field">
-							<label>Language*</label>
-							<select className="ui dropdown" onChange={this._onChangeGeneralInfo} id="language" value={userInfo.language} >
-								<option value="">Language</option>
-								<option value="EN">EN</option>
-								<option value="FI">FI</option>
-							</select>
-						</div>
-						<div className="field">
-							<label>Report Frequency</label>
-							<select className="ui dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
-								<option value="">Report Frequency</option>
-								<option value="Weekly">Weekly</option>
-								<option value="Monthly">Monthly</option>
-								<option value="Never">Never</option>
-						 </select>
-						</div>
-					</div>
-				<div className="ui submit  button cancel" onClick={this.onCancelEditGeneralInfoClick} >Cancel</div>
-				<div className="ui submit button submitt" onClick={this._onSaveGeneralInfo.bind(this)} >Submit</div>
-			</div>
-			);
-	  }
+          generalInfoForm = (
+            <div>
+                <h3 className="ui dividing header"><i className="setting icon"></i>General Info</h3>
+                    <div className="field">
+                        <div className="field">
+                            <label>Work Email*</label>
+                            <input placeholder="Work Email" onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
+                        </div>
+                        <div className="field">
+                            <label>Language*</label>
+                            <select className="ui dropdown" onChange={this._onChangeGeneralInfo} id="language" value={userInfo.language} >
+                                <option value="">Language</option>
+                                <option value="EN">EN</option>
+                                <option value="FI">FI</option>
+                            </select>
+                        </div>
+                        <div className="field">
+                            <label>Report Frequency</label>
+                            <select className="ui dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
+                                <option value="">Report Frequency</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Never">Never</option>
+                         </select>
+                        </div>
+                    </div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditGeneralInfoClick} >Cancel</div>
+                <div className="ui submit button submitt" onClick={this._onSaveGeneralInfo.bind(this)} >Submit</div>
+            </div>
+          );
+      }
 
       return (
         <div>
@@ -449,17 +446,17 @@ export default class MyProfile extends React.Component {
                     {message}
                     <div className="ui small form">
 
-						{summaryForm}
+                        {summaryForm}
 
-						{personalInfoForm}
+                        {personalInfoForm}
 
-						{generalInfoForm}
-						<div id="dz1">
-							<DropzoneComponent config={componentConfigProfilePic} eventHandlers={eventHandlers} djsConfig={djsConfigProfilePic} />
-						</div>
-						<div id="dz2">
-							<DropzoneComponent config={componentConfigBannerPic} eventHandlers={eventHandlers} djsConfig={djsConfigBannerPic} />
-						</div>
+                        {generalInfoForm}
+                        <div id="dz1">
+                            <DropzoneComponent config={componentConfigProfilePic} eventHandlers={eventHandlers} djsConfig={djsConfigProfilePic} />
+                        </div>
+                        <div id="dz2">
+                            <DropzoneComponent config={componentConfigBannerPic} eventHandlers={eventHandlers} djsConfig={djsConfigBannerPic} />
+                        </div>
                     </div>
                  </div>
               </div>

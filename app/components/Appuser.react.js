@@ -64,10 +64,11 @@ export default class App extends React.Component {
           rightnav = (<Rightnav />);
       }
 
-      if(1){
-		  rightnav     = '';
-		  pageconter   = 'ui segment  width-act padding-top-110 ';
-	  }
+      pages = ["/myprofile"];
+      if( pages.indexOf(path) >= 0 ){
+          rightnav     = '';
+          pageconter   = 'ui segment  width-act padding-top-110 ';
+      }
       let sitecontent = [
                     <Navigation />,
                     <SidebarMenu />,
