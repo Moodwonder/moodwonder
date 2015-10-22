@@ -16,8 +16,8 @@
 
 @font-face {
 	font-family: "Brandon-bold";
-	src: url("../themes/default/assets/fonts/Brandon_bld.eot");
-	src: url("../themes/default/assets/fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../themes/default/assets/fonts/Brandon_bld.woff") format('woff'), url("../themes/default/assets/fonts/Brandon_bld.ttf") format('ttf');
+	src: url("../../fonts/Brandon_bld.eot");
+	src: url("../../fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../../fonts/Brandon_bld.woff") format('woff'), url("../../fonts/Brandon_bld.ttf") format('ttf');
 	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
