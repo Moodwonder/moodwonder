@@ -4,14 +4,12 @@ import _ from 'underscore';
 import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
-import { Navigation } from 'react-router';
-import mixins from 'es6-mixins';
+
 
 export default class Takesurveybk extends React.Component {
 
   constructor(props) {
       super(props);
-      mixins(Navigation, this);
       this.state = CustomSurveyStore.getState();
       this.state.formstatus = false;
   }
@@ -85,6 +83,7 @@ export default class Takesurveybk extends React.Component {
       return (year + '-' + month + '-' + day);
   }
 
+
   render() {
       let form = this.state.form;
       let formstatus = this.state.formstatus;
@@ -111,7 +110,7 @@ export default class Takesurveybk extends React.Component {
                    return (
                         <div className="field">
                             <div className="ui radio checkbox">
-                                <input type="radio" name={'answer_' + qno} value={answer.option} tabIndex="0" className="hidden" />
+                                <input type="radio" name={'answer_' + qno} value={answer.option} />
                                 <label>{answer.option}</label>
                             </div>
                         </div>
@@ -123,8 +122,8 @@ export default class Takesurveybk extends React.Component {
                ans = answers.map((answer) => {
                    return (
                             <div className="field">
-                                <div className="ui  checkbox">
-                                    <input type="checkbox" value={answer.option} name={'answer_' + qno + '_[]'} tabIndex="0" />
+                                <div className="ui checkbox">
+                                    <input type="checkbox" value={answer.option} name={'answer_' + qno + '_[]'} />
                                     <label>{answer.option}</label>
                                 </div>
                             </div>
@@ -134,22 +133,30 @@ export default class Takesurveybk extends React.Component {
 
               case 'textbox':
                ans = (
-                    <div className="field">
-                        <input type="textbox" name={'answer_' + qno} />
-                    </div>
+                      <input type="text" name={'answer_' + qno} />
                     );
                break;
 
               case 'textarea':
-               ans = (
-                    <div className="field">
+               ans = (<div className="field">
                         <textarea name={'answer_' + qno} rows="2"></textarea>
-                    </div>
+                      </div>
                     );
                break;
 
               default: break;
           }
+
+          let ansoptions = '';
+          if(question.answertype === 'radio' || question.answertype === 'checkbox') {
+              ansoptions = (<div className="inline fields">
+                              {ans}
+                            </div>
+                           );
+          } else {
+              ansoptions = ans;
+          }
+
 
           return (
                 <div className="column" id={qno}>
@@ -159,16 +166,14 @@ export default class Takesurveybk extends React.Component {
                         <input type="hidden" name={'questionid_' + qno} value={question.question_id} />
                         <input type="hidden" name={'question_' + qno} value={question.question}/>
                         <input type="hidden" name={'answer_type_' + qno} value={question.answertype} />
-                        <div className="inline fields">
-                            {ans}
-                        </div>
+                        {ansoptions}
                     </div>
                 </div>
               );
       });
 
       if(formstatus) {
-          statusmessage = (<div className="alert alert-success">
+          statusmessage = (<div>
                             <strong>Success!</strong> Form submitted.
                            </div>
                           );
@@ -177,48 +182,47 @@ export default class Takesurveybk extends React.Component {
       let content = '';
       if (today > form.freezedate) {
           content = (
-                  <div className="form-group">
+                  <div>
                     <label>Survey expired.</label>
                   </div>
                   );
 
       } else {
           content = (
-            <div className="ui two column stackable grid container">
-                <div className="column">
-                    <h4 className="ui header ryt com">{form.surveytitle}</h4>
-                </div>
-                <div className="column"></div>
-                {statusmessage}
-                <form id="surveyForm">
-                    <input type="hidden" name="surveyid" value={form._id} />
-                    <input type="hidden" name="surveytitle" value={form.surveytitle} />
-                    <div className="column survey">
-                        {fields}
-                        <div className="column">
-                            <div className="ui form options">
-                                <div className="field">
-                                    <button className="ui submit  button cancel" onClick={this.onCancelSurvey}>Cancel</button>
-                                    <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+            <div className="ui segment brdr-none padding-none width-rating  ">
+                <div className="clear"></div>
+                <div className="ui two column stackable grid container">
+                    <div className="column">
+                        <h4 className="ui header ryt com">{form.surveytitle}</h4>
+                    </div>
+                    <div className="column"></div>
+                    {statusmessage}
+                    <form id="surveyForm">
+                        <input type="hidden" name="surveyid" value={form._id} />
+                        <input type="hidden" name="surveytitle" value={form.surveytitle} />
+                        <div className="column survey">
+                            {fields}
+                            <div className="column">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <button className="ui submit button cancel" onClick={this.onCancelSurvey}>Cancel</button>
+                                        <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
           );
       }
 
+
       return (
-      <div className="ui bottom attached segment brdr-none menu minus-margin-top">
-            <div className="ui segment brdr-none padding-none width-rating">
-                <div className="clear"></div>
-                {content}
-            </div>
+        <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
+            {content}
         </div>
     );
   }
 }
-
-Takesurveybk.contextTypes = { router: React.PropTypes.func };
 
