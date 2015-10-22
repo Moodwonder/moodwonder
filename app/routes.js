@@ -36,7 +36,6 @@ import SurveyStatistics from 'components/users/SurveyStatistics.react';
 import UserDetails from 'components/users/UserDetails.react';
 import CompanyAdmins from 'components/CompanyAdmins.react';
 import MyMood from 'components/MyMood.react';
-import Test1 from 'components/test1';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
 import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
@@ -80,7 +79,6 @@ import Notificationrules from 'components/notificationrules/Notificationrules.re
 //      <Route name="mymanager" handler={MyManagerInfo} />
 //      <Route name="mymood" handler={MyMood} />
 //      <Route name="employeeofthemonth" handler={EmployeeOfTheMonth} />
-//      <Route name="test1" handler={Test1} />
 //      <DefaultRoute handler={Index} />
 //      <NotFoundRoute name="404" handler={NotFound} />
 //    </Route>
@@ -167,7 +165,6 @@ const routes = (
       <Route name="forgotpassword" handler={ForgotPassword} />
       <Route name="createpassword/:hash" handler={CreatePassword} />
       <Route name="tabs" handler={Tabs} />
-      <Route name="test1" handler={Test1} />
       <DefaultRoute handler={Index} />
       <NotFoundRoute name="404" handler={NotFound} />
     </Route>
