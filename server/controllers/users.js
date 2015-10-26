@@ -1709,7 +1709,7 @@ exports.UpdateProfileBanner = function (req, res) {
                     if (!err) {
                         response.status  = true;
                         response.message = 'Banner image updated.';
-                        response.image   = PRO_PIC_PATH + imagename;
+                        response.image   = BANNER_PIC_PATH + imagename;
                     } else {
                         response.status  = false;
                         response.message = 'Something went wrong..';
