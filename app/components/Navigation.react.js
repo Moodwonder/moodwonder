@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import Cookie from 'utils/Cookie';
-//import LanguageContants from 'constants/LanguageConstants';
+import LanguageContants from 'constants/LanguageConstants';
 import NavSlider from 'components/NavSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
@@ -41,6 +41,12 @@ export default class Navigation extends React.Component {
       //e.preventDefault();
       Cookie.setCookie('lang', e.target.value, 30);
       this.setState({lang: e.target.value});
+      location.reload(true);
+  }
+
+  onClickLanguage = (lang) => {
+      Cookie.setCookie('lang', lang, 30);
+      this.setState({lang: lang});
       location.reload(true);
   }
 
@@ -116,7 +122,7 @@ export default class Navigation extends React.Component {
 
 
   render () {
-      //let lang = this.state.lang;
+      let lang = this.state.lang;
       let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       //let popup = this.state.popup;
       let loginOrOut;
@@ -177,10 +183,10 @@ export default class Navigation extends React.Component {
                     <div className="right item">
                         <div className="ui dropdown floating icon">
                             <i className="angle down icon" style={{"float":"right","marginRight":"20"}}></i>
-                            <span className="text">Language</span>
+                            <span className="text">{lang}</span>
                             <div className="menu">
-                                <div className="item">EN</div>
-                                <div className="item">FI</div>
+                                <div onClick={this.onClickLanguage.bind(null, LanguageContants.EN)} className="item">EN</div>
+                                <div onClick={this.onClickLanguage.bind(null, LanguageContants.FI)} className="item">FI</div>
                             </div>
                         </div>
                         <div className="ui compact menu">

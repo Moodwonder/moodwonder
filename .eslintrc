@@ -29,6 +29,7 @@
         "document": true,
         "window": true,
         "sessionStorage": true,
+        "google": true,
         "browser": true,
         "cookie": true,
         "ss": true
