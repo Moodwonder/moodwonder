@@ -13,6 +13,7 @@ var Signuppage = require('../models/signuppage');
 var Loginpage = require('../models/loginpage');
 var Languages = require('../models/languages');
 var Myprofile = require('../models/myprofilepage');
+var Mwusertheme = require('../models/mwusertheme');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -177,6 +178,17 @@ module.exports = function (app, passport) {
         };
         next();
     });
+    
+    
+    function getMwthemeKeys(page, lang, html, callback) {
+        
+        Mwusertheme.findOne({language: lang}).lean().exec(function (err, docs) {
+            if (docs != 'undefined') {
+                callback(docs);
+            }
+        });
+    }
+    
 
     function getPageKeys(page, lang, html, callback) {
         // console.log('page');
@@ -272,9 +284,19 @@ module.exports = function (app, passport) {
                 var pattern = new RegExp(val, "g");
                 html = html.replace(pattern, response[val]);
             }
+            
+            getMwthemeKeys(page, lang, html, function (data) {
+                for (var val in data) {
+                    var pattern = new RegExp(val, "g");
+                    html = html.replace(pattern, data[val]);
+                }
+                
+                res.contentType = "text/html; charset=utf8";
+                res.end(html);
+            });
 
-            res.contentType = "text/html; charset=utf8";
-            res.end(html);
+            //res.contentType = "text/html; charset=utf8";
+            //res.end(html);
         });
         // res.contentType = "text/html; charset=utf8";
         // res.end(html);
