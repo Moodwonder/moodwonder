@@ -207,7 +207,9 @@ exports.updatePageKeys = function (req, res) {
                 L_INVITE_PEOPLE_TITLE: data.L_INVITE_PEOPLE_TITLE,
                 L_INVITE_PEOPLE_DES: data.L_INVITE_PEOPLE_DES,
                 L_INVITE_INPUT_PLCHOLDER: data.L_INVITE_INPUT_PLCHOLDER,
-                L_INVITE_BTN: data.L_INVITE_BTN
+                L_INVITE_BTN: data.L_INVITE_BTN,
+                L_MYPROFILE_LINK: data.L_MYPROFILE_LINK,
+                L_LOGOUT_LINK: data.L_LOGOUT_LINK
             };
             break;
 

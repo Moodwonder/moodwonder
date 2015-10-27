@@ -15,7 +15,9 @@ export default class Signuppage extends React.Component {
           L_INVITE_PEOPLE_TITLE: '',
           L_INVITE_PEOPLE_DES: '',
           L_INVITE_INPUT_PLCHOLDER: '',
-          L_INVITE_BTN: ''
+          L_INVITE_BTN: '',
+          L_MYPROFILE_LINK: '',
+          L_LOGOUT_LINK: ''
       };
   }
 
@@ -41,7 +43,9 @@ export default class Signuppage extends React.Component {
           L_INVITE_PEOPLE_TITLE: pagedata.L_INVITE_PEOPLE_TITLE,
           L_INVITE_PEOPLE_DES: pagedata.L_INVITE_PEOPLE_DES,
           L_INVITE_INPUT_PLCHOLDER: pagedata.L_INVITE_INPUT_PLCHOLDER,
-          L_INVITE_BTN: pagedata.L_INVITE_BTN
+          L_INVITE_BTN: pagedata.L_INVITE_BTN,
+          L_MYPROFILE_LINK: pagedata.L_MYPROFILE_LINK,
+          L_LOGOUT_LINK: pagedata.L_LOGOUT_LINK
       });
   }
 
@@ -90,6 +94,16 @@ export default class Signuppage extends React.Component {
       this.setState({ L_INVITE_BTN: e.target.value });
   }
 
+  onChangeMyprofileLink = (e) => {
+      e.preventDefault();
+      this.setState({ L_MYPROFILE_LINK: e.target.value });
+  }
+
+  onChangeLogoutLink = (e) => {
+      e.preventDefault();
+      this.setState({ L_LOGOUT_LINK: e.target.value });
+  }
+
 
 
   render() {
@@ -102,6 +116,8 @@ export default class Signuppage extends React.Component {
       let L_INVITE_PEOPLE_DES = this.state.L_INVITE_PEOPLE_DES;
       let L_INVITE_INPUT_PLCHOLDER = this.state.L_INVITE_INPUT_PLCHOLDER;
       let L_INVITE_BTN = this.state.L_INVITE_BTN;
+      let L_MYPROFILE_LINK = this.state.L_MYPROFILE_LINK;
+      let L_LOGOUT_LINK = this.state.L_LOGOUT_LINK;
 
 
       return (
@@ -185,6 +201,28 @@ export default class Signuppage extends React.Component {
                      type="text"
                      value={L_INVITE_BTN}
                      onChange={this.onChangeInviteBtn} />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="col-sm-2 control-label">L_MYPROFILE_LINK</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="L_MYPROFILE_LINK"
+                     type="text"
+                     value={L_MYPROFILE_LINK}
+                     onChange={this.onChangeMyprofileLink} />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="col-sm-2 control-label">L_LOGOUT_LINK</label>
+            <div className="col-sm-10">
+              <input className="form-control"
+                     name="L_LOGOUT_LINK"
+                     type="text"
+                     value={L_LOGOUT_LINK}
+                     onChange={this.onChangeLogoutLink} />
             </div>
           </div>
 

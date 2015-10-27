@@ -136,6 +136,8 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
       usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
       usertheme.L_INVITE_BTN = data['L_INVITE_BTN'];
+      usertheme.L_MYPROFILE_LINK = data['L_MYPROFILE_LINK'];
+      usertheme.L_LOGOUT_LINK = data['L_LOGOUT_LINK'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mwusertheme', usertheme);

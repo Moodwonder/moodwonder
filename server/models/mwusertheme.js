@@ -17,7 +17,9 @@ var mwuserthemeSchema = new mongoose.Schema({
     L_INVITE_PEOPLE_TITLE: {type: String, default: ''},
     L_INVITE_PEOPLE_DES: {type: String, default: ''},
     L_INVITE_INPUT_PLCHOLDER: {type: String, default: ''},
-    L_INVITE_BTN: {type: String, default: ''}
+    L_INVITE_BTN: {type: String, default: ''},
+    L_MYPROFILE_LINK: {type: String, default: ''},
+    L_LOGOUT_LINK: {type: String, default: ''}
 }, {
     collection: 'mwusertheme'
 });
