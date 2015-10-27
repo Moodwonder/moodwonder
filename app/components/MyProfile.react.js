@@ -1,10 +1,10 @@
 import React from 'react';
-import DropzoneComponent from 'react-dropzone-component';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 // import LanguageContants from 'constants/LanguageConstants';
+
 
 export default class MyProfile extends React.Component {
 
@@ -22,6 +22,48 @@ export default class MyProfile extends React.Component {
   componentDidMount () {
       UserActions.getuserinfo();
       UserStore.listen(this._onChange);
+
+      let _this = this;
+
+      $(function() {
+
+          let options = {
+            multiple: false,
+            multipart: true,
+            maxUploads: 2,
+            maxSize: 6000,
+            queue: false,
+            allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
+            accept: 'image/*',
+            debug: false,
+            hoverClass: 'btn-hover',
+            focusClass: 'active',
+            disabledClass: 'disabled',
+            responseType: 'json',
+            onSubmit: function(filename, ext) {
+            }
+          };
+
+          // updateuserphoto
+          let change_banner_image = document.getElementById('change_banner_image');
+          let change_profile_image = document.getElementById('change_profile_image');
+          options.url  = '/updateuserphoto';
+          options.name = 'profilephoto';
+          options.button = change_profile_image;
+          options.onComplete = function(file, response, btn) {
+              _this.fileUploadSuccessProfile(response);
+          };
+          let uploader = new ss.SimpleUpload(options);
+
+          // updateuserbanner
+          options.url  = '/updateuserbanner';
+          options.name = 'bannerimage';
+          options.button = change_banner_image;
+          options.onComplete = function(file, response, btn) {
+              _this.fileUploadSuccessBanner(response);
+          };
+          uploader = new ss.SimpleUpload(options);
+      });
   }
 
   componentWillUnmount () {
@@ -36,7 +78,7 @@ export default class MyProfile extends React.Component {
       this.setState({canSubmit: false});
   }
 
-  fileUploadSuccessProfile = (param,response) => {
+  fileUploadSuccessProfile = (response) => {
       let userDetails = this.state.userDetails;
       if(response.status){
           userDetails.profile_image = response.image;
@@ -44,7 +86,7 @@ export default class MyProfile extends React.Component {
       }
   }
 
-  fileUploadSuccessBanner = (param,response) => {
+  fileUploadSuccessBanner = (response) => {
       let userDetails = this.state.userDetails;
       if(response.status){
           userDetails.cover_image = response.image;
@@ -52,17 +94,9 @@ export default class MyProfile extends React.Component {
       }
   }
 
-  changeProfilePicClick = () => {
-      $('#dz1 .dz-clickable').trigger('click');
-  }
-
-  changeBannerPicClick = () => {
-      $('#dz2 .dz-clickable').trigger('click');
-  }
-
   _onChange = (state) => {
       this.setState(state);
-      console.log(this.state.userDetails);
+      //console.log(this.state.userDetails);
   }
 
   _onSaveSubmit = (model) => {
@@ -174,83 +208,6 @@ export default class MyProfile extends React.Component {
           );
       }
 
-      let componentConfigProfilePic = {
-        postUrl: '/updateuserphoto',
-        allowedFiletypes: ['.jpg', '.png', '.gif']
-      };
-
-      let djsConfigProfilePic = {
-      maxFiles: 1,
-      paramName: 'profilephoto',
-      dictDefaultMessage: "",
-      uploadMultiple: false,
-      success: this.fileUploadSuccessProfile
-      };
-
-      let componentConfigBannerPic = {
-        postUrl: '/updateuserbanner',
-        allowedFiletypes: ['.jpg', '.png', '.gif']
-      };
-
-      let djsConfigBannerPic = {
-      maxFiles: 1,
-      paramName: 'bannerimage',
-      dictDefaultMessage: "",
-      uploadMultiple: false,
-      success: this.fileUploadSuccessBanner
-      };
-
-      let eventHandlers = {
-        // This one receives the dropzone object as the first parameter
-        // and can be used to additional work with the dropzone.js
-        // object
-        init: null,
-        // All of these receive the event as first parameter:
-        drop: callbackArray,
-        dragstart: null,
-        dragend: null,
-        dragenter: null,
-        dragover: null,
-        dragleave: null,
-        // All of these receive the file as first parameter:
-        addedfile: simpleCallBack,
-        removedfile: null,
-        thumbnail: null,
-        error: null,
-        processing: null,
-        uploadprogress: null,
-        sending: null,
-        success: null,
-        complete: null,
-        canceled: null,
-        maxfilesreached: null,
-        maxfilesexceeded: null,
-        // All of these receive a list of files as first parameter
-        // and are only called if the uploadMultiple option
-        // in djsConfig is true:
-        processingmultiple: null,
-        sendingmultiple: null,
-        successmultiple: null,
-        completemultiple: null,
-        canceledmultiple: null,
-        // Special Events
-        totaluploadprogress: null,
-        reset: null,
-        queuecompleted: null
-      };
-
-      let callbackArray = [
-        function () {
-            console.log('Look Ma, I\'m a callback in an array!');
-        },
-        function () {
-            console.log('Wooooow!');
-        }
-      ];
-
-      let simpleCallBack = function () {
-          console.log('I\'m a simple callback');
-      };
 
        // Manage user summary
       let summaryForm = [
@@ -417,10 +374,10 @@ export default class MyProfile extends React.Component {
               <button className="ui orange button">Invite</button>
            </div>
            <div className="ui  margin-grid ">
-              <div className="column profile-cover" style={{"background-image": userInfo.cover_image }}>
+              <div className="column profile-cover" style={{ backgroundImage: 'url(' + userInfo.cover_image + ')' }}>
                  <div className="dp-container">
-                    <img className="ui tiny circular image dp" onClick={this.changeProfilePicClick} src={userInfo.profile_image} alt="" />
-                    <a className="action act-cover-image"><i onClick={this.changeBannerPicClick} className="write icon"></i></a>
+                    <img className="ui tiny circular image dp" id="change_profile_image" src={userInfo.profile_image} alt="" />
+                    <a className="action act-cover-image"><i id="change_banner_image" className="write icon"></i></a>
                     <div className="title">
                        <h3>{userInfo.fname}</h3>
                        <span>{userInfo.email}</span>
@@ -451,12 +408,7 @@ export default class MyProfile extends React.Component {
                         {personalInfoForm}
 
                         {generalInfoForm}
-                        <div id="dz1">
-                            <DropzoneComponent config={componentConfigProfilePic} eventHandlers={eventHandlers} djsConfig={djsConfigProfilePic} />
-                        </div>
-                        <div id="dz2">
-                            <DropzoneComponent config={componentConfigBannerPic} eventHandlers={eventHandlers} djsConfig={djsConfigBannerPic} />
-                        </div>
+
                     </div>
                  </div>
               </div>

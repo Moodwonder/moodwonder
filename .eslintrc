@@ -29,8 +29,9 @@
         "document": true,
         "window": true,
         "sessionStorage": true,
-        "cookie": true,
-        "google": true
+        "google": true,
+        "browser": true,
+        "cookie": true
     },
     "rules": {
         "no-alert": 0,
