@@ -33,7 +33,7 @@
           align-items: stretch;
   padding: 0em;
 }
-.ui.bottom.attached.segment.brdr-none.menu .ui.grid{margin:0!important;} 
+.ui.bottom.attached.segment.brdr-none.menu .ui.grid{margin:0} 
 /*----------------------
       Remove Gutters
 -----------------------*/

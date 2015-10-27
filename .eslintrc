@@ -29,7 +29,8 @@
         "document": true,
         "window": true,
         "sessionStorage": true,
-        "cookie": true
+        "cookie": true,
+        "google": true
     },
     "rules": {
         "no-alert": 0,

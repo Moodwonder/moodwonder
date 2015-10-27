@@ -36,6 +36,7 @@ import SurveyStatistics from 'components/users/SurveyStatistics.react';
 import UserDetails from 'components/users/UserDetails.react';
 import CompanyAdmins from 'components/CompanyAdmins.react';
 import MyMood from 'components/MyMood.react';
+import MyMoodtest from 'components/MyMoodtest.react';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
 import Employees from 'components/Employees.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
@@ -143,6 +144,9 @@ const routes = (
     </Route>
     <Route name="customsurvey" path="/customsurvey" handler={Appuser} >
       <Route name="" handler={Customsurvey} />
+    </Route>
+    <Route name="mymoodtest" path="/mymoodtest" handler={Appuser} >
+      <Route name="" handler={MyMoodtest} />
     </Route>
     <Route name="mymood" path="/mymood" handler={Appuser} >
       <Route name="" handler={MyMood} />
