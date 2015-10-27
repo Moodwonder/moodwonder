@@ -1,0 +1,14 @@
+db.languages.insert({ "code" : "EN", "language" : "english", "__v" : 0 });
+db.languages.insert({ "code" : "FI", "language" : "french", "__v" : 0 });
+
+db.homepage.insert({ "language" : "FI", "HOM_TITLE" : "Moodwonder fi" });
+db.homepage.insert({ "language" : "EN", "HOM_TITLE" : "Moodwonder en" });
+
+db.signuppage.insert({ "language" : "FI", "SGN_TITLE" : "Signup here fi", "SGN_WORK_EMAIL" : "Work email fi", "SGN_BTN_SUBMIT" : "Submit fi" });
+db.signuppage.insert({ "language" : "EN", "SGN_TITLE" : "Signup here en", "SGN_WORK_EMAIL" : "Work email en", "SGN_BTN_SUBMIT" : "Submit en" });
+
+db.loginpage.insert({ "language" : "FI", "LGN_TITLE" : "Login here fi", "LGN_USERNAME" : "Username fi", "LGN_PASSWORD" : "Password fi", "LGN_FORGOT_PASSWORD" : "Forgot password fi", "LGN_BTN_SUBMIT" : "Submit fi" });
+db.loginpage.insert({ "language" : "EN", "LGN_TITLE" : "Login here en", "LGN_USERNAME" : "Username en", "LGN_PASSWORD" : "Password en", "LGN_FORGOT_PASSWORD" : "Forgot password en", "LGN_BTN_SUBMIT" : "Submit en" });
+
+db.myprofile.insert({ "language" : "EN", "PRFL_TAB_MYPROFILE" : "My Profile", "PRFL_TAB_MYMANAGER" : "My Manager", "PRFL_TAB_MYTEAM" : "My Team", "PRFL_EDIT_PROFILE" : "Edit Profile", "PRFL_SUMMARY" : "Summary", "PRFL_PERSONAL_INFO": "Personal Info", "PRFL_PINFO_FNAME": "First Name", "PRFL_PINFO_LNAME": "Last Name", "PRFL_PINFO_CHANGE_PSWD": "Change Password", "PRFL_PINFO_CNFM_PSWD": "Confirm Password", "PRFL_GENERAL_INFO": "General Info", "PRFL_GINFO_WRK_EMAIL": "Work Email", "PRFL_GINFO_LNG": "Language", "PRFL_GINFO_RPT_FRQ": "Report Frequency"});
+db.myprofile.insert({"language" : "FI", "PRFL_TAB_MYPROFILE": "Oma profiili", "PRFL_TAB_MYMANAGER": "Minun Manager", "PRFL_TAB_MYTEAM": "Minun Team", "PRFL_EDIT_PROFILE": "Muokkaa profiilia", "PRFL_SUMMARY": "Yhteenveto", "PRFL_PERSONAL_INFO": "Henkilökohtainen Info "," PRFL_PINFO_FNAME ":" Etunimi "," PRFL_PINFO_LNAME ":" Sukunimi "," PRFL_PINFO_CHANGE_PSWD ":" Vaihda salasana "," PRFL_PINFO_CNFM_PSWD ":" Vahvista salasana "," PRFL_GENERAL_INFO ":" Yleistä "," PRFL_GINFO_WRK_EMAIL ":" Työ Lähetä sähköposti "," PRFL_GINFO_LNG ":" Kieli "," PRFL_GINFO_RPT_FRQ ":" Raportti Frequency "});

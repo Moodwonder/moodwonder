@@ -53,7 +53,7 @@ export default class MyProfile extends React.Component {
           options.onComplete = function(file, response, btn) {
               _this.fileUploadSuccessProfile(response);
           };
-          let uploader = new ss.SimpleUpload(options);
+          new ss.SimpleUpload(options);
 
           // updateuserbanner
           options.url  = '/updateuserbanner';
@@ -62,7 +62,7 @@ export default class MyProfile extends React.Component {
           options.onComplete = function(file, response, btn) {
               _this.fileUploadSuccessBanner(response);
           };
-          uploader = new ss.SimpleUpload(options);
+          new ss.SimpleUpload(options);
       });
   }
 
@@ -212,7 +212,7 @@ export default class MyProfile extends React.Component {
        // Manage user summary
       let summaryForm = [
        <h3 className="ui dividing header">
-            <i className="file text outline icon"></i> Summary
+            <i className="file text outline icon"></i> PRFL_SUMMARY
             <a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
        </h3>,
 
@@ -223,7 +223,7 @@ export default class MyProfile extends React.Component {
           summaryForm = (
             <div>
                 <h3 className="ui dividing header">
-                    <i className="file text outline icon"></i> Summary
+                    <i className="file text outline icon"></i> PRFL_SUMMARY
                 </h3>
                 <div className="field">
                     <label>Text</label>
@@ -239,24 +239,24 @@ export default class MyProfile extends React.Component {
       let personalInfoForm = (
         <div>
             <h3 className="ui dividing header">
-                <i className="user icon"></i> Personal Info
+                <i className="user icon"></i> PRFL_PERSONAL_INFO
                 <a className="action"><i onClick={this.onEditPersonalInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
                 <div className="field ui two column stackable grid container">
-                    <label className="column">First Name</label>
+                    <label className="column">PRFL_PINFO_FNAME</label>
                     <label className="column">{userInfo.fname}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Last Name</label>
+                    <label className="column">PRFL_PINFO_LNAME</label>
                     <label className="column">{userInfo.lname}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Change Password</label>
+                    <label className="column">PRFL_PINFO_CHANGE_PSWD</label>
                     <label className="column">* * * * * * * *</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Confirm Password</label>
+                    <label className="column">PRFL_PINFO_CNFM_PSWD</label>
                     <label className="column">* * * * * * * *</label>
                 </div>
             </div>
@@ -266,22 +266,22 @@ export default class MyProfile extends React.Component {
       if(this.state.personalInfoEdit){
           personalInfoForm = (
             <div>
-                <h3 className="ui dividing header"><i className="user icon"></i>Personal Info</h3>
+                <h3 className="ui dividing header"><i className="user icon"></i>PRFL_PERSONAL_INFO</h3>
                     <div className=" field">
                         <div className="field">
-                            <label>First Name*</label>
+                            <label>PRFL_PINFO_FNAME*</label>
                             <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
                         </div>
                         <div className="field">
-                            <label>Last Name*</label>
+                            <label>PRFL_PINFO_LNAME*</label>
                             <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text" />
                         </div>
                         <div className="field">
-                            <label>Password</label>
+                            <label>PRFL_PINFO_CHANGE_PSWD</label>
                             <input placeholder="Password" id="password" type="password" />
                         </div>
                         <div className="field">
-                            <label>Confirm Password</label>
+                            <label>PRFL_PINFO_CNFM_PSWD</label>
                             <input placeholder="Confirm Password" id="cpassword" type="Password" />
                         </div>
                     </div>
@@ -295,20 +295,20 @@ export default class MyProfile extends React.Component {
       let generalInfoForm = (
         <div>
             <h3 className="ui dividing header">
-                <i className="setting icon"></i> General Info
+                <i className="setting icon"></i> PRFL_GENERAL_INFO
                 <a className="action"><i onClick={this.onEditGeneralInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Work Email</label>
+                    <label className="column">PRFL_GINFO_WRK_EMAIL</label>
                     <label className="column">{userInfo.email}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Language</label>
+                    <label className="column">PRFL_GINFO_LNG</label>
                     <label className="column">{userInfo.language}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">Report Frequency</label>
+                    <label className="column">PRFL_GINFO_RPT_FRQ</label>
                     <label className="column">{userInfo.reportfrequency}</label>
                 </div>
             </div>
@@ -318,14 +318,14 @@ export default class MyProfile extends React.Component {
       if(this.state.generalInfoEdit){
           generalInfoForm = (
             <div>
-                <h3 className="ui dividing header"><i className="setting icon"></i>General Info</h3>
+                <h3 className="ui dividing header"><i className="setting icon"></i>PRFL_GENERAL_INFO</h3>
                     <div className="field">
                         <div className="field">
-                            <label>Work Email*</label>
+                            <label>PRFL_GINFO_WRK_EMAIL*</label>
                             <input placeholder="Work Email" onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
                         </div>
                         <div className="field">
-                            <label>Language*</label>
+                            <label>PRFL_GINFO_LNG*</label>
                             <select className="ui dropdown" onChange={this._onChangeGeneralInfo} id="language" value={userInfo.language} >
                                 <option value="">Language</option>
                                 <option value="EN">EN</option>
@@ -333,7 +333,7 @@ export default class MyProfile extends React.Component {
                             </select>
                         </div>
                         <div className="field">
-                            <label>Report Frequency</label>
+                            <label>PRFL_GINFO_RPT_FRQ</label>
                             <select className="ui dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
                                 <option value="">Report Frequency</option>
                                 <option value="Weekly">Weekly</option>
@@ -399,7 +399,7 @@ export default class MyProfile extends React.Component {
            <div className="ui two column stackable grid">
               <div className="ten wide column">
                  <div className="ui segment">
-                    <h4 className="ui header ryt">Edit Profile</h4>
+                    <h4 className="ui header ryt">PRFL_EDIT_PROFILE</h4>
                     {message}
                     <div className="ui small form">
 

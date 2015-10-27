@@ -1679,8 +1679,6 @@ exports.searchTeam = function (req, res){
 exports.UpdateProfileBanner = function (req, res) {
 
     var ext=path.extname(req.files.bannerimage.name);
-    console.log(req.files);
-    console.log(typeof req.files.bannerimage);
     if(typeof req.files.bannerimage != 'undefined')
     {
         if((ext!=".jpg")&&(ext!=".png")&&(ext!=".jpeg")&&(ext!=".gif"))

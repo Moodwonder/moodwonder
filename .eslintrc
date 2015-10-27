@@ -30,7 +30,8 @@
         "window": true,
         "sessionStorage": true,
         "browser": true,
-        "cookie": true
+        "cookie": true,
+        "ss": true
     },
     "rules": {
         "no-alert": 0,

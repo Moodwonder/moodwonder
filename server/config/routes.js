@@ -12,6 +12,7 @@ var Homepage = require('../models/homepage');
 var Signuppage = require('../models/signuppage');
 var Loginpage = require('../models/loginpage');
 var Languages = require('../models/languages');
+var Myprofile = require('../models/myprofilepage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -197,6 +198,11 @@ module.exports = function (app, passport) {
             case 'home':
                 modelObj = {};
                 modelObj = Homepage;
+                break;
+
+            case 'myprofile':
+                modelObj = {};
+                modelObj = Myprofile;
                 break;
 
             default:
