@@ -127,6 +127,16 @@ const quickstatistics = {
         } else {
             return "No posts.";
         }
+    },
+
+    getLastPostedDate: function (companysurvey, uid) {
+        let userresults = _(companysurvey).where({user_id: uid});
+        let lastPost = _.first(_.sortBy(userresults, function(o) { return o._id; }).reverse(), 1);
+        let posteddate = _(lastPost).map(function(g, key) {
+            return g.created.d;
+        });
+        //return (posteddate[0]) ? posteddate[0] : 0;
+        return posteddate[0];
     }
 
 };

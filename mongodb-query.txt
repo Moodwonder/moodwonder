@@ -12,3 +12,27 @@ db.loginpage.insert({ "language" : "EN", "LGN_TITLE" : "Login here en", "LGN_USE
 
 db.myprofile.insert({ "language" : "EN", "PRFL_TAB_MYPROFILE" : "My Profile", "PRFL_TAB_MYMANAGER" : "My Manager", "PRFL_TAB_MYTEAM" : "My Team", "PRFL_EDIT_PROFILE" : "Edit Profile", "PRFL_SUMMARY" : "Summary", "PRFL_PERSONAL_INFO": "Personal Info", "PRFL_PINFO_FNAME": "First Name", "PRFL_PINFO_LNAME": "Last Name", "PRFL_PINFO_CHANGE_PSWD": "Change Password", "PRFL_PINFO_CNFM_PSWD": "Confirm Password", "PRFL_GENERAL_INFO": "General Info", "PRFL_GINFO_WRK_EMAIL": "Work Email", "PRFL_GINFO_LNG": "Language", "PRFL_GINFO_RPT_FRQ": "Report Frequency"});
 db.myprofile.insert({"language" : "FI", "PRFL_TAB_MYPROFILE": "Oma profiili", "PRFL_TAB_MYMANAGER": "Minun Manager", "PRFL_TAB_MYTEAM": "Minun Team", "PRFL_EDIT_PROFILE": "Muokkaa profiilia", "PRFL_SUMMARY": "Yhteenveto", "PRFL_PERSONAL_INFO": "Henkilökohtainen Info "," PRFL_PINFO_FNAME ":" Etunimi "," PRFL_PINFO_LNAME ":" Sukunimi "," PRFL_PINFO_CHANGE_PSWD ":" Vaihda salasana "," PRFL_PINFO_CNFM_PSWD ":" Vahvista salasana "," PRFL_GENERAL_INFO ":" Yleistä "," PRFL_GINFO_WRK_EMAIL ":" Työ Lähetä sähköposti "," PRFL_GINFO_LNG ":" Kieli "," PRFL_GINFO_RPT_FRQ ":" Raportti Frequency "});
+
+db.mwusertheme.insert({ "language" : "EN", 
+                        "L_MYMOOD_LINK" : "My Mood", 
+                        "L_MYACCOUNT_LINK" : "My Account",
+                        "L_MYCOMPANY_LINK" : "My Company",
+                        "L_INVITE_PEOPLE_TITLE" : "Invite people anonymously",
+                        "L_INVITE_PEOPLE_DES" : "Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...",
+                        "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mail",
+                        "L_INVITE_BTN" : "INVITE",
+                        "L_MYPROFILE_LINK" : "My profile",
+                        "L_LOGOUT_LINK" : "Log Out"
+});
+
+db.mwusertheme.insert({ "language" : "FI", 
+                        "L_MYMOOD_LINK" : "My Moodfi", 
+                        "L_MYACCOUNT_LINK" : "My Accountfi",
+                        "L_MYCOMPANY_LINK" : "My Companyfi",
+                        "L_INVITE_PEOPLE_TITLE" : "Invite people anonymouslyfi",
+                        "L_INVITE_PEOPLE_DES" : "Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues fi ...",
+                        "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mailfi",
+                        "L_INVITE_BTN" : "INVITEfi",
+                        "L_MYPROFILE_LINK" : "My profilefi",
+                        "L_LOGOUT_LINK" : "Log Outfi"
+});
