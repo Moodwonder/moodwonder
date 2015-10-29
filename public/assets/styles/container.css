@@ -31,12 +31,12 @@
 }
 .custom-box .wide.column {
 	padding: 0 !important;
-}    
+}
 .ui.segment.width-act {
-    width: 100% !important;
-    margin-left: 0% !important;
-    padding: 0px 30px;
-    height: 100%;
+	width: 100% !important;
+	margin-left: 0% !important;
+	padding: 0px 30px;
+	height: 100%;
 }
 .pushable .ui.visible.uncover.sidebar .header.item .slide-logo {
 	width: 0px!important;
@@ -101,7 +101,7 @@
 	width: auto !important;
 }
 .ui.bottom.attached.segment.brdr-none.menu .ui.grid {
-    margin: 0px -15px !important;
+	margin: 0px -15px !important;
 }
 .width-header {
 	display: none;
@@ -109,8 +109,8 @@
 .padding-20-mobile {
 	padding-top: 20px!important;
 }
-.ui.menu div.item.ryt { 
-    padding: 30px 0px 0px !important;
+.ui.menu div.item.ryt {
+	padding: 30px 0px 0px !important;
 }
 }
 
@@ -279,14 +279,14 @@
 }
 
 @media only screen and (max-width: 1199px) {
-	.width-act {
-    width: 75%!important;
-    margin-left: 25%!important;
-    top: 110px;
-    height: 100%;
+.width-act {
+	width: 75%!important;
+	margin-left: 25%!important;
+	top: 110px;
+	height: 100%;
 }
 .ui.menu.account {
-    margin: 0px!important;
+	margin: 0px!important;
 }
 .width-header {
 	width: 100%!important;
@@ -325,7 +325,7 @@
 	margin-top: 10px!important;
 }
 .margin-grid {
-    margin: 0!important;
+	margin: 0!important;
 }
 }
 .width-header h2 {
@@ -690,7 +690,7 @@
 	font-family: "Brandon-bold";
 	color: #FFF;
 	text-transform: uppercase;
-        margin-top: -6px;
+	margin-top: -6px;
 }
 .options {
 	padding: 10px 0px 10px 0px;
@@ -851,9 +851,9 @@ h2.com {
 	color: #fff!important;
 }
 .options .ui.form .inline.fields {
-    margin: 0px 0px 1em;
-    align-items: center;
-    margin-left: 20px;
+	margin: 0px 0px 1em;
+	align-items: center;
+	margin-left: 20px;
 }
 .line-height {
 	line-height: 50px;

@@ -995,7 +995,7 @@ export default class MyMood extends React.Component {
       }
 
 
-      let engagementGraphTabContent = '';
+      let engagementGraphTabContent = null;
       if (engagementgraphtab) {
           engagementGraphTabContent = [
                     <div className="ui bottom attached segment brdr-none menu">
@@ -1067,7 +1067,7 @@ export default class MyMood extends React.Component {
           ];
       }
 
-      let customSurveyTabContent = '';
+      let customSurveyTabContent=null;
       if (customsurveytab) {
           customSurveyTabContent = (
               <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
@@ -1206,7 +1206,7 @@ export default class MyMood extends React.Component {
 
       }
 
-      let moodRatingsTabContent = '';
+      let moodRatingsTabContent=null;
       if (moodratingstab) {
           moodRatingsTabContent = (
                 <div className="ui bottom attached segment brdr-none menu minus-margin-top">
@@ -1367,7 +1367,6 @@ export default class MyMood extends React.Component {
                     <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
                 </div>
                 {engagementGraphTabContent}
-                <div className="clear"></div>
                 {moodRatingsTabContent}
                 {customSurveyTabContent}
           </div>
