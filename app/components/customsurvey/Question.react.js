@@ -80,11 +80,10 @@ export default class Question extends React.Component {
       }.bind(this));
 
       if (radio.length > 0) {
-          radioAddBtn = (<a
-                       href="#"
-                       className="btn-link"
-                       id={qid}
-                       onClick={this.onAddRadioOption}>Add Option</a>
+          radioAddBtn = (
+                       <div className="field">
+                            <a href="#" id={qid} onClick={this.onAddRadioOption} className="ui submit button submitt"><i className="plus icon"></i>ADD</a>
+                       </div>
                     );
       }
 
@@ -99,10 +98,10 @@ export default class Question extends React.Component {
       }.bind(this));
 
       if (checkbox.length > 0) {
-          checkboxAddBtn = (<a
-                          href="#"
-                          className="btn-link"
-                          id={qid} onClick={this.onAddCheckboxOption}>Add Option</a>
+          checkboxAddBtn = (
+                          <div className="field">
+                              <a href="#" id={qid} onClick={this.onAddCheckboxOption} className="ui submit button submitt"><i className="plus icon"></i>ADD</a>
+                          </div>
                        );
       }
 
@@ -122,42 +121,60 @@ export default class Question extends React.Component {
       }
 
       return (
-      <div id={qid} key={qid} className="container-fluid">
-        <br/>
-        <span>Question - {sno}</span>
-        <div className="form-group">
-          <input
-              type="text"
-              ref={'question_' + qid}
-              value={qValue}
-              onChange={this.changeHandler.bind(this, 'formdata', 'question_' + qid)}
-              name={'question_' + qid}
-              className="form-control"
-              id={'question_' + qid}
-              placeholder="Question"/>
-        </div>
-        <div className="form-group">
-          <label>Select answer type:</label>
-          <select
-                className="navigation__item"
-                ref={'answertype_' + qid}
-                id={qid} name={'answertype_' + qid}
-                onChange={this.onSelectAnswerType}>
-            <option value="0">Choose one</option>
-            <option value="radio">Radio</option>
-            <option value="checkbox">Checkbox</option>
-            <option value="textbox">Textbox</option>
-            <option value="textarea">Textarea</option>
-          </select>
-          {radioComponent}
-          {radioAddBtn}
-          {checkboxComponent}
-          {checkboxAddBtn}
-          {textboxComponent}
-          {textareaComponent}
-        </div>
-        <button className="btn btn-danger" id={qid} onClick={this.onRemoveQuestion}>Remove</button>
-      </div>
-    );
+            <div id={qid} key={qid} className="ui two column stackable grid survey test">
+                <div className="one wide column qst-mobile">
+                    <div className="ui grey circular label"> Q.{sno}</div>
+                </div>
+                <div className="fifteen wide column padin-lft">
+                    <div className="ui left pointing label">
+                        <span className="qst-mobile-1">Q.{sno}</span> Question number {sno}?
+                        <a href="#" className="action" id={qid} onClick={this.onRemoveQuestion}>
+                            <i className="trash icon"></i>
+                        </a>
+                    </div>
+                    <div className="ui form options">
+                        <div className="ui form options" >
+                            <div className=" field">
+                                <input
+                                        type="text"
+                                        ref={'question_' + qid}
+                                        value={qValue}
+                                        onChange={this.changeHandler.bind(this, 'formdata', 'question_' + qid)}
+                                        name={'question_' + qid}
+                                        className="form-control"
+                                        id={'question_' + qid}
+                                        placeholder="Question"/>
+                            </div>
+                            <div className="inline fields">
+                                <div className="field">
+                                    <label>Select Answer Type:</label>
+                                </div>
+                                <div className=" field">
+                                    <select
+                                            className="ui dropdown"
+                                            ref={'answertype_' + qid}
+                                            id={qid} name={'answertype_' + qid}
+                                            onChange={this.onSelectAnswerType}>
+                                        <option value="0">Choose one</option>
+                                        <option value="radio">Radio</option>
+                                        <option value="checkbox">Checkbox</option>
+                                        <option value="textbox">Textbox</option>
+                                        <option value="textarea">Textarea</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {radioComponent}
+                            {radioAddBtn}
+                            {checkboxComponent}
+                            {checkboxAddBtn}
+                            {textboxComponent}
+                            {textareaComponent}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+      );
   }
 }

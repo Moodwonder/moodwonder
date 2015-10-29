@@ -11,10 +11,13 @@ export default class Textbox extends React.Component {
       let tid = this.props.tid;
       let index = tid;
       return (
-      <div id={index} key={index} className="container">
-        <br/>
-        <span>Textbox</span>
-      </div>
+        <div id={index} key={index} className="inline fields">
+            <div className="field four wide column">
+                <div className="ui radio checkbox">
+                    <label>Textbox</label>
+                </div>
+            </div>
+        </div>
     );
   }
 }

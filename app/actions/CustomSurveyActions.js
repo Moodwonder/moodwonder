@@ -16,7 +16,14 @@ class CustomSurveyActions {
   }
 
   createsurveyform (data) {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getCustomSurveyForms () {
@@ -32,7 +39,14 @@ class CustomSurveyActions {
   }
 
   surveyforms (data) {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getSurveyForm (id) {
@@ -48,7 +62,14 @@ class CustomSurveyActions {
   }
 
   handlesurveyform (data) {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   deleteForm (id) {
@@ -64,7 +85,14 @@ class CustomSurveyActions {
   }
 
   deleteaform (id) {
-      this.dispatch(id);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(id);
+          });
+      } else {
+          this.dispatch(id);
+      }
+      //this.dispatch(id);
   }
 
   getOrganization () {
@@ -80,7 +108,14 @@ class CustomSurveyActions {
   }
 
   handleorganization (data) {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
 }

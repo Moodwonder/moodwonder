@@ -16,7 +16,7 @@
 
 .ui.label {
   display: inline-block;
-  white-space: nowrap;
+  
   line-height: 1;
   vertical-align: baseline;
   margin: 0em 0.14285714em;
@@ -1035,7 +1035,7 @@ a.ui.black.label:hover:before {
   bottom: auto;
   right: auto;
   top: 50%;
-  left: 0em;
+  left: 0.1em;
 }
 
 /*--- Right ---*/

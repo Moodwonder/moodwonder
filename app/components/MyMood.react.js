@@ -1,9 +1,8 @@
+require('react-date-picker/base.css');
+require('react-date-picker/theme/hackerone.css');
 import React from 'react';
 //import getFormData from 'get-form-data';
-//import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
-//let BarChart = require("react-chartjs").Bar;
-//import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Graphdata from 'utils/Graphdata';
@@ -13,6 +12,13 @@ import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
 import HalfDaughnut from 'components/HalfDaughnut.react';
+
+import DatePicker from 'react-date-picker';
+import CustomSurveyActions from 'actions/CustomSurveyActions';
+import CustomSurveyStore from 'stores/CustomSurveyStore';
+import Question from 'components/customsurvey/Question.react';
+import getFormData from 'get-form-data';
+
 
 
 
@@ -30,8 +36,6 @@ let chartoptions = {
     scaleStartValue: 0,
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"
-    // multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
-    // scaleLineColor: 'black'
 };
 
 LineChart.prototype.titles = [];
@@ -41,6 +45,7 @@ export default class MyMood extends React.Component {
 
   constructor(props) {
       super(props);
+      this.state = CustomSurveyStore.getState();
       this.state = {
           popup: false,
           questions: [],
@@ -50,14 +55,28 @@ export default class MyMood extends React.Component {
           graphperiod: 'all_time',
           graphengagement: 'mw_index',
           engagementgraphtab: true,
-          quickstatisticstab: false,
+          customsurveytab: false,
           moodratingstab: false,
           companysurvey: [],
           industrysurvey: [],
           countrysurvey: [],
           engagedmanagers: [],
           currentuserid: '',
-          totalcompanyusers: ''
+          totalcompanyusers: '',
+          qIndex: 1,
+          squestions: ['q1'],
+          radio: [],
+          rIndex: 1,
+          checkbox: [],
+          cIndex: 1,
+          textbox: [],
+          tIndex: 1,
+          textarea: [],
+          txIndex: 1,
+          formstatus: false,
+          freezedate: '',
+          today: '',
+          organization: []
       };
       this.engagementmoods = [];
       this.mooddropdown = false;
@@ -83,9 +102,26 @@ export default class MyMood extends React.Component {
       $('.graphengagement').dropdown({
           onChange: this.onChangeGraphEngagement
       });
+
+      let today = new Date();
+      let yToday = today.getFullYear();
+      let mToday = ('0' + (today.getMonth() + 1)).slice(-2);
+      let dToday = ('0' + today.getDate()).slice(-2);
+      today = yToday + '-' + mToday + '-' + dToday;
+
+      CustomSurveyActions.getOrganization();
+      CustomSurveyStore.listen(this._onChange);
+      this.setState({formstatus: false});
+      this.setState({freezedate: today});
+      this.setState({today: today});
   }
 
   componentDidUpdate () {
+      if (this.state.customsurveytab) {
+          $('.ui.dropdown').dropdown({
+              on: 'click'
+          });
+      }
       if(this.mooddropdown) {
           $('.ui.menu .ui.dropdown').dropdown({
               on: 'click'
@@ -103,7 +139,314 @@ export default class MyMood extends React.Component {
 
   componentWillUnmount() {
       SurveyStore.unlisten(this._onMoodChange);
+
+      this.setState({qIndex: this.state.qIndex + 1});
+      CustomSurveyStore.unlisten(this._onChange);
   }
+
+  //Start: Custom survey
+  _onChange = () => {
+      this.setState({
+          isSurveySaved: CustomSurveyStore.getState().isSurveySaved,
+          organization: CustomSurveyStore.getState().organization
+      });
+  }
+
+  onSurveySubmit = (e) => {
+      e.preventDefault();
+      let form = document.querySelector('#surveyForm');
+      let data = getFormData(form, {trim: true});
+      let question = this.state.squestions;
+      let survey = survey || {};
+      //console.log(JSON.stringify(data));
+
+      survey.surveytitle = data['surveytitle'];
+      survey.freezedate = data['freezedate'];
+      survey.targetgroup = data['targetgroup'];
+      if(survey.targetgroup === 'organization') {
+          survey.target_teamid = data['target_teamid'];
+      } else {
+          survey.targetlevel = data['targetlevel'];
+          survey.targetvalue = data['targetvalue'];
+      }
+
+      survey.questions = [];
+      let keys = Object.keys(data);
+
+      for(let qid of question){
+          let id = qid.replace('q', '');
+          let qTemp = {};
+
+          qTemp.question = data['question_' + qid];
+          qTemp.question_id = id;
+          qTemp.answertype = data['answertype_' + qid];
+          qTemp.answers = [];
+
+          let rString = qid + 'r';
+          let cString = qid + 'c';
+          let tString = qid + 'te';
+          let txString = qid + 'tx';
+
+          for (let key of keys) {
+              let aTemp = {};
+              if((key.search(rString) !== -1) || (key.search(cString) !== -1))
+              {
+                  aTemp.option = data[key][0];
+                  qTemp.answers.push(aTemp);
+              }
+              if((key.search(tString) !== -1) || (key.search(txString) !== -1))
+              {
+                  aTemp.option = '';
+                  qTemp.answers.push(aTemp);
+              }
+          }
+
+          survey.questions.push(qTemp);
+      }
+
+      //Start: Form validation
+      let errorFlag = false;
+      if (survey.surveytitle === '' || survey.surveytitle === null) {
+
+          alert('Please enter survey title.');
+          errorFlag = true;
+
+      } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
+
+          alert('Please create a team or add your company first.');
+          errorFlag = true;
+
+      } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
+
+          alert('Please enter survey percentage.');
+          errorFlag = true;
+
+      } else {
+
+          for(let qid of question){
+              let id = qid.replace('q', '');
+              if(data['question_' + qid] === '' || data['question_' + qid] === null) {
+
+                  alert('Please enter question ' + id);
+                  errorFlag = true;
+                  break;
+
+              } else if(data['answertype_' + qid] === '0') {
+
+                  alert('Please choose an answer type for question ' + id);
+                  errorFlag = true;
+                  break;
+
+              } else if(data['answertype_' + qid] === 'radio') {
+
+                  let rString = qid + 'r';
+                  for (let key of keys) {
+                      if((key.search(rString) !== -1))
+                      {
+                          if (data[key][0] === '' || data[key][0] === null) {
+                              alert('Radio option empty for question ' + id);
+                              errorFlag = true;
+                              break;
+                          }
+                      }
+                  }
+
+              } else if(data['answertype_' + qid] === 'checkbox') {
+
+                  let cString = qid + 'c';
+                  for (let key of keys) {
+                      if((key.search(cString) !== -1))
+                      {
+                          if (data[key][0] === '' || data[key][0] === null) {
+                              alert('Checkbox option empty for question ' + id);
+                              errorFlag = true;
+                              break;
+                          }
+                      }
+                  }
+              }
+          }
+
+      }
+      //End: Form validation
+
+
+      if(!errorFlag) {
+          if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
+              console.log(JSON.stringify(survey));
+              CustomSurveyActions.createCustomSurveyForm(survey);
+              this.setState({formstatus: true});
+          }
+      }
+  }
+
+  onAddQuestion = (e) => {
+      e.preventDefault();
+      let qIndex = parseInt(this.state.qIndex);
+      let squestions = this.state.squestions;
+      qIndex++;
+      squestions.push('q' + qIndex);
+      this.setState({qIndex: qIndex});
+      this.setState({squestions: squestions});
+  }
+
+  onRemoveQuestion = (child) => {
+      //console.log(child.refs);
+      //console.log(child.props);
+      let qid = child.props.qid;
+      let squestions = this.state.squestions;
+      let key = squestions.indexOf(qid);
+      if(key !== -1) {
+          squestions.splice(key, 1);
+      }
+      this.setState({squestions: squestions});
+  }
+
+  onAddRadioOption = (e, child) => {
+      let rIndex = parseInt(this.state.rIndex);
+      let qid = child.props.qid;
+      let radio = this.state.radio;
+      rIndex++;
+      radio.push(qid + 'r' + rIndex);
+      this.setState({rIndex: rIndex});
+      this.setState({radio: radio});
+  }
+
+  onRemoveRadioOption = (e, child) => {
+      let rid = child.props.rid;
+      let radio = this.state.radio;
+      let key = radio.indexOf(rid);
+      if(key !== -1) {
+          radio.splice(key, 1);
+      }
+      this.setState({radio: radio});
+  }
+
+  onAddCheckboxOption = (e, child) => {
+      //console.log(child.refs);
+      //console.log(child.props);
+      let cIndex = parseInt(this.state.cIndex);
+      let qid = child.props.qid;
+      let checkbox = this.state.checkbox;
+      cIndex++;
+      checkbox.push(qid + 'c' + cIndex);
+      this.setState({cIndex: cIndex});
+      this.setState({checkbox: checkbox});
+  }
+
+  onRemoveCheckboxOption = (e, child) => {
+      let cid = child.props.cid;
+      let checkbox = this.state.checkbox;
+      let key = checkbox.indexOf(cid);
+      if(key !== -1) {
+          checkbox.splice(key, 1);
+      }
+      this.setState({checkbox: checkbox});
+  }
+
+  changeHandler = (key, attr, event) => {
+      let state = {};
+      state[key] = this.state[key] || {};
+      state[key][attr] = event.currentTarget.value;
+      this.setState(state);
+  };
+
+  onDateChange = (e) => {
+      this.setState({freezedate: e});
+  };
+
+  onSelectAnswerType = (e, child) => {
+      let qid = child.props.qid;
+      let answerType = e.target.value;
+
+      let radio = this.state.radio;
+      let checkbox = this.state.checkbox;
+      let textbox = this.state.textbox;
+      let textarea = this.state.textarea;
+
+      // Radio - Clear all the previous states against qustion id.
+      let rClear = [];
+      for(let item of radio){
+          if(item.search(qid) !== -1) {
+              rClear.push(item);
+          }
+      }
+      for(let item of rClear){
+          radio.splice(radio.indexOf(item), 1);
+      }
+      this.setState({radio: radio});
+
+      // Checkbox - Clear all the previous states against qustion id.
+      let cClear = [];
+      for(let item of checkbox){
+          if(item.search(qid) !== -1) {
+              cClear.push(item);
+          }
+      }
+      for(let item of cClear){
+          checkbox.splice(checkbox.indexOf(item), 1);
+      }
+      this.setState({checkbox: checkbox});
+
+      // Textbox - Clear all the previous states against qustion id.
+      let tClear = [];
+      for(let item of textbox){
+          if(item.search(qid) !== -1) {
+              tClear.push(item);
+          }
+      }
+      for(let item of tClear){
+          textbox.splice(textbox.indexOf(item), 1);
+      }
+      this.setState({textbox: textbox});
+
+      // Textarea - Clear all the previous states against qustion id.
+      let txClear = [];
+      for(let item of textarea){
+          if(item.search(qid) !== -1) {
+              txClear.push(item);
+          }
+      }
+      for(let item of txClear){
+          textarea.splice(textarea.indexOf(item), 1);
+      }
+      this.setState({textarea: textarea});
+
+      let aid = '';
+
+      switch(answerType){
+          case 'radio':
+            aid = qid + 'r1';
+            let nRadio = this.state.radio;
+            nRadio.push(aid);
+            this.setState({radio: nRadio});
+            break;
+          case 'checkbox':
+            aid = qid + 'c1';
+            let nCheckbox = this.state.checkbox;
+            nCheckbox.push(aid);
+            this.setState({checkbox: nCheckbox});
+            break;
+          case 'textbox':
+            aid = qid + 'te1';
+            let nTextbox = this.state.textbox;
+            nTextbox.push(aid);
+            this.setState({textbox: nTextbox});
+            break;
+          case 'textarea':
+            aid = qid + 'tx1';
+            let nTextarea = this.state.textarea;
+            nTextarea.push(aid);
+            this.setState({textarea: nTextarea});
+            break;
+          default: break;
+      }
+  }
+
+  onDateChange = (e) => {
+      this.setState({freezedate: e});
+  };
+  //End : Custom survey
 
   _onMoodChange = () => {
       this.setState({
@@ -158,22 +501,10 @@ export default class MyMood extends React.Component {
       this.setState({ popup : true });
   }
 
-  //onChangeGraphPeriod = (e) => {
-  //    e.preventDefault();
-  //    let graphperiod = e.target.value;
-  //    this.setState({ graphperiod : graphperiod });
-  //}
-
   onChangeGraphPeriod = (value) => {
       console.log(value);
       this.setState({ graphperiod : value });
   }
-
-  //onChangeGraphEngagement = (e) => {
-  //    e.preventDefault();
-  //    let graphengagement = e.target.value;
-  //    this.setState({ graphengagement : graphengagement });
-  //}
 
   onChangeGraphEngagement = (value) => {
       console.log(value);
@@ -185,17 +516,17 @@ export default class MyMood extends React.Component {
       this.mooddropdown = true;
       this.setState({
           engagementgraphtab: true,
-          quickstatisticstab : false,
+          customsurveytab : false,
           moodratingstab : false
       });
   }
 
-  quickStatisticsClick = (e) => {
+  customSurveyClick = (e) => {
       e.preventDefault();
       this.mooddropdown = false;
       this.setState({
           engagementgraphtab: false,
-          quickstatisticstab : true,
+          customsurveytab : true,
           moodratingstab : false
       });
   }
@@ -205,7 +536,7 @@ export default class MyMood extends React.Component {
       this.mooddropdown = false;
       this.setState({
           engagementgraphtab: false,
-          quickstatisticstab : false,
+          customsurveytab : false,
           moodratingstab : true
       });
   }
@@ -238,24 +569,120 @@ export default class MyMood extends React.Component {
 
 
   render() {
-      //let popup = this.state.popup;
       let surveyresults = this.state.surveyresults;
-      //let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       let graphperiod = this.state.graphperiod;
       let graphengagement = this.state.graphengagement;
       let engagementgraphtab = this.state.engagementgraphtab;
-      //let quickstatisticstab = this.state.quickstatisticstab;
+      let customsurveytab = this.state.customsurveytab;
       let moodratingstab = this.state.moodratingstab;
       let companysurvey = this.state.companysurvey;
-      //let industrysurvey = this.state.industrysurvey;
-      //let countrysurvey = this.state.countrysurvey;
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
-      //let totalcompanyusers = this.state.totalcompanyusers;
 
       let xlabel = [];
       let ydata = [];
       let yMoodData = [];
+
+      //Start : Custom survey
+      let squestions = this.state.squestions;
+      let radio = this.state.radio;
+      let checkbox = this.state.checkbox;
+      let textbox = this.state.textbox;
+      let textarea = this.state.textarea;
+      let formstatus = this.state.formstatus;
+      let freezedate = this.state.freezedate;
+      let today = this.state.today;
+      let organization = this.state.organization;
+      let statusmessage = '';
+
+      let teamoption = '';
+      let companyoption = '';
+      let teams = [];
+
+      if (organization.companyname !== '') {
+          companyoption = (<option value={organization.companyname}>
+                            {organization.companyname}
+                           </option>);
+      }
+
+      let teamdata = organization.teams;
+
+      for(let key in teamdata) {
+          let team = teamdata[key];
+          teams.push({_id: team._id, teamname: team.teamname});
+      }
+
+      teamoption = (teams).map((team) => {
+          return (<option value={team._id}>{team.teamname}</option>);
+      });
+
+      if(formstatus) {
+          statusmessage = (<div className="alert alert-success">
+                            <strong>Success!</strong> Form submitted.
+                           </div>
+                          );
+      }
+
+      let sno = 1;
+      let contents = squestions.map((qid) => {
+          let rString = qid + 'r';
+          let rArr = [];
+          for (let item of radio) {
+              if(item.search(rString) !== -1)
+              {
+                  rArr.push(item);
+              }
+          }
+
+          let cString = qid + 'c';
+          let cArr = [];
+          for (let item of checkbox) {
+              if(item.search(cString) !== -1)
+              {
+                  cArr.push(item);
+              }
+          }
+
+          let tString = qid + 'te';
+          let tArr = [];
+          for (let item of textbox) {
+              if(item.search(tString) !== -1)
+              {
+                  tArr.push(item);
+              }
+          }
+
+          let txString = qid + 'tx';
+          let txArr = [];
+          for (let item of textarea) {
+              if(item.search(txString) !== -1)
+              {
+                  txArr.push(item);
+              }
+          }
+
+          return (
+            <Question
+                qid={qid}
+                sno={sno++}
+                onClick={this.onRemoveQuestion}
+                onChange={this.onSelectAnswerType}
+                changeQuestion={this.changeHandler}
+                formdata={this.state.formdata}
+                radio={rArr}
+                removeRadio={this.onRemoveRadioOption}
+                addRadio={this.onAddRadioOption}
+                changeRadio={this.changeHandler}
+                checkbox={cArr}
+                removeCheckbox={this.onRemoveCheckboxOption}
+                addCheckbox={this.onAddCheckboxOption}
+                changeCheckbox={this.changeHandler}
+                textbox={tArr}
+                textarea={txArr}
+            /> );
+      }.bind(this));
+      //End : Custom survey
+
 
       // Start : Rate your mood
       let engagementmoods = this.engagementmoods;
@@ -277,8 +704,6 @@ export default class MyMood extends React.Component {
       let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
       let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
       let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
-      //let meVsIndustry = MoodRatings.getMeVsIndustry(industrysurvey, currentuserid);
-      //let meVsCountry = MoodRatings.getMeVsCountry(countrysurvey, currentuserid);
 
       let topthree = topThreeAreas.map((data, key) => {
 
@@ -449,11 +874,7 @@ export default class MyMood extends React.Component {
 
       // Start : Quick Statistics
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
-      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
-      //let employeeAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
-      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey);
-      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
 
       let topmanagers;
       if (engagedmanagers.length > 0) {
@@ -490,20 +911,6 @@ export default class MyMood extends React.Component {
           }
           bIndex++;
       }
-
-      //let barChartOptions = {
-      //    showScale: true,
-      //    scaleOverride: true,
-      //    scaleSteps: 6,
-      //    scaleStepWidth: 1,
-      //    scaleStartValue: 0,
-      //    scaleGridLineWidth : 1,
-      //    scaleLineWidth: 0.5,
-      //    animation: false,
-      //    barShowStroke: true,
-          //barValueSpacing : 5
-      //    barDatasetSpacing : 1
-      //};
 
       let barchartdata =  barchartdata || {};
       let bardataset = {
@@ -581,11 +988,6 @@ export default class MyMood extends React.Component {
       chartdata.labels = xlabel;
       chartdata.datasets = datasets;
       // End : Engagement Graph
-
-      //let lastRated = '';
-      //if(lastMood !== null) {
-      //    lastRated = lastMood.rating;
-      //}
 
       let myEngagement = '';
       if (myEmployeeEngagement > 0) {
@@ -665,56 +1067,144 @@ export default class MyMood extends React.Component {
           ];
       }
 
-//      let quickStatisticsTabContent = '';
-//      if (quickstatisticstab) {
-//          quickStatisticsTabContent = (
-//               <div>
-//                   <h3>Mood Ratings</h3>
-//                   <div>
-//                        <div>
-//                            <h4>My Top 3 areas</h4>
-//                            {topthree}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>My Worst 3 areas</h4>
-//                            {worstthree}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>My Most Improved Areas (Last 1 Month)</h4>
-//                            {improvedareas}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>My least improved areas (Last 1 Month)</h4>
-//                            {worstareas}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>Top 3 areas higher than company average</h4>
-//                            {topthreevscompany}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>Worst 3 areas lower than company average</h4>
-//                            {worstthreevscompany}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>Me Vs Companies (Industry)</h4>
-//                            {mevsindustry}
-//                        </div>
-//                        <br/>
-//                        <div>
-//                            <h4>Me Vs Companies (Country)</h4>
-//                            {mevscountry}
-//                        </div>
-//                        <br/>
-//                    </div>
-//               </div>
-//          );
-//      }
+      let customSurveyTabContent = '';
+      if (customsurveytab) {
+          customSurveyTabContent = (
+              <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
+            <div className="ui segment brdr-none padding-none width-rating  ">
+                <div className="clear"></div>
+                {statusmessage}
+                <div className="ui two column stackable grid container ">
+                    <div className="column">
+                        <h4 className="ui header ryt com">Custom Survey Test Generation</h4>
+                    </div>
+                    <div className="column"></div>
+                </div>
+                <form id="surveyForm">
+                <div className="custom-box">
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column ">
+                            <label className="line-height">Survey Title:</label>
+                        </div>
+                        <div className="thirteen wide column padin-lft">
+                            <div className="ui form options">
+                                <div className="inline fields">
+                                    <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} id="surveytitle" placeholder="Name of the survey"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column ">
+                            <label className="line-height">Freeze Date:</label>
+                        </div>
+                        <div className="thirteen wide column padin-lft">
+                            <div className="ui form options">
+                                <div className="inline fields">
+                                    <input type="text" ref="freezedate" name="freezedate" id="freezedate" value={freezedate} placeholder="Pick a date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column ">
+                            <label className="line-height"></label>
+                        </div>
+                        <div className="thirteen wide column padin-lft">
+                            <div className="ui form options">
+                                <div className="inline fields">
+                                    <DatePicker minDate={today} onChange={this.onDateChange}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column ">
+                            <label className="line-height"> Target Group:</label>
+                        </div>
+                        <div className="two wide column padin-lft">
+                            <div className="ui form options">
+                                <div className="inline fields">
+                                    <div className="ui radio checkbox">
+                                        <input type="radio" name="targetgroup" value="organization" defaultChecked />
+                                        <label>Org: </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ten wide column padin-lft">
+                            <div className="ui form options">
+                                <select className="ui dropdown" name="target_teamid">
+                                    <option value="0">Select company or team</option>
+                                    {companyoption}
+                                    {teamoption}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column padin-lft ">
+                            <label className="line-height"></label>
+                        </div>
+                        <div className="two wide column padin-lft">
+                            <div className="ui form ">
+                                <div className="inline fields">
+                                    <div className="ui radio checkbox">
+                                        <input type="radio" name="targetgroup" value="survey" />
+                                        <label>Survey: </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="three wide column padin-lft ">
+                            <div className="ui form options">
+                                <input type="text" name="targetvalue" palceholher="" />
+                            </div>
+                        </div>
+                        <div className="one wide column padin-lft ">
+                            <div className="ui form options">
+                                <label>%</label>
+                            </div>
+                        </div>
+                        <div className="six wide column padin-lft ">
+                            <div className="ui form options">
+                                <select className="ui dropdown" name="targetlevel">
+                                    <option value="above">Above</option>
+                                    <option value="below">Below</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="ui two column stackable grid container ">
+                    <div className="column">
+                        <h4 className="ui header ryt com">Enter Questions Here </h4>
+                    </div>
+                    <div className="column"></div>
+                </div>
+
+                {contents}
+
+                <div className="ui two column stackable grid survey test">
+                    <div className="one wide column qst-mobile"></div>
+                    <div className="fifteen wide column padin-lft">
+                        <div className="ui form options">
+                            <div className="ui form options">
+                                <div className="field">
+                                    <button className="ui submit  button blue" onClick={this.onAddQuestion}>Add Questions</button>
+                                    <button className="ui submit button submitt" onClick={this.onSurveySubmit}>Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </form>
+            </div>
+        </div>
+          );
+
+      }
 
       let moodRatingsTabContent = '';
       if (moodratingstab) {
@@ -874,14 +1364,12 @@ export default class MyMood extends React.Component {
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
-                    <a className="item mobile column" onClick={this.quickStatisticsClick} href="#"> Custom Survey </a>
+                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
                 </div>
                 {engagementGraphTabContent}
                 <div className="clear"></div>
-                <br/><br/>
-                <div className="clear"></div>
                 {moodRatingsTabContent}
-
+                {customSurveyTabContent}
           </div>
     );
   }

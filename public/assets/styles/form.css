@@ -1,4 +1,3 @@
-
 .ui.form .message:first-child {
 	margin-top: 0
 }
@@ -26,16 +25,18 @@ border-color:#e5dfa1!important
 .ui.form .field.field input:-webkit-autofill:focus {
 box-shadow:0 0 0 100px ivory inset!important;
 border-color:#d5c315!important
-}.ui.form {
+}
+.ui.form {
 	position: relative;
-	max-width: 100%
+	max-width: 70%
 }
 .ui.form>p {
 	margin: 1em 0
 }
 .ui.form .field {
 	clear: both;
-	margin: 0 0 1em
+	margin: 0 0 1em;
+	margin-left:20px;
 }
 .ui.form .field:last-child, .ui.form .fields:last-child .field {
 	margin-bottom: 0
@@ -47,9 +48,6 @@ border-color:#d5c315!important
 .ui.form .field>label {
 	display: block;
 	margin: 0 0 .28571429rem;
-	color: rgba(0,0,0,.87);
-	font-size: .92857143em;
-	font-weight: 700;
 	text-transform: none
 }
 .ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number], .ui.form textarea {
@@ -60,8 +58,8 @@ border-color:#d5c315!important
 height:1.2142em
 }
 .ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number] {
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-	margin: 0;
+
+        margin: 0;
 	outline: 0;
 	-webkit-appearance: none;
 	tap-highlight-color: rgba(255,255,255,0);
@@ -532,8 +530,28 @@ transform:rotate(360deg)
 }
 
 @media only screen and (max-width:767px) {
+.qst-mobile-1 {
+	display: block;
+	float: left;
+	color: #000;
+	font-size: 18px;
+	margin-right: 10px;
+}
+.qst-mobile {
+	display: none !important;
+	float: left;
+	color: #000;
+	font-size: 18px;
+	margin-right: 10px;
+}
+.ui.grey.circular.label {
+	max-width: 60%;
+}
+}
+
+@media only screen and (max-width:767px) {    
 .ui.form .fields>.eight.wide.field, .ui.form .fields>.eleven.wide.field, .ui.form .fields>.fifteen.wide.field, .ui.form .fields>.five.wide.field, .ui.form .fields>.four.wide.field, .ui.form .fields>.fourteen.wide.field, .ui.form .fields>.nine.wide.field, .ui.form .fields>.seven.wide.field, .ui.form .fields>.six.wide.field, .ui.form .fields>.sixteen.wide.field, .ui.form .fields>.ten.wide.field, .ui.form .fields>.thirteen.wide.field, .ui.form .fields>.three.wide.field, .ui.form .fields>.twelve.wide.field, .ui.form .fields>.two.wide.field, .ui.form .five.fields>.field, .ui.form .five.fields>.fields, .ui.form .four.fields>.field, .ui.form .four.fields>.fields, .ui.form .three.fields>.field, .ui.form .three.fields>.fields, .ui.form .two.fields>.field, .ui.form .two.fields>.fields {
-	width: 100%!important;
+	width: 100%;
 	margin: 0 0 1em;
 	padding-left: 0;
 	padding-right: 0
@@ -555,10 +573,8 @@ transform:rotate(360deg)
 	width: auto;
 	margin-top: 0;
 	margin-bottom: 0;
-	vertical-align: baseline;
-	font-size: .92857143em;
-	font-weight: 700;
-	color: rgba(0,0,0,.87);
+	
+        
 	text-transform: none
 }
 .ui.form .inline.fields>label {
@@ -603,7 +619,6 @@ transform:rotate(360deg)
 .ui.huge.form {
 	font-size: 1.42857143rem
 }
-
 .ui.message {
 	position: relative;
 	min-height: 1em;
@@ -625,7 +640,7 @@ transform:rotate(360deg)
 }
 .ui.message .header {
 	display: block;
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	font-weight: 700;
 	margin: -.14285em 0 0
 }
@@ -1887,7 +1902,7 @@ transform:rotate(360deg)
 .ui.card>.content>.header, .ui.cards>.card>.content>.header {
 	display: block;
 	margin: '';
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	color: rgba(0,0,0,.85)
 }
 .ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui) {
@@ -2052,10 +2067,6 @@ transform:rotate(360deg)
 	z-index: 5;
 	background: #fff;
 	border: none;
-	box-shadow: 0 1px 3px 0 #bcbdbd, 0 0 0 1px #d4d4d5;
-	-webkit-transform: translateY(-3px);
-	-ms-transform: translateY(-3px);
-	transform: translateY(-3px)
 }
 .ui.cards>.red.card, .ui.red.card, .ui.red.cards>.card {
 	box-shadow: 0 0 0 1px #d4d4d5, 0 2px 0 0 #db2828, 0 1px 3px 0 #d4d4d5
@@ -2857,7 +2868,7 @@ transform:rotate(360deg)
 .ui.items>.item>.content>.header {
 	display: inline-block;
 	margin: -.21425em 0 0;
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	font-weight: 700;
 	color: rgba(0,0,0,.85)
 }
@@ -3148,7 +3159,7 @@ transform:rotate(360deg)
 	margin-bottom: 0
 }
 .ui.statistic>.value, .ui.statistics .statistic>.value {
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	font-weight: 400;
 	line-height: 1em;
 	color: #1b1c1d;
@@ -3156,7 +3167,7 @@ transform:rotate(360deg)
 	text-align: center
 }
 .ui.statistic>.label, .ui.statistics .statistic>.label {
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	font-size: 1em;
 	font-weight: 700;
 	color: rgba(0,0,0,.87);
@@ -3449,7 +3460,7 @@ transform:rotate(360deg)
 }
 .ui.accordion .title:not(.ui) {
 	padding: .5em 0;
-	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	
 	font-size: 1em;
 	color: rgba(0,0,0,.87)
 }
