@@ -32,7 +32,7 @@ let chartoptions = {
     scaleGridLineWidth : 1,
     scaleSteps: 6,
     scaleStepWidth: 1,
-    responsive: false,
+    responsive: true,
     scaleStartValue: 0,
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"

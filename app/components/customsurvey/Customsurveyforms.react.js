@@ -89,7 +89,7 @@ export default class Customsurveyforms extends React.Component {
   render() {
       //let forms = this.state.forms;
       let forms = this.state.filtered;
-      let items = '';
+      let items = null;
       let sno = 1;
       items = forms.map((form) => {
           return (
