@@ -105,8 +105,8 @@ export default class Customsurveyforms extends React.Component {
               );
       });
 
+
       return (
-      <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
             <div className="ui segment brdr-none padding-none width-rating  ">
                 <div className="clear"></div>
                 <div className="ui two column stackable grid container ">
@@ -145,8 +145,7 @@ export default class Customsurveyforms extends React.Component {
                     </table>
                 </div>
             </div>
-        </div>
-    );
+      );
   }
 }
 

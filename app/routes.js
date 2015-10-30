@@ -18,7 +18,6 @@ import MyTeam from 'components/MyTeam.react';
 import Tabs from 'components/Tabs.react';
 import Surveyforms from 'components/customsurvey/Customsurveyforms.react';
 import Takesurvey from 'components/customsurvey/Takesurvey.react';
-import Takesurveybk from 'components/customsurvey/Takesurveybk.react';
 import NotFound from 'components/404.react';
 import Languages from 'components/language/Languages.react';
 import Pages from 'components/pages/Pages.react';
@@ -135,9 +134,6 @@ const routes = (
     </Route>
     <Route name="takesurvey/:key" path="/takesurvey/:key" handler={Appuser} >
       <Route name="" handler={Takesurvey} />
-    </Route>
-    <Route name="takesurveybk/:key" path="/takesurveybk/:key" handler={Appuser} >
-      <Route name="" handler={Takesurveybk} />
     </Route>
     <Route name="surveyresponses/:key" path="/surveyresponses/:key" handler={Appuser} >
       <Route name="" handler={Customsurveyresponses} />

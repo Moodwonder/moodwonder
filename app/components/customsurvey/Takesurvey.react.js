@@ -6,7 +6,7 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 
 
-export default class Takesurveybk extends React.Component {
+export default class Takesurvey extends React.Component {
 
   constructor(props) {
       super(props);
@@ -158,18 +158,23 @@ export default class Takesurveybk extends React.Component {
           }
 
 
-          return (
-                <div className="column" id={qno}>
-                    <div className="ui grey circular label">Q.{qno}</div>
-                    <div className="ui left pointing label"> {question.question} </div>
-                    <div className="ui form options">
+          return ([
+                    <div className="one wide column qst-mobile" id={qno}>
+                        <div className="ui grey circular label"> Q.{qno}</div>
                         <input type="hidden" name={'questionid_' + qno} value={question.question_id} />
-                        <input type="hidden" name={'question_' + qno} value={question.question}/>
+                        <input type="hidden" name={'question_' + qno} value={question.question} />
                         <input type="hidden" name={'answer_type_' + qno} value={question.answertype} />
-                        {ansoptions}
+                    </div>,
+
+                    <div className="fifteen wide column padin-lft">
+                        <div className="ui left pointing label"> <span className="qst-mobile-1">Q.{qno}</span> {question.question} </div>
+                        <div className="ui form options">
+                            <div className="ui form options">
+                                {ansoptions}
+                            </div>
+                        </div>
                     </div>
-                </div>
-              );
+          ]);
       });
 
       if(formstatus) {
@@ -182,46 +187,58 @@ export default class Takesurveybk extends React.Component {
       let content = '';
       if (today > form.freezedate) {
           content = (
-                  <div>
-                    <label>Survey expired.</label>
-                  </div>
-                  );
-
-      } else {
-          content = (
-            <div className="ui segment brdr-none padding-none width-rating  ">
-                <div className="clear"></div>
-                <div className="ui two column stackable grid container">
-                    <div className="column">
-                        <h4 className="ui header ryt com">{form.surveytitle}</h4>
-                    </div>
-                    <div className="column"></div>
-                    {statusmessage}
-                    <form id="surveyForm">
-                        <input type="hidden" name="surveyid" value={form._id} />
-                        <input type="hidden" name="surveytitle" value={form.surveytitle} />
-                        <div className="column survey">
-                            {fields}
-                            <div className="column">
+                        <div className="ui two column stackable grid survey">
+                            <div className="one wide column qst-mobile"></div>
+                            <div className="fifteen wide column padin-lft">
                                 <div className="ui form options">
-                                    <div className="field">
-                                        <button className="ui submit button cancel" onClick={this.onCancelSurvey}>Cancel</button>
-                                        <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+                                    <div className="ui form options">
+                                        <div className="field">
+                                            <label>Survey expired.</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                  );
+
+      } else {
+          content = (
+                    <form id="surveyForm">
+                        <input type="hidden" name="surveyid" value={form._id} />
+                        <input type="hidden" name="surveytitle" value={form.surveytitle} />
+
+                        <div className="ui two column stackable grid survey">
+                            {fields}
+                            <div className="one wide column qst-mobile"></div>
+                            <div className="fifteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="ui form options">
+                                        <div className="field">
+                                            <button className="ui submit  button cancel" onClick={this.onCancelSurvey}>Cancel</button>
+                                            <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </form>
-                </div>
-            </div>
           );
       }
 
 
       return (
-        <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
-            {content}
-        </div>
+                <div className="ui segment brdr-none padding-none width-rating  ">
+                    <div className="clear"></div>
+                    <div className="ui two column stackable grid container ">
+                        <div className="column">
+                            <h4 className="ui header ryt com">{form.surveytitle}</h4>
+                        </div>
+                        <div className="column"></div>
+                        {statusmessage}
+                    </div>
+                    {content}
+                </div>
     );
   }
 }
