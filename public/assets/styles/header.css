@@ -729,6 +729,8 @@ a.ui.inverted.grey.header:hover {
 .header-middle-container {float:left;padding:20px 30px 20px 0;}
 .header-middle-container:last-child {float:left;padding:20px 0px 20px 0;}
 
+.header-middle-container .ui.yellow.button{width:auto!important;}
+
 /*******************************
          Theme Overrides
 *******************************/

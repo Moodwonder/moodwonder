@@ -149,7 +149,7 @@ export default class Navigation extends React.Component {
                       <button className="ui yellow button" id="test" onClick={this.onSubmitMood}>Submit</button>
                   </div>
                   <div  className="header-middle-container">
-                      <button className="ui positive button answer">Answer all statements</button>
+                      <a href="/survey" className="ui positive button answer">Answer all statements</a>
                   </div>
               </div>
         ];

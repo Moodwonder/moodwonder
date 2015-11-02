@@ -3,9 +3,9 @@
 }
 .ui.form .field .prompt.label {
 	white-space: normal;
-	background: #fff!important;
-	border: 1px solid #e0b4b4!important;
-	color: #9f3a38!important
+	background: #fff;
+	border: 1px solid #e0b4b4;
+	color: #9f3a38
 }
 .ui.form .inline.field .prompt, .ui.form .inline.fields .field .prompt {
 	vertical-align: top;
@@ -36,7 +36,7 @@ border-color:#d5c315!important
 .ui.form .field {
 	clear: both;
 	margin: 0 0 1em;
-	margin-left:20px;
+	margin-left: 20px;
 }
 .ui.form .field:last-child, .ui.form .fields:last-child .field {
 	margin-bottom: 0
@@ -47,7 +47,7 @@ border-color:#d5c315!important
 }
 .ui.form .field>label {
 	display: block;
-	margin: 0 0 .28571429rem;	
+	margin: 0 0 .28571429rem;
 	text-transform: none
 }
 .ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number], .ui.form textarea {
@@ -58,18 +58,17 @@ border-color:#d5c315!important
 height:1.2142em
 }
 .ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number] {
-	
 	margin: 0;
 	outline: 0;
 	-webkit-appearance: none;
 	tap-highlight-color: rgba(255,255,255,0);
 	line-height: 1.2142em;
-	padding: .67861429em 1em;
+	padding: .67861429em 1em ;
 	font-size: 1em;
 	background: #fff;
 	border: 1px solid rgba(34,36,38,.15);
 	color: rgba(0,0,0,.87);
-	border-radius: .28571429rem;
+	border-radius: 2px;
 	box-shadow: 0 0 0 0 transparent inset;
 	-webkit-transition: color .1s ease, border-color .1s ease;
 	transition: color .1s ease, border-color .1s ease
@@ -234,7 +233,7 @@ color:#da9796
 	display: flex
 }
 .ui.form .field.error .input, .ui.form .field.error label, .ui.form .fields.error .field .input, .ui.form .fields.error .field label {
-	color: #9f3a38
+	color: #EF5350;
 }
 .ui.form .field.error .corner.label, .ui.form .fields.error .field .corner.label {
 	border-color: #9f3a38;
@@ -242,7 +241,7 @@ color:#da9796
 }
 .ui.form .field.error input:not([type]), .ui.form .field.error input[type=text], .ui.form .field.error input[type=email], .ui.form .field.error input[type=search], .ui.form .field.error input[type=password], .ui.form .field.error input[type=date], .ui.form .field.error input[type=datetime-local], .ui.form .field.error input[type=tel], .ui.form .field.error input[type=time], .ui.form .field.error input[type=url], .ui.form .field.error input[type=number], .ui.form .field.error select, .ui.form .field.error textarea, .ui.form .fields.error .field input:not([type]), .ui.form .fields.error .field input[type=text], .ui.form .fields.error .field input[type=email], .ui.form .fields.error .field input[type=search], .ui.form .fields.error .field input[type=password], .ui.form .fields.error .field input[type=date], .ui.form .fields.error .field input[type=datetime-local], .ui.form .fields.error .field input[type=tel], .ui.form .fields.error .field input[type=time], .ui.form .fields.error .field input[type=url], .ui.form .fields.error .field input[type=number], .ui.form .fields.error .field select, .ui.form .fields.error .field textarea {
 	background: #fff6f6;
-	border-color: #e0b4b4;
+	border-color: #EF5350;
 	color: #9f3a38;
 	border-radius: '';
 	box-shadow: none
@@ -573,8 +572,6 @@ transform:rotate(360deg)
 	width: auto;
 	margin-top: 0;
 	margin-bottom: 0;
-
-
 	text-transform: none
 }
 .ui.form .inline.fields>label {
@@ -622,15 +619,14 @@ transform:rotate(360deg)
 .ui.message {
 	position: relative;
 	min-height: 1em;
-	margin: 1em 0;
-	background: #f8f8f9;
+	
+	
 	padding: 1em 1.5em;
 	line-height: 1.4285em;
 	color: rgba(0,0,0,.87);
-	-webkit-transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
-	transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
-	border-radius: .28571429rem;
-	box-shadow: 0 0 0 1px rgba(34,36,38,.22) inset, 0 0 0 0 transparent
+	
+	
+	
 }
 .ui.message:first-child {
 	margin-top: 0
@@ -640,7 +636,6 @@ transform:rotate(360deg)
 }
 .ui.message .header {
 	display: block;
-	
 	font-weight: 700;
 	margin: -.14285em 0 0
 }
@@ -836,7 +831,7 @@ transform:rotate(360deg)
 	color: #9f3a38
 }
 .ui.attached.error.message, .ui.error.message {
-	box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent
+	
 }
 .ui.error.message .header {
 	color: #912d2b
@@ -1902,7 +1897,6 @@ transform:rotate(360deg)
 .ui.card>.content>.header, .ui.cards>.card>.content>.header {
 	display: block;
 	margin: '';
-	
 	color: rgba(0,0,0,.85)
 }
 .ui.card>.content>.header:not(.ui), .ui.cards>.card>.content>.header:not(.ui) {
@@ -2868,7 +2862,6 @@ transform:rotate(360deg)
 .ui.items>.item>.content>.header {
 	display: inline-block;
 	margin: -.21425em 0 0;
-	
 	font-weight: 700;
 	color: rgba(0,0,0,.85)
 }
@@ -3159,7 +3152,6 @@ transform:rotate(360deg)
 	margin-bottom: 0
 }
 .ui.statistic>.value, .ui.statistics .statistic>.value {
-	
 	font-weight: 400;
 	line-height: 1em;
 	color: #1b1c1d;
@@ -3167,7 +3159,6 @@ transform:rotate(360deg)
 	text-align: center
 }
 .ui.statistic>.label, .ui.statistics .statistic>.label {
-	
 	font-size: 1em;
 	font-weight: 700;
 	color: rgba(0,0,0,.87);
@@ -3460,7 +3451,6 @@ transform:rotate(360deg)
 }
 .ui.accordion .title:not(.ui) {
 	padding: .5em 0;
-	
 	font-size: 1em;
 	color: rgba(0,0,0,.87)
 }
@@ -3913,4 +3903,41 @@ transform:rotate(360deg)
 .ui.checkbox input:indeterminate~.box:after, .ui.checkbox input:indeterminate~label:after {
 	font-size: 12px;
 	content: '\e801'
+}
+.validation .ui.labels .red.label::before, .ui.red.labels .label::before, .ui.red.label::before {
+	white-space: normal;
+	background: #fff!important;
+	border: 1px solid #EF5350!important;
+	color: #fff !important;
+}
+.validation .ui.pointing.label::before, .ui.label[class*="pointing above"]::before {
+	transform: translateX(-50%) translateY(-50%) rotate(45deg)!important;
+	top: -1px;
+	left: 50%;
+	border-width: 1px 0px 0px 1px!important;
+}
+.validation .ui.form .field .prompt.label {
+	white-space: normal;
+	background: #ccc!important;
+	border: 1px solid #ccc !important;
+	color: #fff !important;
+}
+.login .ui.form {max-width:100%!important;background:none;box-shadow:none!important;border:none!important;
+}
+
+
+.login .ui.form .ui.stacked.segments::before, .ui.stacked.segments::after, .ui.stacked.segment::before, .ui.stacked.segment::after {background:none!important;border:none!important;}
+
+
+.login  .ui.form .field {
+    clear: both;
+    margin: 0px 0px 1em 0px;
+}
+
+.login .ui.header > .image, .ui.header > img {
+    display: inline-block;
+    margin-top: 0;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
 }

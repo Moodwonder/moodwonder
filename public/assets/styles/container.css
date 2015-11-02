@@ -312,7 +312,7 @@
 	padding-bottom: 0!important;
 }
 .rate {
-	display: block!important;
+	display: none!important;
 	width: 100%;
 }
 .header-middle-container {
@@ -699,8 +699,8 @@ h4.header.com {
 	font-size: 18px!important;
 	text-align: left;
 	float: left;
-	padding: 20px 0em 20px 0px!IMPORTANT;
-	color: #EF5350!IMPORTANT;
+	padding: 0px 0em 20px 0px!IMPORTANT;
+	color: #26A69A!IMPORTANT;
 }
 h2.com {
 	text-align: left!important;
@@ -874,13 +874,77 @@ h2.com {
 	float: right;
 }
 .survey-test .ui.labeled.button:not(.icon) {
-    display: inline-flex;
-    flex-direction: row;
-    background: transparent none repeat scroll 0px 0px !important;
-    padding: 0px !important;
-    border: medium none !important;
-    box-shadow: none !important;
+	display: inline-flex;
+	flex-direction: row;
+	background: transparent none repeat scroll 0px 0px !important;
+	padding: 0px !important;
+	border: medium none !important;
+	box-shadow: none !important;
 }
+.login {
+	background: #26A69A url(../../assets/images/bg-1.png) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+.login .ui.input input {
+	margin: 0px auto 0px!important;
+	width: 100%;
+	outline: medium none;
+	text-align: center;
+	font-family: "Roboto", sans-serif;
+	line-height: 54px;
+	height: 54px;
+	background: #FFF none repeat scroll 0% 0%;
+	border: 1px solid rgba(34, 36, 38, 0.15);
+	color: rgba(0, 0, 0, 0.87);
+	border-radius: 2px;
+	transition: background-color 0.1s ease 0s, box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
+	box-shadow: none;
+	padding: 0px 4px;
+	text-transform: uppercase;
+}
+.login .ui.yellow.buttons .button, .ui.yellow.button {
+	background-color: #FBBD08;
+	color: #ffffff!important;
+	text-shadow: none;
+	background-image: none;
+	text-transform: uppercase;
+	font-size: 16px;
+	text-align: center;
+	width: 100%!important;
+	padding: 0 10px;
+	
+	webkit-transition: background-color 100ms linear;
+	-moz-transition: background-color 100ms linear;
+	-o-transition: background-color 100ms linear;
+	-ms-transition: background-color 100ms linear;
+	transition: background-color 100ms linear;
+	margin: 0!important;
+}
+.ui.orange.button {
+}
+.login .ui.yellow.buttons .button:hover, .ui.yellow.button:hover {
+	background-color: #eaae00;
+	color: #fff;
+	text-shadow: none;
+}
+.login .ui.input {
+    position: relative;
+    display: inline-flex;
+    color: #CFD8DC;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+}
+.login a {
+    color:#fff;
+}
+
+.login .ui.input[class*="left icon"] > input { padding:0!important;}
+
+.login .ui.segment {padding:20px 10px!important;}
 /* Start: Edited by Dev */
 meter {
     width: 100%;

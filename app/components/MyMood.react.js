@@ -91,18 +91,6 @@ export default class MyMood extends React.Component {
       SurveyActions.getMostEngagingManagers();
       SurveyStore.listen(this._onMoodChange);
 
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
-      });
-
-      $('.graphperiod').dropdown({
-          onChange: this.onChangeGraphPeriod
-      });
-
-      $('.graphengagement').dropdown({
-          onChange: this.onChangeGraphEngagement
-      });
-
       let today = new Date();
       let yToday = today.getFullYear();
       let mToday = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -114,11 +102,23 @@ export default class MyMood extends React.Component {
       this.setState({formstatus: false});
       this.setState({freezedate: today});
       this.setState({today: today});
+
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
+
+      $('.graphperiod').dropdown({
+          onChange: this.onChangeGraphPeriod
+      });
+
+      $('.graphengagement').dropdown({
+          onChange: this.onChangeGraphEngagement
+      });
   }
 
   componentDidUpdate () {
       if (this.state.customsurveytab) {
-          $('.ui.dropdown').dropdown({
+          $('#surveyForm .ui.dropdown').dropdown({
               on: 'click'
           });
       }
@@ -502,12 +502,10 @@ export default class MyMood extends React.Component {
   }
 
   onChangeGraphPeriod = (value) => {
-      console.log(value);
       this.setState({ graphperiod : value });
   }
 
   onChangeGraphEngagement = (value) => {
-      console.log(value);
       this.setState({ graphengagement : value });
   }
 
