@@ -1,12 +1,8 @@
 import React from 'react';
 import TeamActions from 'actions/TeamActions';
 import TeamStore from 'stores/TeamStore';
-import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
-import Editable from 'components/Editable.react';
-import AddAnotherUI from 'components/AddAnotherUI.react';
 
 export default class MyTeam extends React.Component {
 
@@ -42,9 +38,9 @@ export default class MyTeam extends React.Component {
       this.setState(state);
   }
 
-  _onSaveSubmit = (model) => {
-      console.log(model);
-      TeamActions.createTeam(model);
+  _onSaveSubmit = () => {
+      let teamname = React.findDOMNode(this.refs.teamname).value.trim();
+      TeamActions.createTeam({ teamname: teamname });
   }
 
   _onUpdateTeamName = (model) => {
@@ -70,141 +66,277 @@ export default class MyTeam extends React.Component {
 
   render() {
 
-      let CreateTeamUI;
-
       let message;
 
       let messages;
 
       let teamUserList;
 
-      let addTeamsWidget;
-
       if(this.state.hasTeam){
-
-          addTeamsWidget = (<AddAnotherUI data={ this.state.teams } id={1} onSave={this._onAddMemberSubmit} />);
 
           teamUserList = this.state.teams.map((data, key) => {
 
               let members;
               members = data.members.map((mem, key) => {
                   return (
-                    <div className="row">
-                      <div className="col-sm-4">{mem.member_email}</div>
-                      <div className="col-sm-4">{mem.member_name}</div>
-                      <div className="col-sm-4"><a onClick={this.onRemoveMember.bind(this,data._id,mem._id,mem.usertype)} > Remove</a></div>
+                    <div className="field ui  three column stackable grid sub">
+                      <label className="column">{mem.member_email}</label>
+                      <label className="column">{mem.member_name}</label>
+                      <a onClick={this.onRemoveMember.bind(this,data._id,mem._id,mem.usertype)} className="action column right">
+                        <i className="trash outline icon"></i>
+                      </a>
                     </div>
                   );
               });
               return [
-                  <li className="list-group-item">
-                   <Editable onSave={this._onUpdateTeamName} teamid={data._id} value={data.name} />
-                  </li>,
-                  <li className="list-group-item">
-                    <div className="row">
-                      <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
+                   <EditableMyTeam onSave={this._onUpdateTeamName} teamid={data._id} value={data.name} />,
+                   <h4>PRFL_TEAM_SUBORDINATES</h4>,
+                    <div className=" field">
+                        {members}
+                        <AddAnotherMember options={{team_id: data._id, onsave: this._onAddMemberSubmit}} />
                     </div>
-                    {members}
-                    <br></br>
-                    <div className="row">
-                      <div className="col-sm-4">
-                        <Formsy.Form onValidSubmit={this._onAddMemberSubmit} >
-
-                          <MyOwnInput
-                          name="membername"
-                          className="form-control"
-                          placeholder="Work email"
-                          required/>
-
-                          <MyOwnInput
-                          type="hidden"
-                          name="team_id"
-                          value={data._id}
-                          required/>
-
-                          <button type="submit" className="btn btn-default"
-                          disabled={!this.state.canSubmitAddMember}>Submit</button>
-                        </Formsy.Form>
-                      </div>
-                      <div className="col-sm-8"></div>
-                    </div>
-                  </li>
               ];
           });
       }
 
-      if (this.state.messages  && this.state.messages[0] !== undefined ) {
+      return (
+            <div className="ui segment">
+              {messages}
+              {message}
+                <h4 className="ui header ryt">MY TEAM</h4>
+                <div className="ui small form">
+                    <h3 className="ui dividing header">PRFL_TEAM_TOP_MSG</h3>
+                    <AddTeam />
+                    {teamUserList}
+                </div>
+            </div>
+      );
+  }
+}
 
-          console.log(this.state.messages[0]);
+class AddAnotherMember extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state =
+          {
+            showform: 'none'
+          };
+  }
+
+  componentDidMount() {
+      TeamStore.listen(this._onChange);
+  }
+
+  _onChange = (state) => {
+      this.setState(state);
+  }
+
+  componentWillReceiveProps(e) {
+      // to set default
+      this.setState({Edit: false, value: this.props.value });
+  }
+
+  onShowFormClick = () => {
+      this.setState({ showform: 'block' });
+  }
+
+  onSaveClick = () => {
+
+      let membername = React.findDOMNode(this.refs.membername).value.trim();
+      let team_id = this.props.options.team_id;
+      // let feedback = this.props.options.onsave({ team_id: this.props.options.team_id, membername: membername });
+      // callback is a unique string to identify the componet to display the message
+      let model = { callback: team_id, team_id: team_id, membername: membername };
+      if(typeof model.membername === 'string'){
+          model.membername = [model.membername];
+      }
+      TeamActions.addMemberToTeam(model);
+  }
+
+  render() {
+
+      let messages;
+
+      if (this.state.messages  && this.state.messages[0] !== undefined && this.state.serverresponse.callback === this.props.options.team_id) {
+
           let wrapper = this.state.messages.map((value, key) => {
-              return [<div>{value}</div>];
+              return [<li>{value}</li>];
           });
           messages = (
-              <div className='alert alert-info'>
+              <div className="ui error message" style={{ display: 'block' }} >
+                <ul className="list">
                   {wrapper}
-              </div>
-          );
-
-      }
-
-      if (this.state.CreateTeamForm) {
-          CreateTeamUI = (
-              <div className="col-sm-8">
-              <ul className="list-group">
-              <li className="list-group-item">
-              <Formsy.Form onValidSubmit={this._onSaveSubmit}
-                onValid={this.enableButton}
-                onInvalid={this.disableButton} >
-
-                 <MyOwnInput
-                 name="teamname"
-                 className="form-control"
-                 placeholder="My team name"
-                 validationError="Team name is required"
-                 required/>
-
-                 <button type="submit" className="btn btn-default"
-                 disabled={!this.state.canSubmit}>Submit</button>
-              </Formsy.Form>
-              </li>
-              </ul>
+                </ul>
               </div>
           );
       }
 
       return (
-        <div className="container">
-          <Submenu />
-          <h2>MY TEAM</h2>
-          <div className="well">
-            <div className="row">
-              <div className="col-sm-6">To fully utilize moodwonder, We recommed that you setup your suboridinates</div>
-              <div className="col-sm-4"><button type="button" onClick={this.showCreateTeamForm} className="btn btn-primary">Create Team</button></div>
+        <div>
+        <h4  onClick={this.onShowFormClick}  className="ui dividing header"><a><i className="add circle icon large"></i></a>PRFL_TEAM_ADD_ANOTHER</h4>
+        <div style={{ display: this.state.showform }} id="add" className="form">
+            {messages}
+            <div className="field ui  two column stackable grid " >
+                <div className="column">
+                    <label >PRFL_TEAM_WRK_EML</label>
+                </div>
+                <div className="column">
+                    <input placeholder="PRFL_TEAM_WRK_EML" ref="membername" type="text" />
+                </div>
             </div>
-
-            <div className="login">
-              {messages}
-              {message}
-              <br></br>
-            <div className="row">
-              {CreateTeamUI}
-            </div>
-            <br></br>
-            <div className="row">
-              <div className="col-sm-8">
-                <ul className="list-group">
-                  {teamUserList}
-                </ul>
-              </div>
-              <div className="col-sm-4">
-                 {addTeamsWidget}
-              </div>
-            </div>
-            </div>
+            <h3 className="ui dividing header"> </h3>
+            <div onClick={this.onSaveClick} className="ui submit  button submitt">PRFL_TEAM_SUBORDINATES_SAVE</div>
         </div>
         </div>
       );
+  }
+}
 
+class AddTeam extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state =
+          {
+            showform: 'none'
+          };
+  }
+
+  componentDidMount() {
+      TeamStore.listen(this._onChange);
+  }
+
+  _onChange = (state) => {
+      this.setState(state);
+  }
+
+  onShowFormClick = () => {
+      this.setState({ showform: 'block' });
+  }
+
+  _onSaveSubmit = () => {
+      let teamname = React.findDOMNode(this.refs.teamname).value.trim();
+      TeamActions.createTeam({ callback: 'addteam',teamname: teamname });
+  }
+
+  render() {
+
+      let messages;
+
+      if ( this.state.message !== undefined && this.state.message !== '' && this.state.serverresponse.callback === 'addteam' ) {
+
+          messages = (
+              <div className="ui error message" style={{ display: 'block' }} >
+                {this.state.message}
+              </div>
+          );
+      }
+
+      let CreateTeamUI = [
+        <h3 className="ui dividing header" >
+            <i className="add user icon"></i>
+            <label>PRFL_TEAM_ADD_TEAM</label>
+            <a className="action"  onClick={this.onShowFormClick}>
+                <i className="write icon"></i>
+            </a>
+        </h3>,
+        <div style={{ display: this.state.showform }} id="add" className="form">
+            {messages}
+            <div className="field ui  two column stackable grid " >
+                <div className="column">
+                    <label>PRFL_TEAM_NAME</label>
+                </div>
+                <div className="column">
+                    <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text" />
+                </div>
+            </div>
+            <div onClick={this._onSaveSubmit} className="ui submit  button submitt">PRFL_TEAM_SAVE</div>
+        </div>
+      ];
+
+      return (
+        <div>
+            {CreateTeamUI}
+        </div>
+      );
+  }
+}
+
+class EditableMyTeam extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state =
+          {
+            showform: 'none',
+            value:props.value
+          };
+  }
+
+  componentDidMount() {
+      TeamStore.listen(this._onChange);
+  }
+
+  _onChange = (state) => {
+      this.setState(state);
+  }
+
+  componentWillReceiveProps(e) {
+      // to set default
+      this.setState({ value: this.props.value });
+  }
+
+  changeValue = (event) => {
+      this.setState({value:event.target.value});
+  }
+
+  onShowFormClick = () => {
+      this.setState({ showform: 'block' });
+  }
+
+  onSaveClick = (teamname,teamid) => {
+      if(this.props.value !== this.state.value && teamname.trim() !== ''){
+          this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
+      }
+  }
+
+  render() {
+
+      let messages;
+
+      if (this.state.message !== undefined && this.state.message !== '' && this.state.serverresponse.callback === this.props.teamid) {
+
+          messages = (
+              <div className="ui error message" style={{ display: 'block' }} >
+                {this.state.message}
+              </div>
+          );
+      }
+
+      return (
+        <div>
+            <h3 className="ui dividing header" >
+                <i className="add user icon"></i>
+                <label>{this.props.value}</label>
+                <a className="action"  onClick={this.onShowFormClick}>
+                    <i className="write icon"></i>
+                </a>
+            </h3>
+            <div style={{ display: this.state.showform }} id="add" className="form">
+                {messages}
+                <div className="field ui  two column stackable grid " >
+                    <div className="column">
+                        <label>PRFL_TEAM_NAME</label>
+                    </div>
+                    <div className="column">
+                        <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text"  onChange={this.changeValue} value={this.state.value} />
+                    </div>
+                </div>
+                <div onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} className="ui submit  button submitt">PRFL_TEAM_SAVE</div>
+            </div>
+        </div>
+      );
   }
 }
 MyTeam.contextTypes = { router: React.PropTypes.func };

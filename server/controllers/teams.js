@@ -38,6 +38,7 @@ exports.checkTeam = function(req, res, next) {
 			if(existingTeam) {
 				response.status = false;
 				response.message = "Team name is already exist within your company";
+				response.callback = req.body.callback;
 				res.send(response);
 				res.end();
 			}else{
@@ -67,8 +68,6 @@ exports.checkTeam = function(req, res, next) {
 		res.send(response);
 		res.end();
 	}
-
-
 };
 
 /**
@@ -99,6 +98,7 @@ exports.createTeam = function(req, res, next) {
           console.log(err);
           response.status   = false;
           response.message  = 'Something went wrong..';
+          response.callback = req.body.callback;
           res.send(response);
           res.end();
       }
@@ -114,6 +114,7 @@ exports.updateTeam = function(req, res, next) {
 
   var teamname = req.body.teamname;
   var teamid   = req.body.teamid;
+  var callback = req.body.callback;
 
   var where = { "_id" : new ObjectId(teamid), "manager_id" : new ObjectId(req.user._id) };
   // console.log(where);
@@ -124,11 +125,13 @@ exports.updateTeam = function(req, res, next) {
 			if(err){
 				response.status = false;
 				response.message = "Something went wrong";
+				response.callback = callback;
 				res.send(response);
 				res.end();
 			}else{
 				response.status = true;
 				response.message = "Team name updated";
+				response.callback = callback;
 				res.send(response);
 				res.end();
 			}
@@ -182,6 +185,7 @@ exports.addMemberToTeam = function(req, res, next) {
 			response.status = false;
 			response.message = '';
 			response.messages = feedback;
+			response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
 			res.send(response);
 			res.end();
 		}

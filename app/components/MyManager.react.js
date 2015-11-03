@@ -1,11 +1,8 @@
 import React from 'react';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import { MyOwnInput } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
-import InviteOthers from 'components/InviteOthers.react';
 
 
 export default class MyManager extends React.Component {
@@ -15,6 +12,7 @@ export default class MyManager extends React.Component {
       mixins(Navigation, this);
       this.state = UserStore.getState();
       this.state.canSubmit = false;
+      this.state.mymanager = '';
       this.validationErrors = {};
   }
 
@@ -36,11 +34,20 @@ export default class MyManager extends React.Component {
   }
 
   _onChange = (state) => {
+      state.mymanager = this.state.userDetails.mymanager;
       this.setState(state);
   }
 
   _onSaveSubmit = (model) => {
-      UserActions.saveManagerInfo(model);
+
+      let email = React.findDOMNode(this.refs.email).value.trim();
+      let data  = { type: 'savemanager', email: email };
+      UserActions.saveManagerInfo(data);
+  }
+
+  changeValue = (event) => {
+      let mymanager = { mymanager: event.target.value };
+      this.setState(mymanager);
   }
 
   render() {
@@ -53,44 +60,39 @@ export default class MyManager extends React.Component {
 
       if (this.state.message !== '' ) {
           message = (
-              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
+              <div className="ui error message" style={{ display: 'block' }} >
                 {this.state.message}
               </div>
           );
       }
 
       renderedResult = (
-        <div className="container">
-          <Submenu />
-          <h2>My Manager</h2>
-          {message}
-          <Formsy.Form onValidSubmit={this._onSaveSubmit}
-            onValid={this.enableButton}
-            onInvalid={this.disableButton} >
+        <div className="ten wide column">
+          <div className="ui segment">
+           <h4 className="ui header ryt">PRFL_MNGR_MYMANAGER</h4>
+                {message}
+               <div className="ui small form">
+                <h3 className="ui dividing header">PRFL_MNGR_TOP_MSG</h3>
 
-            <MyOwnInput
-            name="email"
-            autocomplete="off"
-            className="form-control"
-            value={userInfo.mymanager}
-            placeholder="Work Email"
-            validations="isEmail"
-            validationError="This is not a valid email"
-            required/>
-
-            <MyOwnInput
-            name="type"
-            type="hidden"
-            value="savemanager"
-            required/>
-
-            <button type="submit" className="btn btn-default"
-            disabled={!this.state.canSubmit}>Submit</button>
-          </Formsy.Form>
-          <InviteOthers />
+                    <div className=" field">
+                        <div className="field ui two column stackable grid container">
+                            <label className="column"><i className="privacy icon large"></i>PRFL_MNGR_ROL</label>
+                            <label className="column"> Manager </label>
+                        </div>
+                        <div className="field ui two column stackable grid container">
+                            <label className="column"><i className="mail icon large"></i>PRFL_MNGR_EMAIL</label>
+                            <label className="column"> {userInfo.mymanager} </label>
+                        </div>
+                        <div className="field ui two column stackable grid container">
+                            <label className="column"><i className="user icon large"></i>PRFL_MNGR_CHNG_MNGR</label>
+                            <label className="column"> <input placeholder="Work Email" ref="email" type="email" onChange={this.changeValue} value={this.state.mymanager} /></label>
+                        </div>
+                        <div className="ui submit  button cancel">PRFL_MNGR_CANCEL</div><div onClick={this._onSaveSubmit} className="ui submit button submitt">PRFL_MNGR_SUBMIT</div>
+                    </div>
+               </div>
+          </div>
         </div>
       );
-
 
       return (
           <div className="login">

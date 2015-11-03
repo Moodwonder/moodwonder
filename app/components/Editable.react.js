@@ -1,10 +1,9 @@
 import React from 'react';
-
 /*
  * Component for Editable UI
  *
  */
-export default class Editable extends React.Component {
+export class Editable extends React.Component {
 
   constructor(props) {
       super(props);
@@ -74,3 +73,4 @@ export default class Editable extends React.Component {
       );
   }
 }
+// export { Editable as default, EditableMyTeam };
