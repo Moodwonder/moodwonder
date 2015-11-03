@@ -7,6 +7,7 @@ import Languageoptions from 'components/pages/Languageoptions.react';
 import Homepage from 'components/pages/Homepage.react';
 import Signuppage from 'components/pages/Signuppage.react';
 import Loginpage from 'components/pages/Loginpage.react';
+import Mwusertheme from 'components/pages/Mwusertheme.react';
 import RequireAuth from 'utils/requireAuth';
 
 
@@ -118,6 +119,33 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+    /**
+   * Login page submit
+   */
+  onSubmitMwusertheme = (e) => {
+      let formData = document.querySelector('#mwuserthemeForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let usertheme = usertheme || {};
+
+      usertheme.language = data['language'];
+      usertheme.L_MYMOOD_LINK = data['L_MYMOOD_LINK'];
+      usertheme.L_MYACCOUNT_LINK = data['L_MYACCOUNT_LINK'];
+      usertheme.L_MYCOMPANY_LINK = data['L_MYCOMPANY_LINK'];
+      usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
+      usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
+      usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
+      usertheme.L_INVITE_BTN = data['L_INVITE_BTN'];
+      usertheme.L_MYPROFILE_LINK = data['L_MYPROFILE_LINK'];
+      usertheme.L_LOGOUT_LINK = data['L_LOGOUT_LINK'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'mwusertheme', usertheme);
+          this.setState({formstatus: true});
+      }
+  }
+
+
   render() {
       let languages = this.state.languages;
       let page = this.state.page;
@@ -148,6 +176,10 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Loginpage language={this.state.language} onClick={this.onSubmitLogin}/>);
               break;
 
+          case 'mwusertheme':
+              contents = (<Mwusertheme language={this.state.language} onClick={this.onSubmitMwusertheme}/>);
+              break;
+
           default: break;
       }
 
@@ -164,6 +196,7 @@ export default RequireAuth(class Pages extends React.Component {
                     <option value="home">Home</option>
                     <option value="signup">Signup</option>
                     <option value="login">Login</option>
+                    <option value="mwusertheme">Mwusertheme</option>
                 </select>
             </div>
           </div>

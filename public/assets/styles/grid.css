@@ -33,7 +33,7 @@
           align-items: stretch;
   padding: 0em;
 }
-.ui.bottom.attached.segment.brdr-none.menu .ui.grid{margin:0} 
+.ui.bottom.attached.segment.brdr-none.menu .ui.grid{margin:0;} 
 /*----------------------
       Remove Gutters
 -----------------------*/
@@ -1374,7 +1374,7 @@
 .ui.grid > .yellow.row,
 .ui.grid > .yellow.column,
 .ui.grid > .row > .yellow.column {
-  background-color: #fbbd08 !important;
+  background-color:  !important;
   color: #ffffff;
 }
 
@@ -1689,7 +1689,7 @@
     width: 100% !important;
     margin: 0em 0em !important;
     box-shadow: none !important;
-    padding: 1rem 1rem !important;
+    padding: 1rem 1rem ;
   }
   .ui.stackable.grid:not(.vertically) > .row {
     margin: 0em;

@@ -11,10 +11,13 @@ export default class Textarea extends React.Component {
       let index = this.props.txid;
 
       return (
-      <div id={index} key={index} className="container">
-        <br/>
-        <span>Textarea</span>
-      </div>
+        <div id={index} key={index} className="inline fields">
+            <div className="field four wide column">
+                <div className="ui radio checkbox">
+                    <label>Textarea</label>
+                </div>
+            </div>
+        </div>
     );
   }
 }

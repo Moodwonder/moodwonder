@@ -2,7 +2,6 @@ import React from 'react';
 import getFormData from 'get-form-data';
 import OpenEndedActions from 'actions/OpenEndedActions';
 import OpenEndedStore from 'stores/OpenEndedStore';
-import Submenu from 'components/Submenu.react';
 
 
 export default class OpenEndedQuestions extends React.Component {
@@ -81,7 +80,7 @@ export default class OpenEndedQuestions extends React.Component {
 
       let statusmessage = '';
       if(savesurveyflag) {
-          statusmessage = (<div className="alert alert-success">
+          statusmessage = (<div>
                             <strong>Success!</strong> Form submitted.
                            </div>
                           );
@@ -89,79 +88,133 @@ export default class OpenEndedQuestions extends React.Component {
 
       let questions = (this.state.questions).map((question) => {
           return (
-                    <div className="form-group">
-                        <div className="form-group">
-                         THE MOST IMPROVED AREAS
+                    <div className="ui two column stackable grid survey">
+
+                        <div className="clear"></div>
+                        <div className="ui two column stackable grid container ">
+                            <div className="column">
+                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS</h4>
+                            </div>
+                            <div className="column"></div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.most_improved_qone}</label>
-                              <br/>
-                              <textarea name="most_improved_aone" className="form-control"></textarea>
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.1</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{question.most_improved_qone} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="most_improved_aone" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.most_improved_qtwo}</label>
-                              <br/>
-                              <textarea name="most_improved_atwo" className="form-control"></textarea>
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.2</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.2</span>{question.most_improved_qtwo} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="most_improved_atwo" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.most_improved_qthree}</label>
-                              <br/>
-                              <textarea name="most_improved_athree" className="form-control"></textarea>
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.3</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{question.most_improved_qthree} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="most_improved_athree" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <br/>
-                        <div className="form-group">
-                           THE MOST DECREASED AREAS
+
+
+                        <div className="clear"></div>
+                        <div className="ui two column stackable grid container ">
+                            <div className="column">
+                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS</h4>
+                            </div>
+                            <div className="column"></div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.least_improved_qone}</label>
-                              <br/>
-                              <textarea name="least_improved_aone" className="form-control"></textarea>
+
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.1</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{question.least_improved_qone} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="least_improved_aone" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.least_improved_qtwo}</label>
-                              <br/>
-                              <textarea name="least_improved_atwo" className="form-control"></textarea>
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.2</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">0.2</span>{question.least_improved_qtwo} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="least_improved_atwo" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label>{question.least_improved_qthree}</label>
-                              <br/>
-                              <textarea name="least_improved_athree" className="form-control"></textarea>
+
+                        <div className="one wide column qst-mobile">
+                            <div className="ui grey circular label ">Q.3</div>
+                        </div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{question.least_improved_qthree} </div>
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <textarea name="least_improved_athree" rows="2"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="col-sm-10">
-                              <label></label>
-                              <br/>
-                              <button className="btn btn-primary" onClick={this.onOpenEndedSurveyCancel}>Cancel</button>
-                              &nbsp;&nbsp;
-                              <button className="btn btn-primary" onClick={this.onOpenEndedSurveySubmit}>Submit</button>
+
+                        <div className="one wide column qst-mobile"></div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui form options">
+                                <div className="ui form options">
+                                    <div className="field">
+                                        <button className="ui submit  button cancel" onClick={this.onOpenEndedSurveyCancel}>Cancel</button>
+                                        <button className="ui submit button submitt" onClick={this.onOpenEndedSurveySubmit}>Submit</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                  );
       });
 
       return (
-      <div className="container">
-        <Submenu />
-        {statusmessage}
-        <h2>Open ended questions</h2>
-        <br/>
-        <form id="openEndedForm" className="form-horizontal">
-            {questions}
-        </form>
-      </div>
+        <div className="ui segment brdr-none padding-none width-rating">
+            {statusmessage}
+            <form id="openEndedForm">
+                {questions}
+            </form>
+        </div>
     );
   }
 }

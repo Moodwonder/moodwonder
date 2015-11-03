@@ -28,24 +28,26 @@ export default class Checkbox extends React.Component {
           cValue = formdata[index];
       }
       return (
-      <div id={index} key={index} className="container">
-        <br/>
-        <span>Checkbox option</span>
-        <div className="form-group">
-          <input type="checkbox" ref={index} name={index}/>
-          <input
-                type="text"
-                ref={index}
-                value={cValue}
-                onChange={this.changeHandler.bind(this, 'formdata', index)}
-                name={index} id={index}
-                placeholder="enter option here.."/>
-          <a href="#"
-             className="btn-link"
-             id={index}
-             onClick={this.onRemoveCheckboxOption}>Remove</a>
+        <div id={index} key={index} className="inline fields">
+            <div className="field four wide column">
+                <div className="ui checkbox">
+                    <input type="checkbox" ref={index} name={index} />
+                    <label></label>
+                </div>
+            </div>
+            <div className="field ">
+                <input
+                    type="text"
+                    ref={index}
+                    value={cValue}
+                    onChange={this.changeHandler.bind(this, 'formdata', index)}
+                    name={index} id={index}
+                    placeholder=""/>
+            </div>
+            <div className="field ">
+                <a href="#" id={index} onClick={this.onRemoveCheckboxOption} className="ui submit  button cancel">Cancel</a>
+            </div>
         </div>
-      </div>
     );
   }
 }

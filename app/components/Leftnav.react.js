@@ -40,30 +40,30 @@ export default class Leftnav extends React.Component {
                         <span>{user.fname + " " + user.lname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
-                            <div className="item">My Profile</div>
-                            <div className="item"><a href="/logout">Log Out</a></div>
+                            <div className="item">L_MYPROFILE_LINK</div>
+                            <div className="item"><a href="/logout">L_LOGOUT_LINK</a></div>
                         </div>
                     </div>
                 </div>
                 <a className="active item" href="/mymood">
                     <i className="smile icon"></i>
-                    My Mood
+                    L_MYMOOD_LINK
                 </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
-                    My Account
+                    L_MYACCOUNT_LINK
                 </a>
                 <a className="item" href="/mycompany">
                     <i className="building icon"></i>
-                    My Company
+                    L_MYCOMPANY_LINK
                 </a>
                 <div className="invite-people">
-                    <h2>Invite people anonymously</h2>
-                    <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
+                    <h2>L_INVITE_PEOPLE_TITLE</h2>
+                    <p>L_INVITE_PEOPLE_DES</p>
                     <div className="ui input">
-                        <input placeholder="Enter e-mail " type="text"/>
+                        <input placeholder="L_INVITE_INPUT_PLCHOLDER" type="text"/>
                     </div>
-                    <button className="ui orange button">Invite</button>
+                    <button className="ui orange button">L_INVITE_BTN</button>
                 </div>
             </div>
       );

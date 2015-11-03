@@ -78,8 +78,8 @@ export default class App extends React.Component {
                         <div className={pageconter}>
                             <div className="ui main">
                                 {handler}
-                                {rightnav}
                             </div>
+                            {rightnav}
                         </div>
                     </div>
               ];

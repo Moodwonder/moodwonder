@@ -4,7 +4,6 @@ import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
 
 export default class Customsurveyresponses extends React.Component {
 
@@ -77,38 +76,55 @@ export default class Customsurveyresponses extends React.Component {
           responsecontent = surveyresponse.map(function(resdata) {
 
               let answers = resdata.answers.map(function(ans) {
-                  return (<span>
-                            {ans.option}
-                            <br/>
-                          </span>);
+                  return (
+                            <div className="thirteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields">
+                                        {ans.option}
+                                    </div>
+                                </div>
+                            </div>
+                    );
               });
 
-              return (<div>
-                        <span>Question : {resdata.question}</span>
-                        <br/>
-                        <div>Answer : {answers}</div>
-                      </div>);
+              return ([
+                        <div className="three wide column ">
+                            <label className="line-height">{resdata.question}:</label>
+                        </div>,
+                        {answers}
+              ]);
           });
 
-          return (<div>
-                       <span>User - {username}</span>
-                       <br/>
-                       {responsecontent}
-                       <br/>
-                  </div>);
+          return (
+                    <div className="custom-box">
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column ">
+                                <label className="line-height">User - {username}</label>
+                            </div>
+                            <div className="thirteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields"></div>
+                                </div>
+                            </div>
+                            {responsecontent}
+                        </div>
+                    </div>
+                  );
       });
 
 
       return (
-      <div className="container">
-      <Submenu />
-        <div className="form-group">
-          <a href="/surveyforms" >Custom Survey Listing</a>
+        <div className="ui segment brdr-none padding-none width-rating">
+            <div className="clear"></div>
+            <div className="ui two column stackable grid container ">
+                <div className="column">
+                    <h4 className="ui header ryt com">{stitle}</h4>
+                </div>
+                <div className="column"></div>
+            </div>
+            {content}
         </div>
-        <h2>{stitle}</h2>
-        {content}
-      </div>
-    );
+      );
   }
 }
 

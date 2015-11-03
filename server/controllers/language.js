@@ -4,6 +4,7 @@ var Languages = require('../models/languages');
 var Homepage = require('../models/homepage');
 var Signuppage = require('../models/signuppage');
 var Loginpage = require('../models/loginpage');
+var Mwusertheme = require('../models/mwusertheme');
 
 /**
  * Add new language
@@ -103,41 +104,21 @@ exports.getPage = function (req, res) {
         case 'home':
             modelObj = {};
             modelObj = Homepage;
-//            Homepage.findOne({language: language}).exec(function (err, result) {
-//                var response = {};
-//                if (!err) {
-//                    response.status = 'success';
-//                    response.pagedata = result;
-//                } else {
-//                    response.status = 'failure';
-//                    response.pagedata = [];
-//                }
-//                console.log(response);
-//                res.send(response);
-//                res.end();
-//            });
             break;
 
         case 'signup':
             modelObj = {};
             modelObj = Signuppage;
-//            Signuppage.findOne({language: language}).exec(function (err, result) {
-//                var response = {};
-//                if (!err) {
-//                    response.status = 'success';
-//                    response.pagedata = result;
-//                } else {
-//                    response.status = 'failure';
-//                    response.pagedata = [];
-//                }
-//                res.send(response);
-//                res.end();
-//            });
             break;
 
         case 'login':
             modelObj = {};
             modelObj = Loginpage;
+            break;
+
+        case 'mwusertheme':
+            modelObj = {};
+            modelObj = Mwusertheme;
             break;
 
         default:
@@ -212,6 +193,23 @@ exports.updatePageKeys = function (req, res) {
                 LGN_PASSWORD: data.LGN_PASSWORD,
                 LGN_FORGOT_PASSWORD: data.LGN_FORGOT_PASSWORD,
                 LGN_BTN_SUBMIT: data.LGN_BTN_SUBMIT
+            };
+            break;
+        
+        case 'mwusertheme':
+            modelObj = {};
+            modelObj = Mwusertheme;
+            update = {}
+            update = {
+                L_MYMOOD_LINK: data.L_MYMOOD_LINK,
+                L_MYACCOUNT_LINK: data.L_MYACCOUNT_LINK,
+                L_MYCOMPANY_LINK: data.L_MYCOMPANY_LINK,
+                L_INVITE_PEOPLE_TITLE: data.L_INVITE_PEOPLE_TITLE,
+                L_INVITE_PEOPLE_DES: data.L_INVITE_PEOPLE_DES,
+                L_INVITE_INPUT_PLCHOLDER: data.L_INVITE_INPUT_PLCHOLDER,
+                L_INVITE_BTN: data.L_INVITE_BTN,
+                L_MYPROFILE_LINK: data.L_MYPROFILE_LINK,
+                L_LOGOUT_LINK: data.L_LOGOUT_LINK
             };
             break;
 

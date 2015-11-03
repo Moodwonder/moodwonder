@@ -1,7 +1,6 @@
 import React from 'react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
-import Submenu from 'components/Submenu.react';
 import Sliderrow from 'components/SliderRow.react';
 import getFormData from 'get-form-data';
 
@@ -60,9 +59,7 @@ export default class Survey extends React.Component {
               }
 
               return (
-                  <li className="list-group-item">
-                    <Sliderrow slno={slno++} mood={data.mood} description={data.description} lastrated={lastrated} />
-                  </li>
+                        <Sliderrow slno={slno++} mood={data.mood} description={data.description} lastrated={lastrated} />
               );
           });
       }
@@ -85,25 +82,26 @@ export default class Survey extends React.Component {
       let submitButton = '';
       if(items){
           submitButton = (
-             <li className="list-group-item">
-               <div className="row">
-                 <div className="col-sm-6" ></div>
-                 <div className="col-sm-6" ><button type="button" className="btn btn-primary" onClick={this._onSurveySubmit}>Submit</button></div>
-               </div>
-             </li>
+             <button type="button" className="ui submit button submitt" onClick={this._onSurveySubmit}>Submit</button>
           );
       }
 
       return (
-        <div className="container Survey-list">
-        <Submenu />
-          {message}
-          <form id="engagementForm">
-            <ul className="list-group">
-              {items}
-              {submitButton}
-            </ul>
-          </form>
+        <div className="ui segment brdr-none padding-none width-rating  ">
+            <div className="clear"></div>
+            <div className="ui two column stackable grid container ">
+                <div className="column">
+                    <h3 className="ui header ryt com">Survey</h3>
+                </div>
+                <div className="column"></div>
+            </div>
+            {message}
+            <form id="engagementForm">
+                <div className="ui column stackable  container survey-test survey-mw">
+                    {items}
+                    {submitButton}
+                </div>
+            </form>
         </div>
       );
   }

@@ -17,7 +17,14 @@ class SurveyActions {
 
   getquestions(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   saveEngagementSurvey(surveyResult) {
@@ -34,7 +41,14 @@ class SurveyActions {
 
   savesurveysuccess(response)
   {
-      this.dispatch(response);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(response);
+          });
+      } else {
+          this.dispatch(response);
+      }
+      //this.dispatch(response);
   }
 
   getLastSurvey(data) {
@@ -51,7 +65,14 @@ class SurveyActions {
 
   lastsurveysuccess(response)
   {
-      this.dispatch(response);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(response);
+          });
+      } else {
+          this.dispatch(response);
+      }
+      //this.dispatch(response);
   }
 
   getEngagementResults(data) {
@@ -68,7 +89,14 @@ class SurveyActions {
 
   engagementresultssuccess(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getResultsByCompany() {
@@ -85,7 +113,14 @@ class SurveyActions {
 
   resultsbycompany(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getResultsByIndustry() {
@@ -102,7 +137,14 @@ class SurveyActions {
 
   resultsbyindustry(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getResultsByCountry() {
@@ -119,7 +161,14 @@ class SurveyActions {
 
   resultsbycountry(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   getMostEngagingManagers() {
@@ -136,7 +185,14 @@ class SurveyActions {
 
   mostengagingmanagers(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
   //Start: Company statistics.
@@ -154,7 +210,14 @@ class SurveyActions {
 
   companydata(data)
   {
-      this.dispatch(data);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
   }
 
 }
