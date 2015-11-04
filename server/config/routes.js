@@ -182,8 +182,10 @@ module.exports = function (app, passport) {
     
     function getMwthemeKeys(page, lang, html, callback) {
         
-        Mwusertheme.findOne({language: lang}).lean().exec(function (err, docs) {
+        Mwusertheme.findOne({language: lang}, {_id: 0}).lean().exec(function (err, docs) {
             if (docs != 'undefined') {
+                console.log('docs');
+                console.log(docs);
                 callback(docs);
             }
         });
@@ -223,7 +225,7 @@ module.exports = function (app, passport) {
                 break;
         }
 
-        modelObj.findOne({language: lang}).lean().exec(function (err, docs) {
+        modelObj.findOne({language: lang}, {_id: 0}).lean().exec(function (err, docs) {
             if (docs != 'undefined') {
                 callback(docs);
             }
