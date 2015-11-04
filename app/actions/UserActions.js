@@ -65,6 +65,7 @@ class UserActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.savemanagerdetailssuccess(response);
+                this.actions.getuserinfo();
             }
         }, () => {
         });

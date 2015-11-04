@@ -893,6 +893,9 @@ exports.findUserByEmailId = function (req, res, next) {
  */
 exports.updateUser = function (req, res) {
 
+	var callback = req.body.callback;
+	var response = {};
+	response.callback = callback;
     if (req.user && req.body.update) {
 
         var conditions = { '_id': new ObjectId(req.user._id) }
@@ -927,6 +930,10 @@ exports.updateUser = function (req, res) {
  * Get users in each team
  */
 exports.usersInTeams = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
 
     var team_users_result = [];
     var teamlength = req.body.resdata.length;

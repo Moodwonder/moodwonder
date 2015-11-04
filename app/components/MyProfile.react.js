@@ -3,6 +3,8 @@ import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import MyManager from 'components/MyManager.react';
+import MyTeam from 'components/MyTeam.react';
 // import LanguageContants from 'constants/LanguageConstants';
 
 
@@ -76,6 +78,10 @@ export default class MyProfile extends React.Component {
 
   disableButton = () => {
       this.setState({canSubmit: false});
+  }
+
+  onTabClick = (Tab) => {
+      this.setState({ Tab: Tab });
   }
 
   fileUploadSuccessProfile = (response) => {
@@ -348,6 +354,17 @@ export default class MyProfile extends React.Component {
           );
       }
 
+      let activeTab = [];
+      activeTab[0] = ['none'];
+      activeTab[1] = ['none'];
+      activeTab[2] = ['none'];
+
+      if( this.state.Tab !== undefined ){
+          activeTab[this.state.Tab] = 'block';
+      }else{
+          activeTab[0] = 'block';
+      }
+
       return (
         <div>
            <div className="ui segment padding-none width-header rate header-middle-container">
@@ -386,18 +403,19 @@ export default class MyProfile extends React.Component {
               </div>
            </div>
            <div className="ui secondary  menu account">
-                <a className=" act-menu active item" style={{"padding":"0 10px!important"}}>
+                <a  onClick={this.onTabClick.bind(this,0)}  className=" act-menu active item" style={{"padding":"0 10px!important"}}>
                     <i className="file image outline icon"></i>My Profile
                 </a>
-                <a className="act-menu item" style={{"padding":"0 10px!important"}}>
+                <a  onClick={this.onTabClick.bind(this,1)}  className="act-menu item" style={{"padding":"0 10px!important"}}>
                     <i className="user icon"></i>My Manager
                 </a>
-                <a className=" act-menu item" style={{"padding":"0 10px!important"}}>
+                <a  onClick={this.onTabClick.bind(this,2)}  className=" act-menu item" style={{"padding":"0 10px!important"}}>
                     <i className="users icon"></i>My Team
                 </a>
             </div>
            <div className="ui two column stackable grid">
-              <div className="ten wide column">
+
+              <div className="ten wide column" style={{ "display": activeTab[0] }}>
                  <div className="ui segment">
                     <h4 className="ui header ryt">PRFL_EDIT_PROFILE</h4>
                     {message}
@@ -412,6 +430,15 @@ export default class MyProfile extends React.Component {
                     </div>
                  </div>
               </div>
+
+              <div className="ten wide column" style={{ "display": activeTab[1] }}>
+                 <MyManager />
+              </div>
+
+              <div className="ten wide column" style={{ "display": activeTab[2] }}>
+                 <MyTeam />
+              </div>
+
            </div>
         </div>
       );
