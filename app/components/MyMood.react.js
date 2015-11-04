@@ -103,9 +103,9 @@ export default class MyMood extends React.Component {
       this.setState({freezedate: today});
       this.setState({today: today});
 
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
-      });
+      //$('.ui.menu .ui.dropdown').dropdown({
+      //  on: 'click'
+      //});
 
       $('.graphperiod').dropdown({
           onChange: this.onChangeGraphPeriod
@@ -117,11 +117,11 @@ export default class MyMood extends React.Component {
   }
 
   componentDidUpdate () {
-      if (this.state.customsurveytab) {
-          $('#surveyForm .ui.dropdown').dropdown({
-              on: 'click'
-          });
-      }
+      //if (this.state.customsurveytab) {
+      //    $('#surveyForm .ui.dropdown').dropdown({
+      //        on: 'click'
+      //    });
+      //}
       if(this.mooddropdown) {
           $('.ui.menu .ui.dropdown').dropdown({
               on: 'click'
@@ -1024,7 +1024,7 @@ export default class MyMood extends React.Component {
 
                     <div className="clear"></div>,
                     <div className="ui two column stackable grid ">
-                        <div className="three column row padding-container">
+                        <div className="six column row padding-container">
                             <div className="column">
                                 <div className="ui segment gry">At Start : {engagementStatitics.start}</div>
                             </div>
@@ -1330,35 +1330,7 @@ export default class MyMood extends React.Component {
 
 
       return (
-              <div>
-                <div className="ui segment padding-none width-header rate header-middle-container">
-                    <div className="clear"></div>
-                    <div className="">
-                        <h2>RATE YOUR MOOD</h2>
-                        <p>How are you feeling at work today?</p>
-                    </div>
-                    <form id="moodRating">
-                        <div className="ui slider range ">
-                            <input type="range" />
-                        </div>
-                        <div  className="">
-                            <button className="ui yellow button" onClick={this.onSubmitMood}>Submit</button>
-                        </div>
-                    </form>
-                    <div  className="">
-                        <button className="ui yellow button answer positive">Answer all statements</button>
-                    </div>
-                </div>
-
-                <div className="invite-people mobile">
-                    <h2>Invite people anonymously</h2>
-                    <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
-                    <div className="ui input">
-                        <input placeholder="Enter e-mail " type="text" />
-                    </div>
-                    <button className="ui orange button">Invite</button>
-                </div>
-
+            <div>
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
@@ -1367,7 +1339,7 @@ export default class MyMood extends React.Component {
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}
                 {customSurveyTabContent}
-          </div>
+            </div>
     );
   }
 }
