@@ -93,7 +93,8 @@
                 }
             }
 
-            $(this).width(customSettingsObj.dimension + 'px');
+            //$(this).width(customSettingsObj.dimension + 'px');
+            $(this).width(customSettingsObj.dimension + '%');
 
             var size = customSettingsObj.dimension,
                 canvas = $('<canvas></canvas>').attr({

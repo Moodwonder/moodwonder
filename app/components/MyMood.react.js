@@ -1050,9 +1050,7 @@ export default class MyMood extends React.Component {
                         <div className="column ">
                             <div className="ui segment brdr">
                                 <h2>Employee average Engagement</h2>
-                                <div>
-                                    {myEngagement}
-                                </div>
+                                {myEngagement}
                             </div>
                         </div>
                         <div className="column">
@@ -1331,6 +1329,34 @@ export default class MyMood extends React.Component {
 
       return (
             <div>
+                <div className="ui segment padding-none width-header rate header-middle-container">
+                    <div className="clear"></div>
+                    <div className="">
+                        <h2>RATE YOUR MOOD</h2>
+                        <p>How are you feeling at work today?</p>
+                    </div>
+                    <form id="moodRating">
+                        <div className="ui slider range ">
+                            <input type="range" />
+                        </div>
+                        <div  className="">
+                            <button className="ui yellow button" onClick={this.onSubmitMood}>Submit</button>
+                        </div>
+                    </form>
+                    <div  className="">
+                        <button className="ui yellow button answer positive">Answer all statements</button>
+                    </div>
+                </div>
+
+                <div className="invite-people mobile">
+                    <h2>Invite people anonymously</h2>
+                    <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
+                    <div className="ui input">
+                        <input placeholder="Enter e-mail " type="text" />
+                    </div>
+                    <button className="ui orange button">Invite</button>
+                </div>
+
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>

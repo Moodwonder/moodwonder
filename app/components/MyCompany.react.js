@@ -1,7 +1,6 @@
 import React from 'react';
 // import $ from 'jquery';
 //import getFormData from 'get-form-data';
-import Submenu from 'components/Submenu.react';
 //let LineChart = require("react-chartjs").Line;
 let BarChart = require("react-chartjs").Bar;
 //import MoodSlider from 'components/MoodSlider.react';
@@ -37,6 +36,7 @@ export default class MyCompany extends React.Component {
           engagementgraphtab: true,
           quickstatisticstab: false,
           companyratingstab: false,
+          companyinfotab : false,
           //Start: Quick statistics
           companyedata: [],
           totalcemployees: '',
@@ -77,7 +77,8 @@ export default class MyCompany extends React.Component {
       this.setState({
           engagementgraphtab: true,
           quickstatisticstab : false,
-          companyratingstab : false
+          companyratingstab : false,
+          companyinfotab : false
       });
   }
 
@@ -86,7 +87,8 @@ export default class MyCompany extends React.Component {
       this.setState({
           engagementgraphtab: false,
           quickstatisticstab : true,
-          companyratingstab : false
+          companyratingstab : false,
+          companyinfotab : false
       });
   }
 
@@ -95,7 +97,18 @@ export default class MyCompany extends React.Component {
       this.setState({
           engagementgraphtab: false,
           quickstatisticstab : false,
-          companyratingstab : true
+          companyratingstab : true,
+          companyinfotab : false
+      });
+  }
+
+  companyInfoClick = (e) => {
+      e.preventDefault();
+      this.setState({
+          engagementgraphtab: false,
+          quickstatisticstab : false,
+          companyratingstab : false,
+          companyinfotab : true
       });
   }
 
@@ -106,6 +119,7 @@ export default class MyCompany extends React.Component {
       let engagementgraphtab = this.state.engagementgraphtab;
       let quickstatisticstab = this.state.quickstatisticstab;
       let companyratingstab = this.state.companyratingstab;
+      let companyinfotab = this.state.companyinfotab;
       let companyedata = this.state.companyedata;
       let totalcemployees = this.state.totalcemployees;
       //let loggeduserid = this.state.loggeduserid;
@@ -187,7 +201,7 @@ export default class MyCompany extends React.Component {
       let worstAreas = CompanyRatings.getCompanyWorstImprovedAreas(companyedata);
 
       let topthree = topThreeAreas.map((data, key) => {
-          return (<span className="styled">
+          return (<span>
                     {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                     <label>{data.avg}</label>
                     <br/>
@@ -195,7 +209,7 @@ export default class MyCompany extends React.Component {
       });
 
       let worstthree = worstThreeAreas.map((data, key) => {
-          return (<span className="styled">
+          return (<span>
                     {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                     <label>{data.avg}</label>
                     <br/>
@@ -203,7 +217,7 @@ export default class MyCompany extends React.Component {
       });
 
       let improvedareas = improvedAreas.map((data, key) => {
-          return (<span className="styled">
+          return (<span>
                     {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                     <label>{data.avg}</label>
                     <br/>
@@ -211,7 +225,7 @@ export default class MyCompany extends React.Component {
       });
 
       let worstareas = worstAreas.map((data, key) => {
-          return (<span className="styled">
+          return (<span>
                     {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
                     <label>{data.avg}</label>
                     <br/>
@@ -228,25 +242,51 @@ export default class MyCompany extends React.Component {
       });
       //End: Engagement Graph
 
+//      let engagementGraphTabContent = '';
+//      if (engagementgraphtab) {
+//          engagementGraphTabContent = (
+//                  <div>
+//                    <h3>Engagement Graph</h3>
+//                        <div className="form-group">
+//                            <label> Moodwonder trend</label>
+//                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+//                            <label>Show me</label>
+//                            <select name="graphengagement" >
+//                                <option value="mw_index">MW-Index</option>
+//                                {moodoptions}
+//                            </select>
+//                            <br/><br/>
+//                            <span>At Start - </span>
+//                            <br/><br/>
+//
+//                        </div>
+//                  </div>
+//          );
+//      }
+
       let engagementGraphTabContent = '';
       if (engagementgraphtab) {
           engagementGraphTabContent = (
-                  <div>
-                    <h3>Engagement Graph</h3>
-                        <div className="form-group">
-                            <label> Moodwonder trend</label>
-                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <label>Show me</label>
-                            <select name="graphengagement" >
-                                <option value="mw_index">MW-Index</option>
-                                {moodoptions}
-                            </select>
-                            <br/><br/>
-                            <span>At Start - </span>
-                            <br/><br/>
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
+                    <div className="ui bottom attached segment brdr-none menu">
+                        <div className="ui  column stackable grid container">
+                            <div className="column  brdr-none padding-none">
+                                <div className="ui segment brdr-none padding-none ">
+                                    <div className=" right menu mobile">
+                                        <select className="ui search dropdown graphengagement" name="graphengagement">
+                                            <option value="mw_index">MW-Index</option>
+                                            {moodoptions}
+                                        </select>
+                                    </div>
+                                    <div className="clear"></div>
+                                    <div className="graph">
 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                  </div>
+                    </div>
+                </div>
           );
       }
 
@@ -357,20 +397,34 @@ export default class MyCompany extends React.Component {
       }
 
 
+      let companyInfoTabContent = '';
+      if (companyinfotab) {
+          companyInfoTabContent = (
+              <div>
+                  <h3>Company Info</h3>
+                  <div>
+                    <label>Number of employees</label>
+                    <br/>
+                  </div>
+              </div>
+          );
+      }
+
+
       return (
-       <div className="container">
-            <Submenu />
-               <br/>
-               <div>
-                   <a href="#" onClick={this.engagementGraphClick}>Engagement Graph</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a href="#" onClick={this.quickStatisticsClick}>Quick Statistics</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-                   <a href="#" onClick={this.companyRatingsClick}>Company Ratings</a>
-               </div>
+            <div>
+                <div className="ui tabular menu tab four column">
+                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
+                    <a className="item mobile column" onClick={this.quickStatisticsClick} href="#"> Quick Statistics </a>
+                    <a className="item mobile column" onClick={this.companyRatingsClick} href="#"> Company Ratings </a>
+                    <a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>
+                </div>
                 <br/><br/>
                 {engagementGraphTabContent}
                 {quickStatisticsTabContent}
                 {moodRatingsTabContent}
-          </div>
+                {companyInfoTabContent}
+            </div>
     );
   }
 }

@@ -947,13 +947,65 @@ h2.com {
 .login .ui.input[class*="left icon"] > input { padding:0!important;}
 
 .login .ui.segment {padding:20px 10px!important;}
+
 /* Start: Edited by Dev */
 meter {
     width: 100%;
 }
-.ui.segment.brdr canvas {
+meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+          
+    height: 10px;
+    /* For Firefox */
+    background: #cfd8dc
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+    border-radius: 20px;
+}
+/* WebKit */
+meter::-webkit-meter-bar {
+    background: #cfd8dc
+    box-shadow: none!important;
+    border-radius: 20px;
+}
+meter::-webkit-meter-optimum-value, meter::-webkit-meter-suboptimum-value, meter::-webkit-meter-even-less-good-value {
+    border-radius: 20px;
+}
+meter::-webkit-meter-optimum-value {
+    background: #66bb6a;
+}
+meter::-webkit-meter-suboptimum-value {
+    background: #FBBD08;
+}
+meter::-webkit-meter-even-less-good-value {
+    background: #ef5350;
+}
+/* Firefox */
+meter::-moz-meter-bar {
+    border-radius: 20px;
+}
+meter:-moz-meter-optimum::-moz-meter-bar {
+    background: #66bb6a;
+}
+meter:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: #FBBD08;
+}
+meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: #ef5350;
+}
+/*.ui.segment.brdr canvas {
     width: 200px !important;
     height: 200px !important;
     margin: 4% 30% 0 30%;
+}*/
+#employeeAvgEngagement {
+    margin: 0 auto !important;
+    width: 67% !important;
+}
+#employeeAvgEngagement canvas, #employeeAvgEngagement .circle-text-half {
+    height: 100% !important;
+    width: 100% !important;
 }
 /* End: Edited by Dev */
