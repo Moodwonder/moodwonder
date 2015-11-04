@@ -184,8 +184,6 @@ module.exports = function (app, passport) {
         
         Mwusertheme.findOne({language: lang}, {_id: 0}).lean().exec(function (err, docs) {
             if (docs != 'undefined') {
-                console.log('docs');
-                console.log(docs);
                 callback(docs);
             }
         });
