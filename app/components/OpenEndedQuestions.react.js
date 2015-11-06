@@ -27,7 +27,7 @@ export default class OpenEndedQuestions extends React.Component {
           questions: OpenEndedStore.getState().questions,
           savesurveyflag: OpenEndedStore.getState().savesurveyflag
       });
-      
+
       if (this.state.savesurveyflag) {
           console.log('submitted');
           window.location.assign('/mymood');
