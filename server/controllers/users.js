@@ -782,6 +782,57 @@ exports.postSaveCompanyInfo = function (req, res) {
 
     var model = req.body;
 
+	var response = {};
+	var hasError = false;
+	var messages = [];
+	for (var key in model) {
+
+	  if(key === 'companyname' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Company name cannot be empty..');
+	  }
+	  if(key === 'industry' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Industry name cannot be empty');
+	  }
+	  if(key === 'continent' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Continent name cannot be empty');
+	  }
+	  if(key === 'country' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Country name cannot be empty');
+	  }
+	  if(key === 'state' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('State name cannot be empty');
+	  }
+	  if(key === 'city' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('City name cannot be empty');
+	  }
+	  if(key === 'address' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Address name cannot be empty');
+	  }
+	  if(key === 'website' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Website name cannot be empty');
+	  }
+	  if(key === 'companysize' && model[key].trim() === '' ){
+		hasError = true;
+		messages.push('Companysize name cannot be empty');
+	  }
+	}
+
+	if(hasError){
+        response.status = false;
+        response.messages = messages;
+        res.send(response);
+        res.end();
+	}else{
+
+
     var model = {'company_info': [model]};
 
     var conditions = {'_id': new ObjectId(req.user._id)}
@@ -792,15 +843,16 @@ exports.postSaveCompanyInfo = function (req, res) {
         if (!err) {
 
             response.status = true;
-            response.message = 'Company details saved';
+            response.messages = ['Company details saved'];
         } else {
 
             response.status = false;
-            response.message = 'Something went wrong..';
+            response.messages = ['Something went wrong..'];
         }
         res.send(response);
         res.end();
     });
+	}
 };
 
 /**

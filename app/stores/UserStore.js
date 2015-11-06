@@ -19,6 +19,7 @@ class UserStore {
        'continent': '', 'country': '', 'state': '', 'profile_image': '',
        'city': '', 'address': '', 'website': '', 'companysize': ''
        };
+      this.userDetailsTmp = this.userDetails ;
       this.profile_image = false;
       this.message = '';
       this.isLoggedIn = false;
@@ -95,7 +96,8 @@ class UserStore {
   handleSaveCompanySuccess (response) {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
-      this.message = response.message;
+      this.message  = response.message;
+      this.messages = response.messages;
       this.emitChange();
   }
 
@@ -104,6 +106,7 @@ class UserStore {
       this.hasError = !response.status;
       if (!this.hasError) {
           this.userDetails = response.data;
+          this.userDetailsTmp = response.data;
           this.profile_image = response.data.profile_image;
       }else{
           this.message = response.message;
@@ -117,6 +120,7 @@ class UserStore {
       this.message = response.message;
       if (!this.hasError) {
           this.userDetails = response.data;
+          this.userDetailsTmp = response.data;
           // To ignore initial message
           this.message = '';
       }

@@ -135,6 +135,7 @@ module.exports = function (app, passport) {
     
     // Set variables from server side
     app.get('/mycompany', common.handleGetContinents);
+    app.get('/my_company', common.handleGetContinents);
     app.get('/signup/:hash', invitation.handleSignup);
     
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);

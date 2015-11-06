@@ -3,10 +3,8 @@ import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import PlacesActions from 'actions/PlacesActions';
 import PlacesStore from 'stores/PlacesStore';
-import { MyOwnInput, MyOwnSelect } from 'components/Formsy-components';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-import Submenu from 'components/Submenu.react';
 import _ from 'underscore';
 
 export default class MyCompanyInfo extends React.Component {
@@ -16,7 +14,6 @@ export default class MyCompanyInfo extends React.Component {
         mixins(Navigation, this);
         this.state = UserStore.getState();
         this.state.canSubmit = false;
-        this.state.continents = [];
         this.state.countries = [];
         this.state.countriesIntial = true;
         this.state.states = [];
@@ -32,7 +29,42 @@ export default class MyCompanyInfo extends React.Component {
         UserStore.listen(this._onChange);
     }
 
-    onChangeContinent = (continent) => {
+    componentDidUpdate () {
+
+    }
+
+    onChangeText = (e) => {
+
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp[e.target.name] = e.target.value;
+        this.setState(userDetailsTmp);
+    }
+
+    componentWillUnmount () {
+
+        UserStore.unlisten(this._onChange);
+    }
+
+    _onChange = (state) => {
+
+        this.setState(state);
+        if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
+            // Set country dropdown list / fetching country list
+            this.onChangeContinent(this.state.userDetailsTmp.continent);
+        }
+    }
+
+    onChangeContinent = (e) => {
+        // Set country dropdown list / fetching country list
+        let continent = e;
+        try{
+            continent = e.target.value;
+        }catch(e){}
+
+        // To set new value for continent dropdown list
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp.continent = continent;
+        this.setState({ userDetailsTmp: userDetailsTmp });
 
         if(continent !== undefined){
             let arr = this.state.continents;
@@ -45,7 +77,16 @@ export default class MyCompanyInfo extends React.Component {
         }
     }
 
-    onChangeCountry = (country) => {
+    onChangeCountry = (e) => {
+
+        let country = e;
+        try{
+            country = e.target.value;
+        }catch(e){}
+
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp.country = country;
+        this.setState({ userDetailsTmp: userDetailsTmp });
 
         let arr = this.state.countries;
         let currentCountryObj = _.filter(arr, function(v) { return v.text === country; });
@@ -57,7 +98,16 @@ export default class MyCompanyInfo extends React.Component {
         }
     }
 
-    onChangeStates = (state) => {
+    onChangeStates = (e) => {
+
+        let state = e;
+        try{
+            state = e.target.value;
+        }catch(e){}
+
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp.state = state;
+        this.setState({ userDetailsTmp: userDetailsTmp });
 
         let arr = this.state.states;
         let currentStateObj = _.filter(arr, function(v) { return v.text === state; });
@@ -69,162 +119,299 @@ export default class MyCompanyInfo extends React.Component {
         }
     }
 
+    onChangeCities = (e) => {
+        let city = e;
+        try{
+            city = e.target.value;
+        }catch(e){}
+
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp.city = city;
+        this.setState({ userDetailsTmp: userDetailsTmp });
+    }
+
+    handleDropDownChanage = (states,placeType,placeState) => {
+
+        let places = states.PlacesData.places;
+        let currentPlace = this.state.userDetails[placeType];
+        let obj = {};
+        obj[placeState] = places;
+        this.setState(obj);
+
+        if(this.placeMatch(currentPlace,places )){
+
+            let userDetailsTmp = this.state.userDetailsTmp;
+            userDetailsTmp[placeType] = currentPlace;
+            this.setState({ userDetailsTmp: userDetailsTmp });
+        }else{
+
+            let userDetailsTmp = this.state.userDetailsTmp;
+            userDetailsTmp[placeType] = '';
+            this.setState({ userDetailsTmp: userDetailsTmp });
+        }
+    }
+
+    placeMatch = (text,obj) => {
+        let trn = false;
+        obj.map((data, key) => {
+            if(data.text === text){
+                trn = true;
+            }
+        });
+        return trn;
+    }
+
     _onGetPlaces = (states) => {
 
-        if(this.state.countriesIntial && this.state.states.length <= 0 && this.state.userDetails.country!==''){
+        if(this.state.countriesIntial && this.state.states.length <= 0 && this.state.userDetailsTmp.country!==''){
 
-            this.onChangeCountry(this.state.userDetails.country);
+            this.onChangeCountry(this.state.userDetailsTmp.country);
         }
 
-        if(this.state.statesIntial && this.state.cities.length <= 0 && this.state.userDetails.state!==''){
+        if(this.state.statesIntial && this.state.cities.length <= 0 && this.state.userDetailsTmp.state!==''){
 
-            this.onChangeStates(this.state.userDetails.state);
+            this.onChangeStates(this.state.userDetailsTmp.state);
         }
 
         if(states.PlacesData.placeType === 'country'){
 
-            this.setState( { countries: this.state.PlacesData.places } );
+            this.handleDropDownChanage(states,'country','countries');
         }
 
         if(states.PlacesData.placeType === 'state'){
 
-            this.setState( { states: this.state.PlacesData.places } );
+            this.handleDropDownChanage(states,'state','states');
         }
 
         if(states.PlacesData.placeType === 'city'){
 
-            this.setState( { cities: this.state.PlacesData.places } );
+            this.handleDropDownChanage(states,'city','cities');
         }
-
     }
 
-    componentWillUnmount () {
-        UserStore.unlisten(this._onChange);
-    }
+    formValidation = (model) => {
 
-    enableButton = () => {
-        this.setState({canSubmit: true});
-    }
+        let state = {};
+        state.hasError = false;
+        state.messages = [];
+        for (let key in model) {
 
-    disableButton = () => {
-        this.setState({canSubmit: false});
-    }
-
-    _onChange = (state) => {
+            if(key === 'companyname' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Company name cannot be empty');
+            }
+            if(key === 'industry' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Industry name cannot be empty');
+            }
+            if(key === 'continent' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Continent name cannot be empty');
+            }
+            if(key === 'country' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Country name cannot be empty');
+            }
+            if(key === 'state' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('State name cannot be empty');
+            }
+            if(key === 'city' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('City name cannot be empty');
+            }
+            if(key === 'address' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Address name cannot be empty');
+            }
+            if(key === 'website' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Website name cannot be empty');
+            }
+            if(key === 'companysize' && model[key].trim() === '' ){
+                state.hasError = true;
+                state.messages.push('Companysize name cannot be empty');
+            }
+        }
         this.setState(state);
-        if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
-            this.onChangeContinent(this.state.userDetails.continent);
+        return (!state.hasError);
+    }
+
+    _onSaveSubmit = () => {
+
+        let model = {};
+        let refs = this.refs;
+        for (let key in refs) {
+            if (refs.hasOwnProperty(key)) {
+                model[key] = refs[key].props.value;
+            }
+        }
+        if(this.formValidation(model)){
+            UserActions.saveCompanyInfo(model);
         }
     }
 
-    _onSaveSubmit = (model) => {
-        UserActions.saveCompanyInfo(model);
-    }
 
     render() {
 
-        let renderedResult;
         let message;
-        let userInfo = this.state.userDetails;
+        let userInfo = this.state.userDetailsTmp;
 
-        if (this.state.message !== '' ) {
+        if (this.state.messages !== undefined && this.state.messages.length > 0 ) {
             message = (
-              <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                {this.state.message}
-              </div>
+                <div className={ (this.state.hasError) ? 'ui red message' : 'ui green message' }>
+                   <ul className="list">
+                      { this.state.messages.map((data) => { return [<li>{data}</li>]; }) }
+                   </ul>
+                </div>
             );
         }
 
-        renderedResult = (
-        <div className="container">
-            <Submenu />
-            <h2>My Company Info</h2>
-            {message}
-            <Formsy.Form onValidSubmit={this._onSaveSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
-               <MyOwnInput
-               name="companyname"
-               className="form-control"
-               value={userInfo.companyname}
-               placeholder="Company name"
-               validationError="Company name is required"
-               required/>
-
-               <MyOwnInput
-               name="industry"
-               className="form-control"
-               value={userInfo.industry}
-               placeholder="Industry"
-               validationError="Industry is required"
-               required/>
-
-               <MyOwnSelect
-               name="continent"
-               className="form-control"
-               value={userInfo.continent}
-               placeholder="Continent"
-               options={this.state.continents}
-               onChange={this.onChangeContinent}
-               />
-
-               <MyOwnSelect
-               name="country"
-               className="form-control"
-               value={userInfo.country}
-               placeholder="Country"
-               options={this.state.countries}
-               onChange={this.onChangeCountry}
-               />
-
-               <MyOwnSelect
-               name="state"
-               className="form-control"
-               value={userInfo.state}
-               placeholder="State"
-               options={this.state.states}
-               onChange={this.onChangeStates}
-               />
-
-               <MyOwnSelect
-               name="city"
-               className="form-control"
-               value={userInfo.city}
-               placeholder="city"
-               options={this.state.cities}
-               />
-
-               <MyOwnInput
-               name="address"
-               className="form-control"
-               value={userInfo.address}
-               placeholder="Address"
-               validationError="Address is required"
-               required/>
-
-               <MyOwnInput
-               name="website"
-               className="form-control"
-               value={userInfo.website}
-               placeholder="Website"
-               validationError="Website is required"
-               required/>
-
-               <MyOwnSelect
-               name="companysize"
-               className="form-control"
-               value={userInfo.companysize}
-               placeholder="Companysize"
-               options={[ {text: 'Small'}, { text: 'Medium'}, {text: 'Big' }]}
-               />
-
-               <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
-            </Formsy.Form>
-        </div>
-        );
-
         return (
-        <div className="login">
-          {renderedResult}
-        </div>
+                <div>
+                    <h4 className="ui header ryt">My Company Info</h4>
+                    {message}
+                    <div className="ui small form">
+                        <form className="field">
+                            <div className="field">
+                               <input
+                               ref="companyname"
+                               name="companyname"
+                               className="form-control"
+                               value={userInfo.companyname}
+                               placeholder="Company name"
+                               validationError="Company name is required"
+                               onChange={this.onChangeText}
+                               required/>
+                            </div>
+
+                            <div className="field">
+                               <input
+                               ref="industry"
+                               name="industry"
+                               className="form-control"
+                               value={userInfo.industry}
+                               placeholder="Industry"
+                               validationError="Industry is required"
+                               onChange={this.onChangeText}
+                               required/>
+                            </div>
+
+                            <div className="field">
+                               <select
+                               ref="continent"
+                               name="continent"
+                               className="form-control"
+                               value={userInfo.continent}
+                               onChange={this.onChangeContinent.bind(this)}
+                               >
+                               <option value="">Continent</option>
+                               {
+                                (this.state.continents !==undefined && this.state.continents.length > 0) ? (
+                                this.state.continents.map((data, key) => {
+                                    return (<option value={data.text}>{data.text}</option>);
+                                })) : (<option>Other</option>)
+                               }
+                               <option value="Other">Other</option>
+                               </select>
+                            </div>
+
+                            <div className="field">
+                               <select
+                               ref="country"
+                               name="country"
+                               className="form-control"
+                               onChange={this.onChangeCountry}
+                               value={userInfo.country}
+                               >
+                               <option value="">Country</option>
+                               {
+                                (this.state.countries.length > 0) ? (
+                                this.state.countries.map((data, key) => {
+                                    return (<option>{data.text}</option>);
+                                })) : null
+                               }
+                               </select>
+                            </div>
+
+                            <div className="field">
+                               <select
+                               ref="state"
+                               name="state"
+                               className="form-control"
+                               value={userInfo.state}
+                               onChange={this.onChangeStates}
+                               >
+                               <option value="">State</option>
+                               {
+                                (this.state.states.length > 0) ? (
+                                this.state.states.map((data, key) => {
+                                    return (<option>{data.text}</option>);
+                                })) : null
+                               }
+                               </select>
+                            </div>
+
+                            <div className="field">
+                               <select
+                               ref="city"
+                               name="city"
+                               className="form-control"
+                               value={userInfo.city}
+                               onChange={this.onChangeCities}
+                               >
+                               <option value="">City</option>
+                               {
+                                (this.state.cities.length > 0) ? (
+                                this.state.cities.map((data, key) => {
+                                    return (<option value={data.text}>{data.text}</option>);
+                                })) : null
+                               }
+                               </select>
+                            </div>
+
+                            <div className="field">
+                               <input
+                               ref="address"
+                               name="address"
+                               className="form-control"
+                               value={userInfo.address}
+                               placeholder="Address"
+                               validationError="Address is required"
+                               onChange={this.onChangeText}
+                               required/>
+                            </div>
+
+                            <div className="field">
+                               <input
+                               ref="website"
+                               name="website"
+                               className="form-control"
+                               value={userInfo.website}
+                               placeholder="Website"
+                               validationError="Website is required"
+                               onChange={this.onChangeText}
+                               required/>
+                            </div>
+
+                            <div className="field">
+                               <select
+                               ref="companysize"
+                               name="companysize"
+                               className="form-control"
+                               value={userInfo.companysize}
+                               onChange={this.onChangeText}
+                               >
+                               <option>Small</option>
+                               <option>Medium</option>
+                               <option>Big</option>
+                               </select>
+                            </div>
+
+                            <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>Submit</button>
+                        </form>
+                    </div>
+                </div>
         );
     }
 }

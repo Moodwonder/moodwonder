@@ -13,7 +13,7 @@ import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
 import HalfDaughnut from 'components/HalfDaughnut.react';
-
+import MyCompanyInfo from 'components/MyCompanyInfo.react';
 
 //let chartoptions = {
 //    animation: false,
@@ -485,19 +485,7 @@ export default class MyCompany extends React.Component {
       }
 
 
-      let companyInfoTabContent = '';
-      if (companyinfotab) {
-          companyInfoTabContent = (
-              <div>
-                  <h3>Company Info</h3>
-                  <div>
-                    <label>Number of employees</label>
-                    <br/>
-                  </div>
-              </div>
-          );
-      }
-
+      let display = (companyinfotab) ? 'block': 'none' ;
 
       return (
             <div>
@@ -511,7 +499,7 @@ export default class MyCompany extends React.Component {
                 {engagementGraphTabContent}
                 {quickStatisticsTabContent}
                 {moodRatingsTabContent}
-                {companyInfoTabContent}
+                <div style={{display: display}}><MyCompanyInfo/></div>
             </div>
     );
   }
