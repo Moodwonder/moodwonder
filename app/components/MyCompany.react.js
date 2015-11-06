@@ -9,6 +9,10 @@ import SurveyStore from 'stores/SurveyStore';
 //import Graphdata from 'utils/Graphdata';
 import CompanyRatings from 'utils/CompanyRatings';
 import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
+import FullStar from 'components/FullStar.react';
+import HalfStar from 'components/HalfStar.react';
+import BlankStar from 'components/BlankStar.react';
+import HalfDaughnut from 'components/HalfDaughnut.react';
 
 
 //let chartoptions = {
@@ -112,6 +116,30 @@ export default class MyCompany extends React.Component {
       });
   }
 
+  isFloat = (n) => {
+      return n === +n && n !== (n|0);
+  }
+
+  getStars = (rating, star) => {
+      let rate =  Math.abs(rating);
+      let intRating =  parseInt(rate);
+      let rows = [];
+      for (let i = 0; i < intRating; i++) {
+          rows.push(<FullStar star={star} />);
+      }
+      if (this.isFloat(rate)) {
+          rows.push(<HalfStar star={star} />);
+      }
+      for (let j = 0; j < (4 - intRating); j++) {
+          rows.push(<BlankStar />);
+      }
+      if (rows.length !== 5) {
+          rows.push(<BlankStar />);
+      }
+
+      return rows;
+  }
+
 
 
   render() {
@@ -141,10 +169,22 @@ export default class MyCompany extends React.Component {
       let topmanagers;
       if (engagedmanagers.length > 0) {
           topmanagers = engagedmanagers.map((data, index) => {
-              return (<span className="styled">
-                    <label>{index+1} : {data.name + "  ["  + data.avg + "]"}</label>
-                    <br/>
-                  </span>);
+              let image = "";
+              if (index === 0) {
+                  image = "assets/images/gold.png";
+              } else if (index === 1) {
+                  image = "assets/images/silver.png";
+              } else if (index === 2) {
+                  image = "assets/images/bronge.png";
+              }
+              return (
+                      <div className="ui segment padding-20">
+                        {data.name}
+                        <span className="badge">
+                            <img src={image} alt={data.avg} />
+                        </span>
+                      </div>
+                      );
           });
       } else {
           topmanagers = '';
@@ -164,6 +204,7 @@ export default class MyCompany extends React.Component {
 
       let barChartOptions = {
           showScale: true,
+          responsive: true,
           scaleOverride: true,
           scaleSteps: 6,
           scaleStepWidth: 1,
@@ -191,6 +232,11 @@ export default class MyCompany extends React.Component {
 
       barchartdata.labels = bXLabel;
       barchartdata.datasets = bardatasets;
+
+      let myEngagement = '';
+      if (myCompanyEmployeeEngagement > 0) {
+          myEngagement = (<HalfDaughnut datatext={myCompanyEmployeeEngagement} />);
+      }
       //End: Quick statistics
 
 
@@ -201,35 +247,71 @@ export default class MyCompany extends React.Component {
       let worstAreas = CompanyRatings.getCompanyWorstImprovedAreas(companyedata);
 
       let topthree = topThreeAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                    <label>{data.avg}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.avg, "green");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                                <div data-rating={data.avg} className="ui star rating">
+                                    {rows}
+                                </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
       });
 
       let worstthree = worstThreeAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                    <label>{data.avg}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.avg, "red");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                            <div data-rating={data.avg} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
       });
 
       let improvedareas = improvedAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                    <label>{data.avg}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.avg, "green");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                            <div data-rating={data.avg} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
       });
 
       let worstareas = worstAreas.map((data, key) => {
-          return (<span>
-                    {data.mood} : <meter min="-5" max="5" low="1" high="3.7" value={data.avg}></meter>
-                    <label>{data.avg}</label>
-                    <br/>
-                  </span>);
+
+          let rows = this.getStars(data.avg, "red");
+
+          return (
+                    <div className="column padding-ryt">
+                        <div className="extra center aligned">
+                            <p className="head">{data.avg}</p>
+                            <div data-rating={data.avg} className="ui star rating">
+                                {rows}
+                            </div>
+                            <div className="title">{data.mood}</div>
+                        </div>
+                    </div>
+                 );
       });
       //End : CompanyRatings
 
@@ -292,107 +374,113 @@ export default class MyCompany extends React.Component {
 
       let moodRatingsTabContent = '';
       if (companyratingstab) {
+
           moodRatingsTabContent = (
-               <div>
-                   <h3>Company Ratings</h3>
-                   <div>
-                        <div>
-                            <h4>Company Top 3 areas</h4>
-                            {topthree}
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
+                    <div className="ui segment brdr-none padding-none width-rating">
+                        <div className="clear"></div>
+                        <div className="ui two cards column stackable">
+
+                            <div className="ui card  box-gry">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY TOP THREE AREAS</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {topthree}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card box-gry">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY WORST THREE AREAS</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container ">
+                                        {worstthree}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY MOST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {improvedareas}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+                                        {worstareas}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <br/>
-                        <div>
-                            <h4>Company Worst 3 areas</h4>
-                            {worstthree}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Company - Most Improved Areas (Last 1 Month)</h4>
-                            {improvedareas}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Company - Least Improved Areas (Last 1 Month)</h4>
-                            {worstareas}
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>My Company Vs Companies (Country)</h4>
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>My Company Vs Companies (Industry)</h4>
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Subordinates Vs Companies (Country)</h4>
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Subordinates Vs Companies (Industry)</h4>
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Subordinates - Most Improved Areas (Last 1 Month)</h4>
-                        </div>
-                        <br/>
-                        <div>
-                            <h4>Subordinates - Least Improved Areas (Last 1 Month)</h4>
-                        </div>
-                        <br/>
                     </div>
-               </div>
+                </div>
           );
       }
 
       let quickStatisticsTabContent = '';
       if (quickstatisticstab) {
+
           quickStatisticsTabContent = (
-              <div>
-                  <h3>Quick Statistics</h3>
-                  <div>
-                    <label>Number of employees</label>
-                    <br/>
-                    {totalcemployees}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Employees at risk of leaving</label>
-                    <br/>
-                    {employeeAtRisk + ' out of ' + totalcemployees}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Number of responses (last 1 month)</label>
-                    <br/>
-                    {lastMonthResponses + ' Response(s) submitted'}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Time since last response</label>
-                    <br/>
-                    {timeSinceLastPost}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>My company's employee engagement</label>
-                    <br/>
-                    {myCompanyEmployeeEngagement}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>The most engaging managers</label>
-                    <br/>
-                    {topmanagers}
-                  </div>
-                  <br/>
-                  <div>
-                    <label>Comparison of responses within my company</label>
-                    <br/>
-                    <BarChart data={barchartdata} options={barChartOptions} width="600" height="300" redraw/>
-                  </div>
-                  <br/>
-              </div>
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
+                    <div className="ui segment brdr-none padding-none width-rating">
+                        <div className="clear"></div>
+                        <div className="ui three column stackable grid ">
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2>Number of employees</h2>
+                                    {totalcemployees}
+                                </div>
+                            </div>
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2>Employees at risk of leaving</h2>
+                                    {employeeAtRisk + ' out of ' + totalcemployees}
+                                </div>
+                            </div>
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2>Number of responses (last 1 month)</h2>
+                                    {lastMonthResponses + ' Response(s) submitted'}
+                                </div>
+                            </div>
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2>Time since last response</h2>
+                                    {timeSinceLastPost}
+                                </div>
+                            </div>
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2>Employee average Engagement</h2>
+                                    {myEngagement}
+                                </div>
+                            </div>
+                            <div className="column">
+                                <div className="ui segment brdr">
+                                    <h2>Most engaging manager</h2>
+                                    {topmanagers}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="clear"></div>
+                        <div className="ui three column stackable grid ">
+                            <BarChart data={barchartdata} options={barChartOptions} width="800" height="300" redraw/>
+                        </div>
+                    </div>
+                </div>
           );
       }
 
