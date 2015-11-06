@@ -33,6 +33,7 @@ export default class Takesurvey extends React.Component {
 
   onCancelSurvey = (e) => {
       e.preventDefault();
+      document.getElementById("surveyForm").reset();
   }
 
   onSubmitSurvey = (e) => {

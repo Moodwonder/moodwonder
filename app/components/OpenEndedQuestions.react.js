@@ -27,6 +27,11 @@ export default class OpenEndedQuestions extends React.Component {
           questions: OpenEndedStore.getState().questions,
           savesurveyflag: OpenEndedStore.getState().savesurveyflag
       });
+      
+      if (this.state.savesurveyflag) {
+          console.log('submitted');
+          window.location.assign('/mymood');
+      }
   }
 
   onOpenEndedSurveySubmit = (e) => {
@@ -41,31 +46,31 @@ export default class OpenEndedQuestions extends React.Component {
       openended.least_improved_atwo = data['least_improved_atwo'];
       openended.least_improved_athree = data['least_improved_athree'];
 
-      let errorFlag =  false;
+      //let errorFlag =  false;
 
-      if(openended.most_improved_aone === '' || openended.most_improved_aone === null) {
-          errorFlag =  true;
-      } else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
-          errorFlag =  true;
-      } else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
-          errorFlag =  true;
-      }
+      //if(openended.most_improved_aone === '' || openended.most_improved_aone === null) {
+      //    errorFlag =  true;
+      //} else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
+      //    errorFlag =  true;
+      //} else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
+      //    errorFlag =  true;
+      //} else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
+      //    errorFlag =  true;
+      //} else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
+      //    errorFlag =  true;
+      //} else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
+      //    errorFlag =  true;
+      //}
 
-      if (errorFlag) {
-          alert("Please answer all the questions.");
-      } else {
-          if (window.confirm('Are sure you want to submit Open ended questions?')) {
-              OpenEndedActions.saveAnswers(openended);
-              //console.log(JSON.stringify(openended));
-          }
-      }
+      //if (errorFlag) {
+      //    alert("Please answer all the questions.");
+      //} else {
+      //    if (window.confirm('Are sure you want to submit Open ended questions?')) {
+      //        OpenEndedActions.saveAnswers(openended);
+      //    }
+      //}
 
+      OpenEndedActions.saveAnswers(openended);
   }
 
   onOpenEndedSurveyCancel = (e) => {
@@ -76,15 +81,6 @@ export default class OpenEndedQuestions extends React.Component {
 
 
   render() {
-      let savesurveyflag = this.state.savesurveyflag;
-
-      let statusmessage = '';
-      if(savesurveyflag) {
-          statusmessage = (<div>
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
-      }
 
       let questions = (this.state.questions).map((question) => {
           return (
@@ -210,7 +206,6 @@ export default class OpenEndedQuestions extends React.Component {
 
       return (
         <div className="ui segment brdr-none padding-none width-rating">
-            {statusmessage}
             <form id="openEndedForm">
                 {questions}
             </form>
