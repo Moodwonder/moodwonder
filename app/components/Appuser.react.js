@@ -64,7 +64,7 @@ export default class App extends React.Component {
           rightnav = (<Rightnav />);
       }
 
-      pages = ["/myprofile","/my_company"];
+      pages = ["/myprofile","/mycompany"];
       //pages = ["/myprofile"];
       if( pages.indexOf(path) >= 0 ){
           rightnav     = '';

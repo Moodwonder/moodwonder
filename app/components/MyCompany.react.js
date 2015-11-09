@@ -67,6 +67,12 @@ export default class MyCompany extends React.Component {
       SurveyStore.unlisten(this._onChangeData);
   }
 
+  componentDidUpdate () {
+      $('.ui.menu .ui.dropdown').dropdown({
+          on: 'click'
+      });
+  }
+
   _onChangeData = () => {
       this.setState({
          companyedata: SurveyStore.getState().companyedata,
@@ -158,8 +164,8 @@ export default class MyCompany extends React.Component {
       //let loggeduserid = this.state.loggeduserid;
       let engagedmanagers = this.state.engagedmanagers;
 
-      //console.log('companyedata');
-      //console.log(JSON.stringify(companyedata));
+      console.log('companyedata');
+      console.log(JSON.stringify(companyedata));
 
 
 

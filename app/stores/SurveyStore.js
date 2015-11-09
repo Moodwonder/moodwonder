@@ -52,7 +52,7 @@ class SurveyStore {
 
   handleSaveSurveys (res) {
 
-      this.savedstatus = true;
+      //this.savedstatus = true;
       if(res.status) {
           SurveyWebAPIUtils.getLastSurvey()
           .then((response, textStatus) => {
@@ -61,6 +61,7 @@ class SurveyStore {
                   this.lastsurvey = response.data;
                   this.lastmood = [];
                   this.lastmood = response.lastmood;
+                  this.savedstatus = true;
                   this.emitChange();
               }
           }, () => {
