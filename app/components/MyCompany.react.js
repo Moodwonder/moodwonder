@@ -14,6 +14,7 @@ import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
 import HalfDaughnut from 'components/HalfDaughnut.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
+import UserStore from 'stores/UserStore';
 
 //let chartoptions = {
 //    animation: false,
@@ -49,8 +50,12 @@ export default class MyCompany extends React.Component {
           questions: []
       };
       this.engagementmoods = [];
+      this.userstate = UserStore.getState();
   }
 
+    componentDidUpdate () {
+        // console.log(this.state);
+    }
   componentDidMount() {
       SurveyActions.getCompanyData();
       SurveyActions.getMostEngagingManagers();
@@ -487,21 +492,30 @@ export default class MyCompany extends React.Component {
 
       let display = (companyinfotab) ? 'block': 'none' ;
 
+      // Enable company info tab if the current user is admin
+      let comInfoTab = null;
+      let comInfoTabContent = null;
+      if((this.userstate.user.get('usertype')==='admin')){
+          comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>];
+          comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo/></div>];
+      }
+
+
       return (
             <div>
                 <div className="ui tabular menu tab four column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.quickStatisticsClick} href="#"> Quick Statistics </a>
                     <a className="item mobile column" onClick={this.companyRatingsClick} href="#"> Company Ratings </a>
-                    <a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>
+                    {comInfoTab}
                 </div>
                 <br/><br/>
                 {engagementGraphTabContent}
                 {quickStatisticsTabContent}
                 {moodRatingsTabContent}
-                <div style={{display: display}}><MyCompanyInfo/></div>
+                {comInfoTabContent}
             </div>
-    );
+      );
   }
 }
 

@@ -131,6 +131,8 @@ exports.postLogin = function (req, res, next) {
                 return done(null, false, {message: 'Email ' + email + ' not found'});
             user.comparePassword(password, function (err, isMatch) {
                 if (isMatch) {
+                    // No need to send password data to the browser
+                    user.password = '';
                     return done(null, user);
                 } else {
                     return done(null, false, {message: 'Invalid email or password'});
@@ -142,7 +144,7 @@ exports.postLogin = function (req, res, next) {
 
     // Do email and password validation for the server
     passport.authenticate('local-user', function (err, user, info) {
-        console.log(user);
+        //console.log(user);
         if (err)
             return next(err);
         if (!user) {
