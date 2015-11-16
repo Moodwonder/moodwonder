@@ -30,7 +30,7 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     componentDidUpdate () {
-
+		//console.log(this.state);
     }
 
     onChangeText = (e) => {

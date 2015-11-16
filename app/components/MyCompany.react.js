@@ -9,6 +9,7 @@ import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
+<<<<<<< HEAD
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
@@ -28,6 +29,25 @@ let chartoptions = {
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"
 };
+=======
+import UserStore from 'stores/UserStore';
+
+//let chartoptions = {
+//    animation: false,
+//    bezierCurve: false,
+//    datasetFill : false,
+//    showScale: true,
+//    scaleOverride: true,
+//    scaleShowVerticalLines: false,
+//    scaleGridLineWidth : 1,
+//    scaleSteps: 6,
+//    scaleStepWidth: 1,
+//    responsive: false,
+//    scaleStartValue: 0,
+//    scaleShowLabels: true,
+//    tooltipTemplate: "<%= value %>"
+//};
+>>>>>>> 4108d98bd8b36ed79c2728b74cdc1efbfc2befa6
 
 
 export default class MyCompany extends React.Component {
@@ -47,8 +67,12 @@ export default class MyCompany extends React.Component {
           userDetails: []
       };
       this.engagementmoods = [];
+      this.userstate = UserStore.getState();
   }
 
+    componentDidUpdate () {
+        // console.log(this.state);
+    }
   componentDidMount() {
       SurveyActions.getCompanyData();
       SurveyActions.getMostEngagingManagers();
@@ -521,18 +545,27 @@ export default class MyCompany extends React.Component {
 
       let display = (companyinfotab) ? 'block': 'none' ;
 
+      // Enable company info tab if the current user is admin
+      let comInfoTab = null;
+      let comInfoTabContent = null;
+      if((this.userstate.user.get('usertype')==='admin')){
+          comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>];
+          comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo/></div>];
+      }
+
+
       return (
             <div>
                 <div className="ui tabular menu tab three column">
                     <a className="item active mobile column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.companyRatingsClick} href="#"> Company Ratings </a>
-                    <a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>
+                    {comInfoTab}
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}
-                <div style={{display: display}}><MyCompanyInfo/></div>
+                {comInfoTabContent}
             </div>
-    );
+      );
   }
 }
 

@@ -156,7 +156,7 @@ module.exports = function (app, passport) {
 
         if (/(\.png$|\.map$|\.jpg$)/.test(req.url))
             return;
-        var user = req.user ? {authenticated: true, isWaiting: false } : {authenticated: false, isWaiting: false};
+        var user = req.user ? {authenticated: true, isWaiting: false, usertype: req.user.usertype } : {authenticated: false, isWaiting: false};
         var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
 
         var AppStore = { isAuthenticated: false, userType: false };
