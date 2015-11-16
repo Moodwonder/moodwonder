@@ -9,7 +9,6 @@ import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
-<<<<<<< HEAD
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 
@@ -29,26 +28,8 @@ let chartoptions = {
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"
 };
-=======
+
 import UserStore from 'stores/UserStore';
-
-//let chartoptions = {
-//    animation: false,
-//    bezierCurve: false,
-//    datasetFill : false,
-//    showScale: true,
-//    scaleOverride: true,
-//    scaleShowVerticalLines: false,
-//    scaleGridLineWidth : 1,
-//    scaleSteps: 6,
-//    scaleStepWidth: 1,
-//    responsive: false,
-//    scaleStartValue: 0,
-//    scaleShowLabels: true,
-//    tooltipTemplate: "<%= value %>"
-//};
->>>>>>> 4108d98bd8b36ed79c2728b74cdc1efbfc2befa6
-
 
 export default class MyCompany extends React.Component {
 
