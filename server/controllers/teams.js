@@ -169,6 +169,30 @@ exports.getMyTeams = function(req, res, next) {
 };
 
 /**
+ * get my teams
+ *
+ */
+exports.getOwnTeams = function(req, res, next) {
+
+  var where = { manager_id: new ObjectId(req.user._id) };
+
+  Team.find(where).exec(function(err, lists) {
+    if(!err) {
+        response.status   = true;
+        response.data  = lists;
+        response.message  = 'Teams';
+        res.send(response);
+        res.end();
+    } else {
+        response.status   = false;
+        response.message  = 'Something went wrong..';
+        res.send(response);
+        res.end();
+    }
+  });
+};
+
+/**
  * Add a member to team
  *
  */

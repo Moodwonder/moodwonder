@@ -61,6 +61,7 @@ module.exports = function (app, passport) {
     app.get('/logout', users.getLogout);
     app.get('/test', users.sendEOTMstats);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
+    app.get('/getownteams', users.checkLogin, teams.getOwnTeams);
     
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
@@ -244,6 +245,8 @@ module.exports = function (app, passport) {
         html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", Header.link);
+        //html = html.replace("TITLE", Header.title)
+        //        .replace("META", Header.meta);
 
         //var page = pageurl.split("/").pop();
         var page = '';

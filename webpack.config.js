@@ -65,50 +65,6 @@ module.exports = [
         new ExtractTextPlugin("styles/main.css")
     ]
   }, {
-    // The configuration for admin
-    name: "admin",
-    context: path.join(__dirname, "app"),
-    entry: {
-      admin: "./admin"
-    },
-    output: {
-      // The output directory as absolute path
-      path: assetsPath,
-      filename: "[name].js",
-      // The output path from the view of the Javascript
-      publicPath: publicPath
-
-    },
-    node: {
-		// To fix webpack error from `react-validation-mixin` module
-        dns: "empty",
-        net: "empty"
-    },
-    module: {
-      preLoaders: [{
-        test: /\.js$|.jsx$/,
-        exclude: /node_modules/,
-        loaders: ["eslint"]
-      }],
-      loaders: commonLoaders.concat([
-        { test: /\.css$/, loader: "style!css" },
-        { test: /\.scss$/,
-          loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap&outputStyle=expanded" +
-            "&includePaths[]=" + (path.resolve(__dirname, "./bower_components")) +
-            "&includePaths[]=" + (path.resolve(__dirname, "./node_modules")))
-        }
-      ])
-    },
-    resolve: {
-      modulesDirectories: [
-        "app", "node_modules"
-      ]
-    },
-    plugins: [
-        // extract inline css from modules into separate files
-        new ExtractTextPlugin("styles/main.css")
-    ]
-  }, {
     // The configuration for the server-side rendering
     name: "server-side rendering",
     context: path.join(__dirname, "app"),

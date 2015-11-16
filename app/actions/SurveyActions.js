@@ -220,6 +220,32 @@ class SurveyActions {
       //this.dispatch(data);
   }
 
+  getMyTeams() {
+      this.dispatch();
+      SurveyWebAPIUtils.getMyTeams()
+      .then((response, textStatus) => {
+          if (response.status) {
+              //console.log('teams');
+              //console.log(JSON.stringify(response.data));
+              this.actions.myteams(response.data);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  myteams(data)
+  {
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);

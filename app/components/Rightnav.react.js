@@ -2,6 +2,7 @@ import React from 'react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import QuickStatistics from 'utils/QuickStatistics';
+import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
 
 
 export default class Rightnav extends React.Component {
@@ -43,10 +44,30 @@ export default class Rightnav extends React.Component {
       let currentuserid = this.state.currentuserid;
       let totalcompanyusers = (this.state.totalcompanyusers) ? this.state.totalcompanyusers : 0;
 
-      let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
-      let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
-      let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
-      let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+      //let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
+      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
+      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
+      //let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+
+      let employeesAtRisk = CompanyQuickStatistics.getEmployeeAtRisk(companysurvey);
+      let lastMonthResponses;
+      let timeSinceLastPost;
+      let lastRatings;
+
+      let cPath = this.context.router.getCurrentPathname();
+      let pages = ["/mycompany"];
+      if( pages.indexOf(cPath) >= 0){
+          //MyCompany Statistics.
+          lastMonthResponses = CompanyQuickStatistics.getLastMonthResponses(companysurvey);
+          timeSinceLastPost = CompanyQuickStatistics.getTimeSinceLastPosted(companysurvey);
+          lastRatings = (CompanyQuickStatistics.getLastRatings(companysurvey)).reverse();
+
+      } else {
+          //MyMood Statistics.
+          lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
+          timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
+          lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+      }
 
       let responseComparison = lastRatings.map((data, index) => {
           return [
@@ -137,5 +158,7 @@ export default class Rightnav extends React.Component {
   }
 
 }
+
+Rightnav.contextTypes = { router: React.PropTypes.func };
 
 

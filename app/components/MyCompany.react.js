@@ -1,35 +1,33 @@
 import React from 'react';
-// import $ from 'jquery';
-//import getFormData from 'get-form-data';
-//let LineChart = require("react-chartjs").Line;
-let BarChart = require("react-chartjs").Bar;
-//import MoodSlider from 'components/MoodSlider.react';
+import _ from 'underscore';
+let LineChart = require("react-chartjs").Line;
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
-//import Graphdata from 'utils/Graphdata';
+import CompanyGraphdata from 'utils/CompanyGraphdata';
 import CompanyRatings from 'utils/CompanyRatings';
-import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
 import FullStar from 'components/FullStar.react';
 import HalfStar from 'components/HalfStar.react';
 import BlankStar from 'components/BlankStar.react';
-import HalfDaughnut from 'components/HalfDaughnut.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
+import UserActions from 'actions/UserActions';
+import UserStore from 'stores/UserStore';
 
-//let chartoptions = {
-//    animation: false,
-//    bezierCurve: false,
-//    datasetFill : false,
-//    showScale: true,
-//    scaleOverride: true,
-//    scaleShowVerticalLines: false,
-//    scaleGridLineWidth : 1,
-//    scaleSteps: 6,
-//    scaleStepWidth: 1,
-//    responsive: false,
-//    scaleStartValue: 0,
-//    scaleShowLabels: true,
-//    tooltipTemplate: "<%= value %>"
-//};
+
+let chartoptions = {
+    animation: false,
+    bezierCurve: false,
+    datasetFill : false,
+    showScale: true,
+    scaleOverride: true,
+    scaleShowVerticalLines: false,
+    scaleGridLineWidth : 1,
+    scaleSteps: 6,
+    scaleStepWidth: 1,
+    responsive: true,
+    scaleStartValue: 0,
+    scaleShowLabels: true,
+    tooltipTemplate: "<%= value %>"
+};
 
 
 export default class MyCompany extends React.Component {
@@ -38,15 +36,15 @@ export default class MyCompany extends React.Component {
       super(props);
       this.state = {
           engagementgraphtab: true,
-          quickstatisticstab: false,
           companyratingstab: false,
           companyinfotab : false,
-          //Start: Quick statistics
           companyedata: [],
-          totalcemployees: '',
-          loggeduserid: '',
-          engagedmanagers: [],
-          questions: []
+          questions: [],
+          graphengagement: 'mw_index',
+          graphtabclick: false,
+          currentuserid: '',
+          teams: [],
+          userDetails: []
       };
       this.engagementmoods = [];
   }
@@ -55,26 +53,42 @@ export default class MyCompany extends React.Component {
       SurveyActions.getCompanyData();
       SurveyActions.getMostEngagingManagers();
       SurveyActions.getEngagementSurvey();
+      SurveyActions.getMyTeams();
       SurveyStore.listen(this._onChangeData);
+
+      UserActions.getuserinfo();
+      UserStore.listen(this._onChangeUserData);
+
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
   }
 
   componentWillUnmount() {
       SurveyStore.unlisten(this._onChangeData);
+      UserStore.unlisten(this._onChangeUserData);
   }
 
   componentDidUpdate () {
-      $('.ui.menu .ui.dropdown').dropdown({
-          on: 'click'
-      });
+      //$('.graphengagement').dropdown({
+      //    on: 'click'
+      //});
+      //$('.graphengagement').dropdown({
+      //    onChange: this.onChangeGraphEngagement
+      //});
+      if (this.state.graphtabclick) {
+          $('.graphengagement').dropdown({
+              onChange: this.onChangeGraphEngagement
+          });
+      }
   }
 
   _onChangeData = () => {
       this.setState({
          companyedata: SurveyStore.getState().companyedata,
-         totalcemployees: SurveyStore.getState().totalcemployees,
-         //loggeduserid: SurveyStore.getState().loggeduserid,
-         engagedmanagers: SurveyStore.getState().engagedmanagers,
-         questions : SurveyStore.getState().questions
+         questions : SurveyStore.getState().questions,
+         currentuserid: SurveyStore.getState().currentuserid,
+         teams: SurveyStore.getState().teams
       });
 
       this.engagementmoods = this.state.questions.map((data, key) => {
@@ -82,23 +96,19 @@ export default class MyCompany extends React.Component {
       });
   }
 
+  _onChangeUserData = () => {
+      this.setState({
+         userDetails: UserStore.getState().userDetails
+      });
+  }
+
   engagementGraphClick = (e) => {
       e.preventDefault();
       this.setState({
           engagementgraphtab: true,
-          quickstatisticstab : false,
           companyratingstab : false,
-          companyinfotab : false
-      });
-  }
-
-  quickStatisticsClick = (e) => {
-      e.preventDefault();
-      this.setState({
-          engagementgraphtab: false,
-          quickstatisticstab : true,
-          companyratingstab : false,
-          companyinfotab : false
+          companyinfotab : false,
+          graphtabclick: true
       });
   }
 
@@ -106,9 +116,9 @@ export default class MyCompany extends React.Component {
       e.preventDefault();
       this.setState({
           engagementgraphtab: false,
-          quickstatisticstab : false,
           companyratingstab : true,
-          companyinfotab : false
+          companyinfotab : false,
+          graphtabclick: false
       });
   }
 
@@ -116,9 +126,9 @@ export default class MyCompany extends React.Component {
       e.preventDefault();
       this.setState({
           engagementgraphtab: false,
-          quickstatisticstab : false,
           companyratingstab : false,
-          companyinfotab : true
+          companyinfotab : true,
+          graphtabclick: false
       });
   }
 
@@ -146,104 +156,32 @@ export default class MyCompany extends React.Component {
       return rows;
   }
 
+  bindDropdown = () => {
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
+      $('.graphengagement').dropdown({
+          onChange: this.onChangeGraphEngagement
+      });
+  }
+
+  onChangeGraphEngagement = (value) => {
+      console.log(value);
+      this.setState({ graphengagement : value });
+  }
+
 
 
   render() {
 
       let engagementgraphtab = this.state.engagementgraphtab;
-      let quickstatisticstab = this.state.quickstatisticstab;
       let companyratingstab = this.state.companyratingstab;
       let companyinfotab = this.state.companyinfotab;
       let companyedata = this.state.companyedata;
-      let totalcemployees = this.state.totalcemployees;
-      //let loggeduserid = this.state.loggeduserid;
-      let engagedmanagers = this.state.engagedmanagers;
-
-      console.log('companyedata');
-      console.log(JSON.stringify(companyedata));
-
-
-
-      //Start: Quick statistics
-      let employeeAtRisk = CompanyQuickStatistics.getEmployeeAtRisk(companyedata);
-      let lastMonthResponses = CompanyQuickStatistics.getLastMonthResponses(companyedata);
-      let timeSinceLastPost = CompanyQuickStatistics.getTimeSinceLastPosted(companyedata);
-      let lastRatings = (CompanyQuickStatistics.getLastRatings(companyedata)).reverse();
-      let myCompanyEmployeeEngagement = CompanyQuickStatistics.getCompanyEmployeeEngagement(companyedata);
-
-
-      let topmanagers;
-      if (engagedmanagers.length > 0) {
-          topmanagers = engagedmanagers.map((data, index) => {
-              let image = "";
-              if (index === 0) {
-                  image = "assets/images/gold.png";
-              } else if (index === 1) {
-                  image = "assets/images/silver.png";
-              } else if (index === 2) {
-                  image = "assets/images/bronge.png";
-              }
-              return (
-                      <div className="ui segment padding-20">
-                        {data.name}
-                        <span className="badge">
-                            <img src={image} alt={data.avg} />
-                        </span>
-                      </div>
-                      );
-          });
-      } else {
-          topmanagers = '';
-      }
-
-      let bCount = lastRatings.length - 1;
-      let bIndex = 0;
-      let bXLabel = [];
-      let bYLdata = [];
-      for(let data of lastRatings) {
-          if(bIndex <= bCount) {
-              bXLabel[bIndex] = data.mood;
-              bYLdata[bIndex] = data.rating;
-          }
-          bIndex++;
-      }
-
-      let barChartOptions = {
-          showScale: true,
-          responsive: true,
-          scaleOverride: true,
-          scaleSteps: 6,
-          scaleStepWidth: 1,
-          scaleStartValue: 0,
-          scaleGridLineWidth : 1,
-          scaleLineWidth: 0.5,
-          animation: false,
-          barShowStroke: true,
-          //barValueSpacing : 5
-          barDatasetSpacing : 1
-      };
-
-      let barchartdata =  barchartdata || {};
-      let bardataset = {
-            label: "Mood ratings",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(151,187,205,0.75)",
-            highlightStroke: "rgba(151,187,205,1)",
-            data: bYLdata
-          };
-
-      let bardatasets = [];
-      bardatasets.push(bardataset);
-
-      barchartdata.labels = bXLabel;
-      barchartdata.datasets = bardatasets;
-
-      let myEngagement = '';
-      if (myCompanyEmployeeEngagement > 0) {
-          myEngagement = (<HalfDaughnut datatext={myCompanyEmployeeEngagement} />);
-      }
-      //End: Quick statistics
+      let graphengagement = this.state.graphengagement;
+      let currentuserid = this.state.currentuserid;
+      let teams = this.state.teams;
+      let userDetails = this.state.userDetails;
 
 
       //Start : CompanyRatings
@@ -328,49 +266,194 @@ export default class MyCompany extends React.Component {
       moodoptions = engagementmoods.map((data, key) => {
           return (<option value={data}>{data}</option>);
       });
+
+      let myGraphData = CompanyGraphdata.getMyEngagementData(graphengagement, companyedata, currentuserid);
+      let mylastrate;
+      for (let row of _.last(myGraphData,1)) {
+          mylastrate = row.rating;
+      }
+
+      //Start : MyGraphdata
+      let myxlabel = [];
+      let myydata = [];
+      let mycount = myGraphData.length - 1;
+      let myindex = 0;
+
+      for(let mydata of myGraphData) {
+          if(myindex <= mycount) {
+              myxlabel[myindex] = mydata.created.d;
+              myydata[myindex] = mydata.rating;
+          }
+          myindex++;
+      }
+
+      if (myxlabel.length === 0) {
+          let today = new Date();
+          let year = today.getFullYear();
+          let month = ('0' + (today.getMonth() + 1)).slice(-2);
+          let day = ('0' + today.getDate()).slice(-2);
+          myxlabel.push(year + '-' + month + '-' +day);
+      }
+
+      let mychartdata =  mychartdata || {};
+      let mydata = {
+            label: "First Dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: myydata
+          };
+
+      let mydatasets = [];
+      mydatasets.push(mydata);
+
+      mychartdata.labels = myxlabel;
+      mychartdata.datasets = mydatasets;
+      //End : MyGraphdata
+
+      //Start : CompanyGraphdata
+      let compnayGraphData = CompanyGraphdata.getEngagementGraphData(graphengagement, companyedata);
+      let clastrate;
+      for (let row of _.last(compnayGraphData,1)) {
+          clastrate = row.rating;
+      }
+
+      let xlabel = [];
+      let ydata = [];
+      let count = compnayGraphData.length - 1;
+      let index = 0;
+
+      for(let data of compnayGraphData) {
+          if(index <= count) {
+              xlabel[index] = data.created.d;
+              ydata[index] = data.rating;
+          }
+          index++;
+      }
+
+      if (xlabel.length === 0) {
+          let today = new Date();
+          let year = today.getFullYear();
+          let month = ('0' + (today.getMonth() + 1)).slice(-2);
+          let day = ('0' + today.getDate()).slice(-2);
+          xlabel.push(year + '-' + month + '-' +day);
+      }
+
+      let chartdata =  chartdata || {};
+      let data = {
+            label: "First Dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: ydata
+          };
+
+      let datasets = [];
+      datasets.push(data);
+
+      chartdata.labels = xlabel;
+      chartdata.datasets = datasets;
+      //End : CompanyGraphdata
+
+
+      //Start : Team Graph Data
+      let teamgraph = teams.map((data, key) => {
+
+          let teamGraphData = CompanyGraphdata.getTeamEngagementGraphData(graphengagement, companyedata, data.member_ids);
+          let tlastrate = _.last(teamGraphData,1);
+
+          let txlabel = [];
+          let tydata = [];
+          let tcount = teamGraphData.length - 1;
+          let tindex = 0;
+
+          for(let data of teamGraphData) {
+              if(tindex <= tcount) {
+                  txlabel[tindex] = data.created.d;
+                  tydata[tindex] = data.rating;
+              }
+              tindex++;
+          }
+
+          if (txlabel.length === 0) {
+              let today = new Date();
+              let year = today.getFullYear();
+              let month = ('0' + (today.getMonth() + 1)).slice(-2);
+              let day = ('0' + today.getDate()).slice(-2);
+              txlabel.push(year + '-' + month + '-' +day);
+          }
+
+          let tchartdata =  tchartdata || {};
+          let tdata = {
+              label: "First Dataset",
+              fillColor: "rgba(151,187,205,0.2)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(151,187,205,1)",
+              data: tydata
+          };
+
+          let tdatasets = [];
+          tdatasets.push(tdata);
+
+          tchartdata.labels = txlabel;
+          tchartdata.datasets = tdatasets;
+
+          return (
+                    <div className="ui  column stackable grid">
+                        <div className="column ">
+                            <div className="ui segment brdr">
+                                <h2 className="com">{data.teamname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{tlastrate[0].rating}</span> </h2>
+                                <div><LineChart data={tchartdata} options={chartoptions} width="800" height="250" redraw/></div>
+                            </div>
+                        </div>
+                    </div>
+          );
+      });
+      //End : Team Graph Data
+
       //End: Engagement Graph
 
-//      let engagementGraphTabContent = '';
-//      if (engagementgraphtab) {
-//          engagementGraphTabContent = (
-//                  <div>
-//                    <h3>Engagement Graph</h3>
-//                        <div className="form-group">
-//                            <label> Moodwonder trend</label>
-//                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-//                            <label>Show me</label>
-//                            <select name="graphengagement" >
-//                                <option value="mw_index">MW-Index</option>
-//                                {moodoptions}
-//                            </select>
-//                            <br/><br/>
-//                            <span>At Start - </span>
-//                            <br/><br/>
-//
-//                        </div>
-//                  </div>
-//          );
-//      }
-
-      let engagementGraphTabContent = '';
+      let engagementGraphTabContent = null;
       if (engagementgraphtab) {
           engagementGraphTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
-                    <div className="ui bottom attached segment brdr-none menu">
-                        <div className="ui  column stackable grid container">
-                            <div className="column  brdr-none padding-none">
-                                <div className="ui segment brdr-none padding-none ">
-                                    <div className=" right menu mobile">
-                                        <select className="ui search dropdown graphengagement" name="graphengagement">
-                                            <option value="mw_index">MW-Index</option>
-                                            {moodoptions}
-                                        </select>
-                                    </div>
-                                    <div className="clear"></div>
-                                    <div className="graph">
-
+                <div className="ui bottom attached segment brdr-none menu">
+                    <div className="ui  column stackable grid container">
+                        <div className="column  brdr-none padding-none">
+                            <div className="ui segment brdr-none padding-none ">
+                                <h4 className="ui header ryt com">Moodwonder trend</h4>
+                                <div className=" right menu mobile">
+                                    <select className="ui search dropdown graphengagement" onChange={this.onChangeGraphEngagement} onClick={this.bindDropdown} value={graphengagement} name="graphengagement">
+                                        <option value="mw_index">MW-Index</option>
+                                        {moodoptions}
+                                    </select>
+                                </div>
+                                <div className="clear"></div>
+                                <div className="ui  column stackable grid">
+                                    <div className="column ">
+                                        <div className="ui segment brdr">
+                                            <h2 className="com">Myself <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{mylastrate}</span> </h2>
+                                            <div><LineChart data={mychartdata} options={chartoptions} width="800" height="250" redraw/></div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="ui  column stackable grid">
+                                    <div className="column ">
+                                        <div className="ui segment brdr">
+                                            <h2 className="com">{userDetails.companyname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{clastrate}</span> </h2>
+                                            <div><LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {teamgraph}
                             </div>
                         </div>
                     </div>
@@ -378,7 +461,7 @@ export default class MyCompany extends React.Component {
           );
       }
 
-      let moodRatingsTabContent = '';
+      let moodRatingsTabContent = null;
       if (companyratingstab) {
 
           moodRatingsTabContent = (
@@ -436,74 +519,16 @@ export default class MyCompany extends React.Component {
           );
       }
 
-      let quickStatisticsTabContent = '';
-      if (quickstatisticstab) {
-
-          quickStatisticsTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
-                    <div className="ui segment brdr-none padding-none width-rating">
-                        <div className="clear"></div>
-                        <div className="ui three column stackable grid ">
-                            <div className="column ">
-                                <div className="ui segment brdr">
-                                    <h2>Number of employees</h2>
-                                    {totalcemployees}
-                                </div>
-                            </div>
-                            <div className="column ">
-                                <div className="ui segment brdr">
-                                    <h2>Employees at risk of leaving</h2>
-                                    {employeeAtRisk + ' out of ' + totalcemployees}
-                                </div>
-                            </div>
-                            <div className="column ">
-                                <div className="ui segment brdr">
-                                    <h2>Number of responses (last 1 month)</h2>
-                                    {lastMonthResponses + ' Response(s) submitted'}
-                                </div>
-                            </div>
-                            <div className="column ">
-                                <div className="ui segment brdr">
-                                    <h2>Time since last response</h2>
-                                    {timeSinceLastPost}
-                                </div>
-                            </div>
-                            <div className="column ">
-                                <div className="ui segment brdr">
-                                    <h2>Employee average Engagement</h2>
-                                    {myEngagement}
-                                </div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment brdr">
-                                    <h2>Most engaging manager</h2>
-                                    {topmanagers}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="clear"></div>
-                        <div className="ui three column stackable grid ">
-                            <BarChart data={barchartdata} options={barChartOptions} width="800" height="300" redraw/>
-                        </div>
-                    </div>
-                </div>
-          );
-      }
-
-
       let display = (companyinfotab) ? 'block': 'none' ;
 
       return (
             <div>
-                <div className="ui tabular menu tab four column">
-                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
-                    <a className="item mobile column" onClick={this.quickStatisticsClick} href="#"> Quick Statistics </a>
+                <div className="ui tabular menu tab three column">
+                    <a className="item active mobile column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.companyRatingsClick} href="#"> Company Ratings </a>
                     <a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>
                 </div>
-                <br/><br/>
                 {engagementGraphTabContent}
-                {quickStatisticsTabContent}
                 {moodRatingsTabContent}
                 <div style={{display: display}}><MyCompanyInfo/></div>
             </div>

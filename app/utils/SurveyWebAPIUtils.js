@@ -74,6 +74,14 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getMyTeams: () => {
+      return $.ajax({
+      url: '/getownteams',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };

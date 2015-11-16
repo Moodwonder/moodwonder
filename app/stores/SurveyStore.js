@@ -20,6 +20,7 @@ class SurveyStore {
       this.engagedmanagers = [];
       this.currentuserid = '';
       this.totalcompanyusers = '';
+      this.teams = [];
 
       //Start :Company statistics
       this.companyedata = [];
@@ -37,6 +38,7 @@ class SurveyStore {
       handleResultsByIndustry: SurveyActions.RESULTSBYINDUSTRY,
       handleResultsByCountry: SurveyActions.RESULTSBYCOUNTRY,
       handleEngagingManagers: SurveyActions.MOSTENGAGINGMANAGERS,
+      handleMyTeams: SurveyActions.MYTEAMS,
 
       //Start :Company statistics
       handleCompanyData: SurveyActions.COMPANYDATA
@@ -111,6 +113,12 @@ class SurveyStore {
   handleEngagingManagers (response) {
       this.engagedmanagers = [];
       this.engagedmanagers = response.data;
+      this.emitChange();
+  }
+
+  handleMyTeams (data) {
+      this.teams = [];
+      this.teams = data;
       this.emitChange();
   }
 
