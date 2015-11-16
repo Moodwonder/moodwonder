@@ -1074,7 +1074,11 @@ export default class MyMood extends React.Component {
                     <div className="column">
                         <h4 className="ui header ryt com">Custom Survey Test Generation</h4>
                     </div>
-                    <div className="column"></div>
+                    <div className="column">
+                        <div className="three  column">
+                            <div className="test-gen ui submit button "> <a href="/surveyforms">Survey Lists</a></div>
+                        </div>
+                    </div>
                 </div>
                 <form id="surveyForm">
                 <div className="custom-box">

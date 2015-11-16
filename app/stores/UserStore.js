@@ -24,6 +24,8 @@ class UserStore {
       this.message = '';
       this.isLoggedIn = false;
       this.canSubmit = false;
+      this.userData = [];
+
       this.on('init', this.bootstrap);
       this.on('bootstrap', this.bootstrap);
 
@@ -37,7 +39,8 @@ class UserStore {
         handleUpdateUserPhotoSuccess: UserActions.UPDATEUSERPHOTOSUCCESS,
         handleSaveManagerDetailsSuccess: UserActions.SAVEMANAGERDETAILSSUCCESS,
         handleSaveCompanySuccess: UserActions.SAVECOMPANYSUCCESS,
-        handleLogoutSuccess: UserActions.LOGOUTSUCCESS
+        handleLogoutSuccess: UserActions.LOGOUTSUCCESS,
+        handleUserDataSuccess: UserActions.USERDATASUCCESS
       });
   }
 
@@ -108,6 +111,19 @@ class UserStore {
           this.userDetails = response.data;
           this.userDetailsTmp = response.data;
           this.profile_image = response.data.profile_image;
+      }else{
+          this.message = response.message;
+      }
+      this.emitChange();
+  }
+
+  handleUserDataSuccess (response) {
+      this.isServerCallWaiting = false;
+      this.hasError = !response.status;
+      if (!this.hasError) {
+          this.userData = response.data;
+          //this.userDetailsTmp = response.data;
+          //this.profile_image = response.data.profile_image;
       }else{
           this.message = response.message;
       }

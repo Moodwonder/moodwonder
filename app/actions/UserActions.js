@@ -140,6 +140,22 @@ class UserActions {
   logoutsuccess () {
       this.dispatch();
   }
+
+  // Get user details for leftbar
+  getUserData () {
+      this.dispatch();
+      UserWebAPIUtils.userinfo()
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.userdatasuccess(response);
+            }
+        }, () => {
+        });
+  }
+
+  userdatasuccess (response) {
+      this.dispatch(response);
+  }
 }
 
 export default alt.createActions(UserActions);

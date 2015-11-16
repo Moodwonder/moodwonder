@@ -60,7 +60,6 @@ export default class MyCompany extends React.Component {
       SurveyActions.getMyTeams();
       SurveyStore.listen(this._onChangeData);
 
-      //UserActions.getuserinfo();
       UserActions.getcompanyinfo();
       UserStore.listen(this._onChangeUserData);
 
@@ -187,9 +186,6 @@ export default class MyCompany extends React.Component {
       let currentuserid = this.state.currentuserid;
       let teams = this.state.teams;
       let userDetails = this.state.userDetails;
-
-      console.log('userDetails');
-      console.log(JSON.stringify(userDetails));
 
 
       //Start : CompanyRatings

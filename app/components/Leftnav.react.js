@@ -10,7 +10,8 @@ export default class Leftnav extends React.Component {
   }
 
   componentDidMount () {
-      UserActions.getuserinfo();
+      //UserActions.getuserinfo();
+      UserActions.getUserData();
       UserStore.listen(this._onChange);
   }
 
@@ -30,7 +31,7 @@ export default class Leftnav extends React.Component {
 
 
   render () {
-      let user = this.state.userDetails;
+      let user = this.state.userData;
 
       return (
             <div className="ui left fixed vertical menu ">
