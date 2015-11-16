@@ -29,7 +29,6 @@ let chartoptions = {
     tooltipTemplate: "<%= value %>"
 };
 
-import UserStore from 'stores/UserStore';
 
 export default class MyCompany extends React.Component {
 
