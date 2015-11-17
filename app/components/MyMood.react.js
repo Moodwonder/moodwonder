@@ -21,7 +21,6 @@ import getFormData from 'get-form-data';
 
 
 
-
 let chartoptions = {
     animation: false,
     bezierCurve: false,
@@ -107,6 +106,12 @@ export default class MyMood extends React.Component {
       //  on: 'click'
       //});
 
+      //$('.ui.menu .ui.dropdown').dropdown('refresh');
+
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'click'
+      });
+
       $('.graphperiod').dropdown({
           onChange: this.onChangeGraphPeriod
       });
@@ -114,18 +119,16 @@ export default class MyMood extends React.Component {
       $('.graphengagement').dropdown({
           onChange: this.onChangeGraphEngagement
       });
+
   }
 
   componentDidUpdate () {
-      //if (this.state.customsurveytab) {
-      //    $('#surveyForm .ui.dropdown').dropdown({
-      //        on: 'click'
-      //    });
-      //}
       if(this.mooddropdown) {
-          $('.ui.menu .ui.dropdown').dropdown({
-              on: 'click'
-          });
+          //$('.ui.menu .ui.dropdown').dropdown({
+          //    on: 'click'
+          //});
+
+          //$('.ui.menu .ui.dropdown').dropdown();
 
           $('.graphengagement').dropdown({
               onChange: this.onChangeGraphEngagement
@@ -134,6 +137,7 @@ export default class MyMood extends React.Component {
           $('.graphperiod').dropdown({
               onChange: this.onChangeGraphPeriod
           });
+
       }
   }
 
@@ -502,10 +506,14 @@ export default class MyMood extends React.Component {
   }
 
   onChangeGraphPeriod = (value) => {
+      console.log('Period');
+      console.log(value);
       this.setState({ graphperiod : value });
   }
 
   onChangeGraphEngagement = (value) => {
+      console.log('Engagement');
+      console.log(value);
       this.setState({ graphengagement : value });
   }
 
@@ -1001,7 +1009,7 @@ export default class MyMood extends React.Component {
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
                             <div className=" right menu mobile">
-                                <select className="ui search dropdown graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
                                     <option value="mw_index">MW-Index</option>
                                     {moodoptions}
                                 </select>

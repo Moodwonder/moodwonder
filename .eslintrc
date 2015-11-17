@@ -17,7 +17,7 @@
         "node": true,
         "mocha": true,
         "jasmine": true,
-        "jquery": true,
+        "jquery": true
     },
     "settings": {
         "ecmascript": 6,

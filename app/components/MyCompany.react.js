@@ -50,9 +50,6 @@ export default class MyCompany extends React.Component {
       this.userstate = UserStore.getState();
   }
 
-    componentDidUpdate () {
-        // console.log(this.state);
-    }
   componentDidMount() {
       SurveyActions.getCompanyData();
       SurveyActions.getMostEngagingManagers();
@@ -63,9 +60,15 @@ export default class MyCompany extends React.Component {
       UserActions.getcompanyinfo();
       UserStore.listen(this._onChangeUserData);
 
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
+      //$('.ui.dropdown').dropdown();
+
+      //$('.companyengagement').dropdown();
+
+      $('.companyengagement').dropdown({
+          onChange: this.onChangeEngagement
       });
+
+      $('.companyengagement').dropdown();
   }
 
   componentWillUnmount() {
@@ -74,16 +77,12 @@ export default class MyCompany extends React.Component {
   }
 
   componentDidUpdate () {
-      //$('.graphengagement').dropdown({
-      //    on: 'click'
-      //});
-      //$('.graphengagement').dropdown({
-      //    onChange: this.onChangeGraphEngagement
-      //});
       if (this.state.graphtabclick) {
-          $('.graphengagement').dropdown({
-              onChange: this.onChangeGraphEngagement
+          $('.companyengagement').dropdown({
+              onChange: this.onChangeEngagement
           });
+
+          //$('.companyengagement').dropdown({});
       }
   }
 
@@ -160,16 +159,7 @@ export default class MyCompany extends React.Component {
       return rows;
   }
 
-  bindDropdown = () => {
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
-      });
-      $('.graphengagement').dropdown({
-          onChange: this.onChangeGraphEngagement
-      });
-  }
-
-  onChangeGraphEngagement = (value) => {
+  onChangeEngagement = (value) => {
       console.log(value);
       this.setState({ graphengagement : value });
   }
@@ -435,7 +425,7 @@ export default class MyCompany extends React.Component {
                             <div className="ui segment brdr-none padding-none ">
                                 <h4 className="ui header ryt com">Moodwonder trend</h4>
                                 <div className=" right menu mobile">
-                                    <select className="ui search dropdown graphengagement" onChange={this.onChangeGraphEngagement} onClick={this.bindDropdown} value={graphengagement} name="graphengagement">
+                                    <select className="ui search dropdown companyengagement" value={graphengagement} name="graphengagement">
                                         <option value="mw_index">MW-Index</option>
                                         {moodoptions}
                                     </select>
