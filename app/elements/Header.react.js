@@ -1,6 +1,5 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-
 import config from 'helmconfig.js';
 
 class Header extends React.Component {
@@ -9,7 +8,7 @@ class Header extends React.Component {
       <Helmet
         title="Moodwonder"
         meta={config.meta}
-        link={config.link}
+        link={config.userlink}
       />
     );
   }

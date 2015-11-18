@@ -1,7 +1,8 @@
+
 const config = {
-  link: [
+  userlink: [
     // Add to homescreen for Chrome on Android
-    //{ "rel": "stylesheet", "href": "/assets/styles/bootstrap.css" },
+    { "rel": "stylesheet", "href": "/assets/styles/bootstrap.css" },
     { "rel": "stylesheet", "href": "/assets/styles/custom.css" },
     { "rel": "stylesheet", "href": "/assets/styles/form.css" },
     { "rel": "stylesheet", "href": "/assets/styles/label.css" },
@@ -27,6 +28,20 @@ const config = {
     { "rel": "stylesheet", "href": "/assets/styles/reset.css" },
     { "rel": "stylesheet", "href": "/assets/halfdaughnut/css/jquery.circliful.css"},
     { "rel": "stylesheet", "href": "/assets/halfdaughnut/css/font-awesome.min.css"}
+
+    //{ "rel": "stylesheet", "href": "/assets/mainhome/css/semantic.css"},
+    //{ "rel": "stylesheet", "href": "/assets/mainhome/css/animation.css"},
+    //{ "rel": "stylesheet", "href": "/assets/fullPage.js-master/jquery.fullPage.css"},
+    //{ "rel": "stylesheet", "href": "/assets/mainhome/css/examples.css"},
+  ],
+  
+  homelink: [
+    // Add to homescreen for Chrome on Android
+    { "rel": "stylesheet", "href": "/assets/styles/bootstrap.css" },
+    { "rel": "stylesheet", "href": "/assets/mainhome/css/semantic.css"},
+    { "rel": "stylesheet", "href": "/assets/mainhome/css/animation.css"},
+    { "rel": "stylesheet", "href": "/assets/fullPage.js-master/jquery.fullPage.css"},
+    { "rel": "stylesheet", "href": "/assets/mainhome/css/examples.css"}
   ],
 
   meta: [
