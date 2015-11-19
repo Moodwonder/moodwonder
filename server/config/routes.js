@@ -291,22 +291,26 @@ module.exports = function (app, passport) {
             //console.log(Header);
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", homestyles);
+                .replace("LINK", homestyles)
+                .replace("BODYCLASS", 'home');
         
         } else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", aboutpage);
+                .replace("LINK", aboutpage)
+                .replace("BODYCLASS", 'inner-pages');
         
         } else if (pageurl.search('admin') != -1) {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", adminstyles);
+                .replace("LINK", adminstyles)
+                .replace("BODYCLASS", '');
         
         } else {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", userstyles);
+                .replace("LINK", userstyles)
+                .replace("BODYCLASS", '');
         }
         //html = html.replace("TITLE", Header.title)
         //        .replace("META", Header.meta)
