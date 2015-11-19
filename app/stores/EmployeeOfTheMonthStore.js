@@ -28,13 +28,14 @@ class EmployeeOfTheMonthStore {
   }
 
   handleGetEmployees (data) {
+	  console.log('handleGetEmployees');
       this.employees = data;
       this.hasEmployees = true;
       this.emitChange();
   }
 
   handleSaveVote (response) {
-      console.log('handleSaveVote..');
+	  console.log('handleSaveVote');
       this.message = response.message;
       this.hasError = !response.status;
       this.modal = false;
@@ -53,6 +54,7 @@ class EmployeeOfTheMonthStore {
   }
 
   handleSetEOTM (data) {
+	  console.log('handleSetEOTM');
       this.message = data.message;
       this.hasEmployees = true;
       this.modalBox = false;
@@ -60,6 +62,7 @@ class EmployeeOfTheMonthStore {
   }
 
   handleGetEMPView (data) {
+	  console.log('handleGetEMPView');
       this.employee = data;
       this.modalBox = true;
       this.hasEmployee = true;

@@ -65,7 +65,7 @@ const utils = {
       url: '/getallemployees',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({})
+      data: JSON.stringify(data)
     });
   },
 
