@@ -242,12 +242,77 @@ module.exports = function (app, passport) {
         }
 
         var html = App(JSON.stringify(res.locals.data || {}), req.url);
-        html = html.replace("TITLE", Header.title)
+        
+        var userstyles = '';
+        userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/font-awesome.min.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/jquery.circliful.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/reset.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/site.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/container.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/grid.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/header.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/image.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/menu.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/divider.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/dropdown.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/segment.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/button.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/list.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/sidebar.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/transition.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/popup.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/icon.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/input.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/card.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/rating.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/account.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/label.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
+        
+        var homestyles = '';
+        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" data-react-helmet="true" />';
+        //homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/semantic.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        
+        var adminstyles = '';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        //adminstyles += '<link rel="stylesheet" href="/assets/styles/bootstrap.css" data-react-helmet="true" />';
+        
+        var aboutpage = '';
+        //aboutpage += '<link rel="stylesheet" href="/assets/staticpages/semantic.css" data-react-helmet="true" />';
+        aboutpage += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        aboutpage += '<link rel="stylesheet" href="/assets/staticpages/aboutpage.css" data-react-helmet="true" />';
+        
+        if (pageurl == '/' || pageurl == '/index') {
+            //console.log('Header');
+            //console.log(Header);
+            html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", Header.link);
+                .replace("LINK", homestyles);
+        
+        } else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", aboutpage);
+        
+        } else if (pageurl.search('admin') != -1) {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", adminstyles);
+        
+        } else {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", userstyles);
+        }
         //html = html.replace("TITLE", Header.title)
-        //        .replace("META", Header.meta);
-
+        //        .replace("META", Header.meta)
+        //        .replace("LINK", Header.link);
+        
+        
         //var page = pageurl.split("/").pop();
         var page = '';
         if (pageurl == '/') {

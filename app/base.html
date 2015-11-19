@@ -8,7 +8,8 @@
 
         LINK
 
-        <script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>
+        <!-- <script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script> -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>
         <script type="text/javascript" charset="utf-8"  src="/assets/visibility.js"></script>
         <script type="text/javascript" charset="utf-8"  src="/assets/sidebar.js"></script>
@@ -18,20 +19,28 @@
         <script type="text/javascript" charset="utf-8"  src="/assets/modal.js"></script>
         <script type="text/javascript" charset="utf-8"  src="/assets/SimpleAjaxUploader.min.js"></script>
         
-        <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="/assets/pagination/paging.js"></script> -->
-        
-        <!-- <script src="/assets/halfdaughnut/js/jquery.circliful.min.js"></script> -->
         <script src="/assets/halfdaughnut/js/jquery.circliful.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        
+        <!--[if IE]>
+            <script type="text/javascript">
+                var console = { log: function() {} };
+            </script>
+        <![endif]-->
+        
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/assets/fullPage.js-master/jquery.fullPage.js"></script>
+        <script type="text/javascript" src="/assets/examples.js"></script>
+
+        <script src="/assets/show-examples.js"></script>
 
         <script>
             $(document).ready(function () {
 
-                //$('.ui.dropdown').dropdown({
-                //    on: 'click'
-                //});
+                $('.ui.dropdown').dropdown({
+                    on: 'click'
+                });
                 
                 //$('.ui.dropdown').dropdown();
 
@@ -47,7 +56,6 @@
 
             });
         </script>
-
         <script>
             $(document).ready(function () {
 
@@ -69,6 +77,36 @@
 
             });
         </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#fullpage').fullpage({
+                    anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage', '6thPage', '7thPage'],
+                    sectionsColor: ['#26A69A ', '#F44336', '#64B5F6', '#FBBD08', '#66BB6A', '#ba68c8', '#4dd0e1'],
+                    navigation: true,
+                    navigationPosition: 'right',
+                    navigationTooltips: ['HOME', 'ENGAGING EMPLOYEES', 'GET STARTED', 'FEATURES', 'WHY MOODWONDER', 'SNEAK PEEK', 'REQUEST A DEMO'],
+                    responsiveWidth: 1100
+                });
+            });
+        </script>
+         <script>
+            $(document)
+                    .ready(function () {
+                        $('.special.card .image').dimmer({
+                            on: 'hover'
+                        });
+                        $('.star.rating')
+                                .rating()
+                                ;
+                        $('.card .dimmer')
+                                .dimmer({
+                                    on: 'hover'
+                                })
+                                ;
+                    })
+                    ;
+        </script>
+        
     </head>
     <body>
         <div class="app">CONTENT</div>

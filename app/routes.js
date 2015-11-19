@@ -44,6 +44,12 @@ import AllTeams from 'components/AllTeams.react';
 import MyCompany from 'components/MyCompany.react';
 import Customsurveyresponses from 'components/customsurvey/Customsurveyresponses.react';
 import Notificationrules from 'components/notificationrules/Notificationrules.react';
+import Apphome from 'components/Apphome.react';
+import Appstatic from 'components/Appstatic.react';
+import About from 'components/staticpages/About.react';
+import Anonymity from 'components/staticpages/Anonymity.react';
+import Terms from 'components/staticpages/Terms.react';
+import Policy from 'components/staticpages/Policy.react';
 
 
 const routes = (
@@ -71,6 +77,18 @@ const routes = (
 
         <DefaultRoute handler={Adminlogin} />
         <NotFoundRoute name="404page" handler={NotFound} />
+    </Route>
+    <Route name="about" path="/about" handler={Appstatic} >
+        <Route name="" handler={About} />
+    </Route>
+    <Route name="anonymity" path="/anonymity" handler={Appstatic} >
+        <Route name="" handler={Anonymity} />
+    </Route>
+    <Route name="terms" path="/terms" handler={Appstatic} >
+        <Route name="" handler={Terms} />
+    </Route>
+    <Route name="policy" path="/policy" handler={Appstatic} >
+        <Route name="" handler={Policy} />
     </Route>
     <Route name="survey" path="/survey" handler={Appuser} >
       <Route name="" handler={Survey} />
@@ -114,10 +132,12 @@ const routes = (
     <Route name="allemployees" path="/allemployees" handler={Appuser} >
       <Route name="" handler={Employees} />
     </Route>
+    <Route name="apphome" path="/" handler={Apphome} >
+        <Route name="index" handler={Index} />
+    </Route>
     <Route name="app" path="/" handler={App} >
       <Route name="login" handler={Login} />
       <Route name="logout" handler={Logout} />
-      <Route name="index" handler={Index} />
       <Route name="signup" handler={Signup} />
       <Route name="signup/:hash" handler={Signup} />
       <Route name="forgotpassword" handler={ForgotPassword} />

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Immutable from 'immutable';
 import AdminActions from 'actions/AdminActions';
 import AdminStore from 'stores/AdminStore';
@@ -9,7 +8,8 @@ export default class AdminNavigation extends React.Component {
   constructor (props) {
       super(props);
       this.state = {
-          isAuth: AdminStore.getState().isAuth
+          isAuth: false,
+          isAuthenticated: false
       };
   }
 
@@ -17,6 +17,8 @@ export default class AdminNavigation extends React.Component {
       AdminStore.listen(this._onChange);
       let isAuth = localStorage.getItem('isAuth');
       this.setState({isAuth: isAuth});
+      console.log('did');
+      console.log(this.state.isAuth);
   }
 
   componentWillUnmount () {
@@ -25,12 +27,16 @@ export default class AdminNavigation extends React.Component {
 
   _onChange = () => {
       this.setState({
-        isAuth: AdminStore.getState().isAuth
+        isAuth: AdminStore.getState().isAuth,
+        isAuthenticated: AdminStore.getState().isAuthenticated
       });
   }
 
   _onLogout = () => {
       AdminActions.logout();
+      if(this.state.isAuthenticated === false) {
+          window.location.href = "/admin";
+      }
   }
 
   render () {
@@ -39,39 +45,29 @@ export default class AdminNavigation extends React.Component {
 
       if (this.state.isAuth === "true") {
           loginOrOut = [
-            <li><Link to="/admin/users" className="navigation__item">Users</Link></li>,
-            <li><Link to="/admin/companyadmins" className="navigation__item">Company Admins</Link></li>,
-            <li><Link to="/admin/teams" className="navigation__item">Teams</Link></li>,
-            <li><Link to="/admin/engagementarea" className="navigation__item">Engagementarea</Link></li>,
-            <li><Link to="/admin/industry" className="navigation__item">Industry</Link></li>,
-            <li><Link to="/admin/continents" className="navigation__item">Continents</Link></li>,
-            <li><Link to="/admin/languages" className="navigation__item">Languages</Link></li>,
-            <li><Link to="/admin/pages" className="navigation__item">Pages</Link></li>,
-            <li><Link to="/admin/rules" className="navigation__item">Notificationrules</Link></li>,
-            <li><Link onClick={this._onLogout} className="navigation__item" to="/admin">Logout</Link></li>
+            <a href="/admin/users" className="item">Users</a>,
+            <a href="/admin/companyadmins" className="item">Company Admins</a>,
+            <a href="/admin/teams" className="item">Teams</a>,
+            <a href="/admin/engagementarea" className="item">Engagementarea</a>,
+            <a href="/admin/industry" className="item">Industry</a>,
+            <a href="/admin/continents" className="item">Continents</a>,
+            <a href="/admin/languages" className="item">Languages</a>,
+            <a href="/admin/pages" className="item">Pages</a>,
+            <a href="/admin/rules" className="item">Notificationrules</a>,
+            <a onClick={this._onLogout} className="item" href="#">Logout</a>
           ];
       } else {
           loginOrOut = [
-              <li><Link className="navigation__item" to="/admin">Log in</Link></li>
+              <a className="item" href="/admin">Log in</a>
           ];
       }
 
 
       return (
-        <nav className="navbar navbar-default" role="navigation">
-            <div className="container-fluid">
-                  <div className="navbar-header">
-                        <ul className="nav navbar-nav  navbar-left">
-                            <li><a href="/" className="navbar-brand navigation__item">Moodwonder</a></li>
-                        </ul>
-                  </div>
-                  <div>
-                        <ul className="nav navbar-nav  navbar-right">
-                         {loginOrOut}
-                        </ul>
-                  </div>
-            </div>
-        </nav>
+        <div className="ui inverted menu">
+            <a href="/" className="active item">Moodwonder</a>
+            {loginOrOut}
+        </div>
       );
   }
 
