@@ -275,15 +275,15 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" data-react-helmet="true" />';
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" data-react-helmet="true" />';
         //homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/semantic.css" data-react-helmet="true" />';
-        homestyles += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
         
         var adminstyles = '';
-        adminstyles += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
         //adminstyles += '<link rel="stylesheet" href="/assets/styles/bootstrap.css" data-react-helmet="true" />';
         
         var aboutpage = '';
         //aboutpage += '<link rel="stylesheet" href="/assets/staticpages/semantic.css" data-react-helmet="true" />';
-        aboutpage += '<link rel="stylesheet" href="/assets/styles/semantic.css" data-react-helmet="true" />';
+        aboutpage += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
         aboutpage += '<link rel="stylesheet" href="/assets/staticpages/aboutpage.css" data-react-helmet="true" />';
         
         if (pageurl == '/' || pageurl == '/index') {
