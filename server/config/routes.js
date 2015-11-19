@@ -62,7 +62,7 @@ module.exports = function (app, passport) {
     app.get('/test', users.sendEOTMstats);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     app.get('/getownteams', users.checkLogin, teams.getOwnTeams);
-    
+
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
     app.get('/getlastengagementsurvey', users.checkLogin, surveys.getLastSurvey);
@@ -72,14 +72,13 @@ module.exports = function (app, passport) {
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
     app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
     app.get('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
-    
+
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
     app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
     app.get('/takesurvey/:hash', users.checkLogin, customSurvey.handleTakeSurvey);
-    
 
     app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
     app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
@@ -94,20 +93,21 @@ module.exports = function (app, passport) {
     app.post('/adminlogin', admin.login);
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
-    
+
     app.post('/addmood', users.checkLogin, mood.addMoodRate);
     app.get('/mymoods', users.checkLogin, mood.getMyMoods);
-  
+
     app.post('/addengagement', admin.checkLogin, EngagementArea.addEngagement);
     app.post('/editengagement', admin.checkLogin, EngagementArea.editEngagement);
     app.post('/deleteengagement', admin.checkLogin, EngagementArea.deleteEngagement);
     app.get('/getengagementareas', admin.checkLogin, EngagementArea.engagementAreas);
-    
+
     app.post('/editrule', admin.checkLogin, notificationRules.editRule);
     app.post('/deleterule', admin.checkLogin, notificationRules.deleteRule);
     app.get('/getrules', admin.checkLogin, notificationRules.getRules);
 
-    app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
+    //app.post('/getallemployees', users.checkLogin, users.getAllEmployees);
+    app.post('/getallemployees', users.checkLogin, users.getAllEmployeesInCompany);
     app.post('/postvote', users.checkLogin, voting.postVote);
     app.post('/getempmonthview', users.checkLogin, voting.getEmpMonthView);
     // app.post('/chooseemployeeofthemonth', users.checkLogin, users.isAdmin, voting.chooseEmployeeOfTheMonth);
@@ -133,15 +133,15 @@ module.exports = function (app, passport) {
     app.post('/updateplaces', admin.checkLogin, common.updatePlaces);
     app.post('/deleteplaces', admin.checkLogin, common.deletePlaces);
     app.post('/getplacesdata', admin.checkLogin, common.getPlacesData);
-    
+
     // Set variables from server side
     app.get('/mycompany', common.handleGetContinents);
     app.get('/my_company', common.handleGetContinents);
     app.get('/signup/:hash', invitation.handleSignup);
-    
+
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
-    
+
     app.use(function noCachePlease(req, res, next) {
         if(req.user && req.user.role !== 'ADMIN') {
           console.log('req.user');

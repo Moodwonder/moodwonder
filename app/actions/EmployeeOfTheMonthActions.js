@@ -3,9 +3,9 @@ import CommonWebAPIUtils from 'utils/CommonWebAPIUtils';
 
 class EmployeeOfTheMonthActions {
 
-  getallemployees() {
+  getallemployees(data) {
       this.dispatch();
-      CommonWebAPIUtils.getAllEmployees()
+      CommonWebAPIUtils.getAllEmployees(data)
       .then((response, textStatus) => {
           if (textStatus === 'success') {
               this.actions.getemployees(response);

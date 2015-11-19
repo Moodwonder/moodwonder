@@ -63,41 +63,41 @@ response.message = 'Error';
  */
 exports.encryptPassword = function (req, res, next) {
 
-	try{
-		var password = req.body.password.trim();
+    try{
+        var password = req.body.password.trim();
 
-		if (password.length >= 6) {
+        if (password.length >= 6) {
 
-			bcrypt.genSalt(5, function (err, salt) {
+            bcrypt.genSalt(5, function (err, salt) {
 
-				if (!err) {
-					bcrypt.hash(password, salt, null, function (err, hash) {
-						if (!err) {
-							req.body.real_password = req.body.password;
-							req.body.password = hash;
-							next();
-						}
-						else {
-							// bcrypt.hash Error
-							response.status = false;
-							response.message = 'Something went wrong..';
-							res.send(response);
-							res.end();
-						}
-					});
-				} else {
-					// bcrypt.genSalt Error
-					response.status = false;
-					response.message = 'Something went wrong..';
-					res.send(response);
-					res.end();
-				}
-			});
-		} else {
-			req.body.real_password = req.body.password;
-			req.body.password = '';
-			next();
-		}
+                if (!err) {
+                    bcrypt.hash(password, salt, null, function (err, hash) {
+                        if (!err) {
+                            req.body.real_password = req.body.password;
+                            req.body.password = hash;
+                            next();
+                        }
+                        else {
+                            // bcrypt.hash Error
+                            response.status = false;
+                            response.message = 'Something went wrong..';
+                            res.send(response);
+                            res.end();
+                        }
+                    });
+                } else {
+                    // bcrypt.genSalt Error
+                    response.status = false;
+                    response.message = 'Something went wrong..';
+                    res.send(response);
+                    res.end();
+                }
+            });
+        } else {
+            req.body.real_password = req.body.password;
+            req.body.password = '';
+            next();
+        }
     } catch(err) {
         req.body.password = '';
         next();
@@ -179,8 +179,8 @@ exports.getallusers = function (req, res) {
 
     var condition = {};
     if(req.body.type !== undefined && req.body.type === 'admin'){
-		//condition = { 'usertype': 'admin' };
-	}
+        //condition = { 'usertype': 'admin' };
+    }
 
     User.find(condition).exec(function (err, lists) {
         if (!err) {
@@ -322,15 +322,15 @@ exports.postSignupStep1 = function (req, res, next) {
             user.save(function (err, newuser) {
                 if (!err) {
 
-					// Get domian name without extension
-					// 'test@example.com' converting into 'exampel'
-					var email  = req.body.email;
-					var domain = email.substring(email.lastIndexOf("@")+1);
-					domain = domain.substring(0,domain.lastIndexOf("."));
-					
-					var company = { name: domain};
-					Company.update(company,company,{upsert: true},function(err,newcompany){});
-					
+                    // Get domian name without extension
+                    // 'test@example.com' converting into 'exampel'
+                    var email  = req.body.email;
+                    var domain = email.substring(email.lastIndexOf("@")+1);
+                    domain = domain.substring(0,domain.lastIndexOf("."));
+                    
+                    var company = { name: domain};
+                    Company.update(company,company,{upsert: true},function(err,newcompany){});
+                    
                     var transporter = nodemailer.createTransport();
                     var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
                             "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
@@ -566,8 +566,8 @@ exports.postUserSignUp = function (req, res, next) {
  */
 exports.postSaveUserInfo = function (req, res, next) {
 
-	var response = {};
-	var saveUserInfo = function(update){
+    var response = {};
+    var saveUserInfo = function(update){
         var conditions = {'_id': new ObjectId(req.user._id)},
         options = {multi: false};
         User.update(conditions, update, options, function (err) {
@@ -580,87 +580,87 @@ exports.postSaveUserInfo = function (req, res, next) {
                 response.status = false;
                 response.message = 'Something went wrong..';
             }
-			res.send(response);
-			res.end();
+            res.send(response);
+            res.end();
         });
-	}
+    }
 
     var model = req.body;
     console.log(model);
 
-	if(model !== undefined && hasValue(model.type)){
+    if(model !== undefined && hasValue(model.type)){
 
-		var validation = true;
-		var update     = {};
+        var validation = true;
+        var update     = {};
 
-		if( model.type === 'summary' ){
-			var summary = model.summary;
-			if(hasValue(summary)){
-				response.type = 'summary';
-				update = { summary: summary };
-			}else{
-				response.message = 'Summary cannot be empty';
-			}
-		}else if( model.type === 'personalinfo' ){
+        if( model.type === 'summary' ){
+            var summary = model.summary;
+            if(hasValue(summary)){
+                response.type = 'summary';
+                update = { summary: summary };
+            }else{
+                response.message = 'Summary cannot be empty';
+            }
+        }else if( model.type === 'personalinfo' ){
 
-			var firstname =  model.fname;
-			var lastname  =  model.lname;
-			// password  encrypted at `encryptPassword` route
-			var password  =  model.password;
-			var real_pass =  model.real_password;
-			var cpassword =  model.cpassword;
+            var firstname =  model.fname;
+            var lastname  =  model.lname;
+            // password  encrypted at `encryptPassword` route
+            var password  =  model.password;
+            var real_pass =  model.real_password;
+            var cpassword =  model.cpassword;
     
-			if( hasValue(firstname) && hasValue(lastname) ){
-				response.type = 'personalinfo';
-				var update = { firstname: firstname, lastname: lastname };
+            if( hasValue(firstname) && hasValue(lastname) ){
+                response.type = 'personalinfo';
+                var update = { firstname: firstname, lastname: lastname };
 
-				console.log(real_pass);
-				if ( hasValue(real_pass) && hasValue(cpassword) ) {
+                console.log(real_pass);
+                if ( hasValue(real_pass) && hasValue(cpassword) ) {
 
-					if( real_pass !== cpassword ){
-						validation       =  false;
-						response.message =  'New Password and Confirm Password are not equal.';
-					}else if(real_pass.length <=6 ){
-						validation       =  false;
-						response.message = 'Password length should be at least 7 characters';
-					}else{
-						update = { firstname: firstname, lastname: lastname, password: real_pass };
-					}
-				}
-			}else{
-				validation = false;
-				response.message = 'Please fill the required fields';
-			}
-		}else if( model.type === 'generalinfo' ){
+                    if( real_pass !== cpassword ){
+                        validation       =  false;
+                        response.message =  'New Password and Confirm Password are not equal.';
+                    }else if(real_pass.length <=6 ){
+                        validation       =  false;
+                        response.message = 'Password length should be at least 7 characters';
+                    }else{
+                        update = { firstname: firstname, lastname: lastname, password: real_pass };
+                    }
+                }
+            }else{
+                validation = false;
+                response.message = 'Please fill the required fields';
+            }
+        }else if( model.type === 'generalinfo' ){
 
-			var email             =  model.email;
-			var report_frequency   =  model.report_frequency;
-			var language          =  model.language;
+            var email             =  model.email;
+            var report_frequency   =  model.report_frequency;
+            var language          =  model.language;
     
-			if( hasValue(email) && hasValue(report_frequency) && hasValue(language) ){
-				response.type = 'generalinfo';
-				var update = { email: email, report_frequency: report_frequency, language: language };
-			}else{
-				validation = false;
-				response.message = 'Please fill the required fields';
-			}
-		}
+            if( hasValue(email) && hasValue(report_frequency) && hasValue(language) ){
+                response.type = 'generalinfo';
+                var update = { email: email, report_frequency: report_frequency, language: language };
+            }else{
+                validation = false;
+                response.message = 'Please fill the required fields';
+            }
+        }
 
-		// If validation error
-		if(validation){
-			saveUserInfo(update);
-		}else{
-			response.status = false;
-			res.send(response);
-			res.end();
-		}
+        // If validation error
+        if(validation){
+            saveUserInfo(update);
+        }else{
+            response.status = false;
+            res.send(response);
+            res.end();
+        }
 
-	}else{
-		response.status = false;
-		response.message = 'Something went wrong..';
-		res.send(response);
-		res.end();
-	}
+    }else{
+        response.status = false;
+        response.message = 'Something went wrong..';
+        res.send(response);
+        res.end();
+    }
 
 };
 
@@ -784,55 +784,55 @@ exports.postSaveCompanyInfo = function (req, res) {
 
     var model = req.body;
 
-	var response = {};
-	var hasError = false;
-	var messages = [];
-	for (var key in model) {
+    var response = {};
+    var hasError = false;
+    var messages = [];
+    for (var key in model) {
 
-	  if(key === 'companyname' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Company name cannot be empty..');
-	  }
-	  if(key === 'industry' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Industry name cannot be empty');
-	  }
-	  if(key === 'continent' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Continent name cannot be empty');
-	  }
-	  if(key === 'country' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Country name cannot be empty');
-	  }
-	  if(key === 'state' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('State name cannot be empty');
-	  }
-	  if(key === 'city' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('City name cannot be empty');
-	  }
-	  if(key === 'address' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Address name cannot be empty');
-	  }
-	  if(key === 'website' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Website name cannot be empty');
-	  }
-	  if(key === 'companysize' && model[key].trim() === '' ){
-		hasError = true;
-		messages.push('Companysize name cannot be empty');
-	  }
-	}
+      if(key === 'companyname' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Company name cannot be empty..');
+      }
+      if(key === 'industry' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Industry name cannot be empty');
+      }
+      if(key === 'continent' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Continent name cannot be empty');
+      }
+      if(key === 'country' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Country name cannot be empty');
+      }
+      if(key === 'state' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('State name cannot be empty');
+      }
+      if(key === 'city' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('City name cannot be empty');
+      }
+      if(key === 'address' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Address name cannot be empty');
+      }
+      if(key === 'website' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Website name cannot be empty');
+      }
+      if(key === 'companysize' && model[key].trim() === '' ){
+        hasError = true;
+        messages.push('Companysize name cannot be empty');
+      }
+    }
 
-	if(hasError){
+    if(hasError){
         response.status = false;
         response.messages = messages;
         res.send(response);
         res.end();
-	}else{
+    }else{
 
 
     var model = {'company_info': [model]};
@@ -854,7 +854,7 @@ exports.postSaveCompanyInfo = function (req, res) {
         res.send(response);
         res.end();
     });
-	}
+    }
 };
 
 /**
@@ -947,9 +947,9 @@ exports.findUserByEmailId = function (req, res, next) {
  */
 exports.updateUser = function (req, res) {
 
-	var callback = req.body.callback;
-	var response = {};
-	response.callback = callback;
+    var callback = req.body.callback;
+    var response = {};
+    response.callback = callback;
     if (req.user && req.body.update) {
 
         var conditions = { '_id': new ObjectId(req.user._id) }
@@ -1038,7 +1038,7 @@ exports.usersInTeams = function (req, res) {
                 var elemMatch = {"team": teamid};
                 where = {type: "Team", reference: {$elemMatch: elemMatch}};
                 Invite.find(where).exec(function (err, lists) {
-					callBackExit++;
+                    callBackExit++;
                     if (!err) {
                         // Filtering required data such as _id,full name, usertype
                         lists.map(function (invities, key) {
@@ -1380,16 +1380,16 @@ exports.updateUserByAdmin = function (req, res) {
     var hasUserId = ( hasBody && model._id !== undefined && model._id !== '' );
 
     if( hasBody && hasUserId){
-		var updateQuery = {};
-		var conditionQuery = { _id : new ObjectId(model._id) };
-		var options = { multi: false };
-		if(model.userstatus !== undefined){
-			updateQuery.userstatus = (model.userstatus) ? 'Active':'Inactive';
-		}else if(model.usertype !== undefined){
-			updateQuery.usertype = (model.usertype) ? 'admin':'user';
-		}
-		console.log((model.usertype));
-		console.log(model.usertype);
+        var updateQuery = {};
+        var conditionQuery = { _id : new ObjectId(model._id) };
+        var options = { multi: false };
+        if(model.userstatus !== undefined){
+            updateQuery.userstatus = (model.userstatus) ? 'Active':'Inactive';
+        }else if(model.usertype !== undefined){
+            updateQuery.usertype = (model.usertype) ? 'admin':'user';
+        }
+        console.log((model.usertype));
+        console.log(model.usertype);
 
         User.update(conditionQuery, updateQuery, options, function (err) {
 
@@ -1406,9 +1406,9 @@ exports.updateUserByAdmin = function (req, res) {
             res.end();
         });
 
-	}else{
-		res.json(response);
-	}
+    }else{
+        res.json(response);
+    }
 
 };
 
@@ -1422,15 +1422,15 @@ exports.getAllCompanies = function(req, res){
     response.message = 'Error';
     //console.log(req.body);
     Company.find({}).exec(function(err, doc){
-		if(!err){
-			response.status  = true;
-			response.message = 'success';
-			response.data    = doc;
-			res.json(response);
-		}else{
-			res.json(response);
-		}
-	});
+        if(!err){
+            response.status  = true;
+            response.message = 'success';
+            response.data    = doc;
+            res.json(response);
+        }else{
+            res.json(response);
+        }
+    });
 };
 
 /**
@@ -1439,133 +1439,133 @@ exports.getAllCompanies = function(req, res){
 **/
 exports.getTeamsByCompany = function(req, res){
 
-	var companyTeams = [];
-	var companyTeamsLength = 0;
-	var teamIndex = 0;
-	function usersInTeams(Teamlist,name){
+    var companyTeams = [];
+    var companyTeamsLength = 0;
+    var teamIndex = 0;
+    function usersInTeams(Teamlist,name){
 
-		var team_users_result = [];
-		var teamlength = Teamlist.length;
-		//console.log(lists);
+        var team_users_result = [];
+        var teamlength = Teamlist.length;
+        //console.log(lists);
 
-		// Checking number of teams
-		if (teamlength > 0) {
-			response.status = true;
-			response.message = 'Success';
+        // Checking number of teams
+        if (teamlength > 0) {
+            response.status = true;
+            response.message = 'Success';
 
-			// Looping through each team
-			var callBackExit = 0;
+            // Looping through each team
+            var callBackExit = 0;
 
-			// Looping through each team
-			Teamlist.map(function (data, key) {
+            // Looping through each team
+            Teamlist.map(function (data, key) {
 
-				console.log('Team '+data.teamname);
-				// Taking all user ids from `member_ids` property
-				var ids = [];
-				var teamid = data._id;
+                console.log('Team '+data.teamname);
+                // Taking all user ids from `member_ids` property
+                var ids = [];
+                var teamid = data._id;
 
-				// looping through each members in a team
-				data.member_ids.map(function (member, key) {
-					ids[key] = member._id;
-				});
+                // looping through each members in a team
+                data.member_ids.map(function (member, key) {
+                    ids[key] = member._id;
+                });
 
-				// Where condition to fetch users from `User` collection
-				var where = {'_id': {$in: ids}};
+                // Where condition to fetch users from `User` collection
+                var where = {'_id': {$in: ids}};
 
-				// Trying to fetch users
-				User.find(where).exec(function (err, lists) {
+                // Trying to fetch users
+                User.find(where).exec(function (err, lists) {
 
-					var userData = [];
-					var team = {};
-					if (!err) {
-						// Filtering required data such as _id,full name, usertype
+                    var userData = [];
+                    var team = {};
+                    if (!err) {
+                        // Filtering required data such as _id,full name, usertype
 
-						lists.map(function (users, key) {
-							userData[key] = {'_id': users._id, 'member_email': users.email, 'member_name': users.firstname + ' ' + users.lastname, 'usertype': users.usertype}
-						});
-						// Assigning team name and members data into final result
-						team = {"_id": data._id, "name": data.teamname, "members": userData};
-					} else {
-						// Handling error case 
-						team = {"_id": data._id, "name": data.teamname, "members": {}};
-					}
+                        lists.map(function (users, key) {
+                            userData[key] = {'_id': users._id, 'member_email': users.email, 'member_name': users.firstname + ' ' + users.lastname, 'usertype': users.usertype}
+                        });
+                        // Assigning team name and members data into final result
+                        team = {"_id": data._id, "name": data.teamname, "members": userData};
+                    } else {
+                        // Handling error case 
+                        team = {"_id": data._id, "name": data.teamname, "members": {}};
+                    }
 
-					// Fetching user details from Invitations
-					var elemMatch = {"team": teamid};
-					where = {type: "Team", reference: {$elemMatch: elemMatch}};
-					Invite.find(where).exec(function (err, lists) {
-						callBackExit++;
-						if (!err) {
-							// Filtering required data such as _id,full name, usertype
-							lists.map(function (invities, key) {
-								userData.push({'_id': invities._id, 'member_email': invities.email, 'member_name': 'Invited', 'usertype': 'invited'});
-							});
-							team = {"_id": data._id, "name": data.teamname, "members": userData};
-						}
+                    // Fetching user details from Invitations
+                    var elemMatch = {"team": teamid};
+                    where = {type: "Team", reference: {$elemMatch: elemMatch}};
+                    Invite.find(where).exec(function (err, lists) {
+                        callBackExit++;
+                        if (!err) {
+                            // Filtering required data such as _id,full name, usertype
+                            lists.map(function (invities, key) {
+                                userData.push({'_id': invities._id, 'member_email': invities.email, 'member_name': 'Invited', 'usertype': 'invited'});
+                            });
+                            team = {"_id": data._id, "name": data.teamname, "members": userData};
+                        }
 
-						team_users_result = team_users_result.concat(team);
+                        team_users_result = team_users_result.concat(team);
 
-						if (teamlength == callBackExit) {
-							// Exiting from the Callback function
-							companyTeams[teamIndex] = { name: name, teams: team_users_result };
-							teamIndex++;
-							console.log('companyTeamsLength'+companyTeamsLength);
-							console.log('companyTeams teamlength'+teamlength);
-							console.log(companyTeams);
-						}
-						if (companyTeamsLength == teamIndex) {
-							response.status = true;
-							response.message = 'success';
-							response.data = companyTeams;
-							console.log(companyTeams);
-							res.send(response);
-							res.end();
-						}
-						
-					});
-				});
-			});
-		} else {
-			response.status = false;
-			response.message = 'No teams';
-			response.data = {};
-		}
-	}
+                        if (teamlength == callBackExit) {
+                            // Exiting from the Callback function
+                            companyTeams[teamIndex] = { name: name, teams: team_users_result };
+                            teamIndex++;
+                            console.log('companyTeamsLength'+companyTeamsLength);
+                            console.log('companyTeams teamlength'+teamlength);
+                            console.log(companyTeams);
+                        }
+                        if (companyTeamsLength == teamIndex) {
+                            response.status = true;
+                            response.message = 'success';
+                            response.data = companyTeams;
+                            console.log(companyTeams);
+                            res.send(response);
+                            res.end();
+                        }
+                        
+                    });
+                });
+            });
+        } else {
+            response.status = false;
+            response.message = 'No teams';
+            response.data = {};
+        }
+    }
 
-	function getTeamByManagerId(_id,name){
-		var where = { manager_id: new ObjectId(_id) };
-		Team.find(where).exec(function(err, lists) {
-			if(!err) {
-				// console.log(lists);
-				usersInTeams(lists,name);
-			}
-		});
-	}
+    function getTeamByManagerId(_id,name){
+        var where = { manager_id: new ObjectId(_id) };
+        Team.find(where).exec(function(err, lists) {
+            if(!err) {
+                // console.log(lists);
+                usersInTeams(lists,name);
+            }
+        });
+    }
 
     var response = {};
     response.status = false;
     response.message = 'Error';
     
     var companyname = req.body.companyname;
-	var where = { usertype : "manager" };
+    var where = { usertype : "manager" };
 
-	User.find(where).exec(function(err, lists) {
-		if(!err) {
+    User.find(where).exec(function(err, lists) {
+        if(!err) {
 
-			console.log(lists);
-			lists.map(function(data, key){
-				companyTeamsLength = lists.length;
-				// get teams by manager id
-				getTeamByManagerId(data._id,(data.firstname+' '+data.lastname));
-			});
+            console.log(lists);
+            lists.map(function(data, key){
+                companyTeamsLength = lists.length;
+                // get teams by manager id
+                getTeamByManagerId(data._id,(data.firstname+' '+data.lastname));
+            });
 
-		} else {
-			response.status   = false;
-			response.message  = 'Something went wrong..';
-			res.send(response);
-			res.end();
-		}
-	});
+        } else {
+            response.status   = false;
+            response.message  = 'Something went wrong..';
+            res.send(response);
+            res.end();
+        }
+    });
 };
 
 /**
@@ -1577,57 +1577,57 @@ exports.getAllTeamsFromCompany = function(req, res){
     response.status = false;
     response.message = 'Error';
 
-	var numberOfManagers = 0;
-	var ManagersCounter = 0;
-	var companyTeamsIndex = 0;
-	var teamData = {};
-	teamData.header = ['Id','Team Names', ''];
-	teamData.rows   = [];
-	
-	function getTeamByManagerId(_id,name){
-		var where = { manager_id: new ObjectId(_id) };
-		Team.find(where).exec(function(err, lists) {
-			if(!err) {
-				lists.map(function(data, key){
-					var currentRow = [];
-					currentRow[0] = { column: data._id, display : false  };
-					currentRow[1] = { column: data.teamname  };
-					currentRow[2] = { column: 'Show team members', popup: true  };
-					teamData.rows[companyTeamsIndex] = currentRow;
-					companyTeamsIndex++;
-				});
+    var numberOfManagers = 0;
+    var ManagersCounter = 0;
+    var companyTeamsIndex = 0;
+    var teamData = {};
+    teamData.header = ['Id','Team Names', ''];
+    teamData.rows   = [];
+    
+    function getTeamByManagerId(_id,name){
+        var where = { manager_id: new ObjectId(_id) };
+        Team.find(where).exec(function(err, lists) {
+            if(!err) {
+                lists.map(function(data, key){
+                    var currentRow = [];
+                    currentRow[0] = { column: data._id, display : false  };
+                    currentRow[1] = { column: data.teamname  };
+                    currentRow[2] = { column: 'Show team members', popup: true  };
+                    teamData.rows[companyTeamsIndex] = currentRow;
+                    companyTeamsIndex++;
+                });
 
-				ManagersCounter++;
-				if(numberOfManagers == ManagersCounter){
-					response.status   = true;
-					response.message  = 'success';
-					response.data     = teamData;
-					res.send(response);
-					res.end();
-				}
-			}
-		});
-	}
+                ManagersCounter++;
+                if(numberOfManagers == ManagersCounter){
+                    response.status   = true;
+                    response.message  = 'success';
+                    response.data     = teamData;
+                    res.send(response);
+                    res.end();
+                }
+            }
+        });
+    }
 
     var companyname = req.body.companyname;
-	var where = { usertype : "manager" };
+    var where = { usertype : "manager" };
 
-	User.find(where).exec(function(err, lists) {
-		if(!err) {
+    User.find(where).exec(function(err, lists) {
+        if(!err) {
 
-			numberOfManagers = lists.length;
-			lists.map(function(data, key){
-				// get teams by manager id
-				getTeamByManagerId(data._id);
-			});
+            numberOfManagers = lists.length;
+            lists.map(function(data, key){
+                // get teams by manager id
+                getTeamByManagerId(data._id);
+            });
 
-		} else {
-			response.status   = false;
-			response.message  = 'Something went wrong..';
-			res.send(response);
-			res.end();
-		}
-	});
+        } else {
+            response.status   = false;
+            response.message  = 'Something went wrong..';
+            res.send(response);
+            res.end();
+        }
+    });
 };
 
 /**
@@ -1642,22 +1642,22 @@ exports.getAllTeamsMembers = function(req, res, next){
     var _id = req.body._id;
     if(_id !== undefined && _id !== ''){
 
-		// get team members _id from Teams collection
-		var where = { _id: new ObjectId(_id) };
-		Team.find(where).exec(function(err, lists){
-			if(!err){
-				// console.log(lists);
-				req.body.resdata = lists;
-				next();
-			}else{
-				res.send(response);
-				res.end();
-			}
-		});
-	}else{
-		res.send(response);
-		res.end();
-	}
+        // get team members _id from Teams collection
+        var where = { _id: new ObjectId(_id) };
+        Team.find(where).exec(function(err, lists){
+            if(!err){
+                // console.log(lists);
+                req.body.resdata = lists;
+                next();
+            }else{
+                res.send(response);
+                res.end();
+            }
+        });
+    }else{
+        res.send(response);
+        res.end();
+    }
 };
 
 /**
@@ -1669,65 +1669,65 @@ exports.searchTeam = function (req, res){
     response.status = false;
     response.message = 'Error';
 
-	var joinCompany = function(list){
-		var teamCounter = 0;
-		var data = {};
-		data.header = ['Id','Company name', 'Team name', ''];
+    var joinCompany = function(list){
+        var teamCounter = 0;
+        var data = {};
+        data.header = ['Id','Company name', 'Team name', ''];
         data.rows   = [];
         data.class = "table";
-		list.map(function(team, key){
+        list.map(function(team, key){
 
-			Company.findOne({ _id: new ObjectId(team.company_id)}).exec(function(err, company){
+            Company.findOne({ _id: new ObjectId(team.company_id)}).exec(function(err, company){
 
-				var companyname = 'No company name';
-				if(!err && company !== null){
-					companyname = company.name;
-				}
-				data.rows[key] = [
-					{ column: team._id, display : false },
-					{ column: companyname},
-					{ column: team.teamname},
-					{ column: 'Show team members', popup: true  }
-				 ];
-				 teamCounter++;
+                var companyname = 'No company name';
+                if(!err && company !== null){
+                    companyname = company.name;
+                }
+                data.rows[key] = [
+                    { column: team._id, display : false },
+                    { column: companyname},
+                    { column: team.teamname},
+                    { column: 'Show team members', popup: true  }
+                 ];
+                 teamCounter++;
 
-				// Exit condition
-				if(list.length === teamCounter){
-					response.status = true;
-					response.message = 'Success';
-					response.data = data;
-					res.send(response);
-					res.end();
-				}
-			});
+                // Exit condition
+                if(list.length === teamCounter){
+                    response.status = true;
+                    response.message = 'Success';
+                    response.data = data;
+                    res.send(response);
+                    res.end();
+                }
+            });
 
-		});
-	}
+        });
+    }
 
     var teamname = req.body.teamname;
     if(teamname !== undefined && teamname !== ''){
-		Team.find({ teamname: { $regex : new RegExp(teamname,'i') } }).exec(function(err, list){
-			if(!err){
-				// join company name
-				// console.log(list);
-				if(list.length >0){
-					joinCompany(list);
-				}else{
-					response.status = false;
-					response.message = 'No result';
-					res.send(response);
-					res.end();
-				}
-			}else{
-				res.send(response);
-				res.end();
-			}
-		});
-	}else{
-		response.message = 'Please enter a team name';
-		res.send(response);
-		res.end();
-	}
+        Team.find({ teamname: { $regex : new RegExp(teamname,'i') } }).exec(function(err, list){
+            if(!err){
+                // join company name
+                // console.log(list);
+                if(list.length >0){
+                    joinCompany(list);
+                }else{
+                    response.status = false;
+                    response.message = 'No result';
+                    res.send(response);
+                    res.end();
+                }
+            }else{
+                res.send(response);
+                res.end();
+            }
+        });
+    }else{
+        response.message = 'Please enter a team name';
+        res.send(response);
+        res.end();
+    }
 }
 
 /**
@@ -1785,5 +1785,137 @@ exports.UpdateProfileBanner = function (req, res) {
                 res.end();
             });
         }
+    }
+};
+
+function isValid(id) {
+
+    var checkForHexRegExp = new RegExp("^[0-9a-fA-F]{24}$");
+    if(id == null) return false;
+
+    if(typeof id == 'number')
+        return true;
+    if(typeof id == 'string') {
+        return id.length == 12 || (id.length == 24 && checkForHexRegExp.test(id));
+    }
+    return false;
+};
+
+/**
+ * Get get all employees by company name
+ */
+exports.getAllEmployeesInCompany = function (req, res) {
+
+    var response = {};
+    var mycompany = '';
+    var last_id = req.body.last_id;
+    var keyword = req.body.keyword;
+    var limit = 2;
+    var date = new Date();
+    // date with YYYY-MM-DD format
+    var cdate = JSON.stringify(date).substring(1, 11);
+    var yearmonth = cdate.substring(0, 7);
+
+    try {
+        mycompany = req.user.company_info[0].companyname;
+    } catch (ex) {
+        mycompany = false;
+    }
+
+    if(mycompany){
+
+        var elmatch = { companyname: mycompany };
+        var condition = { company_info: { "$elemMatch": elmatch } };
+        
+        if(isValid(last_id)){
+            condition._id = { "$gt": new ObjectId(last_id) };
+        }
+        if(keyword !== undefined && keyword.trim() !== ''){
+            condition.$or =  [ { firstname: new RegExp(keyword,'i') }, { lastname: new RegExp(keyword,'i') } ];
+        }
+        // console.log(condition);
+        
+        User.find(condition).limit(limit).sort({_id: 1}).exec(function (err, lists) {
+            if (!err) {
+                Vote.aggregate([
+                    {
+                        $match: {
+                            postdate:
+                            {
+                                $regex : new RegExp(yearmonth,'i')
+                            },
+                            company: mycompany
+                        }
+                    },
+                    {
+                        $group : {
+                            _id : "$votefor_userid",
+                            total : { $sum : 1 },
+                            user_ids: {
+                                $push: "$user_id"
+                             }
+                        }
+                    }
+                ],
+                function (err, result) {
+
+                    var emp_meta = {};
+                    if (err) {
+                        console.log(err);
+                    }else{
+                        result.map(function (data, key) {
+                            emp_meta[data._id] = data;
+                        });
+                    }
+
+                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+
+                        var employees = [];
+                        var mytotalvotes = 0;
+                        lists.map(function (data, key) {
+
+                            var votes         =   0;
+                            var myvote        =   false;
+                            var empofthemonth =   false;
+                            if(emp_meta[data._id] !== undefined){
+                                var cemp      =   emp_meta[data._id];
+                                var userids   =   emp_meta[data._id].user_ids;
+                                var user_ids  =   [];
+
+                                // set employee of the month status
+                                try {
+                                    if(emp.emp_id === data._id){
+                                        empofthemonth =   true;
+                                    }
+                                } catch (ex) {}
+                                userids.map(function (id, key) { user_ids[key] = id.toString(); });
+                                votes         =  cemp.total;
+                                if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
+                                    myvote    =  true;
+                                    mytotalvotes++;
+                                }
+                            }
+                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
+                        });
+                        response.status = true;
+                        response.message = 'success';
+                        response.data = {};
+                        response.data.employees = employees;
+                        response.data.mytotalvotes = mytotalvotes;
+                        res.send(response);
+                    });
+                });
+            }else{
+                response.status = false;
+                response.message = 'Something went wrong';
+                response.data = [];
+                res.send(response);
+            }
+        });
+    }else{
+        response.status = false;
+        response.message = 'Please select your company first.';
+        res.send(response);
     }
 };

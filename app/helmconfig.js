@@ -2,6 +2,7 @@
 const config = {
   userlink: [
     // Add to homescreen for Chrome on Android
+    { "rel": "stylesheet", "href": "/assets/styles/modal.css" },
     { "rel": "stylesheet", "href": "/assets/styles/bootstrap.css" },
     { "rel": "stylesheet", "href": "/assets/styles/custom.css" },
     { "rel": "stylesheet", "href": "/assets/styles/form.css" },

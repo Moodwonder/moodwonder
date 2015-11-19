@@ -58,6 +58,10 @@ export default class Leftnav extends React.Component {
                     <i className="building icon"></i>
                     L_MYCOMPANY_LINK
                 </a>
+                <a className="item" href="/employeeofthemonth">
+                    <i className="thumbs up icon"></i>
+                    L_CAST_VOTE
+                </a>
                 <div className="invite-people">
                     <h2>L_INVITE_PEOPLE_TITLE</h2>
                     <p>L_INVITE_PEOPLE_DES</p>
