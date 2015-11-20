@@ -4,20 +4,20 @@ import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
 import { MyOwnInput } from 'components/Formsy-components';
 
-export default class Signup extends React.Component {
+export default class InviteSignup extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
       super(props);
       this.state = SignupStore.getState();
       this.state.canSubmit = false;
       this.validationErrors = {};
   }
 
-  componentDidMount () {
+  componentDidMount() {
       SignupStore.listen(this._onChange);
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
       SignupStore.unlisten(this._onChange);
   }
 
@@ -36,18 +36,14 @@ export default class Signup extends React.Component {
   formSubmit = (e) => { e.preventDefault(); }
 
   _onSignupStep1Submit = () => {
-
       let email = React.findDOMNode(this.refs.email).value.trim();
-      if (!this.isValidEmailAddress(email)) {
-		  this.setState({
-			  message: 'Invalid email',
-			  hasErrorMessage: true
-		  });
+      let hash  = React.findDOMNode(this.refs.hash).value.trim();
+      if(this.isValidEmailAddress(email)){
+         SignupActions.usersignupstep1({ email: email, hash: hash });
       }else{
-		  SignupActions.usersignupstep1({
-			email: email,
-			type: 'forgotpassword'
-		  });
+		this.setState({
+			messages: ['Invalid email']
+		});
 	  }
   }
 
@@ -66,26 +62,38 @@ export default class Signup extends React.Component {
       return pattern.test(emailAddress);
   }
 
-  handleNotificationClick = (notification) => {
-      if (notification === 'email') {
+  _onEmailChange = (e) => {
+      const email = React.findDOMNode(this.refs.email).value.trim();
+      if (!this.isValidEmailAddress(email)) {
           this.setState({
               notificationReact: {
-                  ...this.state.notificationReact,
-                  isActive: false
+                ...this.state.notificationReact,
+                isActive: true
               }
           });
       }
   }
 
-  render () {
-      // console.log(this.state);
+  handleNotificationClick = (notification) => {
+      if (notification === 'email') {
+          this.setState({
+              notificationReact: {
+               ...this.state.notificationReact,
+               isActive: false
+              }
+          });
+      }
+  }
+
+  render() {
+	  // console.log(this.state);
       let message;
       let multimessages;
       let hash; // for invitation
 
       try{
-          hash = this.props.params.hash;
-      }catch(e){}
+		  hash = this.props.params.hash;
+	  }catch(e){}
 
       if (this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
@@ -98,35 +106,35 @@ export default class Signup extends React.Component {
       }
 
       if (this.state.isRegistered) {
-          message = [<div className="ui green message">{this.state.message}</div>];
+		  message = [<div className="ui green message">{this.state.message}</div>];
       }else {
 
           if (this.state.isSignupWaiting) {
               message = [<div className="ui yellow message">Processing...</div>];
           }
       }
-
       return (
-        <div className="ui middle aligned center aligned grid">
-          <div className="column">
-            <h2 className="ui header">Forgot password</h2>
-            <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
+		<div className="ui middle aligned center aligned grid">
+		  <div className="column">
+			<h2 className="ui  image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
 			  {message}
 			  {multimessages}
-            <div className="ui large form">
-              <div className="ui stacked segment">
-                <div className="field">
-                  <div className="ui left icon input">
-                    <input type="email" ref="email" id="email" placeholder="Enter your email" />
-                  </div>
-                </div>
-                <button className="ui yellow button" onClick={this._onSignupStep1Submit}>Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
+			<div className="ui large form">
+			  <div className="ui stacked segment">
+				<div className="field">
+				  <div className="ui left icon input">
+					<input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
+					<input ref="hash" name="hash" type="hidden" value={hash} />
+				  </div>
+				</div>
+				<button className="ui yellow button" onClick={this._onSignupStep1Submit}>GET STARTED</button>
+			  </div>
+			  <div className="ui error message segment"></div>
+			</div>
+		  </div>
+		</div>
       );
   }
 }
 
-Signup.propTypes = { user: {} };
+InviteSignup.propTypes = { user: {} };

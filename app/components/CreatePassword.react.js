@@ -65,9 +65,17 @@ export default class CreatePassword extends React.Component {
       let hash = React.findDOMNode(this.refs.hash).value.trim();
       if (password === '') {
 
+		  this.setState({
+			  message: 'Password field cannot be empty',
+			  hasErrorMessage: true
+		  });
           this.showNotification('Password field cannot be empty');
       }else if(password.length <= 6){
 
+		  this.setState({
+			  message: 'Password length should be at least 7 characters',
+			  hasErrorMessage: true
+		  });
           this.showNotification('Password length should be at least 7 characters');
       }else{
 
@@ -91,64 +99,53 @@ export default class CreatePassword extends React.Component {
   }
 
   render() {
-
-      let renderedResult;
+      // console.log(this.state);
       let message;
+      let multimessages;
+      let hash; // for invitation
 
-      if (this.state.hasError) {
-          message = (
-            <div className="alert alert-warning">
-              {this.state.message}
-            </div>
-          );
+      try{
+          hash = this.props.params.hash;
+      }catch(e){}
+
+      if (this.state.messages) {
+          multimessages = this.state.messages.map((mes, key) => {
+              return [<div className="ui blue message">{mes}</div>];
+          });
       }
-      else if (this.state.message !== '') {
-          message = (
-            <div className="alert alert-info">
-              {this.state.message}
-            </div>
-          );
+
+      if (this.state.hasErrorMessage && this.state.message) {
+          message = [<div className="ui red message">{this.state.message}</div>];
       }
 
       if (this.state.isRegistered) {
-          renderedResult = (
-            <div className="login__container">
-              <fieldset className="login__fieldset">
-              {message}
-              </fieldset>
-            </div>
-          );
-
+          message = [<div className="ui green message">{this.state.message}</div>];
       }else {
 
           if (this.state.isSignupWaiting) {
-              renderedResult = (<h3 className="login__header">Processing...</h3>);
-          } else {
-
-              renderedResult = (
-                <div className="container">
-                    {message}
-                    <h2>Create your password here..</h2>
-                    <div role="form">
-                        <div className="form-group">
-                            <input type="password" ref="password" className="form-control" id="password" placeholder="Enter your password" />
-                            <input type="hidden" ref="hash" value={this.props.params.hash} />
-                        </div>
-                        <button className="btn btn-default" onClick={this._onSignupStep2Submit}>Create</button>
-                    </div>
-                    <Notification
-                      {...this.state.notificationReact}
-                      onClick={this.handleNotificationClick.bind(null, 'password')}
-                      onDismiss={this.handleNotificationClick.bind(null, 'password')}
-                    />
-                </div>
-              );
+              message = [<div className="ui yellow message">Processing...</div>];
           }
-
       }
+
       return (
-        <div className="login">
-          {renderedResult}
+        <div className="ui middle aligned center aligned grid">
+          <div className="column">
+            <h2 className="ui header">Create your password here..</h2>
+            <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
+			  {message}
+			  {multimessages}
+            <div className="ui large form">
+              <div className="ui stacked segment">
+                <div className="field">
+                  <div className="ui left icon input">
+                    <input type="password" ref="password" id="password" placeholder="Enter your password" />
+                    <input type="hidden" ref="hash" value={this.props.params.hash} />
+                  </div>
+                </div>
+                <button className="ui yellow button" onClick={this._onSignupStep2Submit}>Create</button>
+              </div>
+            </div>
+          </div>
         </div>
       );
   }

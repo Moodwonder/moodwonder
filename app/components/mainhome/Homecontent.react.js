@@ -1,5 +1,6 @@
 import React from 'react';
 import Signup from 'components/Signup.react';
+import RequestDemo from 'components/RequestDemo.react';
 
 export default class Homecontent extends React.Component {
 
@@ -277,30 +278,8 @@ export default class Homecontent extends React.Component {
                             <div className="four wide column"></div>
                             <div className="eight wide column fade-in one">
                                 <div className="ui segment">
-
-
-                                    <div className="row"><div className=" ui small form">
-                                            <div className="field">
-                                                <label>Name</label>
-                                                <input placeholder="Name" type="text" />
-                                            </div>
-                                            <div className="field">
-                                                <label>Email</label>
-                                                <input placeholder="Email" type="email" />
-                                            </div>
-
-                                            <div className="field">
-                                                <label>Mobile</label>
-                                                <input placeholder="Mobile" type="text" />
-                                            </div>
-
-                                            <div className="field">
-                                                <label>What exactly are you looking for?</label>
-                                                <textarea></textarea>
-                                            </div>
-
-                                            <button className="ui orange button "> <span className="pulse">Submit</span></button>
-                                        </div>
+                                    <div className="row">
+                                        <RequestDemo />
                                     </div>
                                 </div>
                             </div>

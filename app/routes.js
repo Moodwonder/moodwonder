@@ -6,7 +6,7 @@ import App from 'components/App.react';
 import Index from 'components/Index.react';
 import Login from 'components/Login.react';
 import Logout from 'components/Logout.react';
-import Signup from 'components/Signup.react';
+import InviteSignup from 'components/InviteSignup.react';
 import ForgotPassword from 'components/ForgotPassword.react';
 import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/customsurvey/Customsurvey.react';
@@ -138,12 +138,14 @@ const routes = (
     // No layout for login
     <Route name="login" path="/login" handler={Login} >
     </Route>
+    <Route name="invitesignup/:hash" path="/invitesignup/:hash" handler={InviteSignup} >
+    </Route>
+    <Route name="createpassword/:hash" path="/CreatePassword/:hash" handler={CreatePassword} >
+    </Route>
+    <Route name="forgotpassword" path="/forgotpassword" handler={ForgotPassword} >
+    </Route>
     <Route name="app" path="/" handler={App} >
       <Route name="logout" handler={Logout} />
-      <Route name="signup" handler={Signup} />
-      <Route name="signup/:hash" handler={Signup} />
-      <Route name="forgotpassword" handler={ForgotPassword} />
-      <Route name="createpassword/:hash" handler={CreatePassword} />
       <Route name="tabs" handler={Tabs} />
       <DefaultRoute handler={Index} />
       <NotFoundRoute name="404" handler={NotFound} />
@@ -152,3 +154,5 @@ const routes = (
 );
 
 export default routes;
+
+//<Route name="invitesignup" handler={Signup} />
