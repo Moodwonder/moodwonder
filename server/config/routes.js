@@ -243,6 +243,10 @@ module.exports = function (app, passport) {
 
         var html = App(JSON.stringify(res.locals.data || {}), req.url);
         
+        var commonscripts = '';
+        
+        
+        
         var userstyles = '';
         userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/font-awesome.min.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/jquery.circliful.css" data-react-helmet="true" />';
@@ -270,72 +274,108 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         
+        var userscripts = '';
+        userscripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/form.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/dropdown.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/popup.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/modal.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/SimpleAjaxUploader.min.js"></script>';
+        userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/commonscripts.js"></script>';
+        userscripts += '<script src="/assets/halfdaughnut/js/jquery.circliful.js"></script>';
+        
         var homestyles = '';
-        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" data-react-helmet="true" />';
-        homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" data-react-helmet="true" />';
-        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" data-react-helmet="true" />';
-        //homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/semantic.css" data-react-helmet="true" />';
-        homestyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" />';
+        
+        var homescripts = '';
+        homescripts += '<!--[if IE]><script type="text/javascript">var console = { log: function() {} };</script><![endif]-->';
+        homescripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';
+        homescripts += '<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>';
+        homescripts += '<script type="text/javascript" src="/assets/fullPage.js-master/jquery.fullPage.js"></script>';
+        homescripts += '<script type="text/javascript" src="/assets/mainhome/home.js"></script>';
+        homescripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
+        
         
         var adminstyles = '';
-        adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
-        //adminstyles += '<link rel="stylesheet" href="/assets/styles/bootstrap.css" data-react-helmet="true" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
         
-        var aboutpage = '';
-        //aboutpage += '<link rel="stylesheet" href="/assets/staticpages/semantic.css" data-react-helmet="true" />';
-        aboutpage += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
-        aboutpage += '<link rel="stylesheet" href="/assets/staticpages/aboutpage.css" data-react-helmet="true" />';
+        
+        var staticstyles = '';
+        staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
+        staticstyles += '<link rel="stylesheet" href="/assets/staticpages/static.css" />';
+        
+        var staticscripts = '';
+        staticscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
+        staticscripts += '<script type="text/javascript" charset="utf-8" src="/assets/staticpages/static.js"></script>';
+        staticscripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
         
         var loginpage = '';
-        loginpage += '<link rel="stylesheet" href="/assets/styles/reset.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/site.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/container.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/grid.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/header.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/image.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/menu.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/divider.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/segment.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/input.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/button.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/list.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" data-react-helmet="true" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" data-react-helmet="true" />';
-
+        loginpage += '<link rel="stylesheet" href="/assets/styles/reset.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/site.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/container.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/grid.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/header.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/image.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/menu.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/divider.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/segment.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/form.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/input.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/button.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/list.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
+	loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
+        
+        var loginscripts = '';
+        loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
+        loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/form.js"></script>';
+        loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
+        loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
+        
+        
         
         if (pageurl == '/' || pageurl == '/index') {
-            //console.log('Header');
-            //console.log(Header);
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", homestyles)
-                .replace("BODYCLASS", 'home');
+                .replace("BODYCLASS", 'home')
+                .replace("JSCRIPTS", homescripts);
         
         } else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", aboutpage)
-                .replace("BODYCLASS", 'inner-pages');
+                .replace("LINK", staticstyles)
+                .replace("BODYCLASS", 'inner-pages')
+                .replace("JSCRIPTS", staticscripts);
         
         } else if (pageurl.search('admin') != -1) {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", adminstyles)
-                .replace("BODYCLASS", '');
+                .replace("BODYCLASS", '')
+                .replace("JSCRIPTS", '');
         
-        } else if (pageurl.search('login') != -1) {
+        } else if (pageurl == '/login') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage');
+                .replace("BODYCLASS", 'login loginpage')
+                .replace("JSCRIPTS", loginscripts);
         
         } else {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", userstyles)
-                .replace("BODYCLASS", '');
+                .replace("BODYCLASS", '')
+                .replace("JSCRIPTS", userscripts);
         }
         //html = html.replace("TITLE", Header.title)
         //        .replace("META", Header.meta)

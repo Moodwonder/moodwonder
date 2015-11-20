@@ -65,7 +65,7 @@ export default class App extends React.Component {
       }
 
       //pages = ["/myprofile","/mycompany"];
-      pages = ["/myprofile","/mycompany","/employeeofthemonth"];
+      pages = ["/myprofile","/employeeofthemonth"];
       if( pages.indexOf(path) >= 0 ){
           rightnav     = '';
           pageconter   = 'ui segment  width-act padding-top-110 ';
