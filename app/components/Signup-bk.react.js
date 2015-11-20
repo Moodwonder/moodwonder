@@ -35,9 +35,8 @@ export default class Signup extends React.Component {
 
   formSubmit = (e) => { e.preventDefault(); }
 
-  _onSignupStep1Submit = () => {
-      let email = React.findDOMNode(this.refs.email).value.trim();
-      SignupActions.usersignupstep1({ email: email });
+  _onSignupStep1Submit = (model) => {
+      SignupActions.usersignupstep1(model);
   }
 
   showNotification = (message) => {
@@ -79,35 +78,80 @@ export default class Signup extends React.Component {
   }
 
   render() {
+      let renderedResult;
       let message;
       let multimessages;
 
       if (this.state.messages) {
+
           multimessages = this.state.messages.map((mes, key) => {
-              return [<div className="ui blue message">{mes}</div>];
+              return (
+                  <div className="login__container">
+                      <fieldset className="login__fieldset">
+                          <div className="alert alert-info">
+                              {mes}
+                          </div>
+                      </fieldset>
+                  </div>
+              );
           });
+
       }
 
       if (this.state.isRegistered) {
-		  message = [<div className="ui green message">{this.state.message}</div>];
+          renderedResult = (
+                <div className="login__container">
+                      <fieldset className="login__fieldset">
+                         <div className="alert alert-info">
+                              {this.state.message}
+                         </div>
+                      </fieldset>
+                </div>
+            );
+
       }else {
 
           if (this.state.isSignupWaiting) {
-              message = [<div className="ui yellow message">Processing...</div>];
+              message = (<h3 className="login__header">Processing...</h3>);
           }
+
+          renderedResult = (
+                <div className="container">
+                      <h2>SGN_TITLE</h2>
+                      {message}
+                      {multimessages}
+                      <Formsy.Form onValidSubmit={this._onSignupStep1Submit} onValid={this.enableButton} onInvalid={this.disableButton} >
+                         <MyOwnInput
+                         name="email"
+                         className="form-control"
+                         placeholder="SGN_WORK_EMAIL"
+                         validations="isEmail"
+                         validationError="This is not a valid email"
+                         value={this.state.inviteEmail}
+                         disabled={(this.state.inviteEmail !== '')}
+                         required/>
+
+                         <MyOwnInput
+                         type="hidden"
+                         name="hash"
+                         value={this.props.params.hash}
+                         />
+
+                         <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>SGN_BTN_SUBMIT</button>
+                      </Formsy.Form>
+                      <Notification
+                        {...this.state.notificationReact}
+                        onClick={this.handleNotificationClick.bind(null, 'email')}
+                        onDismiss={this.handleNotificationClick.bind(null, 'email')}
+                      />
+                </div>
+            );
+
       }
       return (
-		<div className="six wide column">
-			<div className="ui segment slideExpandUp ">
-			  {message}
-			  {multimessages}
-				<div className="ui input">
-					<input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
-					<input ref="hash" name="hash" placeholder="REGISTER HERE ITS FREE " type="hidden" />
-				</div>
-				<button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">GET STARTED</span></button>
-			</div>
-		</div>
+            <div className="login">
+               {renderedResult}
+            </div>
       );
   }
 }

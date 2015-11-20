@@ -286,6 +286,25 @@ module.exports = function (app, passport) {
         aboutpage += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
         aboutpage += '<link rel="stylesheet" href="/assets/staticpages/aboutpage.css" data-react-helmet="true" />';
         
+        var loginpage = '';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/reset.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/site.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/container.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/grid.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/header.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/image.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/menu.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/divider.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/segment.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/input.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/button.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/list.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" data-react-helmet="true" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" data-react-helmet="true" />';
+
+        
         if (pageurl == '/' || pageurl == '/index') {
             //console.log('Header');
             //console.log(Header);
@@ -309,7 +328,7 @@ module.exports = function (app, passport) {
         } else if (pageurl.search('login') != -1) {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
-                .replace("LINK", userstyles)
+                .replace("LINK", loginpage)
                 .replace("BODYCLASS", 'login loginpage');
         
         } else {

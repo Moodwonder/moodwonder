@@ -5,24 +5,3 @@
 .filepicker.dropzone{
 	display:none;
 }
-
-/***** Login page fixes ********/
-/* body > .grid { */
-.loginpage .grid {
-	height: 100%;
-}
-.loginpage .column {
-	max-width: 450px;
-}
-.loginpage .yellow {
-	height: 54px;
-	border-radius: 2px!important;
-}
-.loginpage .ui.image svg, .ui.image img {
-	float: left;
-}
-.loginpage a.frgt {
-	color: #000;
-	margin-right: 10px;
-}
-/******** End login page ********/

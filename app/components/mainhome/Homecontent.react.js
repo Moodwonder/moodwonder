@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Signup from 'components/Signup.react';
 
 export default class Homecontent extends React.Component {
 
@@ -28,14 +28,7 @@ export default class Homecontent extends React.Component {
                                     <div className="images-container"><img src="/assets/images/whiteman-tab.png" alt="pc" className="tab slideUp " id="object"/> <img src="/assets/images/white-man.png" alt="pc" className="man hatch " id="object"  /> </div>
                                 </div>
                             </div>
-                            <div className="six wide column">
-                                <div className="ui segment slideExpandUp ">
-                                    <div className="ui input">
-                                        <input placeholder="REGISTER HERE ITS FREE " type="text" />
-                                    </div>
-                                    <button className="ui orange button "> <span className="pulse">GET STARTED</span></button>
-                                </div>
-                            </div>
+                            <Signup />
                         </div>
                     </div>
                 </div>
