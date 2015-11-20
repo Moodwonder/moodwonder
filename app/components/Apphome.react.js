@@ -28,7 +28,7 @@ export default class Apphome extends React.Component {
                     ];
 
       return (
-                <span className="home">{content}</span>
+                <div className="home">{content}</div>
       );
   }
 }

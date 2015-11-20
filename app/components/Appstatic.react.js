@@ -22,14 +22,16 @@ export default class Appstatic extends React.Component {
       //let handler = (<RouteHandler />);
 
       let sitecontent = [
-                    <Followingmenu />,
+                    <div className="ui large top fixed hidden menu">
+                        <Followingmenu />
+                    </div>,
                     <Sidebarmenu />,
                     <RouteHandler />,
                     <Footer/>
               ];
 
       return (
-              <div className="inner-pages">{sitecontent}</div>
+              <div>{sitecontent}</div>
       );
   }
 }
