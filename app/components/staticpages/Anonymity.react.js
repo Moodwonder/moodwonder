@@ -22,7 +22,7 @@ export default class Anonymity extends React.Component {
                 <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor": "#4db6ac"}}>
                     <header className="entry-header ui menu">
                         <div style={{"display": "flex!important"}} className="">
-                            <div className="ui container"> <a className="item " href="main-home.html"><img src="assets/images/logo-mw.png" alt=""/></a>
+                            <div className="ui container"> <a className="item " href="/"><img src="assets/images/logo-mw.png" alt=""/></a>
                                 <div className="right menu">
                                     <div className="item padding-row">
                                         <div className="ui icon top  pointing dropdown  "> <span>Language</span>
@@ -35,8 +35,8 @@ export default class Anonymity extends React.Component {
                                     <div className="item ">
                                         <div className="ui icon top right pointing dropdown  "> <span><i className="sidebar icon"></i></span>
                                             <div className="menu">
-                                                <div className="item">Sign in </div>
-                                                <div className="item">Register</div>
+                                                <a href="/login" className="item">Sign in </a>
+                                                <a href="/" className="item">Register</a>
                                             </div>
                                         </div>
                                     </div>
