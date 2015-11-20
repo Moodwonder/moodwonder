@@ -296,6 +296,8 @@ exports.getLogout = function (req, res, next) {
  */
 exports.postSignupStep1 = function (req, res, next) {
 
+    var response = {};
+    req.body.email = req.body.email.toLowerCase();
     var email = req.body.email;
     var type = req.body.type;
 
@@ -313,12 +315,15 @@ exports.postSignupStep1 = function (req, res, next) {
     });
 
     User.findOne({email: req.body.email}, function (err, existingUser) {
-        if (existingUser) {
+
+        if (existingUser !== null && existingUser) {
+
             response.status = false;
             response.message = 'The email address you have entered is already registered';
             res.send(response);
             res.end();
         } else {
+
             user.save(function (err, newuser) {
                 if (!err) {
 
@@ -349,7 +354,7 @@ exports.postSignupStep1 = function (req, res, next) {
 
                     // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
                     console.log('--req.body.hash----' + req.body.hash);
-                    if (req.body.hash != '') {
+                    if (req.body.hash !== undefined && req.body.hash !== '') {
 
                         console.log('has hash');
                         var invite = new Invite({
@@ -357,7 +362,6 @@ exports.postSignupStep1 = function (req, res, next) {
                             type: 'Team',
                             link: req.body.hash
                         });
-
 
                         Invite.findOne({email: email}, function (err, existingInvite) {
                             if (existingInvite) {

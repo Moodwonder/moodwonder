@@ -903,6 +903,7 @@ h2.com {
 	transition: background-color 0.1s ease 0s, box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
 	box-shadow: none;
 	padding: 0px 4px;
+	text-transform: none;
 }
 .login .ui.yellow.buttons .button, .ui.yellow.button {
 	background-color: #FBBD08;
