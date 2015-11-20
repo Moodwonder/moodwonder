@@ -15,7 +15,7 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     componentDidMount() {
-		console.log('componentDidMount');
+        console.log('componentDidMount');
         EOTMActions.getallemployees();
         EOTMStore.listen(this._onChange);
     }
@@ -26,9 +26,9 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     _onChange = (state) => {
 
-		state.employees.data.employees.map((data, key) => {
-			this.filtered.push(data);
-		});
+        state.employees.data.employees.map((data, key) => {
+            this.filtered.push(data);
+        });
         console.log(this.filtered);
         this.setState(state);
         this.mytotalvotes = this.state.employees.data.mytotalvotes;
@@ -114,7 +114,7 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     render() {
-		console.log('render....');
+        console.log('render....');
         let employees = '';
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {

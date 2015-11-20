@@ -135,8 +135,10 @@ const routes = (
     <Route name="apphome" path="/" handler={Apphome} >
         <Route name="index" handler={Index} />
     </Route>
+    // No layout for login
+    <Route name="login" path="/login" handler={Login} >
+    </Route>
     <Route name="app" path="/" handler={App} >
-      <Route name="login" handler={Login} />
       <Route name="logout" handler={Logout} />
       <Route name="signup" handler={Signup} />
       <Route name="signup/:hash" handler={Signup} />
