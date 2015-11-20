@@ -1,4 +1,6 @@
 /node_modules
+/public/images/bannerpics/
+/public/images/profilepics/
 /public/assets/app.js
 /public/assets/app.server.js
 /public/assets/header.server.js

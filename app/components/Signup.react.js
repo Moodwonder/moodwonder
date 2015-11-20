@@ -37,7 +37,14 @@ export default class Signup extends React.Component {
 
   _onSignupStep1Submit = () => {
       let email = React.findDOMNode(this.refs.email).value.trim();
-      SignupActions.usersignupstep1({ email: email });
+      let hash  = React.findDOMNode(this.refs.hash).value.trim();
+      if(this.isValidEmailAddress(email)){
+         SignupActions.usersignupstep1({ email: email, hash: hash });
+      }else{
+		this.setState({
+			messages: ['Invalid email']
+		});
+	  }
   }
 
   showNotification = (message) => {
@@ -79,13 +86,23 @@ export default class Signup extends React.Component {
   }
 
   render() {
+	  // console.log(this.state);
       let message;
       let multimessages;
+      let hash; // for invitation
+
+      try{
+		  hash = this.props.params.hash;
+	  }catch(e){}
 
       if (this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
               return [<div className="ui blue message">{mes}</div>];
           });
+      }
+
+      if (this.state.hasErrorMessage && this.state.message) {
+          message = [<div className="ui red message">{this.state.message}</div>];
       }
 
       if (this.state.isRegistered) {
@@ -103,7 +120,7 @@ export default class Signup extends React.Component {
 			  {multimessages}
 				<div className="ui input">
 					<input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
-					<input ref="hash" name="hash" placeholder="REGISTER HERE ITS FREE " type="hidden" />
+					<input ref="hash" name="hash" type="hidden" value={hash} />
 				</div>
 				<button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">GET STARTED</span></button>
 			</div>

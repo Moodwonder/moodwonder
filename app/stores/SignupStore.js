@@ -10,6 +10,7 @@ class SignupStore {
       this.user = {};
       this.isSignupWaiting = false;
       this.message = '';
+      this.hasErrorMessage = false;
       this.messages = [];
       this.isRegistered = false;
       this.canSubmit = false;
@@ -44,6 +45,7 @@ class SignupStore {
       this.isSignupWaiting = false;
       this.message = response.message;
       this.isRegistered = response.status;
+      this.hasErrorMessage = !response.status;
       if (this.message !== '') {
           this.notificationReact.message = this.message;
           this.notificationReact.isActive = true;

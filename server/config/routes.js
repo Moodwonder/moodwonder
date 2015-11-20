@@ -276,6 +276,7 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" data-react-helmet="true" />';
         //homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/semantic.css" data-react-helmet="true" />';
         homestyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" data-react-helmet="true" />';

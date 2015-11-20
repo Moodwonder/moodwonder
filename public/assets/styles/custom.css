@@ -5,3 +5,8 @@
 .filepicker.dropzone{
 	display:none;
 }
+
+/* home page fixes */
+.home .ui.input input {
+    text-transform: none;
+}
