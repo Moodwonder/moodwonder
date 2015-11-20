@@ -148,7 +148,7 @@ export default class MyMood extends React.Component {
       CustomSurveyStore.unlisten(this._onChange);
   }
 
-  //Start: Custom survey
+    //Start: Custom survey
   _onChange = () => {
       this.setState({
           isSurveySaved: CustomSurveyStore.getState().isSurveySaved,
@@ -1338,6 +1338,13 @@ export default class MyMood extends React.Component {
           );
       }
 
+      let cSurvey;
+      console.log('this.state.userType');
+      console.log(this.state.userType);
+      if (this.state.userType === 'manager') {
+          cSurvey  = (<a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>);
+      }
+
 
       return (
             <div>
@@ -1372,7 +1379,7 @@ export default class MyMood extends React.Component {
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
+                    {cSurvey}
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}

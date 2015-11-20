@@ -120,7 +120,11 @@ export default class Customsurveyresponses extends React.Component {
                 <div className="column">
                     <h4 className="ui header ryt com">{stitle}</h4>
                 </div>
-                <div className="column"></div>
+                <div className="column">
+                    <div className="three  column">
+                        <div className="test-gen ui submit button "> <a href="/surveyforms">Survey lists</a></div>
+                    </div>
+                </div>
             </div>
             {content}
         </div>
