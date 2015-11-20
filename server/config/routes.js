@@ -306,6 +306,12 @@ module.exports = function (app, passport) {
                 .replace("LINK", adminstyles)
                 .replace("BODYCLASS", '');
         
+        } else if (pageurl.search('login') != -1) {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", userstyles)
+                .replace("BODYCLASS", 'login loginpage');
+        
         } else {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)

@@ -62,13 +62,15 @@ export default class Login extends React.Component {
       return "";
   }
 
-  _onLoginSubmit = (model) => {
-      let email = model.email.trim();
-      let password = model.password.trim();
-      UserActions.manuallogin({
-        email: email,
-        password: password
-      });
+  _onLoginSubmit = () => {
+	  console.log('_onLoginSubmit');
+        let email = React.findDOMNode(this.refs.email).value.trim();
+        let password = React.findDOMNode(this.refs.password).value.trim();
+
+        UserActions.manuallogin({
+            email: email,
+            password: password
+        });
   }
 
   render() {
@@ -99,40 +101,32 @@ export default class Login extends React.Component {
           if (this.state.isLogginWaiting) {
               message = (<h3 className="login__header">Processing...</h3>);
           }
-
-          renderedResult = (
-          <div className="container">
-            <h2>LGN_TITLE</h2>
-            {message}
-                <Formsy.Form onValidSubmit={this._onLoginSubmit} onValid={this.enableButton} onInvalid={this.disableButton} >
-                   <MyOwnInput
-                   name="email"
-                   className="form-control"
-                   placeholder="LGN_USERNAME"
-                   validations="isEmail"
-                   validationError="This is not a valid email"
-                   required/>
-                   <MyOwnInput
-                   type="password"
-                   name="password"
-                   className="form-control"
-                   placeholder="LGN_PASSWORD"
-                   validationError="This is not a valid email"
-                   required/>
-                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>LGN_BTN_SUBMIT</button>
-                   <div className="form-group" ><a href="/forgotpassword" >LGN_FORGOT_PASSWORD</a></div>
-                </Formsy.Form>
-          </div>
-        );
-
       }
 
       return (
-          <div className="login">
-            {renderedResult}
-          </div>
+		<div className="ui middle aligned center aligned grid">
+		  <div className="column">
+			<h2 className="ui  image header"> <img src="assets/images/logo.png" className="image"/> </h2>
+			<div className="ui large form">
+			  <div className="ui stacked segment">
+				<div className="field">
+				  <div className="ui left icon input">
+					<input type="text" ref="email" name="email" placeholder="E-mail address" />
+				  </div>
+				</div>
+				<div className="field">
+				  <div className="ui left icon input">
+					<input type="password" ref="password" name="password" placeholder="Password" />
+				  </div>
+				</div>
+				<button className="ui yellow button" onClick={this._onLoginSubmit}>Login</button>
+			  </div>
+			  <div className="ui error message segment"></div>
+			</div>
+			<div className="ui message "> <a href="#" className="frgt">Forget Password?</a> <a href="main-home.html">Sign Up</a> </div>
+		  </div>
+		</div>
       );
-
   }
 }
 
