@@ -73,6 +73,13 @@ const utils = {
     });
   },
 
+  getCurrentUserId: () => {
+      return $.ajax({
+      url: '/userinfo?type=user',
+      type: 'GET'
+    });
+  },
+
   /*
    * Ajaxcall for save user details
    */

@@ -42,7 +42,7 @@ export default class MyCompany extends React.Component {
           questions: [],
           graphengagement: 'mw_index',
           graphtabclick: false,
-          currentuserid: '',
+          loggeduserid: '',
           teams: [],
           userDetails: []
       };
@@ -58,6 +58,7 @@ export default class MyCompany extends React.Component {
       SurveyStore.listen(this._onChangeData);
 
       UserActions.getcompanyinfo();
+      UserActions.getCurrentUserId();
       UserStore.listen(this._onChangeUserData);
 
       //$('.ui.dropdown').dropdown();
@@ -90,7 +91,7 @@ export default class MyCompany extends React.Component {
       this.setState({
          companyedata: SurveyStore.getState().companyedata,
          questions : SurveyStore.getState().questions,
-         currentuserid: SurveyStore.getState().currentuserid,
+         loggeduserid: SurveyStore.getState().loggeduserid,
          teams: SurveyStore.getState().teams
       });
 
@@ -173,7 +174,7 @@ export default class MyCompany extends React.Component {
       let companyinfotab = this.state.companyinfotab;
       let companyedata = this.state.companyedata;
       let graphengagement = this.state.graphengagement;
-      let currentuserid = this.state.currentuserid;
+      let loggeduserid = this.state.loggeduserid;
       let teams = this.state.teams;
       let userDetails = this.state.userDetails;
 
@@ -261,7 +262,7 @@ export default class MyCompany extends React.Component {
           return (<option value={data}>{data}</option>);
       });
 
-      let myGraphData = CompanyGraphdata.getMyEngagementData(graphengagement, companyedata, currentuserid);
+      let myGraphData = CompanyGraphdata.getMyEngagementData(graphengagement, companyedata, loggeduserid);
       let mylastrate;
       for (let row of _.last(myGraphData,1)) {
           mylastrate = row.rating;

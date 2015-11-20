@@ -25,6 +25,7 @@ class UserStore {
       this.isLoggedIn = false;
       this.canSubmit = false;
       this.userData = [];
+      this.loggeduserid = '';
 
       this.on('init', this.bootstrap);
       this.on('bootstrap', this.bootstrap);
@@ -40,7 +41,8 @@ class UserStore {
         handleSaveManagerDetailsSuccess: UserActions.SAVEMANAGERDETAILSSUCCESS,
         handleSaveCompanySuccess: UserActions.SAVECOMPANYSUCCESS,
         handleLogoutSuccess: UserActions.LOGOUTSUCCESS,
-        handleUserDataSuccess: UserActions.USERDATASUCCESS
+        handleUserDataSuccess: UserActions.USERDATASUCCESS,
+        handleCurrentUserIdSuccess: UserActions.GETCURRENTUSERID
       });
   }
 
@@ -153,6 +155,11 @@ class UserStore {
       this.isLoggedIn = false;
       sessionStorage.removeItem('isAuthenticated');
       sessionStorage.removeItem('currentUser');
+      this.emitChange();
+  }
+
+  handleCurrentUserIdSuccess (data) {
+      this.loggeduserid = data._id;
       this.emitChange();
   }
 

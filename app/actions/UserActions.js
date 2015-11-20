@@ -123,6 +123,22 @@ class UserActions {
       this.dispatch(response);
   }
 
+  // Get user details
+  getCurrentUserId () {
+      this.dispatch();
+      UserWebAPIUtils.getCurrentUserId()
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.getcurrentuserid(response);
+            }
+        }, () => {
+        });
+  }
+
+  getcurrentuserid (response) {
+      this.dispatch(response);
+  }
+
   // logout function
   logout () {
       this.dispatch();
