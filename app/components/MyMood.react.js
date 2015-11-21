@@ -18,6 +18,7 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 import Question from 'components/customsurvey/Question.react';
 import getFormData from 'get-form-data';
+import UserStore from 'stores/UserStore';
 
 
 
@@ -45,6 +46,7 @@ export default class MyMood extends React.Component {
   constructor(props) {
       super(props);
       this.state = CustomSurveyStore.getState();
+      this.state = UserStore.getState();
       this.state = {
           popup: false,
           questions: [],
@@ -90,6 +92,8 @@ export default class MyMood extends React.Component {
       SurveyActions.getMostEngagingManagers();
       SurveyStore.listen(this._onMoodChange);
 
+      UserStore.listen(this._onUserDataChange);
+
       let today = new Date();
       let yToday = today.getFullYear();
       let mToday = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -120,6 +124,12 @@ export default class MyMood extends React.Component {
 
       this.setState({qIndex: this.state.qIndex + 1});
       CustomSurveyStore.unlisten(this._onChange);
+
+      UserStore.unlisten(this._onUserDataChange);
+  }
+
+  _onUserDataChange = (state) => {
+      this.setState(state);
   }
 
     //Start: Custom survey
@@ -558,6 +568,12 @@ export default class MyMood extends React.Component {
       let companysurvey = this.state.companysurvey;
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
+      let user = this.state.userData;
+
+      let usertype;
+      if(typeof user !== 'undefined') {
+          usertype = user.usertype;
+      }
 
       let xlabel = [];
       let ydata = [];
@@ -1322,6 +1338,17 @@ export default class MyMood extends React.Component {
           );
       }
 
+      let tabs;
+      if (typeof usertype !== 'undefined' && usertype === 'manager') {
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>,
+                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
+                 ];
+      } else {
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
+                 ];
+      }
 
 
       return (
@@ -1355,9 +1382,7 @@ export default class MyMood extends React.Component {
                 </div>
 
                 <div className="ui tabular menu tab three column">
-                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
+                    {tabs}
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}

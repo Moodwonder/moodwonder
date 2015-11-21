@@ -59,8 +59,6 @@ class UserStore {
   }
 
   handleLoginResponse (response) {
-	  console.log('response');
-	  console.log(response);
       this.isLogginWaiting = false;
       this.message = response.message;
       this.isLoggedIn = response.status;

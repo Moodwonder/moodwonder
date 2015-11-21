@@ -235,7 +235,7 @@ exports.getUserInfo = function (req, res) {
             response = {};
             response.status = true;
             response.message = 'success';
-            response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': ''};
+            response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': '', 'usertype' : ''};
             if (req.query.type == 'company') {
                 if (lists.company_info[0] != undefined) {
                     response.data = lists.company_info[0];
@@ -249,7 +249,7 @@ exports.getUserInfo = function (req, res) {
                 
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
                 var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '';
-                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'cover_image': cover_image, 'summary': lists.summary };
+                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'cover_image': cover_image, 'summary': lists.summary, 'usertype' : lists.usertype };
             }
             res.json(response);
         } else {
