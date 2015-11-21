@@ -77,7 +77,8 @@ export default class MyMood extends React.Component {
           formstatus: false,
           freezedate: '',
           today: '',
-          organization: []
+          organization: [],
+          errormessage: ''
       };
       this.engagementmoods = [];
       this.mooddropdown = false;
@@ -196,17 +197,20 @@ export default class MyMood extends React.Component {
       let errorFlag = false;
       if (survey.surveytitle === '' || survey.surveytitle === null) {
 
-          alert('Please enter survey title.');
+          //alert('Please enter survey title.');
+          this.setState({errormessage: 'Please enter survey title.'});
           errorFlag = true;
 
       } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
 
-          alert('Please create a team or add your company first.');
+          //alert('Please create a team or add your company first.');
+          this.setState({errormessage: 'Please create a team or add your company first.'});
           errorFlag = true;
 
       } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
 
-          alert('Please enter survey percentage.');
+          //alert('Please enter survey percentage.');
+          this.setState({errormessage: 'Please enter survey percentage.'});
           errorFlag = true;
 
       } else {
@@ -215,13 +219,15 @@ export default class MyMood extends React.Component {
               let id = qid.replace('q', '');
               if(data['question_' + qid] === '' || data['question_' + qid] === null) {
 
-                  alert('Please enter question ' + id);
+                  //alert('Please enter question ' + id);
+                  this.setState({errormessage: 'Please enter question ' + id});
                   errorFlag = true;
                   break;
 
               } else if(data['answertype_' + qid] === '0') {
 
-                  alert('Please choose an answer type for question ' + id);
+                  //alert('Please choose an answer type for question ' + id);
+                  this.setState({errormessage: 'Please choose an answer type for question ' + id});
                   errorFlag = true;
                   break;
 
@@ -232,7 +238,8 @@ export default class MyMood extends React.Component {
                       if((key.search(rString) !== -1))
                       {
                           if (data[key][0] === '' || data[key][0] === null) {
-                              alert('Radio option empty for question ' + id);
+                              //alert('Radio option empty for question ' + id);
+                              this.setState({errormessage: 'Radio option empty for question ' + id});
                               errorFlag = true;
                               break;
                           }
@@ -246,7 +253,8 @@ export default class MyMood extends React.Component {
                       if((key.search(cString) !== -1))
                       {
                           if (data[key][0] === '' || data[key][0] === null) {
-                              alert('Checkbox option empty for question ' + id);
+                              //alert('Checkbox option empty for question ' + id);
+                              this.setState({errormessage: 'Checkbox option empty for question ' + id});
                               errorFlag = true;
                               break;
                           }
@@ -260,11 +268,11 @@ export default class MyMood extends React.Component {
 
 
       if(!errorFlag) {
-          if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
-              console.log(JSON.stringify(survey));
-              CustomSurveyActions.createCustomSurveyForm(survey);
-              this.setState({formstatus: true});
-          }
+          //if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
+          console.log(JSON.stringify(survey));
+          CustomSurveyActions.createCustomSurveyForm(survey);
+          this.setState({formstatus: true});
+          //}
       }
   }
 
@@ -569,6 +577,7 @@ export default class MyMood extends React.Component {
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
       let user = this.state.userData;
+      let errormessage = this.state.errormessage;
 
       let usertype;
       if(typeof user !== 'undefined') {
@@ -1071,6 +1080,17 @@ export default class MyMood extends React.Component {
           ];
       }
 
+      let errorbox;
+      if (errormessage !== '') {
+          errorbox = (
+                        <div className="ui one column stackable grid container ">
+                            <div className="column">
+                                <div className="ui red message">{errormessage}</div>
+                            </div>
+                        </div>
+                     );
+      }
+
       let customSurveyTabContent=null;
       if (customsurveytab) {
           customSurveyTabContent = (
@@ -1192,6 +1212,8 @@ export default class MyMood extends React.Component {
                 </div>
 
                 {contents}
+
+                {errorbox}
 
                 <div className="ui two column stackable grid survey test">
                     <div className="one wide column qst-mobile"></div>
