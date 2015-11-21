@@ -101,44 +101,18 @@ export default class MyMood extends React.Component {
       this.setState({formstatus: false});
       this.setState({freezedate: today});
       this.setState({today: today});
+  }
 
-      //$('.ui.menu .ui.dropdown').dropdown({
-      //  on: 'click'
-      //});
-
-      //$('.ui.menu .ui.dropdown').dropdown('refresh');
-
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
+  componentDidUpdate () {
+      //if(this.mooddropdown) {
+      $('.graphengagement').dropdown({
+          onChange: this.onChangeGraphEngagement
       });
 
       $('.graphperiod').dropdown({
           onChange: this.onChangeGraphPeriod
       });
-
-      $('.graphengagement').dropdown({
-          onChange: this.onChangeGraphEngagement
-      });
-
-  }
-
-  componentDidUpdate () {
-      if(this.mooddropdown) {
-          //$('.ui.menu .ui.dropdown').dropdown({
-          //    on: 'click'
-          //});
-
-          //$('.ui.menu .ui.dropdown').dropdown();
-
-          $('.graphengagement').dropdown({
-              onChange: this.onChangeGraphEngagement
-          });
-
-          $('.graphperiod').dropdown({
-              onChange: this.onChangeGraphPeriod
-          });
-
-      }
+      //}
   }
 
   componentWillUnmount() {
@@ -515,7 +489,7 @@ export default class MyMood extends React.Component {
       console.log('Engagement');
       console.log(value);
       this.setState({ graphengagement : value });
-  }
+  }.bind(this);
 
   engagementGraphClick = (e) => {
       e.preventDefault();
@@ -691,11 +665,9 @@ export default class MyMood extends React.Component {
 
 
       // Start : Rate your mood
-      let engagementmoods = this.engagementmoods;
-      let moodoptions = '';
-      moodoptions = engagementmoods.map((data, key) => {
-          return (<option value={data}>{data}</option>);
-      });
+      //let moodoptions = this.engagementmoods.map((data, key) => {
+      //    return (<option value={data}>{data}</option>);
+      //}.bind(this));
       // End : Rate your mood
 
 
@@ -1011,7 +983,19 @@ export default class MyMood extends React.Component {
                             <div className=" right menu mobile">
                                 <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
                                     <option value="mw_index">MW-Index</option>
-                                    {moodoptions}
+                                    <option value="Mood">Mood</option>
+                                    <option value="Meaning">Meaning</option>
+                                    <option value="Expectations">Expectations</option>
+                                    <option value="Strengths">Strengths</option>
+                                    <option value="Recognition">Recognition</option>
+                                    <option value="Development">Development</option>
+                                    <option value="Influence">Influence</option>
+                                    <option value="Goals">Goals</option>
+                                    <option value="Team">Team</option>
+                                    <option value="Friendship">Friendship</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Opportunities">Opportunities</option>
+                                    <option value="Recommendation">Recommendation</option>
                                 </select>
                                 <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
                                     <option value="all_time">All time</option>
@@ -1338,12 +1322,6 @@ export default class MyMood extends React.Component {
           );
       }
 
-      let cSurvey;
-      console.log('this.state.userType');
-      console.log(this.state.userType);
-      if (this.state.userType === 'manager') {
-          cSurvey  = (<a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>);
-      }
 
 
       return (
@@ -1379,7 +1357,7 @@ export default class MyMood extends React.Component {
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
-                    {cSurvey}
+                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}

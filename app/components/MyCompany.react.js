@@ -60,16 +60,6 @@ export default class MyCompany extends React.Component {
       UserActions.getcompanyinfo();
       UserActions.getCurrentUserId();
       UserStore.listen(this._onChangeUserData);
-
-      //$('.ui.dropdown').dropdown();
-
-      //$('.companyengagement').dropdown();
-
-      $('.companyengagement').dropdown({
-          onChange: this.onChangeEngagement
-      });
-
-      $('.companyengagement').dropdown();
   }
 
   componentWillUnmount() {
@@ -78,13 +68,11 @@ export default class MyCompany extends React.Component {
   }
 
   componentDidUpdate () {
-      if (this.state.graphtabclick) {
-          $('.companyengagement').dropdown({
-              onChange: this.onChangeEngagement
-          });
-
-          //$('.companyengagement').dropdown({});
-      }
+      //if (this.state.graphtabclick) {
+      $('.companyengagement').dropdown({
+          onChange: this.onChangeEngagement
+      });
+      //}
   }
 
   _onChangeData = () => {
@@ -161,9 +149,8 @@ export default class MyCompany extends React.Component {
   }
 
   onChangeEngagement = (value) => {
-      console.log(value);
       this.setState({ graphengagement : value });
-  }
+  }.bind(this);
 
 
 
@@ -256,11 +243,9 @@ export default class MyCompany extends React.Component {
 
 
       //Start: Engagement Graph
-      let engagementmoods = this.engagementmoods;
-      let moodoptions = '';
-      moodoptions = engagementmoods.map((data, key) => {
-          return (<option value={data}>{data}</option>);
-      });
+      //let moodoptions = this.engagementmoods.map((data, key) => {
+      //    return (<option value={data}>{data}</option>);
+      //});
 
       let myGraphData = CompanyGraphdata.getMyEngagementData(graphengagement, companyedata, loggeduserid);
       let mylastrate;
@@ -426,9 +411,21 @@ export default class MyCompany extends React.Component {
                             <div className="ui segment brdr-none padding-none ">
                                 <h4 className="ui header ryt com">Moodwonder trend</h4>
                                 <div className=" right menu mobile">
-                                    <select className="ui search dropdown companyengagement" value={graphengagement} name="graphengagement">
+                                    <select className="ui search dropdown companyengagement" onChange={this.onChangeEngagement} value={graphengagement} name="graphengagement">
                                         <option value="mw_index">MW-Index</option>
-                                        {moodoptions}
+                                        <option value="Mood">Mood</option>
+                                        <option value="Meaning">Meaning</option>
+                                        <option value="Expectations">Expectations</option>
+                                        <option value="Strengths">Strengths</option>
+                                        <option value="Recognition">Recognition</option>
+                                        <option value="Development">Development</option>
+                                        <option value="Influence">Influence</option>
+                                        <option value="Goals">Goals</option>
+                                        <option value="Team">Team</option>
+                                        <option value="Friendship">Friendship</option>
+                                        <option value="Feedback">Feedback</option>
+                                        <option value="Opportunities">Opportunities</option>
+                                        <option value="Recommendation">Recommendation</option>
                                     </select>
                                 </div>
                                 <div className="clear"></div>
