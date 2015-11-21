@@ -34,9 +34,9 @@ export default class App extends React.Component {
       let path = this.context.router.getCurrentPathname();
 
       // user only pages
-      let pages = ["/","/survey","/login","/logout","/forgotpassword","/signup","/createpassword","/admin","/test1","/allemployees"];
+      let pages = ["/","/survey","/login","/logout","/forgotpassword","/invitesignup","/createpassword","/admin","/test1","/allemployees"];
 
-      let condition1 = (path.indexOf("/signup") === -1 && pages.indexOf(path) === -1);
+      let condition1 = (path.indexOf("/invitesignup") === -1 && pages.indexOf(path) === -1);
       let condition2 = (path.indexOf("/createpassword") === -1 && pages.indexOf(path) === -1);
       if(condition1 && condition2){
           if(!(this.state.isAuthenticated)){

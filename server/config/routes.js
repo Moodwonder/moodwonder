@@ -137,7 +137,7 @@ module.exports = function (app, passport) {
     // Set variables from server side
     app.get('/mycompany', common.handleGetContinents);
     app.get('/my_company', common.handleGetContinents);
-    app.get('/signup/:hash', invitation.handleSignup);
+    app.get('/invitesignup/:hash', invitation.handleSignup);
 
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
@@ -370,6 +370,24 @@ module.exports = function (app, passport) {
                 .replace("BODYCLASS", 'login loginpage')
                 .replace("JSCRIPTS", loginscripts);
         
+        } else if (pageurl.search('invitesignup') != -1) {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", loginpage)
+                .replace("BODYCLASS", 'login loginpage');
+
+        } else if (pageurl.search('createpassword') != -1) {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", loginpage)
+                .replace("BODYCLASS", 'login loginpage');
+
+        } else if (pageurl == '/forgotpassword') {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", loginpage)
+                .replace("BODYCLASS", 'login loginpage');
+
         } else {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)

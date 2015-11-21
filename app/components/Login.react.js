@@ -74,32 +74,31 @@ export default class Login extends React.Component {
   }
 
   render() {
-      let renderedResult;
+	  console.log(this.state);
       let message;
+      let multimessages;
+      let hash; // for invitation
 
-      if (this.state.message !== '') {
-          message = (
-                <div className="login__container">
-                      <fieldset className="login__fieldset">
-                         <div className="alert alert-info">
-                              {this.state.message}
-                         </div>
-                      </fieldset>
-                </div>
-            );
+      try{
+		  hash = this.props.params.hash;
+	  }catch(e){}
+
+      if (this.state.messages) {
+          multimessages = this.state.messages.map((mes, key) => {
+              return [<div className="ui blue message">{mes}</div>];
+          });
       }
 
-      if (this.state.isLoggedIn) {
-          let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-          renderedResult = (
-            <div className="container">
-              <h2 className="login__header">Welcome {currentUser.name}</h2>
-            </div>
-          );
+      if (this.state.hasErrorMessage && this.state.message) {
+          message = [<div className="ui red message">{this.state.message}</div>];
+      }
 
+      if (this.state.isRegistered) {
+		  message = [<div className="ui green message">{this.state.message}</div>];
       }else {
-          if (this.state.isLogginWaiting) {
-              message = (<h3 className="login__header">Processing...</h3>);
+
+          if (this.state.isSignupWaiting) {
+              message = [<div className="ui yellow message">Processing...</div>];
           }
       }
 
@@ -107,6 +106,8 @@ export default class Login extends React.Component {
 		<div className="ui middle aligned center aligned grid">
 		  <div className="column">
 			<h2 className="ui  image header"> <img src="assets/images/logo.png" className="image"/> </h2>
+			  {message}
+			  {multimessages}
 			<div className="ui large form">
 			  <div className="ui stacked segment">
 				<div className="field">
@@ -123,7 +124,7 @@ export default class Login extends React.Component {
 			  </div>
 			  <div className="ui error message segment"></div>
 			</div>
-			<div className="ui message "> <a href="#" className="frgt">Forget Password?</a> <a href="main-home.html">Sign Up</a> </div>
+			<div className="ui message "> <a href="/forgotpassword" className="frgt">Forget Password?</a> <a href="/#firstPage">Sign Up</a> </div>
 		  </div>
 		</div>
       );

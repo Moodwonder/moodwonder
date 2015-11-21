@@ -13,6 +13,7 @@ class UserStore {
       this.isLogginWaiting = false;
       this.isServerCallWaiting = true;
       this.hasError = false;
+      this.hasErrorMessage = false;
       this.userDetails = {
        'fname': '', 'lname': '', 'email': '', 'language': '',
        'reportfrequency': '', 'password': '', 'companyname': '', 'industry': '',
@@ -58,9 +59,12 @@ class UserStore {
   }
 
   handleLoginResponse (response) {
+	  console.log('response');
+	  console.log(response);
       this.isLogginWaiting = false;
       this.message = response.message;
       this.isLoggedIn = response.status;
+      this.hasErrorMessage = !response.status;
       if(this.isLoggedIn) {
           sessionStorage.setItem('isAuthenticated', true);
           sessionStorage.setItem('currentUser', JSON.stringify(response));

@@ -14,7 +14,7 @@ class UserActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
-                if(response.user.language) {
+                if(response.status && response.user.language) {
                     Cookie.setCookie('lang', response.user.language, 30);
                 }
                 this.actions.loginresponse(response);
@@ -26,6 +26,7 @@ class UserActions {
 
   // Keep this function name in lower case, otherwise it will not be available in 'Store'
   loginresponse (response) {
+
       this.dispatch(response);
   }
 
