@@ -47,7 +47,7 @@ export default class RequestDemo extends React.Component {
           errorMsg.push('Please enter your requirements');
       }
       if(errorMsg.length === 0){
-          HomePageActions.usersignupstep1({
+          HomePageActions.requestDemo({
                 name: name,
                 email: email,
                 mobile: mobile,
