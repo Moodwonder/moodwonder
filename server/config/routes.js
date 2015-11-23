@@ -24,6 +24,7 @@ var customSurvey = require('../controllers/customSurvey');
 var customSurveyResults = require('../controllers/customSurveyResults');
 var language = require('../controllers/language');
 var admin = require('../controllers/admin');
+var surveyParticipation = require('../controllers/surveyParticipation');
 
 var common = require('../controllers/common');
 var mood = require('../controllers/mood');
@@ -82,6 +83,8 @@ module.exports = function (app, passport) {
 
     app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
     app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
+    
+    app.get('/getmysurveyparticipation', users.checkLogin, surveyParticipation.getMySurveyParticipation);
 
     app.post('/addlanguage', language.addLanguage);
     app.post('/editlanguage', language.editLanguage);

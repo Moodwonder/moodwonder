@@ -19,6 +19,14 @@ const utils = {
     });
   },
 
+  getMySurveyParticipation: () => {
+      return $.ajax({
+      url: '/getmysurveyparticipation',
+      type: 'GET',
+      contentType: 'application/json'
+    });
+  },
+
   deleteForm: (id) => {
       return $.ajax({
       url: '/deleteform',

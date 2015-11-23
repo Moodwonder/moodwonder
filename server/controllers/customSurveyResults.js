@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var CustomSurveyResults = require('../models/customSurveyResults');
 var User = require('../models/user');
 var CustomSurvey = require('../models/customSurvey');
+var SurveyParticipation = require('../models/surveyParticipation');
 
 /**
  * save survey results
@@ -15,11 +16,23 @@ exports.saveSurveyResults = function (req, res) {
     
     for (var i = 0; i < length; i++) {
         var row = {};
-        //row = surveyresults[i];
         row = JSON.parse(surveyresults[i]);
-        //row.survey_id = mongoose.Types.ObjectId(surveyresults[i].survey_id);
         row.user_id = mongoose.Types.ObjectId(req.user._id);
-        //CustomSurveyResults.create(JSON.parse(row), function (err, data) {
+        
+        if (i == 0) {
+            var condition = {survey_id: row.survey_id, user_id: req.user._id};
+            var update = {status: 'participated'};
+            var options = {multi: false};
+            
+            SurveyParticipation.update(condition, update, options, function (err, data) {
+                if (!err) {
+                    console.log('Record updated - survey participation.');
+                } else {
+                    console.log('Error in record updation - survey participation.');
+                }
+            });
+        }
+        
         CustomSurveyResults.create(row, function (err, data) {
             if (!err) {
                 response.status = 'success';

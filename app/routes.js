@@ -50,7 +50,7 @@ import About from 'components/staticpages/About.react';
 import Anonymity from 'components/staticpages/Anonymity.react';
 import Terms from 'components/staticpages/Terms.react';
 import Policy from 'components/staticpages/Policy.react';
-
+import PublicProfile from 'components/PublicProfile.react';
 
 const routes = (
   <Route>
@@ -131,6 +131,9 @@ const routes = (
     </Route>
     <Route name="allemployees" path="/allemployees" handler={Appuser} >
       <Route name="" handler={Employees} />
+    </Route>
+    <Route name="publicprofile" path="/publicprofile" handler={Appuser} >
+      <Route name="" handler={PublicProfile} />
     </Route>
     <Route name="apphome" path="/" handler={Apphome} >
         <Route name="index" handler={Index} />
