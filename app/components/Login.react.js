@@ -2,7 +2,6 @@ import React from 'react';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-import { MyOwnInput } from 'components/Formsy-components';
 // import mixins from 'es6-mixins';
 
 export default class Login extends React.Component {
@@ -63,25 +62,20 @@ export default class Login extends React.Component {
   }
 
   _onLoginSubmit = () => {
-	  console.log('_onLoginSubmit');
-        let email = React.findDOMNode(this.refs.email).value.trim();
-        let password = React.findDOMNode(this.refs.password).value.trim();
 
-        UserActions.manuallogin({
-            email: email,
-            password: password
-        });
+      let email = React.findDOMNode(this.refs.email).value.trim();
+      let password = React.findDOMNode(this.refs.password).value.trim();
+
+      UserActions.manuallogin({
+          email: email,
+          password: password
+      });
   }
 
   render() {
-	  console.log(this.state);
+      console.log(this.state);
       let message;
       let multimessages;
-      let hash; // for invitation
-
-      try{
-		  hash = this.props.params.hash;
-	  }catch(e){}
 
       if (this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
@@ -94,7 +88,7 @@ export default class Login extends React.Component {
       }
 
       if (this.state.isRegistered) {
-		  message = [<div className="ui green message">{this.state.message}</div>];
+          message = [<div className="ui green message">{this.state.message}</div>];
       }else {
 
           if (this.state.isSignupWaiting) {
@@ -103,30 +97,30 @@ export default class Login extends React.Component {
       }
 
       return (
-		<div className="ui middle aligned center aligned grid">
-		  <div className="column">
-			<h2 className="ui  image header"> <img src="assets/images/logo.png" className="image"/> </h2>
-			  {message}
-			  {multimessages}
-			<div className="ui large form">
-			  <div className="ui stacked segment">
-				<div className="field">
-				  <div className="ui left icon input">
-					<input type="text" ref="email" name="email" placeholder="E-mail address" />
-				  </div>
-				</div>
-				<div className="field">
-				  <div className="ui left icon input">
-					<input type="password" ref="password" name="password" placeholder="Password" />
-				  </div>
-				</div>
-				<button className="ui yellow button" onClick={this._onLoginSubmit}>Login</button>
-			  </div>
-			  <div className="ui error message segment"></div>
-			</div>
-			<div className="ui message "> <a href="/forgotpassword" className="frgt">Forget Password?</a> <a href="/#firstPage">Sign Up</a> </div>
-		  </div>
-		</div>
+        <div className="ui middle aligned center aligned grid">
+          <div className="column">
+            <h2 className="ui  image header"> <img src="assets/images/logo.png" className="image"/> </h2>
+              {message}
+              {multimessages}
+            <div className="ui large form">
+              <div className="ui stacked segment">
+                <div className="field">
+                  <div className="ui left icon input">
+                    <input type="text" ref="email" name="email" placeholder="E-mail address" />
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="ui left icon input">
+                    <input type="password" ref="password" name="password" placeholder="Password" />
+                  </div>
+                </div>
+                <button className="ui yellow button" onClick={this._onLoginSubmit}>Login</button>
+              </div>
+              <div className="ui error message segment"></div>
+            </div>
+            <div className="ui message "> <a href="/forgotpassword" className="frgt">Forget Password?</a> <a href="/#firstPage">Sign Up</a> </div>
+          </div>
+        </div>
       );
   }
 }

@@ -1,6 +1,4 @@
 import React from 'react';
-import Notification from 'react-notification';
-
 import CreatePswdActions from 'actions/CreatePswdActions';
 import CreatePswdStore from 'stores/CreatePswdStore';
 
@@ -17,14 +15,14 @@ export default class CreatePassword extends React.Component {
         dismissAfter: 5000,
         position: 'tr',
         style: {
-              bar: {
+            bar: {
                 bottom: '82%',
                 backgroundColor: 'rgb(97, 172, 234)'
-              },
-              action: {
+            },
+            action: {
                 color: 'rgb(20, 27, 32)'
-              }
             }
+        }
       };
   }
 
@@ -65,17 +63,17 @@ export default class CreatePassword extends React.Component {
       let hash = React.findDOMNode(this.refs.hash).value.trim();
       if (password === '') {
 
-		  this.setState({
-			  message: 'Password field cannot be empty',
-			  hasErrorMessage: true
-		  });
+          this.setState({
+              message: 'Password field cannot be empty',
+              hasErrorMessage: true
+          });
           this.showNotification('Password field cannot be empty');
       }else if(password.length <= 6){
 
-		  this.setState({
-			  message: 'Password length should be at least 7 characters',
-			  hasErrorMessage: true
-		  });
+          this.setState({
+              message: 'Password length should be at least 7 characters',
+              hasErrorMessage: true
+          });
           this.showNotification('Password length should be at least 7 characters');
       }else{
 
@@ -132,14 +130,14 @@ export default class CreatePassword extends React.Component {
           <div className="column">
             <h2 className="ui header">Create your password here..</h2>
             <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
-			  {message}
-			  {multimessages}
+              {message}
+              {multimessages}
             <div className="ui large form">
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="password" ref="password" id="password" placeholder="Enter your password" />
-                    <input type="hidden" ref="hash" value={this.props.params.hash} />
+                    <input type="hidden" ref="hash" value={hash} />
                   </div>
                 </div>
                 <button className="ui yellow button" onClick={this._onSignupStep2Submit}>Create</button>

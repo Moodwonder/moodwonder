@@ -1,8 +1,6 @@
 import React from 'react';
-import Notification from 'react-notification';
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
-import { MyOwnInput } from 'components/Formsy-components';
 
 export default class Signup extends React.Component {
 
@@ -39,16 +37,16 @@ export default class Signup extends React.Component {
 
       let email = React.findDOMNode(this.refs.email).value.trim();
       if (!this.isValidEmailAddress(email)) {
-		  this.setState({
-			  message: 'Invalid email',
-			  hasErrorMessage: true
-		  });
+          this.setState({
+              message: 'Invalid email',
+              hasErrorMessage: true
+          });
       }else{
-		  SignupActions.usersignupstep1({
-			email: email,
-			type: 'forgotpassword'
-		  });
-	  }
+          SignupActions.usersignupstep1({
+            email: email,
+            type: 'forgotpassword'
+          });
+      }
   }
 
   showNotification = (message) => {
@@ -81,11 +79,6 @@ export default class Signup extends React.Component {
       // console.log(this.state);
       let message;
       let multimessages;
-      let hash; // for invitation
-
-      try{
-          hash = this.props.params.hash;
-      }catch(e){}
 
       if (this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
@@ -111,8 +104,8 @@ export default class Signup extends React.Component {
           <div className="column">
             <h2 className="ui header">Forgot password</h2>
             <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
-			  {message}
-			  {multimessages}
+              {message}
+              {multimessages}
             <div className="ui large form">
               <div className="ui stacked segment">
                 <div className="field">

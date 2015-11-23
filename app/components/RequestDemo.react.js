@@ -1,5 +1,4 @@
 import React from 'react';
-import Notification from 'react-notification';
 import HomePageActions from 'actions/HomePageActions';
 import HomePageStore from 'stores/HomePageStore';
 
@@ -29,42 +28,41 @@ export default class RequestDemo extends React.Component {
       let pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
       return pattern.test(emailAddress);
   }
-  
+
   _demoFormSubmit = () => {
 
-	  let errorMsg = [];
+      let errorMsg = [];
       let name   = React.findDOMNode(this.refs.name).value.trim();
       let email  = React.findDOMNode(this.refs.email).value.trim();
       let mobile = React.findDOMNode(this.refs.mobile).value.trim();
       let text   = React.findDOMNode(this.refs.text).value.trim();
 
       if(name === ''){
-		errorMsg.push('Name is required');
-	  }
+          errorMsg.push('Name is required');
+      }
       if(!this.isValidEmailAddress(email)){
-		errorMsg.push('Invalid email id');
-	  }
+          errorMsg.push('Invalid email id');
+      }
       if(text === ''){
-		errorMsg.push('Please enter your requirements');
-	  }
+          errorMsg.push('Please enter your requirements');
+      }
       if(errorMsg.length === 0){
-			HomePageActions.usersignupstep1({
-				name: name,
-				email: email,
-				mobile: mobile,
-				text: text
-			});
+          HomePageActions.usersignupstep1({
+                name: name,
+                email: email,
+                mobile: mobile,
+                text: text
+          });
       }else{
-		this.setState({
-			messages: errorMsg,
-			hasErrorMessage: true
-		});
-	  }
+          this.setState({
+            messages: errorMsg,
+            hasErrorMessage: true
+          });
+      }
   }
 
   render() {
-	  // console.log(this.state);
-      let message;
+      // console.log(this.state);
       let multimessages;
 
       if (this.state.hasErrorMessage && this.state.messages) {
@@ -80,26 +78,26 @@ export default class RequestDemo extends React.Component {
       }
 
       return (
-		<div className=" ui small form">
-			{multimessages}
-			<div className="field">
-				<label>Name</label>
-				<input ref="name" placeholder="Name" type="text" />
-			</div>
-			<div className="field">
-				<label>Email</label>
-				<input ref="email" placeholder="Email" type="email" />
-			</div>
-			<div className="field">
-				<label>Mobile</label>
-				<input ref="mobile" placeholder="Mobile" type="text" />
-			</div>
-			<div className="field">
-				<label>What exactly are you looking for?</label>
-				<textarea ref="text"></textarea>
-			</div>
-			<button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse">Submit</span></button>
-		</div>
+        <div className=" ui small form">
+            {multimessages}
+            <div className="field">
+                <label>Name</label>
+                <input ref="name" placeholder="Name" type="text" />
+            </div>
+            <div className="field">
+                <label>Email</label>
+                <input ref="email" placeholder="Email" type="email" />
+            </div>
+            <div className="field">
+                <label>Mobile</label>
+                <input ref="mobile" placeholder="Mobile" type="text" />
+            </div>
+            <div className="field">
+                <label>What exactly are you looking for?</label>
+                <textarea ref="text"></textarea>
+            </div>
+            <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse">Submit</span></button>
+        </div>
       );
   }
 }

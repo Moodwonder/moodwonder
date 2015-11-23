@@ -1,8 +1,6 @@
 import React from 'react';
-import Notification from 'react-notification';
 import SignupActions from 'actions/SignupActions';
 import SignupStore from 'stores/SignupStore';
-import { MyOwnInput } from 'components/Formsy-components';
 
 export default class Signup extends React.Component {
 
@@ -39,12 +37,12 @@ export default class Signup extends React.Component {
       let email = React.findDOMNode(this.refs.email).value.trim();
       let hash  = React.findDOMNode(this.refs.hash).value.trim();
       if(this.isValidEmailAddress(email)){
-         SignupActions.usersignupstep1({ email: email, hash: hash });
+          SignupActions.usersignupstep1({ email: email, hash: hash });
       }else{
-		this.setState({
-			messages: ['Invalid email']
-		});
-	  }
+          this.setState({
+            messages: ['Invalid email']
+          });
+      }
   }
 
   showNotification = (message) => {
@@ -86,14 +84,14 @@ export default class Signup extends React.Component {
   }
 
   render() {
-	  // console.log(this.state);
+      // console.log(this.state);
       let message;
       let multimessages;
       let hash; // for invitation
 
       try{
-		  hash = this.props.params.hash;
-	  }catch(e){}
+          hash = this.props.params.hash;
+      }catch(e){}
 
       if (this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
@@ -106,7 +104,7 @@ export default class Signup extends React.Component {
       }
 
       if (this.state.isRegistered) {
-		  message = [<div className="ui green message">{this.state.message}</div>];
+          message = [<div className="ui green message">{this.state.message}</div>];
       }else {
 
           if (this.state.isSignupWaiting) {
@@ -114,17 +112,17 @@ export default class Signup extends React.Component {
           }
       }
       return (
-		<div className="six wide column">
-			<div className="ui segment slideExpandUp ">
-			  {message}
-			  {multimessages}
-				<div className="ui input">
-					<input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
-					<input ref="hash" name="hash" type="hidden" value={hash} />
-				</div>
-				<button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">GET STARTED</span></button>
-			</div>
-		</div>
+        <div className="six wide column">
+            <div className="ui segment slideExpandUp ">
+              {message}
+              {multimessages}
+                <div className="ui input">
+                    <input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
+                    <input ref="hash" name="hash" type="hidden" value={hash} />
+                </div>
+                <button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">GET STARTED</span></button>
+            </div>
+        </div>
       );
   }
 }
