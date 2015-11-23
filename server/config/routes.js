@@ -136,6 +136,7 @@ module.exports = function (app, passport) {
     app.post('/updateplaces', admin.checkLogin, common.updatePlaces);
     app.post('/deleteplaces', admin.checkLogin, common.deletePlaces);
     app.post('/getplacesdata', admin.checkLogin, common.getPlacesData);
+    app.post('/requestdemo', common.requestDemo);
 
     // Set variables from server side
     app.get('/mycompany', common.handleGetContinents);

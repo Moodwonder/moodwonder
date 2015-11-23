@@ -94,6 +94,15 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  requestDemo: (data) => {
+      return $.ajax({
+      url: '/requestdemo',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
   }
 };
 

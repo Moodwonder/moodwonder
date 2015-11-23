@@ -1,6 +1,10 @@
 var Places   = require('../models/place');
 var Industry = require('../models/industry');
 var ObjectId = require('mongoose').Types.ObjectId;
+var nodemailer = require("nodemailer");
+var emailTemplate = require('../email/emailtemplates');
+var secrets = require('../config/secrets');
+
 /**
  *  JSON response format
  */
@@ -779,4 +783,42 @@ exports.getPlacesData = function(req, res) {
 		});
 	}
 
+};
+
+/**
+ * get Places Data
+**/
+exports.requestDemo = function(req, res) {
+    var response     = {};
+    response.status  = false;
+    response.messages = ['Error'];
+
+	var transporter = nodemailer.createTransport();
+	var body = "<br><table> "+
+				"<tr> <td>Name</td> <td>: "+req.body.name+"</td> </tr>"+
+				"<tr> <td>Email</td> <td>: "+req.body.email+"</td> </tr>"+
+				"<tr> <td>Mobile</td> <td>: "+req.body.mobile+"</td> </tr>"+
+				"<tr> <td>Message</td> <td>: "+req.body.text+"</td> </tr>"+
+				"</table>";
+	body = emailTemplate.general(body);
+
+	var mailOptions = {
+		from: 'admin@moodewonder.com',
+		to: secrets.adminemail,
+		subject: 'MoodWonder demo request',
+		html: body
+	};
+	transporter.sendMail(mailOptions, function(error, info){
+		if(error){
+			console.log(error);
+			res.send(response);
+			res.end();
+		}else{
+			console.log('Message sent: ' + info.response);
+			response.status  = true;
+			response.messages = ['We will get back to you soon !'];
+			res.send(response);
+			res.end();
+		}
+	});
 };
