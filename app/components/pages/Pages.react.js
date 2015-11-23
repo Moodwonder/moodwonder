@@ -185,32 +185,27 @@ export default RequireAuth(class Pages extends React.Component {
 
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h2>Language - Pages</h2>
-        <br/><br/>
-        <form id="pageForm" className="form-horizontal">
-          <div className="form-group">
-            <label htmlFor="inputPage" className="col-sm-2 control-label">Select Page : </label>
-            <div className="col-sm-10">
-                <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
-                    <option value="home">Home</option>
-                    <option value="signup">Signup</option>
-                    <option value="login">Login</option>
-                    <option value="mwusertheme">Mwusertheme</option>
-                </select>
-            </div>
+        <form id="pageForm" className="ui form">
+          <div className="field">
+            <label htmlFor="inputPage">Select Page : </label>
+            <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
+                <option value="home">Home</option>
+                <option value="signup">Signup</option>
+                <option value="login">Login</option>
+                <option value="mwusertheme">Mwusertheme</option>
+            </select>
           </div>
-          <div className="form-group">
+          <div className="field">
             <label htmlFor="inputPage" className="col-sm-2 control-label">Select language : </label>
-            <div className="col-sm-10">
-                <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
-            </div>
+            <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
           </div>
         </form>
-        <div className="form-group">
+        <div className="field">
          {statusmessage}
         </div>
-        <div className="form-group">
+        <div className="field">
          <br/><br/>
          {contents}
         </div>

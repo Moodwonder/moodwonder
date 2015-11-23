@@ -8,8 +8,8 @@ export default RequireAuth(class Dashboard extends React.Component {
 
   render() {
       return (
-      <div className="container">
-        <h1>Admin dashboard</h1>
+      <div className="ui container">
+        <h2>Admin dashboard</h2>
       </div>
     );
   }

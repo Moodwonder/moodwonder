@@ -89,69 +89,62 @@ export default class Signuppage extends React.Component {
 
 
       return (
-      <div className="container">
-        <h4>Edit - Login page keys</h4>
-        <form id="signupForm" className="form-horizontal">
-          <input type="hidden" name="_id" value={pagedata._id} />
-          <input type="hidden" name="language" value={pagedata.language} />
-          <div className="form-group">
-            <label className="col-sm-2 control-label">LGN_TITLE</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="LGN_TITLE"
-                     type="text"
-                     value={LGN_TITLE}
-                     onChange={this.onChangeLoginTitle} />
+            <div className="ui container">
+            <h4>Edit - Login page keys</h4>
+            <div className="ui three column stackable grid container ">
+                <div className="column">
+                    <form id="signupForm" className="ui form">
+                      <input type="hidden" name="_id" value={pagedata._id} />
+                      <input type="hidden" name="language" value={pagedata.language} />
+                      <div className="field">
+                        <label>LGN_TITLE</label>
+                        <input className="form-control"
+                                 name="LGN_TITLE"
+                                 type="text"
+                                 value={LGN_TITLE}
+                                 onChange={this.onChangeLoginTitle} />
+                      </div>
+                      <div className="field">
+                        <label>LGN_USERNAME</label>
+                        <input className="form-control"
+                                 type="text"
+                                 name="LGN_USERNAME"
+                                 value={LGN_USERNAME}
+                                 onChange={this.onChangeUsername} />
+                      </div>
+                      <div className="field">
+                        <label>LGN_PASSWORD</label>
+                        <input className="form-control"
+                                 type="text"
+                                 name="LGN_PASSWORD"
+                                 value={LGN_PASSWORD}
+                                 onChange={this.onChangePassword} />
+                      </div>
+                      <div className="field">
+                        <label>LGN_FORGOT_PASSWORD</label>
+                        <input className="form-control"
+                                 type="text"
+                                 name="LGN_FORGOT_PASSWORD"
+                                 value={LGN_FORGOT_PASSWORD}
+                                 onChange={this.onChangeFPassword} />
+                      </div>
+                      <div className="field">
+                        <label>LGN_BTN_SUBMIT</label>
+                        <input className="form-control"
+                                 type="text"
+                                 name="LGN_BTN_SUBMIT"
+                                 value={LGN_BTN_SUBMIT}
+                                 onChange={this.onChangeBtnSubmit} />
+                      </div>
+                      <div className="field">
+                        <button className="ui blue button" onClick={this.onSubmitLogin}>Submit</button>
+                      </div>
+                    </form>
+                </div>
+                <div className="column"></div>
+                <div className="column"></div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label">LGN_USERNAME</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     type="text"
-                     name="LGN_USERNAME"
-                     value={LGN_USERNAME}
-                     onChange={this.onChangeUsername} />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label">LGN_PASSWORD</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     type="text"
-                     name="LGN_PASSWORD"
-                     value={LGN_PASSWORD}
-                     onChange={this.onChangePassword} />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label">LGN_FORGOT_PASSWORD</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     type="text"
-                     name="LGN_FORGOT_PASSWORD"
-                     value={LGN_FORGOT_PASSWORD}
-                     onChange={this.onChangeFPassword} />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label">LGN_BTN_SUBMIT</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     type="text"
-                     name="LGN_BTN_SUBMIT"
-                     value={LGN_BTN_SUBMIT}
-                     onChange={this.onChangeBtnSubmit} />
-            </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label"></label>
-            <div className="col-sm-10">
-              <button className="btn btn-primary" onClick={this.onSubmitLogin}>Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
     );
   }
 

@@ -309,6 +309,7 @@ module.exports = function (app, passport) {
         
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/adminstyles.css" />';
         
         
         var staticstyles = '';

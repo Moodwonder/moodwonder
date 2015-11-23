@@ -138,40 +138,38 @@ export default RequireAuth(class Languages extends React.Component {
           formcontents = (
                   <div className="form-group">
                     <h4>{formtitle}</h4>
-                    <br/>
-                    <form id="languageForm" className="form-horizontal">
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Language</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="language"
-                                 value={this.state.editlanguage}
-                                 onChange={this.onChangeLanguage}
-                                 ref="language"
-                                 placeholder="language"/>
+                    <div className="ui three column stackable grid container ">
+                        <div className="column">
+                            <form id="languageForm" className="ui form">
+                              <div className="field">
+                                <label>Language</label>
+                                <input type="text"
+                                         className="form-control"
+                                         name="language"
+                                         value={this.state.editlanguage}
+                                         onChange={this.onChangeLanguage}
+                                         ref="language"
+                                         placeholder="language"/>
+                              </div>
+                              <div className="field">
+                                <label>Code</label>
+                                <input type="text"
+                                         className="form-control"
+                                         name="code"
+                                         value={this.state.editcode}
+                                         onChange={this.onChangeCode}
+                                         ref="code"
+                                         placeholder="code"/>
+                                <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
+                              </div>
+                              <div className="field">
+                                  <button className="ui blue button" onClick={this.onLanguageSubmit}>Submit</button>
+                              </div>
+                            </form>
                         </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Code</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="code"
-                                 value={this.state.editcode}
-                                 onChange={this.onChangeCode}
-                                 ref="code"
-                                 placeholder="code"/>
-                        </div>
-                        <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">&nbsp;</label>
-                        <div className="col-sm-10">
-                          <button className="btn btn-primary" onClick={this.onLanguageSubmit}>Submit</button>
-                        </div>
-                      </div>
-                    </form>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                    </div>
                   </div>
                   );
       }
@@ -184,28 +182,32 @@ export default RequireAuth(class Languages extends React.Component {
       }
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h2>Languages</h2>
-        <br/>
-        <div className="form-group">
-          <a href="#" onClick={this.onAddNewLanguage}>Add New Language</a>
+        <div className="ui six column stackable grid container ">
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column"></div>
+            <div className="column">
+                <button className="ui orange button" href="#" onClick={this.onAddNewLanguage}>Add New Language</button>
+            </div>
         </div>
 
-        <div className="form-group">
-            <table className="table table-striped table-hover">
-              <thead>
-                <tr className="info">
-                  <th className="text-center"></th>
-                  <th className="text-center">Language</th>
-                  <th className="text-center">Code</th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items}
-              </tbody>
-            </table>
-        </div>
+        <table className="ui celled table">
+          <thead>
+            <tr className="info">
+              <th className="text-center"></th>
+              <th className="text-center">Language</th>
+              <th className="text-center">Code</th>
+              <th>&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items}
+          </tbody>
+        </table>
 
         <div className="form-group">
          {statusmessage}

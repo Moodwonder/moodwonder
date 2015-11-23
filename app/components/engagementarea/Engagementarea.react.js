@@ -187,12 +187,18 @@ export default RequireAuth(class Engagementarea extends React.Component {
           });
 
           engagementlists = (
-                    <div className="form-group">
-                      <div className="form-group">
-                        <a href="#" onClick={this.onAddEngagement}>Add Engagement</a>
-                      </div>
-
-                      <table className="table table-striped table-hover">
+                    <div className="ui container">
+                        <div className="ui six column stackable grid container ">
+                            <div className="column"></div>
+                            <div className="column"></div>
+                            <div className="column"></div>
+                            <div className="column"></div>
+                            <div className="column"></div>
+                            <div className="column">
+                                <button className="ui orange button" href="#" onClick={this.onAddEngagement}>Add Engagement</button>
+                            </div>
+                        </div>
+                      <table className="ui celled table">
                         <thead>
                           <tr className="info">
                             <th className="text-center"></th>
@@ -212,62 +218,64 @@ export default RequireAuth(class Engagementarea extends React.Component {
 
       if (showform) {
           formcontents = (
-                  <div className="form-group">
-                    <div className="form-group">
-                        <a href="#" onClick={this.onListEngagements}>List Engagement areas</a>
+                  <div className="ui container">
+                    <div className="ui six column stackable grid container ">
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column">
+                            <button className="ui orange button" href="#" onClick={this.onListEngagements}>List Engagement areas</button>
+                        </div>
                     </div>
 
                     <h4>{formtitle}</h4>
-                    <br/>
-                    <form id="engagementForm" className="form-horizontal">
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Mood</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="mood"
-                                 value={this.state.editmood}
-                                 onChange={this.onChangeMood}
-                                 placeholder="mood"/>
+                    <div className="ui three column stackable grid container ">
+                        <div className="column">
+                            <form id="engagementForm" className="ui form">
+                              <div className="field">
+                                <label>Mood</label>
+                                  <input type="text"
+                                         className="form-control"
+                                         name="mood"
+                                         value={this.state.editmood}
+                                         onChange={this.onChangeMood}
+                                         placeholder="mood"/>
+                              </div>
+                              <div className="field">
+                                <label>Description</label>
+                                  <input type="text"
+                                         className="form-control"
+                                         name="description"
+                                         value={this.state.editdescription}
+                                         onChange={this.onChangeDescription}
+                                         placeholder="description"/>
+                              </div>
+                              <div className="field">
+                                <label>Status</label>
+                                <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeEngagementStatus}>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                              </div>
+                              <div className="field">
+                                <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
+                                <button className="ui blue button" onClick={this.onLanguageSubmit}>Submit</button>
+                              </div>
+                            </form>
                         </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Description</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="description"
-                                 value={this.state.editdescription}
-                                 onChange={this.onChangeDescription}
-                                 placeholder="description"/>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Status</label>
-                        <div className="col-sm-10">
-                          <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeEngagementStatus}>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">&nbsp;</label>
-                        <div className="col-sm-10">
-                          <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
-                          <button className="btn btn-primary" onClick={this.onLanguageSubmit}>Submit</button>
-                        </div>
-                      </div>
-                    </form>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                    </div>
                   </div>
           );
       }
 
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h2>Engagement area</h2>
-        <br/>
 
         <div className="form-group">
          {formcontents}

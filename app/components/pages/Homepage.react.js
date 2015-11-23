@@ -53,28 +53,29 @@ export default class Homepage extends React.Component {
 
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h4>Edit - Home page keys</h4>
-        <form id="homeForm" className="form-horizontal">
-          <input type="hidden" name="_id" value={pagedata._id} />
-          <input type="hidden" name="language" value={pagedata.language} />
-          <div className="form-group">
-            <label className="col-sm-2 control-label">HOM_TITLE</label>
-            <div className="col-sm-10">
-              <input type="text"
-                     name="HOM_TITLE"
-                     className="form-control"
-                     value={HOM_TITLE}
-                     onChange={this.onChangeHomeTitle} />
+        <div className="ui three column stackable grid container ">
+            <div className="column">
+                <form id="homeForm" className="ui form">
+                  <input type="hidden" name="_id" value={pagedata._id} />
+                  <input type="hidden" name="language" value={pagedata.language} />
+                  <div className="field">
+                    <label>HOM_TITLE</label>
+                    <input type="text"
+                             name="HOM_TITLE"
+                             className="form-control"
+                             value={HOM_TITLE}
+                             onChange={this.onChangeHomeTitle} />
+                  </div>
+                  <div className="field">
+                    <button className="ui blue button" onClick={this.onSubmitHome}>Update</button>
+                  </div>
+                </form>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="col-sm-2 control-label">&nbsp;</label>
-            <div className="col-sm-10">
-              <button className="btn btn-primary" onClick={this.onSubmitHome}>Update</button>
-            </div>
-          </div>
-        </form>
+            <div className="column"></div>
+            <div className="column"></div>
+        </div>
       </div>
     );
   }
