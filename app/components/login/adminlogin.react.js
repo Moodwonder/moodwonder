@@ -94,7 +94,7 @@ export default class Adminlogin extends React.Component {
                             <button className="ui blue button" onClick={this.onAdminLogin}>Submit</button>
                           </div>
                         </form>
-                    </div>    
+                    </div>
                     <div className="column"></div>
                 </div>
             </div>
