@@ -17,8 +17,8 @@ export default class AdminNavigation extends React.Component {
       AdminStore.listen(this._onChange);
       let isAuth = localStorage.getItem('isAuth');
       this.setState({isAuth: isAuth});
-      console.log('did');
-      console.log(this.state.isAuth);
+      //console.log('did');
+      //console.log(this.state.isAuth);
   }
 
   componentWillUnmount () {
@@ -30,12 +30,15 @@ export default class AdminNavigation extends React.Component {
         isAuth: AdminStore.getState().isAuth,
         isAuthenticated: AdminStore.getState().isAuthenticated
       });
+      if(this.state.isAuthenticated === false) {
+          window.location.href = "/admin/logout";
+      }
   }
 
   _onLogout = () => {
       AdminActions.logout();
       if(this.state.isAuthenticated === false) {
-          window.location.href = "/admin";
+          window.location.href = "/admin/logout";
       }
   }
 

@@ -336,7 +336,8 @@ module.exports = function (app, passport) {
         adminstyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var adminscripts = '';
-        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
+        //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
