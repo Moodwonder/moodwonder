@@ -12,6 +12,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         this.mytotalvotes = 0;
         this.hasData = false;
         this.last_id = '';
+        this.count = 1;
     }
 
     componentDidMount() {
@@ -21,16 +22,19 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log('componentWillUnmount');
         EOTMStore.unlisten(this._onChange);
     }
 
     _onChange = (state) => {
 
-        state.employees.data.employees.map((data, key) => {
+        this.setState(state);
+        this.state.employees.data.employees.map((data, key) => {
             this.filtered.push(data);
         });
+       // console.log(state);
+        this.count++;
         console.log(this.filtered);
-        this.setState(state);
         this.mytotalvotes = this.state.employees.data.mytotalvotes;
         this.hasData = this.state.hasEmployees;
         let last_employee = this.filtered[this.filtered.length-1];
@@ -63,6 +67,8 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     _onSearch = () => {
+
+        console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         if( keyword !== '' ){
             this.last_id = '';
@@ -72,6 +78,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     showMoreUsers = () => {
 
+        console.log('showMoreUsers');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         let obj = {};
         if( keyword !== '' ){
@@ -115,6 +122,8 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     render() {
         console.log('render....');
+        console.log(this.count);
+
         let employees = '';
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
@@ -156,7 +165,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         return (
             <div className="ui main">
                 <ProfileHeader data={{votes: 5, desc: 'lorem ipsum'}}/>
-                <div className="ui secondary    menu account">
+                <div className="ui secondary menu account">
                     <div className="ui container">
                         <div className="ui right labeled left icon input">
                             <i className="search icon"></i>
@@ -175,8 +184,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             </div>
         );
     }
-
-    }
+}
 
 class VoteWidget extends React.Component {
 

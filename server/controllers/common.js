@@ -808,6 +808,7 @@ exports.requestDemo = function(req, res) {
 		subject: 'MoodWonder demo request',
 		html: body
 	};
+
 	transporter.sendMail(mailOptions, function(error, info){
 		if(error){
 			console.log(error);

@@ -40,7 +40,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui middle aligned stackable grid container">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2 >ENGAGING EMPLOYEES</h2>
+                                    <h2 >HOM_2_TITLE_1</h2>
                                     <div className="images-container">
                                         <img src="/assets/images/1.png" alt="pc" className="img-boy" />
                                         <img src="/assets/images/2.png" alt="pc" className="img-boy-2 "/> </div>
@@ -48,19 +48,19 @@ export default class Homecontent extends React.Component {
                             </div>
                             <div className="eight wide column">
                                 <div className="ui segment slideRight ">
-                                    <h3>Curabitur eu nulla eget ligula laoreet auctor. Integer eu ultricies justo. Integer tortor nunc, tempor rutrum elementum vel, porttitor ac leo. </h3>
+                                    <h3> HOM_2_TITLE_2 </h3>
                                     <div className="ui divided items">
                                         <div className="item">
                                             <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. </div>
+                                            <div className="middle aligned content"> HOM_2_ITEM_1 </div>
                                         </div>
                                         <div className="item">
                                             <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
+                                            <div className="middle aligned content"> HOM_2_ITEM_2 </div>
                                         </div>
                                         <div className="item">
                                             <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+                                            <div className="middle aligned content"> HOM_2_ITEM_3 </div>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui stackable two column grid container">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2 >GET STARTED</h2>
+                                    <h2> HOM_3_TITLE_1 </h2>
                                     <div className="images-container"> </div>
                                 </div>
                             </div>
@@ -86,9 +86,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Start a survey</h3>
+                                            <h3> HOM_3_BOX_1_TITLE_1 </h3>
                                         </div>
-                                        <p>Provide your work email, fill the other details and you are ready! No installations!</p>
+                                        <p> HOM_3_BOX_1_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -97,9 +97,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>View statistics</h3>
+                                            <h3>HOM_3_BOX_2_TITLE_1</h3>
                                         </div>
-                                        <p>See your company’s and team’s employee engagement statistics.</p>
+                                        <p> HOM_3_BOX_2_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -108,9 +108,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Compare the rankings</h3>
+                                            <h3> HOM_3_BOX_3_TITLE_1 </h3>
                                         </div>
-                                        <p>See your company’s employee engagement ranking based on location, size and industry.</p>
+                                        <p> HOM_3_BOX_3_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -119,9 +119,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Invite colleagues & friends</h3>
+                                            <h3> HOM_3_BOX_4_TITLE_1 </h3>
                                         </div>
-                                        <p>Set up your manager, invite your team and your colleagues to get more detailed statistics for your company.</p>
+                                        <p> HOM_3_BOX_4_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui stackable two column grid container">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2 >Features</h2>
+                                    <h2 >HOM_4_TITLE_1</h2>
                                     <div className="images-container"> </div>
                                 </div>
                             </div>
@@ -146,9 +146,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Employee engagement</h3>
+                                            <h3> HOM_4_BOX_1_TITLE_1 </h3>
                                         </div>
-                                        <p>Provide your work email, fill the other details and you are ready! No installations!</p>
+                                        <p> HOM_4_BOX_1_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -158,9 +158,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Mood Rating</h3>
+                                            <h3> HOM_4_BOX_2_TITLE_1 </h3>
                                         </div>
-                                        <p>See your company’s and team’s employee engagement statistics.</p>
+                                        <p> HOM_4_BOX_2_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -169,9 +169,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Custom Survey</h3>
+                                            <h3> HOM_4_BOX_3_TITLE_1 </h3>
                                         </div>
-                                        <p>See your company’s employee engagement ranking based on location, size and industry.</p>
+                                        <p> HOM_4_BOX_3_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -180,9 +180,9 @@ export default class Homecontent extends React.Component {
                                 <div className="ui fluid card">
                                     <div className="content">
                                         <div className="header">
-                                            <h3>Company Stats</h3>
+                                            <h3> HOM_4_BOX_4_TITLE_1 </h3>
                                         </div>
-                                        <p>Set up your manager, invite your team and your colleagues to get more detailed statistics for your company.</p>
+                                        <p> HOM_4_BOX_4_CONTENT </p>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui stackable two column grid  container items ">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2 >Why Moodwonder?</h2>
+                                    <h2> HOM_5_TITLE_1 </h2>
                                     <div className="images-container"> </div>
                                 </div>
                             </div>
@@ -208,32 +208,32 @@ export default class Homecontent extends React.Component {
                                 <div className="column fade-in one">
                                     <div className="image" id="diamond"> <i className="wizard icon"></i></div>
                                     <span>
-                                        <h3>Measure</h3>
+                                        <h3> HOM_5_BOX_1_TITLE_1 </h3>
                                     </span> <span>
-                                        <p>Moodwonder invests time where it counts the most. Employee assessments performed once or twice a year don’t provide an accurate account of your staff’s attitude or what they need to improve. If anything, it sets up false results. Our state-of-the-art system monitors your workforce on a continual basis, collecting the data you really need to lead them to greatness.</p>
+                                        <p> HOM_5_BOX_1_CONTENT </p>
                                     </span> </div>
                                 <div className="column fade-in two">
                                     <div className="image" id="diamond"><i className="line chart icon"></i> </div>
                                     <span>
-                                        <h3>Improve</h3>
+                                        <h3> HOM_5_BOX_2_TITLE_1 </h3>
                                     </span> <span>
-                                        <p>Moodwonder can help you by giving you the data you need – when it’s needed the most. Improve your team performance, on a group and individual level, by ferreting out the details supporting your success. Discover the keys to culture enhancement for your unique operation, and stop wasting resources on traditional assessments than no longer suit today’s marketplace.</p>
+                                        <p> HOM_5_BOX_2_CONTENT </p>
                                     </span> </div>
                             </div>
                             <div className="row">
                                 <div className="column fade-in three">
                                     <div className="image" id="diamond"> <i className="student icon"></i> </div>
                                     <span>
-                                        <h3> Learn</h3>
+                                        <h3> HOM_5_BOX_3_TITLE_1 </h3>
                                     </span> <span>
-                                        <p>Computers aren’t swayed by long days, pressing deadlines or personality conflicts, and they have a way of noticing those issues that human radar can miss. Let us break down the stats behind your company culture, and analyze them for chances to grow. Our day-by-day tracking provides you with the opportunity for continuous improvement.</p>
+                                        <p> HOM_5_BOX_3_CONTENT </p>
                                     </span> </div>
                                 <div className="column fade-in four">
                                     <div className="image" id="diamond"> <i className="trophy icon"></i> </div>
                                     <span>
-                                        <h3>Create loyalty</h3>
+                                        <h3> HOM_5_BOX_4_TITLE_1 </h3>
                                     </span> <span>
-                                        <p>Middle AligneIn the past, companies hired for life, and it wasn’t rare for someone to work 30 or more years for the same business. That kind of relationship created a close bond between staff and management that is rarely seen today. Managers can’t rely on a paycheck to create loyalty. Their relationships with staff members are the number one motivator behind engagement – and in disengagement as well. </p>
+                                        <p> HOM_5_BOX_4_CONTENT </p>
                                     </span> </div>
                             </div>
                         </div>
@@ -246,7 +246,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui stackable two column grid  container items ">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2>Sneak Peek</h2>
+                                    <h2> HOM_6_TITLE_1 </h2>
                                     <div className="images-container"> </div>
 
                                 </div>
@@ -269,7 +269,7 @@ export default class Homecontent extends React.Component {
                         <div className="ui stackable two column grid  container items ">
                             <div className="eight wide column">
                                 <div className="ui segment">
-                                    <h2>Request a Demo</h2>
+                                    <h2> HOM_7_TITLE </h2>
                                     <div className="images-container"> </div>
                                 </div>
                             </div>

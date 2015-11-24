@@ -106,19 +106,19 @@ export default class Login extends React.Component {
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
-                    <input type="text" ref="email" name="email" placeholder="E-mail address" />
+                    <input type="text" ref="email" name="email" placeholder="LGN_PLACEHOLDER_EMAIL" />
                   </div>
                 </div>
                 <div className="field">
                   <div className="ui left icon input">
-                    <input type="password" ref="password" name="password" placeholder="Password" />
+                    <input type="password" ref="password" name="password" placeholder="LGN_PLACEHOLDER_PASSWORD" />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onLoginSubmit}>Login</button>
+                <button className="ui yellow button" onClick={this._onLoginSubmit}>LGN_BTN</button>
               </div>
               <div className="ui error message segment"></div>
             </div>
-            <div className="ui message "> <a href="/forgotpassword" className="frgt">Forget Password?</a> <a href="/#firstPage">Sign Up</a> </div>
+            <div className="ui message "> <a href="/forgotpassword" className="frgt">LGN_FORGOT_PSWD ?</a> <a href="/#firstPage">LGN_SIGNUP</a> </div>
           </div>
         </div>
       );

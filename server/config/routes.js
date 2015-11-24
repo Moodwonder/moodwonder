@@ -13,6 +13,9 @@ var Signuppage = require('../models/signuppage');
 var Loginpage = require('../models/loginpage');
 var Languages = require('../models/languages');
 var Myprofile = require('../models/myprofilepage');
+var CreatePasswordPage = require('../models/createpasswordpage');
+var ForgotPasswordPage = require('../models/forgotpasswordpage');
+var InviteSignupPage = require('../models/invitesignuppage');
 var Mwusertheme = require('../models/mwusertheme');
 
 var users = require('../controllers/users');
@@ -223,6 +226,21 @@ module.exports = function (app, passport) {
                 modelObj = Myprofile;
                 break;
 
+            case 'createpassword':
+                modelObj = {};
+                modelObj = CreatePasswordPage;
+                break;
+
+            case 'forgotpassword':
+                modelObj = {};
+                modelObj = ForgotPasswordPage;
+                break;
+
+            case 'invitesignup':
+                modelObj = {};
+                modelObj = InviteSignupPage;
+                break;
+
             default:
                 modelObj = {};
                 modelObj = Languages;
@@ -388,19 +406,22 @@ module.exports = function (app, passport) {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage');
+                .replace("BODYCLASS", 'login loginpage')
+                .replace("JSCRIPTS", userscripts);
 
         } else if (pageurl.search('createpassword') != -1) {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage');
+                .replace("BODYCLASS", 'login loginpage')
+                .replace("JSCRIPTS", userscripts);
 
         } else if (pageurl == '/forgotpassword') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage');
+                .replace("BODYCLASS", 'login loginpage')
+                .replace("JSCRIPTS", userscripts);
 
         } else {
             html = html.replace("TITLE", Header.title)
@@ -417,8 +438,16 @@ module.exports = function (app, passport) {
         //var page = pageurl.split("/").pop();
         var page = '';
         if (pageurl == '/') {
+
             page = 'home';
-        } else {
+        }else if (pageurl.search('createpassword') != -1) {
+
+            page = 'createpassword';
+        }else if (pageurl.search('invitesignup') != -1) {
+
+            page = 'invitesignup';
+        }else {
+
             page = pageurl.split("/").pop();
         }
 
