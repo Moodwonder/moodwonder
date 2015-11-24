@@ -74,53 +74,50 @@ export default class Signuppage extends React.Component {
 
 
       return (
-      <div className="container">
-        <h4>Edit - Signup page keys</h4>
-        <form id="signupForm" className="form-horizontal">
-          <input type="hidden" name="_id" value={pagedata._id} />
-          <input type="hidden" name="language" value={pagedata.language} />
+        <div className="ui container">
+            <h4>Edit - Signup page keys</h4>
+            <div className="ui three column stackable grid container ">
+                <div className="column">
+                    <form id="signupForm" className="ui form">
+                      <input type="hidden" name="_id" value={pagedata._id} />
+                      <input type="hidden" name="language" value={pagedata.language} />
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">SGN_TITLE</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="SGN_TITLE"
-                     type="text"
-                     value={SGN_TITLE}
-                     onChange={this.onChangeSignupTitle} />
-            </div>
-          </div>
+                      <div className="field">
+                        <label>SGN_TITLE</label>
+                        <input className="form-control"
+                                 name="SGN_TITLE"
+                                 type="text"
+                                 value={SGN_TITLE}
+                                 onChange={this.onChangeSignupTitle} />
+                      </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">SGN_WORK_EMAIL</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="SGN_WORK_EMAIL"
-                     type="text"
-                     value={SGN_WORK_EMAIL}
-                     onChange={this.onChangeWorkEmail} />
-            </div>
-          </div>
+                      <div className="field">
+                        <label>SGN_WORK_EMAIL</label>
+                        <input className="form-control"
+                                 name="SGN_WORK_EMAIL"
+                                 type="text"
+                                 value={SGN_WORK_EMAIL}
+                                 onChange={this.onChangeWorkEmail} />
+                      </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">SGN_BTN_SUBMIT</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="SGN_BTN_SUBMIT"
-                     type="text"
-                     value={SGN_BTN_SUBMIT}
-                     onChange={this.onChangeBtnSubmit} />
-            </div>
-          </div>
+                      <div className="field">
+                        <label>SGN_BTN_SUBMIT</label>
+                        <input className="form-control"
+                                 name="SGN_BTN_SUBMIT"
+                                 type="text"
+                                 value={SGN_BTN_SUBMIT}
+                                 onChange={this.onChangeBtnSubmit} />
+                      </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label"></label>
-            <div className="col-sm-10">
-              <button className="btn btn-primary" onClick={this.onSubmitSignup}>Submit</button>
+                      <div className="field">
+                          <button className="ui blue button" onClick={this.onSubmitSignup}>Submit</button>
+                      </div>
+                    </form>
+                </div>
+                <div className="column"></div>
+                <div className="column"></div>
             </div>
-          </div>
-        </form>
-      </div>
+        </div>
     );
   }
 

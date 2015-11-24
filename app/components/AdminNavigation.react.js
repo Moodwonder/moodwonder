@@ -45,6 +45,7 @@ export default class AdminNavigation extends React.Component {
 
       if (this.state.isAuth === "true") {
           loginOrOut = [
+            <a href="/admin/dashboard" className="item">Moodwonder</a>,
             <a href="/admin/users" className="item">Users</a>,
             <a href="/admin/companyadmins" className="item">Company Admins</a>,
             <a href="/admin/teams" className="item">Teams</a>,
@@ -58,6 +59,7 @@ export default class AdminNavigation extends React.Component {
           ];
       } else {
           loginOrOut = [
+              <a href="/admin" className="active item">Moodwonder</a>,
               <a className="item" href="/admin">Log in</a>
           ];
       }
@@ -65,7 +67,6 @@ export default class AdminNavigation extends React.Component {
 
       return (
         <div className="ui inverted menu">
-            <a href="/" className="active item">Moodwonder</a>
             {loginOrOut}
         </div>
       );

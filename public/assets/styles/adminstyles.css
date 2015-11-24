@@ -1,0 +1,18 @@
+.ui.inverted.menu {
+    background: #4db6ac none repeat scroll 0 0;
+}
+h2 {
+    margin: 20px 0 !important;
+}
+.ui.blue.buttons .button, .ui.blue.button {
+    background-color: #2185d0;
+    background-image: none;
+    color: #ffffff;
+    height: 40px;
+    line-height: 40px;
+    text-shadow: none;
+    width: 100px;
+}
+h4 {
+    color: #67A89A;
+}

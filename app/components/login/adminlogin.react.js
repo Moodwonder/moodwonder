@@ -72,26 +72,36 @@ export default class Adminlogin extends React.Component {
       }
 
       renderedResult = (
-          <div className="container">
-            <h2>Admin login..</h2>
+            <div className="ui container">
+                <div className="ui three column stackable grid container ">
+                    <div className="column"></div>
+                    <div className="column"><h2>Login here..</h2></div>
+                    <div className="column"></div>
+                </div>
                 {logStatus}
-                <form id="adminLogin">
-                  <div className="form-group">
-                    <input type="text" className="form-control" name="username" placeholder="username"/>
-                  </div>
-                  <div className="form-group">
-                    <input type="password" className="form-control" name="password" placeholder="password"/>
-                  </div>
-                  <br/>
-                  <div className="form-group">
-                    <button className="btn btn-primary" onClick={this.onAdminLogin}>Submit</button>
-                  </div>
-                </form>
-          </div>
+                <div className="ui three column stackable grid container ">
+                    <div className="column"></div>
+                    <div className="column">
+                        <form id="adminLogin" className="ui form">
+                          <div className="field">
+                            <input type="text" name="username" placeholder="username"/>
+                          </div>
+                          <div className="field">
+                            <input type="password" name="password" placeholder="password"/>
+                          </div>
+                          <br/>
+                          <div className="field">
+                            <button className="ui blue button" onClick={this.onAdminLogin}>Submit</button>
+                          </div>
+                        </form>
+                    </div>
+                    <div className="column"></div>
+                </div>
+            </div>
         );
 
       return (
-          <div className="login">
+          <div className="ui container">
             {renderedResult}
           </div>
       );

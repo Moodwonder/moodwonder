@@ -1184,19 +1184,19 @@ export default class MyMood extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="three wide column padin-lft ">
-                            <div className="ui form options">
+                        <div className="two wide column padin-lft ">
+                            <div className="ui form options" style={{"maxWidth": "100%"}}>
                                 <input type="text" name="targetvalue" palceholher="" />
                             </div>
                         </div>
                         <div className="one wide column padin-lft ">
-                            <div className="ui form options">
+                            <div className="ui form options" style={{"paddingTop":"20px"}}>
                                 <label>%</label>
                             </div>
                         </div>
-                        <div className="six wide column padin-lft ">
-                            <div className="ui form options">
-                                <select className="ui dropdown" name="targetlevel">
+                        <div className="four wide column padin-lft ">
+                            <div className="ui form options" style={{"maxWidth": "100%"}}>
+                                <select className="ui dropdown" name="targetlevel" style={{"maxWidth": "100%"}}>
                                     <option value="above">Above</option>
                                     <option value="below">Below</option>
                                 </select>

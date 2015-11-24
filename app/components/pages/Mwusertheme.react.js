@@ -121,118 +121,103 @@ export default class Signuppage extends React.Component {
 
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h4>Edit - Signup page keys</h4>
-        <form id="mwuserthemeForm" className="form-horizontal">
-          <input type="hidden" name="_id" value={pagedata._id} />
-          <input type="hidden" name="language" value={pagedata.language} />
+        <div className="ui three column stackable grid container ">
+            <div className="column">
+                <form id="mwuserthemeForm" className="ui form">
+                  <input type="hidden" name="_id" value={pagedata._id} />
+                  <input type="hidden" name="language" value={pagedata.language} />
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_MYMOOD_LINK</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_MYMOOD_LINK"
-                     type="text"
-                     value={L_MYMOOD_LINK}
-                     onChange={this.onChangeMymoodLink} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_MYMOOD_LINK</label>
+                    <input className="form-control"
+                             name="L_MYMOOD_LINK"
+                             type="text"
+                             value={L_MYMOOD_LINK}
+                             onChange={this.onChangeMymoodLink} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_MYACCOUNT_LINK</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_MYACCOUNT_LINK"
-                     type="text"
-                     value={L_MYACCOUNT_LINK}
-                     onChange={this.onChangeMyaccountLink} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_MYACCOUNT_LINK</label>
+                    <input className="form-control"
+                             name="L_MYACCOUNT_LINK"
+                             type="text"
+                             value={L_MYACCOUNT_LINK}
+                             onChange={this.onChangeMyaccountLink} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_MYCOMPANY_LINK</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_MYCOMPANY_LINK"
-                     type="text"
-                     value={L_MYCOMPANY_LINK}
-                     onChange={this.onChangeMycompanyLink} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_MYCOMPANY_LINK</label>
+                    <input className="form-control"
+                             name="L_MYCOMPANY_LINK"
+                             type="text"
+                             value={L_MYCOMPANY_LINK}
+                             onChange={this.onChangeMycompanyLink} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_INVITE_PEOPLE_TITLE</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_INVITE_PEOPLE_TITLE"
-                     type="text"
-                     value={L_INVITE_PEOPLE_TITLE}
-                     onChange={this.onChangeInviteTitle} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_INVITE_PEOPLE_TITLE</label>
+                    <input className="form-control"
+                             name="L_INVITE_PEOPLE_TITLE"
+                             type="text"
+                             value={L_INVITE_PEOPLE_TITLE}
+                             onChange={this.onChangeInviteTitle} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_INVITE_PEOPLE_DES</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_INVITE_PEOPLE_DES"
-                     type="text"
-                     value={L_INVITE_PEOPLE_DES}
-                     onChange={this.onChangeInviteDes} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_INVITE_PEOPLE_DES</label>
+                    <input className="form-control"
+                             name="L_INVITE_PEOPLE_DES"
+                             type="text"
+                             value={L_INVITE_PEOPLE_DES}
+                             onChange={this.onChangeInviteDes} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_INVITE_INPUT_PLCHOLDER</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_INVITE_INPUT_PLCHOLDER"
-                     type="text"
-                     value={L_INVITE_INPUT_PLCHOLDER}
-                     onChange={this.onChangeInputPlcholder} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_INVITE_INPUT_PLCHOLDER</label>
+                    <input className="form-control"
+                             name="L_INVITE_INPUT_PLCHOLDER"
+                             type="text"
+                             value={L_INVITE_INPUT_PLCHOLDER}
+                             onChange={this.onChangeInputPlcholder} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_INVITE_BTN</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_INVITE_BTN"
-                     type="text"
-                     value={L_INVITE_BTN}
-                     onChange={this.onChangeInviteBtn} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_INVITE_BTN</label>
+                    <input className="form-control"
+                             name="L_INVITE_BTN"
+                             type="text"
+                             value={L_INVITE_BTN}
+                             onChange={this.onChangeInviteBtn} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_MYPROFILE_LINK</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_MYPROFILE_LINK"
-                     type="text"
-                     value={L_MYPROFILE_LINK}
-                     onChange={this.onChangeMyprofileLink} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_MYPROFILE_LINK</label>
+                    <input className="form-control"
+                             name="L_MYPROFILE_LINK"
+                             type="text"
+                             value={L_MYPROFILE_LINK}
+                             onChange={this.onChangeMyprofileLink} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label">L_LOGOUT_LINK</label>
-            <div className="col-sm-10">
-              <input className="form-control"
-                     name="L_LOGOUT_LINK"
-                     type="text"
-                     value={L_LOGOUT_LINK}
-                     onChange={this.onChangeLogoutLink} />
-            </div>
-          </div>
+                  <div className="field">
+                    <label>L_LOGOUT_LINK</label>
+                    <input className="form-control"
+                             name="L_LOGOUT_LINK"
+                             type="text"
+                             value={L_LOGOUT_LINK}
+                             onChange={this.onChangeLogoutLink} />
+                  </div>
 
-          <div className="form-group">
-            <label className="col-sm-2 control-label"></label>
-            <div className="col-sm-10">
-              <button className="btn btn-primary" onClick={this.onSubmitSignup}>Submit</button>
+                  <div className="field">
+                      <button className="ui blue button" onClick={this.onSubmitSignup}>Submit</button>
+                  </div>
+                </form>
             </div>
-          </div>
-        </form>
+            <div className="column"></div>
+            <div className="column"></div>
+        </div>
       </div>
     );
   }

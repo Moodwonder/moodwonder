@@ -6,7 +6,7 @@ var Team = require('../models/team');
 var emailTemplate = require('../email/emailtemplates');
 var nodemailer = require("nodemailer");
 var EngagementResults = require('../models/engagementResults');
-
+var SurveyParticipation = require('../models/surveyParticipation');
 
 exports.handleTakeSurvey = function(req, res, next) {
 
@@ -21,7 +21,6 @@ exports.handleTakeSurvey = function(req, res, next) {
   
 
 };
-
 
 function saveSurvey(query, usercompany, callback) {
     CustomSurvey.create(query, function (err, candies) {
@@ -119,7 +118,22 @@ exports.createForm = function (req, res) {
                         getCompanyMembers(query, form, usercompany, function(members){
                             
                             for (var mkey in members) {
+                                
                                 var member = members[mkey];
+                                var sParticipation = {};
+                                sParticipation.survey_id = form[0]._id;
+                                sParticipation.user_id = member._id;
+                                sParticipation.freezedate = form[0].freezedate;
+                                sParticipation.status = 'notparticipated';
+                                
+                                SurveyParticipation.create(sParticipation, function (err, data) {
+                                    if (!err) {
+                                        console.log('New record added to survey participation.');
+                                    } else {
+                                        console.log('Error in adding new record to survey participation.');
+                                    }
+                                });
+                                
                                 var transporter = nodemailer.createTransport();
                                 var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
                                             "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
@@ -145,6 +159,21 @@ exports.createForm = function (req, res) {
                             getTeamMemberDetails(query, member.member_ids, function(users){
                                 for (var ukey in users) {
                                 var user = users[ukey];
+                                
+                                var sParticipation = {};
+                                sParticipation.survey_id = form[0]._id;
+                                sParticipation.user_id = user._id;
+                                sParticipation.freezedate = form[0].freezedate;
+                                sParticipation.status = 'notparticipated';
+                                
+                                SurveyParticipation.create(sParticipation, function (err, data) {
+                                    if (!err) {
+                                        console.log('New record added to survey participation.');
+                                    } else {
+                                        console.log('Error in adding new record to survey participation.');
+                                    }
+                                });
+                                
                                 var transporter = nodemailer.createTransport();
                                 var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
                                             "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
@@ -205,6 +234,21 @@ exports.createForm = function (req, res) {
                             
                             for (var skey in survey) {
                                 var data = survey[skey];
+                                
+                                var sParticipation = {};
+                                sParticipation.survey_id = form[0]._id;
+                                sParticipation.user_id = data.user_id;
+                                sParticipation.freezedate = form[0].freezedate;
+                                sParticipation.status = 'notparticipated';
+                                
+                                SurveyParticipation.create(sParticipation, function (err, data) {
+                                    if (!err) {
+                                        console.log('New record added to survey participation.');
+                                    } else {
+                                        console.log('Error in adding new record to survey participation.');
+                                    }
+                                });
+                                
                                 var transporter = nodemailer.createTransport();
                                 var body = "Hi,<br><br> Please click on below link to participate on new survey <br>" +
                                             "<b>Click here :</b>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +

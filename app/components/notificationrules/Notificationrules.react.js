@@ -173,9 +173,9 @@ export default RequireAuth(class Notificationrules extends React.Component {
           });
 
           rulelists = (
-                    <div className="form-group">
+                    <div className="ui container">
 
-                      <table className="table table-striped table-hover">
+                      <table className="ui celled table">
                         <thead>
                           <tr className="info">
                             <th className="text-center"></th>
@@ -196,71 +196,69 @@ export default RequireAuth(class Notificationrules extends React.Component {
 
       if (showform) {
           formcontents = (
-                  <div className="form-group">
-                    <div className="form-group">
-                        <a href="#" onClick={this.onListRules}>List notification rules</a>
+                  <div className="ui container">
+                    <div className="ui six column stackable grid container ">
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column"></div>
+                        <div className="column">
+                            <button className="ui orange button" href="#" onClick={this.onListRules}>List notification rules</button>
+                        </div>
                     </div>
-
                     <h4>Edit rules</h4>
-                    <br/>
-                    <form id="ruleForm" className="form-horizontal">
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Rule key</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="rule_key"
-                                 value={this.state.editkey}
-                                 onChange={this.onChangeKey}
-                                 placeholder="rule key"/>
+                    <div className="ui three column stackable grid container ">
+                        <div className="column">
+                            <form id="ruleForm" className="ui form">
+                              <div className="field">
+                                <label>Rule key</label>
+                                <input type="text"
+                                         className="form-control"
+                                         name="rule_key"
+                                         value={this.state.editkey}
+                                         onChange={this.onChangeKey}
+                                         placeholder="rule key"/>
+                              </div>
+                              <div className="field">
+                                <label>Value</label>
+                                <input type="text"
+                                         className="form-control"
+                                         name="rule_value"
+                                         value={this.state.editvalue}
+                                         onChange={this.onChangeValue}
+                                         placeholder="value"/>
+                              </div>
+                              <div className="field">
+                                <label>Description</label>
+                                <input type="text"
+                                         className="form-control"
+                                         name="description"
+                                         value={this.state.editdescription}
+                                         onChange={this.onChangeDescription}
+                                         placeholder="description"/>
+                              </div>
+                              <div className="field">
+                                <label>Status</label>
+                                <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeRuleStatus}>
+                                  <option value="active">Active</option>
+                                  <option value="inactive">Inactive</option>
+                                </select>
+                              </div>
+                              <div className="field">
+                                  <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
+                                  <button className="ui blue button" onClick={this.onRuleSubmit}>Submit</button>
+                              </div>
+                            </form>
                         </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Value</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="rule_value"
-                                 value={this.state.editvalue}
-                                 onChange={this.onChangeValue}
-                                 placeholder="value"/>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Description</label>
-                        <div className="col-sm-10">
-                          <input type="text"
-                                 className="form-control"
-                                 name="description"
-                                 value={this.state.editdescription}
-                                 onChange={this.onChangeDescription}
-                                 placeholder="description"/>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">Status</label>
-                        <div className="col-sm-10">
-                          <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeRuleStatus}>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label className="col-sm-2 control-label">&nbsp;</label>
-                        <div className="col-sm-10">
-                          <input type="hidden" name="id" value={this.state.editid}  ref="id"/>
-                          <button className="btn btn-primary" onClick={this.onRuleSubmit}>Submit</button>
-                        </div>
-                      </div>
-                    </form>
+                    </div>
                   </div>
           );
       }
 
 
       return (
-      <div className="container">
+      <div className="ui container">
         <h2>Notification rules</h2>
         <br/>
 
