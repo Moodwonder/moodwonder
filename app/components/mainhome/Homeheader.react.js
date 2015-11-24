@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Cookie from 'utils/Cookie';
+import LanguageContants from 'constants/LanguageConstants';
 
 export default class Homeheader extends React.Component {
 
@@ -15,6 +16,12 @@ export default class Homeheader extends React.Component {
 
   }
 
+  onClickLanguage = (lang) => {
+      Cookie.setCookie('lang', lang, 30);
+      this.setState({lang: lang});
+      location.reload(true);
+  }
+
   render () {
 
       return (
@@ -23,18 +30,18 @@ export default class Homeheader extends React.Component {
                 <div className="ui container"> <a className="item" href="/"><img src="/assets/images/logo-mw.png" alt=""/></a>
                     <div className="right menu">
                         <div className="item padding-row">
-                            <div className="ui icon top  pointing dropdown  "> <span>Language</span>
+                            <div className="ui icon top  pointing dropdown"> <span>Language</span>
                                 <div className="menu">
-                                    <div className="item">EN</div>
-                                    <div className="item">FI</div>
+                                    <div onClick={this.onClickLanguage.bind(null, LanguageContants.EN)} className="item">EN</div>
+                                    <div onClick={this.onClickLanguage.bind(null, LanguageContants.FI)} className="item">FI</div>
                                 </div>
                             </div>
                         </div>
-                        <div className="item ">
-                            <div className="ui icon top right pointing dropdown  "> <span><i className="sidebar icon"></i></span>
+                        <div className="item">
+                            <div className="ui icon top right pointing dropdown"> <span><i className="sidebar icon"></i></span>
                                 <div className="menu">
-                                    <a href="/login" className="item">Sign in </a>
-                                    <a href="/login" className="item">Register</a>
+                                    <a href="/login" className="item">HOM_SIGN_IN </a>
+                                    <a href="/#firstPage" className="item">HOM_REGISTER</a>
                                 </div>
                             </div>
                         </div>

@@ -102,7 +102,7 @@ export default class Signup extends React.Component {
       return (
         <div className="ui middle aligned center aligned grid">
           <div className="column">
-            <h2 className="ui header">Forgot password</h2>
+            <h2 className="ui header"> FORGOTPASS_TITLE </h2>
             <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
               {message}
               {multimessages}
@@ -110,10 +110,10 @@ export default class Signup extends React.Component {
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
-                    <input type="email" ref="email" id="email" placeholder="Enter your email" />
+                    <input type="email" ref="email" id="email" placeholder=" FORGOTPASS_PLACEHOLDER_PASSWORD " />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onSignupStep1Submit}>Submit</button>
+                <button className="ui yellow button" onClick={this._onSignupStep1Submit}> FORGOTPASS_BTN_CREATE </button>
               </div>
             </div>
           </div>

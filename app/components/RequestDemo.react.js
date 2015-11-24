@@ -81,22 +81,22 @@ export default class RequestDemo extends React.Component {
         <div className=" ui small form">
             {multimessages}
             <div className="field">
-                <label>Name</label>
+                <label>HOM_7_NAME</label>
                 <input ref="name" placeholder="Name" type="text" />
             </div>
             <div className="field">
-                <label>Email</label>
+                <label>HOM_7_EMAIL</label>
                 <input ref="email" placeholder="Email" type="email" />
             </div>
             <div className="field">
-                <label>Mobile</label>
+                <label>HOM_7_MOBILE</label>
                 <input ref="mobile" placeholder="Mobile" type="text" />
             </div>
             <div className="field">
-                <label>What exactly are you looking for?</label>
+                <label> HOM_7_LOOKING_FOR </label>
                 <textarea ref="text"></textarea>
             </div>
-            <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse">Submit</span></button>
+            <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
         </div>
       );
   }

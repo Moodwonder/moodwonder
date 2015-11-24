@@ -121,11 +121,11 @@ export default class InviteSignup extends React.Component {
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
-                    <input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
+                    <input ref="email" name="email" placeholder=" INVITESIGNUP_PLACEHOLDER_EMAIL " type="text" />
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onSignupStep1Submit}>GET STARTED</button>
+                <button className="ui yellow button" onClick={this._onSignupStep1Submit}> INVITESIGNUP_BTN </button>
               </div>
               <div className="ui error message segment"></div>
             </div>

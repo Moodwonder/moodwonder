@@ -128,7 +128,7 @@ export default class CreatePassword extends React.Component {
       return (
         <div className="ui middle aligned center aligned grid">
           <div className="column">
-            <h2 className="ui header">Create your password here..</h2>
+            <h2 className="ui header"> CREATEPASS_TITLE </h2>
             <h2 className="ui image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
               {message}
               {multimessages}
@@ -136,11 +136,11 @@ export default class CreatePassword extends React.Component {
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
-                    <input type="password" ref="password" id="password" placeholder="Enter your password" />
+                    <input type="password" ref="password" id="password" placeholder=" CREATEPASS_PLACEHOLDER_PASSWORD " />
                     <input type="hidden" ref="hash" value={hash} />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onSignupStep2Submit}>Create</button>
+                <button className="ui yellow button" onClick={this._onSignupStep2Submit}> CREATEPASS_BTN_CREATE </button>
               </div>
             </div>
           </div>

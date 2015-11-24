@@ -117,10 +117,10 @@ export default class Signup extends React.Component {
               {message}
               {multimessages}
                 <div className="ui input">
-                    <input ref="email" name="email" placeholder="SGN_WORK_EMAIL" type="text" />
+                    <input ref="email" name="email" placeholder="HOM_SGN_WORK_EMAIL" type="text" />
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                 </div>
-                <button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">GET STARTED</span></button>
+                <button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">HOM_GET_STARTED</span></button>
             </div>
         </div>
       );

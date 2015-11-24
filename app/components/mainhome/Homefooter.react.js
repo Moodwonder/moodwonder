@@ -20,7 +20,7 @@ export default class Homefooter extends React.Component {
       return (
           <footer>
             <div className="footer-left">
-                <a href="/about">About </a> |
+                <a href="/about"> HOM_FOOTER_ABOUT </a> |
                 <a href="/anonymity"> Anonymity </a> |
                 <a href="/terms"> Terms</a> |
                 <a href="/policy"> Policy</a> |
