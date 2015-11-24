@@ -147,12 +147,13 @@ const routes = (
     </Route>
     <Route name="forgotpassword" path="/forgotpassword" handler={ForgotPassword} >
     </Route>
+    <Route name="logout" path="/logout" handler={Logout} >
+    </Route>
     <Route name="app" path="/" handler={App} >
-      <Route name="logout" handler={Logout} />
       <Route name="tabs" handler={Tabs} />
       <DefaultRoute handler={Index} />
-      <NotFoundRoute name="404" handler={NotFound} />
     </Route>
+    <NotFoundRoute name="404" handler={NotFound} />
   </Route>
 );
 

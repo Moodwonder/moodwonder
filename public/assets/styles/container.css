@@ -492,7 +492,7 @@
 	background-color: #66bb6a!important;
 	text-align: center;
 	border-radius: 20px;
-	padding: 4px 10px !important;
+	padding: 5px 10px 3px !important;
 	color: #FFF;
 	float: right;
 }
@@ -958,8 +958,8 @@ meter {
           
     height: 10px;
     /* For Firefox */
-    background: #cfd8dc
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+    background: #cfd8dc;
+    /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;*/
     border-radius: 20px;
 }
 /* WebKit */
@@ -1006,4 +1006,22 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     height: 100% !important;
     width: 100% !important;
 }
+
+.error-page {
+    width: 100%;
+    float: left;
+    height: 100%;
+    display: block;
+    position: absolute;
+    background: #26A69A url("../../assets/images/bg-1.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 /* End: Edited by Dev */

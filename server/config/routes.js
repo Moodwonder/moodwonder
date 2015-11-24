@@ -307,10 +307,20 @@ module.exports = function (app, passport) {
         homescripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
         
         
+        
+  
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
+        //adminstyles += userstyles;
         adminstyles += '<link rel="stylesheet" href="/assets/styles/adminstyles.css" />';
         
+        var adminscripts = '';
+        //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
+        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
+        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
+        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
+        //adminscripts += userscripts;
+        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
@@ -346,7 +356,6 @@ module.exports = function (app, passport) {
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
         
         
-        
         if (pageurl == '/' || pageurl == '/index') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
@@ -366,9 +375,9 @@ module.exports = function (app, passport) {
                 .replace("META", Header.meta)
                 .replace("LINK", adminstyles)
                 .replace("BODYCLASS", '')
-                .replace("JSCRIPTS", '');
+                .replace("JSCRIPTS", adminscripts);
         
-        } else if (pageurl == '/login') {
+        } else if (pageurl == '/login' || pageurl == '/logout') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)

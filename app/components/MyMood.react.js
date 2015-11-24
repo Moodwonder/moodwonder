@@ -795,8 +795,9 @@ export default class MyMood extends React.Component {
                  );
           });
       } else {
-          topthreevscompany = (
-                  <div className="column padding-ryt">
+          topthreevscompany = [
+                    <div className="column padding-ryt"></div>,
+                    <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head"></p>
                             <div className="ui star rating">
@@ -808,8 +809,9 @@ export default class MyMood extends React.Component {
                             </div>
                             <div className="title">You don't have any higher areas.</div>
                         </div>
-                    </div>
-                  );
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
       }
 
       let worstthreevscompany;
@@ -831,7 +833,8 @@ export default class MyMood extends React.Component {
                  );
           });
       } else {
-          worstthreevscompany = (
+          worstthreevscompany = [
+                  <div className="column padding-ryt"></div>,
                   <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head"></p>
@@ -844,8 +847,9 @@ export default class MyMood extends React.Component {
                             </div>
                             <div className="title">You don't have any worst areas.</div>
                         </div>
-                    </div>
-                  );
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
       }
 
       //let mevsindustry;
@@ -1310,50 +1314,6 @@ export default class MyMood extends React.Component {
                                 </div>
                             </div>
 
-                        </div>
-                        <div className="ui three cards  column stackable padding-20-mobile">
-                            <div className="ui card box-white">
-                                <div className="content  box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"> <img src="assets/images/avatar/tom.jpg" alt="" /></div>
-                                        <div className="column">
-                                            MY LEAST IMPROVED AREAS
-                                            <br/>
-                                            <span className="small-title">(LAST ONE MONTH) </span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
-                            <div className="ui card box-white">
-                                <div className="content  box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /></div>
-                                        <div className="column">
-                                            MY LEAST IMPROVED AREAS
-                                            <br/>
-                                            <span className="small-title">(LAST ONE MONTH)</span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
-                            <div className="ui card box-white">
-                                <div className="content box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /> </div>
-                                        <div className="column">
-                                            ME vs COMPANIES
-                                            <br/>
-                                            <span className="small-title">(COUNTRY)</span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
                         </div>
                     </div>
                 </div>
