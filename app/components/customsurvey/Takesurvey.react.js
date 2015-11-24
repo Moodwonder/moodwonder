@@ -179,10 +179,13 @@ export default class Takesurvey extends React.Component {
       });
 
       if(formstatus) {
-          statusmessage = (<div>
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
+          statusmessage = (
+                <div className="ui one column stackable grid container ">
+                    <div className="column">
+                        <div className="ui green message">Survey submitted successfully.</div>
+                    </div>
+                </div>
+          );
       }
 
       let content = '';
@@ -231,12 +234,12 @@ export default class Takesurvey extends React.Component {
       return (
                 <div className="ui segment brdr-none padding-none width-rating  ">
                     <div className="clear"></div>
+                    {statusmessage}
                     <div className="ui two column stackable grid container ">
                         <div className="column">
                             <h4 className="ui header ryt com">{form.surveytitle}</h4>
                         </div>
                         <div className="column"></div>
-                        {statusmessage}
                     </div>
                     {content}
                 </div>

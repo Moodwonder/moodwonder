@@ -20,7 +20,6 @@ export default class Navigation extends React.Component {
       this.state.lastmood = [];
       this.state.popup = false;
       this.state.questions = [];
-
       this.engagementmoods = [];
   }
 
@@ -77,8 +76,8 @@ export default class Navigation extends React.Component {
       let form = document.querySelector('#moodRating');
       let data = getFormData(form, {trim: true});
 
-      //let commentForm = document.querySelector('#commentForm');
-      //let commentData = getFormData(commentForm, {trim: true});
+      let commentForm = document.querySelector('#commentForm');
+      let commentData = getFormData(commentForm, {trim: true});
 
       let moodrate = data['moodrate'];
       let surveyResult = [];
@@ -86,28 +85,27 @@ export default class Navigation extends React.Component {
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
-          //mood.comment_title = commentData['comment_title'];
-          //mood.comment = commentData['comment'];
-          mood.comment_title = 'comment_title';
-          mood.comment = 'comment';
+          mood.comment_title = commentData['comment_title'];
+          mood.comment = commentData['comment'];
+          //mood.comment_title = 'comment_title';
+          //mood.comment = 'comment';
           mood.mood = data;
           return mood;
       });
 
-      //SurveyActions.saveEngagementSurvey(surveyResult);
       this.setState({ popup : false });
+      //console.log('surveyResult');
+      //console.log(JSON.stringify(surveyResult));
+      SurveyActions.saveEngagementSurvey(surveyResult);
+      //SurveyActions.getEngagementSurvey();
       //SurveyActions.getEngagementResults();
-      if (window.confirm('Are you sure you want to save?')) {
-          //console.log('surveyResult');
-          //console.log(JSON.stringify(surveyResult));
-          SurveyActions.saveEngagementSurvey(surveyResult);
-          SurveyActions.getEngagementSurvey();
-          SurveyActions.getEngagementResults();
-          SurveyActions.getResultsByCompany();
-          SurveyActions.getResultsByIndustry();
-          SurveyActions.getResultsByCountry();
-          SurveyActions.getMostEngagingManagers();
-      }
+      //SurveyActions.getResultsByCompany();
+      //SurveyActions.getResultsByIndustry();
+      //SurveyActions.getResultsByCountry();
+      //SurveyActions.getMostEngagingManagers();
+      window.setTimeout(() => {
+          window.location.reload();
+      });
   }
 
   onPopupClose = (e) => {
@@ -124,9 +122,78 @@ export default class Navigation extends React.Component {
   render () {
       let lang = this.state.lang;
       let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
-      //let popup = this.state.popup;
       let loginOrOut;
       let ratingSection = '';
+
+      let modal;
+      if(this.state.popup){
+          modal = (
+            <div className="ui dimmer modals page transition visible active">
+                <div className="ui active modal">
+                    <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
+                    <div className="header">What has changed?</div>
+                    <form id="commentForm">
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    <select name="comment_title">
+                                        <option value="">What happened...?</option>
+                                        <optgroup label="Company, Strategy &amp; Values">
+                                            <option value="63">Company event organized</option>
+                                            <option value="64">New executive level manager started</option>
+                                            <option value="65">Top executive left the company</option>
+                                            <option value="66">Strategy changed</option>
+                                            <option value="67">Strategy is not followed</option>
+                                            <option value="68">Strategy is failing</option>
+                                            <option value="69">Do not believe in our strategy</option>
+                                            <option value="70">Values are not in use</option>
+                                        </optgroup>
+                                        <optgroup label="Daily work &amp; Tasks">
+                                            <option value="38">Got recognition</option>
+                                            <option value="39">Got promotion</option>
+                                            <option value="40">Got raise</option>
+                                            <option value="41">Feedback received</option>
+                                            <option value="42">Targets achieved</option>
+                                            <option value="43">Project success</option>
+                                            <option value="44">Good project progress</option>
+                                            <option value="45">Achieved a lot today</option>
+                                            <option value="46">New tasks received</option>
+                                            <option value="47">New targets agreed</option>
+                                            <option value="48">Changes in job description</option>
+                                            <option value="49">Changes in job title</option>
+                                            <option value="50">Work related trip</option>
+                                            <option value="51">Conference trip</option>
+                                            <option value="52">Training confirmed</option>
+                                            <option value="53">Training attended</option>
+                                            <option value="54">Voluntary work done</option>
+                                            <option value="55">Made a mistake at work</option>
+                                            <option value="56">I am sick</option>
+                                            <option value="57">My child is sick</option>
+                                        </optgroup>
+                                        <optgroup label="My colleagues and team">
+                                            <option value="60">New colleague joined team</option>
+                                            <option value="61">Team event organized</option>
+                                            <option value="62">Colleague is leaving the company</option>
+                                        </optgroup>
+                                        <optgroup label="My manager">
+                                            <option value="58">New boss</option>
+                                            <option value="59">Discussion with boss</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div className="field">
+                                    <label> Comment</label>
+                                    <textarea rows="5" name="comment" ref="comment"></textarea>
+                                </div>
+                                <button type="button" onClick={this.onSubmitMood} className="ui submit button cancel" >Submit</button>
+                                <button type="button" onClick={this.onPopupClose} className="ui submit button submitt" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+         );
+      }
 
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
@@ -141,12 +208,12 @@ export default class Navigation extends React.Component {
                       <p>How are you feeling at work today?</p>
                   </div>
                   <div className="ui slider range  header-middle-container ">
-                        <form id="moodRating">
-                            <NavSlider lastrated={lastRated} />
-                        </form>
-                    </div>
+                      <form id="moodRating">
+                          <NavSlider lastrated={lastRated} />
+                      </form>
+                  </div>
                   <div  className="header-middle-container">
-                      <button className="ui yellow button" id="test" onClick={this.onSubmitMood}>Submit</button>
+                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>Submit</button>
                   </div>
                   <div  className="header-middle-container">
                       <a href="/survey" className="ui positive button answer">Answer all statements</a>
@@ -177,9 +244,8 @@ export default class Navigation extends React.Component {
                         <img className="logo" src="/images/logo.png" alt=""/>
                         <img className="logo-mw slide-logo" src="/images/logo-mw.png" alt=""/>
                     </div>
-
                     {ratingSection}
-
+                    {modal}
                     <div className="right item">
                         <div className="ui dropdown floating icon">
                             <i className="angle down icon" style={{"float":"right","marginRight":"20"}}></i>

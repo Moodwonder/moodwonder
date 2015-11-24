@@ -622,10 +622,13 @@ export default class MyMood extends React.Component {
       });
 
       if(formstatus) {
-          statusmessage = (<div className="alert alert-success">
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
+          statusmessage = (
+                        <div className="ui one column stackable grid container ">
+                            <div className="column">
+                                <div className="ui green message">Survey created successfully.</div>
+                            </div>
+                        </div>
+          );
       }
 
       let sno = 1;

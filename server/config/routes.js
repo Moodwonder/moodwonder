@@ -295,6 +295,8 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/label.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/modal.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/404.css" data-react-helmet="true" />';
         
         var userscripts = '';
         userscripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';
@@ -315,6 +317,7 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var homescripts = '';
         homescripts += '<!--[if IE]><script type="text/javascript">var console = { log: function() {} };</script><![endif]-->';
@@ -329,20 +332,16 @@ module.exports = function (app, passport) {
   
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
-        //adminstyles += userstyles;
         adminstyles += '<link rel="stylesheet" href="/assets/styles/adminstyles.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var adminscripts = '';
-        //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
-        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
-        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
-        //adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
-        //adminscripts += userscripts;
         adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/staticpages/static.css" />';
+        staticstyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var staticscripts = '';
         staticscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
@@ -366,6 +365,7 @@ module.exports = function (app, passport) {
 	loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
 	loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
 	loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var loginscripts = '';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
