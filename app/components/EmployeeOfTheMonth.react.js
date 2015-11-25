@@ -13,7 +13,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         this.mytotalvotes = 0;
         this.hasData = false;
         this.last_id = '';
-        this.count = 1;
+        this.search = false;
     }
 
     componentDidMount() {
@@ -30,13 +30,13 @@ export default class EmployeeOfTheMonth extends React.Component {
     _onChange = (state) => {
 
         console.log(state);
+        console.log(this.ShowMoreStatus);
         if(this.ShowMoreStatus){
             this.ShowMoreStatus = false;
             state.employees.data.employees.map((data, key) => {
                 this.filtered.push(data);
             });
            // console.log(state);
-            this.count++;
             console.log(this.filtered);
             this.mytotalvotes = state.employees.data.mytotalvotes;
             this.hasData = state.hasEmployees;
@@ -45,14 +45,22 @@ export default class EmployeeOfTheMonth extends React.Component {
                 this.last_id = last_employee._id;
             }
         }
+        if(this.state.voteStatus && (!this.state.hasError)){
+            this.filtered[this.state.votekey].myvote = true;
+            this.filtered[this.state.votekey].votes++;
+            state.voteStatus = false;
+        }
         this.setState(state);
     }
 
-    _onPopClick = (emp_id) => {
+    _onPopClick = (emp_id,key) => {
+        // key : vote widget unique key
         $( "body" ).addClass( "dimmed dimmable" );
+        console.log(key);
         this.setState({
             modal:true,
-            emp_id:emp_id
+            emp_id:emp_id,
+            votekey: key
         });
     }
 
@@ -76,8 +84,11 @@ export default class EmployeeOfTheMonth extends React.Component {
         console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         if( keyword !== '' ){
+            this.search = true;
             this.last_id = '';
+            this.filtered = [];
             EOTMActions.getallemployees({ keyword: keyword });
+            this.ShowMoreStatus = true;
         }
     }
 
@@ -95,11 +106,22 @@ export default class EmployeeOfTheMonth extends React.Component {
         EOTMActions.getallemployees(obj);
         this.ShowMoreStatus = true;
     }
+
     // Function to sort the user list by the entered word in the search user text box
     // It is disabled now
     _onChangeSearch = (e) => {
         console.log('_onChangeSearch');
         let text = e.target.value.trim();
+
+        // fetch fresh data after clearing the search text box
+        if( text === '' && this.search ){
+            this.search = false;
+            this.ShowMoreStatus = true;
+            this.filtered = [];
+            EOTMActions.getallemployees();
+        }
+
+        /*
         if(text !== ''){
             if(this.hasData){
                 this.filtered = [];
@@ -117,6 +139,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered = this.state.employees.data.employees;
             this.setState(this.state);
         }
+        */
     }
 
     _onVoteSubmit = (e) => {
@@ -127,11 +150,13 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     render() {
+        // console.log('render..');
+        // console.log(this.state);
 
         let employees = '';
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
-                return [<VoteWidget _id={data._id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} />];
+                return [<VoteWidget _id={data._id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
             });
         }
 
@@ -173,7 +198,7 @@ export default class EmployeeOfTheMonth extends React.Component {
                     <div className="ui container">
                         <div className="ui right labeled left icon input">
                             <i className="search icon"></i>
-                            <input type="text" ref="search" placeholder="Search a name" />
+                            <input type="text" ref="search" onChange={this._onChangeSearch} placeholder="Search a name" />
                             <a className="ui tag label" onClick={this._onSearch} > Search </a>
                         </div>
                     </div>
@@ -198,7 +223,7 @@ class VoteWidget extends React.Component {
 
     _onModalClick = () => {
         if(this.props.votes !== undefined){
-            this.props.click(this.props._id);
+            this.props.click(this.props._id,this.props.index);
         }
     }
 
@@ -235,7 +260,6 @@ class VoteWidget extends React.Component {
             </div>
         );
     }
-
 }
 
 class ProfileHeader extends React.Component {

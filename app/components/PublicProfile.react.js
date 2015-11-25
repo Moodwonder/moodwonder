@@ -6,38 +6,37 @@ import SurveyParticipation from 'utils/SurveyParticipation';
 import PublicUserStore from 'stores/PublicUserStore';
 import EOTMActions from 'actions/EmployeeOfTheMonthActions';
 import EOTMStore from 'stores/EmployeeOfTheMonthStore';
-import UserStore from 'stores/UserStore';
 
 export default class PublicProfile extends React.Component {
 
     constructor(props) {
-      super(props);
-      this.state = PublicUserStore.getState();
-      this.state.mySurvey = [];
-      this.mytotalvotes = 0;
+        super(props);
+        this.state = PublicUserStore.getState();
+        this.state.mySurvey = [];
+        this.mytotalvotes = 0;
     }
 
     componentDidMount() {
-      SurveyParticipationActions.getMySurveyParticipation();
-      SurveyParticipationStore.listen(this._onChange);
-      PublicUserStore.listen(this._onChange);
-      EOTMStore.listen(this._onChangeEOTMStore);
+        SurveyParticipationActions.getMySurveyParticipation();
+        SurveyParticipationStore.listen(this._onChange);
+        PublicUserStore.listen(this._onChange);
+        EOTMStore.listen(this._onChangeEOTMStore);
     }
 
     componentWillUnmount() {
-      SurveyParticipationStore.unlisten(this._onChange);
+        SurveyParticipationStore.unlisten(this._onChange);
     }
 
     _onChange = (state) => {
-      this.setState({
-          mySurvey: SurveyParticipationStore.getState().mySurvey
-      });
+        this.setState({
+            mySurvey: SurveyParticipationStore.getState().mySurvey
+        });
     }
 
     _onChangeEOTMStore = (state) => {
         // console.log(state);
         if(!state.modal){
-          this._onPopClose();
+            this._onPopClose();
         }
 
         let publicuser = this.state.publicuser;
@@ -83,49 +82,48 @@ export default class PublicProfile extends React.Component {
         }
     }
 
-  render() {
+    render() {
 
-      let mySurvey = this.state.mySurvey;
-      let sPercentage = SurveyParticipation.surveyPercentage(mySurvey);
+        let mySurvey = this.state.mySurvey;
+        let sPercentage = SurveyParticipation.surveyPercentage(mySurvey);
 
-      let content;
-      let manager = null;
-      let teams   = null;
-      let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> VOTE HERE</a>);
-      if (!isNaN(sPercentage)) {
-          content = (<ParticipationGraph percentage={sPercentage} />);
-      }
-      
-      let publicUser = this.state.publicuser;
-      //console.log(JSON.stringify(publicUser));
-      if (publicUser.data !== undefined && publicUser.data.manager !== undefined && publicUser.data.manager.status !== undefined && publicUser.data.manager.status ) {
-          manager = (
-            <div className="my-info">
-                <img className="ui middle aligned tiny image circular" src={publicUser.data.manager.data.propic} />
-                <span className="heading">{publicUser.data.manager.data.name}</span>
-            </div>
-          );
-      }
-      if (publicUser.data !== undefined && publicUser.data.teams !== undefined && publicUser.data.teams.status !== undefined && publicUser.data.teams.status ) {
+        let content;
+        let manager = null;
+        let teams   = null;
+        let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> VOTE HERE</a>);
+        if (!isNaN(sPercentage)) {
+            content = (<ParticipationGraph percentage={sPercentage} />);
+        }
+
+        let publicUser = this.state.publicuser;
+        //console.log(JSON.stringify(publicUser));
+        if (publicUser.data !== undefined && publicUser.data.manager !== undefined && publicUser.data.manager.status !== undefined && publicUser.data.manager.status ) {
+            manager = (
+                <div className="my-info">
+                    <img className="ui middle aligned tiny image circular" src={publicUser.data.manager.data.propic} />
+                    <span className="heading">{publicUser.data.manager.data.name}</span>
+                </div>
+            );
+        }
+
+        if (publicUser.data !== undefined && publicUser.data.teams !== undefined && publicUser.data.teams.status !== undefined && publicUser.data.teams.status ) {
 
             teams = publicUser.data.teams.data.map((data, key) => {
                 return (
-                    <div className="my-info">
-                        <i className="users huge icon"></i>
+                    <div className="my-info teams">
                         <span className="heading">{data.teamname}</span>
                     </div>
                 );
             });
-      }
+        }
 
-      try{
-          
-          if ( publicUser.data.vote.mytotalvotes < 5 && !publicUser.data.vote.myvote) {
+        try{
+            if ( publicUser.data.vote.mytotalvotes < 5 && !publicUser.data.vote.myvote) {
                 // If my vote is true publicUser.data.mytotalvotes < 5 &&
                 console.log(JSON.stringify(publicUser.data.vote));
                 voteBtn   = (<a className="ui button vote " onClick={this._onModalClick}> <i className='thumbs up icon'></i> VOTE HERE</a>);
-          }
-      }catch(e){}
+            }
+        }catch(e){}
 
         let modal;
         if(this.state.modal){
@@ -158,8 +156,8 @@ export default class PublicProfile extends React.Component {
             );
         }
 
-        //console.log(voteBtn);
-      return (
+      // console.log(voteBtn);
+        return (
         <div className="ui-main">
             <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>
             <div className="ui secondary menu account">
@@ -180,18 +178,18 @@ export default class PublicProfile extends React.Component {
                 <div className="seven wide column">
                     <div className="ui segment">
                         <h4 className="ui header ryt">MANAGERS</h4>
-
                         {manager}
 
+                        <h4 className="ui header ryt">Teams</h4>
                         {teams}
-                        
+
                     </div>
                 </div>
             </div>
             {modal}
         </div>
-      );
-  }
+        );
+    }
 }
 
 class PublicProfileHeader extends React.Component {
@@ -222,7 +220,7 @@ class PublicProfileHeader extends React.Component {
             cover_image: '',
             profile_image: '',
             name: '',
-            email: '',
+            email: ''
         };
 
         if(this.state.publicuser !== undefined){

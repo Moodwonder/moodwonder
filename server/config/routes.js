@@ -300,6 +300,7 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/modal.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/dimmer.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/404.css" data-react-helmet="true" />';
 
         
