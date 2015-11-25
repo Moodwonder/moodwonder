@@ -37,6 +37,10 @@ export default class SidebarMenu extends React.Component {
                         <i className="building icon"></i>
                         Mood Rate
                     </a>
+                    <a className="item" href="/invitepeople">
+                        <i className="building icon"></i>
+                        Invite People
+                    </a>
             </div>
       );
   }

@@ -52,6 +52,7 @@ import Terms from 'components/staticpages/Terms.react';
 import Policy from 'components/staticpages/Policy.react';
 import PublicProfile from 'components/PublicProfile.react';
 import MobileMoodrate from 'components/MobileMoodrate.react';
+import MobileInvite from 'components/MobileInvite.react';
 import Appmobile from 'components/Appmobile.react';
 
 const routes = (
@@ -97,6 +98,9 @@ const routes = (
     </Route>
     <Route name="moodrate" path="/moodrate" handler={Appmobile} >
         <Route name="" handler={MobileMoodrate} />
+    </Route>
+    <Route name="invitepeople" path="/invitepeople" handler={Appmobile} >
+        <Route name="" handler={MobileInvite} />
     </Route>
     <Route name="openendedsurvey" path="/openendedsurvey" handler={Appuser} >
       <Route name="" handler={OpenEndedQuestions} />
