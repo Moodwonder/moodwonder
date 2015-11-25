@@ -42,7 +42,7 @@ export default class Leftnav extends React.Component {
                         <i className="angle down icon"></i>
                         <div className="menu">
                             <div className="item">L_MYPROFILE_LINK</div>
-                            <div className="item"><a href="/logout">L_LOGOUT_LINK</a></div>
+                            <div className="item"><a href="/logout"  style={{"color":"#000 !important"}}>L_LOGOUT_LINK</a></div>
                         </div>
                     </div>
                 </div>

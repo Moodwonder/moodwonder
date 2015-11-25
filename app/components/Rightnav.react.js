@@ -124,7 +124,7 @@ export default class Rightnav extends React.Component {
                     </div>
                     <div className="item ryt">
                         <h4 className="ui header ryt">Time since last response</h4>
-                        <div className="ui two column stackable grid  ">
+                        <div className="ui two column stackable grid response">
                             <div className="three column row padding-top  ">
                                 <div className="column padding-ryt">
                                     <div className="ui segment red-time">

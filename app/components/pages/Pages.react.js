@@ -187,21 +187,26 @@ export default RequireAuth(class Pages extends React.Component {
       return (
       <div className="ui container">
         <h2>Language - Pages</h2>
-        <form id="pageForm" className="ui form">
-          <div className="field">
-            <label htmlFor="inputPage">Select Page : </label>
-            <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
-                <option value="home">Home</option>
-                <option value="signup">Signup</option>
-                <option value="login">Login</option>
-                <option value="mwusertheme">Mwusertheme</option>
-            </select>
-          </div>
-          <div className="field">
-            <label htmlFor="inputPage" className="col-sm-2 control-label">Select language : </label>
-            <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
-          </div>
-        </form>
+        <div className="ui two column stackable grid container ">
+            <div className="column">
+                <form id="pageForm" className="ui form">
+                  <div className="field">
+                    <label htmlFor="inputPage">Select Page : </label>
+                    <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
+                        <option value="home">Home</option>
+                        <option value="signup">Signup</option>
+                        <option value="login">Login</option>
+                        <option value="mwusertheme">Mwusertheme</option>
+                    </select>
+                  </div>
+                  <div className="field">
+                    <label htmlFor="inputPage" className="col-sm-2 control-label">Select language : </label>
+                    <Languageoptions languages={languages} onChange={this.onSelectLanguage}/>
+                  </div>
+                </form>
+            </div>
+            <div className="column"></div>
+        </div>
         <div className="field">
          {statusmessage}
         </div>

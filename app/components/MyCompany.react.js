@@ -406,7 +406,7 @@ export default class MyCompany extends React.Component {
       if (engagementgraphtab) {
           engagementGraphTabContent = (
                 <div className="ui bottom attached segment brdr-none menu">
-                    <div className="ui  column stackable grid container">
+                    <div className="ui  column stackable grid container" style={{"marginLeft" : "0px !important"}}>
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
                                 <h4 className="ui header ryt com">Moodwonder trend</h4>

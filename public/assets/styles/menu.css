@@ -1031,7 +1031,7 @@ Floated Menu / Item
 	border-top: 2px solid transparent;
 	border-bottom: none;
 	color: #90a4ae;
-	font-size: 16px;
+	font-size: 14px;
 	text-transform: uppercase;
 	margin: 0 15px 0 0;
 	-webkit-transition: background-color 1000ms linear;
@@ -1062,7 +1062,7 @@ Floated Menu / Item
 	color: #26a69a;
 	border-top-width: 1px;
 	border-color: #d4d4d5;
-	font-size: 16px;
+	font-size: 14px;
 	margin-bottom: -1px;
 	box-shadow: none;
 	text-transform: uppercase;

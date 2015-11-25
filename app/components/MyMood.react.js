@@ -622,10 +622,13 @@ export default class MyMood extends React.Component {
       });
 
       if(formstatus) {
-          statusmessage = (<div className="alert alert-success">
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
+          statusmessage = (
+                        <div className="ui one column stackable grid container ">
+                            <div className="column">
+                                <div className="ui green message">Survey created successfully.</div>
+                            </div>
+                        </div>
+          );
       }
 
       let sno = 1;
@@ -795,8 +798,9 @@ export default class MyMood extends React.Component {
                  );
           });
       } else {
-          topthreevscompany = (
-                  <div className="column padding-ryt">
+          topthreevscompany = [
+                    <div className="column padding-ryt"></div>,
+                    <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head"></p>
                             <div className="ui star rating">
@@ -808,8 +812,9 @@ export default class MyMood extends React.Component {
                             </div>
                             <div className="title">You don't have any higher areas.</div>
                         </div>
-                    </div>
-                  );
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
       }
 
       let worstthreevscompany;
@@ -831,7 +836,8 @@ export default class MyMood extends React.Component {
                  );
           });
       } else {
-          worstthreevscompany = (
+          worstthreevscompany = [
+                  <div className="column padding-ryt"></div>,
                   <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head"></p>
@@ -844,8 +850,9 @@ export default class MyMood extends React.Component {
                             </div>
                             <div className="title">You don't have any worst areas.</div>
                         </div>
-                    </div>
-                  );
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
       }
 
       //let mevsindustry;
@@ -1311,50 +1318,6 @@ export default class MyMood extends React.Component {
                             </div>
 
                         </div>
-                        <div className="ui three cards  column stackable padding-20-mobile">
-                            <div className="ui card box-white">
-                                <div className="content  box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"> <img src="assets/images/avatar/tom.jpg" alt="" /></div>
-                                        <div className="column">
-                                            MY LEAST IMPROVED AREAS
-                                            <br/>
-                                            <span className="small-title">(LAST ONE MONTH) </span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
-                            <div className="ui card box-white">
-                                <div className="content  box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /></div>
-                                        <div className="column">
-                                            MY LEAST IMPROVED AREAS
-                                            <br/>
-                                            <span className="small-title">(LAST ONE MONTH)</span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
-                            <div className="ui card box-white">
-                                <div className="content box-white-border">
-                                    <div className="header two column">
-                                        <div className="column"><img src="assets/images/avatar/tom.jpg" alt="" /> </div>
-                                        <div className="column">
-                                            ME vs COMPANIES
-                                            <br/>
-                                            <span className="small-title">(COUNTRY)</span>
-                                        </div>
-                                    </div>
-                                    <div className="description"> No date available. Please add team members in your company. </div>
-                                </div>
-                                <div className="extra center aligned"> <a href="#">CLICK HERE</a> </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
           );
@@ -1375,34 +1338,6 @@ export default class MyMood extends React.Component {
 
       return (
             <div>
-                <div className="ui segment padding-none width-header rate header-middle-container">
-                    <div className="clear"></div>
-                    <div className="">
-                        <h2>RATE YOUR MOOD</h2>
-                        <p>How are you feeling at work today?</p>
-                    </div>
-                    <form id="moodRating">
-                        <div className="ui slider range ">
-                            <input type="range" />
-                        </div>
-                        <div  className="">
-                            <button className="ui yellow button" onClick={this.onSubmitMood}>Submit</button>
-                        </div>
-                    </form>
-                    <div  className="">
-                        <button className="ui yellow button answer positive">Answer all statements</button>
-                    </div>
-                </div>
-
-                <div className="invite-people mobile">
-                    <h2>Invite people anonymously</h2>
-                    <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
-                    <div className="ui input">
-                        <input placeholder="Enter e-mail " type="text" />
-                    </div>
-                    <button className="ui orange button">Invite</button>
-                </div>
-
                 <div className="ui tabular menu tab three column">
                     {tabs}
                 </div>

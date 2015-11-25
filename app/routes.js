@@ -51,6 +51,7 @@ import Anonymity from 'components/staticpages/Anonymity.react';
 import Terms from 'components/staticpages/Terms.react';
 import Policy from 'components/staticpages/Policy.react';
 import PublicProfile from 'components/PublicProfile.react';
+import MobileMoodrate from 'components/MobileMoodrate.react';
 
 const routes = (
   <Route>
@@ -92,6 +93,9 @@ const routes = (
     </Route>
     <Route name="survey" path="/survey" handler={Appuser} >
       <Route name="" handler={Survey} />
+    </Route>
+    <Route name="moodrate" path="/moodrate" handler={Appuser} >
+        <Route name="" handler={MobileMoodrate} />
     </Route>
     <Route name="openendedsurvey" path="/openendedsurvey" handler={Appuser} >
       <Route name="" handler={OpenEndedQuestions} />
@@ -147,12 +151,13 @@ const routes = (
     </Route>
     <Route name="forgotpassword" path="/forgotpassword" handler={ForgotPassword} >
     </Route>
+    <Route name="logout" path="/logout" handler={Logout} >
+    </Route>
     <Route name="app" path="/" handler={App} >
-      <Route name="logout" handler={Logout} />
       <Route name="tabs" handler={Tabs} />
       <DefaultRoute handler={Index} />
-      <NotFoundRoute name="404" handler={NotFound} />
     </Route>
+    <NotFoundRoute name="404" handler={NotFound} />
   </Route>
 );
 

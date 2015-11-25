@@ -300,6 +300,8 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/form.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/modal.css" data-react-helmet="true" />';
+        userstyles += '<link rel="stylesheet" href="/assets/404.css" data-react-helmet="true" />';
+
         
         var userscripts = '';
         userscripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';
@@ -320,6 +322,7 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/animation.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var homescripts = '';
         homescripts += '<!--[if IE]><script type="text/javascript">var console = { log: function() {} };</script><![endif]-->';
@@ -329,15 +332,45 @@ module.exports = function (app, passport) {
         homescripts += '<script type="text/javascript" src="/assets/mainhome/home.js"></script>';
         homescripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
         
+        var moodrate = '';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/reset.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/site.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/container.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/grid.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/header.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/image.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/menu.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/divider.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/dropdown.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/segment.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/button.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/list.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/sidebar.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/transition.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/popup.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/input.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/card.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/rating.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/404.css" />';
         
+  
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/adminstyles.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
+        var adminscripts = '';
+        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/staticpages/static.css" />';
+        staticstyles += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var staticscripts = '';
         staticscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
@@ -361,13 +394,13 @@ module.exports = function (app, passport) {
 	loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
 	loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
 	loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var loginscripts = '';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/form.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
-        
         
         
         if (pageurl == '/' || pageurl == '/index') {
@@ -377,7 +410,14 @@ module.exports = function (app, passport) {
                 .replace("BODYCLASS", 'home')
                 .replace("JSCRIPTS", homescripts);
         
-        } else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+        } else if (pageurl == '/moodrate') {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", moodrate)
+                .replace("BODYCLASS", 'home')
+                .replace("JSCRIPTS", userscripts);
+        
+        }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", staticstyles)
@@ -389,9 +429,9 @@ module.exports = function (app, passport) {
                 .replace("META", Header.meta)
                 .replace("LINK", adminstyles)
                 .replace("BODYCLASS", '')
-                .replace("JSCRIPTS", '');
+                .replace("JSCRIPTS", adminscripts);
         
-        } else if (pageurl == '/login') {
+        } else if (pageurl == '/login' || pageurl == '/logout') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", loginpage)

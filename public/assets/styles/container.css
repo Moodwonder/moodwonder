@@ -312,7 +312,8 @@
 	padding-bottom: 0!important;
 }
 .rate {
-	display: none!important;
+	/* display: none!important; */
+	display: block !important;
 	width: 100%;
 }
 .header-middle-container {
@@ -492,7 +493,7 @@
 	background-color: #66bb6a!important;
 	text-align: center;
 	border-radius: 20px;
-	padding: 4px 10px !important;
+	padding: 5px 10px 3px !important;
 	color: #FFF;
 	float: right;
 }
@@ -958,13 +959,13 @@ meter {
           
     height: 10px;
     /* For Firefox */
-    background: #cfd8dc
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+    background: #cfd8dc;
+    /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;*/
     border-radius: 20px;
 }
 /* WebKit */
 meter::-webkit-meter-bar {
-    background: #cfd8dc
+    background: #cfd8dc;
     box-shadow: none!important;
     border-radius: 20px;
 }
@@ -1006,4 +1007,5 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     height: 100% !important;
     width: 100% !important;
 }
+
 /* End: Edited by Dev */

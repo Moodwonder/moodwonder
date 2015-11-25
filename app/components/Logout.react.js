@@ -25,9 +25,17 @@ export default class Logout extends React.Component {
 
   render() {
       return (
-      <div className="container">
-        <h3>You have been logged out.</h3>
-      </div>
-    );
+            <div className="ui middle aligned center aligned grid">
+                <div className="column">
+                    <h2 className="ui  image header"> <a href="/"><img src="assets/images/logo.png" className="image"/></a></h2>
+                    <div className="ui large form">
+                        <div className="ui error message segment"></div>
+                    </div>
+                    <div className="ui message ">
+                        <h2>You have successfully logged out!</h2> Please <a href="/login">login</a> to continue.
+                    </div>
+                </div>
+            </div>
+      );
   }
 }
