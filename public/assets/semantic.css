@@ -14366,7 +14366,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 
 @media only screen and (max-width: 767px) {
 .ui.menu > .ui.container {
-	width: 100%;
+	width: 100% !important;
 	margin-left: 0em !important;
 	margin-right: 0em !important;
 }
@@ -14836,7 +14836,7 @@ Floated Menu / Item
 
 .ui.secondary.pointing.menu .dropdown.item:active, .ui.secondary.pointing.menu .link.item:active, .ui.secondary.pointing.menu a.item:active {
 	background-color: transparent;
-	border-color: rgba(34, 36, 38, 0.15);
+	/*border-color: rgba(34, 36, 38, 0.15);*/
 }
 /* Active */
 

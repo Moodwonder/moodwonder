@@ -361,6 +361,7 @@
 	background: #eceff1;
 	border-radius: 6px;
 	padding: 15px 10px!important;
+        text-align: center;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1000,12 +1001,13 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     margin: 4% 30% 0 30%;
 }*/
 #employeeAvgEngagement {
-    margin: 0 auto !important;
-    width: 67% !important;
+    width: 52% !important;
+    margin: 0px auto !important;
+    height: 120px;
 }
 #employeeAvgEngagement canvas, #employeeAvgEngagement .circle-text-half {
-    height: 100% !important;
-    width: 100% !important;
+    /*height: 100% !important;
+    width: 100% !important;*/
 }
 
 /* End: Edited by Dev */

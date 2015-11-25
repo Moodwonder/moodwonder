@@ -195,7 +195,7 @@ export default RequireAuth(class Engagementarea extends React.Component {
                             <div className="column"></div>
                             <div className="column"></div>
                             <div className="column">
-                                <button className="ui orange button" href="#" onClick={this.onAddEngagement}>Add Engagement</button>
+                                <button className="ui orange button" style={{"height":"40px !important"}} href="#" onClick={this.onAddEngagement}>Add Engagement</button>
                             </div>
                         </div>
                       <table className="ui celled table">
@@ -226,7 +226,7 @@ export default RequireAuth(class Engagementarea extends React.Component {
                         <div className="column"></div>
                         <div className="column"></div>
                         <div className="column">
-                            <button className="ui orange button" href="#" onClick={this.onListEngagements}>List Engagement areas</button>
+                            <button className="ui orange button" style={{"height":"40px !important"}} href="#" onClick={this.onListEngagements}>List Engagement areas</button>
                         </div>
                     </div>
 

@@ -204,7 +204,7 @@ export default RequireAuth(class Notificationrules extends React.Component {
                         <div className="column"></div>
                         <div className="column"></div>
                         <div className="column">
-                            <button className="ui orange button" href="#" onClick={this.onListRules}>List notification rules</button>
+                            <button className="ui orange button" style={{"height":"40px !important"}} href="#" onClick={this.onListRules}>List notification rules</button>
                         </div>
                     </div>
                     <h4>Edit rules</h4>

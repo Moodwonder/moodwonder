@@ -516,4 +516,7 @@ footer a:hover{
    color: rgba(255,255,255,0.5);
 	padding:0 6px;
 }
-.footer-left{float:left;}
+.footer-left{
+    float:left;
+    text-align:left;
+}
