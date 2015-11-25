@@ -22,8 +22,8 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
   render() {
 
       return (
-      <div className="container">
-        <h1>Company Admin</h1>
+      <div className="ui container">
+        <h2>Company Admin</h2>
         <DataTable data={this.state.usersTable}/>
       </div>
       );
@@ -207,17 +207,24 @@ class DataTable extends React.Component {
         }
 
         return (
-
-        <div>
-        <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
-        <table className={tableClass}>
-          <tr>
-            {header}
-          </tr>
-          {rows}
-        </table>
-        <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
-        </div>
+            <div>
+                <div className="ui three column stackable grid container ">
+                    <div className="column">
+                        <form className="ui form">
+                            <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
+                        </form>
+                    </div>
+                    <div className="column"></div>
+                    <div className="column"></div>
+                </div>
+                <table className={tableClass + " ui celled table"}>
+                    <tr>
+                        {header}
+                    </tr>
+                    {rows}
+                </table>
+                <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+            </div>
         );
     }
 }
@@ -262,10 +269,10 @@ class ChangeUserStatus extends React.Component {
     render() {
 
         return (
-        <div>
-        <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
-        {this.state.statusText}
-        </div>
+            <div className="ui container">
+                <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
+                {this.state.statusText}
+            </div>
         );
     }
 }

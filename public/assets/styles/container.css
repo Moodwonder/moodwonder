@@ -1001,13 +1001,12 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     margin: 4% 30% 0 30%;
 }*/
 #employeeAvgEngagement {
-    width: 52% !important;
-    margin: 0px auto !important;
-    height: 120px;
+    margin: 0 auto !important;
+    width: 67% !important;
 }
 #employeeAvgEngagement canvas, #employeeAvgEngagement .circle-text-half {
-    /*height: 100% !important;
-    width: 100% !important;*/
+    height: 100% !important;
+    width: 100% !important;
 }
 
 /* End: Edited by Dev */

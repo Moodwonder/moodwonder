@@ -77,29 +77,39 @@ export default RequireAuth(class AllTeams extends React.Component {
         }
 
         return (
-        <div className="container">
-        <h1>All Teams</h1>
-        <ul className="nav nav-tabs">
-            <li><a onClick={this.onTabClick.bind(this,0)} >Teams</a></li>
-            <li><a onClick={this.onTabClick.bind(this,1)} >Search Teams</a></li>
-        </ul>
-        <div className="tab-content">
-          <div id="home" className={activeTab[0]}>
-                <select className="form-control" onChange={this._onCompanyChange} >
-                  <option value="">--select a company --</option>
-                  {companylist}
-                </select>
-                {dataTable}
-          </div>
-          <div id="menu1" className={activeTab[1]}>
-            <div>
-                <input type="text" ref="teamsearch" placeholder="Search a team" />
-                <button onClick={this._onTeamSearch} >Search</button>
-                {teamSearchResult}
-            </div>
-          </div>
-        </div>
+        <div className="ui container">
+            <h2>All Teams</h2>
+            <ul className="nav nav-tabs">
+                <li><a onClick={this.onTabClick.bind(this,0)} >Teams</a></li>
+                <li><a onClick={this.onTabClick.bind(this,1)} >Search Teams</a></li>
+            </ul>
 
+            <div className="ui three column stackable grid container ">
+                <div className="column">
+                    <form className="ui form">
+                        <div className="field">
+                            <div id="home" className={activeTab[0]}>
+                                  <select className="form-control" onChange={this._onCompanyChange} >
+                                    <option value="">--select a company --</option>
+                                    {companylist}
+                                  </select>
+                                  {dataTable}
+                            </div>
+                        </div>
+                        <div className="field">
+                            <div id="menu1" className={activeTab[1]}>
+                              <div>
+                                  <input type="text" ref="teamsearch" placeholder="Search a team" />
+                                  <button className="ui blue button" onClick={this._onTeamSearch} >Search</button>
+                                  {teamSearchResult}
+                              </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div className="column"></div>
+                <div className="column"></div>
+            </div>
         </div>
         );
     }
@@ -289,20 +299,20 @@ class DataTable extends React.Component {
             );
         }
 
-        return (
 
-        <div>
-        <table className={tableClass}>
-         <tbody>
-          <tr>
-            {header}
-          </tr>
-          {rows}
-          </tbody>
-        </table>
-        <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
-        {modal}
-        </div>
+        return (
+            <div className="ui container">
+                <table className={tableClass + " ui celled table"}>
+                    <tbody>
+                        <tr>
+                            {header}
+                        </tr>
+                        {rows}
+                    </tbody>
+                </table>
+                <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+                {modal}
+            </div>
         );
     }
 }
