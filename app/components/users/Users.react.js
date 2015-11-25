@@ -251,7 +251,7 @@ class DataTable extends React.Component {
                 </div>
             );
         }
-        
+
 
         return (
             <div className="ui container">

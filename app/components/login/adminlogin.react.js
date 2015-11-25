@@ -66,7 +66,7 @@ export default class Adminlogin extends React.Component {
       let authFailure = this.state.authFailure;
       let logStatus = '';
       if(authFailure === "true") {
-          logStatus = (<div className="alert alert-danger">
+          logStatus = (<div className="ui red message">
                         <strong>Error!</strong> Invalid username or password.
                        </div>);
       }
@@ -78,7 +78,6 @@ export default class Adminlogin extends React.Component {
                     <div className="column"><h2>Login here..</h2></div>
                     <div className="column"></div>
                 </div>
-                {logStatus}
                 <div className="ui three column stackable grid container ">
                     <div className="column"></div>
                     <div className="column">
@@ -89,7 +88,9 @@ export default class Adminlogin extends React.Component {
                           <div className="field">
                             <input type="password" name="password" placeholder="password"/>
                           </div>
-                          <br/>
+                          <div className="field">
+                              {logStatus}
+                          </div>
                           <div className="field">
                             <button className="ui blue button" onClick={this.onAdminLogin}>Submit</button>
                           </div>
