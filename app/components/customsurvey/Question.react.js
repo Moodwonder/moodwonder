@@ -121,7 +121,7 @@ export default class Question extends React.Component {
       }
 
       return (
-            <div id={qid} key={qid} className="ui two column stackable grid survey test">
+            <div id={qid} key={qid} className="ui two column stackable grid survey test"  style={{"marginRight": "0px !important"}}>
                 <div className="one wide column qst-mobile">
                     <div className="ui grey circular label"> Q.{sno}</div>
                 </div>

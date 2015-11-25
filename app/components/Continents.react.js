@@ -60,8 +60,8 @@ export default RequireAuth(class Continents extends React.Component {
             );
         }
         return (
-            <div className="container">
-                <h1>All Continents</h1>
+            <div className="ui container">
+                <h2>All Continents</h2>
                 {message}
                 <ul className="nav nav-tabs">
                     <li className={activeTab[0][1]}><a onClick={this.onTabClick.bind(this,0)} >Add Continents</a></li>
@@ -116,7 +116,7 @@ class AddContinents extends React.Component {
                    className="form-control"
                    placeholder="Enter continent name"
                    required/>
-                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
+                   <button type="submit" className="ui blue button" disabled={!this.state.canSubmit}>Submit</button>
                 </Formsy.Form>
             </div>
         );
@@ -265,16 +265,16 @@ class DataTable extends React.Component {
         }
 
         return (
-        <div>
-            <table className={tableClass}>
+        <div className="ui container">
+            <table className={tableClass + " ui celled table"}>
                 <tbody>
                     <tr>
-                    {header}
+                        {header}
                     </tr>
                     {rows}
                 </tbody>
             </table>
-            <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+            <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
         </div>
         );
     }

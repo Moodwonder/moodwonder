@@ -191,7 +191,7 @@ export default RequireAuth(class Languages extends React.Component {
             <div className="column"></div>
             <div className="column"></div>
             <div className="column">
-                <button className="ui orange button" href="#" onClick={this.onAddNewLanguage}>Add New Language</button>
+                <button className="ui orange button" style={{"height":"40px !important"}} href="#" onClick={this.onAddNewLanguage}>Add New Language</button>
             </div>
         </div>
 

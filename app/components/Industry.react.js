@@ -59,8 +59,8 @@ export default RequireAuth(class Industry extends React.Component {
             );
         }
         return (
-            <div className="container">
-                <h1>All Industry</h1>
+            <div className="ui container">
+                <h2>All Industry</h2>
                 {message}
                 <ul className="nav nav-tabs">
                     <li className={activeTab[0][1]}><a onClick={this.onTabClick.bind(this,0)} >Industries</a></li>
@@ -259,17 +259,17 @@ class DataTable extends React.Component {
         }
 
         return (
-        <div>
-            <table className={tableClass}>
-                <tbody>
-                    <tr>
-                    {header}
-                    </tr>
-                    {rows}
-                </tbody>
-            </table>
-            <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
-        </div>
+            <div className="ui container">
+                <table className={tableClass + " ui celled table"}>
+                    <tbody>
+                        <tr>
+                            {header}
+                        </tr>
+                        {rows}
+                    </tbody>
+                </table>
+                <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+            </div>
         );
     }
 }

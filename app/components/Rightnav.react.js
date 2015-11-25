@@ -71,13 +71,13 @@ export default class Rightnav extends React.Component {
 
       let responseComparison = lastRatings.map((data, index) => {
           return [
-                        <div className="column padding-ryt">
+                        <div className="column padding-ryt response">
                             <div className="ui segment padding-20">
                                 <p>{data.mood}</p>
                             </div>
                         </div>,
 
-                        <div className="column padding-ryt">
+                        <div className="column padding-ryt response">
                             <div className="ui segment padding-20">
                                 <p><meter min="1" max="5" value={data.rating} className="tab-ryt-meter"></meter></p>
                             </div>
@@ -124,7 +124,7 @@ export default class Rightnav extends React.Component {
                     </div>
                     <div className="item ryt">
                         <h4 className="ui header ryt">Time since last response</h4>
-                        <div className="ui two column stackable grid response">
+                        <div className="ui two column stackable grid">
                             <div className="three column row padding-top  ">
                                 <div className="column padding-ryt">
                                     <div className="ui segment red-time">

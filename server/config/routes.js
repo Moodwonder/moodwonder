@@ -353,6 +353,7 @@ module.exports = function (app, passport) {
         moodrate += '<link rel="stylesheet" href="/assets/styles/input.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/card.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/rating.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/modal.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/404.css" />';
         
   
@@ -366,7 +367,7 @@ module.exports = function (app, passport) {
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
-        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
+        //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';

@@ -195,6 +195,11 @@ export default class Navigation extends React.Component {
          );
       }
 
+      let lastRated = '';
+      if(lastMood !== null) {
+          lastRated = lastMood.rating;
+      }
+
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
                 <a href="/myprofile" className="item">My Account</a>,
@@ -226,11 +231,6 @@ export default class Navigation extends React.Component {
               <a href="/login" className="item">NAV_LOGIN</a>,
               <a href="/signup" className="item">NAV_SIGNUP</a>
           ];
-      }
-
-      let lastRated = '';
-      if(lastMood !== null) {
-          lastRated = lastMood.rating;
       }
 
 

@@ -23,8 +23,8 @@ export default RequireAuth(class Dashboard extends React.Component {
   render() {
 
       return (
-      <div className="container">
-        <h1>Users</h1>
+      <div className="ui container">
+        <h2>Users</h2>
         <DataTable data={this.state.usersTable}/>
       </div>
       );
@@ -236,35 +236,43 @@ class DataTable extends React.Component {
         if(this.state.modal){
             modal = (
                 <div className="modal fade in cmodal-show" id="myModal" role="dialog">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" onClick={this._onPopClose} className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Teams</h4>
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" onClick={this._onPopClose} className="close" data-dismiss="modal">&times;</button>
+                                <h4 className="modal-title">Teams</h4>
+                            </div>
+                            <div className="modal-body modal-height-350">
+                                {teamUserList}
+                            </div>
+                            <div className="modal-footer"></div>
+                        </div>
                     </div>
-                    <div className="modal-body modal-height-350">
-                        {teamUserList}
-                    </div>
-                    <div className="modal-footer">
-                    </div>
-                  </div>
-                </div>
                 </div>
             );
         }
-        return (
+        
 
-        <div>
-        <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
-        <table className={tableClass}>
-          <tr>
-            {header}
-          </tr>
-          {rows}
-        </table>
-        <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
-        {modal}
-        </div>
+        return (
+            <div className="ui container">
+                <div className="ui three column stackable grid container ">
+                    <div className="column">
+                        <form className="ui form">
+                            <input type="text" ref="search" placeholder="Search a name" onChange={this._onSearch} />
+                        </form>
+                    </div>
+                    <div className="column"></div>
+                    <div className="column"></div>
+                </div>
+                <table className={tableClass + " ui celled table"}>
+                    <tr>
+                        {header}
+                    </tr>
+                    {rows}
+                </table>
+                <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+                {modal}
+            </div>
         );
     }
 }

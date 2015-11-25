@@ -17,8 +17,35 @@ export default class AdminNavigation extends React.Component {
       AdminStore.listen(this._onChange);
       let isAuth = localStorage.getItem('isAuth');
       this.setState({isAuth: isAuth});
-      //console.log('did');
-      //console.log(this.state.isAuth);
+
+      $('.masthead').visibility({
+            once: false,
+            onBottomPassed: function () {
+                $('.fixed.menu').transition('fade in');
+            },
+            onBottomPassedReverse: function () {
+                $('.fixed.menu').transition('fade out');
+            }
+      });
+
+        // create sidebar and attach to menu open
+      $('.ui.sidebar').sidebar('attach events', '.toc.item');
+  }
+
+  componentDidUpdate () {
+      if (this.state.isAuth === "true") {
+          $('.masthead').visibility({
+            once: false,
+            onBottomPassed: function () {
+                $('.fixed.menu').transition('fade in');
+            },
+            onBottomPassedReverse: function () {
+                $('.fixed.menu').transition('fade out');
+            }
+          });
+
+          $('.ui.sidebar').sidebar('attach events', '.toc.item');
+      }
   }
 
   componentWillUnmount () {
@@ -45,7 +72,6 @@ export default class AdminNavigation extends React.Component {
   render () {
 
       let loginOrOut;
-
       if (this.state.isAuth === "true") {
 
           loginOrOut = [
@@ -82,6 +108,8 @@ export default class AdminNavigation extends React.Component {
                     <a href="/admin/rules" className="item">Notificationrules</a>
                 </div>,
 
+                <div className="ui vertical inverted sidebar menu"></div>,
+
                 <div className="pusher">
                     <div className="ui inverted vertical masthead center aligned segment">
                         <div className="ui container">
@@ -108,7 +136,7 @@ export default class AdminNavigation extends React.Component {
                 </div>
           ];
 
-      } else {
+      } else if (this.state.isAuth === "false") {
 
           loginOrOut = [
                 <div className="ui large top fixed hidden menu">

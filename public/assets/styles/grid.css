@@ -1676,13 +1676,7 @@
 --------------------*/
 
 @media only screen and (max-width: 767px) {
-  .response .ui.stackable.grid > .row > .wide.column,
-  .ui.stackable.grid > .wide.column,
-  .ui.stackable.grid > .column.grid > .column,
-  .ui.stackable.grid > .column.row > .column,
-  .ui.stackable.grid > .row > .column,
-  .ui.stackable.grid > .column:not(.row),
-  .ui.grid > .stackable.stackable.row > .column {
+  .response {
     padding: 0rem 1rem !important;
   }
   .ui.stackable.grid {
