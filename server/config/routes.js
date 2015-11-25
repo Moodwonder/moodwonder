@@ -145,6 +145,7 @@ module.exports = function (app, passport) {
     app.get('/mycompany', common.handleGetContinents);
     app.get('/my_company', common.handleGetContinents);
     app.get('/invitesignup/:hash', invitation.handleSignup);
+    app.get('/publicprofile/:hash', admin.checkLogin, users.getPublicProfile);
 
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
@@ -164,6 +165,7 @@ module.exports = function (app, passport) {
         if (/(\.png$|\.map$|\.jpg$)/.test(req.url))
             return;
         var user = req.user ? {authenticated: true, isWaiting: false, usertype: req.user.usertype } : {authenticated: false, isWaiting: false};
+        var publicprofile = (req.body.response !== undefined) ? { publicuser: req.body.response }: { publicuser: false };
         var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
 
         var AppStore = { isAuthenticated: false, userType: false };
@@ -178,9 +180,11 @@ module.exports = function (app, passport) {
         // yourStore{ your: params }
         // You will get the params using the following code in your components
         // this.state.yourState
+        //console.log(publicprofile);
 
         res.locals.data = {
             UserStore: { user: user, continents: req.body.continents },
+            PublicUserStore: publicprofile,
             CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
             SignupStore: {inviteEmail: inviteEmail},
             AppStore: AppStore
@@ -297,6 +301,7 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/modal.css" data-react-helmet="true" />';
         userstyles += '<link rel="stylesheet" href="/assets/404.css" data-react-helmet="true" />';
+
         
         var userscripts = '';
         userscripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';

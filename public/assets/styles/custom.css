@@ -10,3 +10,17 @@
 .home .ui.input input {
     text-transform: none;
 }
+
+/* css fix in eom  page */
+.card .content .header a {
+    color: inherit;
+}
+
+.extra.content.voted {
+    background-color: #FBBD08 !important;
+    color: #fff !important;
+}
+
+.extra.content.voted .icon:before {
+    content: "\f00c" !important;
+}

@@ -47,7 +47,8 @@ exports.postVote = function(req, res, next) {
         document.map(function (data, key){
             mytotalvotes++;
             // check already voted or not
-            if(data.votefor_userid === votefor_userid){
+            //if(data.votefor_userid === votefor_userid){
+            if((data.votefor_userid.toString().indexOf(votefor_userid.toString())) !== -1 ){
                 alreadyvoted = true;
             }
         });
@@ -56,7 +57,7 @@ exports.postVote = function(req, res, next) {
         if(alreadyvoted){
 
             response.status = false;
-            response.message = 'Already voted for this user';
+            response.message = 'Already voted to this user';
             res.send(response);
             res.end();
         }
@@ -118,31 +119,31 @@ exports.getEmpMonthView = function(req, res, next) {
   var elmatch = { companyname: mycompany };
 
   User.findOne({ _id: votefor_userid, company_info: { $elemMatch: elmatch }}, function(err, user){
-	if (!err) {
+    if (!err) {
 
-		Vote.find(conditions, function (err, document) {
+        Vote.find(conditions, function (err, document) {
 
-			var totalvotes =  0;
-			var comments   =  [];
-			var employee   =  {};
-			document.map(function (document, key){
-				totalvotes++;
-				var comment = { comment: document.comment, name: document.name };
-				comments[key] = comment;
-			});
+            var totalvotes =  0;
+            var comments   =  [];
+            var employee   =  {};
+            document.map(function (document, key){
+                totalvotes++;
+                var comment = { comment: document.comment, name: document.name };
+                comments[key] = comment;
+            });
             var profileimage = (user.profile_image !== '') ? PRO_PIC_PATH+user.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
             employee = { _id: user._id, photo: profileimage, name: (user.firstname+' '+user.lastname), votes: totalvotes, comments: comments };
-			response.status  = true;
-			response.message = 'success';
-			response.data = employee;
-			res.send(response);
-		});
-	} else {
-		response.status = false;
-		response.message = 'something went wrong';
-		res.send(response);
-		res.end();
-	}
+            response.status  = true;
+            response.message = 'success';
+            response.data = employee;
+            res.send(response);
+        });
+    } else {
+        response.status = false;
+        response.message = 'something went wrong';
+        res.send(response);
+        res.end();
+    }
   });
 };
 
@@ -169,52 +170,52 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
   var elmatch         =   { companyname: mycompany };
  
   User.findOne({ _id: votefor_userid, company_info: { $elemMatch: elmatch }}, function(err, user){
-	if (!err) {
-		var conditions         =     {};
+    if (!err) {
+        var conditions         =     {};
         EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
-			if(emp){
-				response.status = false;
-				response.message = 'Already awarded';
-				res.send(response);
-				res.end();
-			}else{
-				// add a record with new vote
-				var conditions         =     {};
-				conditions.date        =     cdate;
-				conditions.company     =     mycompany;
-				conditions.emp_id      =     votefor_userid;
-				conditions.emp_details =     user;
-				var eotm               =     new EOTM(conditions);
-				eotm.save(function (err) {
-					if (!err) {
+            if(emp){
+                response.status = false;
+                response.message = 'Already awarded';
+                res.send(response);
+                res.end();
+            }else{
+                // add a record with new vote
+                var conditions         =     {};
+                conditions.date        =     cdate;
+                conditions.company     =     mycompany;
+                conditions.emp_id      =     votefor_userid;
+                conditions.emp_details =     user;
+                var eotm               =     new EOTM(conditions);
+                eotm.save(function (err) {
+                    if (!err) {
 
-						var transporter = nodemailer.createTransport();
-						var body = "Hi,<br><br>Congratulations! You have been selected as the 'Employee of the Month' <br>" +
-								"<br><br> Best wishes" +
-								"<br> Moodwonder Team";
-						body = emailTemplate.general(body);
-						transporter.sendMail({
-							from: 'admin@moodewonder.com',
-							to: user.email,
-							subject: 'Employee of the month',
-							html: body
-						});
-						response.status = true;
-						response.message = 'success';
-					} else {
-						response.status = false;
-						response.message = 'something went wrong';
-					}
-					res.send(response);
-					res.end();
-				});
-			}
-		});
-	} else {
-		response.status = false;
-		response.message = 'something went wrong';
-		res.send(response);
-		res.end();
-	}
+                        var transporter = nodemailer.createTransport();
+                        var body = "Hi,<br><br>Congratulations! You have been selected as the 'Employee of the Month' <br>" +
+                                "<br><br> Best wishes" +
+                                "<br> Moodwonder Team";
+                        body = emailTemplate.general(body);
+                        transporter.sendMail({
+                            from: 'admin@moodewonder.com',
+                            to: user.email,
+                            subject: 'Employee of the month',
+                            html: body
+                        });
+                        response.status = true;
+                        response.message = 'success';
+                    } else {
+                        response.status = false;
+                        response.message = 'something went wrong';
+                    }
+                    res.send(response);
+                    res.end();
+                });
+            }
+        });
+    } else {
+        response.status = false;
+        response.message = 'something went wrong';
+        res.send(response);
+        res.end();
+    }
   });
 };

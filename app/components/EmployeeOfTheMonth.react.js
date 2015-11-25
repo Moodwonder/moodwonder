@@ -9,6 +9,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         super(props);
         this.state = EOTMStore.getState();
         this.filtered = [];
+        this.ShowMoreStatus = true;
         this.mytotalvotes = 0;
         this.hasData = false;
         this.last_id = '';
@@ -28,19 +29,23 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     _onChange = (state) => {
 
-        this.setState(state);
-        this.state.employees.data.employees.map((data, key) => {
-            this.filtered.push(data);
-        });
-       // console.log(state);
-        this.count++;
-        console.log(this.filtered);
-        this.mytotalvotes = this.state.employees.data.mytotalvotes;
-        this.hasData = this.state.hasEmployees;
-        let last_employee = this.filtered[this.filtered.length-1];
-        if( last_employee !== undefined && last_employee._id !== undefined && last_employee._id !== ''){
-            this.last_id = last_employee._id;
+        console.log(state);
+        if(this.ShowMoreStatus){
+            this.ShowMoreStatus = false;
+            state.employees.data.employees.map((data, key) => {
+                this.filtered.push(data);
+            });
+           // console.log(state);
+            this.count++;
+            console.log(this.filtered);
+            this.mytotalvotes = state.employees.data.mytotalvotes;
+            this.hasData = state.hasEmployees;
+            let last_employee = this.filtered[this.filtered.length-1];
+            if( last_employee !== undefined && last_employee._id !== undefined && last_employee._id !== ''){
+                this.last_id = last_employee._id;
+            }
         }
+        this.setState(state);
     }
 
     _onPopClick = (emp_id) => {
@@ -88,6 +93,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             obj.last_id = this.last_id;
         }
         EOTMActions.getallemployees(obj);
+        this.ShowMoreStatus = true;
     }
     // Function to sort the user list by the entered word in the search user text box
     // It is disabled now
@@ -121,8 +127,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     render() {
-        console.log('render....');
-        console.log(this.count);
 
         let employees = '';
         if(this.state.hasEmployees){
@@ -192,7 +196,7 @@ class VoteWidget extends React.Component {
         super(props);
     }
 
-    _onModalClick = (state) => {
+    _onModalClick = () => {
         if(this.props.votes !== undefined){
             this.props.click(this.props._id);
         }
@@ -200,9 +204,20 @@ class VoteWidget extends React.Component {
 
     render() {
 
-        let classname = "extra content";
+        let voteBtn = (
+            <div onClick={this._onModalClick} className='extra content' >
+                <i className="thumbs outline up icon"></i>
+                VOTE
+            </div>
+        );
+
         if(this.props.active){
-            classname = "extra content";
+            voteBtn = (
+                <div className='extra content voted' >
+                    <i className="thumbs outline up icon"></i>
+                    VOTE
+                </div>
+            );
         }
 
         return (
@@ -211,15 +226,12 @@ class VoteWidget extends React.Component {
                     <img src={this.props.photo} alt="Profile Photo"/>
                 </div>
                 <div className="content">
-                    <div className="header">{this.props.name}</div>
+                    <div className="header"><a href={ `/publicprofile/${this.props._id}` } >{this.props.name}</a></div>
                     <div className="total-votes">
                         <p>{this.props.votes} votes</p>
                     </div>
                 </div>
-                <div onClick={this._onModalClick} className={classname} >
-                    <i className="thumbs outline up icon"></i>
-                    VOTE
-                </div>
+                {voteBtn}
             </div>
         );
     }
@@ -253,7 +265,7 @@ class ProfileHeader extends React.Component {
         //console.log(this.state);
 
         return (
-        <div className="ui    margin-grid ">
+        <div className="ui margin-grid ">
             <div className="column profile-cover" style={{ backgroundImage: 'url('+this.state.userData.cover_image+')'}}>
                 <div className="dp-container">
                     <img className="ui tiny circular image dp" src={this.state.userData.profile_image} alt=""/>

@@ -1923,3 +1923,169 @@ exports.getAllEmployeesInCompany = function (req, res) {
         res.send(response);
     }
 };
+
+/**
+ * Get public profile details
+ * 
+ **/
+exports.getPublicProfile = function (req, res, next) {
+
+	var response     = {};
+    response.status  = false;
+    response.message = 'Error';
+
+	var existCondition = function(){
+		if(response.data.teams !== undefined && response.data.manager !== undefined && response.data.vote !== undefined && response.data.currentuservotes !== undefined && response.data.currentusereom !== undefined){
+			req.body.response = response;
+			next();
+		}
+	}
+
+	var ordinalSuffix = function(d) {
+	  if(d>3 && d<21) return 'TH';
+	  switch (d % 10) {
+			case 1:  return "ST";
+			case 2:  return "ND";
+			case 3:  return "RD";
+			default: return "TH";
+		}
+	}
+
+    var date = new Date();
+    // date with YYYY-MM-DD format
+    var cdate = JSON.stringify(date).substring(1, 11);
+    var yearmonth = cdate.substring(0, 7);
+
+    var _id = req.params.hash;
+    if( _id !== undefined && _id !== ''){
+        var condition = {'_id': new ObjectId(_id)};
+        User.findOne(condition, function (err, lists) {
+            if (!err && !null) {
+                response = {};
+                response.status = true;
+                response.message = 'success';
+                lists.password = '';
+                lists.cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : BANNER_PIC_PATH+'nocover.jpg';
+                lists.profile_image = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                response.data = {};
+                response.data.profile = lists;
+
+                // get all teams created by this user
+				var where = { manager_id: new ObjectId(_id) };
+				Team.find(where).exec(function(err, lists) {
+					if(!err) {
+						// console.log(lists);
+						response.data.teams = {
+							status: true,
+							message: "success",
+							data: lists
+						};
+					} else {
+						response.data.teams = {
+							status: false,
+							message: "something went wrong..",
+							data: []
+						};
+					}
+					existCondition();
+				});
+
+                // get manager's name of this user
+                if(req.user !== undefined && req.user.mymanager !== undefined && req.user.mymanager[0] !== undefined &&  req.user.mymanager[0].email !== undefined)
+                {
+					var where = { email: req.user.mymanager[0].email };
+					User.findOne(where).exec(function(err, lists) {
+						if(!err) {
+							// console.log(lists);
+							var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+							response.data.manager = {
+								status: true,
+								message: "success",
+								data: { _id: lists._id, name: lists.firstname+' '+lists.lastname, propic: propic }
+							};
+						} else {
+							response.data.manager = {
+								status: false,
+								message: "something went wrong..",
+								data: []
+							};
+						}
+						existCondition();
+					});
+				}else{
+					// if no email is set as the my manager
+					response.data.manager = {
+						status: false,
+						message: "Manager not defined..",
+						data: []
+					};
+					existCondition();
+				}
+
+				// Current user - my voting status
+				Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
+
+					var mytotalvotes = 0;
+					var myvote       =   false;
+					response.data.vote = {
+						mytotalvotes: mytotalvotes,
+						myvote: myvote
+					};
+					if(!err && votes !== null){
+						votes.map(function (data, key) {
+							mytotalvotes++;
+							// console.log(_id.toString());
+							// console.log(data.votefor_userid);
+
+							if((data.votefor_userid.toString().indexOf(_id.toString())) !== -1 ){
+								myvote = true;
+							}
+						});
+						response.data.vote = {
+							mytotalvotes: mytotalvotes,
+							myvote: myvote
+						};
+					}
+					existCondition();
+				});
+
+				// Current user total votes
+				Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, votefor_userid: new ObjectId(_id) }, function(err, votes){
+
+					response.data.currentuservotes = 0;
+					if(!err && votes !== null){
+						votes.map(function (data, key) {
+							response.data.currentuservotes++;
+						});
+					}
+					existCondition();
+				});
+
+				// Current user employee of the month status
+				EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
+
+					response.data.currentusereom = '';
+					var currentusereom = 0;
+					if(!err && eoms !== null){
+						eoms.map(function (data, key) {
+							currentusereom++;
+						});
+						if(currentusereom > 0){
+							response.data.currentusereom = currentusereom + ordinalSuffix(currentusereom);
+						}
+					}
+					existCondition();
+				});
+
+
+            } else {
+                req.body.response = response;
+                next();
+            }
+        });
+    }else{
+        response.message = 'Invalid user Id';
+        req.body.response = response;
+        next();
+    }
+};
