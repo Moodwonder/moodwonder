@@ -133,7 +133,7 @@ const routes = (
       <Route name="" handler={Employees} />
     </Route>
     <Route name="publicprofile" path="/publicprofile" handler={Appuser} >
-      <Route name="" handler={PublicProfile} />
+      <Route name="/publicprofile/:hash" handler={PublicProfile} />
     </Route>
     <Route name="apphome" path="/" handler={Apphome} >
         <Route name="index" handler={Index} />

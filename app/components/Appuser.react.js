@@ -67,9 +67,15 @@ export default class App extends React.Component {
       //pages = ["/myprofile","/mycompany"];
       pages = ["/myprofile","/employeeofthemonth"];
       if( pages.indexOf(path) >= 0 ){
+
+          rightnav     = '';
+          pageconter   = 'ui segment  width-act padding-top-110 ';
+      }else if (path.search('publicprofile') != -1){
+
           rightnav     = '';
           pageconter   = 'ui segment  width-act padding-top-110 ';
       }
+
       let sitecontent = [
                     <Navigation />,
                     <SidebarMenu />,
