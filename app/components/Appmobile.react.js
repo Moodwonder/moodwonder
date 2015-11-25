@@ -1,0 +1,54 @@
+import React from 'react';
+import { RouteHandler } from 'react-router';
+import AppStore from 'stores/AppStore';
+import Navigation from 'components/Navigation.react';
+import SidebarMenu from 'components/SidebarMenu.react';
+
+export default class Appmobile extends React.Component {
+
+  constructor (props) {
+      super(props);
+      this.state = AppStore.getState();
+  }
+
+  componentDidMount () {
+      AppStore.listen(this._onChange);
+  }
+
+  componentWillUnmount () {
+      AppStore.unlisten(this._onChange);
+  }
+
+  _onChange = () => {
+  }
+
+  render() {
+
+      let handler      = (<RouteHandler />);
+      let noPermission = (<div>You do not have sufficient permissions to access this page.</div>);
+      //let path = this.context.router.getCurrentPathname();
+
+      if(!(this.state.isAuthenticated)){
+          handler = noPermission;
+      }
+
+      let sitecontent = [
+                    <Navigation />,
+                    <SidebarMenu />,
+                    <div className="pusher">
+                        <div className="ui inverted vertical masthead center aligned "></div>
+                        <div className="ui segment  width padding-top-110">
+                            <div className="ui main">
+                                {handler}
+                            </div>
+                        </div>
+                    </div>
+              ];
+
+      return (
+              <span>{sitecontent}</span>
+      );
+  }
+}
+
+Appmobile.contextTypes = { router: React.PropTypes.func };

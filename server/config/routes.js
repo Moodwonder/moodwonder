@@ -347,6 +347,7 @@ module.exports = function (app, passport) {
         moodrate += '<link rel="stylesheet" href="/assets/styles/input.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/card.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/rating.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/modal.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/404.css" />';
         
   

@@ -52,6 +52,7 @@ import Terms from 'components/staticpages/Terms.react';
 import Policy from 'components/staticpages/Policy.react';
 import PublicProfile from 'components/PublicProfile.react';
 import MobileMoodrate from 'components/MobileMoodrate.react';
+import Appmobile from 'components/Appmobile.react';
 
 const routes = (
   <Route>
@@ -94,7 +95,7 @@ const routes = (
     <Route name="survey" path="/survey" handler={Appuser} >
       <Route name="" handler={Survey} />
     </Route>
-    <Route name="moodrate" path="/moodrate" handler={Appuser} >
+    <Route name="moodrate" path="/moodrate" handler={Appmobile} >
         <Route name="" handler={MobileMoodrate} />
     </Route>
     <Route name="openendedsurvey" path="/openendedsurvey" handler={Appuser} >
