@@ -327,7 +327,27 @@ module.exports = function (app, passport) {
         homescripts += '<script type="text/javascript" src="/assets/mainhome/home.js"></script>';
         homescripts += '<script type="text/javascript" charset="utf-8" src="/assets/semantic.js"></script>';
         
-        
+        var moodrate = '';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/reset.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/site.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/container.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/grid.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/header.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/image.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/menu.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/divider.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/dropdown.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/segment.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/button.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/list.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/sidebar.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/transition.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/popup.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/input.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/card.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/rating.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/404.css" />';
         
   
         var adminstyles = '';
@@ -337,7 +357,10 @@ module.exports = function (app, passport) {
         
         var adminscripts = '';
         adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
-        //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/semantic.css" />';
@@ -382,7 +405,14 @@ module.exports = function (app, passport) {
                 .replace("BODYCLASS", 'home')
                 .replace("JSCRIPTS", homescripts);
         
-        } else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+        } else if (pageurl == '/moodrate') {
+            html = html.replace("TITLE", Header.title)
+                .replace("META", Header.meta)
+                .replace("LINK", moodrate)
+                .replace("BODYCLASS", 'home')
+                .replace("JSCRIPTS", userscripts);
+        
+        }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
             html = html.replace("TITLE", Header.title)
                 .replace("META", Header.meta)
                 .replace("LINK", staticstyles)

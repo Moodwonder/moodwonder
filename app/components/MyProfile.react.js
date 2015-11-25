@@ -367,29 +367,6 @@ export default class MyProfile extends React.Component {
 
       return (
         <div>
-           <div className="ui segment padding-none width-header rate header-middle-container">
-              <div className="">
-                 <h2>RATE YOUR MOOD</h2>
-                 <p>How are you feeling at work today?</p>
-              </div>
-              <div className="ui slider range ">
-                 <input type="range" />
-              </div>
-              <div  className="">
-                 <button className="ui yellow button">Submit</button>
-              </div>
-              <div  className="">
-                 <button className="ui yellow button answer positive">Answer all statements</button>
-              </div>
-           </div>
-           <div className="invite-people mobile">
-              <h2>Invite people anonymously</h2>
-              <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
-              <div className="ui input">
-                 <input placeholder="Enter e-mail " type="text" />
-              </div>
-              <button className="ui orange button">Invite</button>
-           </div>
            <div className="ui  margin-grid ">
               <div className="column profile-cover" style={{ backgroundImage: 'url(' + userInfo.cover_image + ')' }}>
                  <div className="dp-container">

@@ -312,7 +312,8 @@
 	padding-bottom: 0!important;
 }
 .rate {
-	display: none!important;
+	/* display: none!important; */
+	display: block !important;
 	width: 100%;
 }
 .header-middle-container {
@@ -964,7 +965,7 @@ meter {
 }
 /* WebKit */
 meter::-webkit-meter-bar {
-    background: #cfd8dc
+    background: #cfd8dc;
     box-shadow: none!important;
     border-radius: 20px;
 }
