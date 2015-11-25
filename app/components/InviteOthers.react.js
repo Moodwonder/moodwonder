@@ -8,6 +8,7 @@ import InviteStore from 'stores/InviteStore';
  */
 export default class InviteOthers extends React.Component {
 
+	// Do same feature changes in MobileInvite component
     constructor(props) {
         super(props);
         this.state = InviteStore.getState();

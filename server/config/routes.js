@@ -16,6 +16,8 @@ var Myprofile = require('../models/myprofilepage');
 var CreatePasswordPage = require('../models/createpasswordpage');
 var ForgotPasswordPage = require('../models/forgotpasswordpage');
 var InviteSignupPage = require('../models/invitesignuppage');
+var EOMPage = require('../models/employeeofthemonthpage');
+var PublicProfilePage = require('../models/publicprofilepage');
 var Mwusertheme = require('../models/mwusertheme');
 
 var users = require('../controllers/users');
@@ -243,6 +245,16 @@ module.exports = function (app, passport) {
             case 'invitesignup':
                 modelObj = {};
                 modelObj = InviteSignupPage;
+                break;
+
+            case 'employeeofthemonth':
+                modelObj = {};
+                modelObj = EOMPage;
+                break;
+
+            case 'publicprofile':
+                modelObj = {};
+                modelObj = PublicProfilePage;
                 break;
 
             default:
@@ -484,6 +496,9 @@ module.exports = function (app, passport) {
         }else if (pageurl.search('invitesignup') != -1) {
 
             page = 'invitesignup';
+        }else if (pageurl.search('publicprofile') != -1) {
+
+            page = 'publicprofile';
         }else {
 
             page = pageurl.split("/").pop();

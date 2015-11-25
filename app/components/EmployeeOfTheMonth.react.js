@@ -45,6 +45,7 @@ export default class EmployeeOfTheMonth extends React.Component {
                 this.last_id = last_employee._id;
             }
         }
+
         if(this.state.voteStatus && (!this.state.hasError)){
             this.filtered[this.state.votekey].myvote = true;
             this.filtered[this.state.votekey].votes++;
@@ -151,7 +152,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     render() {
         // console.log('render..');
-        // console.log(this.state);
+        console.log(this.state);
 
         let employees = '';
         if(this.state.hasEmployees){
@@ -193,22 +194,22 @@ export default class EmployeeOfTheMonth extends React.Component {
 
         return (
             <div className="ui main">
-                <ProfileHeader data={{votes: 5, desc: 'lorem ipsum'}}/>
+                <ProfileHeader data={{votes: this.mytotalvotes }}/>
                 <div className="ui secondary menu account">
                     <div className="ui container">
                         <div className="ui right labeled left icon input">
                             <i className="search icon"></i>
-                            <input type="text" ref="search" onChange={this._onChangeSearch} placeholder="Search a name" />
-                            <a className="ui tag label" onClick={this._onSearch} > Search </a>
+                            <input type="text" ref="search" onChange={this._onChangeSearch} placeholder="EOM_SEARCH_PLACEHOLDER_1" />
+                            <a className="ui tag label" onClick={this._onSearch} > EOM_SEARCH_BTN_1 </a>
                         </div>
                     </div>
                 </div>
-                <h4 className="ui header ryt">CAST YOUR VOTES FOR EMPLOYEE OF THE MONTH</h4>
+                <h4 className="ui header ryt">EOM_TITLE_1</h4>
                 {message}
                 <div className="ui link five cards stackable grid cast">
                     {employees}
                 </div>
-                <div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>Show More</a> </div>
+                <div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>EOM_SHOW_MORE</a> </div>
                 {modal}
             </div>
         );
@@ -282,9 +283,7 @@ class ProfileHeader extends React.Component {
 
         let text = null;
         if(this.state.votes !== undefined) {
-            text = [<p className="votes"> You have {this.state.votes} more votes remaining</p>];
-        }else if(this.state.desc !== undefined){
-            text = [<p>{this.state.desc}</p>];
+            text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
         }
         //console.log(this.state);
 

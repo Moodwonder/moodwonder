@@ -48,3 +48,9 @@ db.createpasswordpage.insert({ "_id" : ObjectId("5652ecede1b9973ade7e6fd9"), "la
 
 db.forgotpasswordpage.insert({ "_id" : ObjectId("5652f02de1b9973ade7e6fdd"), "language" : "EN", "FORGOTPASS_TITLE" : "Forgot password", "FORGOTPASS_PLACEHOLDER_PASSWORD" : "Enter your email", "FORGOTPASS_BTN_CREATE" : "Submit" });
 db.forgotpasswordpage.insert({ "_id" : ObjectId("5652f02ee1b9973ade7e6fde"), "language" : "FI", "FORGOTPASS_TITLE" : "Unohditko salasanasi", "FORGOTPASS_PLACEHOLDER_PASSWORD" : "Syötä sähköpostiosoitteesi", "FORGOTPASS_BTN_CREATE" : "Lähetä" });
+
+db.employeeofthemonthpage.insert({ "language" : "EN", "EOM_TITLE_1": "cast your votes for employee of the month", "EOM_SHOW_MORE": "Show more", "EOM_SEARCH_PLACEHOLDER_1": "Search a name", "EOM_SEARCH_BTN_1": "Search" });
+db.employeeofthemonthpage.insert({ "language" : "FI", "EOM_TITLE_1": "heittäkää ääntä työntekijä kuukauden", "EOM_SHOW_MORE": "Näytä lisää", "EOM_SEARCH_PLACEHOLDER_1": "Etsi nimi", "EOM_SEARCH_BTN_1": "Etsi" });
+
+db.publicprofilepage.insert({ "language" : "EN", "PUBLIC_PROFILE_VOTE_BTN": "VOTE HERE", "PUBLIC_PROFILE_VOTES": "Votes", "PUBLIC_PROFILE_MANAGERS": "Managers", "PUBLIC_PROFILE_SURVEYS_PARTICIPATED": "Surveys participated", "PUBLIC_PROFILE_TEAMS": "Teams" });
+db.publicprofilepage.insert({ "language" : "FI", "PUBLIC_PROFILE_VOTE_BTN": "Äänestä täällä", "PUBLIC_PROFILE_VOTES": "ääntä", "PUBLIC_PROFILE_MANAGERS": "Johtajat", "PUBLIC_PROFILE_SURVEYS_PARTICIPATED": "Surveys osallistunut", "PUBLIC_PROFILE_TEAMS": "Tiimit" });
