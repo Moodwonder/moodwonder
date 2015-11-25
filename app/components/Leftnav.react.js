@@ -1,6 +1,7 @@
 import React from 'react';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
+import InviteOthers from 'components/InviteOthers.react';
 
 export default class Leftnav extends React.Component {
 
@@ -62,14 +63,7 @@ export default class Leftnav extends React.Component {
                     <i className="thumbs up icon"></i>
                     L_CAST_VOTE
                 </a>
-                <div className="invite-people">
-                    <h2>L_INVITE_PEOPLE_TITLE</h2>
-                    <p>L_INVITE_PEOPLE_DES</p>
-                    <div className="ui input">
-                        <input placeholder="L_INVITE_INPUT_PLCHOLDER" type="text"/>
-                    </div>
-                    <button className="ui orange button">L_INVITE_BTN</button>
-                </div>
+                <InviteOthers />
             </div>
       );
   }

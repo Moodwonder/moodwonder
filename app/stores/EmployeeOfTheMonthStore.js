@@ -1,6 +1,6 @@
 import EmployeeOfTheMonthActions from 'actions/EmployeeOfTheMonthActions';
 import alt from 'altInstance';
-import CommonWebAPIUtils from 'utils/CommonWebAPIUtils';
+// import CommonWebAPIUtils from 'utils/CommonWebAPIUtils';
 
 class EmployeeOfTheMonthStore {
 
@@ -39,9 +39,10 @@ class EmployeeOfTheMonthStore {
       this.message = response.message;
       this.hasError = !response.status;
       this.modal = false;
-      this.modalBox = false;
       this.voteStatus = true;
+      this.emitChange();
 
+    /*
       CommonWebAPIUtils.getAllEmployees()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
@@ -51,6 +52,7 @@ class EmployeeOfTheMonthStore {
             }
         }, () => {
         });
+        */
   }
 
   handleSetEOTM (data) {
