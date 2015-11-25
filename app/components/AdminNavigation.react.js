@@ -57,9 +57,9 @@ export default class AdminNavigation extends React.Component {
         isAuth: AdminStore.getState().isAuth,
         isAuthenticated: AdminStore.getState().isAuthenticated
       });
-      if(this.state.isAuthenticated === false) {
-          window.location.href = "/admin/logout";
-      }
+      //if(this.state.isAuthenticated === false) {
+      //    window.location.href = "/admin/logout";
+      //}
   }
 
   _onLogout = () => {
