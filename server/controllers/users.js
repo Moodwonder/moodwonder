@@ -899,7 +899,7 @@ exports.postForgotPassword = function (req, res) {
                         html: body
                     });
                     response.status = true;
-                    response.message = 'Please check  your email for resetting password"';
+                    response.message = 'We have send you an email with instructions how to reset your password';
                     res.send(response);
                     res.end();
                 } else {

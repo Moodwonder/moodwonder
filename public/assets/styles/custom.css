@@ -12,7 +12,7 @@
 }
 
 .home .ui.input input[type="text"] {
-    text-transform: lowercase;
+    text-transform: none;
 }
 
 /* css fix in eom  page */

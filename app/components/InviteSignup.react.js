@@ -114,7 +114,7 @@ export default class InviteSignup extends React.Component {
       return (
         <div className="ui middle aligned center aligned grid">
           <div className="column">
-            <h2 className="ui  image header"> <img src="../assets/images/logo.png" className="image"/> </h2>
+            <h2 className="ui  image header"> <a href="/" ><img src="../assets/images/logo.png" className="image"/></a> </h2>
               {message}
               {multimessages}
             <div className="ui large form">
