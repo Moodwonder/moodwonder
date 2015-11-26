@@ -36,7 +36,11 @@ export default class Signup extends React.Component {
   _onSignupStep1Submit = () => {
       let email = React.findDOMNode(this.refs.email).value.trim();
       let hash  = React.findDOMNode(this.refs.hash).value.trim();
-      if(this.isValidEmailAddress(email)){
+      if(email === ''){
+          this.setState({
+            messages: ['Email Required']
+          });
+      }else if(this.isValidEmailAddress(email)){
           SignupActions.usersignupstep1({ email: email, hash: hash });
       }else{
           this.setState({
