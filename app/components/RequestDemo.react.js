@@ -38,13 +38,15 @@ export default class RequestDemo extends React.Component {
       let text   = React.findDOMNode(this.refs.text).value.trim();
 
       if(name === ''){
-          errorMsg.push('Name is required');
+          //errorMsg.push('Name is required');
+          errorMsg[0] = 'Name is required';
       }
-      if(!this.isValidEmailAddress(email)){
-          errorMsg.push('Invalid email id');
+      if(errorMsg[0] != '' || !this.isValidEmailAddress(email)){
+          //errorMsg.push('Invalid email id');
+          errorMsg[0] = 'Invalid email id';
       }
-      if(text === ''){
-          errorMsg.push('Please enter your requirements');
+      if(errorMsg[0] != '' || text === ''){
+          errorMsg[0] = 'Please enter your requirements';
       }
       if(errorMsg.length === 0){
           HomePageActions.requestDemo({

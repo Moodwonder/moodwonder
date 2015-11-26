@@ -336,6 +336,7 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/404.css"/>';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         
         var homescripts = '';
         homescripts += '<!--[if IE]><script type="text/javascript">var console = { log: function() {} };</script><![endif]-->';

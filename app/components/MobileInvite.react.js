@@ -59,12 +59,12 @@ export default class InviteOthers extends React.Component {
         }
         return (
         <div className="invite-people mobile">
-            <h2>Invite people anonymously</h2>
-            <p>Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...</p>
+            <h2> L_INVITE_PEOPLE_TITLE </h2>
+            <p> L_INVITE_PEOPLE_DES </p>
             <div className="ui input">
-                <input placeholder="Enter e-mail" ref="email" type="text" />
+                <input placeholder=" L_INVITE_INPUT_PLCHOLDER " ref="email" type="text" />
             </div>
-            <button className="ui orange button" onClick={this._onSaveSubmit} >INVITE</button>
+            <button className="ui orange button" onClick={this._onSaveSubmit} > L_INVITE_BTN </button>
             {message}
         </div>
         );

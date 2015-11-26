@@ -381,13 +381,13 @@ export default class MyProfile extends React.Component {
            </div>
            <div className="ui secondary  menu account">
                 <a  onClick={this.onTabClick.bind(this,0)}  className=" act-menu active item" style={{"padding":"0 10px!important"}}>
-                    <i className="file image outline icon"></i>My Profile
+                    <i className="file image outline icon"></i> PRFL_TAB_MYPROFILE
                 </a>
                 <a  onClick={this.onTabClick.bind(this,1)}  className="act-menu item" style={{"padding":"0 10px!important"}}>
-                    <i className="user icon"></i>My Manager
+                    <i className="user icon"></i> PRFL_TAB_MYMANAGER
                 </a>
                 <a  onClick={this.onTabClick.bind(this,2)}  className=" act-menu item" style={{"padding":"0 10px!important"}}>
-                    <i className="users icon"></i>My Team
+                    <i className="users icon"></i> PRFL_TAB_MYTEAM
                 </a>
             </div>
            <div className="ui two column stackable grid">

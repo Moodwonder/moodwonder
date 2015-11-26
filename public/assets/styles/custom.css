@@ -11,6 +11,10 @@
     text-transform: none;
 }
 
+.home .ui.input input[type="text"] {
+    text-transform: lowercase;
+}
+
 /* css fix in eom  page */
 .card .content .header a {
     color: inherit;

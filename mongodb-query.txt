@@ -25,7 +25,19 @@ db.mwusertheme.insert({ "language" : "EN",
                         "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mail",
                         "L_INVITE_BTN" : "INVITE",
                         "L_MYPROFILE_LINK" : "My profile",
-                        "L_LOGOUT_LINK" : "Log Out"
+                        "L_LOGOUT_LINK" : "Log Out",
+                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD",
+                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today?",
+                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit",
+                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements",
+                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account",
+                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout",
+                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics",
+                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees",
+                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk",
+                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses",
+                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response",
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison"
 });
 
 db.mwusertheme.insert({ "language" : "FI", 
@@ -37,7 +49,19 @@ db.mwusertheme.insert({ "language" : "FI",
                         "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mailfi",
                         "L_INVITE_BTN" : "INVITEfi",
                         "L_MYPROFILE_LINK" : "My profilefi",
-                        "L_LOGOUT_LINK" : "Log Outfi"
+                        "L_LOGOUT_LINK" : "Log Outfi",
+                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD fi",
+                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today fi ?",
+                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit fi",
+                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements FI",
+                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account fi",
+                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout fi",
+                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics fi",
+                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees fi",
+                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk fi",
+                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses fi",
+                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response fi",
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison fi"
 });
 
 db.invitesignuppage.insert({ "_id" : ObjectId("5652f498e1b9973ade7e6fe3"), "language" : "FI", "INVITESIGNUP_TITLE" : "Kutsu kirjautumisen", "INVITESIGNUP_PLACEHOLDER_EMAIL" : "Syötä sähköpostiosoitteesi", "INVITESIGNUP_BTN" : "Aloita" });
