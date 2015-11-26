@@ -49,18 +49,18 @@ export default class Homecontent extends React.Component {
                             <div className="eight wide column">
                                 <div className="ui segment slideRight ">
                                     <h3> HOM_2_TITLE_2 </h3>
-                                    <div className="ui divided items">
+                                    <div className="ui divided items palm-container">
                                         <div className="item">
-                                            <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> HOM_2_ITEM_1 </div>
+                                            <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
+                                            <div className="middle aligned content">HOM_2_ITEM_1</div>
                                         </div>
                                         <div className="item">
-                                            <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> HOM_2_ITEM_2 </div>
+                                            <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
+                                            <div className="middle aligned content">HOM_2_ITEM_2</div>
                                         </div>
                                         <div className="item">
-                                            <div className="ui tiny image"> <i className="pointing right icon"></i> </div>
-                                            <div className="middle aligned content"> HOM_2_ITEM_3 </div>
+                                            <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
+                                            <div className="middle aligned content">HOM_2_ITEM_3</div>
                                         </div>
                                     </div>
                                 </div>
