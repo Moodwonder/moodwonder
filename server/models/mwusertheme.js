@@ -14,6 +14,7 @@ var mwuserthemeSchema = new mongoose.Schema({
     L_MYMOOD_LINK: {type: String, default: ''},
     L_MYACCOUNT_LINK: {type: String, default: ''},
     L_MYCOMPANY_LINK: {type: String, default: ''},
+    L_CAST_VOTE: {type: String, default: ''},
     L_INVITE_PEOPLE_TITLE: {type: String, default: ''},
     L_INVITE_PEOPLE_DES: {type: String, default: ''},
     L_INVITE_INPUT_PLCHOLDER: {type: String, default: ''},
