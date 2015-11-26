@@ -276,14 +276,7 @@ export default class Homecontent extends React.Component {
                         </div>
                         <div className="ui stackable three column grid  container items ">
                             <div className="four wide column"></div>
-                            <div className="eight wide column fade-in one">
-                                <div className="ui segment">
-                                    <div className="row">
-                                        <RequestDemo />
-                                    </div>
-                                </div>
-                            </div>
-
+                            <RequestDemo />
                             <div className="four wide column"></div>
                         </div>
                         <div className="ui two column stackable grid container ">

@@ -910,7 +910,7 @@ exports.postForgotPassword = function (req, res) {
 
         } else {
             response.status = false;
-            response.message = 'Your e-mail id is not exist in our database';
+            response.message = 'Email id does not exist';
             res.send(response);
             res.end();
         }
