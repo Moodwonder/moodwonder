@@ -118,6 +118,10 @@ export default class Navigation extends React.Component {
       this.setState({ popup : true });
   }
 
+  redirectToHome = () => {
+      window.location.assign('/');
+  }
+
 
   render () {
       let lang = this.state.lang;
@@ -241,8 +245,8 @@ export default class Navigation extends React.Component {
                         <i className="sidebar icon"></i>
                     </a>
                     <div  className="header item">
-                        <img className="logo" src="/images/logo.png" alt=""/>
-                        <img className="logo-mw slide-logo" src="/images/logo-mw.png" alt=""/>
+                        <img onClick={this.redirectToHome} style={{"cursor":"pointer"}} className="logo" src="/images/logo.png" alt=""/>
+                        <img onClick={this.redirectToHome} style={{"cursor":"pointer"}} className="logo-mw slide-logo" src="/images/logo-mw.png" alt=""/>
                     </div>
                     {ratingSection}
                     {modal}

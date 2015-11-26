@@ -115,7 +115,7 @@ export default class Customsurveyforms extends React.Component {
                     </div>
                     <div className="column">
                         <div className="three  column">
-                            <div className="test-gen ui submit button "> <a href="/mymood">Create New Survey</a></div>
+                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/mymood">Create New Survey</a></div>
                         </div>
                     </div>
                 </div>

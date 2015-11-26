@@ -69,6 +69,14 @@ export default class Rightnav extends React.Component {
           lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
       }
 
+
+      let responeHeader;
+      if (lastRatings === undefined || lastRatings.length == 0) {
+          responeHeader = '';
+      } else {
+          responeHeader = (<h4 className="ui header ryt">Response comparison</h4>);
+      }
+
       let responseComparison = lastRatings.map((data, index) => {
           return [
                         <div className="column padding-ryt response">
@@ -145,7 +153,7 @@ export default class Rightnav extends React.Component {
                         </div>
                     </div>
                     <div className="item ryt">
-                        <h4 className="ui header ryt">Response comparison</h4>
+                        {responeHeader}
                         <div className="ui two column stackable grid">
                             <div className="two column row padding-top">
                                 {responseComparison}
