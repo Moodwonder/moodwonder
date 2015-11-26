@@ -14,6 +14,14 @@ export default class Leftnav extends React.Component {
       //UserActions.getuserinfo();
       UserActions.getUserData();
       UserStore.listen(this._onChange);
+      // To set active link
+      $( ".left .item" ).each(function( index ) {
+          if(this.attributes.href !== undefined){
+              if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
+                  $( this ).addClass('active');
+              }
+          }
+      });
   }
 
   componentDidUpdate () {
@@ -50,12 +58,12 @@ export default class Leftnav extends React.Component {
                         <span>{userfullname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
-                            <div className="item">L_MYPROFILE_LINK</div>
-                            <div className="item"><a href="/logout"  style={{"color":"#000 !important"}}>L_LOGOUT_LINK</a></div>
+                            <div className="item"><a href="/myprofile" style={{"color":"#000 !important"}}>L_MYPROFILE_LINK</a></div>
+                            <div className="item"><a href="/logout" style={{"color":"#000 !important"}}>L_LOGOUT_LINK</a></div>
                         </div>
                     </div>
                 </div>
-                <a className="active item" href="/mymood">
+                <a className="item" href="/mymood">
                     <i className="smile icon"></i>
                     L_MYMOOD_LINK
                 </a>
