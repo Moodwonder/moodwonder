@@ -89,7 +89,7 @@ export default class OpenEndedQuestions extends React.Component {
                         <div className="clear"></div>
                         <div className="ui two column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS</h4>
+                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS <span style={{"fontSize":"14px"}}> (Optional)</span></h4>
                             </div>
                             <div className="column"></div>
                         </div>
@@ -140,7 +140,7 @@ export default class OpenEndedQuestions extends React.Component {
                         <div className="clear"></div>
                         <div className="ui two column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS</h4>
+                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS <span style={{"fontSize":"14px"}}> (Optional)</span></h4>
                             </div>
                             <div className="column"></div>
                         </div>
