@@ -58,11 +58,13 @@ export default class MyManager extends React.Component {
 
       let userInfo = this.state.userDetails;
 
-      if (this.state.message !== '' ) {
+      if ( this.state.updateType === 'managerinfo' && this.state.message !== '' ) {
           message = (
-              <div className="ui error message" style={{ display: 'block' }} >
-                {this.state.message}
-              </div>
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
           );
       }
 

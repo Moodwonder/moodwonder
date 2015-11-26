@@ -74,6 +74,7 @@ class UserStore {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
       this.message = response.message;
+      this.updateType = response.type;
       if((!this.hasError) && response.type === 'summary'){
           this.summaryEdit = false;
       }
@@ -96,6 +97,7 @@ class UserStore {
   handleSaveManagerDetailsSuccess (response) {
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
+      this.updateType = response.type;
       this.message = response.message;
       this.emitChange();
   }

@@ -102,6 +102,8 @@ export default class MyProfile extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      console.log('state chaneg');
+      this.stateBackUp = state;
       //console.log(this.state.userDetails);
   }
 
@@ -134,7 +136,13 @@ export default class MyProfile extends React.Component {
       let lname     =  document.getElementById('lname').value;
       let password  =  document.getElementById('password').value;
       let cpassword =  document.getElementById('cpassword').value;
-      if(fname !== '' && lname !== '' ){
+
+      if(fname === '' ){
+          this.setState({ message: 'First name required', updateType: 'personalinfo' });
+      }
+      else if( lname === '' ){
+          this.setState({ message: 'Last name required', updateType: 'personalinfo' });
+      }else{
           this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
       }
   }
@@ -144,7 +152,11 @@ export default class MyProfile extends React.Component {
   }
 
   onCancelEditPersonalInfoClick = () => {
-      this.setState({ personalInfoEdit: false });
+      let state = this.state.userDetails;
+      state.fname = this.state.userData.fname;
+      state.lname = this.state.userData.lname;
+      this.setState({ userDetails: state, personalInfoEdit: false , message: '' });
+      console.log(this.state);
   }
 
   _onChangePersonalInfo = (event) => {
@@ -160,16 +172,22 @@ export default class MyProfile extends React.Component {
           userDetails.lname = event.target.value;
           this.setState({ userDetails: userDetails });
       }
-
   }
 
 
   _onSaveGeneralInfo = (model) => {
-      let email             =  document.getElementById('email').value;
+      //let email             =  document.getElementById('email').value;
+      let email             =  this.state.userDetails.email;
       let reportfrequency   =  document.getElementById('reportfrequency').value;
       let language          =  document.getElementById('language').value;
 
-      if(email !== '' && reportfrequency !== '' && language !== '' ){
+      if(email === '' ){
+          this.setState({ message: 'Email required', updateType: 'generalinfo' });
+      }else if( reportfrequency === '' ){
+          this.setState({ message: 'Report frequency required', updateType: 'generalinfo' });
+      }else if( language === '' ){
+          this.setState({ message: 'language required', updateType: 'generalinfo' });
+      }else{
           this._onSaveSubmit({ email: email, report_frequency: reportfrequency, language: language, type: 'generalinfo'});
       }
   }
@@ -179,7 +197,7 @@ export default class MyProfile extends React.Component {
   }
 
   onCancelEditGeneralInfoClick = () => {
-      this.setState({ generalInfoEdit: false });
+      this.setState({ generalInfoEdit: false , message: '' });
   }
 
   _onChangeGeneralInfo = (event) => {
@@ -195,22 +213,43 @@ export default class MyProfile extends React.Component {
           userDetails.reportfrequency = event.target.value;
           this.setState({ userDetails: userDetails });
       }
-
   }
 
 
   render() {
 
-      let message;
-
       let userInfo = this.state.userDetails;
+      let summarymessage = null;
+      let personalinfomessage = null;
+      let generalinfomessage = null;
 
-      if (this.state.message !== '' ) {
-          message = (
-            <div className={ (this.state.hasError) ? 'ui message' : 'ui message' }>
-                <div className="header">Message</div>
-                <p>{this.state.message}</p>
-            </div>
+      if (this.state.message !== '' && this.state.updateType === 'summary' ) {
+          summarymessage = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+          );
+      }
+
+      if (this.state.message !== '' && this.state.updateType === 'personalinfo' ) {
+          personalinfomessage = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+          );
+      }
+
+      if (this.state.message !== '' && this.state.updateType === 'generalinfo' ) {
+          generalinfomessage = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
           );
       }
 
@@ -221,7 +260,7 @@ export default class MyProfile extends React.Component {
             <i className="file text outline icon"></i> PRFL_SUMMARY
             <a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
        </h3>,
-
+       {summarymessage},
        <p>{userInfo.summary}</p>
       ];
 
@@ -232,6 +271,7 @@ export default class MyProfile extends React.Component {
                     <i className="file text outline icon"></i> PRFL_SUMMARY
                 </h3>
                 <div className="field">
+                    {summarymessage}
                     <label>Text</label>
                     <textarea id="summary" name="summary" onChange={this._onChangeSummary} value={this.state.summary}></textarea>
                 </div>
@@ -249,6 +289,7 @@ export default class MyProfile extends React.Component {
                 <a className="action"><i onClick={this.onEditPersonalInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
+                {personalinfomessage}
                 <div className="field ui two column stackable grid container">
                     <label className="column">PRFL_PINFO_FNAME</label>
                     <label className="column">{userInfo.fname}</label>
@@ -274,6 +315,7 @@ export default class MyProfile extends React.Component {
             <div>
                 <h3 className="ui dividing header"><i className="user icon"></i>PRFL_PERSONAL_INFO</h3>
                     <div className=" field">
+                        {personalinfomessage}
                         <div className="field">
                             <label>PRFL_PINFO_FNAME*</label>
                             <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
@@ -305,6 +347,7 @@ export default class MyProfile extends React.Component {
                 <a className="action"><i onClick={this.onEditGeneralInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
+                {generalinfomessage}
                 <div className="field ui two column stackable grid container">
                     <label className="column">PRFL_GINFO_WRK_EMAIL</label>
                     <label className="column">{userInfo.email}</label>
@@ -326,9 +369,10 @@ export default class MyProfile extends React.Component {
             <div>
                 <h3 className="ui dividing header"><i className="setting icon"></i>PRFL_GENERAL_INFO</h3>
                     <div className="field">
+                        {generalinfomessage}
                         <div className="field">
                             <label>PRFL_GINFO_WRK_EMAIL*</label>
-                            <input placeholder="Work Email" onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
+                            <input placeholder="Work Email" disabled onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
                         </div>
                         <div className="field">
                             <label>PRFL_GINFO_LNG*</label>
@@ -395,7 +439,6 @@ export default class MyProfile extends React.Component {
               <div className="ten wide column" style={{ "display": activeTab[0] }}>
                  <div className="ui segment">
                     <h4 className="ui header ryt">PRFL_EDIT_PROFILE</h4>
-                    {message}
                     <div className="ui small form">
 
                         {summaryForm}

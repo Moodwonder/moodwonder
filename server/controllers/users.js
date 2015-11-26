@@ -578,7 +578,7 @@ exports.postSaveUserInfo = function (req, res, next) {
             if (!err) {
 
                 response.status = true;
-                response.message = 'User details saved';
+                response.message = 'User details updated';
             } else {
 
                 response.status = false;
@@ -738,6 +738,8 @@ exports.UpdateUserPhoto = function (req, res) {
 exports.postSaveManagerInfo = function (req, res) {
 
     var model = req.body;
+    var response = {};
+    response.type = 'managerinfo';
 
     if (model.email == '') {
 
