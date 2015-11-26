@@ -36,11 +36,11 @@ export default class Leftnav extends React.Component {
       let user = this.state.userData;
       let userfullname = '';
       if( user.fname !== undefined && user.fname !== 'undefined' ){
-		  userfullname = user.fname;
-	  }
+          userfullname = user.fname;
+      }
       if( user.lname !== undefined && user.lname !== 'undefined' ){
-		  userfullname += ' '+user.lname;
-	  }
+          userfullname += ' '+user.lname;
+      }
 
       return (
             <div className="ui left fixed vertical menu ">

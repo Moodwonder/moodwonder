@@ -127,13 +127,13 @@ export default class InviteSignup extends React.Component {
       }else {
 
           if (this.state.isSignupWaiting) {
-			  message = (
-					<div className="ui success message segment">
-						<ul className="list">
-							<li>Processing...</li>
-						</ul>
-					</div>
-			  );
+              message = (
+                  <div className="ui success message segment">
+                      <ul className="list">
+                          <li>Processing...</li>
+                      </ul>
+                  </div>
+              );
           }
       }
 
