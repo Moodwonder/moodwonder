@@ -69,36 +69,57 @@ export default class RequestDemo extends React.Component {
 
       if (this.state.hasErrorMessage && this.state.messages) {
           multimessages = this.state.messages.map((mes, key) => {
-              return [<div className="ui red message">{mes}</div>];
+              return [<li>{mes}</li>];
           });
+          multimessages = (
+            <div className="ui error message segment">
+                <ul className="list">
+                    {multimessages}
+                </ul>
+            </div>
+          );
       }
 
       if (this.state.responseStatus) {
           multimessages = this.state.messages.map((mes, key) => {
-              return [<div className="ui green message">{mes}</div>];
+              return [<li>{mes}</li>];
           });
+          multimessages = (
+            <div className="ui success message segment">
+                <ul className="list">
+                    {multimessages}
+                </ul>
+            </div>
+          );
       }
 
       return (
-        <div className=" ui small form">
-            {multimessages}
-            <div className="field">
-                <label>HOM_7_NAME</label>
-                <input ref="name" placeholder="Name" type="text" />
-            </div>
-            <div className="field">
-                <label>HOM_7_EMAIL</label>
-                <input ref="email" placeholder="Email" type="email" />
-            </div>
-            <div className="field">
-                <label>HOM_7_MOBILE</label>
-                <input ref="mobile" placeholder="Mobile" type="text" />
-            </div>
-            <div className="field">
-                <label> HOM_7_LOOKING_FOR </label>
-                <textarea ref="text"></textarea>
-            </div>
-            <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
+        <div className="eight wide column fade-in one">
+			<div className="ui segment">
+				<div className="row">
+					<div className=" ui small form">
+						<div className="field">
+							<label>HOM_7_NAME</label>
+							<input ref="name" placeholder="Name" type="text" />
+						</div>
+						<div className="field">
+							<label>HOM_7_EMAIL</label>
+							<input ref="email" placeholder="Email" type="email" />
+						</div>
+						<div className="field">
+							<label>HOM_7_MOBILE</label>
+							<input ref="mobile" placeholder="Mobile" type="text" />
+						</div>
+						<div className="field">
+							<label> HOM_7_LOOKING_FOR </label>
+							<textarea ref="text"></textarea>
+						</div>
+						<button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
+					</div>
+				</div>
+				
+			</div>
+			{multimessages}
         </div>
       );
   }
