@@ -1125,7 +1125,7 @@ exports.getAllEmployees = function (req, res) {
                     EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
 
                         var employees = [];
-                        var mytotalvotes = 0;
+                        // var mytotalvotes = 0;
                         lists.map(function (data, key) {
 
                             var votes         =   0;
@@ -1146,18 +1146,34 @@ exports.getAllEmployees = function (req, res) {
                                 votes         =  cemp.total;
                                 if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
                                     myvote    =  true;
-                                    mytotalvotes++;
+                                    // mytotalvotes++;
                                 }
                             }
                             var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
                             employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
                         });
-                        response.status = true;
-                        response.message = 'success';
-                        response.data = {};
-                        response.data.employees = employees;
-                        response.data.mytotalvotes = mytotalvotes;
-                        res.send(response);
+
+                        // Current user - my voting status
+                        Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
+
+                            var mytotalvotes = 0;
+                            console.log(votes);
+                            if(!err && votes !== null){
+                                votes.map(function (data, key) {
+                                    mytotalvotes++;
+                                });
+                            }
+                            console.log(mytotalvotes);
+
+                            response.status = true;
+                            response.message = 'success';
+                            response.data = {};
+                            response.data.employees = employees;
+                            response.data.mytotalvotes = mytotalvotes;
+                            res.send(response);
+                        });
+                        
+
                     });
                 }
             );
@@ -1875,7 +1891,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                     EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
 
                         var employees = [];
-                        var mytotalvotes = 0;
+                        // var mytotalvotes = 0;
                         lists.map(function (data, key) {
 
                             var votes         =   0;
@@ -1896,18 +1912,31 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                 votes         =  cemp.total;
                                 if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
                                     myvote    =  true;
-                                    mytotalvotes++;
+                                    // mytotalvotes++;
                                 }
                             }
                             var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
                             employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
                         });
-                        response.status = true;
-                        response.message = 'success';
-                        response.data = {};
-                        response.data.employees = employees;
-                        response.data.mytotalvotes = mytotalvotes;
-                        res.send(response);
+
+
+                        // Current user - my voting status
+                        Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
+
+                            var mytotalvotes = 0;
+                            if(!err && votes !== null){
+                                votes.map(function (data, key) {
+                                    mytotalvotes++;
+                                });
+                            }
+
+                            response.status = true;
+                            response.message = 'success';
+                            response.data = {};
+                            response.data.employees = employees;
+                            response.data.mytotalvotes = mytotalvotes;
+                            res.send(response);
+                        });
                     });
                 });
             }else{
@@ -1930,26 +1959,26 @@ exports.getAllEmployeesInCompany = function (req, res) {
  **/
 exports.getPublicProfile = function (req, res, next) {
 
-	var response     = {};
+    var response     = {};
     response.status  = false;
     response.message = 'Error';
 
-	var existCondition = function(){
-		if(response.data.teams !== undefined && response.data.manager !== undefined && response.data.vote !== undefined && response.data.currentuservotes !== undefined && response.data.currentusereom !== undefined){
-			req.body.response = response;
-			next();
-		}
-	}
+    var existCondition = function(){
+        if(response.data.teams !== undefined && response.data.manager !== undefined && response.data.vote !== undefined && response.data.currentuservotes !== undefined && response.data.currentusereom !== undefined){
+            req.body.response = response;
+            next();
+        }
+    }
 
-	var ordinalSuffix = function(d) {
-	  if(d>3 && d<21) return 'TH';
-	  switch (d % 10) {
-			case 1:  return "ST";
-			case 2:  return "ND";
-			case 3:  return "RD";
-			default: return "TH";
-		}
-	}
+    var ordinalSuffix = function(d) {
+      if(d>3 && d<21) return 'TH';
+      switch (d % 10) {
+            case 1:  return "ST";
+            case 2:  return "ND";
+            case 3:  return "RD";
+            default: return "TH";
+        }
+    }
 
     var date = new Date();
     // date with YYYY-MM-DD format
@@ -1971,111 +2000,111 @@ exports.getPublicProfile = function (req, res, next) {
                 response.data.profile = lists;
 
                 // get all teams created by this user
-				var where = { manager_id: new ObjectId(_id) };
-				Team.find(where).exec(function(err, lists) {
-					if(!err) {
-						// console.log(lists);
-						response.data.teams = {
-							status: true,
-							message: "success",
-							data: lists
-						};
-					} else {
-						response.data.teams = {
-							status: false,
-							message: "something went wrong..",
-							data: []
-						};
-					}
-					existCondition();
-				});
+                var where = { manager_id: new ObjectId(_id) };
+                Team.find(where).exec(function(err, lists) {
+                    if(!err) {
+                        // console.log(lists);
+                        response.data.teams = {
+                            status: true,
+                            message: "success",
+                            data: lists
+                        };
+                    } else {
+                        response.data.teams = {
+                            status: false,
+                            message: "something went wrong..",
+                            data: []
+                        };
+                    }
+                    existCondition();
+                });
 
                 // get manager's name of this user
                 if(req.user !== undefined && req.user.mymanager !== undefined && req.user.mymanager[0] !== undefined &&  req.user.mymanager[0].email !== undefined)
                 {
-					var where = { email: req.user.mymanager[0].email };
-					User.findOne(where).exec(function(err, lists) {
-						if(!err) {
-							// console.log(lists);
-							var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
-							response.data.manager = {
-								status: true,
-								message: "success",
-								data: { _id: lists._id, name: lists.firstname+' '+lists.lastname, propic: propic }
-							};
-						} else {
-							response.data.manager = {
-								status: false,
-								message: "something went wrong..",
-								data: []
-							};
-						}
-						existCondition();
-					});
-				}else{
-					// if no email is set as the my manager
-					response.data.manager = {
-						status: false,
-						message: "Manager not defined..",
-						data: []
-					};
-					existCondition();
-				}
+                    var where = { email: req.user.mymanager[0].email };
+                    User.findOne(where).exec(function(err, lists) {
+                        if(!err) {
+                            // console.log(lists);
+                            var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            response.data.manager = {
+                                status: true,
+                                message: "success",
+                                data: { _id: lists._id, name: lists.firstname+' '+lists.lastname, propic: propic }
+                            };
+                        } else {
+                            response.data.manager = {
+                                status: false,
+                                message: "something went wrong..",
+                                data: []
+                            };
+                        }
+                        existCondition();
+                    });
+                }else{
+                    // if no email is set as the my manager
+                    response.data.manager = {
+                        status: false,
+                        message: "Manager not defined..",
+                        data: []
+                    };
+                    existCondition();
+                }
 
-				// Current user - my voting status
-				Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
+                // Current user - my voting status
+                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
 
-					var mytotalvotes = 0;
-					var myvote       =   false;
-					response.data.vote = {
-						mytotalvotes: mytotalvotes,
-						myvote: myvote
-					};
-					if(!err && votes !== null){
-						votes.map(function (data, key) {
-							mytotalvotes++;
-							// console.log(_id.toString());
-							// console.log(data.votefor_userid);
+                    var mytotalvotes = 0;
+                    var myvote       =   false;
+                    response.data.vote = {
+                        mytotalvotes: mytotalvotes,
+                        myvote: myvote
+                    };
+                    if(!err && votes !== null){
+                        votes.map(function (data, key) {
+                            mytotalvotes++;
+                            // console.log(_id.toString());
+                            // console.log(data.votefor_userid);
 
-							if((data.votefor_userid.toString().indexOf(_id.toString())) !== -1 ){
-								myvote = true;
-							}
-						});
-						response.data.vote = {
-							mytotalvotes: mytotalvotes,
-							myvote: myvote
-						};
-					}
-					existCondition();
-				});
+                            if((data.votefor_userid.toString().indexOf(_id.toString())) !== -1 ){
+                                myvote = true;
+                            }
+                        });
+                        response.data.vote = {
+                            mytotalvotes: mytotalvotes,
+                            myvote: myvote
+                        };
+                    }
+                    existCondition();
+                });
 
-				// Current user total votes
-				Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, votefor_userid: new ObjectId(_id) }, function(err, votes){
+                // Current user total votes
+                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, votefor_userid: new ObjectId(_id) }, function(err, votes){
 
-					response.data.currentuservotes = 0;
-					if(!err && votes !== null){
-						votes.map(function (data, key) {
-							response.data.currentuservotes++;
-						});
-					}
-					existCondition();
-				});
+                    response.data.currentuservotes = 0;
+                    if(!err && votes !== null){
+                        votes.map(function (data, key) {
+                            response.data.currentuservotes++;
+                        });
+                    }
+                    existCondition();
+                });
 
-				// Current user employee of the month status
-				EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
+                // Current user employee of the month status
+                EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
 
-					response.data.currentusereom = '';
-					var currentusereom = 0;
-					if(!err && eoms !== null){
-						eoms.map(function (data, key) {
-							currentusereom++;
-						});
-						if(currentusereom > 0){
-							response.data.currentusereom = currentusereom + ordinalSuffix(currentusereom);
-						}
-					}
-					existCondition();
-				});
+                    response.data.currentusereom = '';
+                    var currentusereom = 0;
+                    if(!err && eoms !== null){
+                        eoms.map(function (data, key) {
+                            currentusereom++;
+                        });
+                        if(currentusereom > 0){
+                            response.data.currentusereom = currentusereom + ordinalSuffix(currentusereom);
+                        }
+                    }
+                    existCondition();
+                });
 
 
             } else {

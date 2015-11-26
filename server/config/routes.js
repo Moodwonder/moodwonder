@@ -16,6 +16,8 @@ var Myprofile = require('../models/myprofilepage');
 var CreatePasswordPage = require('../models/createpasswordpage');
 var ForgotPasswordPage = require('../models/forgotpasswordpage');
 var InviteSignupPage = require('../models/invitesignuppage');
+var EOMPage = require('../models/employeeofthemonthpage');
+var PublicProfilePage = require('../models/publicprofilepage');
 var Mwusertheme = require('../models/mwusertheme');
 
 var users = require('../controllers/users');
@@ -245,6 +247,16 @@ module.exports = function (app, passport) {
                 modelObj = InviteSignupPage;
                 break;
 
+            case 'employeeofthemonth':
+                modelObj = {};
+                modelObj = EOMPage;
+                break;
+
+            case 'publicprofile':
+                modelObj = {};
+                modelObj = PublicProfilePage;
+                break;
+
             default:
                 modelObj = {};
                 modelObj = Languages;
@@ -324,6 +336,7 @@ module.exports = function (app, passport) {
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/mainhome/css/examples.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/404.css"/>';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/custom.css" data-react-helmet="true" />';
         
         var homescripts = '';
         homescripts += '<!--[if IE]><script type="text/javascript">var console = { log: function() {} };</script><![endif]-->';
@@ -485,6 +498,9 @@ module.exports = function (app, passport) {
         }else if (pageurl.search('invitesignup') != -1) {
 
             page = 'invitesignup';
+        }else if (pageurl.search('publicprofile') != -1) {
+
+            page = 'publicprofile';
         }else {
 
             page = pageurl.split("/").pop();

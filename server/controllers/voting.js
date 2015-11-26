@@ -37,13 +37,14 @@ exports.postVote = function(req, res, next) {
     var cdate = JSON.stringify(date).substring(1, 11);
     
     var yearmonth = cdate.substring(0, 6)
-    , conditions = { "company": mycompany, "user_id": new ObjectId(req.user._id), postdate : { $regex : new RegExp(yearmonth,'i') } };
+    , conditions = { "user_id": new ObjectId(req.user._id), postdate : { $regex : new RegExp(yearmonth,'i') } };
 
     // checking all ready done 5 votes for this month
     
     Vote.find(conditions, function (err, document) {
         var alreadyvoted = false;
         var mytotalvotes = 0;
+
         document.map(function (data, key){
             mytotalvotes++;
             // check already voted or not

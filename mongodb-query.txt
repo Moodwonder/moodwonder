@@ -30,7 +30,19 @@ db.mwusertheme.insert({ "language" : "EN",
                         "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mail",
                         "L_INVITE_BTN" : "INVITE",
                         "L_MYPROFILE_LINK" : "My profile",
-                        "L_LOGOUT_LINK" : "Log Out"
+                        "L_LOGOUT_LINK" : "Log Out",
+                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD",
+                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today?",
+                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit",
+                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements",
+                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account",
+                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout",
+                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics",
+                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees",
+                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk",
+                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses",
+                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response",
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison"
 });
 
 db.mwusertheme.insert({ "language" : "FI", 
@@ -42,7 +54,19 @@ db.mwusertheme.insert({ "language" : "FI",
                         "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mailfi",
                         "L_INVITE_BTN" : "INVITEfi",
                         "L_MYPROFILE_LINK" : "My profilefi",
-                        "L_LOGOUT_LINK" : "Log Outfi"
+                        "L_LOGOUT_LINK" : "Log Outfi",
+                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD fi",
+                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today fi ?",
+                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit fi",
+                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements FI",
+                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account fi",
+                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout fi",
+                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics fi",
+                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees fi",
+                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk fi",
+                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses fi",
+                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response fi",
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison fi"
 });
 
 db.invitesignuppage.insert({ "_id" : ObjectId("5652f498e1b9973ade7e6fe3"), "language" : "FI", "INVITESIGNUP_TITLE" : "Kutsu kirjautumisen", "INVITESIGNUP_PLACEHOLDER_EMAIL" : "Syötä sähköpostiosoitteesi", "INVITESIGNUP_BTN" : "Aloita" });
@@ -56,3 +80,9 @@ db.createpasswordpage.insert({ "_id" : ObjectId("5652ecede1b9973ade7e6fd9"), "la
 db.forgotpasswordpage.insert({ "_id" : ObjectId("5652f02de1b9973ade7e6fdd"), "language" : "EN", "FORGOTPASS_TITLE" : "Forgot password", "FORGOTPASS_PLACEHOLDER_PASSWORD" : "Enter your email", "FORGOTPASS_BTN_CREATE" : "Submit" });
 
 db.forgotpasswordpage.insert({ "_id" : ObjectId("5652f02ee1b9973ade7e6fde"), "language" : "FI", "FORGOTPASS_TITLE" : "Unohditko salasanasi", "FORGOTPASS_PLACEHOLDER_PASSWORD" : "Syötä sähköpostiosoitteesi", "FORGOTPASS_BTN_CREATE" : "Lähetä" });
+
+db.employeeofthemonthpage.insert({ "language" : "EN", "EOM_TITLE_1": "cast your votes for employee of the month", "EOM_SHOW_MORE": "Show more", "EOM_SEARCH_PLACEHOLDER_1": "Search a name", "EOM_SEARCH_BTN_1": "Search" });
+db.employeeofthemonthpage.insert({ "language" : "FI", "EOM_TITLE_1": "heittäkää ääntä työntekijä kuukauden", "EOM_SHOW_MORE": "Näytä lisää", "EOM_SEARCH_PLACEHOLDER_1": "Etsi nimi", "EOM_SEARCH_BTN_1": "Etsi" });
+
+db.publicprofilepage.insert({ "language" : "EN", "PUBLIC_PROFILE_VOTE_BTN": "VOTE HERE", "PUBLIC_PROFILE_VOTES": "Votes", "PUBLIC_PROFILE_MANAGERS": "Managers", "PUBLIC_PROFILE_SURVEYS_PARTICIPATED": "Surveys participated", "PUBLIC_PROFILE_TEAMS": "Teams" });
+db.publicprofilepage.insert({ "language" : "FI", "PUBLIC_PROFILE_VOTE_BTN": "Äänestä täällä", "PUBLIC_PROFILE_VOTES": "ääntä", "PUBLIC_PROFILE_MANAGERS": "Johtajat", "PUBLIC_PROFILE_SURVEYS_PARTICIPATED": "Surveys osallistunut", "PUBLIC_PROFILE_TEAMS": "Tiimit" });

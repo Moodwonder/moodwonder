@@ -90,7 +90,7 @@ export default class PublicProfile extends React.Component {
         let content;
         let manager = null;
         let teams   = null;
-        let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> VOTE HERE</a>);
+        let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> PUBLIC_PROFILE_VOTE_BTN </a>);
         if (!isNaN(sPercentage)) {
             content = (<ParticipationGraph percentage={sPercentage} />);
         }
@@ -167,20 +167,20 @@ export default class PublicProfile extends React.Component {
                 <div className="nine wide column">
                     {message}
                     <div className="ui segment">
-                        <h4 className="ui header ryt">VOTES</h4>
+                        <h4 className="ui header ryt"> PUBLIC_PROFILE_VOTES </h4>
                         <p>{publicUser.data.currentuservotes}</p>
                     </div>
                     <div className="ui segment">
-                        <h4 className="ui header ryt">SURVEYS PARTICIPATED</h4>
+                        <h4 className="ui header ryt"> PUBLIC_PROFILE_SURVEYS_PARTICIPATED </h4>
                         {content}
                     </div>
                 </div>
                 <div className="seven wide column">
                     <div className="ui segment">
-                        <h4 className="ui header ryt">MANAGERS</h4>
+                        <h4 className="ui header ryt"> PUBLIC_PROFILE_MANAGERS </h4>
                         {manager}
 
-                        <h4 className="ui header ryt">Teams</h4>
+                        <h4 className="ui header ryt"> PUBLIC_PROFILE_TEAMS </h4>
                         {teams}
 
                     </div>
