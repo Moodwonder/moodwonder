@@ -22,11 +22,11 @@ export default class Footer extends React.Component {
                 <div className="ui  vertical footer segment">
                     <div className="ui container">
                         <div className="footer-left">
-                            <a href="/about">About </a> |
-                            <a href="/anonymity"> Anonymity </a> |
-                            <a href="/terms"> Terms</a> |
-                            <a href="/policy"> Policy</a> |
-                            <a href="/#7thPage"> Contact </a>
+                            <a href="/about">ABT_LINK_ABOUT </a> |
+                            <a href="/anonymity">ABT_LINK_ANONYMITY </a> |
+                            <a href="/terms"> ABT_LINK_TERMS</a> |
+                            <a href="/policy"> ABT_LINK_POLICY</a> |
+                            <a href="/#7thPage"> ABT_LINK_CONTACT </a>
                         </div>
                         <a href="#"> © Moodwonder 2015 </a>
                     </div>

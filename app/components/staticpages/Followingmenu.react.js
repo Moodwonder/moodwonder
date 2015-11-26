@@ -1,4 +1,6 @@
 import React from 'react';
+import Cookie from 'utils/Cookie';
+import LanguageContants from 'constants/LanguageConstants';
 
 
 export default class Followingmenu extends React.Component {
@@ -15,6 +17,12 @@ export default class Followingmenu extends React.Component {
 
   }
 
+  onClickLanguage = (lang) => {
+      Cookie.setCookie('lang', lang, 30);
+      this.setState({lang: lang});
+      location.reload(true);
+  }
+
   render () {
 
       return (
@@ -24,16 +32,16 @@ export default class Followingmenu extends React.Component {
                         <div className="item padding-row">
                             <div className="ui icon top  pointing dropdown  "> <span>Language</span>
                                 <div className="menu">
-                                    <div className="item">EN</div>
-                                    <div className="item">FI</div>
+                                    <div onClick={this.onClickLanguage.bind(null, LanguageContants.EN)} className="item">EN</div>
+                                    <div onClick={this.onClickLanguage.bind(null, LanguageContants.FI)} className="item">FI</div>
                                 </div>
                             </div>
                         </div>
                         <div className="item ">
                             <div className="ui icon top right pointing dropdown  "> <span><i className="sidebar icon"></i></span>
                                 <div className="menu">
-                                    <a href="/login" className="item">Sign in </a>
-                                    <a href="/" className="item">Register</a>
+                                    <a href="/login" className="item">ABT_NAV_SIGNIN </a>
+                                    <a href="/" className="item">ABT_NAV_REGISTER</a>
                                 </div>
                             </div>
                         </div>

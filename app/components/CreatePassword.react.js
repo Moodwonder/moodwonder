@@ -71,10 +71,10 @@ export default class CreatePassword extends React.Component {
       }else if(password.length <= 6){
 
           this.setState({
-              message: 'Password length should be at least 7 characters',
+              message: 'Password should have at least 7 characters',
               hasErrorMessage: true
           });
-          this.showNotification('Password length should be at least 7 characters');
+          this.showNotification('Password should have at least 7 characters');
       }else{
 
           CreatePswdActions.usersignupstep2({

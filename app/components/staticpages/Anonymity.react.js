@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from 'components/staticpages/Header.react';
 
 
 export default class Anonymity extends React.Component {
@@ -20,30 +21,7 @@ export default class Anonymity extends React.Component {
       return (
             <div className="pusher">
                 <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor": "#4db6ac"}}>
-                    <header className="entry-header ui menu">
-                        <div style={{"display": "flex!important"}} className="">
-                            <div className="ui container"> <a className="item " href="/"><img src="assets/images/logo-mw.png" alt=""/></a>
-                                <div className="right menu">
-                                    <div className="item padding-row">
-                                        <div className="ui icon top  pointing dropdown  "> <span>Language</span>
-                                            <div className="menu">
-                                                <div className="item">EN</div>
-                                                <div className="item">FI</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="item ">
-                                        <div className="ui icon top right pointing dropdown  "> <span><i className="sidebar icon"></i></span>
-                                            <div className="menu">
-                                                <a href="/login" className="item">Sign in </a>
-                                                <a href="/" className="item">Register</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
+                    <Header />
                     <div className="ui text container">
                         <div className="banner-content">
                             <h2>Commitment to Anonymity</h2>
