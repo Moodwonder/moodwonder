@@ -2285,6 +2285,7 @@
 	background-color: #eaae00;
 	color: #000;
 	text-shadow: none;
+        cursor: pointer;
 }
 .ui.yellow.buttons .button:focus, .ui.yellow.button:focus {
 	

@@ -87,7 +87,7 @@ export default class Rightnav extends React.Component {
 
                         <div className="column padding-ryt response">
                             <div className="ui segment padding-20">
-                                <p><meter min="1" max="5" value={data.rating} className="tab-ryt-meter"></meter></p>
+                                <p><meter min="1" max="5" low="3" high="3.1" optimum="4.1" value={data.rating} className="tab-ryt-meter"></meter></p>
                             </div>
                         </div>
                      ];

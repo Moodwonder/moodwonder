@@ -740,4 +740,8 @@ a.ui.inverted.grey.header:hover {
 /*******************************
          Site Overrides
 *******************************/
+.header-middle-container .ui.yellow.button {
+    padding: 0.785714em 0.5em !important;
+    width: auto !important;
+}
 

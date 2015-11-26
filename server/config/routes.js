@@ -20,6 +20,7 @@ var EOMPage = require('../models/employeeofthemonthpage');
 var PublicProfilePage = require('../models/publicprofilepage');
 var Mwusertheme = require('../models/mwusertheme');
 var AboutPage = require('../models/aboutpage');
+var AnonymityPage = require('../models/anonymitypage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -261,6 +262,11 @@ module.exports = function (app, passport) {
             case 'about':
                 modelObj = {};
                 modelObj = AboutPage;
+                break;    
+                
+            case 'anonymity':
+                modelObj = {};
+                modelObj = AnonymityPage;
                 break;    
 
             default:

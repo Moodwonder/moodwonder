@@ -1008,5 +1008,22 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     height: 100% !important;
     width: 100% !important;
 }
+.header-slider {
+    width: 234px;
+}
+.slider .nav-mood-rating img {
+    width: 9.24%;
+    margin: 2px 0 0 27px;
+}
+.slider .nav-mood-rating img.first {
+    width: 9.24%;
+    margin: 2px 0 0 0px !important;
+}
+.slider .nav-mood-rating img:hover {
+    opacity: 0.6;
+}
+.slider .nav-mood-rating input {
+    margin-top: 0;
+}
 
 /* End: Edited by Dev */
