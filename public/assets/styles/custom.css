@@ -15,6 +15,11 @@
     text-transform: none;
 }
 
+.home .ui.error.message, .home .ui.success.message {
+    box-shadow: none;
+    margin-left: 0;
+}
+
 /* css fix in eom  page */
 .card .content .header a {
     color: inherit;
@@ -42,4 +47,16 @@
 
 .my-info.teams {
     margin: 10px 0;
+}
+
+/* Login page fixes */
+.ui.form .error.message, .ui.form .success.message, .ui.form .warning.message{
+	display: block;
+}
+
+
+/* Invite people winget */
+.invite-people .message.segment {
+    margin: 5px 0px 5px 0px;
+    box-shadow: none !important;
 }

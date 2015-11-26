@@ -93,36 +93,61 @@ export default class Signup extends React.Component {
           hash = this.props.params.hash;
       }catch(e){}
 
-      if (this.state.messages) {
+      if (this.state.messages !== undefined && this.state.messages.length > 0) {
           multimessages = this.state.messages.map((mes, key) => {
-              return [<div className="ui blue message">{mes}</div>];
+              return [<li>{mes}</li>];
           });
+          multimessages = (
+            <div className="ui error message segment">
+                <ul className="list">
+                    {multimessages}
+                </ul>
+            </div>
+          );
       }
 
       if (this.state.hasErrorMessage && this.state.message) {
-          message = [<div className="ui red message">{this.state.message}</div>];
+          message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+          );
       }
 
       if (this.state.isRegistered) {
-          message = [<div className="ui green message">{this.state.message}</div>];
+          message = (
+                <div className="ui success message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+          );
           document.getElementById('email').value = '';
       }else {
 
           if (this.state.isSignupWaiting) {
-              message = [<div className="ui yellow message">Processing...</div>];
+              message = (
+                    <div className="ui success message segment">
+                        <ul className="list">
+                            <li>Processing...</li>
+                        </ul>
+                    </div>
+              );
           }
       }
       return (
         <div className="six wide column">
             <div className="ui segment slideExpandUp ">
-              {message}
-              {multimessages}
                 <div className="ui input">
                     <input ref="email" id="email" name="email" placeholder="HOM_SGN_WORK_EMAIL" type="text" />
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                 </div>
                 <button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">HOM_GET_STARTED</span></button>
             </div>
+            {message}
+            {multimessages}
         </div>
       );
   }

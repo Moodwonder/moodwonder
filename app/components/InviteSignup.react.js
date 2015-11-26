@@ -93,30 +93,54 @@ export default class InviteSignup extends React.Component {
           hash = this.props.params.hash;
       }catch(e){}
 
-      if (this.state.messages) {
+      if (this.state.messages !== undefined && this.state.messages.length > 0) {
           multimessages = this.state.messages.map((mes, key) => {
-              return [<div className="ui blue message">{mes}</div>];
+              return [<li>{mes}</li>];
           });
+          multimessages = (
+			<div className="ui error message segment">
+				<ul className="list">
+					{multimessages}
+				</ul>
+			</div>
+          );
       }
 
       if (this.state.hasErrorMessage && this.state.message) {
-          message = [<div className="ui red message">{this.state.message}</div>];
+          message = (
+				<div className="ui error message segment">
+					<ul className="list">
+						<li>{this.state.message}</li>
+					</ul>
+				</div>
+          );
       }
 
       if (this.state.isRegistered) {
-          message = [<div className="ui green message">{this.state.message}</div>];
+          message = (
+				<div className="ui success message segment">
+					<ul className="list">
+						<li>{this.state.message}</li>
+					</ul>
+				</div>
+          );
       }else {
 
           if (this.state.isSignupWaiting) {
-              message = [<div className="ui yellow message">Processing...</div>];
+			  message = (
+					<div className="ui success message segment">
+						<ul className="list">
+							<li>Processing...</li>
+						</ul>
+					</div>
+			  );
           }
       }
+
       return (
         <div className="ui middle aligned center aligned grid">
           <div className="column">
             <h2 className="ui  image header"> <a href="/" ><img src="../assets/images/logo.png" className="image"/></a> </h2>
-              {message}
-              {multimessages}
             <div className="ui large form">
               <div className="ui stacked segment">
                 <div className="field">
@@ -127,7 +151,8 @@ export default class InviteSignup extends React.Component {
                 </div>
                 <button className="ui yellow button" onClick={this._onSignupStep1Submit}> INVITESIGNUP_BTN </button>
               </div>
-              <div className="ui error message segment"></div>
+              {message}
+              {multimessages}
             </div>
           </div>
         </div>

@@ -418,6 +418,7 @@ module.exports = function (app, passport) {
 		loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
 		loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
 		loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
+		loginpage += '<link rel="stylesheet" href="/assets/styles/custom.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var loginscripts = '';
