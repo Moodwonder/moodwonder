@@ -865,7 +865,8 @@ a.ui.black.labels .label:hover, a.ui.black.label:hover {
 	bottom: auto;
 	right: auto;
 	top: 50%;
-	left: 0.1em;
+	/*left: 0.1em;*/
+	left: -0.3em;
 }
 /*--- Right ---*/
 

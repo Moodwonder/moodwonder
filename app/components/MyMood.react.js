@@ -1111,7 +1111,7 @@ export default class MyMood extends React.Component {
                     </div>
                     <div className="column">
                         <div className="three  column">
-                            <div className="test-gen ui submit button "> <a href="/surveyforms">Survey Lists</a></div>
+                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">Survey Lists</a></div>
                         </div>
                     </div>
                 </div>

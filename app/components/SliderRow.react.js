@@ -34,7 +34,9 @@ export default class SliderRow extends React.Component {
                     <div className="ui basic yellow left pointing label column"> {description} </div>
                     <div className="mood-slider column">
                         <div className="ui slider range">
+                            <span>1</span>
                             <input type="range" name={mood} max="5" min="1" value={moodrate} step="0.1" onChange={this.onChangeMood} />
+                            <span>5</span>
                         </div>
                     </div>
                 </div>
