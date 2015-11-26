@@ -350,7 +350,7 @@ exports.postSignupStep1 = function (req, res, next) {
                     });
 
                     response.status = true;
-                    response.message = 'We have sent you an email, Please follow the instructions in the email to complete the sign up process';
+                    response.message = 'We have sent you an email, with instructions to complete your sign up process';
 
                     // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
                     console.log('--req.body.hash----' + req.body.hash);
@@ -899,7 +899,7 @@ exports.postForgotPassword = function (req, res) {
                         html: body
                     });
                     response.status = true;
-                    response.message = 'We have send you an email with instructions how to reset your password';
+                    response.message = 'We have sent you an email with instructions how to reset your password';
                     res.send(response);
                     res.end();
                 } else {

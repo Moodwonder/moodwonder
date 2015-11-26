@@ -8,7 +8,7 @@ import InviteStore from 'stores/InviteStore';
  */
 export default class InviteOthers extends React.Component {
 
-	// Do same feature changes in InviteOthers component
+    // Do same feature changes in InviteOthers component
     constructor(props) {
         super(props);
         this.state = InviteStore.getState();
@@ -52,17 +52,21 @@ export default class InviteOthers extends React.Component {
         if (this.state.message !== '' ) {
             console.log(this.state.message);
             message = (
-                <div className={ (this.state.hasError) ? 'ui red message' : 'ui info message' }>
-                {this.state.message}
+                <div className={ (this.state.hasError) ? 'ui error message segment' : 'ui success message segment' }>
+                    <ul className="list"><li>{this.state.message}</li></ul>
                 </div>
             );
+
+            if(!this.state.hasError) {
+                document.getElementById('email').value = '';
+            }
         }
         return (
         <div className="invite-people mobile">
             <h2> L_INVITE_PEOPLE_TITLE </h2>
             <p> L_INVITE_PEOPLE_DES </p>
             <div className="ui input">
-                <input placeholder=" L_INVITE_INPUT_PLCHOLDER " ref="email" type="text" />
+                <input placeholder=" L_INVITE_INPUT_PLCHOLDER " id="email" ref="email" type="text" />
             </div>
             <button className="ui orange button" onClick={this._onSaveSubmit} > L_INVITE_BTN </button>
             {message}

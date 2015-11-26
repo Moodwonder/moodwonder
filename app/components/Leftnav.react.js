@@ -34,13 +34,20 @@ export default class Leftnav extends React.Component {
   render () {
       // console.log(this.state);
       let user = this.state.userData;
+      let userfullname = '';
+      if( user.fname !== undefined && user.fname !== 'undefined' ){
+		  userfullname = user.fname;
+	  }
+      if( user.lname !== undefined && user.lname !== 'undefined' ){
+		  userfullname += ' '+user.lname;
+	  }
 
       return (
             <div className="ui left fixed vertical menu ">
                 <div className="profile item">
                     <img className="ui mini image" src={user.profile_image} alt=""/>
                     <div className="ui dropdown">
-                        <span>{user.fname + " " + user.lname}</span>
+                        <span>{userfullname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
                             <div className="item">L_MYPROFILE_LINK</div>
