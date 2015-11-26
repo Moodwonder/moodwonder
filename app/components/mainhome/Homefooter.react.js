@@ -21,10 +21,10 @@ export default class Homefooter extends React.Component {
           <footer>
             <div className="footer-left">
                 <a href="/about"> HOM_FOOTER_ABOUT </a> |
-                <a href="/anonymity"> Anonymity </a> |
-                <a href="/terms"> Terms</a> |
-                <a href="/policy"> Policy</a> |
-                <a href="/#7thPage"> Contact </a>
+                <a href="/anonymity"> HOM_FOOTER_ANONYMITY </a> |
+                <a href="/terms"> HOM_FOOTER_TERMS </a> |
+                <a href="/policy"> HOM_FOOTER_POLICY </a> |
+                <a href="/#7thPage"> HOM_FOOTER_CONTACT </a>
             </div>
             <a href="#"> © Moodwonder 2015 </a>
         </footer>

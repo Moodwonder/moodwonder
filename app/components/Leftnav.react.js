@@ -32,7 +32,7 @@ export default class Leftnav extends React.Component {
 
 
   render () {
-	  // console.log(this.state);
+      // console.log(this.state);
       let user = this.state.userData;
 
       return (
