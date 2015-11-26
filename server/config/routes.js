@@ -19,6 +19,7 @@ var InviteSignupPage = require('../models/invitesignuppage');
 var EOMPage = require('../models/employeeofthemonthpage');
 var PublicProfilePage = require('../models/publicprofilepage');
 var Mwusertheme = require('../models/mwusertheme');
+var AboutPage = require('../models/aboutpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -256,6 +257,11 @@ module.exports = function (app, passport) {
                 modelObj = {};
                 modelObj = PublicProfilePage;
                 break;
+                
+            case 'about':
+                modelObj = {};
+                modelObj = AboutPage;
+                break;    
 
             default:
                 modelObj = {};
