@@ -35,11 +35,11 @@ export default class Terms extends React.Component {
 
                         <div className="sixteen wide column">
                             <div className="ui segment">
-                                <h3>Terms</h3>
+                                <h3>TRMS_TITLE</h3>
                             </div>
 
 
-                            <p> By accessing this web site, you are agreeing to be bound by these web site Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this web site are protected by applicable copyright and trade mark law.</p>
+                            <p> TRMS_DES</p>
                         </div>
 
                     </div>
@@ -48,45 +48,44 @@ export default class Terms extends React.Component {
                     <div className="ui two column stackable grid container h2">
 
                         <div className="eight wide column">
-                            <h2>Use License</h2>
-                            <p> Permission is granted to temporarily download one copy of the materials (information or software) on Moodwonder's web site for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not: modify or copy the materials. Use the materials for any commercial purpose, or for any public display (commercial or non-commercial); attempt to decompile or reverse engineer any software contained on Moodwonder's web site; remove any copyright or other proprietary notations from the materials; or transfer the materials to another person or "mirror" the materials on any other server.</p>
-                            <p> This license shall automatically terminate if you violate any of these restrictions and may be terminated by Moodwonder at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format. </p>
+                            <h2>TRMS_SEC1_T1</h2>
+                            <p>TRMS_SEC1_P1</p>
+                            <p>TRMS_SEC1_P2</p>
                         </div>
 
                         <div className="eight wide column">
-                            <h2>Disclaimer </h2>
-                            <p> The materials on Moodwonder's web site are provided "as is". Moodwonder makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, Moodwonder does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet web site or otherwise relating to such materials or on any sites linked to this site.</p>
+                            <h2>TRMS_SEC2_T1</h2>
+                            <p>TRMS_SEC2_P1</p>
                         </div>
 
                         <div className="eight wide column">
-                            <h2>Limitations </h2>
-                            <p> In no event shall Moodwonder be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on Moodwonder's Internet site, even if Moodwonder or a Moodwonder authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.</p>
+                            <h2>TRMS_SEC3_T1</h2>
+                            <p>TRMS_SEC3_P1</p>
                         </div>
                         <div className="eight wide column">
-                            <h2>Revisions and Errata </h2>
-                            <p> The materials appearing on Moodwonder's web site could include technical, typographical, or photographic errors. Moodwonder does not warrant that any of the materials on its web site are accurate, complete, or current. Moodwonder may make changes to the materials contained on its web site at any time without notice. Moodwonder does not, however, make any commitment to update the materials.</p>
-                        </div>
-
-                        <div className="eight wide column">
-                            <h2>Revisions and Errata </h2>
-                            <p> We will only reveal your profile and submitted information to law enforcement as required by law or to pursue real or perceived damages you have made to the company. </p>
+                            <h2>TRMS_SEC4_T1</h2>
+                            <p>TRMS_SEC4_P1</p>
                         </div>
 
                         <div className="eight wide column">
-                            <h2>Links </h2>
-                            <p> Moodwonder has not reviewed all of the sites linked to its Internet web site and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Moodwonder of the site. Use of any such linked web site is at the user's own risk. </p>
+                            <h2>TRMS_SEC5_T1</h2>
+                            <p>TRMS_SEC5_P1</p>
+                        </div>
+
+                        <div className="eight wide column">
+                            <h2>TRMS_SEC6_T1</h2>
+                            <p>TRMS_SEC6_P1</p>
 
                         </div>
 
                         <div className="eight wide column">
-                            <h2>Site Terms of Use Modifications </h2>
-                            <p>Moodwonder may revise these terms of use for its web site at any time without notice. By using this web site you are agreeing to be bound by the then current version of these Terms and Conditions of Use.</p>
+                            <h2>TRMS_SEC7_T1</h2>
+                            <p>TRMS_SEC7_P1</p>
                         </div>
 
                         <div className="eight wide column">
-                            <h2>Governing Law </h2>
-                            <p> Any claim relating to Moodwonder's web site shall be governed by the laws of Finland without regard to its conflict of law provisions.
-                                General Terms and Conditions applicable to Use of a Web Site. </p>
+                            <h2>TRMS_SEC8_T1</h2>
+                            <p>TRMS_SEC8_P1</p>
                         </div>
                     </div>
                 </div>

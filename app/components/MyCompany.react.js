@@ -249,8 +249,11 @@ export default class MyCompany extends React.Component {
 
       let myGraphData = CompanyGraphdata.getMyEngagementData(graphengagement, companyedata, loggeduserid);
       let mylastrate;
-      for (let row of _.last(myGraphData,1)) {
-          mylastrate = row.rating;
+      if (myGraphData === undefined || myGraphData.length == 0) {
+      } else {
+          for (let row of _.last(myGraphData,1)) {
+              mylastrate = row.rating;
+          }
       }
 
       //Start : MyGraphdata
@@ -361,7 +364,12 @@ export default class MyCompany extends React.Component {
       let teamgraph = teams.map((data, key) => {
 
           let teamGraphData = CompanyGraphdata.getTeamEngagementGraphData(graphengagement, companyedata, data.member_ids);
-          let tlastrate = _.last(teamGraphData,1);
+          let  tlastrate = _.last(teamGraphData,1);
+          let tlastrating;
+          if (tlastrate === undefined || tlastrate.length == 0) {
+          } else {
+              tlastrating = tlastrate[0].rating;
+          }
 
           let txlabel = [];
           let tydata = [];
@@ -406,7 +414,7 @@ export default class MyCompany extends React.Component {
                     <div className="ui  column stackable grid">
                         <div className="column ">
                             <div className="ui segment brdr">
-                                <h2 className="com">{data.teamname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{tlastrate[0].rating}</span> </h2>
+                                <h2 className="com">{data.teamname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{tlastrating}</span> </h2>
                                 <div><LineChart data={tchartdata} options={chartoptions} width="800" height="250" redraw/></div>
                             </div>
                         </div>

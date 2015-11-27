@@ -117,7 +117,6 @@ export default class RequestDemo extends React.Component {
 						<button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
 					</div>
 				</div>
-				
 			</div>
 			{multimessages}
         </div>

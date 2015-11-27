@@ -21,6 +21,8 @@ var PublicProfilePage = require('../models/publicprofilepage');
 var Mwusertheme = require('../models/mwusertheme');
 var AboutPage = require('../models/aboutpage');
 var AnonymityPage = require('../models/anonymitypage');
+var TermsPage = require('../models/termspage');
+var PolicyPage = require('../models/policypage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -267,6 +269,16 @@ module.exports = function (app, passport) {
             case 'anonymity':
                 modelObj = {};
                 modelObj = AnonymityPage;
+                break;    
+                
+            case 'terms':
+                modelObj = {};
+                modelObj = TermsPage;
+                break;    
+                
+            case 'policy':
+                modelObj = {};
+                modelObj = PolicyPage;
                 break;    
 
             default:

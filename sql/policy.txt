@@ -1,0 +1,34 @@
+
+db.policypage.insert({ "language" : "EN", 
+                        "PLCY_TITLE" : "Privacy Policy", 
+                        "PLCY_PARA1" : "We will not attempt to identify you, unless there is indication of survey duplication or survey fraud. When we do we will usually (but not always) ask you for more information, such as your address and phone.",
+                        "PLCY_PARA2" : "We will never sell, distribute or disclose your email address, and/or your related personal information to another entity, without your permission. One exception, is if another company purchases all the assets of Moodwonder, and they abide by the same or more strict of a confidentiality agreement.",
+                        "PLCY_PARA3" : "In some cases where we need to identity you, and for your anonymous profile, we will keep such information under the strictest of confidence.",
+                        "PLCY_PARA4" : "The information you provide to us includes your first and last name, an email address (which in turn identifies your employer), as well as the responses you submit.",
+                        "PLCY_PARA5" : "We also collect computer IP addresses, cookie data, and other data from your computer and network, which is normally insufficient to personally identify you.",
+                        "PLCY_PARA6" : "We will only reveal your profile and submitted information to law enforcement as required by law or to pursue real or perceived damages you have made to the company. ",
+                        "ABT_LINK_ABOUT" : "About",
+                        "ABT_LINK_ANONYMITY" : " Anonymity",
+                        "ABT_LINK_TERMS" : "Terms",
+                        "ABT_LINK_POLICY" : "Policy",
+                        "ABT_LINK_CONTACT" : "Contact",
+                        "ABT_NAV_SIGNIN" : "Sign in",
+                        "ABT_NAV_REGISTER" : "Register"
+});
+
+db.policypage.insert({ "language" : "FI", 
+                        "PLCY_TITLE" : "Tietosuojakäytäntö", 
+                        "PLCY_PARA1" : "Emme yritä tunnistaa sinut, ellei ole viitteitä tutkimuksen päällekkäisyyksiä tai kyselyn petos. Kun teemme me yleensä (mutta ei aina) kysyä lisätietoja, kuten osoitteesi ja puhelin.",
+                        "PLCY_PARA2" : "Emme koskaan myy, jakaa tai paljastaa sähköpostiosoitteesi, ja / tai niihin liittyviä henkilökohtaisia tietoja toiselle osapuolelle, ilman lupaasi. Yksi poikkeus, on jos toinen yritys ostaa kaikki varat Moodwonder, ja ne noudattavat samoja tai tiukempaa ja salassapitosopimuksen.",
+                        "PLCY_PARA3" : "Joissakin tapauksissa, joissa meidän identiteettiä teitä, ja teidän nimetön profiilin, pidämme näitä tietoja tiukoin luottamusta.",
+                        "PLCY_PARA4" : "Tiedot, jotka annat meille myös ensimmäinen ja viimeinen nimi, sähköpostiosoite (joka puolestaan tunnistaa työnantajasi), sekä vastauksia lähetät.",
+                        "PLCY_PARA5" : "Keräämme myös tietokoneen IP-osoitteita, evästeen tiedot, ja muita tietoja tietokoneesta ja verkko, joka on yleensä riittämätön henkilöllisyyttäsi.",
+                        "PLCY_PARA6" : "Me vain paljastaa profiilisi ja toimittaneet tietoja lainvalvonnan lain edellyttämällä tavalla tai harjoittaa todellista tai kuviteltua vahingoista olet tehnyt yhtiölle.",
+                        "ABT_LINK_ABOUT" : "Noin",
+                        "ABT_LINK_ANONYMITY" : "nimettömyys",
+                        "ABT_LINK_TERMS" : "ehdot",
+                        "ABT_LINK_POLICY" : "politiikka",
+                        "ABT_LINK_CONTACT" : "yhteyshenkilö",
+                        "ABT_NAV_SIGNIN" : "Kirjaudu sisään",
+                        "ABT_NAV_REGISTER" : "Rekisteröidy"
+});
