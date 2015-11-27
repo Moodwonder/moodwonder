@@ -3,9 +3,9 @@ import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
 
 class SurveyParticipationActions {
 
-  getMySurveyParticipation () {
+  getMySurveyParticipation (data) {
       this.dispatch();
-      CustomSurveyWebAPIUtils.getMySurveyParticipation()
+      CustomSurveyWebAPIUtils.getMySurveyParticipation(data)
       .then((response, textStatus) => {
           if (response.status === 'success') {
               this.actions.mysurveyparticipation(response.data);

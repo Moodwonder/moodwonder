@@ -5,7 +5,7 @@ var SurveyParticipation = require('../models/surveyParticipation');
 
 exports.getMySurveyParticipation = function (req, res) {
 
-    var user_id = req.user._id;
+    var user_id = req.body._id;
     var condition = {user_id: user_id};
 
     SurveyParticipation.find(condition).sort({_id: -1}).exec(function (err, data) {
@@ -23,35 +23,3 @@ exports.getMySurveyParticipation = function (req, res) {
         res.end();
     });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

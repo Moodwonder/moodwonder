@@ -1151,7 +1151,7 @@ exports.getAllEmployees = function (req, res) {
                                     // mytotalvotes++;
                                 }
                             }
-                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : '/images/no-profile-img.gif';
                             employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
                         });
 
@@ -1917,7 +1917,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                     // mytotalvotes++;
                                 }
                             }
-                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : '/images/no-profile-img.gif';
                             employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
                         });
 
@@ -1996,8 +1996,8 @@ exports.getPublicProfile = function (req, res, next) {
                 response.status = true;
                 response.message = 'success';
                 lists.password = '';
-                lists.cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : BANNER_PIC_PATH+'nocover.jpg';
-                lists.profile_image = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                lists.cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
+                lists.profile_image = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                 response.data = {};
                 response.data.profile = lists;
 
@@ -2026,9 +2026,9 @@ exports.getPublicProfile = function (req, res, next) {
                 {
                     var where = { email: req.user.mymanager[0].email };
                     User.findOne(where).exec(function(err, lists) {
-                        if(!err) {
+                        if(!err && lists !== null) {
                             // console.log(lists);
-                            var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
+                            var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                             response.data.manager = {
                                 status: true,
                                 message: "success",
@@ -2037,7 +2037,7 @@ exports.getPublicProfile = function (req, res, next) {
                         } else {
                             response.data.manager = {
                                 status: false,
-                                message: "something went wrong..",
+                                message: "Record not found",
                                 data: []
                             };
                         }

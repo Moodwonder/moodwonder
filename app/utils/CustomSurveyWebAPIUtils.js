@@ -19,11 +19,12 @@ const utils = {
     });
   },
 
-  getMySurveyParticipation: () => {
+  getMySurveyParticipation: (data) => {
       return $.ajax({
       url: '/getmysurveyparticipation',
-      type: 'GET',
-      contentType: 'application/json'
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
     });
   },
 

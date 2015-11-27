@@ -164,8 +164,10 @@ export default class EmployeeOfTheMonth extends React.Component {
         let message;
         if (this.state.message !== '' ) {
             message = (
-                <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                {this.state.message}
+                <div className="ui success message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
                 </div>
             );
         }
