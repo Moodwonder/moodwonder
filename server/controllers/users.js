@@ -246,9 +246,8 @@ exports.getUserInfo = function (req, res) {
                 if (lists.mymanager[0] == undefined) {
                     lists.mymanager[0] = {'email': ''};
                 }
-                
-                var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
-                var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '';
+                var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
+                var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
                 response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'cover_image': cover_image, 'summary': lists.summary, 'usertype' : lists.usertype };
             }
             res.json(response);
@@ -328,14 +327,40 @@ exports.postSignupStep1 = function (req, res, next) {
                 if (!err) {
 
                     // Get domian name without extension
-                    // 'test@example.com' converting into 'exampel'
+                    // 'test@example.com' converting into 'example'
                     var email  = req.body.email;
                     var domain = email.substring(email.lastIndexOf("@")+1);
                     domain = domain.substring(0,domain.lastIndexOf("."));
-                    
                     var company = { name: domain};
                     Company.update(company,company,{upsert: true},function(err,newcompany){});
-                    
+
+                    // Update company name in User collection
+                    var conditions = {
+                        _id: new ObjectId(newuser._id)
+                    };
+
+                    var update  = [{
+                        companyname : domain,
+                        industry : '',
+                        continent : '',
+                        country : '',
+                        state : '',
+                        city : '',
+                        address : '',
+                        website : '',
+                        companysize : ''
+                    }];
+                    var options = { multi: false };
+                    User.update(conditions, { company_info: update }, options, function (err) {
+                        if (!err) {
+
+                            console.log('update done');
+                        } else {
+
+                            console.log(err);
+                        }
+                    });
+
                     var transporter = nodemailer.createTransport();
                     var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
                             "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
@@ -366,6 +391,16 @@ exports.postSignupStep1 = function (req, res, next) {
                         Invite.findOne({email: email}, function (err, existingInvite) {
                             if (existingInvite) {
 
+                                // removing invitation record after taking the data from the collection
+                                // Otherwise it will show email id repetition in the members list in teams
+                                 Invite.remove({_id: existingInvite._id }, function(err) {
+                                    if (!err) {
+                                        console.log('done....');
+                                    }
+                                    else {
+                                        console.log(err);
+                                    }
+                                });
                                 var team_id = existingInvite.data[0].team._id;
 
                                 var where = {_id: new ObjectId(team_id)}
@@ -418,6 +453,7 @@ exports.postSignupStep1 = function (req, res, next) {
                                         res.end();
                                     }
                                 });
+
                             } else {
                                 response.status = true;
                                 response.messages = ['Error when processing your invitation'];
@@ -967,10 +1003,12 @@ exports.updateUser = function (req, res) {
             if (!err) {
 
                 response.status = true;
+                response.callback = req.body.callback;
                 response.message = req.body.resmessage;
             } else {
 
                 response.status = false;
+                response.callback = req.body.callback;
                 response.message = 'Something went wrong..';
             }
             res.send(response);
@@ -980,6 +1018,7 @@ exports.updateUser = function (req, res) {
     } else {
 
         response.status = false;
+        response.callback = req.body.callback;
         response.message = 'Something went wrong..';
         res.send(response);
         res.end();
@@ -1828,7 +1867,18 @@ function isValid(id) {
  */
 exports.getAllEmployeesInCompany = function (req, res) {
 
-    var response = {};
+    var response     = {};
+    response.status  = false;
+    response.message = 'Error';
+
+    var callbacklog = {};
+
+    var existCondition = function(){
+        if(callbacklog.employeeTotalVotes && callbacklog.myTotalVotes){
+            res.send(response);
+        }
+    }
+
     var mycompany = '';
     var last_id = req.body.last_id;
     var keyword = req.body.keyword;
@@ -1858,71 +1908,77 @@ exports.getAllEmployeesInCompany = function (req, res) {
         // console.log(condition);
         
         User.find(condition).limit(limit).sort({_id: 1}).exec(function (err, lists) {
+
             if (!err) {
-                Vote.aggregate([
-                    {
-                        $match: {
-                            postdate:
-                            {
-                                $regex : new RegExp(yearmonth,'i')
-                            },
-                            company: mycompany
-                        }
-                    },
-                    {
-                        $group : {
-                            _id : "$votefor_userid",
-                            total : { $sum : 1 },
-                            user_ids: {
-                                $push: "$user_id"
-                             }
-                        }
-                    }
-                ],
-                function (err, result) {
+                if(lists !== null){
 
-                    var emp_meta = {};
-                    if (err) {
-                        console.log(err);
-                    }else{
-                        result.map(function (data, key) {
-                            emp_meta[data._id] = data;
-                        });
-                    }
-
+                    //console.log(lists);
+                    // Find employee of the month
                     EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
 
                         var employees = [];
-                        // var mytotalvotes = 0;
                         lists.map(function (data, key) {
 
-                            var votes         =   0;
-                            var myvote        =   false;
                             var empofthemonth =   false;
-                            if(emp_meta[data._id] !== undefined){
-                                var cemp      =   emp_meta[data._id];
-                                var userids   =   emp_meta[data._id].user_ids;
-                                var user_ids  =   [];
-
-                                // set employee of the month status
-                                try {
-                                    if(emp.emp_id === data._id){
-                                        empofthemonth =   true;
-                                    }
-                                } catch (ex) {}
-                                userids.map(function (id, key) { user_ids[key] = id.toString(); });
-                                votes         =  cemp.total;
-                                if((user_ids.indexOf(req.user._id.toString())) !== -1 ){
-                                    myvote    =  true;
-                                    // mytotalvotes++;
-                                }
-                            }
                             var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : '/images/no-profile-img.gif';
-                            employees[key]    = { _id: data._id, photo: profileimage, name: (data.firstname+' '+data.lastname), votes: votes, myvote: myvote, empofthemonth: empofthemonth };
+                            // set employee of the month status
+                            try {
+                                if(emp.emp_id === data._id){
+                                    empofthemonth =   true;
+                                }
+                            } catch (ex) {}
+
+                            //////////////////// set basic details //////////////////////
+                            employees[key] = {
+                                _id: data._id,
+                                photo: profileimage,
+                                name: (data.firstname+' '+data.lastname),
+                                votes: 0, // Total votes 
+                                myvote: false,
+                                empofthemonth: empofthemonth
+                            };
                         });
+                        // console.log(employees);
 
+                        // Set total votes received by each employee
+                        if(employees.length >0 ){
+                            var counter = 0;
+                            employees.map(function (data, key) {
+                                var condition = {
+                                    postdate: { $regex : new RegExp(yearmonth,'i') },
+                                    votefor_userid: new ObjectId(data._id)
+                                };
+                                Vote.find(condition, function(err, votes){
+                                    counter++;
+                                    try{
+                                        ////////////////// Set total votes received by each employee
+                                        employees[key].votes = votes.length;
+                                    }catch(e){}
 
-                        // Current user - my voting status
+                                    if(votes !== null){
+                                        votes.map(function(vote, vkey){
+                                            if(vote.user_id.toString() === req.user._id.toString()){
+                                                ////////////////// Set my vote status 
+                                                employees[key].myvote = true;
+                                            }
+                                        });
+                                    }
+
+                                    // check employee total votes finding is finished or not
+                                    // console.log(employees.length +"==="+ counter);
+                                    if(employees.length === counter){
+                                        callbacklog.employeeTotalVotes = true;
+                                        console.log(employees);
+                                        existCondition();
+                                    }
+                                });
+                            });
+                        }else{
+                            callbacklog.employeeTotalVotes = true;
+                            existCondition();
+                        }
+
+                        // Current user - my total votes
                         Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, user_id: new ObjectId(req.user._id) }, function(err, votes){
 
                             var mytotalvotes = 0;
@@ -1937,10 +1993,17 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             response.data = {};
                             response.data.employees = employees;
                             response.data.mytotalvotes = mytotalvotes;
-                            res.send(response);
+                            callbacklog.myTotalVotes = true;
+                            existCondition();
                         });
+                        existCondition();
                     });
-                });
+                }else{
+                    response.status = false;
+                    response.message = 'No records found';
+                    response.data = [];
+                    res.send(response);
+                }
             }else{
                 response.status = false;
                 response.message = 'Something went wrong';

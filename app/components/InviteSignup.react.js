@@ -124,6 +124,7 @@ export default class InviteSignup extends React.Component {
 					</ul>
 				</div>
           );
+          document.getElementById('email').value = '';
       }else {
 
           if (this.state.isSignupWaiting) {
@@ -145,7 +146,7 @@ export default class InviteSignup extends React.Component {
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
-                    <input ref="email" name="email" placeholder=" INVITESIGNUP_PLACEHOLDER_EMAIL " type="text" />
+                    <input ref="email" name="email" id="email" placeholder=" INVITESIGNUP_PLACEHOLDER_EMAIL " type="text" />
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                   </div>
                 </div>
