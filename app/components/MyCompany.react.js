@@ -343,6 +343,12 @@ export default class MyCompany extends React.Component {
       chartdata.labels = xlabel;
       chartdata.datasets = datasets;
 
+      let companyname;
+      if (userDetails === undefined || userDetails.length == 0) {
+      } else {
+          companyname = userDetails.companyname;
+      }
+
       let cmpGraph;
       if (compnayGraphData === undefined || compnayGraphData.length == 0) {
       } else {
@@ -350,7 +356,7 @@ export default class MyCompany extends React.Component {
                         <div className="ui  column stackable grid">
                             <div className="column ">
                                 <div className="ui segment brdr">
-                                    <h2 className="com">{userDetails.companyname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{clastrate}</span> </h2>
+                                    <h2 className="com">{companyname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{clastrate}</span> </h2>
                                     <div><LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/></div>
                                 </div>
                             </div>

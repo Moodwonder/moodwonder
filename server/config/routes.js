@@ -23,6 +23,7 @@ var AboutPage = require('../models/aboutpage');
 var AnonymityPage = require('../models/anonymitypage');
 var TermsPage = require('../models/termspage');
 var PolicyPage = require('../models/policypage');
+var SurveyPage = require('../models/surveypage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -187,7 +188,7 @@ module.exports = function (app, passport) {
         // You will get the params using the following code in your components
         // this.state.yourState
         //console.log(publicprofile);
-
+        
         res.locals.data = {
             UserStore: { user: user, continents: req.body.continents },
             PublicUserStore: publicprofile,
@@ -209,7 +210,7 @@ module.exports = function (app, passport) {
     }
     
 
-    function getPageKeys(page, lang, html, callback) {
+    function getPageKeys(page, lang, callback) {
         // console.log('page');
         // console.log(page);
 
@@ -280,7 +281,17 @@ module.exports = function (app, passport) {
                 modelObj = {};
                 modelObj = PolicyPage;
                 break;    
-
+            
+            case 'survey':
+                modelObj = {};
+                modelObj = SurveyPage;
+                break;
+                
+            case 'testing':
+                modelObj = {};
+                modelObj = SurveyPage;
+                break;
+                
             default:
                 modelObj = {};
                 modelObj = Languages;
@@ -303,11 +314,7 @@ module.exports = function (app, passport) {
             lang = 'EN';
         }
 
-        var html = App(JSON.stringify(res.locals.data || {}), req.url);
-        
-        var commonscripts = '';
-        
-        
+        //var html = App(JSON.stringify(res.locals.data || {}), req.url);
         
         var userstyles = '';
         userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/font-awesome.min.css" data-react-helmet="true" />';
@@ -437,7 +444,7 @@ module.exports = function (app, passport) {
 		loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
 		loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
 		loginpage += '<link rel="stylesheet" href="/assets/styles/custom.css" />';
-        loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
+                loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var loginscripts = '';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
@@ -445,70 +452,72 @@ module.exports = function (app, passport) {
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
         
+//        var html = App(JSON.stringify(res.locals.data || {}), req.url);
+//        if (pageurl == '/' || pageurl == '/index') {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", homestyles)
+//                .replace("BODYCLASS", 'home')
+//                .replace("JSCRIPTS", homescripts);
+//        
+//        } else if (pageurl == '/moodrate') {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", moodrate)
+//                .replace("BODYCLASS", 'home')
+//                .replace("JSCRIPTS", userscripts);
+//        
+//        }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", staticstyles)
+//                .replace("BODYCLASS", 'inner-pages')
+//                .replace("JSCRIPTS", staticscripts);
+//        
+//        } else if (pageurl.search('admin') != -1) {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", adminstyles)
+//                .replace("BODYCLASS", '')
+//                .replace("JSCRIPTS", adminscripts);
+//        
+//        } else if (pageurl == '/login' || pageurl == '/logout') {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", loginpage)
+//                .replace("BODYCLASS", 'login loginpage')
+//                .replace("JSCRIPTS", loginscripts);
+//        
+//        } else if (pageurl.search('invitesignup') != -1) {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", loginpage)
+//                .replace("BODYCLASS", 'login loginpage')
+//                .replace("JSCRIPTS", userscripts);
+//
+//        } else if (pageurl.search('createpassword') != -1) {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", loginpage)
+//                .replace("BODYCLASS", 'login loginpage')
+//                .replace("JSCRIPTS", userscripts);
+//
+//        } else if (pageurl == '/forgotpassword') {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", loginpage)
+//                .replace("BODYCLASS", 'login loginpage')
+//                .replace("JSCRIPTS", userscripts);
+//
+//        } else {
+//            html = html.replace("TITLE", Header.title)
+//                .replace("META", Header.meta)
+//                .replace("LINK", userstyles)
+//                .replace("BODYCLASS", '')
+//                .replace("JSCRIPTS", userscripts);
+//        }
         
-        if (pageurl == '/' || pageurl == '/index') {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", homestyles)
-                .replace("BODYCLASS", 'home')
-                .replace("JSCRIPTS", homescripts);
         
-        } else if (pageurl == '/moodrate') {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", moodrate)
-                .replace("BODYCLASS", 'home')
-                .replace("JSCRIPTS", userscripts);
-        
-        }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", staticstyles)
-                .replace("BODYCLASS", 'inner-pages')
-                .replace("JSCRIPTS", staticscripts);
-        
-        } else if (pageurl.search('admin') != -1) {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", adminstyles)
-                .replace("BODYCLASS", '')
-                .replace("JSCRIPTS", adminscripts);
-        
-        } else if (pageurl == '/login' || pageurl == '/logout') {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage')
-                .replace("JSCRIPTS", loginscripts);
-        
-        } else if (pageurl.search('invitesignup') != -1) {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage')
-                .replace("JSCRIPTS", userscripts);
-
-        } else if (pageurl.search('createpassword') != -1) {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage')
-                .replace("JSCRIPTS", userscripts);
-
-        } else if (pageurl == '/forgotpassword') {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", loginpage)
-                .replace("BODYCLASS", 'login loginpage')
-                .replace("JSCRIPTS", userscripts);
-
-        } else {
-            html = html.replace("TITLE", Header.title)
-                .replace("META", Header.meta)
-                .replace("LINK", userstyles)
-                .replace("BODYCLASS", '')
-                .replace("JSCRIPTS", userscripts);
-        }
         //html = html.replace("TITLE", Header.title)
         //        .replace("META", Header.meta)
         //        .replace("LINK", Header.link);
@@ -533,10 +542,25 @@ module.exports = function (app, passport) {
             page = pageurl.split("/").pop();
         }
 
-        getPageKeys(page, lang, html, function (response) {
+        getPageKeys(page, lang, function (response) {
 
             var respons = '';
             var nav = '';
+            
+            switch(page) {
+                case 'testing': 
+                    //res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
+                    break;
+
+                case 'survey': 
+                    res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
+                    //res.locals.data.MlangStore = { multilang : response };
+                    break;
+                    
+                default:
+                    break;
+                
+            }
 
             switch (lang) {
                 case 'EN':
@@ -554,17 +578,100 @@ module.exports = function (app, passport) {
                 default:
                     break;
             }
+            
+            var html = App(JSON.stringify(res.locals.data || {}), req.url);
+            if (pageurl == '/' || pageurl == '/index') {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", homestyles)
+                    .replace("BODYCLASS", 'home')
+                    .replace("JSCRIPTS", homescripts);
+
+            } else if (pageurl == '/moodrate') {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", moodrate)
+                    .replace("BODYCLASS", 'home')
+                    .replace("JSCRIPTS", userscripts);
+
+            }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", staticstyles)
+                    .replace("BODYCLASS", 'inner-pages')
+                    .replace("JSCRIPTS", staticscripts);
+
+            } else if (pageurl.search('admin') != -1) {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", adminstyles)
+                    .replace("BODYCLASS", '')
+                    .replace("JSCRIPTS", adminscripts);
+
+            } else if (pageurl == '/login' || pageurl == '/logout') {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", loginpage)
+                    .replace("BODYCLASS", 'login loginpage')
+                    .replace("JSCRIPTS", loginscripts);
+
+            } else if (pageurl.search('invitesignup') != -1) {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", loginpage)
+                    .replace("BODYCLASS", 'login loginpage')
+                    .replace("JSCRIPTS", userscripts);
+
+            } else if (pageurl.search('createpassword') != -1) {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", loginpage)
+                    .replace("BODYCLASS", 'login loginpage')
+                    .replace("JSCRIPTS", userscripts);
+
+            } else if (pageurl == '/forgotpassword') {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", loginpage)
+                    .replace("BODYCLASS", 'login loginpage')
+                    .replace("JSCRIPTS", userscripts);
+
+            } else {
+                html = html.replace("TITLE", Header.title)
+                    .replace("META", Header.meta)
+                    .replace("LINK", userstyles)
+                    .replace("BODYCLASS", '')
+                    .replace("JSCRIPTS", userscripts);
+            }
+            
 
             for (var val in nav) {
                 //html = html.split(val).join(nav[val]);
                 var pattern = new RegExp(val, "g");
                 html = html.replace(pattern, nav[val]);
             }
+            
+            switch(page) {
+                case 'testing': 
+                    //res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
+                    break;
 
-            for (var val in response) {
-                var pattern = new RegExp(val, "g");
-                html = html.replace(pattern, response[val]);
+                case 'survey': 
+                    break;
+                    
+                default:
+                    for (var val in response) {
+                        var pattern = new RegExp(val, "g");
+                        html = html.replace(pattern, response[val]);
+                    }
+                    break;
+                
             }
+
+            //for (var val in response) {
+            //    var pattern = new RegExp(val, "g");
+            //    html = html.replace(pattern, response[val]);
+            //}
             
             getMwthemeKeys(page, lang, html, function (data) {
                 for (var val in data) {
@@ -576,11 +683,7 @@ module.exports = function (app, passport) {
                 res.end(html);
             });
 
-            //res.contentType = "text/html; charset=utf8";
-            //res.end(html);
         });
-        // res.contentType = "text/html; charset=utf8";
-        // res.end(html);
     });
 };
  

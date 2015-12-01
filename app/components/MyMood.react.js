@@ -1325,13 +1325,13 @@ export default class MyMood extends React.Component {
 
       let tabs;
       if (typeof usertype !== 'undefined' && usertype === 'manager') {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>,
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> Custom Survey </a>
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> TAB_EGRAPH </a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> TAB_MRATING </a>,
+                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> TAB_CSURVEY </a>
                  ];
       } else {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> TAB_EGRAPH </a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> TAB_MRATING </a>
                  ];
       }
 
