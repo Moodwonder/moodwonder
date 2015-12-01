@@ -115,7 +115,11 @@ export default class Navigation extends React.Component {
   }
 
   redirectToHome = () => {
-      window.location.assign('/');
+      if (this.state.user.get('authenticated')) {
+          window.location.assign('/mymood');
+      } else {
+          window.location.assign('/');
+      }
   }
 
 
