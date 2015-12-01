@@ -52,14 +52,26 @@ function getEngagementResultsByDate(user_id, createddate, callback) {
     });
 }
 
+function checkHasEntry(user_id, callback) {
+
+    var condition = {'user_id': mongoose.Types.ObjectId(user_id)};
+    EngagementResults.find(condition).sort({_id: - 1}).lean().limit(13).exec(function (err, docs) {
+        if (docs != 'undefined') {
+            callback(docs);
+        }
+    });
+}
+
 
 
 /**
  * save survey results
  */
 exports.saveEngagementSurveyResult = function (req, res) {
-
-var surveyresults = req.body;
+        
+        var results = req.body;
+        var surveyresults = results.surveyresult;
+        var ratingtype = results.type;
         var today = new Date();
         var year = today.getFullYear();
         var month = ('0' + (today.getMonth() + 1)).slice( - 2);
@@ -75,35 +87,92 @@ var surveyresults = req.body;
         created.t = timestring;
         var length = surveyresults.length;
         var response = {};
-        getEngagementResultsByDate(user_id, datestring, function (data) {
+        
+        if (ratingtype == "engagement") {
+            getEngagementResultsByDate(user_id, datestring, function (data) {
 
-        if (data.length > 0) {
-            var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: datestring}};
-            EngagementResults.remove(condition).exec(function (err) {
-                if (!err) {}
-            });
-        }
-
-        for (var i = 0; i < length; i++) {
-            var row = {};
-            row.user_id = mongoose.Types.ObjectId(req.user._id);
-            row.mood = surveyresults[i]['mood'];
-            row.rating = surveyresults[i]['rating'];
-            row.comment_title = surveyresults[i]['comment_title'];
-            row.comment = surveyresults[i]['comment'];
-            row.created = created;
-            
-            EngagementResults.create(row, function (err, item) {
-                if (!err) {
-                    response.status = true;
-                } else {
-                    response.status = false;
+                if (data.length > 0) {
+                    var condition = {'user_id': mongoose.Types.ObjectId(user_id), 'created.d': {$eq: datestring}};
+                    EngagementResults.remove(condition).exec(function (err) {
+                        if (!err) {}
+                    });
                 }
+
+                for (var i = 0; i < length; i++) {
+                    var row = {};
+                    row.user_id = mongoose.Types.ObjectId(req.user._id);
+                    row.mood = surveyresults[i]['mood'];
+                    row.rating = surveyresults[i]['rating'];
+                    row.comment_title = surveyresults[i]['comment_title'];
+                    row.comment = surveyresults[i]['comment'];
+                    row.created = created;
+
+                    EngagementResults.create(row, function (err, item) {
+                        if (!err) {
+                            response.status = true;
+                        } else {
+                            response.status = false;
+                        }
+                    });
+                }
+
+                res.send({status: true});
+                res.end();
+            });
+
+        } else if (ratingtype == "moodrate") {
+            checkHasEntry(user_id, function (data) {
+                
+                if (data.length > 0) {
+                    
+                    var mood = surveyresults.filter(function(row) { return row.mood == "Mood"; });
+                    
+                    for (var i = 0; i < data.length; i++) {
+                        
+                        if (data[i]['mood'] == mood[0].mood) {
+                            data[i]['rating'] = mood[0].rating;
+                        }
+                        //data[i]['_id'] = mongoose.Types.ObjectId(data[i]['_id']);
+                        data[i]['comment_title'] = mood[0].comment_title;
+                        data[i]['comment'] = mood[0].comment;
+                        data[i]['created'] = created;
+                    
+                        var condition = { _id: mongoose.Types.ObjectId(data[i]['_id']) };
+                        var options = { multi: false };
+                        EngagementResults.update(condition, data[i], options, function (err) {
+                            if (!err) {
+                            } else {
+                                console.log(err);
+                            }
+                        });  
+                        
+                    }
+                    
+                } else {
+                    for (var i = 0; i < length; i++) {
+                        var row = {};
+                        row.user_id = mongoose.Types.ObjectId(req.user._id);
+                        row.mood = surveyresults[i]['mood'];
+                        row.rating = surveyresults[i]['rating'];
+                        row.comment_title = surveyresults[i]['comment_title'];
+                        row.comment = surveyresults[i]['comment'];
+                        row.created = created;
+
+                        EngagementResults.create(row, function (err, item) {
+                            if (!err) {
+                                response.status = true;
+                            } else {
+                                response.status = false;
+                            }
+                        });
+                        
+                    }
+                }
+
+                res.send({status: true});
+                res.end();
             });
         }
-        res.send({status: true});
-        res.end();
-    });
 };
 
 

@@ -82,6 +82,8 @@ export default class Navigation extends React.Component {
       let moodrate = data['moodrate'];
       let surveyResult = [];
 
+      let moodrow = moodrow || {};
+      moodrow.type = 'moodrate';
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
@@ -92,19 +94,13 @@ export default class Navigation extends React.Component {
           mood.mood = data;
           return mood;
       });
-
+      moodrow.surveyresult = surveyResult;
       this.setState({ popup : false });
       //console.log('surveyResult');
-      //console.log(JSON.stringify(surveyResult));
-      SurveyActions.saveEngagementSurvey(surveyResult);
-      //SurveyActions.getEngagementSurvey();
-      //SurveyActions.getEngagementResults();
-      //SurveyActions.getResultsByCompany();
-      //SurveyActions.getResultsByIndustry();
-      //SurveyActions.getResultsByCountry();
-      //SurveyActions.getMostEngagingManagers();
+      console.log(JSON.stringify(moodrow));
+      SurveyActions.saveEngagementSurvey(moodrow);
       window.setTimeout(() => {
-          window.location.reload();
+          //window.location.reload();
       });
   }
 

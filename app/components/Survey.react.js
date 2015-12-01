@@ -44,13 +44,16 @@ export default class Survey extends React.Component {
   _onSurveySubmit = () => {
       let form = document.querySelector('#engagementForm');
       let formData = getFormData(form, {trim: true});
+      let moodrow = moodrow || {};
+      moodrow.type = 'engagement';
       const surveyResult = this.state.questions.map((data, key) => {
           //return { 'mood': data.mood, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
           let rating = formData[data.mood];
           return { 'mood': data.mood, 'rating': rating, 'comment_title': '', 'comment': '' };
       });
-      //console.log(JSON.stringify(surveyResult));
-      SurveyActions.saveEngagementSurvey(surveyResult);
+      moodrow.surveyresult = surveyResult;
+      //console.log(JSON.stringify(moodrow));
+      SurveyActions.saveEngagementSurvey(moodrow);
   }
 
   render() {

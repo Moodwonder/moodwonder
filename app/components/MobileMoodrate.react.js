@@ -58,7 +58,8 @@ export default class MobileMoodrate extends React.Component {
 
       let moodrate = data['moodrate'];
       let surveyResult = [];
-
+      let moodrow = moodrow || {};
+      moodrow.type = 'moodrate';
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
@@ -68,8 +69,9 @@ export default class MobileMoodrate extends React.Component {
           return mood;
       });
 
+      moodrow.surveyresult = surveyResult;
       this.setState({ mpopup : false });
-      SurveyActions.saveEngagementSurvey(surveyResult);
+      SurveyActions.saveEngagementSurvey(moodrow);
       //console.log('surveyResult');
       //console.log(JSON.stringify(surveyResult));
   }
