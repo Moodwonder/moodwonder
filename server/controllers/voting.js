@@ -36,11 +36,11 @@ exports.postVote = function(req, res, next) {
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
     
-    var yearmonth = cdate.substring(0, 6)
+    var yearmonth = cdate.substring(0, 7)
     , conditions = { "user_id": new ObjectId(req.user._id), postdate : { $regex : new RegExp(yearmonth,'i') } };
 
     // checking all ready done 5 votes for this month
-    
+    console.log(conditions);
     Vote.find(conditions, function (err, document) {
         var alreadyvoted = false;
         var mytotalvotes = 0;
