@@ -17,27 +17,27 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
+        // console.log('componentDidMount');
         EOTMActions.getallemployees();
         EOTMStore.listen(this._onChange);
     }
 
     componentWillUnmount() {
-        console.log('componentWillUnmount');
+        // console.log('componentWillUnmount');
         EOTMStore.unlisten(this._onChange);
     }
 
     _onChange = (state) => {
 
-        console.log(state);
-        console.log(this.ShowMoreStatus);
+        // console.log(state);
+        // console.log(this.ShowMoreStatus);
         if(this.ShowMoreStatus){
             this.ShowMoreStatus = false;
             state.employees.data.employees.map((data, key) => {
                 this.filtered.push(data);
             });
            // console.log(state);
-            console.log(this.filtered);
+            // console.log(this.filtered);
             this.mytotalvotes = state.employees.data.mytotalvotes;
             this.hasData = state.hasEmployees;
             let last_employee = this.filtered[this.filtered.length-1];
@@ -49,6 +49,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         if(this.state.voteStatus && (!this.state.hasError)){
             this.filtered[this.state.votekey].myvote = true;
             this.filtered[this.state.votekey].votes++;
+            this.mytotalvotes++;
             state.voteStatus = false;
         }
         this.setState(state);
@@ -57,7 +58,7 @@ export default class EmployeeOfTheMonth extends React.Component {
     _onPopClick = (emp_id,key) => {
         // key : vote widget unique key
         $( "body" ).addClass( "dimmed dimmable" );
-        console.log(key);
+        // console.log(key);
         this.setState({
             modal:true,
             emp_id:emp_id,
@@ -82,7 +83,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     _onSearch = () => {
 
-        console.log('_onSearch');
+        // console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         if( keyword !== '' ){
             this.search = true;
@@ -95,7 +96,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     showMoreUsers = () => {
 
-        console.log('showMoreUsers');
+        // console.log('showMoreUsers');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         let obj = {};
         if( keyword !== '' ){
@@ -111,7 +112,7 @@ export default class EmployeeOfTheMonth extends React.Component {
     // Function to sort the user list by the entered word in the search user text box
     // It is disabled now
     _onChangeSearch = (e) => {
-        console.log('_onChangeSearch');
+        // console.log('_onChangeSearch');
         let text = e.target.value.trim();
 
         // fetch fresh data after clearing the search text box
@@ -152,7 +153,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     render() {
         // console.log('render..');
-        console.log(this.state);
+        // console.log(this.state);
 
         let employees = '';
         if(this.state.hasEmployees){
@@ -164,8 +165,10 @@ export default class EmployeeOfTheMonth extends React.Component {
         let message;
         if (this.state.message !== '' ) {
             message = (
-                <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                {this.state.message}
+                <div className="ui success message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
                 </div>
             );
         }

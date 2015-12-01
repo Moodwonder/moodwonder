@@ -102,8 +102,6 @@ export default class MyProfile extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
-      console.log('state chaneg');
-      this.stateBackUp = state;
       //console.log(this.state.userDetails);
   }
 

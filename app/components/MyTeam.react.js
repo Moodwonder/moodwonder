@@ -104,7 +104,7 @@ export default class MyTeam extends React.Component {
               {messages}
               {message}
                 <h4 className="ui header ryt">MY TEAM</h4>
-                <div className="ui small form">
+                <div className="ui small form team">
                     <h3 className="ui dividing header">PRFL_TEAM_TOP_MSG</h3>
                     <AddTeam />
                     {teamUserList}

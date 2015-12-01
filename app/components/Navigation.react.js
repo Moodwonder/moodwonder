@@ -219,11 +219,11 @@ export default class Navigation extends React.Component {
                   <div className="ui slider range  header-middle-container header-slider">
                       <form id="moodRating" className="nav-mood-rating">
                           <NavSlider lastrated={lastRated} />
-                          <span><img src="assets/images/smiley-1.png" className="first"/></span>
-                          <span><img src="assets/images/smiley-2.png"/></span>
-                          <span><img src="assets/images/smiley-3.png"/></span>
-                          <span><img src="assets/images/smiley-4.png"/></span>
-                          <span><img src="assets/images/smiley-5.png"/></span>
+                          <span><img src="/assets/images/smiley-1.png" className="first"/></span>
+                          <span><img src="/assets/images/smiley-2.png"/></span>
+                          <span><img src="/assets/images/smiley-3.png"/></span>
+                          <span><img src="/assets/images/smiley-4.png"/></span>
+                          <span><img src="/assets/images/smiley-5.png"/></span>
                       </form>
                   </div>
                   <div  className="header-middle-container">

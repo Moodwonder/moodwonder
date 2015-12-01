@@ -17,7 +17,9 @@ export default class PublicProfile extends React.Component {
     }
 
     componentDidMount() {
-        SurveyParticipationActions.getMySurveyParticipation();
+        if(this.props !== undefined && this.props.params !== undefined && this.props.params.hash !== undefined ){
+            SurveyParticipationActions.getMySurveyParticipation({ _id: this.props.params.hash });
+        }
         SurveyParticipationStore.listen(this._onChange);
         PublicUserStore.listen(this._onChange);
         EOTMStore.listen(this._onChangeEOTMStore);
@@ -120,7 +122,6 @@ export default class PublicProfile extends React.Component {
         try{
             if ( publicUser.data.vote.mytotalvotes < 5 && !publicUser.data.vote.myvote) {
                 // If my vote is true publicUser.data.mytotalvotes < 5 &&
-                console.log(JSON.stringify(publicUser.data.vote));
                 voteBtn   = (<a className="ui button vote " onClick={this._onModalClick}> <i className='thumbs up icon'></i> VOTE HERE</a>);
             }
         }catch(e){}
@@ -156,7 +157,7 @@ export default class PublicProfile extends React.Component {
             );
         }
 
-      // console.log(voteBtn);
+        // console.log(voteBtn);
         return (
         <div className="ui-main">
             <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>

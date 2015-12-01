@@ -94,7 +94,7 @@ module.exports = function (app, passport) {
     app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
     app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
     
-    app.get('/getmysurveyparticipation', users.checkLogin, surveyParticipation.getMySurveyParticipation);
+    app.post('/getmysurveyparticipation', users.checkLogin, surveyParticipation.getMySurveyParticipation);
 
     app.post('/addlanguage', language.addLanguage);
     app.post('/editlanguage', language.editLanguage);

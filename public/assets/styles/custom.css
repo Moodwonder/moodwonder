@@ -20,7 +20,7 @@
     margin-left: 0;
 }
 
-/* css fix in eom  page */
+/* css fix in eom page */
 .card .content .header a {
     color: inherit;
 }
@@ -43,6 +43,7 @@
 .ui.tiny.images .image, .ui.tiny.images img, .ui.tiny.images svg, .ui.tiny.image {
     height: 80px;
     object-fit: cover;
+    border: 1px solid #ccc;
 }
 
 .my-info.teams {
@@ -60,3 +61,13 @@
     margin: 5px 0px 5px 0px;
     box-shadow: none !important;
 }
+
+/* my profile - my team tab fix */
+.ui.small.form.team {
+    max-width: 100%;
+}
+
+#surveyParticipation {
+    width: 250px !important;
+}
+

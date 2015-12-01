@@ -105,3 +105,4 @@ export default class MyManager extends React.Component {
   }
 }
 MyManager.contextTypes = { router: React.PropTypes.func };
+
