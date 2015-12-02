@@ -2,6 +2,7 @@ var _ = require('underscore');
 var mongoose = require('mongoose');
 var OpenEndedQuestions = require('../models/openEndedQuestions');
 var OpenEndedAnswers = require('../models/openEndedAnswers');
+var User = require('../models/user');
 
 /**
  * home page
@@ -144,10 +145,46 @@ exports.getOpenEndedSurveyAnswer = function (req, res) {
 
 };
 
+exports.getMembers = function (req, res, next) {
 
+    var currentUser = req.user;
+    var company = currentUser.company_info[0].companyname;
+    
+    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, members) {
+        var response = {};
+        if (!err) {
+            response.status = true;
+            response.message = 'success';
+            response.members = members;
+        } else {
+            response.status = false;
+            response.message = 'failure';
+            response.members = [];
+        }
+        res.json(response);
+        res.end();
+    });
+};
 
+exports.getAnswers = function (req, res, next) {
+    
+    var _id = req.body._id;
+    OpenEndedAnswers.find({user_id: _id}).lean().exec(function (err, data) {
+        var response = {};
+        if (!err) {
+            response.status = true;
+            response.message = 'success';
+            response.answers = data;
+        } else {
+            response.status = false;
+            response.message = 'failure';
+            response.answers = [];
+        }
+        res.json(response);
+        res.end();
+    });
 
-
+};
 
 
 

@@ -52,7 +52,7 @@ export default class App extends React.Component {
           }
       }
       // admin and manager only pages
-      pages = ["/surveyforms","/customsurvey","/surveyresponses"];
+      pages = ["/surveyforms","/customsurvey","/surveyresponses","/openendedresponses"];
       if( pages.indexOf(path) >= 0){
           if( (!this.state.isAuthenticated) || this.state.userType !== 'manager' ){
               handler = noPermission;

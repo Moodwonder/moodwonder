@@ -7,10 +7,14 @@ class OpenEndedStore {
   constructor () {
       this.questions = [];
       this.savesurveyflag = false;
+      this.members = [];
+      this.answers = [];
 
       this.bindListeners({
           handleQuestions: OpenEndedActions.GETQUESTIONS,
-          handleSaveAnswers: OpenEndedActions.SAVEANSWERS
+          handleSaveAnswers: OpenEndedActions.SAVEANSWERS,
+          handleMembers: OpenEndedActions.GETMEMBERS,
+          handleAnswers: OpenEndedActions.GETANSWERS
       });
   }
 
@@ -25,7 +29,17 @@ class OpenEndedStore {
       this.emitChange();
   }
 
+  handleMembers (response) {
+      this.members = [];
+      this.members = response;
+      this.emitChange();
+  }
 
+  handleAnswers (response) {
+      this.answers = [];
+      this.answers = response;
+      this.emitChange();
+  }
 
 
 }

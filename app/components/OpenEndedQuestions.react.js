@@ -2,6 +2,9 @@ import React from 'react';
 import getFormData from 'get-form-data';
 import OpenEndedActions from 'actions/OpenEndedActions';
 import OpenEndedStore from 'stores/OpenEndedStore';
+import MoodRatings from 'utils/MoodRatings';
+import SurveyStore from 'stores/SurveyStore';
+import _ from 'underscore';
 
 
 export default class OpenEndedQuestions extends React.Component {
@@ -9,17 +12,20 @@ export default class OpenEndedQuestions extends React.Component {
       super(props);
       this.state = {
         questions: [],
-        savesurveyflag: false
+        savesurveyflag: false,
+        surveyresults: SurveyStore.getState().surveyresults
       };
   }
 
   componentDidMount() {
       OpenEndedActions.getQuestions();
       OpenEndedStore.listen(this._onChange);
+      SurveyStore.listen(this._onSurveyChange);
   }
 
   componentWillUnmount() {
       OpenEndedStore.unlisten(this._onChange);
+      SurveyStore.unlisten(this._onSurveyChange);
   }
 
   _onChange = (state) => {
@@ -32,6 +38,12 @@ export default class OpenEndedQuestions extends React.Component {
           console.log('submitted');
           window.location.assign('/mymood');
       }
+  }
+
+  _onSurveyChange = (state) => {
+      this.setState({
+          surveyresults: SurveyStore.getState().surveyresults
+      });
   }
 
   onOpenEndedSurveySubmit = (e) => {
@@ -82,16 +94,61 @@ export default class OpenEndedQuestions extends React.Component {
 
   render() {
 
+      let surveyresults = this.state.surveyresults;
+      let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
+      let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
+
+      _.mixin( { multiplemax: function(list, field){
+
+          let max = _.max(list, function(item){
+              return item[field];
+          });
+
+          return _.filter(list, function(item){
+              return item[field] === max[field];
+          });
+      }});
+
+      let trand;
+      let hmood;
+      let highests = _.multiplemax(topThreeAreas, 'rating');
+      if (highests.length > 0) {
+          trand = Math.floor(Math.random() * (highests.length));
+          hmood = highests[trand].mood;
+      } else {
+          hmood = '';
+      }
+
+      _.mixin( { multiplemin: function(list, field){
+
+          let min = _.min(list, function(item){
+              return item[field];
+          });
+
+          return _.filter(list, function(item){
+              return item[field] === min[field];
+          });
+      }});
+
+      let wrand;
+      let wmood;
+      let lowests = _.multiplemin(worstThreeAreas, 'rating');
+      if (lowests.length > 0) {
+          wrand = Math.floor(Math.random() * (lowests.length));
+          wmood = lowests[wrand].mood;
+      } else {
+          wmood = '';
+      }
+
       let questions = (this.state.questions).map((question) => {
           return (
                     <div className="ui two column stackable grid survey">
 
                         <div className="clear"></div>
-                        <div className="ui two column stackable grid container ">
+                        <div className="ui one column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS <span style={{"fontSize":"14px"}}> (Optional)</span></h4>
+                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS {" - " + hmood}<span style={{"fontSize":"14px"}}> (Optional)</span></h4>
                             </div>
-                            <div className="column"></div>
                         </div>
 
                         <div className="one wide column qst-mobile">
@@ -138,11 +195,10 @@ export default class OpenEndedQuestions extends React.Component {
 
 
                         <div className="clear"></div>
-                        <div className="ui two column stackable grid container ">
+                        <div className="ui one column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS <span style={{"fontSize":"14px"}}> (Optional)</span></h4>
+                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS {" - " + wmood}<span style={{"fontSize":"14px"}}> (Optional)</span></h4>
                             </div>
-                            <div className="column"></div>
                         </div>
 
 

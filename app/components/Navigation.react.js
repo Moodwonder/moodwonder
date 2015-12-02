@@ -82,6 +82,8 @@ export default class Navigation extends React.Component {
       let moodrate = data['moodrate'];
       let surveyResult = [];
 
+      let moodrow = moodrow || {};
+      moodrow.type = 'moodrate';
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
@@ -92,19 +94,13 @@ export default class Navigation extends React.Component {
           mood.mood = data;
           return mood;
       });
-
+      moodrow.surveyresult = surveyResult;
       this.setState({ popup : false });
       //console.log('surveyResult');
-      //console.log(JSON.stringify(surveyResult));
-      SurveyActions.saveEngagementSurvey(surveyResult);
-      //SurveyActions.getEngagementSurvey();
-      //SurveyActions.getEngagementResults();
-      //SurveyActions.getResultsByCompany();
-      //SurveyActions.getResultsByIndustry();
-      //SurveyActions.getResultsByCountry();
-      //SurveyActions.getMostEngagingManagers();
+      console.log(JSON.stringify(moodrow));
+      SurveyActions.saveEngagementSurvey(moodrow);
       window.setTimeout(() => {
-          window.location.reload();
+          //window.location.reload();
       });
   }
 
@@ -119,7 +115,11 @@ export default class Navigation extends React.Component {
   }
 
   redirectToHome = () => {
-      window.location.assign('/');
+      if (this.state.user.get('authenticated')) {
+          window.location.assign('/mymood');
+      } else {
+          window.location.assign('/');
+      }
   }
 
 
@@ -206,15 +206,15 @@ export default class Navigation extends React.Component {
 
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
-                <a href="/myprofile" className="item">My Account</a>,
-                <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">Logout</a>
+                <a href="/myprofile" className="item">TOP_RIGHT_SIDE_MY_ACCOUNT_LINK</a>,
+                <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">TOP_RIGHT_SIDE_LOGOUT_LINK</a>
           ];
 
           ratingSection = [
               <div className="ui segment padding-none width-header ">
                   <div className="header-middle-container ">
-                      <h2>RATE YOUR MOOD</h2>
-                      <p>How are you feeling at work today?</p>
+                      <h2>TOP_RATE_YOURMOOD</h2>
+                      <p>TOP_RATE_YOUR_MOODDESC</p>
                   </div>
                   <div className="ui slider range  header-middle-container header-slider">
                       <form id="moodRating" className="nav-mood-rating">
@@ -227,10 +227,10 @@ export default class Navigation extends React.Component {
                       </form>
                   </div>
                   <div  className="header-middle-container">
-                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>Submit</button>
+                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>TOP_RATE_YOUR_MOODBTN</button>
                   </div>
                   <div  className="header-middle-container">
-                      <a href="/survey" className="ui positive button answer">Answer all statements</a>
+                      <a href="/survey" className="ui positive button answer">TOP_RATE_YOUR_MOODANSWER_ALL_BTN</a>
                   </div>
               </div>
         ];

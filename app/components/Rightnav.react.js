@@ -3,6 +3,7 @@ import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import QuickStatistics from 'utils/QuickStatistics';
 import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
+//import GetText from 'utils/GetText';
 
 
 export default class Rightnav extends React.Component {
@@ -38,7 +39,7 @@ export default class Rightnav extends React.Component {
    }
 
 
-  render () {
+   render () {
       let surveyresults = this.state.surveyresults;
       let companysurvey = this.state.companysurvey;
       let currentuserid = this.state.currentuserid;
@@ -74,7 +75,8 @@ export default class Rightnav extends React.Component {
       if (lastRatings === undefined || lastRatings.length == 0) {
           responeHeader = '';
       } else {
-          responeHeader = (<h4 className="ui header ryt">Response comparison</h4>);
+          responeHeader = (<h4 className="ui header ryt">Response Comparison</h4>);
+          //responeHeader = (<h4 className="ui header ryt">{GetText("RIGHT_SIDEBAR_RESPONSE_COMPARISON")}</h4>);
       }
 
       let responseComparison = lastRatings.map((data, index) => {
@@ -115,23 +117,23 @@ export default class Rightnav extends React.Component {
                 <div className="ui segment ryt brdr-none">
                     <div className="item ryt">
                         <div className="ui segment ryt brdr-none">
-                            <h4 className="ui header ryt">Quick statistics</h4>
+                            <h4 className="ui header ryt">RIGHT_SIDEBAR_QUICK_STATISTICS</h4>
                             <div className="ui segment padding-10">
-                                Number of employees
+                                RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES
                                 <span className="employees">{totalcompanyusers}</span>
                             </div>
                             <div className="ui segment padding-20 ">
-                                Employees at risk
+                                RIGHT_SIDEBAR_EMPLOYEES_AT_RISK
                                 <span className="risk">{employeesAtRisk}</span>
                             </div>
                             <div className="ui segment padding-30 ">
-                                No. of responses
+                                RIGHT_SIDEBAR_NO_OF_RESPONSES
                                 <span className="last-month">{lastMonthResponses}</span>
                             </div>
                         </div>
                     </div>
                     <div className="item ryt">
-                        <h4 className="ui header ryt">Time since last response</h4>
+                        <h4 className="ui header ryt">RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE</h4>
                         <div className="ui two column stackable grid">
                             <div className="three column row padding-top  ">
                                 <div className="column padding-ryt">
