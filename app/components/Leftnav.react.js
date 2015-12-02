@@ -28,6 +28,14 @@ export default class Leftnav extends React.Component {
       $('.ui.menu .ui.dropdown').dropdown({
           on: 'click'
       });
+
+      $( ".left .item" ).each(function( index ) {
+          if(this.attributes.href !== undefined){
+              if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
+                  $( this ).addClass('active');
+              }
+          }
+      });
   }
 
   componentWillUnmount () {
@@ -40,7 +48,7 @@ export default class Leftnav extends React.Component {
 
 
   render () {
-      // console.log(this.state);
+      console.log(this.state.userData);
       let user = this.state.userData;
       let userfullname = '';
       if( user.fname !== undefined && user.fname !== 'undefined' ){
@@ -48,6 +56,16 @@ export default class Leftnav extends React.Component {
       }
       if( user.lname !== undefined && user.lname !== 'undefined' ){
           userfullname += ' '+user.lname;
+      }
+
+      let openresponselink;
+      if (user.usertype === 'manager') {
+          openresponselink = (
+                <a className="item" href="/openendedresponses">
+                    <i className="thumbs up icon"></i>
+                    Survey Responses
+                </a>
+          );
       }
 
       return (
@@ -79,6 +97,7 @@ export default class Leftnav extends React.Component {
                     <i className="thumbs up icon"></i>
                     L_CAST_VOTE
                 </a>
+                {openresponselink}
                 <InviteOthers />
             </div>
       );

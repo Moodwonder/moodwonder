@@ -37,6 +37,40 @@ class OpenEndedActions {
       this.dispatch(data);
   }
 
+  getMembers() {
+      this.dispatch();
+      OpenEndedWebAPIUtils.getMembers()
+      .then((response, textStatus) => {
+          if (response.status === true) {
+              this.actions.getmembers(response.members);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  getmembers(data)
+  {
+      this.dispatch(data);
+  }
+
+  getAnswers(uid) {
+      this.dispatch();
+      OpenEndedWebAPIUtils.getAnswers(uid)
+      .then((response, textStatus) => {
+          if (response.status === true) {
+              this.actions.getanswers(response.answers);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  getanswers(data)
+  {
+      this.dispatch(data);
+  }
+
 
 }
 

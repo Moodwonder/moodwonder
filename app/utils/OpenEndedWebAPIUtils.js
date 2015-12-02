@@ -17,6 +17,23 @@ const utils = {
       contentType: 'application/json',
       data: JSON.stringify(data)
     });
+  },
+
+  getMembers: () => {
+      return $.ajax({
+      url: '/getmembers',
+      type: 'POST',
+      contentType: 'application/json'
+    });
+  },
+
+  getAnswers: (id) => {
+      return $.ajax({
+      url: '/getanswers',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({_id : id})
+    });
   }
 
 };

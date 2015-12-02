@@ -156,6 +156,8 @@ module.exports = function (app, passport) {
 
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
+    app.post('/getmembers', users.checkLogin, openEndedSurvey.getMembers);
+    app.post('/getanswers', users.checkLogin, openEndedSurvey.getAnswers);
 
     app.use(function noCachePlease(req, res, next) {
         if(req.user && req.user.role !== 'ADMIN') {

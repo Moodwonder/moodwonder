@@ -54,6 +54,7 @@ import PublicProfile from 'components/PublicProfile.react';
 import MobileMoodrate from 'components/MobileMoodrate.react';
 import MobileInvite from 'components/MobileInvite.react';
 import Appmobile from 'components/Appmobile.react';
+import OpenendedResponses from 'components/OpenendedResponses.react';
 
 
 const routes = (
@@ -105,6 +106,9 @@ const routes = (
     </Route>
     <Route name="openendedsurvey" path="/openendedsurvey" handler={Appuser} >
       <Route name="" handler={OpenEndedQuestions} />
+    </Route>
+    <Route name="openendedresponses" path="/openendedresponses" handler={Appuser} >
+      <Route name="" handler={OpenendedResponses} />
     </Route>
     <Route name="myprofile" path="/myprofile" handler={Appuser} >
       <Route name="" handler={MyProfile} />
