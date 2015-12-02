@@ -173,9 +173,9 @@ exports.getMyTeams = function(req, res, next) {
 
   var where = { manager_id: new ObjectId(req.user._id) };
 
-  Team.find(where).exec(function(err, lists) {
+  Team.find(where).sort( { _id: -1 } ).exec(function(err, lists) {
     if(!err) {
-        //console.log(lists);
+        // console.log(lists);
         req.body.resdata = lists;
         next();
     } else {
@@ -248,15 +248,27 @@ exports.addMemberToTeam = function(req, res, next) {
 
   membername.map(function(value, key) {
     // Making e-mail id
-    member_email[key] = value+domainname;
-    if(member_email[key] == req.user.email) {
-      feedback.push(req.user.email+': You are the team leader');
-    }
+    if(value !== ''){
+        member_email[key] = value+domainname;
+        if(member_email[key] == req.user.email) {
+          feedback.push(req.user.email+': You are the team leader');
+        }
+    }else{
+		feedback.push('Work email is required');
+	}
   });
   
   var total_member_email = member_email.length;
   var team_id = req.body.team_id;
-  
+
+  if(total_member_email < 1){
+	response.status = false;
+	response.message = '';
+	response.messages = feedback;
+	response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+	res.send(response);
+	res.end();
+  }
   member_email.map(function(value, key) {
     var where = { _id: new ObjectId(team_id) }
     
@@ -300,6 +312,7 @@ exports.addMemberToTeam = function(req, res, next) {
         }else{
             response.status = false;
             response.message = 'Team not exist';
+            response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
             res.send(response);
             res.end();
         }

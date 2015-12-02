@@ -32,7 +32,7 @@ export default class InviteOthers extends React.Component {
         return pattern.test(emailAddress);
     }
 
-    _onSaveSubmit = (model) => {
+    _onSaveSubmit = (e) => {
 
         let email = React.findDOMNode(this.refs.email).value.trim();
         if (this.isValidEmailAddress(email)) {
@@ -44,6 +44,7 @@ export default class InviteOthers extends React.Component {
         }else{
             this.setState({ message: 'Invalid email address', hasError: true });
         }
+        e.preventDefault();
     }
 
     render() {
@@ -62,15 +63,15 @@ export default class InviteOthers extends React.Component {
             }
         }
         return (
-        <div className="invite-people mobile">
+        <form className="invite-people mobile" onSubmit={this._onSaveSubmit} >
             <h2> L_INVITE_PEOPLE_TITLE </h2>
             <p> L_INVITE_PEOPLE_DES </p>
             <div className="ui input">
                 <input placeholder=" L_INVITE_INPUT_PLCHOLDER " id="email" ref="email" type="text" />
             </div>
-            <button className="ui orange button" onClick={this._onSaveSubmit} > L_INVITE_BTN </button>
+            <button type="submit" className="ui orange button"> L_INVITE_BTN </button>
             {message}
-        </div>
+        </form>
         );
     }
 }

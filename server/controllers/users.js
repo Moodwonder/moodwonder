@@ -771,7 +771,7 @@ exports.UpdateUserPhoto = function (req, res) {
  * @email : Email id of the manager
  * 
  */
-exports.postSaveManagerInfo = function (req, res) {
+exports.postSaveManagerInfo = function (req, res, next) {
 
     var model = req.body;
     var response = {};
@@ -800,8 +800,15 @@ exports.postSaveManagerInfo = function (req, res) {
                 response.status = false;
                 response.message = 'Something went wrong..';
             }
-            res.send(response);
-            res.end();
+			if(req.body.searchData._id.toString() === '0'){
+				req.body.type = "managerinfo";
+				req.body.invitetype = "Signup";
+				req.body.email = model.email;
+				next();
+			}else{
+				res.send(response);
+				res.end();
+			}
         });
     }
 };
@@ -1092,7 +1099,8 @@ exports.usersInTeams = function (req, res) {
                         team = {"_id": data._id, "name": data.teamname, "members": userData};
                     }
 
-                    team_users_result = team_users_result.concat(team);
+                    // team_users_result = team_users_result.concat(team);
+                    team_users_result[key] = team;
 
                     if (teamlength == callBackExit) {
                         // Exiting from the Callback function
@@ -2085,9 +2093,10 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
                 // get manager's name of this user
-                if(req.user !== undefined && req.user.mymanager !== undefined && req.user.mymanager[0] !== undefined &&  req.user.mymanager[0].email !== undefined)
+                if(lists !== undefined && lists.mymanager !== undefined && lists.mymanager[0] !== undefined &&  lists.mymanager[0].email !== undefined)
                 {
-                    var where = { email: req.user.mymanager[0].email };
+                    var where = { email: lists.mymanager[0].email };
+                    // console.log(where);
                     User.findOne(where).exec(function(err, lists) {
                         if(!err && lists !== null) {
                             // console.log(lists);

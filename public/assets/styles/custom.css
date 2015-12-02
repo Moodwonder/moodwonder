@@ -43,9 +43,10 @@
 .ui.tiny.images .image, .ui.tiny.images img, .ui.tiny.images svg, .ui.tiny.image {
     height: 80px;
     object-fit: cover;
+}
+.my-info .tiny.image {
     border: 1px solid #ccc;
 }
-
 .my-info.teams {
     margin: 10px 0;
 }

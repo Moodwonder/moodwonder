@@ -30,13 +30,18 @@ exports.sendInvitation = function(req, res, next) {
 	var emails       =    [];
 	var feedback     =    ( typeof req.body.data !== 'undefined' ) ? req.body.data.feedback : [];
 	var total_emails =    0;
+	var response     =    {};
 
+	if(req.body.type){
+		response.type = req.body.type;
+	}
 	//function for exiting from the callback function
 	function checkExitCondition(key){
 		if(total_emails == (key+1)){
 			response.status = true;
 			response.message = '';
 			response.messages = feedback;
+			response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
 			res.send(response);
 			res.end();
 		}
