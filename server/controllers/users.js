@@ -17,7 +17,7 @@ var emailTemplate = require('../email/emailtemplates');
 var LocalStrategy = require('passport-local').Strategy;
 var fs = require('fs');
 var path = require('path');
-
+var blockedDomains = require('../config/blocked-domains');
 
 PRO_PIC_PATH = '/images/profilepics/';
 BANNER_PIC_PATH = '/images/bannerpics/';
@@ -305,6 +305,15 @@ exports.postSignupStep1 = function (req, res, next) {
         next();
         return;
     }
+
+    if (!blockedDomains.checkDomain(email)) {
+		response.status = false;
+		response.message = 'This domain name is blocked';
+		res.send(response);
+		return;
+    }
+
+    
 
     var verifystring = email + Date.now();
     verifystring = crypto.createHash('md5').update(verifystring).digest("hex");

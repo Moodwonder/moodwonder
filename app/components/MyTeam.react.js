@@ -187,7 +187,7 @@ class AddAnotherMember extends React.Component {
       return (
         <form  onSubmit={this.onSaveClick} >
             <h4  onClick={this.onShowFormClick}  className="ui dividing header"><a><i className="add circle icon large"></i></a>PRFL_TEAM_ADD_ANOTHER</h4>
-            <div style={{ display: this.state.showform }} id="add" className="form">
+            <div style={{ display: this.state.showform }}  className="form">
                 {multimessages}
                 <div className="field ui  two column stackable grid " >
                     <div className="column">
@@ -258,7 +258,7 @@ class AddTeam extends React.Component {
                 <i className="write icon"></i>
             </a>
         </h3>,
-        <form style={{ display: this.state.showform }} id="add" onSubmit={this._onSaveSubmit} className="form">
+        <form style={{ display: this.state.showform }} onSubmit={this._onSaveSubmit} className="form">
             {messages}
             <div className="field ui  two column stackable grid " >
                 <div className="column">
@@ -313,11 +313,20 @@ class EditableMyTeam extends React.Component {
   }
 
   onSaveClick = (e) => {
+	  console.log('onSaveClick');
 	  let teamname = this.state.value;
 	  let teamid   = this.props.teamid;
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
-      }
+      if(this.props.value !== this.state.value){
+		  console.log('aaaaaaa');
+		  if(teamname.trim() !== ''){
+              this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
+          }else{
+              this.setState({ serverresponse: { callback: this.props.teamid }, message: 'Team name is required' });
+		  }
+      }else{
+		  console.log('bbbbbb');
+		  this.setState({ serverresponse: { callback: this.props.teamid }, message: 'No changes' });
+	  }
       e.preventDefault();
   }
 
@@ -343,7 +352,7 @@ class EditableMyTeam extends React.Component {
                     <i className="write icon"></i>
                 </a>
             </h3>
-            <form onSubmit={this.onSaveClick} style={{ display: this.state.showform }} id="add" className="form">
+            <form onSubmit={this.onSaveClick.bind(this)} style={{ display: this.state.showform }}  className="form">
                 {messages}
                 <div className="field ui  two column stackable grid " >
                     <div className="column">
@@ -353,7 +362,7 @@ class EditableMyTeam extends React.Component {
                         <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text"  onChange={this.changeValue} value={this.state.value} />
                     </div>
                 </div>
-                <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE</button>
+                <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE </button>
             </form>
         </div>
       );
