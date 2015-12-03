@@ -137,6 +137,7 @@ body.pushable > .pusher {
 .pushable > .pusher {
 	background: inherit;
 	width:100%;
+	min-height:114%;
 }
 /*--------------
      Dimmer
