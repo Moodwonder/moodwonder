@@ -268,7 +268,7 @@ class AddTeam extends React.Component {
                     <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text" />
                 </div>
             </div>
-            <div type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE</div>
+            <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE</button>
         </form>
       ];
 
