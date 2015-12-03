@@ -61,7 +61,7 @@ export default class Login extends React.Component {
       return "";
   }
 
-  _onLoginSubmit = () => {
+  _onLoginSubmit = (e) => {
 
       let email = React.findDOMNode(this.refs.email).value.trim();
       let password = React.findDOMNode(this.refs.password).value.trim();
@@ -70,6 +70,7 @@ export default class Login extends React.Component {
           email: email,
           password: password
       });
+      e.preventDefault();
   }
 
   render() {
@@ -126,7 +127,7 @@ export default class Login extends React.Component {
           <div className="column">
             <h2 className="ui  image header"> <a href="/" ><img src="assets/images/logo.png" className="image"/></a> </h2>
             <div className="ui large form">
-              <div className="ui stacked segment">
+              <form className="ui stacked segment" onSubmit={this._onLoginSubmit}>
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="text" ref="email" name="email" placeholder="LGN_PLACEHOLDER_EMAIL" />
@@ -137,8 +138,8 @@ export default class Login extends React.Component {
                     <input type="password" ref="password" name="password" placeholder="LGN_PLACEHOLDER_PASSWORD" />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onLoginSubmit}>LGN_BTN</button>
-              </div>
+                <button type="submit" className="ui yellow button">LGN_BTN</button>
+              </form>
               {message}
               {multimessages}
             </div>

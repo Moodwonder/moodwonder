@@ -33,16 +33,21 @@ export default class InviteSignup extends React.Component {
 
   formSubmit = (e) => { e.preventDefault(); }
 
-  _onSignupStep1Submit = () => {
+  _onSignupStep1Submit = (e) => {
       let email = React.findDOMNode(this.refs.email).value.trim();
       let hash  = React.findDOMNode(this.refs.hash).value.trim();
-      if(this.isValidEmailAddress(email)){
+      if(email === ''){
+          this.setState({
+            messages: ['Email Required']
+          });
+      }else if(this.isValidEmailAddress(email)){
           SignupActions.usersignupstep1({ email: email, hash: hash });
       }else{
           this.setState({
             messages: ['Invalid email']
           });
       }
+      e.preventDefault();
   }
 
   showNotification = (message) => {
@@ -142,7 +147,7 @@ export default class InviteSignup extends React.Component {
         <div className="ui middle aligned center aligned grid">
           <div className="column">
             <h2 className="ui  image header"> <a href="/" ><img src="../assets/images/logo.png" className="image"/></a> </h2>
-            <div className="ui large form">
+            <form className="ui large form" onSubmit={this._onSignupStep1Submit}>
               <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
@@ -150,11 +155,11 @@ export default class InviteSignup extends React.Component {
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                   </div>
                 </div>
-                <button className="ui yellow button" onClick={this._onSignupStep1Submit}> INVITESIGNUP_BTN </button>
+                <button type="submit" className="ui yellow button" > INVITESIGNUP_BTN </button>
               </div>
               {message}
               {multimessages}
-            </div>
+            </form>
           </div>
         </div>
       );

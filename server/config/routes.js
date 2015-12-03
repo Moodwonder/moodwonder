@@ -61,7 +61,7 @@ module.exports = function (app, passport) {
     app.post('/saveuserdetails', users.checkLogin, users.encryptPassword, users.postSaveUserInfo, users.postSaveManagerInfo);
     app.post('/updateuserphoto', users.checkLogin, users.UpdateUserPhoto);
     app.post('/updateuserbanner', users.checkLogin, users.UpdateProfileBanner);
-    app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo);
+    app.post('/savemanagerdetails', users.checkLogin, users.findUserByEmailId, users.postSaveManagerInfo, invitation.sendInvitation);
     app.post('/savecompanydetails', users.checkLogin, users.postSaveCompanyInfo);
     app.post('/createteam', users.checkLogin, teams.checkTeam, teams.createTeam, users.updateUser);
     app.post('/updateteam', users.checkLogin, teams.checkTeam, teams.updateTeam);
@@ -161,7 +161,7 @@ module.exports = function (app, passport) {
 
     app.use(function noCachePlease(req, res, next) {
         if(req.user && req.user.role !== 'ADMIN') {
-          console.log('req.user');
+          // console.log('req.user');
           res.header("Cache-Control", "no-cache, no-store, must-revalidate");
           res.header("Pragma", "no-cache");
           res.header("Expires", 0);

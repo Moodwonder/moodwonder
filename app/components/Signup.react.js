@@ -33,7 +33,7 @@ export default class Signup extends React.Component {
 
   formSubmit = (e) => { e.preventDefault(); }
 
-  _onSignupStep1Submit = () => {
+  _onSignupStep1Submit = (e) => {
       let email = React.findDOMNode(this.refs.email).value.trim();
       let hash  = React.findDOMNode(this.refs.hash).value.trim();
       if(email === ''){
@@ -47,6 +47,7 @@ export default class Signup extends React.Component {
             messages: ['Invalid email']
           });
       }
+      e.preventDefault();
   }
 
   showNotification = (message) => {
@@ -142,17 +143,17 @@ export default class Signup extends React.Component {
           }
       }
       return (
-        <div className="six wide column">
+        <form className="six wide column"  onSubmit={this._onSignupStep1Submit} >
             <div className="ui segment slideExpandUp ">
                 <div className="ui input">
                     <input ref="email" id="email" name="email" placeholder="HOM_SGN_WORK_EMAIL" type="text" />
                     <input ref="hash" name="hash" type="hidden" value={hash} />
                 </div>
-                <button className="ui orange button" onClick={this._onSignupStep1Submit} > <span className="pulse">HOM_GET_STARTED</span></button>
+                <button type="submit" className="ui orange button" > <span className="pulse">HOM_GET_STARTED</span></button>
             </div>
             {message}
             {multimessages}
-        </div>
+        </form>
       );
   }
 }
