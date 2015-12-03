@@ -416,7 +416,7 @@ export default class MyProfile extends React.Component {
                     <a className="action act-cover-image"><i id="change_banner_image" className="write icon"></i></a>
                     <div className="title">
                        <h3>{userInfo.fname}</h3>
-                       <span>{userInfo.email}</span>
+                       <span className="text-shadow">{userInfo.email}</span>
                     </div>
                  </div>
               </div>

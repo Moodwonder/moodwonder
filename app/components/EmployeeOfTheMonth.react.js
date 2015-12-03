@@ -298,7 +298,7 @@ class ProfileHeader extends React.Component {
                     <a href="#" className="action act-cover-image"></a>
                     <div className="title">
                         <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
-                        <span>{this.state.userData.email}</span>
+                        <span className="text-shadow">{this.state.userData.email} </span>
                         {text}
                     </div>
                 </div>

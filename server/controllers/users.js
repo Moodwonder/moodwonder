@@ -76,8 +76,7 @@ exports.encryptPassword = function (req, res, next) {
                             req.body.real_password = req.body.password;
                             req.body.password = hash;
                             next();
-                        }
-                        else {
+                        }else {
                             // bcrypt.hash Error
                             response.status = false;
                             response.message = 'Something went wrong..';
@@ -235,7 +234,7 @@ exports.getUserInfo = function (req, res) {
             response = {};
             response.status = true;
             response.message = 'success';
-            response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': '', 'usertype' : ''};
+            response.data = {'_id': 0, 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': '', 'usertype' : ''};
             if (req.query.type == 'company') {
                 if (lists.company_info[0] != undefined) {
                     response.data = lists.company_info[0];
@@ -248,7 +247,20 @@ exports.getUserInfo = function (req, res) {
                 }
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                 var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
-                response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'cover_image': cover_image, 'summary': lists.summary, 'usertype' : lists.usertype };
+                response.data = {
+                    '_id': lists._id,
+                    'fname': lists.firstname,
+                    'lname': lists.lastname,
+                    'email': lists.email,
+                    'language': lists.language,
+                    'reportfrequency': lists.report_frequency,
+                    'password': '',
+                    'mymanager': lists.mymanager[0].email,
+                    'profile_image': profileimage,
+                    'cover_image': cover_image,
+                    'summary': lists.summary,
+                    'usertype' : lists.usertype
+                };
             }
             res.json(response);
         } else {
@@ -307,13 +319,11 @@ exports.postSignupStep1 = function (req, res, next) {
     }
 
     if (!blockedDomains.checkDomain(email)) {
-		response.status = false;
-		response.message = 'This domain name is blocked';
-		res.send(response);
-		return;
+        response.status = false;
+        response.message = 'This domain name is blocked';
+        res.send(response);
+        return;
     }
-
-    
 
     var verifystring = email + Date.now();
     verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
@@ -387,7 +397,7 @@ exports.postSignupStep1 = function (req, res, next) {
                     response.message = 'We have sent you an email, with instructions to complete your sign up process';
 
                     // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
-                    console.log('--req.body.hash----' + req.body.hash);
+                    // console.log('--req.body.hash----' + req.body.hash);
                     if (req.body.hash !== undefined && req.body.hash !== '') {
 
                         console.log('has hash');
@@ -809,15 +819,15 @@ exports.postSaveManagerInfo = function (req, res, next) {
                 response.status = false;
                 response.message = 'Something went wrong..';
             }
-			if(req.body.searchData._id.toString() === '0'){
-				req.body.type = "managerinfo";
-				req.body.invitetype = "Signup";
-				req.body.email = model.email;
-				next();
-			}else{
-				res.send(response);
-				res.end();
-			}
+            if(req.body.searchData._id.toString() === '0'){
+                req.body.type = "managerinfo";
+                req.body.invitetype = "Signup";
+                req.body.email = model.email;
+                next();
+            }else{
+                res.send(response);
+                res.end();
+            }
         });
     }
 };
@@ -922,6 +932,7 @@ exports.postSaveCompanyInfo = function (req, res) {
  */
 exports.postForgotPassword = function (req, res) {
 
+    var response = {};
     var email = req.body.email;
     var verifystring = email + Date.now();
     verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
@@ -2068,7 +2079,7 @@ exports.getPublicProfile = function (req, res, next) {
     var yearmonth = cdate.substring(0, 7);
 
     var _id = req.params.hash;
-    if( _id !== undefined && _id !== ''){
+    if( _id !== undefined && _id !== '' && ObjectId.isValid(_id)){
         var condition = {'_id': new ObjectId(_id)};
         User.findOne(condition, function (err, lists) {
             if (!err && !null) {
@@ -2196,8 +2207,10 @@ exports.getPublicProfile = function (req, res, next) {
             }
         });
     }else{
+		res.redirect('/Error?msg=Invalid user Id');
+		/*
         response.message = 'Invalid user Id';
         req.body.response = response;
-        next();
+        next();*/
     }
 };
