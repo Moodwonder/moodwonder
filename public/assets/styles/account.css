@@ -20,7 +20,7 @@
 	font-family: "Brandon-bold";
 }
 .margin-grid {
-	margin: -30px -33px 30px;
+	margin: -30px -33px 30px!important;
 }
 .ui.menu.account {
 	display: flex;
@@ -150,6 +150,7 @@ p.votes {
 	font-family: 16px;
 	text-transform: uppercase;
 	font-family: "Brandon-bold";
+	 text-shadow: 1px 1px 1px #000;
 }
 .dp-container .mail {
 	font-size: 14px;
@@ -301,3 +302,4 @@ a.act-cover-image {
 .cast .extra.content {
 	text-align: center;
 }
+.text-shadow{ text-shadow: 1px 1px 1px #000;}

@@ -76,7 +76,7 @@ export default class Leftnav extends React.Component {
                         <span>{userfullname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
-                            <div className="item"><a href="/myprofile" style={{"color":"#000 !important"}}>L_MYPROFILE_LINK</a></div>
+                            <div className="item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>L_MYPROFILE_LINK</a></div>
                             <div className="item"><a href="/logout" style={{"color":"#000 !important"}}>L_LOGOUT_LINK</a></div>
                         </div>
                     </div>
