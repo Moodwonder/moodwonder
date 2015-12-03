@@ -3,6 +3,8 @@ import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyFormsStore from 'stores/CustomSurveyFormsStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import MlangStore from 'stores/MlangStore';
+import GetText from 'utils/GetText';
 
 
 export default class Customsurveyforms extends React.Component {
@@ -12,12 +14,14 @@ export default class Customsurveyforms extends React.Component {
       mixins(Navigation, this);
       this.state = CustomSurveyFormsStore.getState();
       this.state.filtered = [];
+      this.state.multilang = MlangStore.getState().multilang;
   }
 
   componentDidMount() {
       CustomSurveyActions.getCustomSurveyForms();
       CustomSurveyFormsStore.listen(this._onChange);
       //$('#tableData').paging({limit: 5});
+      MlangStore.listen(this._onMLChange);
   }
 
   componentDidUpdate () {
@@ -28,18 +32,25 @@ export default class Customsurveyforms extends React.Component {
 
   componentWillUnmount() {
       CustomSurveyFormsStore.unlisten(this._onChange);
+      MlangStore.unlisten(this._onMLChange);
   }
 
   _onChange = (state) => {
       this.setState({
-      forms: CustomSurveyFormsStore.getState().forms,
-      formid: CustomSurveyFormsStore.getState().formid,
-      filtered: this.state.forms
-    });
+        forms: CustomSurveyFormsStore.getState().forms,
+        formid: CustomSurveyFormsStore.getState().formid,
+        filtered: this.state.forms
+      });
 
       if(this.state.formid){
           this.handleOnDeleteForm(this.state.formid);
       }
+  }
+
+  _onMLChange = () => {
+      this.setState({
+          multilang: MlangStore.getState().multilang
+      });
   }
 
   handleOnDeleteForm = (id) => {
@@ -88,6 +99,7 @@ export default class Customsurveyforms extends React.Component {
 
   render() {
       //let forms = this.state.forms;
+      let mlarray = this.state.multilang;
       let forms = this.state.filtered;
       let items = null;
       let sno = 1;
@@ -97,9 +109,9 @@ export default class Customsurveyforms extends React.Component {
                   <td>{sno++}</td>
                   <td>{form.surveytitle}</td>
                   <td>{form.createddate}</td>
-                  <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>Take a survey</a> &nbsp;|&nbsp;
-                  <a href="#" onClick={this.onViewResponse} id={form._id}>View responses</a> &nbsp;|&nbsp;
-                  <a href="#" onClick={this.onDeleteForm} id={form._id}>Delete</a>
+                  <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>{GetText('SVFM_VIEWSURVEY_LINK', mlarray)}</a> &nbsp;|&nbsp;
+                  <a href="#" onClick={this.onViewResponse} id={form._id}>{GetText('SVFM_VIEWRESPONSES_LINK', mlarray)}</a> &nbsp;|&nbsp;
+                  <a href="#" onClick={this.onDeleteForm} id={form._id}>{GetText('SVFM_DELETE_LINK', mlarray)}</a>
                   </td>
               </tr>
               );
@@ -111,11 +123,11 @@ export default class Customsurveyforms extends React.Component {
                 <div className="clear"></div>
                 <div className="ui two column stackable grid container ">
                     <div className="column">
-                        <h4 className="ui header ryt com">Custom Survey Lists</h4>
+                        <h4 className="ui header ryt com">{GetText('SVFM_TITLE', mlarray)}</h4>
                     </div>
                     <div className="column">
                         <div className="three  column">
-                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/mymood">Create New Survey</a></div>
+                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/mymood">{GetText('SVFM_CREATE_BTN', mlarray)}</a></div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +135,7 @@ export default class Customsurveyforms extends React.Component {
                     <div className="five column">
                         <div className="ui search">
                             <div className="ui icon input">
-                                <input className="prompt" type="text" placeholder="Search..." name="searchtitle" id="searchtitle" onChange={this.onSearchTitle} />
+                                <input className="prompt" type="text" placeholder={GetText('SVFM_SEARCH_BOX', mlarray)} name="searchtitle" id="searchtitle" onChange={this.onSearchTitle} />
                                 <i className="search icon"></i> </div>
                             <div className="results"></div>
                         </div>
@@ -133,9 +145,9 @@ export default class Customsurveyforms extends React.Component {
                     <table id="tableData" className="ui celled striped table">
                         <thead>
                             <tr>
-                                <th>Number</th>
-                                <th>Title</th>
-                                <th>Date</th>
+                                <th>{GetText('SVFM_TBLNUMBER', mlarray)}</th>
+                                <th>{GetText('SVFM_TBLTITLE', mlarray)}</th>
+                                <th>{GetText('SVFM_TBLDATE', mlarray)}</th>
                                 <th></th>
                             </tr>
                         </thead>

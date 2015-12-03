@@ -24,6 +24,8 @@ var AnonymityPage = require('../models/anonymitypage');
 var TermsPage = require('../models/termspage');
 var PolicyPage = require('../models/policypage');
 var SurveyPage = require('../models/surveypage');
+var SurveyFormsPage = require('../models/surveyformspage');
+var MymoodPage = require('../models/mymoodpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -289,10 +291,21 @@ module.exports = function (app, passport) {
                 modelObj = SurveyPage;
                 break;
                 
+            case 'surveyforms':
+                modelObj = {};
+                modelObj = SurveyFormsPage;
+                break;
+                
+            case 'mymood':
+                modelObj = {};
+                modelObj = MymoodPage;
+                break;
+                
             case 'testing':
                 modelObj = {};
                 modelObj = SurveyPage;
                 break;
+                
                 
             default:
                 modelObj = {};
@@ -555,6 +568,10 @@ module.exports = function (app, passport) {
                     break;
 
                 case 'survey': 
+                case 'surveyforms': 
+                case 'mymood': 
+                    console.log('response');
+                    console.log(response);
                     res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
                     //res.locals.data.MlangStore = { multilang : response };
                     break;
@@ -659,6 +676,8 @@ module.exports = function (app, passport) {
                     break;
 
                 case 'survey': 
+                case 'surveyforms': 
+                case 'mymood': 
                     break;
                     
                 default:

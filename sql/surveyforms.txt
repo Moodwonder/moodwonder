@@ -1,0 +1,24 @@
+
+db.surveyformspage.insert({ "language" : "EN", 
+                        "SVFM_TITLE" : "Custom Survey Lists", 
+                        "SVFM_CREATE_BTN" : "Create New Survey",
+                        "SVFM_SEARCH_BOX" : "Search..",
+                        "SVFM_TBLNUMBER" : "Number",
+                        "SVFM_TBLTITLE" : "Title",
+                        "SVFM_TBLDATE" : "Date",
+                        "SVFM_VIEWSURVEY_LINK" : "View survey",
+                        "SVFM_VIEWRESPONSES_LINK" : "View responses",
+                        "SVFM_DELETE_LINK" : "Delete"
+});
+
+db.surveyformspage.insert({ "language" : "FI", 
+                        "SVFM_TITLE" : "Custom Survey Listat", 
+                        "SVFM_CREATE_BTN" : "Luo uusi Survey",
+                        "SVFM_SEARCH_BOX" : "Haku..",
+                        "SVFM_TBLNUMBER" : "Määrä",
+                        "SVFM_TBLTITLE" : "otsikko",
+                        "SVFM_TBLDATE" : "päivämäärä",
+                        "SVFM_VIEWSURVEY_LINK" : "Näytä tutkimus",
+                        "SVFM_VIEWRESPONSES_LINK" : "Näytä vastauksia",
+                        "SVFM_DELETE_LINK" : "Poistaa"
+});

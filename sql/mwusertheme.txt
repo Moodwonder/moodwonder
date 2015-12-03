@@ -20,10 +20,7 @@ db.mwusertheme.insert({ "language" : "EN",
                         "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk",
                         "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses",
                         "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response",
-                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison",
-                        "TAB_EGRAPH" : "Engagement Graph",
-                        "TAB_MRATING" : "Mood Rating",
-                        "TAB_CSURVEY" : "Custom Survey"
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison"
 });
 
 db.mwusertheme.insert({ "language" : "FI", 
@@ -48,8 +45,5 @@ db.mwusertheme.insert({ "language" : "FI",
                         "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Työntekijät vaarassa",
                         "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "Ei vastauksia",
                         "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Aika viimeisestä vastaus",
-                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response vertailu",
-                        "TAB_EGRAPH" : "engagement Kaavio",
-                        "TAB_MRATING" : "Mood Arvostelu",
-                        "TAB_CSURVEY" : "Custom Survey"
+                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response vertailu"
 });

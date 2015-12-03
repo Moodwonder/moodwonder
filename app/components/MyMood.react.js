@@ -19,6 +19,8 @@ import CustomSurveyStore from 'stores/CustomSurveyStore';
 import Question from 'components/customsurvey/Question.react';
 import getFormData from 'get-form-data';
 import UserStore from 'stores/UserStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 
@@ -78,7 +80,8 @@ export default class MyMood extends React.Component {
           freezedate: '',
           today: '',
           organization: [],
-          errormessage: ''
+          errormessage: '',
+          multilang: MlangStore.getState().multilang
       };
       this.engagementmoods = [];
       this.mooddropdown = false;
@@ -94,6 +97,7 @@ export default class MyMood extends React.Component {
       SurveyStore.listen(this._onMoodChange);
 
       UserStore.listen(this._onUserDataChange);
+      MlangStore.listen(this._onMLChange);
 
       let today = new Date();
       let yToday = today.getFullYear();
@@ -127,6 +131,7 @@ export default class MyMood extends React.Component {
       CustomSurveyStore.unlisten(this._onChange);
 
       UserStore.unlisten(this._onUserDataChange);
+      MlangStore.unlisten(this._onMLChange);
   }
 
   _onUserDataChange = (state) => {
@@ -570,6 +575,7 @@ export default class MyMood extends React.Component {
       let currentuserid = this.state.currentuserid;
       let user = this.state.userData;
       let errormessage = this.state.errormessage;
+      let mlarray = this.state.multilang;
 
       let usertype;
       if(typeof user !== 'undefined') {
@@ -714,7 +720,7 @@ export default class MyMood extends React.Component {
                                 <div data-rating={data.rating} className="ui star rating">
                                     {rows}
                                 </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                   );
@@ -731,7 +737,7 @@ export default class MyMood extends React.Component {
                             <div data-rating={data.rating} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                   );
@@ -748,7 +754,7 @@ export default class MyMood extends React.Component {
                             <div data-rating={data.difference} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                   );
@@ -765,7 +771,7 @@ export default class MyMood extends React.Component {
                             <div data-rating={data.difference} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -784,7 +790,7 @@ export default class MyMood extends React.Component {
                             <div data-rating={data.avg} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -802,7 +808,7 @@ export default class MyMood extends React.Component {
                                 <i className="icon"></i>
                                 <i className="icon"></i>
                             </div>
-                            <div className="title">You don't have any higher areas.</div>
+                            <div className="title">{GetText('MYMD_HIGHERCAVERAGE_EMPTYMSG', mlarray)}</div>
                         </div>
                     </div>,
                     <div className="column padding-ryt"></div>
@@ -822,7 +828,7 @@ export default class MyMood extends React.Component {
                             <div data-rating={data.avg} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -840,7 +846,7 @@ export default class MyMood extends React.Component {
                                 <i className="icon"></i>
                                 <i className="icon"></i>
                             </div>
-                            <div className="title">You don't have any worst areas.</div>
+                            <div className="title">{GetText('MYMD_LOWERCAVERAGE_EMPTYMSG', mlarray)}</div>
                         </div>
                     </div>,
                     <div className="column padding-ryt"></div>
@@ -902,7 +908,7 @@ export default class MyMood extends React.Component {
           topmanagers = (
                         <div className="column">
                             <div className="ui segment brdr">
-                                <h2>Most engaging manager</h2>
+                                <h2>{GetText('MYMD_MOST_ENGAGING', mlarray)}</h2>
                                 {tmanagers}
                             </div>
                         </div>
@@ -1005,7 +1011,7 @@ export default class MyMood extends React.Component {
           myEngagement = (
                     <div className="column ">
                         <div className="ui segment brdr">
-                            <h2>Employee average Engagement</h2>
+                            <h2>{GetText('MYMD_E_ENGAGEMENT', mlarray)}</h2>
                             <HalfDaughnut datatext={myEmployeeEngagement} />
                         </div>
                     </div>
@@ -1022,27 +1028,27 @@ export default class MyMood extends React.Component {
                             <div className="ui segment brdr-none padding-none ">
                             <div className=" right menu mobile">
                                 <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
-                                    <option value="mw_index">MW-Index</option>
-                                    <option value="Mood">Mood</option>
-                                    <option value="Meaning">Meaning</option>
-                                    <option value="Expectations">Expectations</option>
-                                    <option value="Strengths">Strengths</option>
-                                    <option value="Recognition">Recognition</option>
-                                    <option value="Development">Development</option>
-                                    <option value="Influence">Influence</option>
-                                    <option value="Goals">Goals</option>
-                                    <option value="Team">Team</option>
-                                    <option value="Friendship">Friendship</option>
-                                    <option value="Feedback">Feedback</option>
-                                    <option value="Opportunities">Opportunities</option>
-                                    <option value="Recommendation">Recommendation</option>
+                                    <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
+                                    <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
+                                    <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
+                                    <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
+                                    <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
+                                    <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
+                                    <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
+                                    <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
+                                    <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
+                                    <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
+                                    <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
+                                    <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
+                                    <option value="Opportunities">{GetText('MYMD_OPTOPPURTUNITIES', mlarray)}</option>
+                                    <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
                                 </select>
                                 <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
-                                    <option value="all_time">All time</option>
-                                    <option value="last_12_months">Last 12 months</option>
-                                    <option value="last_6_ months">Last 6 months</option>
-                                    <option value="last_3_months">Last 3 months</option>
-                                    <option value="last_month">Last month</option>
+                                    <option value="all_time">{GetText('MYMD_OPTALLTIME', mlarray)}</option>
+                                    <option value="last_12_months">{GetText('MYMD_OPTTWELVE', mlarray)}</option>
+                                    <option value="last_6_ months">{GetText('MYMD_OPTSIX', mlarray)}</option>
+                                    <option value="last_3_months">{GetText('MYMD_OPTTHREE', mlarray)}</option>
+                                    <option value="last_month">{GetText('MYMD_OPTLASTMONTH', mlarray)}</option>
                                 </select>
                             </div>
                             <div className="clear"></div>
@@ -1058,22 +1064,22 @@ export default class MyMood extends React.Component {
                     <div className="ui two column stackable grid ">
                         <div className="six column row padding-container">
                             <div className="column">
-                                <div className="ui segment gry">At Start : {engagementStatitics.start}</div>
+                                <div className="ui segment gry">{GetText('MYMD_ATSTART', mlarray)} : {engagementStatitics.start}</div>
                             </div>
                             <div className="column">
-                                <div className="ui segment gry">Highest : {engagementStatitics.highest}</div>
+                                <div className="ui segment gry">{GetText('MYMD_HIGHEST', mlarray)} : {engagementStatitics.highest}</div>
                             </div>
                             <div className="column">
-                                <div className="ui segment gry">Lowest : {engagementStatitics.lowest}</div>
+                                <div className="ui segment gry">{GetText('MYMD_LOWEST', mlarray)} : {engagementStatitics.lowest}</div>
                             </div>
                             <div className="column">
-                                <div className="ui segment gry">Current : {engagementStatitics.current}</div>
+                                <div className="ui segment gry">{GetText('MYMD_CURRENT', mlarray)} : {engagementStatitics.current}</div>
                             </div>
                             <div className="column">
-                                <div className="ui segment gry">30 Days change : {engagementStatitics.thirtydayschange}</div>
+                                <div className="ui segment gry">{GetText('MYMD_DAYS_CHANGE', mlarray)} : {engagementStatitics.thirtydayschange}</div>
                             </div>
                             <div className="column">
-                                <div className="ui segment gry">Week change : {engagementStatitics.weekchange}</div>
+                                <div className="ui segment gry">{GetText('MYMD_WEEK_CHANGE', mlarray)} : {engagementStatitics.weekchange}</div>
                             </div>
                       </div>
                     </div>,
@@ -1105,7 +1111,7 @@ export default class MyMood extends React.Component {
                 {statusmessage}
                 <div className="ui two column stackable grid container ">
                     <div className="column">
-                        <h4 className="ui header ryt com">Custom Survey Test Generation</h4>
+                        <h4 className="ui header ryt com">Custom Survey Generation</h4>
                     </div>
                     <div className="column">
                         <div className="three  column">
@@ -1251,7 +1257,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card  box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY TOP THREE AREAS</div>
+                                    <div className="header">{GetText('MYMD_TOPTHREEAREAS_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -1262,7 +1268,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY WORST THREE AREAS</div>
+                                    <div className="header">{GetText('MYMD_WORSTTHREEAREAS_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container ">
@@ -1273,7 +1279,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY MOST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">{GetText('MYMD_MOSTIMPROVEDAREAS_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -1284,7 +1290,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">{GetText('MYMD_LEASTIMPROVEDAREAS_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -1295,7 +1301,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">TOP 3 AREAS HIGHER THAN COMPANY AVERAGE</div>
+                                    <div className="header">{GetText('MYMD_HIGHERTHANCOMPANYAVERAGE_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -1306,7 +1312,7 @@ export default class MyMood extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">WORST 3 AREAS LOWER THAN COMPANY AVERAGE</div>
+                                    <div className="header">{GetText('MYMD_LOWERTHANCOMPANYAVERAGE_HEADING', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -1323,13 +1329,13 @@ export default class MyMood extends React.Component {
 
       let tabs;
       if (typeof usertype !== 'undefined' && usertype === 'manager') {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> TAB_EGRAPH </a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> TAB_MRATING </a>,
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#"> TAB_CSURVEY </a>
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>,
+                    <a className="item mobile column" onClick={this.customSurveyClick} href="#">{GetText('MYMD_CSURVEY', mlarray)}</a>
                  ];
       } else {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> TAB_EGRAPH </a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> TAB_MRATING </a>
+          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
                  ];
       }
 
