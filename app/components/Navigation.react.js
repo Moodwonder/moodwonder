@@ -142,7 +142,7 @@ export default class Navigation extends React.Component {
                                 <div className="field">
                                     <select name="comment_title">
                                         <option value="">What happened...?</option>
-                                        <optgroup label="Company, Strategy &amp; Values">
+                                        <optgroup label="Company, Strategy & Values">
                                             <option value="63">Company event organized</option>
                                             <option value="64">New executive level manager started</option>
                                             <option value="65">Top executive left the company</option>
@@ -152,7 +152,7 @@ export default class Navigation extends React.Component {
                                             <option value="69">Do not believe in our strategy</option>
                                             <option value="70">Values are not in use</option>
                                         </optgroup>
-                                        <optgroup label="Daily work &amp; Tasks">
+                                        <optgroup label="Daily work & Tasks">
                                             <option value="38">Got recognition</option>
                                             <option value="39">Got promotion</option>
                                             <option value="40">Got raise</option>
