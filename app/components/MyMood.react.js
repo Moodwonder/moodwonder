@@ -147,7 +147,6 @@ export default class MyMood extends React.Component {
       let data = getFormData(form, {trim: true});
       let question = this.state.squestions;
       let survey = survey || {};
-      //console.log(JSON.stringify(data));
 
       survey.surveytitle = data['surveytitle'];
       survey.freezedate = data['freezedate'];
@@ -269,7 +268,6 @@ export default class MyMood extends React.Component {
 
       if(!errorFlag) {
           //if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
-          console.log(JSON.stringify(survey));
           CustomSurveyActions.createCustomSurveyForm(survey);
           this.setState({formstatus: true});
           //}
@@ -319,8 +317,6 @@ export default class MyMood extends React.Component {
   }
 
   onAddCheckboxOption = (e, child) => {
-      //console.log(child.refs);
-      //console.log(child.props);
       let cIndex = parseInt(this.state.cIndex);
       let qid = child.props.qid;
       let checkbox = this.state.checkbox;
@@ -498,14 +494,10 @@ export default class MyMood extends React.Component {
   }
 
   onChangeGraphPeriod = (value) => {
-      console.log('Period');
-      console.log(value);
       this.setState({ graphperiod : value });
   }
 
   onChangeGraphEngagement = (value) => {
-      console.log('Engagement');
-      console.log(value);
       this.setState({ graphengagement : value });
   }.bind(this);
 
@@ -888,7 +880,7 @@ export default class MyMood extends React.Component {
 
       let topmanagers;
       if (engagedmanagers.length > 0) {
-          topmanagers = engagedmanagers.map((data, index) => {
+          let tmanagers = engagedmanagers.map((data, index) => {
               let image = "";
               if (index === 0) {
                   image = "assets/images/gold.png";
@@ -906,8 +898,16 @@ export default class MyMood extends React.Component {
                       </div>
                       );
           });
-      } else {
-          topmanagers = '';
+
+          topmanagers = (
+                        <div className="column">
+                            <div className="ui segment brdr">
+                                <h2>Most engaging manager</h2>
+                                {tmanagers}
+                            </div>
+                        </div>
+            );
+
       }
 
       let bCount = lastRatings.length - 1;
@@ -1001,7 +1001,15 @@ export default class MyMood extends React.Component {
 
       let myEngagement = '';
       if (myEmployeeEngagement > 0) {
-          myEngagement = (<HalfDaughnut datatext={myEmployeeEngagement} />);
+          //myEngagement = (<HalfDaughnut datatext={myEmployeeEngagement} />);
+          myEngagement = (
+                    <div className="column ">
+                        <div className="ui segment brdr">
+                            <h2>Employee average Engagement</h2>
+                            <HalfDaughnut datatext={myEmployeeEngagement} />
+                        </div>
+                    </div>
+          );
       }
 
 
@@ -1071,18 +1079,8 @@ export default class MyMood extends React.Component {
                     </div>,
 
                     <div className="ui two column stackable grid ">
-                        <div className="column ">
-                            <div className="ui segment brdr">
-                                <h2>Employee average Engagement</h2>
-                                {myEngagement}
-                            </div>
-                        </div>
-                        <div className="column">
-                        <div className="ui segment brdr">
-                            <h2>Most engaging manager</h2>
-                            {topmanagers}
-                          </div>
-                      </div>
+                        {myEngagement}
+                        {topmanagers}
                     </div>
           ];
       }
