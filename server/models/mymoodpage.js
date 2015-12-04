@@ -26,7 +26,7 @@ var mymoodpageSchema = new mongoose.Schema({
     MYMD_OPTTEAM: {type: String, default: ''},
     MYMD_OPTFRIENDSHIP: {type: String, default: ''},
     MYMD_OPTFEEDBACK: {type: String, default: ''},
-    MYMD_OPTOPPURTUNITIES: {type: String, default: ''},
+    MYMD_OPTOPPORTUNITIES: {type: String, default: ''},
     MYMD_OPTRECOMMENDATION: {type: String, default: ''},
     MYMD_OPTALLTIME: {type: String, default: ''},
     MYMD_OPTTWELVE: {type: String, default: ''},

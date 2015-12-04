@@ -1040,7 +1040,7 @@ export default class MyMood extends React.Component {
                                     <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
                                     <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
                                     <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
-                                    <option value="Opportunities">{GetText('MYMD_OPTOPPURTUNITIES', mlarray)}</option>
+                                    <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
                                     <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
                                 </select>
                                 <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
