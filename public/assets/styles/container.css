@@ -328,6 +328,13 @@
 .margin-grid {
 	margin: 0!important;
 }
+.rating-smiley {
+    margin: 0px 10px 10px 0px;
+    width: 16%;
+}
+.rating-smiley-last {
+    margin-right:0;
+}
 }
 .width-header h2 {
 	color: #ffca28!important;
@@ -389,6 +396,13 @@
 }
 .list.ui.pagination.menu {
 	margin-top: -14px!important;
+}
+.rating-smiley {
+    margin: 0 10px 0 0;
+    width: 16.9%;
+}
+.rating-smiley-last {
+    margin-right:0;
 }
 }
 

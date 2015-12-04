@@ -570,8 +570,8 @@ module.exports = function (app, passport) {
                 case 'survey': 
                 case 'surveyforms': 
                 case 'mymood': 
-                    console.log('response');
-                    console.log(response);
+                    //console.log('response');
+                    //console.log(response);
                     res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
                     //res.locals.data.MlangStore = { multilang : response };
                     break;

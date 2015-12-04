@@ -159,7 +159,7 @@ export default class MobileMoodrate extends React.Component {
                     <h2>RATE YOUR MOOD</h2>
                     <p>How are you feeling at work today?</p>
                 </div>
-                <div className="ui slider range ">
+                <div className="ui slider range">
                     <form id="moodRating">
                         <NavSlider lastrated={lastRated} />
                     </form>

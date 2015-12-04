@@ -146,6 +146,17 @@ export default class MyMood extends React.Component {
       });
   }
 
+  ScrollTop = () => {
+      if (document.all){
+          document.body.scrollLeft = 0;
+          document.body.scrollTop = 0;
+      }
+      else{
+          window.pageXOffset = 0;
+          window.pageYOffset = 0;
+      }
+  }
+
   onSurveySubmit = (e) => {
       e.preventDefault();
       let form = document.querySelector('#surveyForm');
@@ -272,10 +283,18 @@ export default class MyMood extends React.Component {
 
 
       if(!errorFlag) {
-          //if (window.confirm('Please review the survey, once posted it cannot be edited.')) {
           CustomSurveyActions.createCustomSurveyForm(survey);
           this.setState({formstatus: true});
-          //}
+          window.parent.scroll(0,0);
+          //(this.state.squestions).splice(0,(this.state.squestions).length);
+          //let squestions = ['q1'];
+          this.setState({squestions: ['q1']});
+          this.setState({radio: []});
+          this.setState({checkbox: []});
+          this.setState({textbox: []});
+          this.setState({textarea: []});
+          document.querySelector(".form-control").value = null;
+          document.getElementById("surveyForm").reset();
       }
   }
 
