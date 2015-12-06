@@ -46,7 +46,6 @@ export default class Leftnav extends React.Component {
       this.setState(state);
   }
 
-
   render () {
       console.log(this.state.userData);
       let user = this.state.userData;
@@ -73,7 +72,7 @@ export default class Leftnav extends React.Component {
                 <div className="profile item">
                     <img className="ui mini image" src={user.profile_image} alt=""/>
                     <div className="ui dropdown">
-                        <span>{userfullname}</span>
+                        <span id="userfullname" >{userfullname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
                             <div className="item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>L_MYPROFILE_LINK</a></div>

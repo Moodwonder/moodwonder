@@ -37,7 +37,7 @@ exports.checkTeam = function(req, res, next) {
 
             if(existingTeam) {
                 response.status = false;
-                response.message = "Team name is already exist within your company";
+                response.message = "Team name already exist";
                 response.callback = req.body.callback;
                 res.send(response);
                 res.end();
@@ -149,7 +149,7 @@ exports.updateTeam = function(req, res, next) {
                 res.end();
             }else{
                 response.status = true;
-                response.message = "Team name updated";
+                response.message = "Successfully updated team name";
                 response.callback = callback;
                 res.send(response);
                 res.end();

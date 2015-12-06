@@ -153,7 +153,8 @@ module.exports = function (app, passport) {
     // Set variables from server side
     app.get('/mycompany', common.handleGetContinents);
     app.get('/my_company', common.handleGetContinents);
-    app.get('/invitesignup/:hash', invitation.handleSignup);
+    app.get('/invitesignup/:hash', users.handleInviteSignup);
+    // app.get('/invitesignup/:hash', invitation.handleSignup); Old handler
     app.get('/publicprofile/:hash', admin.checkLogin, users.getPublicProfile);
 
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
@@ -191,7 +192,9 @@ module.exports = function (app, passport) {
         // yourStore{ your: params }
         // You will get the params using the following code in your components
         // this.state.yourState
-        //console.log(publicprofile);
+        // console.log(publicprofile);
+        // console.log(req.url);
+        
         
         res.locals.data = {
             UserStore: { user: user, continents: req.body.continents },
@@ -200,6 +203,10 @@ module.exports = function (app, passport) {
             SignupStore: {inviteEmail: inviteEmail},
             AppStore: AppStore
         };
+
+        if( req.url.search("invitesignup") !== -1 && req.body.response ){
+			res.locals.data.SignupStore = req.body.response;
+		}
         next();
     });
     

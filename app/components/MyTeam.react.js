@@ -313,20 +313,20 @@ class EditableMyTeam extends React.Component {
   }
 
   onSaveClick = (e) => {
-	  console.log('onSaveClick');
-	  let teamname = this.state.value;
-	  let teamid   = this.props.teamid;
+      console.log('onSaveClick');
+      let teamname = this.state.value;
+      let teamid   = this.props.teamid;
       if(this.props.value !== this.state.value){
-		  console.log('aaaaaaa');
-		  if(teamname.trim() !== ''){
+          console.log('aaaaaaa');
+          if(teamname.trim() !== ''){
               this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
           }else{
               this.setState({ serverresponse: { callback: this.props.teamid }, message: 'Team name is required' });
-		  }
+          }
       }else{
-		  console.log('bbbbbb');
-		  this.setState({ serverresponse: { callback: this.props.teamid }, message: 'No changes' });
-	  }
+          console.log('bbbbbb');
+          this.setState({ serverresponse: { callback: this.props.teamid }, message: 'No changes' });
+      }
       e.preventDefault();
   }
 

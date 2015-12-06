@@ -119,40 +119,52 @@ exports.sendInvitation = function(req, res, next) {
 		reference: reference
 		});
 
-		var where = {email: email, type : type, reference: { $elemMatch: reference } };
-		Invite.findOne(where, function(err, existingInvite) {
-			if(existingInvite) {
+		var where = { email: email };
+		User.findOne(where, function(err, existingUser) {
+			if(existingUser) {
 				response.status = false;
-				response.message = 'Waiting to accept invitation';
+				response.message = 'The email address you have entered is already registered';
 				res.send(response);
 				res.end();
+				return;
 			}else{
-				invite.save(function(err) {
-					if(!err){
-
-						var transporter = nodemailer.createTransport();
-						var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-						"<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/invitesignup/'+inviteString+
-						"<br><br> Best wishes"+
-						"<br> Moodwonder Team";
-						body = emailTemplate.general(body);
-						transporter.sendMail({
-							from: 'admin@moodewonder.com',
-							to: email,
-							subject: 'Moodwonder invitation',
-							html: body
-						});
-						response.status = true;
-						response.message = 'Invitation sent';
+				where = { email: email, type : type, reference: { $elemMatch: reference } };
+				Invite.findOne(where, function(err, existingInvite) {
+					if(existingInvite) {
+						response.status = false;
+						response.message = 'Waiting to accept invitation';
 						res.send(response);
 						res.end();
 					}else{
-						res.send(response);
-						res.end();
+						invite.save(function(err) {
+							if(!err){
+
+								var transporter = nodemailer.createTransport();
+								var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
+								"<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/invitesignup/'+inviteString+
+								"<br><br> Best wishes"+
+								"<br> Moodwonder Team";
+								body = emailTemplate.general(body);
+								transporter.sendMail({
+									from: 'admin@moodewonder.com',
+									to: email,
+									subject: 'Moodwonder invitation',
+									html: body
+								});
+								response.status = true;
+								response.message = 'Invitation sent';
+								res.send(response);
+								res.end();
+							}else{
+								res.send(response);
+								res.end();
+							}
+						});
 					}
 				});
 			}
 		});
+
 	}else{
 		response.status = false;
 		response.message = 'Something went wrong';

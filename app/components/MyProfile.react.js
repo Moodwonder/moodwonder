@@ -239,6 +239,8 @@ export default class MyProfile extends React.Component {
                     </ul>
                 </div>
           );
+          //console.log(document.getElementById("userfullname"));
+          document.getElementById("userfullname").innerHTML = userInfo.fname+" "+userInfo.lname;
       }
 
       if (this.state.message !== '' && this.state.updateType === 'generalinfo' ) {
