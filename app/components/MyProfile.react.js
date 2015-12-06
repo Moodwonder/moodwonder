@@ -103,6 +103,7 @@ export default class MyProfile extends React.Component {
   _onChange = (state) => {
       this.setState(state);
       //console.log(this.state.userDetails);
+      this.messageAutoClose(state);
   }
 
   _onSaveSubmit = (model) => {
@@ -210,6 +211,14 @@ export default class MyProfile extends React.Component {
       if(event.target.id === 'reportfrequency'){
           userDetails.reportfrequency = event.target.value;
           this.setState({ userDetails: userDetails });
+      }
+  }
+
+  messageAutoClose = (state) => { 
+      if(state.message !== ''){
+          setTimeout(function(){
+			  this.setState({ message: '', foo: 'bar' });
+		  }.bind(this),3000);
       }
   }
 

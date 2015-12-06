@@ -813,7 +813,7 @@ exports.postSaveManagerInfo = function (req, res, next) {
             if (!err) {
 
                 response.status = true;
-                response.message = 'Manager info updated';
+                response.message = "Manager's email updated successfully";
             } else {
 
                 response.status = false;
