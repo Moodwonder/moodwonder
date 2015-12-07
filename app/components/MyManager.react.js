@@ -34,7 +34,7 @@ export default class MyManager extends React.Component {
   }
 
   _onChange = (state) => {
-	  //console.log(this);
+      //console.log(this);
       state.mymanager = this.state.userDetails.mymanager;
       this.setState(state);
       if(state.updateType && state.updateType === "managerinfo"){
@@ -54,7 +54,7 @@ export default class MyManager extends React.Component {
             message: 'Invalid email',
             updateType : 'managerinfo'
           });
-	  }
+      }
   }
 
   isValidEmailAddress = (emailAddress) => {
@@ -67,11 +67,11 @@ export default class MyManager extends React.Component {
       this.setState(mymanager);
   }
 
-  messageAutoClose = (state) => { 
+  messageAutoClose = (state) => {
       if(state.message !== ''){
           setTimeout(function(){
-			  this.setState({ message: '', foo: 'bar' });
-		  }.bind(this),3000);
+              this.setState({ message: '' });
+          }.bind(this),3000);
       }
   }
 

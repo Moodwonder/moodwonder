@@ -2207,8 +2207,8 @@ exports.getPublicProfile = function (req, res, next) {
             }
         });
     }else{
-		res.redirect('/Error?msg=Invalid user Id');
-		/*
+        res.redirect('/Error?msg=Invalid user Id');
+        /*
         response.message = 'Invalid user Id';
         req.body.response = response;
         next();*/
@@ -2231,161 +2231,161 @@ exports.handleInviteSignup = function(req, res, next) {
   Invite.findOne(where, function(err, record) {
     if(record) {
 
-		var email = record.email.toLowerCase();
-		req.body.email = email; // temp fix
-		if (!blockedDomains.checkDomain(email)) {
-			response.status  = false;
-			response.message = 'This domain name is blocked';
-			req.body.response = response;
-			next();
-			return;
-		}
+        var email = record.email.toLowerCase();
+        req.body.email = email; // temp fix
+        if (!blockedDomains.checkDomain(email)) {
+            response.status  = false;
+            response.message = 'This domain name is blocked';
+            req.body.response = response;
+            next();
+            return;
+        }
 
-		var verifystring = email + Date.now();
-		verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
-		var user = new User({
-			email: req.body.email,
-			verifylink: verifystring
-		});
+        var verifystring = email + Date.now();
+        verifystring = crypto.createHash('md5').update(verifystring).digest("hex");
+        var user = new User({
+            email: req.body.email,
+            verifylink: verifystring
+        });
 
-		User.findOne({email: req.body.email}, function (err, existingUser) {
+        User.findOne({email: req.body.email}, function (err, existingUser) {
 
-			if (existingUser !== null && existingUser) {
+            if (existingUser !== null && existingUser) {
 
-				response.status   = false;
-				response.message  = 'The email address you have entered is already registered';
-				req.body.response = response;
-				next();
-				return;
+                response.status   = false;
+                response.message  = 'The email address you have entered is already registered';
+                req.body.response = response;
+                next();
+                return;
 
-			} else {
+            } else {
 
-				user.save(function (err, newuser) {
-					if (!err) {
+                user.save(function (err, newuser) {
+                    if (!err) {
 
-						// Get domian name without extension
-						// 'test@example.com' converting into 'example'
-						var email   =  req.body.email;
-						var domain  =  email.substring(email.lastIndexOf("@")+1);
-						domain      =  domain.substring(0,domain.lastIndexOf("."));
-						var company =  { name: domain};
-						Company.update(company,company,{upsert: true},function(err,newcompany){});
+                        // Get domian name without extension
+                        // 'test@example.com' converting into 'example'
+                        var email   =  req.body.email;
+                        var domain  =  email.substring(email.lastIndexOf("@")+1);
+                        domain      =  domain.substring(0,domain.lastIndexOf("."));
+                        var company =  { name: domain};
+                        Company.update(company,company,{upsert: true},function(err,newcompany){});
 
-						// Update company name in User collection
-						var conditions = {
-							_id: new ObjectId(newuser._id)
-						};
+                        // Update company name in User collection
+                        var conditions = {
+                            _id: new ObjectId(newuser._id)
+                        };
 
-						var update  = [{
-							companyname : domain,
-							industry : '',
-							continent : '',
-							country : '',
-							state : '',
-							city : '',
-							address : '',
-							website : '',
-							companysize : ''
-						}];
+                        var update  = [{
+                            companyname : domain,
+                            industry : '',
+                            continent : '',
+                            country : '',
+                            state : '',
+                            city : '',
+                            address : '',
+                            website : '',
+                            companysize : ''
+                        }];
 
-						var options = { multi: false };
-						User.update(conditions, { company_info: update }, options, function (err) {});
+                        var options = { multi: false };
+                        User.update(conditions, { company_info: update }, options, function (err) {});
 
-						// if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
-						// console.log('--req.body.hash----' + req.body.hash);
-						if (req.body.hash !== undefined && req.body.hash !== '') {
+                        // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
+                        // console.log('--req.body.hash----' + req.body.hash);
+                        if (req.body.hash !== undefined && req.body.hash !== '') {
 
-							var invite = new Invite({
-								email: email,
-								type: 'Team',
-								link: req.body.hash
-							});
+                            var invite = new Invite({
+                                email: email,
+                                type: 'Team',
+                                link: req.body.hash
+                            });
 
-							Invite.findOne({ email: email }, function (err, existingInvite) {
-								if (existingInvite) {
+                            Invite.findOne({ email: email }, function (err, existingInvite) {
+                                if (existingInvite) {
 
-									// removing invitation record after taking the data from the collection
-									// Otherwise it will show email id repetition in the members list in teams
-									Invite.remove({_id: existingInvite._id }, function(err) {});
-									var team_id = existingInvite.data[0].team._id;
+                                    // removing invitation record after taking the data from the collection
+                                    // Otherwise it will show email id repetition in the members list in teams
+                                    Invite.remove({_id: existingInvite._id }, function(err) {});
+                                    var team_id = existingInvite.data[0].team._id;
 
-									var where = {_id: new ObjectId(team_id)}
-									// console.log(member_email);
-									// check the team is exist or not
-									Team.findOne(where, function (err, existingTeam) {
-										if (existingTeam) {
+                                    var where = {_id: new ObjectId(team_id)}
+                                    // console.log(member_email);
+                                    // check the team is exist or not
+                                    Team.findOne(where, function (err, existingTeam) {
+                                        if (existingTeam) {
 
-											// User not exist in this group, Insert this user into this team
-											Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
-												if (err) {
-													response.status = false;
-													response.messages = ['Error when adding a new member'];
-												} else {
-													// Find e-mail id of the user who invited this user
-													User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
-														if (existingUser) {
-															// console.log('has user');
-															var conditions = {'_id': new ObjectId(newuser._id)}
-															, update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
-															, options = {multi: false};
+                                            // User not exist in this group, Insert this user into this team
+                                            Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
+                                                if (err) {
+                                                    response.status = false;
+                                                    response.messages = ['Error when adding a new member'];
+                                                } else {
+                                                    // Find e-mail id of the user who invited this user
+                                                    User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                        if (existingUser) {
+                                                            // console.log('has user');
+                                                            var conditions = {'_id': new ObjectId(newuser._id)}
+                                                            , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                            , options = {multi: false};
 
-															// Set manager info
-															User.update(conditions, update, options, function (err) {
-																if (!err) {
-																	// console.log('updated manager');
-																} else {
-																	// console.log('not updated manager');
-																}
-															});
-														}
-														else {
-															// console.log('has no user');
-														}
-													});
+                                                            // Set manager info
+                                                            User.update(conditions, update, options, function (err) {
+                                                                if (!err) {
+                                                                    // console.log('updated manager');
+                                                                } else {
+                                                                    // console.log('not updated manager');
+                                                                }
+                                                            });
+                                                        }
+                                                        else {
+                                                            // console.log('has no user');
+                                                        }
+                                                    });
 
-													response.status = true;
-													response.messages = ['Member added'];
-												}
-											});
+                                                    response.status = true;
+                                                    response.messages = ['Member added'];
+                                                }
+                                            });
 
-										} else {
-											response.status = false;
-											response.messages = ['Team not exist'];
-										}
-									});
+                                        } else {
+                                            response.status = false;
+                                            response.messages = ['Team not exist'];
+                                        }
+                                    });
 
-								} else {
-									response.status = true;
-									response.messages = ['Error when processing your invitation'];
-								}
-							});
-						} else {
+                                } else {
+                                    response.status = true;
+                                    response.messages = ['Error when processing your invitation'];
+                                }
+                            });
+                        } else {
 
-							response.status = true;
-							response.messages = ['Error when processing your invitation'];
-						}
+                            response.status = true;
+                            response.messages = ['Error when processing your invitation'];
+                        }
 
-						// Redirect to create password page
-						res.redirect('/createpassword/' + verifystring );
+                        // Redirect to create password page
+                        res.redirect('/createpassword/' + verifystring );
 
-					} else {
-						response.status = true;
-						response.message = 'Error when processing your invitation';
-						req.body.response = response;
-						next();
-						return;
-					}
-				});
-			}
-		});
+                    } else {
+                        response.status = true;
+                        response.message = 'Error when processing your invitation';
+                        req.body.response = response;
+                        next();
+                        return;
+                    }
+                });
+            }
+        });
     }else{
-		// Invalid invitation link
-		req.body.response = {
-			message: 'Invalid invitation link',
-			hasErrorMessage: true,
-			status: false
-		};
-		next();
+        // Invalid invitation link
+        req.body.response = {
+            message: 'Invalid invitation link',
+            hasErrorMessage: true,
+            status: false
+        };
+        next();
     }
   });
 

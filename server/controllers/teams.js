@@ -218,6 +218,7 @@ exports.getOwnTeams = function(req, res, next) {
 exports.addMemberToTeam = function(req, res, next) {
 
   //function for exiting from the callback function
+  var response = {};
   function checkExitCondition(key){
     if(total_member_email == (key+1)){
         // Go to invitation.sendInvitation() route if there is non member emails
@@ -254,20 +255,20 @@ exports.addMemberToTeam = function(req, res, next) {
           feedback.push(req.user.email+': You are the team leader');
         }
     }else{
-		feedback.push('Work email is required');
-	}
+        feedback.push('Work email is required');
+    }
   });
   
   var total_member_email = member_email.length;
   var team_id = req.body.team_id;
 
   if(total_member_email < 1){
-	response.status = false;
-	response.message = '';
-	response.messages = feedback;
-	response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-	res.send(response);
-	res.end();
+    response.status = false;
+    response.message = '';
+    response.messages = feedback;
+    response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+    res.send(response);
+    res.end();
   }
   member_email.map(function(value, key) {
     var where = { _id: new ObjectId(team_id) }
@@ -276,39 +277,67 @@ exports.addMemberToTeam = function(req, res, next) {
     Team.findOne(where, function(err, existingTeam) {
         if(existingTeam) {
 
-            // check the user is exist or not
             var current_member_email = value;
-            User.findOne({email: current_member_email }, function(err, existingUser) {
-                if(existingUser) {
-                    
-                    // check the member already exist in the group
-                    var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+            User.findOne({ _id: new ObjectId(req.user._id) }, function(err, currentUser) {
+                if( !err && currentUser!== null ){
 
-                    Team.findOne(where_mem_exist, function(err, existingMember) {
-                        if(existingMember) {
-                            feedback.push(current_member_email+': This user is already exist in the team');
-                            checkExitCondition(key);
-                        }else{
-                            // User not exist in this group, Insert this user into this team
-                            Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
-                                if(err){
-                                    feedback.push('Unknown error with :'+ current_member_email);
-                                }else{
-                                    feedback.push(current_member_email+': Added as a member');
-                                }
+                    var mymanager = '';
+                    if(currentUser.mymanager && currentUser.mymanager[0] && currentUser.mymanager[0].email){
+                        mymanager = currentUser.mymanager[0].email;
+                    }
+
+                    if(mymanager === current_member_email){
+                        response.status = false;
+                        response.messages = ["You can't add your manager as your subordinate"];
+                        response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+                        res.send(response);
+                        res.end();
+                        return;
+                    }else{
+                        // check the user is exist or not
+                        User.findOne({email: current_member_email }, function(err, existingUser) {
+                            if(existingUser) {
+                                
+                                // check the member already exist in the group
+                                var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+
+                                Team.findOne(where_mem_exist, function(err, existingMember) {
+                                    if(existingMember) {
+                                        feedback.push(current_member_email+': This user is already exist in the team');
+                                        checkExitCondition(key);
+                                    }else{
+                                        // User not exist in this group, Insert this user into this team
+                                        Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
+                                            if(err){
+                                                feedback.push('Unknown error with :'+ current_member_email);
+                                            }else{
+                                                feedback.push(current_member_email+': Added as a member');
+                                            }
+                                            checkExitCondition(key);
+                                        });
+                                    }
+                                });
+                            }else{
+                                // Calling another controller for Invite a user with the given e-mail id
+                                // Calling invitation.js/sendInvitation()
+                                invite_member_email.push(current_member_email);
+                                req.body.invitetype = 'Team';
+                                req.body.data = { 'email': invite_member_email, 'team': existingTeam ,feedback: feedback };
                                 checkExitCondition(key);
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
+                    
                 }else{
-                    // Calling another controller for Invite a user with the given e-mail id
-                    // Calling invitation.js/sendInvitation()
-                    invite_member_email.push(current_member_email);
-                    req.body.invitetype = 'Team';
-                    req.body.data = { 'email': invite_member_email, 'team': existingTeam ,feedback: feedback };
-                    checkExitCondition(key);
+                    response.status = false;
+                    response.message = 'Unknow error';
+                    response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+                    res.send(response);
+                    res.end();
+                    return;
                 }
             });
+
         }else{
             response.status = false;
             response.message = 'Team not exist';

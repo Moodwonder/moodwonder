@@ -3,7 +3,7 @@
  */
 
 .filepicker.dropzone{
-	display:none;
+    display:none;
 }
 
 /* home page fixes */
@@ -53,7 +53,7 @@
 
 /* Login page fixes */
 .ui.form .error.message, .ui.form .success.message, .ui.form .warning.message{
-	display: block;
+    display: block;
 }
 
 
@@ -77,4 +77,12 @@ a i.write.icon {
 }
 a i.add.circle.icon.large {
     cursor: pointer;
+}
+
+/*
+ * my team tab UI fix
+ * UI fixes #15407
+*/
+label.column.email {
+    word-wrap: break-word;
 }
