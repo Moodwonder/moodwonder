@@ -103,6 +103,7 @@ export default class MyProfile extends React.Component {
   _onChange = (state) => {
       this.setState(state);
       //console.log(this.state.userDetails);
+      this.messageAutoClose(state);
   }
 
   _onSaveSubmit = (model) => {
@@ -154,7 +155,7 @@ export default class MyProfile extends React.Component {
       state.fname = this.state.userData.fname;
       state.lname = this.state.userData.lname;
       this.setState({ userDetails: state, personalInfoEdit: false , message: '' });
-      console.log(this.state);
+      // console.log(this.state);
   }
 
   _onChangePersonalInfo = (event) => {
@@ -195,7 +196,11 @@ export default class MyProfile extends React.Component {
   }
 
   onCancelEditGeneralInfoClick = () => {
-      this.setState({ generalInfoEdit: false , message: '' });
+      let state = this.state.userDetails;
+      state.email = this.state.userData.email;
+      state.language = this.state.userData.language;
+      state.reportfrequency = this.state.userData.reportfrequency;
+      this.setState({ userDetails: state, generalInfoEdit: false , message: '' });
   }
 
   _onChangeGeneralInfo = (event) => {
@@ -210,6 +215,14 @@ export default class MyProfile extends React.Component {
       if(event.target.id === 'reportfrequency'){
           userDetails.reportfrequency = event.target.value;
           this.setState({ userDetails: userDetails });
+      }
+  }
+
+  messageAutoClose = (state) => { 
+      if(state.message !== ''){
+          setTimeout(function(){
+			  this.setState({ message: '', foo: 'bar' });
+		  }.bind(this),3000);
       }
   }
 
@@ -239,6 +252,8 @@ export default class MyProfile extends React.Component {
                     </ul>
                 </div>
           );
+          //console.log(document.getElementById("userfullname"));
+          document.getElementById("userfullname").innerHTML = userInfo.fname+" "+userInfo.lname;
       }
 
       if (this.state.message !== '' && this.state.updateType === 'generalinfo' ) {
