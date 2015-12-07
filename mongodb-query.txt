@@ -21,56 +21,6 @@ db.myprofile.insert({ "_id" : ObjectId("56305db33d4bec4812a6ca17"), "language" :
 
 db.myprofile.insert({ "_id" : ObjectId("56305db33d4bec4812a6ca18"), "language" : "FI", "PRFL_TAB_MYPROFILE" : "Oma profiili", "PRFL_TAB_MYMANAGER" : "Minun Manager", "PRFL_TAB_MYTEAM" : "Minun Team", "PRFL_EDIT_PROFILE" : "Muokkaa profiilia", "PRFL_SUMMARY" : "Yhteenveto", "PRFL_PERSONAL_INFO" : "henkilökohtaisia tietoja", "PRFL_PINFO_FNAME" : "Etunimi", "PRFL_PINFO_LNAME" : "Sukunimi", "PRFL_PINFO_CHANGE_PSWD" : "Vaihda salasana", "PRFL_PINFO_CNFM_PSWD" : "Vahvista salasana", "PRFL_GENERAL_INFO" : "Yleistä", "PRFL_GINFO_WRK_EMAIL" : "Work Lähetä sähköposti", "PRFL_GINFO_LNG" : "Kieli", "PRFL_GINFO_RPT_FRQ" : "Raportti Frequency", "PRFL_MNGR_MYMANAGER" : "Minun johtaja", "PRFL_MNGR_TOP_MSG" : "Jotta täysin hyödyntää Moodwonder, suosittelemme kutsua johtaja (nimettömänä tietenkin).", "PRFL_MNGR_ROL" : "rooli", "PRFL_MNGR_EMAIL" : "Lähetä sähköposti", "PRFL_MNGR_CHNG_MNGR" : "Change johtaja", "PRFL_MNGR_CANCEL" : "Peruuta", "PRFL_MNGR_SUBMIT" : "Lähetä", "PRFL_TEAM_TOP_MSG": "Jotta täysin hyödyntää Moodwonder, suosittelemme, että asetat alaistensa.", "PRFL_TEAM_ADD_TEAM": "Lisää joukkue", "PRFL_TEAM_NAME": "Tiimin nimi", "PRFL_TEAM_SAVE": "Tallenna", "PRFL_TEAM_SUBORDINATES": "Alaistensa", "PRFL_TEAM_ADD_ANOTHER": "Toinen", "PRFL_TEAM_WRK_EML": "Work Lähetä sähköposti", "PRFL_TEAM_SUBORDINATES_SAVE": "Tallenna" });
 
-db.mwusertheme.insert({ "language" : "EN", 
-                        "L_MYMOOD_LINK" : "My Mood", 
-                        "L_MYACCOUNT_LINK" : "My Account",
-                        "L_MYCOMPANY_LINK" : "My Company",
-                        "L_CAST_VOTE" : "Cast Vote",
-                        "L_INVITE_PEOPLE_TITLE" : "Invite people anonymously",
-                        "L_INVITE_PEOPLE_DES" : "Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues ...",
-                        "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mail",
-                        "L_INVITE_BTN" : "INVITE",
-                        "L_MYPROFILE_LINK" : "My profile",
-                        "L_LOGOUT_LINK" : "Log Out",
-                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD",
-                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today?",
-                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit",
-                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements",
-                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account",
-                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout",
-                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics",
-                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees",
-                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk",
-                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses",
-                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response",
-                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison"
-});
-
-db.mwusertheme.insert({ "language" : "FI", 
-                        "L_MYMOOD_LINK" : "My Moodfi", 
-                        "L_MYACCOUNT_LINK" : "My Accountfi",
-                        "L_MYCOMPANY_LINK" : "My Companyfi",
-                        "L_CAST_VOTE" : "Cast Votefi",
-                        "L_INVITE_PEOPLE_TITLE" : "Invite people anonymouslyfi",
-                        "L_INVITE_PEOPLE_DES" : "Invite everyone anonymously in your network, friends, colleagues, your boss, ex-colleagues fi ...",
-                        "L_INVITE_INPUT_PLCHOLDER" : "Enter e-mailfi",
-                        "L_INVITE_BTN" : "INVITEfi",
-                        "L_MYPROFILE_LINK" : "My profilefi",
-                        "L_LOGOUT_LINK" : "Log Outfi",
-                        "TOP_RATE_YOUR_MOOD" : "RATE YOUR MOOD fi",
-                        "TOP_RATE_YOUR_MOOD_DESC" : "How are you feeling at work today fi ?",
-                        "TOP_RATE_YOUR_MOOD_BTN" : "Submit fi",
-                        "TOP_RATE_YOUR_MOOD_ANSWER_ALL_BTN" : "Answer all statements FI",
-                        "TOP_RIGHT_SIDE_MY_ACCOUNT_LINK" : "My Account fi",
-                        "TOP_RIGHT_SIDE_LOGOUT_LINK" : "Logout fi",
-                        "RIGHT_SIDEBAR_QUICK_STATISTICS" : "Quick statistics fi",
-                        "RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES" : "Number of employees fi",
-                        "RIGHT_SIDEBAR_EMPLOYEES_AT_RISK" : "Employees at risk fi",
-                        "RIGHT_SIDEBAR_NO_OF_RESPONSES" : "No. of responses fi",
-                        "RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE" : "Time since last response fi",
-                        "RIGHT_SIDEBAR_RESPONSE_COMPARISON" : "Response comparison fi"
-});
-
 db.invitesignuppage.insert({ "_id" : ObjectId("5652f498e1b9973ade7e6fe3"), "language" : "FI", "INVITESIGNUP_TITLE" : "Kutsu kirjautumisen", "INVITESIGNUP_PLACEHOLDER_EMAIL" : "Syötä sähköpostiosoitteesi", "INVITESIGNUP_BTN" : "Aloita" });
 
 db.invitesignuppage.insert({ "_id" : ObjectId("5652f4c2e1b9973ade7e6fe4"), "language" : "EN", "INVITESIGNUP_TITLE" : "Invite signup", "INVITESIGNUP_PLACEHOLDER_EMAIL" : "Enter your email", "INVITESIGNUP_BTN" : "Get Started" });
