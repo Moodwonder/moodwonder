@@ -704,6 +704,12 @@ export default class MyMood extends React.Component {
                 changeCheckbox={this.changeHandler}
                 textbox={tArr}
                 textarea={txArr}
+                question={GetText('MYMD_QNSTITLE', mlarray)}
+                qnsplcholder={GetText('MYMD_QNSPLCHLOLDER', mlarray)}
+                anstypelbl={GetText('MYMD_ANSTYPE_LBL', mlarray)}
+                anstypedefault={GetText('MYMD_ANSTYPE_DEFAULT', mlarray)}
+                childaddbtn={GetText('MYMD_CHILD_ADDBTN', mlarray)}
+                childcancelbtn={GetText('MYMD_CHILD_CANCELBTN', mlarray)}
             /> );
       }.bind(this));
       //End : Custom survey
@@ -1130,11 +1136,11 @@ export default class MyMood extends React.Component {
                 {statusmessage}
                 <div className="ui two column stackable grid container ">
                     <div className="column">
-                        <h4 className="ui header ryt com">Custom Survey Generation</h4>
+                        <h4 className="ui header ryt com">{GetText('MYMD_SGENERATION_TITLE', mlarray)}</h4>
                     </div>
                     <div className="column">
                         <div className="three  column">
-                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">Survey Lists</a></div>
+                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">{GetText('MYMD_SLISTSBTN', mlarray)}</a></div>
                         </div>
                     </div>
                 </div>
@@ -1142,19 +1148,19 @@ export default class MyMood extends React.Component {
                 <div className="custom-box">
                     <div className="ui two column stackable grid survey">
                         <div className="three wide column ">
-                            <label className="line-height">Survey Title:</label>
+                            <label className="line-height">{GetText('MYMD_STITLE', mlarray)} :</label>
                         </div>
                         <div className="thirteen wide column padin-lft">
                             <div className="ui form options">
                                 <div className="inline fields">
-                                    <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} id="surveytitle" placeholder="Name of the survey"/>
+                                    <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} id="surveytitle" placeholder={GetText('MYMD_TITLE_PLCHOLDER', mlarray)} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="ui two column stackable grid survey">
                         <div className="three wide column ">
-                            <label className="line-height">Freeze Date:</label>
+                            <label className="line-height">{GetText('MYMD_SFREEZE_DATE', mlarray)} :</label>
                         </div>
                         <div className="thirteen wide column padin-lft">
                             <div className="ui form options">
@@ -1178,14 +1184,14 @@ export default class MyMood extends React.Component {
                     </div>
                     <div className="ui two column stackable grid survey">
                         <div className="three wide column ">
-                            <label className="line-height"> Target Group:</label>
+                            <label className="line-height">{GetText('MYMD_TARGET_GROUP', mlarray)} :</label>
                         </div>
                         <div className="two wide column padin-lft">
                             <div className="ui form options">
                                 <div className="inline fields">
                                     <div className="ui radio checkbox">
                                         <input type="radio" name="targetgroup" value="organization" defaultChecked />
-                                        <label>Org: </label>
+                                        <label>{GetText('MYMD_TARGETORG', mlarray)}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1193,7 +1199,7 @@ export default class MyMood extends React.Component {
                         <div className="ten wide column padin-lft">
                             <div className="ui form options">
                                 <select className="ui dropdown" name="target_teamid">
-                                    <option value="0">Select company or team</option>
+                                    <option value="0">{GetText('MYMD_TORG_DEFAULT_OPTION', mlarray)}</option>
                                     {companyoption}
                                     {teamoption}
                                 </select>
@@ -1209,7 +1215,7 @@ export default class MyMood extends React.Component {
                                 <div className="inline fields">
                                     <div className="ui radio checkbox">
                                         <input type="radio" name="targetgroup" value="survey" />
-                                        <label>Survey: </label>
+                                        <label>{GetText('MYMD_TARGETSURVEY', mlarray)}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1227,8 +1233,8 @@ export default class MyMood extends React.Component {
                         <div className="four wide column padin-lft ">
                             <div className="ui form options" style={{"maxWidth": "100%"}}>
                                 <select className="ui dropdown" name="targetlevel" style={{"maxWidth": "100%"}}>
-                                    <option value="above">Above</option>
-                                    <option value="below">Below</option>
+                                    <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
+                                    <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
                                 </select>
                             </div>
                         </div>
@@ -1236,7 +1242,7 @@ export default class MyMood extends React.Component {
                 </div>
                 <div className="ui two column stackable grid container ">
                     <div className="column">
-                        <h4 className="ui header ryt com">Enter Questions Here </h4>
+                        <h4 className="ui header ryt com">{GetText('MYMD_QNS_TITLE', mlarray)}</h4>
                     </div>
                     <div className="column"></div>
                 </div>
@@ -1251,8 +1257,8 @@ export default class MyMood extends React.Component {
                         <div className="ui form options">
                             <div className="ui form options">
                                 <div className="field">
-                                    <button className="ui submit  button blue" onClick={this.onAddQuestion}>Add Questions</button>
-                                    <button className="ui submit button submitt" onClick={this.onSurveySubmit}>Submit</button>
+                                    <button className="ui submit  button blue" onClick={this.onAddQuestion}>{GetText('MYMD_ADD_QNS', mlarray)}</button>
+                                    <button className="ui submit button submitt" onClick={this.onSurveySubmit}>{GetText('MYMD_SUBMIT_SURVEY', mlarray)}</button>
                                 </div>
                             </div>
                         </div>

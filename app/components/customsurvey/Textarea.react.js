@@ -12,11 +12,7 @@ export default class Textarea extends React.Component {
 
       return (
         <div id={index} key={index} className="inline fields">
-            <div className="field four wide column">
-                <div className="ui radio checkbox">
-                    <label>Textarea</label>
-                </div>
-            </div>
+            <div className="field "><label>Textarea</label></div>
         </div>
     );
   }

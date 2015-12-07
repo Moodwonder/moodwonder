@@ -54,6 +54,12 @@ export default class Question extends React.Component {
       let qid = this.props.qid;
       let sno = this.props.sno;
       let formdata = this.props.formdata;
+      let question = this.props.question;
+      let qnsplcholder = this.props.qnsplcholder;
+      let anstypelbl = this.props.anstypelbl;
+      let anstypedefault = this.props.anstypedefault;
+      let childaddbtn = this.props.childaddbtn;
+      let childcancelbtn = this.props.childcancelbtn;
 
       let radio = this.props.radio;
       let radioComponent = '';
@@ -75,14 +81,15 @@ export default class Question extends React.Component {
                 rid={rid}
                 formdata={formdata}
                 removeRadio={this.onRemoveRadioOption}
-                changeRadio={this.changeRadioHandler} />
+                changeRadio={this.changeRadioHandler}
+                childcancelbtn={childcancelbtn} />
              );
       }.bind(this));
 
       if (radio.length > 0) {
           radioAddBtn = (
                        <div className="field">
-                            <a href="#" id={qid} onClick={this.onAddRadioOption} className="ui submit button submitt"><i className="plus icon"></i>ADD</a>
+                            <a href="#" id={qid} onClick={this.onAddRadioOption} className="ui submit button submitt"><i className="plus icon"></i>{childaddbtn}</a>
                        </div>
                     );
       }
@@ -93,14 +100,15 @@ export default class Question extends React.Component {
                 cid={cid}
                 formdata={formdata}
                 removeCheckbox={this.onRemoveCheckboxOption}
-                changeCheckbox={this.changeCheckboxHandler} />
+                changeCheckbox={this.changeCheckboxHandler}
+                childcancelbtn={childcancelbtn} />
              );
       }.bind(this));
 
       if (checkbox.length > 0) {
           checkboxAddBtn = (
                           <div className="field">
-                              <a href="#" id={qid} onClick={this.onAddCheckboxOption} className="ui submit button submitt"><i className="plus icon"></i>ADD</a>
+                              <a href="#" id={qid} onClick={this.onAddCheckboxOption} className="ui submit button submitt"><i className="plus icon"></i>{childaddbtn}</a>
                           </div>
                        );
       }
@@ -127,7 +135,7 @@ export default class Question extends React.Component {
                 </div>
                 <div className="fifteen wide column padin-lft">
                     <div className="ui left pointing label">
-                        <span className="qst-mobile-1">Q.{sno}</span> Question number {sno}?
+                        <span className="qst-mobile-1">Q.{sno}</span> {question} {sno}?
                         <a href="#" className="action" id={qid} onClick={this.onRemoveQuestion}>
                             <i className="trash icon"></i>
                         </a>
@@ -143,11 +151,11 @@ export default class Question extends React.Component {
                                         name={'question_' + qid}
                                         className="form-control"
                                         id={'question_' + qid}
-                                        placeholder="Question"/>
+                                        placeholder={qnsplcholder}/>
                             </div>
                             <div className="inline fields">
                                 <div className="field">
-                                    <label>Select Answer Type:</label>
+                                    <label>{anstypelbl}</label>
                                 </div>
                                 <div className=" field">
                                     <select
@@ -155,7 +163,7 @@ export default class Question extends React.Component {
                                             ref={'answertype_' + qid}
                                             id={qid} name={'answertype_' + qid}
                                             onChange={this.onSelectAnswerType}>
-                                        <option value="0">Choose one</option>
+                                        <option value="0">{anstypedefault}</option>
                                         <option value="radio">Radio</option>
                                         <option value="checkbox">Checkbox</option>
                                         <option value="textbox">Textbox</option>

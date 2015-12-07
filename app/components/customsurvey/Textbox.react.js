@@ -12,11 +12,7 @@ export default class Textbox extends React.Component {
       let index = tid;
       return (
         <div id={index} key={index} className="inline fields">
-            <div className="field four wide column">
-                <div className="ui radio checkbox">
-                    <label>Textbox</label>
-                </div>
-            </div>
+            <div className="field"><label>Textbox</label></div>
         </div>
     );
   }

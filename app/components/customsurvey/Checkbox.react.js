@@ -19,6 +19,7 @@ export default class Checkbox extends React.Component {
       // var qid = this.props.qid;
       let cid = this.props.cid;
       let formdata = this.props.formdata;
+      let childcancelbtn = this.props.childcancelbtn;
       let index = cid;
 
       let cValue = '';
@@ -29,12 +30,7 @@ export default class Checkbox extends React.Component {
       }
       return (
         <div id={index} key={index} className="inline fields">
-            <div className="field four wide column">
-                <div className="ui checkbox">
-                    <input type="checkbox" ref={index} name={index} />
-                    <label></label>
-                </div>
-            </div>
+            <div className="field four wide column"></div>
             <div className="field ">
                 <input
                     type="text"
@@ -45,7 +41,7 @@ export default class Checkbox extends React.Component {
                     placeholder=""/>
             </div>
             <div className="field ">
-                <a href="#" id={index} onClick={this.onRemoveCheckboxOption} className="ui submit  button cancel">Cancel</a>
+                <a href="#" id={index} onClick={this.onRemoveCheckboxOption} className="ui submit  button cancel">{childcancelbtn}</a>
             </div>
         </div>
     );
