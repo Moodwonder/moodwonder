@@ -11,6 +11,8 @@ import BlankStar from 'components/BlankStar.react';
 import MyCompanyInfo from 'components/MyCompanyInfo.react';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 let chartoptions = {
@@ -44,7 +46,8 @@ export default class MyCompany extends React.Component {
           graphtabclick: false,
           loggeduserid: '',
           teams: [],
-          userDetails: []
+          userDetails: [],
+          multilang: MlangStore.getState().multilang
       };
       this.engagementmoods = [];
       this.userstate = UserStore.getState();
@@ -164,6 +167,7 @@ export default class MyCompany extends React.Component {
       let loggeduserid = this.state.loggeduserid;
       let teams = this.state.teams;
       let userDetails = this.state.userDetails;
+      let mlarray = this.state.multilang;
 
 
       //Start : CompanyRatings
@@ -183,7 +187,7 @@ export default class MyCompany extends React.Component {
                                 <div data-rating={data.avg} className="ui star rating">
                                     {rows}
                                 </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -200,7 +204,7 @@ export default class MyCompany extends React.Component {
                             <div data-rating={data.avg} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -217,7 +221,7 @@ export default class MyCompany extends React.Component {
                             <div data-rating={data.avg} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -234,7 +238,7 @@ export default class MyCompany extends React.Component {
                             <div data-rating={data.avg} className="ui star rating">
                                 {rows}
                             </div>
-                            <div className="title">{data.mood}</div>
+                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
                         </div>
                     </div>
                  );
@@ -438,30 +442,30 @@ export default class MyCompany extends React.Component {
                     <div className="ui  column stackable grid container" style={{"marginLeft" : "0px !important"}}>
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
-                                <h4 className="ui header ryt com">Moodwonder trend</h4>
+                                <h4 className="ui header ryt com">{GetText('MYCO_TITLE', mlarray)}</h4>
                                 <div className=" right menu mobile">
                                     <select className="ui search dropdown companyengagement" onChange={this.onChangeEngagement} value={graphengagement} name="graphengagement">
-                                        <option value="mw_index">MW-Index</option>
-                                        <option value="Mood">Mood</option>
-                                        <option value="Meaning">Meaning</option>
-                                        <option value="Expectations">Expectations</option>
-                                        <option value="Strengths">Strengths</option>
-                                        <option value="Recognition">Recognition</option>
-                                        <option value="Development">Development</option>
-                                        <option value="Influence">Influence</option>
-                                        <option value="Goals">Goals</option>
-                                        <option value="Team">Team</option>
-                                        <option value="Friendship">Friendship</option>
-                                        <option value="Feedback">Feedback</option>
-                                        <option value="Opportunities">Opportunities</option>
-                                        <option value="Recommendation">Recommendation</option>
+                                        <option value="mw_index">{GetText('MYCO_OPTMWINDEX', mlarray)}</option>
+                                        <option value="Mood">{GetText('MYCO_OPTMOOD', mlarray)}</option>
+                                        <option value="Meaning">{GetText('MYCO_OPTMEANING', mlarray)}</option>
+                                        <option value="Expectations">{GetText('MYCO_OPTEXPECTATIONS', mlarray)}</option>
+                                        <option value="Strengths">{GetText('MYCO_OPTSTRENGTHS', mlarray)}</option>
+                                        <option value="Recognition">{GetText('MYCO_OPTRECOGNITION', mlarray)}</option>
+                                        <option value="Development">{GetText('MYCO_OPTDEVELOPMENT', mlarray)}</option>
+                                        <option value="Influence">{GetText('MYCO_OPTINFLUENCE', mlarray)}</option>
+                                        <option value="Goals">{GetText('MYCO_OPTGOALS', mlarray)}</option>
+                                        <option value="Team">{GetText('MYCO_OPTTEAM', mlarray)}</option>
+                                        <option value="Friendship">{GetText('MYCO_OPTFRIENDSHIP', mlarray)}</option>
+                                        <option value="Feedback">{GetText('MYCO_OPTFEEDBACK', mlarray)}</option>
+                                        <option value="Opportunities">{GetText('MYCO_OPTOPPORTUNITIES', mlarray)}</option>
+                                        <option value="Recommendation">{GetText('MYCO_OPTRECOMMENDATION', mlarray)}</option>
                                     </select>
                                 </div>
                                 <div className="clear"></div>
                                 <div className="ui  column stackable grid">
                                     <div className="column ">
                                         <div className="ui segment brdr">
-                                            <h2 className="com">Myself <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{mylastrate}</span> </h2>
+                                            <h2 className="com">{GetText('MYCO_MYSELF', mlarray)} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{mylastrate}</span> </h2>
                                             <div><LineChart data={mychartdata} options={chartoptions} width="800" height="250" redraw/></div>
                                         </div>
                                     </div>
@@ -539,7 +543,7 @@ export default class MyCompany extends React.Component {
       let comInfoTab = null;
       let comInfoTabContent = null;
       if((this.userstate.user.get('usertype')==='admin')){
-          comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#"> Company Info </a>];
+          comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#">{GetText('MYCO_COMPANYINFO', mlarray)}</a>];
           comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo/></div>];
       }
 
@@ -547,8 +551,8 @@ export default class MyCompany extends React.Component {
       return (
             <div>
                 <div className="ui tabular menu tab three column">
-                    <a className="item active mobile column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
-                    <a className="item mobile column" onClick={this.companyRatingsClick} href="#"> Company Ratings </a>
+                    <a className="item active mobile column" onClick={this.engagementGraphClick} href="#">{GetText('MYCO_EGRAPH', mlarray)}</a>
+                    <a className="item mobile column" onClick={this.companyRatingsClick} href="#">{GetText('MYCO_CRATING', mlarray)}</a>
                     {comInfoTab}
                 </div>
                 {engagementGraphTabContent}

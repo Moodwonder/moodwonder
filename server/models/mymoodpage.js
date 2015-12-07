@@ -68,7 +68,7 @@ var mymoodpageSchema = new mongoose.Schema({
     MYMD_ANSTYPE_LBL: {type: String, default: ''},
     MYMD_ANSTYPE_DEFAULT: {type: String, default: ''},
     MYMD_CHILD_ADDBTN: {type: String, default: ''},
-    MYMD_CHILD_CANCELBTN: {type: String, default: ''},
+    MYMD_CHILD_CANCELBTN: {type: String, default: ''}
         
 }, {
     collection: 'mymoodpage'

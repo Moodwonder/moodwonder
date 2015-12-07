@@ -2,6 +2,8 @@ import React from 'react';
 import _ from 'underscore';
 import OpenEndedActions from 'actions/OpenEndedActions';
 import OpenEndedStore from 'stores/OpenEndedStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 
@@ -13,7 +15,8 @@ export default class OpenendedResponses extends React.Component {
           questions : OpenEndedStore.getState().questions,
           members : OpenEndedStore.getState().members,
           answers : OpenEndedStore.getState().answers,
-          uid: ''
+          uid: '',
+          multilang: MlangStore.getState().multilang
       };
   }
 
@@ -69,6 +72,7 @@ export default class OpenendedResponses extends React.Component {
       let members = this.state.members;
       let answers = this.state.answers;
       let uid = this.state.uid;
+      let mlarray = this.state.multilang;
 
       let options;
       if (members) {
@@ -197,7 +201,7 @@ export default class OpenendedResponses extends React.Component {
                 <div className="clear"></div>
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <h4 className="ui header ryt com">Openended Responses</h4>
+                        <h4 className="ui header ryt com">{GetText('OPER_TITLE', mlarray)}</h4>
                     </div>
                     <div className="column"></div>
                     <div className="column">

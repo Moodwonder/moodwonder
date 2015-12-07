@@ -26,6 +26,9 @@ var PolicyPage = require('../models/policypage');
 var SurveyPage = require('../models/surveypage');
 var SurveyFormsPage = require('../models/surveyformspage');
 var MymoodPage = require('../models/mymoodpage');
+var MycompanyPage = require('../models/mycompanypage');
+var OpenendedresponsesPage = require('../models/openendedresponsespage');
+var LogoutPage = require('../models/logoutpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -308,6 +311,21 @@ module.exports = function (app, passport) {
                 modelObj = MymoodPage;
                 break;
                 
+            case 'mycompany':
+                modelObj = {};
+                modelObj = MycompanyPage;
+                break;    
+            
+            case 'openendedresponses':
+                modelObj = {};
+                modelObj = OpenendedresponsesPage;
+                break;
+                
+            case 'logout':
+                modelObj = {};
+                modelObj = LogoutPage;
+                break;
+                
             case 'testing':
                 modelObj = {};
                 modelObj = SurveyPage;
@@ -474,72 +492,6 @@ module.exports = function (app, passport) {
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
         
-//        var html = App(JSON.stringify(res.locals.data || {}), req.url);
-//        if (pageurl == '/' || pageurl == '/index') {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", homestyles)
-//                .replace("BODYCLASS", 'home')
-//                .replace("JSCRIPTS", homescripts);
-//        
-//        } else if (pageurl == '/moodrate') {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", moodrate)
-//                .replace("BODYCLASS", 'home')
-//                .replace("JSCRIPTS", userscripts);
-//        
-//        }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", staticstyles)
-//                .replace("BODYCLASS", 'inner-pages')
-//                .replace("JSCRIPTS", staticscripts);
-//        
-//        } else if (pageurl.search('admin') != -1) {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", adminstyles)
-//                .replace("BODYCLASS", '')
-//                .replace("JSCRIPTS", adminscripts);
-//        
-//        } else if (pageurl == '/login' || pageurl == '/logout') {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", loginpage)
-//                .replace("BODYCLASS", 'login loginpage')
-//                .replace("JSCRIPTS", loginscripts);
-//        
-//        } else if (pageurl.search('invitesignup') != -1) {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", loginpage)
-//                .replace("BODYCLASS", 'login loginpage')
-//                .replace("JSCRIPTS", userscripts);
-//
-//        } else if (pageurl.search('createpassword') != -1) {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", loginpage)
-//                .replace("BODYCLASS", 'login loginpage')
-//                .replace("JSCRIPTS", userscripts);
-//
-//        } else if (pageurl == '/forgotpassword') {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", loginpage)
-//                .replace("BODYCLASS", 'login loginpage')
-//                .replace("JSCRIPTS", userscripts);
-//
-//        } else {
-//            html = html.replace("TITLE", Header.title)
-//                .replace("META", Header.meta)
-//                .replace("LINK", userstyles)
-//                .replace("BODYCLASS", '')
-//                .replace("JSCRIPTS", userscripts);
-//        }
-        
-        
         //html = html.replace("TITLE", Header.title)
         //        .replace("META", Header.meta)
         //        .replace("LINK", Header.link);
@@ -577,6 +529,9 @@ module.exports = function (app, passport) {
                 case 'survey': 
                 case 'surveyforms': 
                 case 'mymood': 
+                case 'mycompany': 
+                case 'openendedresponses': 
+                case 'logout': 
                     //console.log('response');
                     //console.log(response);
                     res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
@@ -685,6 +640,9 @@ module.exports = function (app, passport) {
                 case 'survey': 
                 case 'surveyforms': 
                 case 'mymood': 
+                case 'mycompany': 
+                case 'openendedresponses': 
+                case 'logout': 
                     break;
                     
                 default:

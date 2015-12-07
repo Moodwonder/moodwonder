@@ -1,5 +1,7 @@
 import React from 'react';
 import UserStore from 'stores/UserStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 export default class Logout extends React.Component {
@@ -7,6 +9,9 @@ export default class Logout extends React.Component {
   constructor(props) {
       super(props);
       this.state = UserStore.getState();
+      this.state = {
+        multilang: MlangStore.getState().multilang
+      };
   }
 
   componentDidMount () {
@@ -24,12 +29,14 @@ export default class Logout extends React.Component {
   }
 
   render() {
+      let mlarray = this.state.multilang;
+
       return (
             <div className="ui middle aligned center aligned grid">
                 <div className="column">
                     <h2 className="ui  image header"> <a href="/"><img src="assets/images/logo.png" className="image"/></a></h2>
                     <div className="ui message ">
-                        <h2>You have successfully logged out!</h2> Please <a href="/login">login</a> to continue.
+                        <h2>{GetText('LOUT_MESSAGE', mlarray)}!</h2> {GetText('LOUT_TEXTBEFORE_LOGIN', mlarray)} <a href="/login"> {GetText('LOUT_LOGIN', mlarray)} </a> {GetText('LOUT_TEXTAFTER_LOGIN', mlarray)}.
                     </div>
                 </div>
             </div>

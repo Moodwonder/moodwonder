@@ -1,0 +1,46 @@
+
+db.mycompanypage.insert({ "language" : "EN", 
+                        "MYCO_EGRAPH" : "Engagement Graph",
+                        "MYCO_CRATING" : "Company Rating",
+                        "MYCO_COMPANYINFO" : "Company Info",
+                        "MYCO_TITLE" : "Moodwonder trend",
+                        "MYCO_OPTMWINDEX" : "MW Index",
+                        "MYCO_OPTMOOD" : "Mood",
+                        "MYCO_OPTMEANING" : "Meaning",
+                        "MYCO_OPTEXPECTATIONS" : "Expectations",
+                        "MYCO_OPTSTRENGTHS" : "Strengths",
+                        "MYCO_OPTRECOGNITION" : "Recognition",
+                        "MYCO_OPTDEVELOPMENT" : "Development",
+                        "MYCO_OPTINFLUENCE" : "Influence",
+                        "MYCO_OPTGOALS" : "Goals",
+                        "MYCO_OPTTEAM" : "Team",
+                        "MYCO_OPTFRIENDSHIP" : "Friendship",
+                        "MYCO_OPTFEEDBACK" : "Feedback",
+                        "MYCO_OPTOPPORTUNITIES" : "Opportunities",
+                        "MYCO_OPTRECOMMENDATION" : "Recommendation",
+                        "MYCO_MYSELF" : "Myself"
+                        
+});
+
+db.mycompanypage.insert({ "language" : "FI",
+                        "MYCO_EGRAPH" : "engagement Kaavio",
+                        "MYCO_CRATING" : "Mood Arvostelu",
+                        "MYCO_COMPANYINFO" : "yrityksen tiedot",
+                        "MYCO_TITLE" : "Moodwonder trendi",
+                        "MYCO_OPTMWINDEX" : "MW Hakemisto",
+                        "MYCO_OPTMOOD" : "mieliala",
+                        "MYCO_OPTMEANING" : "merkitys",
+                        "MYCO_OPTEXPECTATIONS" : "odotukset",
+                        "MYCO_OPTSTRENGTHS" : "vahvuudet",
+                        "MYCO_OPTRECOGNITION" : "tunnustaminen",
+                        "MYCO_OPTDEVELOPMENT" : "kehitys",
+                        "MYCO_OPTINFLUENCE" : "Vaikutus",
+                        "MYCO_OPTGOALS" : "tavoitteet",
+                        "MYCO_OPTTEAM" : "Joukkue",
+                        "MYCO_OPTFRIENDSHIP" : "Ystävyys",
+                        "MYCO_OPTFEEDBACK" : "palaute",
+                        "MYCO_OPTOPPORTUNITIES" : "mahdollisuudet",
+                        "MYCO_OPTRECOMMENDATION" : "suositus",
+                        "MYCO_MYSELF" : "Itse"
+                        
+});

@@ -1,0 +1,8 @@
+
+db.openendedresponsespage.insert({ "language" : "EN", 
+                        "OPER_TITLE" : "Openended Responses"
+});
+
+db.openendedresponsespage.insert({ "language" : "FI",
+                        "OPER_TITLE" : "Openended Vastaukset"
+});
