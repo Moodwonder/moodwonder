@@ -132,12 +132,45 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.L_MYMOOD_LINK = data['L_MYMOOD_LINK'];
       usertheme.L_MYACCOUNT_LINK = data['L_MYACCOUNT_LINK'];
       usertheme.L_MYCOMPANY_LINK = data['L_MYCOMPANY_LINK'];
+      usertheme.L_CAST_VOTE =  data['L_CAST_VOTE'];
       usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
       usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
       usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
       usertheme.L_INVITE_BTN = data['L_INVITE_BTN'];
       usertheme.L_MYPROFILE_LINK = data['L_MYPROFILE_LINK'];
       usertheme.L_LOGOUT_LINK = data['L_LOGOUT_LINK'];
+      usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
+      usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
+      usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
+      usertheme.L_INVITE_BTN = data['L_INVITE_BTN'];
+      usertheme.L_MYPROFILE_LINK = data['L_MYPROFILE_LINK'];
+      usertheme.L_LOGOUT_LINK = data['L_LOGOUT_LINK'];
+      usertheme.TOP_RATE_YOURMOOD = data['TOP_RATE_YOURMOOD'];
+      usertheme.TOP_RATE_YOUR_MOODDESC = data['TOP_RATE_YOUR_MOODDESC'];
+      usertheme.TOP_RATE_YOUR_MOODBTN = data['TOP_RATE_YOUR_MOODBTN'];
+      usertheme.TOP_RATE_YOUR_MOODANSWER_ALL_BTN = data['TOP_RATE_YOUR_MOODANSWER_ALL_BTN'];
+      usertheme.TOP_RIGHT_SIDE_MY_ACCOUNT_LINK = data['TOP_RIGHT_SIDE_MY_ACCOUNT_LINK'];
+      usertheme.TOP_RIGHT_SIDE_LOGOUT_LINK = data['TOP_RIGHT_SIDE_LOGOUT_LINK'];
+      usertheme.RIGHT_SIDEBAR_QUICK_STATISTICS = data['RIGHT_SIDEBAR_QUICK_STATISTICS'];
+      usertheme.RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES = data['RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES'];
+      usertheme.RIGHT_SIDEBAR_EMPLOYEES_AT_RISK = data['RIGHT_SIDEBAR_EMPLOYEES_AT_RISK'];
+      usertheme.RIGHT_SIDEBAR_NO_OF_RESPONSES = data['RIGHT_SIDEBAR_NO_OF_RESPONSES'];
+      usertheme.RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE = data['RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE'];
+      usertheme.RIGHT_SIDEBAR_RESPONSE_COMPARISON = data['RIGHT_SIDEBAR_RESPONSE_COMPARISON'];
+      usertheme.MW_OPTMOOD = data['MW_OPTMOOD'];
+      usertheme.MW_OPTMEANING = data['MW_OPTMEANING'];
+      usertheme.MW_OPTEXPECTATIONS = data['MW_OPTEXPECTATIONS'];
+      usertheme.MW_OPTSTRENGTHS = data['MW_OPTSTRENGTHS'];
+      usertheme.MW_OPTRECOGNITION = data['MW_OPTRECOGNITION'];
+      usertheme.MW_OPTDEVELOPMENT = data['MW_OPTDEVELOPMENT'];
+      usertheme.MW_OPTINFLUENCE = data['MW_OPTINFLUENCE'];
+      usertheme.MW_OPTGOALS = data['MW_OPTGOALS'];
+      usertheme.MW_OPTTEAM = data['MW_OPTTEAM'];
+      usertheme.MW_OPTFRIENDSHIP = data['MW_OPTFRIENDSHIP'];
+      usertheme.MW_OPTFEEDBACK = data['MW_OPTFEEDBACK'];
+      usertheme.MW_OPTOPPORTUNITIES =  data['MW_OPTOPPORTUNITIES'];
+      usertheme.MW_OPTRECOMMENDATION = data['MW_OPTRECOMMENDATION'];
+
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mwusertheme', usertheme);
