@@ -26,9 +26,6 @@ var PolicyPage = require('../models/policypage');
 var SurveyPage = require('../models/surveypage');
 var SurveyFormsPage = require('../models/surveyformspage');
 var MymoodPage = require('../models/mymoodpage');
-var MycompanyPage = require('../models/mycompanypage');
-var OpenendedresponsesPage = require('../models/openendedresponsespage');
-var LogoutPage = require('../models/logoutpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -208,8 +205,8 @@ module.exports = function (app, passport) {
         };
 
         if( req.url.search("invitesignup") !== -1 && req.body.response ){
-			res.locals.data.SignupStore = req.body.response;
-		}
+            res.locals.data.SignupStore = req.body.response;
+        }
         next();
     });
     
@@ -318,21 +315,6 @@ module.exports = function (app, passport) {
             case 'mymood':
                 modelObj = {};
                 modelObj = MymoodPage;
-                break;
-                
-            case 'mycompany':
-                modelObj = {};
-                modelObj = MycompanyPage;
-                break;    
-            
-            case 'openendedresponses':
-                modelObj = {};
-                modelObj = OpenendedresponsesPage;
-                break;
-                
-            case 'logout':
-                modelObj = {};
-                modelObj = LogoutPage;
                 break;
                 
             case 'testing':
@@ -477,34 +459,29 @@ module.exports = function (app, passport) {
         
         var loginpage = '';
         loginpage += '<link rel="stylesheet" href="/assets/styles/reset.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/site.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/container.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/grid.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/header.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/image.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/menu.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/divider.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/segment.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/form.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/input.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/button.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/list.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
-		loginpage += '<link rel="stylesheet" href="/assets/styles/custom.css" />';
-                loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/site.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/container.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/grid.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/header.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/image.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/menu.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/divider.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/segment.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/form.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/input.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/button.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/list.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/message.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/icon.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/login-page-custom.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/custom.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/404.css"/>';
         
         var loginscripts = '';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/jquery.min.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/form.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
-        
-        //html = html.replace("TITLE", Header.title)
-        //        .replace("META", Header.meta)
-        //        .replace("LINK", Header.link);
-        
         
         //var page = pageurl.split("/").pop();
         var page = '';
@@ -529,8 +506,9 @@ module.exports = function (app, passport) {
 
             var respons = '';
             var nav = '';
+
             getMwKeys(page, lang, function (mwkeys) {
-                
+
                 switch(page) {
                 
                     case 'survey': 
@@ -547,6 +525,7 @@ module.exports = function (app, passport) {
                         break;
 
                 }
+
 
                 switch (lang) {
                     case 'EN':

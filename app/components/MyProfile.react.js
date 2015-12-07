@@ -218,11 +218,11 @@ export default class MyProfile extends React.Component {
       }
   }
 
-  messageAutoClose = (state) => { 
+  messageAutoClose = (state) => {
       if(state.message !== ''){
           setTimeout(function(){
-			  this.setState({ message: '', foo: 'bar' });
-		  }.bind(this),3000);
+              this.setState({ message: '' });
+          }.bind(this),3000);
       }
   }
 

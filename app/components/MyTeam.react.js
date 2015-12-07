@@ -59,7 +59,7 @@ export default class MyTeam extends React.Component {
   }
 
   onRemoveMember = (team_id, member_id,account_type) => {
-      if (confirm("Are you sure ?") === true) {
+      if (confirm("Are you sure you want to remove this user from your team ?") === true) {
           TeamActions.removeMemberFromTeam({ 'team_id': team_id, 'member_id': member_id, 'account_type': account_type });
       }
   }
@@ -84,7 +84,7 @@ export default class MyTeam extends React.Component {
               members = data.members.map((mem, key) => {
                   return (
                     <div className="field ui  three column stackable grid sub">
-                      <label className="column">{mem.member_email}</label>
+                      <label className="column email">{mem.member_email}</label>
                       <label className="column">{mem.member_name}</label>
                       <a onClick={this.onRemoveMember.bind(this,data._id,mem._id,mem.usertype)} className="action column right">
                         <i className="trash outline icon"></i>
@@ -134,6 +134,7 @@ class AddAnotherMember extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      this.messageAutoClose(state);
   }
 
   componentWillReceiveProps(e) {
@@ -165,6 +166,14 @@ class AddAnotherMember extends React.Component {
           this.setState({ messages: ['Name is required'], serverresponse: { callback : this.props.options.team_id } });
       }
       e.preventDefault();
+  }
+
+  messageAutoClose = (state) => {
+      if(state.messages[0] !== ''){
+          setTimeout(function(){
+              this.setState({ messages: [] });
+          }.bind(this),3000);
+      }
   }
 
   render() {

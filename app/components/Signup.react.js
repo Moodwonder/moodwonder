@@ -29,6 +29,7 @@ export default class Signup extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      this.messageAutoClose(state);
   }
 
   formSubmit = (e) => { e.preventDefault(); }
@@ -88,6 +89,14 @@ export default class Signup extends React.Component {
       }
   }
 
+  messageAutoClose = (state) => {
+      if(state.message !== ''){
+          setTimeout(function(){
+              this.setState({ message: '' });
+          }.bind(this),3000);
+      }
+  }
+
   render() {
       // console.log(this.state);
       let message;
@@ -103,7 +112,7 @@ export default class Signup extends React.Component {
               return [<li>{mes}</li>];
           });
           multimessages = (
-            <div className="ui error message segment">
+            <div className="ui error message segment m">
                 <ul className="list">
                     {multimessages}
                 </ul>
@@ -111,9 +120,9 @@ export default class Signup extends React.Component {
           );
       }
 
-      if (this.state.hasErrorMessage && this.state.message) {
+      if (this.state.hasErrorMessage && this.state.message !== '') {
           message = (
-                <div className="ui error message segment">
+                <div className="ui error message segment s">
                     <ul className="list">
                         <li>{this.state.message}</li>
                     </ul>
@@ -121,7 +130,7 @@ export default class Signup extends React.Component {
           );
       }
 
-      if (this.state.isRegistered) {
+      if (this.state.isRegistered && this.state.message !== '') {
           message = (
                 <div className="ui success message segment">
                     <ul className="list">

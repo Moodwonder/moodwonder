@@ -27,7 +27,7 @@ export default class InviteSignup extends React.Component {
   }
 
   _onChange = (state) => {
-	  console.log(state);
+      console.log(state);
       this.setState(state);
   }
 
@@ -35,42 +35,37 @@ export default class InviteSignup extends React.Component {
       console.log(this.state);
       let message;
       let multimessages;
-      let hash; // for invitation
-
-      try{
-          hash = this.props.params.hash;
-      }catch(e){}
 
       if (this.state.messages !== undefined && this.state.messages.length > 0) {
           multimessages = this.state.messages.map((mes, key) => {
               return [<li>{mes}</li>];
           });
           multimessages = (
-			<div className="ui error message segment">
-				<ul className="list">
-					{multimessages}
-				</ul>
-			</div>
+            <div className="ui error message segment">
+                <ul className="list">
+                    {multimessages}
+                </ul>
+            </div>
           );
       }
 
       if (this.state.hasErrorMessage && this.state.message) {
           message = (
-				<div className="ui error message segment">
-					<ul className="list">
-						<li>{this.state.message}</li>
-					</ul>
-				</div>
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
           );
       }
 
       if (this.state.isRegistered) {
           message = (
-				<div className="ui success message segment">
-					<ul className="list">
-						<li>{this.state.message}</li>
-					</ul>
-				</div>
+                <div className="ui success message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
           );
           document.getElementById('email').value = '';
       }else {
