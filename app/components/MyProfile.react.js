@@ -155,7 +155,7 @@ export default class MyProfile extends React.Component {
       state.fname = this.state.userData.fname;
       state.lname = this.state.userData.lname;
       this.setState({ userDetails: state, personalInfoEdit: false , message: '' });
-      console.log(this.state);
+      // console.log(this.state);
   }
 
   _onChangePersonalInfo = (event) => {
@@ -196,7 +196,11 @@ export default class MyProfile extends React.Component {
   }
 
   onCancelEditGeneralInfoClick = () => {
-      this.setState({ generalInfoEdit: false , message: '' });
+      let state = this.state.userDetails;
+      state.email = this.state.userData.email;
+      state.language = this.state.userData.language;
+      state.reportfrequency = this.state.userData.reportfrequency;
+      this.setState({ userDetails: state, generalInfoEdit: false , message: '' });
   }
 
   _onChangeGeneralInfo = (event) => {
