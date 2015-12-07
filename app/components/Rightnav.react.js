@@ -3,7 +3,8 @@ import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import QuickStatistics from 'utils/QuickStatistics';
 import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
-//import GetText from 'utils/GetText';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 export default class Rightnav extends React.Component {
@@ -14,7 +15,8 @@ export default class Rightnav extends React.Component {
           surveyresults: [],
           companysurvey: [],
           currentuserid: '',
-          totalcompanyusers: ''
+          totalcompanyusers: '',
+          mwkeys: MlangStore.getState().mwkeys
       };
   }
 
@@ -44,6 +46,7 @@ export default class Rightnav extends React.Component {
       let companysurvey = this.state.companysurvey;
       let currentuserid = this.state.currentuserid;
       let totalcompanyusers = (this.state.totalcompanyusers) ? this.state.totalcompanyusers : 0;
+      let mlarray = this.state.mwkeys;
 
       //let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
       //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
@@ -75,15 +78,14 @@ export default class Rightnav extends React.Component {
       if (lastRatings === undefined || lastRatings.length == 0) {
           responeHeader = '';
       } else {
-          responeHeader = (<h4 className="ui header ryt">Response Comparison</h4>);
-          //responeHeader = (<h4 className="ui header ryt">{GetText("RIGHT_SIDEBAR_RESPONSE_COMPARISON")}</h4>);
+          responeHeader = (<h4 className="ui header ryt">{GetText('RIGHT_SIDEBAR_RESPONSE_COMPARISON', mlarray)}</h4>);
       }
 
       let responseComparison = lastRatings.map((data, index) => {
           return [
                         <div className="column padding-ryt response">
                             <div className="ui segment padding-20">
-                                <p>{data.mood}</p>
+                                <p>{GetText('MW_OPT' + data.mood, mlarray)}</p>
                             </div>
                         </div>,
 
@@ -117,23 +119,23 @@ export default class Rightnav extends React.Component {
                 <div className="ui segment ryt brdr-none">
                     <div className="item ryt">
                         <div className="ui segment ryt brdr-none">
-                            <h4 className="ui header ryt">RIGHT_SIDEBAR_QUICK_STATISTICS</h4>
+                            <h4 className="ui header ryt">{GetText('RIGHT_SIDEBAR_QUICK_STATISTICS', mlarray)}</h4>
                             <div className="ui segment padding-10">
-                                RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES
+                                {GetText('RIGHT_SIDEBAR_NUMBER_OF_EMPLOYEES', mlarray)}
                                 <span className="employees">{totalcompanyusers}</span>
                             </div>
                             <div className="ui segment padding-20 ">
-                                RIGHT_SIDEBAR_EMPLOYEES_AT_RISK
+                                {GetText('RIGHT_SIDEBAR_EMPLOYEES_AT_RISK', mlarray)}
                                 <span className="risk">{employeesAtRisk}</span>
                             </div>
                             <div className="ui segment padding-30 ">
-                                RIGHT_SIDEBAR_NO_OF_RESPONSES
+                                {GetText('RIGHT_SIDEBAR_NO_OF_RESPONSES', mlarray)}
                                 <span className="last-month">{lastMonthResponses}</span>
                             </div>
                         </div>
                     </div>
                     <div className="item ryt">
-                        <h4 className="ui header ryt">RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE</h4>
+                        <h4 className="ui header ryt">{GetText('RIGHT_SIDEBAR_TIME_SINCE_LAST_RESPONSE', mlarray)}</h4>
                         <div className="ui two column stackable grid">
                             <div className="three column row padding-top  ">
                                 <div className="column padding-ryt">

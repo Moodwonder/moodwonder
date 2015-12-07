@@ -222,6 +222,15 @@ module.exports = function (app, passport) {
             }
         });
     }
+
+    function getMwKeys(page, lang, callback) {
+        
+        Mwusertheme.findOne({language: lang}, {_id: 0}).lean().exec(function (err, docs) {
+            if (docs != 'undefined') {
+                callback(docs);
+            }
+        });
+    }
     
 
     function getPageKeys(page, lang, callback) {
@@ -520,155 +529,146 @@ module.exports = function (app, passport) {
 
             var respons = '';
             var nav = '';
-            
-            switch(page) {
-                case 'testing': 
-                    //res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
-                    break;
-
-                case 'survey': 
-                case 'surveyforms': 
-                case 'mymood': 
-                case 'mycompany': 
-                case 'openendedresponses': 
-                case 'logout': 
-                    //console.log('response');
-                    //console.log(response);
-                    res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
-                    //res.locals.data.MlangStore = { multilang : response };
-                    break;
-                    
-                default:
-                    break;
+            getMwKeys(page, lang, function (mwkeys) {
                 
-            }
-
-            switch (lang) {
-                case 'EN':
-                    respons = {HOME_TITLE: "Language En", LBL_USERNAME: "Username en", LBL_PASSWORD: "Password en", PH_USERNAME: "username en", PH_PASSWORD: "password en"};
-                    //nav = {NAV_TITLE: "Moodwonder En", NAV_LOGIN: "Login en", NAV_SIGNUP: "Signup en"};
-                    nav = Navigation.header.EN;
-                    break;
-
-                case 'FI':
-                    respons = {HOME_TITLE: "Language Fr", LBL_USERNAME: "Username fr", LBL_PASSWORD: "Password fr", PH_USERNAME: "username fr", PH_PASSWORD: "password fr"};
-                    //nav = {NAV_TITLE: "Moodwonder Fr", NAV_LOGIN: "Login fr", NAV_SIGNUP: "Signup fr"};
-                    nav = Navigation.header.FI;
-                    break;
-
-                default:
-                    break;
-            }
-            
-            var html = App(JSON.stringify(res.locals.data || {}), req.url);
-            if (pageurl == '/' || pageurl == '/index') {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", homestyles)
-                    .replace("BODYCLASS", 'home')
-                    .replace("JSCRIPTS", homescripts);
-
-            } else if (pageurl == '/moodrate') {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", moodrate)
-                    .replace("BODYCLASS", 'home')
-                    .replace("JSCRIPTS", userscripts);
-
-            }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", staticstyles)
-                    .replace("BODYCLASS", 'inner-pages')
-                    .replace("JSCRIPTS", staticscripts);
-
-            } else if (pageurl.search('admin') != -1) {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", adminstyles)
-                    .replace("BODYCLASS", '')
-                    .replace("JSCRIPTS", adminscripts);
-
-            } else if (pageurl == '/login' || pageurl == '/logout') {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", loginpage)
-                    .replace("BODYCLASS", 'login loginpage')
-                    .replace("JSCRIPTS", loginscripts);
-
-            } else if (pageurl.search('invitesignup') != -1) {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", loginpage)
-                    .replace("BODYCLASS", 'login loginpage')
-                    .replace("JSCRIPTS", userscripts);
-
-            } else if (pageurl.search('createpassword') != -1) {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", loginpage)
-                    .replace("BODYCLASS", 'login loginpage')
-                    .replace("JSCRIPTS", userscripts);
-
-            } else if (pageurl == '/forgotpassword') {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", loginpage)
-                    .replace("BODYCLASS", 'login loginpage')
-                    .replace("JSCRIPTS", userscripts);
-
-            } else {
-                html = html.replace("TITLE", Header.title)
-                    .replace("META", Header.meta)
-                    .replace("LINK", userstyles)
-                    .replace("BODYCLASS", '')
-                    .replace("JSCRIPTS", userscripts);
-            }
-            
-
-            for (var val in nav) {
-                //html = html.split(val).join(nav[val]);
-                var pattern = new RegExp(val, "g");
-                html = html.replace(pattern, nav[val]);
-            }
-            
-            switch(page) {
-                case 'testing': 
-                    //res.locals.data.MlangStore = { multilang : JSON.stringify(response) };
-                    break;
-
-                case 'survey': 
-                case 'surveyforms': 
-                case 'mymood': 
-                case 'mycompany': 
-                case 'openendedresponses': 
-                case 'logout': 
-                    break;
-                    
-                default:
-                    for (var val in response) {
-                        var pattern = new RegExp(val, "g");
-                        html = html.replace(pattern, response[val]);
-                    }
-                    break;
+                switch(page) {
                 
-            }
+                    case 'survey': 
+                    case 'surveyforms': 
+                    case 'mymood': 
+                    case 'mycompany': 
+                    case 'openendedresponses': 
+                    case 'logout': 
+                        res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
+                        //res.locals.data.MlangStore = { multilang : response };
+                        break;
 
-            //for (var val in response) {
-            //    var pattern = new RegExp(val, "g");
-            //    html = html.replace(pattern, response[val]);
-            //}
-            
-            getMwthemeKeys(page, lang, html, function (data) {
-                for (var val in data) {
-                    var pattern = new RegExp(val, "g");
-                    html = html.replace(pattern, data[val]);
+                    default:
+                        break;
+
                 }
-                
-                res.contentType = "text/html; charset=utf8";
-                res.end(html);
-            });
 
+                switch (lang) {
+                    case 'EN':
+                        respons = {HOME_TITLE: "Language En", LBL_USERNAME: "Username en", LBL_PASSWORD: "Password en", PH_USERNAME: "username en", PH_PASSWORD: "password en"};
+                        nav = Navigation.header.EN;
+                        break;
+
+                    case 'FI':
+                        respons = {HOME_TITLE: "Language Fr", LBL_USERNAME: "Username fr", LBL_PASSWORD: "Password fr", PH_USERNAME: "username fr", PH_PASSWORD: "password fr"};
+                        nav = Navigation.header.FI;
+                        break;
+
+                    default:
+                        break;
+                }
+
+                var html = App(JSON.stringify(res.locals.data || {}), req.url);
+                if (pageurl == '/' || pageurl == '/index') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", homestyles)
+                        .replace("BODYCLASS", 'home')
+                        .replace("JSCRIPTS", homescripts);
+
+                } else if (pageurl == '/moodrate') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", moodrate)
+                        .replace("BODYCLASS", 'home')
+                        .replace("JSCRIPTS", userscripts);
+
+                }   else if (pageurl == '/about' || pageurl == '/anonymity' || pageurl == '/terms' || pageurl == '/policy') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", staticstyles)
+                        .replace("BODYCLASS", 'inner-pages')
+                        .replace("JSCRIPTS", staticscripts);
+
+                } else if (pageurl.search('admin') != -1) {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", adminstyles)
+                        .replace("BODYCLASS", '')
+                        .replace("JSCRIPTS", adminscripts);
+
+                } else if (pageurl == '/login' || pageurl == '/logout') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", loginpage)
+                        .replace("BODYCLASS", 'login loginpage')
+                        .replace("JSCRIPTS", loginscripts);
+
+                } else if (pageurl.search('invitesignup') != -1) {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", loginpage)
+                        .replace("BODYCLASS", 'login loginpage')
+                        .replace("JSCRIPTS", userscripts);
+
+                } else if (pageurl.search('createpassword') != -1) {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", loginpage)
+                        .replace("BODYCLASS", 'login loginpage')
+                        .replace("JSCRIPTS", userscripts);
+
+                } else if (pageurl == '/forgotpassword') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", loginpage)
+                        .replace("BODYCLASS", 'login loginpage')
+                        .replace("JSCRIPTS", userscripts);
+
+                } else {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", userstyles)
+                        .replace("BODYCLASS", '')
+                        .replace("JSCRIPTS", userscripts);
+                }
+
+
+                for (var val in nav) {
+                    //html = html.split(val).join(nav[val]);
+                    var pattern = new RegExp(val, "g");
+                    html = html.replace(pattern, nav[val]);
+                }
+
+                switch(page) {
+                    case 'survey': 
+                    case 'surveyforms': 
+                    case 'mymood': 
+                    case 'mycompany': 
+                    case 'openendedresponses': 
+                    case 'logout': 
+                        break;
+
+                    default:
+                        for (var val in response) {
+                            var pattern = new RegExp(val, "g");
+                            html = html.replace(pattern, response[val]);
+                        }
+                        break;
+
+                }
+
+                //for (var val in response) {
+                //    var pattern = new RegExp(val, "g");
+                //    html = html.replace(pattern, response[val]);
+                //}
+
+                //getMwthemeKeys(page, lang, html, function (data) {
+                //    for (var val in data) {
+                //        var pattern = new RegExp(val, "g");
+                //        html = html.replace(pattern, data[val]);
+                //    }
+
+                    res.contentType = "text/html; charset=utf8";
+                    res.end(html);
+                //});
+
+            });
         });
     });
 };

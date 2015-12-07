@@ -35,7 +35,21 @@ var mwuserthemeSchema = new mongoose.Schema({
     RIGHT_SIDEBAR_RESPONSE_COMPARISON: {type: String, default: ''},
     TAB_EGRAPH: {type: String, default: ''},
     TAB_MRATING: {type: String, default: ''},
-    TAB_CSURVEY: {type: String, default: ''}
+    TAB_CSURVEY: {type: String, default: ''},
+    MW_OPTMOOD: {type: String, default: ''},
+    MW_OPTMEANING: {type: String, default: ''},
+    MW_OPTEXPECTATIONS: {type: String, default: ''},
+    MW_OPTSTRENGTHS: {type: String, default: ''},
+    MW_OPTRECOGNITION: {type: String, default: ''},
+    MW_OPTDEVELOPMENT: {type: String, default: ''},
+    MW_OPTINFLUENCE: {type: String, default: ''},
+    MW_OPTGOALS: {type: String, default: ''},
+    MW_OPTTEAM: {type: String, default: ''},
+    MW_OPTFRIENDSHIP: {type: String, default: ''},
+    MW_OPTFEEDBACK: {type: String, default: ''},
+    MW_OPTOPPORTUNITIES: {type: String, default: ''},
+    MW_OPTRECOMMENDATION: {type: String, default: ''}
+        
 }, {
     collection: 'mwusertheme'
 });

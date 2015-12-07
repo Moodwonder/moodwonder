@@ -2,12 +2,16 @@ import React from 'react';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import InviteOthers from 'components/InviteOthers.react';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
+
 
 export default class Leftnav extends React.Component {
 
   constructor (props) {
       super(props);
       this.state = UserStore.getState();
+      this.state.mwkeys = MlangStore.getState().mwkeys;
   }
 
   componentDidMount () {
@@ -47,8 +51,8 @@ export default class Leftnav extends React.Component {
   }
 
   render () {
-      console.log(this.state.userData);
       let user = this.state.userData;
+      let mlarray = this.state.mwkeys;
       let userfullname = '';
       if( user.fname !== undefined && user.fname !== 'undefined' ){
           userfullname = user.fname;
@@ -75,26 +79,26 @@ export default class Leftnav extends React.Component {
                         <span id="userfullname" >{userfullname}</span>
                         <i className="angle down icon"></i>
                         <div className="menu">
-                            <div className="item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>L_MYPROFILE_LINK</a></div>
-                            <div className="item"><a href="/logout" style={{"color":"#000 !important"}}>L_LOGOUT_LINK</a></div>
+                            <div className="item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
+                            <div className="item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
                         </div>
                     </div>
                 </div>
                 <a className="item" href="/mymood">
                     <i className="smile icon"></i>
-                    L_MYMOOD_LINK
+                    {GetText('L_MYMOOD_LINK', mlarray)}
                 </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
-                    L_MYACCOUNT_LINK
+                    {GetText('L_MYACCOUNT_LINK', mlarray)}
                 </a>
                 <a className="item" href="/mycompany">
                     <i className="building icon"></i>
-                    L_MYCOMPANY_LINK
+                    {GetText('L_MYCOMPANY_LINK', mlarray)}
                 </a>
                 <a className="item" href="/employeeofthemonth">
                     <i className="thumbs up icon"></i>
-                    L_CAST_VOTE
+                    {GetText('L_CAST_VOTE', mlarray)}
                 </a>
                 {openresponselink}
                 <InviteOthers />

@@ -10,6 +10,8 @@ import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import getFormData from 'get-form-data';
 //import $ from 'jquery';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class Navigation extends React.Component {
 
@@ -20,6 +22,7 @@ export default class Navigation extends React.Component {
       this.state.lastmood = [];
       this.state.popup = false;
       this.state.questions = [];
+      this.state.mwkeys = MlangStore.getState().mwkeys;
       this.engagementmoods = [];
   }
 
@@ -128,6 +131,7 @@ export default class Navigation extends React.Component {
       let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
       let loginOrOut;
       let ratingSection = '';
+      let mlarray = this.state.mwkeys;
 
       let modal;
       if(this.state.popup){
@@ -206,15 +210,15 @@ export default class Navigation extends React.Component {
 
       if (this.state.user.get('authenticated')) {
           loginOrOut = [
-                <a href="/myprofile" className="item">TOP_RIGHT_SIDE_MY_ACCOUNT_LINK</a>,
-                <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">TOP_RIGHT_SIDE_LOGOUT_LINK</a>
+                <a href="/myprofile" className="item">{GetText('TOP_RIGHT_SIDE_MY_ACCOUNT_LINK', mlarray)}</a>,
+                <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">{GetText('TOP_RIGHT_SIDE_LOGOUT_LINK', mlarray)}</a>
           ];
 
           ratingSection = [
               <div className="ui segment padding-none width-header ">
                   <div className="header-middle-container ">
-                      <h2>TOP_RATE_YOURMOOD</h2>
-                      <p>TOP_RATE_YOUR_MOODDESC</p>
+                      <h2>{GetText('TOP_RATE_YOURMOOD', mlarray)}</h2>
+                      <p>{GetText('TOP_RATE_YOUR_MOODDESC', mlarray)}</p>
                   </div>
                   <div className="ui slider range  header-middle-container header-slider">
                       <form id="moodRating" className="nav-mood-rating">
@@ -222,10 +226,10 @@ export default class Navigation extends React.Component {
                       </form>
                   </div>
                   <div  className="header-middle-container">
-                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>TOP_RATE_YOUR_MOODBTN</button>
+                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>{GetText('TOP_RATE_YOUR_MOODBTN', mlarray)}</button>
                   </div>
                   <div  className="header-middle-container">
-                      <a href="/survey" className="ui positive button answer">TOP_RATE_YOUR_MOODANSWER_ALL_BTN</a>
+                      <a href="/survey" className="ui positive button answer">{GetText('TOP_RATE_YOUR_MOODANSWER_ALL_BTN', mlarray)}</a>
                   </div>
               </div>
         ];
