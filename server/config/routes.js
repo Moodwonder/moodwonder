@@ -26,6 +26,9 @@ var PolicyPage = require('../models/policypage');
 var SurveyPage = require('../models/surveypage');
 var SurveyFormsPage = require('../models/surveyformspage');
 var MymoodPage = require('../models/mymoodpage');
+var MycompanyPage = require('../models/mycompanypage');
+var OpenendedresponsesPage = require('../models/openendedresponsespage');
+var LogoutPage = require('../models/logoutpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -315,6 +318,21 @@ module.exports = function (app, passport) {
             case 'mymood':
                 modelObj = {};
                 modelObj = MymoodPage;
+                break;
+                
+            case 'mycompany':
+                modelObj = {};
+                modelObj = MycompanyPage;
+                break;
+                
+            case 'openendedresponses':
+                modelObj = {};
+                modelObj = OpenendedresponsesPage;
+                break;
+                
+            case 'logout':
+                modelObj = {};
+                modelObj = LogoutPage;
                 break;
                 
             case 'testing':
