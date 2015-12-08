@@ -599,6 +599,13 @@ module.exports = function (app, passport) {
                         .replace("BODYCLASS", 'login loginpage')
                         .replace("JSCRIPTS", loginscripts);
 
+                } else if (pageurl.search('signup') != -1) {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", loginpage)
+                        .replace("BODYCLASS", 'login loginpage')
+                        .replace("JSCRIPTS", userscripts);
+
                 } else if (pageurl.search('invitesignup') != -1) {
                     html = html.replace("TITLE", Header.title)
                         .replace("META", Header.meta)

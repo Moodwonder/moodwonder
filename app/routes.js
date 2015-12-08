@@ -7,6 +7,7 @@ import Index from 'components/Index.react';
 import Login from 'components/Login.react';
 import Logout from 'components/Logout.react';
 import InviteSignup from 'components/InviteSignup.react';
+import SignupPage from 'components/SignupPage.react';
 import ForgotPassword from 'components/ForgotPassword.react';
 import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/customsurvey/Customsurvey.react';
@@ -154,6 +155,8 @@ const routes = (
     </Route>
     // No layout for login
     <Route name="login" path="/login" handler={Login} >
+    </Route>
+    <Route name="signup" path="/signup" handler={SignupPage} >
     </Route>
     <Route name="invitesignup/:hash" path="/invitesignup/:hash" handler={InviteSignup} >
     </Route>

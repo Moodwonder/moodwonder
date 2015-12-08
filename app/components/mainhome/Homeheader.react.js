@@ -47,7 +47,7 @@ export default class Homeheader extends React.Component {
                             <div className="ui icon top right pointing dropdown"> <span><i className="sidebar icon"></i></span>
                                 <div className="menu">
                                     <a href="/login" className="item">HOM_SIGN_IN </a>
-                                    <a href="/#firstPage" className="item">HOM_REGISTER</a>
+                                    <a href="/signup" className="item">HOM_REGISTER</a>
                                 </div>
                             </div>
                         </div>
