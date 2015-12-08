@@ -415,7 +415,6 @@ export default RequireAuth(class Pages extends React.Component {
       survey.SRVY_RECOMMENDATION_DES = data['SRVY_RECOMMENDATION_DES'];
       survey.SRVY_SUBMIT_BTN = data['SRVY_SUBMIT_BTN'];
 
-
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'survey', survey);
           //console.log(JSON.stringify(survey));
