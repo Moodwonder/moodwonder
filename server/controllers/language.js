@@ -5,6 +5,14 @@ var Homepage = require('../models/homepage');
 var Signuppage = require('../models/signuppage');
 var Loginpage = require('../models/loginpage');
 var Mwusertheme = require('../models/mwusertheme');
+var AboutPage = require('../models/aboutpage');
+var AnonymityPage = require('../models/anonymitypage');
+var TermsPage = require('../models/termspage');
+var PolicyPage = require('../models/policypage');
+var LogoutPage = require('../models/logoutpage');
+var OpenendedresponsesPage = require('../models/openendedresponsespage');
+var SurveyFormsPage = require('../models/surveyformspage');
+var SurveyPage = require('../models/surveypage');
 
 /**
  * Add new language
@@ -119,6 +127,46 @@ exports.getPage = function (req, res) {
         case 'mwusertheme':
             modelObj = {};
             modelObj = Mwusertheme;
+            break;
+            
+        case 'about':
+            modelObj = {};
+            modelObj = AboutPage;
+            break;
+            
+        case 'anonymity':
+            modelObj = {};
+            modelObj = AnonymityPage;
+            break;
+            
+        case 'terms':
+            modelObj = {};
+            modelObj = TermsPage;
+            break;
+            
+        case 'policy':
+            modelObj = {};
+            modelObj = PolicyPage;
+            break;
+            
+        case 'logout':
+            modelObj = {};
+            modelObj = LogoutPage;
+            break;
+            
+        case 'openendedres':
+            modelObj = {};
+            modelObj = OpenendedresponsesPage;
+            break;
+            
+        case 'surveyforms':
+            modelObj = {};
+            modelObj = SurveyFormsPage;
+            break;
+
+        case 'survey':
+            modelObj = {};
+            modelObj = SurveyPage;
             break;
 
         default:
@@ -236,6 +284,185 @@ exports.updatePageKeys = function (req, res) {
                 MW_OPTFEEDBACK: data.MW_OPTFEEDBACK,
                 MW_OPTOPPORTUNITIES: data.MW_OPTOPPORTUNITIES,
                 MW_OPTRECOMMENDATION: data.MW_OPTRECOMMENDATION
+            };
+            break;
+            
+        case 'about':
+            modelObj = {};
+            modelObj = AboutPage;
+            update = {}
+            update = {
+                ABT_BNNR_TITLE: data.ABT_BNNR_TITLE,
+                ABT_BNNR_STARTED: data.ABT_BNNR_STARTED,
+                ABT_ABOUTUS: data.ABT_ABOUTUS,
+                ABT_ABTUS_PARA1: data.ABT_ABTUS_PARA1,
+                ABT_ABTUS_PARA2: data.ABT_ABTUS_PARA2,
+                ABT_ABTUS_PARA3: data.ABT_ABTUS_PARA3,
+                ABT_ABTUS_PARA4: data.ABT_ABTUS_PARA4,
+                ABT_ABTUS_PARA5: data.ABT_ABTUS_PARA5,
+                ABT_PEOPLE_BEHIND: data.ABT_PEOPLE_BEHIND,
+                ABT_PPL_BHD_DES: data.ABT_PPL_BHD_DES,
+                ABT_LINK_ABOUT: data.ABT_LINK_ABOUT,
+                ABT_LINK_ANONYMITY: data.ABT_LINK_ANONYMITY,
+                ABT_LINK_TERMS: data.ABT_LINK_TERMS,
+                ABT_LINK_POLICY: data.ABT_LINK_POLICY,
+                ABT_LINK_CONTACT: data.ABT_LINK_CONTACT,
+                ABT_NAV_SIGNIN: data.ABT_NAV_SIGNIN,
+                ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
+            };
+            break;
+            
+        case 'anonymity':
+            modelObj = {};
+            modelObj = AnonymityPage;
+            update = {}
+            update = {
+                AMTY_BNNR_TITLE: data.AMTY_BNNR_TITLE,
+                AMTY_TITLE: data.AMTY_TITLE,
+                AMTY_PARA1: data.AMTY_PARA1,
+                AMTY_PARA2: data.AMTY_PARA2,
+                AMTY_PARA_LI1: data.AMTY_PARA_LI1,
+                AMTY_PARA_LI2: data.AMTY_PARA_LI2,
+                AMTY_PARA_LI3: data.AMTY_PARA_LI3,
+                AMTY_PARA3: data.AMTY_PARA3,
+                AMTY_PARA4: data.AMTY_PARA4,
+                ABT_LINK_ABOUT: data.ABT_LINK_ABOUT,
+                ABT_LINK_ANONYMITY: data.ABT_LINK_ANONYMITY,
+                ABT_LINK_TERMS: data.ABT_LINK_TERMS,
+                ABT_LINK_POLICY: data.ABT_LINK_POLICY,
+                ABT_LINK_CONTACT: data.ABT_LINK_CONTACT,
+                ABT_NAV_SIGNIN: data.ABT_NAV_SIGNIN,
+                ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
+            };
+            break;
+            
+        case 'terms':
+            modelObj = {};
+            modelObj = TermsPage;
+            update = {}
+            update = {
+                TRMS_TITLE: data.TRMS_TITLE,
+                TRMS_DES: data.TRMS_DES,
+                TRMS_SEC1_T1: data.TRMS_SEC1_T1,
+                TRMS_SEC1_P1: data.TRMS_SEC1_P1,
+                TRMS_SEC1_P2: data.TRMS_SEC1_P2,
+                TRMS_SEC2_T1: data.TRMS_SEC2_T1,
+                TRMS_SEC2_P1: data.TRMS_SEC2_P1,
+                TRMS_SEC3_T1: data.TRMS_SEC3_T1,
+                TRMS_SEC3_P1: data.TRMS_SEC3_P1,
+                TRMS_SEC4_T1: data.TRMS_SEC4_T1,
+                TRMS_SEC4_P1: data.TRMS_SEC4_P1,
+                TRMS_SEC5_T1: data.TRMS_SEC5_T1,
+                TRMS_SEC5_P1: data.TRMS_SEC5_P1,
+                TRMS_SEC6_T1: data.TRMS_SEC6_T1,
+                TRMS_SEC6_P1: data.TRMS_SEC6_P1,
+                TRMS_SEC7_T1: data.TRMS_SEC7_T1,
+                TRMS_SEC7_P1: data.TRMS_SEC7_P1,
+                TRMS_SEC8_T1: data.TRMS_SEC8_T1,
+                TRMS_SEC8_P1: data.TRMS_SEC8_P1,
+                ABT_LINK_ABOUT: data.ABT_LINK_ABOUT,
+                ABT_LINK_ANONYMITY: data.ABT_LINK_ANONYMITY,
+                ABT_LINK_TERMS: data.ABT_LINK_TERMS,
+                ABT_LINK_POLICY: data.ABT_LINK_POLICY,
+                ABT_LINK_CONTACT: data.ABT_LINK_CONTACT,
+                ABT_NAV_SIGNIN: data.ABT_NAV_SIGNIN,
+                ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
+            };
+            break;
+            
+        case 'policy':
+            modelObj = {};
+            modelObj = PolicyPage;
+            update = {}
+            update = {
+                PLCY_TITLE: data.PLCY_TITLE,
+                PLCY_PARA1: data.PLCY_PARA1,
+                PLCY_PARA2: data.PLCY_PARA2,
+                PLCY_PARA3: data.PLCY_PARA3,
+                PLCY_PARA4: data.PLCY_PARA4,
+                PLCY_PARA5: data.PLCY_PARA5,
+                PLCY_PARA6: data.PLCY_PARA6,
+                ABT_LINK_ABOUT: data.ABT_LINK_ABOUT,
+                ABT_LINK_ANONYMITY: data.ABT_LINK_ANONYMITY,
+                ABT_LINK_TERMS: data.ABT_LINK_TERMS,
+                ABT_LINK_POLICY: data.ABT_LINK_POLICY,
+                ABT_LINK_CONTACT: data.ABT_LINK_CONTACT,
+                ABT_NAV_SIGNIN: data.ABT_NAV_SIGNIN,
+                ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
+            };
+            break;
+            
+        case 'logout':
+            modelObj = {};
+            modelObj = LogoutPage;
+            update = {}
+            update = {
+                LOUT_MESSAGE: data.LOUT_MESSAGE,
+                LOUT_TEXTBEFORE_LOGIN: data.LOUT_TEXTBEFORE_LOGIN,
+                LOUT_LOGIN: data.LOUT_LOGIN,
+                LOUT_TEXTAFTER_LOGIN: data.LOUT_TEXTAFTER_LOGIN
+            };
+            break;
+
+        case 'openendedres':
+            modelObj = {};
+            modelObj = OpenendedresponsesPage;
+            update = {}
+            update = {
+                OPER_TITLE: data.OPER_TITLE
+            };
+            break;
+
+        case 'surveyforms':
+            modelObj = {};
+            modelObj = SurveyFormsPage;
+            update = {}
+            update = {
+                SVFM_TITLE: data.SVFM_TITLE,
+                SVFM_CREATE_BTN: data.SVFM_CREATE_BTN,
+                SVFM_SEARCH_BOX: data.SVFM_SEARCH_BOX,
+                SVFM_TBLNUMBER: data.SVFM_TBLNUMBER,
+                SVFM_TBLTITLE: data.SVFM_TBLTITLE,
+                SVFM_TBLDATE: data.SVFM_TBLDATE,
+                SVFM_VIEWSURVEY_LINK: data.SVFM_VIEWSURVEY_LINK,
+                SVFM_VIEWRESPONSES_LINK: data.SVFM_VIEWRESPONSES_LINK,
+                SVFM_DELETE_LINK: data.SVFM_DELETE_LINK
+            };
+            break;
+
+        case 'survey':
+            modelObj = {};
+            modelObj = SurveyPage;
+            update = {}
+            update = {
+                SRVY_TITLE: data.SRVY_TITLE,
+                SRVY_MOOD_KEY: data.SRVY_MOOD_KEY,
+                SRVY_MEANING_KEY: data.SRVY_MEANING_KEY,
+                SRVY_EXPECTATIONS_KEY: data.SRVY_EXPECTATIONS_KEY,
+                SRVY_STRENGTHS_KEY: data.SRVY_STRENGTHS_KEY,
+                SRVY_RECOGNITION_KEY: data.SRVY_RECOGNITION_KEY,
+                SRVY_DEVELOPMENT_KEY: data.SRVY_DEVELOPMENT_KEY,
+                SRVY_INFLUENCE_KEY: data.SRVY_INFLUENCE_KEY,
+                SRVY_GOALS_KEY: data.SRVY_GOALS_KEY,
+                SRVY_TEAM_KEY: data.SRVY_TEAM_KEY,
+                SRVY_FRIENDSHIP_KEY: data.SRVY_FRIENDSHIP_KEY,
+                SRVY_FEEDBACK_KEY: data.SRVY_FEEDBACK_KEY,
+                SRVY_OPPORTUNITIES_KEY: data.SRVY_OPPORTUNITIES_KEY,
+                SRVY_RECOMMENDATION_KEY: data.SRVY_RECOMMENDATION_KEY,
+                SRVY_MOOD_DES: data.SRVY_MOOD_DES,
+                SRVY_MEANING_DES: data.SRVY_MEANING_DES,
+                SRVY_EXPECTATIONS_DES: data.SRVY_EXPECTATIONS_DES,
+                SRVY_STRENGTHS_DES: data.SRVY_STRENGTHS_DES,
+                SRVY_RECOGNITION_DES: data.SRVY_RECOGNITION_DES,
+                SRVY_DEVELOPMENT_DES: data.SRVY_DEVELOPMENT_DES,
+                SRVY_INFLUENCE_DES: data.SRVY_INFLUENCE_DES,
+                SRVY_GOALS_DES: data.SRVY_GOALS_DES,
+                SRVY_TEAM_DES: data.SRVY_TEAM_DES,
+                SRVY_FRIENDSHIP_DES: data.SRVY_FRIENDSHIP_DES,
+                SRVY_FEEDBACK_DES: data.SRVY_FEEDBACK_DES,
+                SRVY_OPPORTUNITIES_DES: data.SRVY_OPPORTUNITIES_DES,
+                SRVY_RECOMMENDATION_DES: data.SRVY_RECOMMENDATION_DES,
+                SRVY_SUBMIT_BTN: data.SRVY_SUBMIT_BTN
             };
             break;
 
