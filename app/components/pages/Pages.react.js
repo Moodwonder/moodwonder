@@ -17,6 +17,8 @@ import Logout from 'components/pages/Logout.react';
 import OpenendedRes from 'components/pages/OpenendedRes.react';
 import SurveyForms from 'components/pages/SurveyForms.react';
 import Survey from 'components/pages/Survey.react';
+import Mycompany from 'components/pages/Mycompany.react';
+import OpenendedSurvey from 'components/pages/OpenendedSurvey.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -423,6 +425,79 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+  onSubmitMycompany = (e) => {
+      let formData = document.querySelector('#mycompanyForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let mycompany = mycompany || {};
+
+      mycompany.language = data['language'];
+      mycompany.MYCO_EGRAPH = data['MYCO_EGRAPH'];
+      mycompany.MYCO_CRATING = data['MYCO_CRATING'];
+      mycompany.MYCO_COMPANYINFO = data['MYCO_COMPANYINFO'];
+      mycompany.MYCO_TITLE = data['MYCO_TITLE'];
+      mycompany.MYCO_OPTMWINDEX = data['MYCO_OPTMWINDEX'];
+      mycompany.MYCO_OPTMOOD = data['MYCO_OPTMOOD'];
+      mycompany.MYCO_OPTMEANING = data['MYCO_OPTMEANING'];
+      mycompany.MYCO_OPTEXPECTATIONS = data['MYCO_OPTEXPECTATIONS'];
+      mycompany.MYCO_OPTSTRENGTHS = data['MYCO_OPTSTRENGTHS'];
+      mycompany.MYCO_OPTRECOGNITION = data['MYCO_OPTRECOGNITION'];
+      mycompany.MYCO_OPTDEVELOPMENT = data['MYCO_OPTDEVELOPMENT'];
+      mycompany.MYCO_OPTINFLUENCE = data['MYCO_OPTINFLUENCE'];
+      mycompany.MYCO_OPTGOALS = data['MYCO_OPTGOALS'];
+      mycompany.MYCO_OPTTEAM = data['MYCO_OPTTEAM'];
+      mycompany.MYCO_OPTFRIENDSHIP = data['MYCO_OPTFRIENDSHIP'];
+      mycompany.MYCO_OPTFEEDBACK = data['MYCO_OPTFEEDBACK'];
+      mycompany.MYCO_OPTOPPORTUNITIES = data['MYCO_OPTOPPORTUNITIES'];
+      mycompany.MYCO_OPTRECOMMENDATION = data['MYCO_OPTRECOMMENDATION'];
+      mycompany.MYCO_MYSELF = data['MYCO_MYSELF'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'mycompany', mycompany);
+          //console.log(JSON.stringify(mycompany));
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitOpenendedSurvey = (e) => {
+      let formData = document.querySelector('#openendedsurveyForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let openendedSurvey = openendedSurvey || {};
+
+      openendedSurvey.language = data['language'];
+      openendedSurvey.OPES_TOP_TITLE = data['OPES_TOP_TITLE'];
+      openendedSurvey.OPES_OPTION = data['OPES_OPTION'];
+      openendedSurvey.OPES_TOP_QNSONE = data['OPES_TOP_QNSONE'];
+      openendedSurvey.OPES_TOP_QNSTWO = data['OPES_TOP_QNSTWO'];
+      openendedSurvey.OPES_TOP_QNSTHREE = data['OPES_TOP_QNSTHREE'];
+      openendedSurvey.OPES_WORST_TITLE = data['OPES_WORST_TITLE'];
+      openendedSurvey.OPES_WORST_QNSONE = data['OPES_WORST_QNSONE'];
+      openendedSurvey.OPES_WORST_QNSTWO = data['OPES_WORST_QNSTWO'];
+      openendedSurvey.OPES_WORST_QNSTHREE = data['OPES_WORST_QNSTHREE'];
+      openendedSurvey.OPES_MOOD = data['OPES_MOOD'];
+      openendedSurvey.OPES_EXPECTATIONS = data['OPES_EXPECTATIONS'];
+      openendedSurvey.OPES_STRENGTHS = data['OPES_STRENGTHS'];
+      openendedSurvey.OPES_RECOGNITION = data['OPES_RECOGNITION'];
+      openendedSurvey.OPES_DEVELOPMENT = data['OPES_DEVELOPMENT'];
+      openendedSurvey.OPES_INFLUENCE = data['OPES_INFLUENCE'];
+      openendedSurvey.OPES_TEAM = data['OPES_TEAM'];
+      openendedSurvey.OPES_FRIENDSHIP = data['OPES_FRIENDSHIP'];
+      openendedSurvey.OPES_FEEDBACK = data['OPES_FEEDBACK'];
+      openendedSurvey.OPES_OPPORTUNITIES = data['OPES_OPPORTUNITIES'];
+      openendedSurvey.OPES_RECOMMENDATION = data['OPES_RECOMMENDATION'];
+      openendedSurvey.OPES_CANCEL_BTN = data['OPES_CANCEL_BTN'];
+      openendedSurvey.OPES_SUBMIT_BTN = data['OPES_SUBMIT_BTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'openendedsurvey', openendedSurvey);
+          //console.log(JSON.stringify(openendedSurvey));
+          this.setState({formstatus: true});
+      }
+  }
+
+
 
   render() {
       let languages = this.state.languages;
@@ -490,6 +565,14 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Survey language={this.state.language} onClick={this.onSubmitSurvey}/>);
               break;
 
+          case 'mycompany':
+              contents = (<Mycompany language={this.state.language} onClick={this.onSubmitMycompany}/>);
+              break;
+
+          case 'openendedsurvey':
+              contents = (<OpenendedSurvey language={this.state.language} onClick={this.onSubmitOpenendedSurvey}/>);
+              break;
+
           default: break;
       }
 
@@ -515,6 +598,8 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="openendedres">Openended Responses</option>
                         <option value="surveyforms">Survey Forms</option>
                         <option value="survey">Engagement Survey</option>
+                        <option value="mycompany">Mycompany</option>
+                        <option value="openendedsurvey">Openended Survey</option>
                     </select>
                   </div>
                   <div className="field">

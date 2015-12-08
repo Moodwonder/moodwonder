@@ -5,6 +5,8 @@ import OpenEndedStore from 'stores/OpenEndedStore';
 import MoodRatings from 'utils/MoodRatings';
 import SurveyStore from 'stores/SurveyStore';
 import _ from 'underscore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 export default class OpenEndedQuestions extends React.Component {
@@ -13,7 +15,8 @@ export default class OpenEndedQuestions extends React.Component {
       this.state = {
         questions: [],
         savesurveyflag: false,
-        surveyresults: SurveyStore.getState().surveyresults
+        surveyresults: SurveyStore.getState().surveyresults,
+        multilang: MlangStore.getState().multilang
       };
   }
 
@@ -97,6 +100,7 @@ export default class OpenEndedQuestions extends React.Component {
       let surveyresults = this.state.surveyresults;
       let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
       let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
+      let mlarray = this.state.multilang;
 
       _.mixin( { multiplemax: function(list, field){
 
@@ -147,7 +151,7 @@ export default class OpenEndedQuestions extends React.Component {
                         <div className="clear"></div>
                         <div className="ui one column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST IMPROVED AREAS {" - " + hmood}<span style={{"fontSize":"14px"}}> (Optional)</span></h4>
+                                <h4 className="ui header ryt com">{GetText('OPES_TOP_TITLE', mlarray)} - {GetText('OPES_' + hmood, mlarray)}<span style={{"fontSize":"14px"}}> ({GetText('OPES_OPTION', mlarray)})</span></h4>
                             </div>
                         </div>
 
@@ -197,7 +201,7 @@ export default class OpenEndedQuestions extends React.Component {
                         <div className="clear"></div>
                         <div className="ui one column stackable grid container ">
                             <div className="column">
-                                <h4 className="ui header ryt com">THE MOST DECREASED AREAS {" - " + wmood}<span style={{"fontSize":"14px"}}> (Optional)</span></h4>
+                                <h4 className="ui header ryt com">{GetText('OPES_WORST_TITLE', mlarray)} - {GetText('OPES_' + wmood, mlarray)}<span style={{"fontSize":"14px"}}> ({GetText('OPES_OPTION', mlarray)})</span></h4>
                             </div>
                         </div>
 
@@ -249,8 +253,8 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
-                                        <button className="ui submit  button cancel" onClick={this.onOpenEndedSurveyCancel}>Cancel</button>
-                                        <button className="ui submit button submitt" onClick={this.onOpenEndedSurveySubmit}>Submit</button>
+                                        <button className="ui submit  button cancel" onClick={this.onOpenEndedSurveyCancel}>{GetText('OPES_CANCEL_BTN', mlarray)}</button>
+                                        <button className="ui submit button submitt" onClick={this.onOpenEndedSurveySubmit}>{GetText('OPES_SUBMIT_BTN', mlarray)}</button>
                                     </div>
                                 </div>
                             </div>
