@@ -7,10 +7,14 @@ export default class Footer extends React.Component {
 
   constructor (props) {
       super(props);
+      this.state = {
+          lang: ''
+      };
   }
 
   componentDidMount () {
-
+      let lang = Cookie.getCookie('lang');
+      this.setState({lang: lang});
   }
 
   componentWillUnmount () {
@@ -24,6 +28,7 @@ export default class Footer extends React.Component {
   }
 
   render () {
+      let lang = this.state.lang;
 
       return (
             <header className="entry-header ui menu">
@@ -31,7 +36,7 @@ export default class Footer extends React.Component {
                     <div className="ui container"> <a className="item " href="/"><img src="assets/images/logo-mw.png" alt=""/></a>
                         <div className="right menu">
                             <div className="item padding-row">
-                                <div className="ui icon top  pointing dropdown  "> <span>Language</span>
+                                <div className="ui icon top  pointing dropdown  "> <span>{lang}</span>
                                     <div className="menu">
                                         <div onClick={this.onClickLanguage.bind(null, LanguageContants.EN)} className="item">EN</div>
                                         <div onClick={this.onClickLanguage.bind(null, LanguageContants.FI)} className="item">FI</div>
