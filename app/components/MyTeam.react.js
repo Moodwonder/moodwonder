@@ -239,6 +239,11 @@ class AddTeam extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      console.log(state);
+      // clear text box after adding a new team
+      if( state.serverresponse.callback === 'addteam' && state.serverresponse.status){
+          React.findDOMNode(this.refs.teamname).value = '';
+      }
   }
 
   onShowFormClick = () => {
@@ -334,19 +339,17 @@ class EditableMyTeam extends React.Component {
   }
 
   onSaveClick = (e) => {
-      console.log('onSaveClick');
+      // console.log('onSaveClick');
       let teamname = this.state.value;
       let teamid   = this.props.teamid;
       if(this.props.value !== this.state.value){
-          console.log('aaaaaaa');
           if(teamname.trim() !== ''){
               this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
           }else{
               this.setState({ serverresponse: { callback: this.props.teamid }, message: 'Team name is required' });
           }
       }else{
-          console.log('bbbbbb');
-          this.setState({ serverresponse: { callback: this.props.teamid }, message: 'No changes' });
+          // this.setState({ serverresponse: { callback: this.props.teamid }, message: 'No changes' });
       }
       e.preventDefault();
   }
