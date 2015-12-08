@@ -5,8 +5,8 @@ export default function GetText(lookup, mlarray) {
     let translation = '';
     //console.log(mlarray);
     try{
-        let tDictionary = JSON.parse(mlarray);
-        let translation = tDictionary[lookup];
+        tDictionary = JSON.parse(mlarray);
+        translation = tDictionary[lookup];
     }catch(e){
         console.log(e);
         translation = false;
