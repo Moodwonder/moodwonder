@@ -537,6 +537,7 @@ module.exports = function (app, passport) {
                     case 'logout':
                     case 'myprofile':
                     case 'employeeofthemonth':
+                    case 'publicprofile':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -643,6 +644,7 @@ module.exports = function (app, passport) {
                     case 'logout':
                     case 'myprofile':
                     case 'employeeofthemonth':
+                    case 'publicprofile':
                         break;
 
                     default:
