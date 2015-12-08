@@ -40,7 +40,7 @@ exports.postVote = function(req, res, next) {
     , conditions = { "user_id": new ObjectId(req.user._id), postdate : { $regex : new RegExp(yearmonth,'i') } };
 
     // checking all ready done 5 votes for this month
-    console.log(conditions);
+    // console.log(conditions);
     Vote.find(conditions, function (err, document) {
         var alreadyvoted = false;
         var mytotalvotes = 0;
@@ -55,6 +55,17 @@ exports.postVote = function(req, res, next) {
         });
 
         // check already voted or not
+        if(votefor_userid.toString() === req.user._id.toString()){
+
+            response.status = false;
+            response.message = 'Self vote not allowed';
+            res.send(response);
+            res.end();
+            return;
+        }
+
+
+        // disable self vote
         if(alreadyvoted){
 
             response.status = false;
@@ -62,6 +73,7 @@ exports.postVote = function(req, res, next) {
             res.send(response);
             res.end();
         }
+
         else if(mytotalvotes < 5){
 
             // add a record with new vote

@@ -62,7 +62,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         // key : vote widget unique key
         $( "body" ).addClass( "dimmed dimmable" );
         // console.log(key);
-        console.log(this.state);
+
         this.setState({
             modal:true,
             emp_id:emp_id,
@@ -164,7 +164,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         let employees = '';
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
-                return [<VoteWidget _id={data._id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
+                return [<VoteWidget _id={data._id} uid={this.state.employees.data.current_user_id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
             });
         }
 
@@ -229,8 +229,8 @@ class VoteWidget extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
-        this.state.multilang = MlangStore.getState().multilang;
+        //this.state = {};
+        //this.state.multilang = MlangStore.getState().multilang;
     }
 
     _onModalClick = () => {
@@ -241,7 +241,7 @@ class VoteWidget extends React.Component {
 
     render() {
 
-		let mlarray = this.state.multilang;
+        //let mlarray = this.state.multilang;
 
         let voteBtn = (
             <div onClick={this._onModalClick} className='extra content' >
@@ -249,6 +249,15 @@ class VoteWidget extends React.Component {
                 VOTE
             </div>
         );
+
+        if(this.props._id === this.props.uid){
+            voteBtn = (
+                <div className='extra content disabled' >
+                    <i className="thumbs outline up icon"></i>
+                    VOTE
+                </div>
+            );
+        }
 
         if(this.props.active){
             voteBtn = (
@@ -282,7 +291,7 @@ class ProfileHeader extends React.Component {
 
         super(props);
         this.state = UserStore.getState();
-        this.state.multilang = MlangStore.getState().multilang;
+        // this.state.multilang = MlangStore.getState().multilang;
     }
     componentDidMount () {
         UserStore.listen(this._onChange);
@@ -296,7 +305,7 @@ class ProfileHeader extends React.Component {
     render() {
 
         let text = null;
-		let mlarray = this.state.multilang;
+        // let mlarray = this.state.multilang;
         if(this.state.votes !== undefined) {
             text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
         }

@@ -1996,7 +1996,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                     // console.log(employees.length +"==="+ counter);
                                     if(employees.length === counter){
                                         callbacklog.employeeTotalVotes = true;
-                                        console.log(employees);
+                                        //console.log(employees);
                                         existCondition();
                                     }
                                 });
