@@ -75,6 +75,7 @@ exports.encryptPassword = function (req, res, next) {
                         if (!err) {
                             req.body.real_password = req.body.password;
                             req.body.password = hash;
+                            // console.log(req.body.password);
                             next();
                         }else {
                             // bcrypt.hash Error
@@ -683,7 +684,7 @@ exports.postSaveUserInfo = function (req, res, next) {
                         validation       =  false;
                         response.message = 'Password length should be at least 7 characters';
                     }else{
-                        update = { firstname: firstname, lastname: lastname, password: real_pass };
+                        update = { firstname: firstname, lastname: lastname, password: password };
                     }
                 }
             }else{
