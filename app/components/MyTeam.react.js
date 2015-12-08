@@ -3,6 +3,8 @@ import TeamActions from 'actions/TeamActions';
 import TeamStore from 'stores/TeamStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class MyTeam extends React.Component {
 
@@ -10,6 +12,7 @@ export default class MyTeam extends React.Component {
       super(props);
       mixins(Navigation, this);
       this.state = TeamStore.getState();
+      this.state.multilang = MlangStore.getState().multilang;
       this.state.canSubmit  = false;
       this.state.canSubmitAddMember = true;
       this.state.CreateTeamForm = false;
@@ -76,6 +79,8 @@ export default class MyTeam extends React.Component {
 
       let teamUserList;
 
+      let mlarray = this.state.multilang;
+
       if(this.state.hasTeam){
 
           teamUserList = this.state.teams.map((data, key) => {
@@ -94,7 +99,7 @@ export default class MyTeam extends React.Component {
               });
               return [
                    <EditableMyTeam onSave={this._onUpdateTeamName} teamid={data._id} value={data.name} />,
-                   <h4>PRFL_TEAM_SUBORDINATES</h4>,
+                   <h4>{GetText('PRFL_TEAM_SUBORDINATES', mlarray)}</h4>,
                     <div className=" field">
                         {members}
                         <AddAnotherMember options={{team_id: data._id, onsave: this._onAddMemberSubmit, messages: this.addmember.messages, serverresponse: this.addmember.serverresponse}} />
@@ -109,7 +114,7 @@ export default class MyTeam extends React.Component {
               {message}
                 <h4 className="ui header ryt">MY TEAM</h4>
                 <div className="ui small form team">
-                    <h3 className="ui dividing header">PRFL_TEAM_TOP_MSG</h3>
+                    <h3 className="ui dividing header">{GetText('PRFL_TEAM_TOP_MSG', mlarray)}</h3>
                     <AddTeam />
                     {teamUserList}
                 </div>
@@ -124,7 +129,8 @@ class AddAnotherMember extends React.Component {
       super(props);
       this.state =
           {
-            showform: 'none'
+            showform: 'none',
+            multilang: MlangStore.getState().multilang
           };
   }
 
@@ -180,6 +186,8 @@ class AddAnotherMember extends React.Component {
 
       let multimessages;
 
+      let mlarray = this.state.multilang;
+
       if (this.state.messages  && this.state.messages[0] !== undefined && this.state.serverresponse.callback === this.props.options.team_id) {
           multimessages = this.state.messages.map((mes, key) => {
               return [<li>{mes}</li>];
@@ -195,19 +203,19 @@ class AddAnotherMember extends React.Component {
 
       return (
         <form  onSubmit={this.onSaveClick} >
-            <h4  onClick={this.onShowFormClick}  className="ui dividing header"><a><i className="add circle icon large"></i></a>PRFL_TEAM_ADD_ANOTHER</h4>
+            <h4  onClick={this.onShowFormClick}  className="ui dividing header"><a><i className="add circle icon large"></i></a>{GetText('PRFL_TEAM_ADD_ANOTHER', mlarray)}</h4>
             <div style={{ display: this.state.showform }}  className="form">
                 {multimessages}
                 <div className="field ui  two column stackable grid " >
                     <div className="column">
-                        <label >PRFL_TEAM_WRK_EML</label>
+                        <label >{GetText('PRFL_TEAM_WRK_EML', mlarray)}</label>
                     </div>
                     <div className="column">
-                        <input placeholder="PRFL_TEAM_WRK_EML" ref="membername" type="text" />
+                        <input placeholder={GetText('PRFL_TEAM_WRK_EML', mlarray)} ref="membername" type="text" />
                     </div>
                 </div>
                 <h3 className="ui dividing header"> </h3>
-                <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SUBORDINATES_SAVE</button>
+                <button type="submit" className="ui submit  button submitt">{GetText('PRFL_TEAM_SUBORDINATES_SAVE', mlarray)}</button>
             </div>
         </form>
       );
@@ -220,7 +228,8 @@ class AddTeam extends React.Component {
       super(props);
       this.state =
           {
-            showform: 'none'
+            showform: 'none',
+            multilang: MlangStore.getState().multilang
           };
   }
 
@@ -250,6 +259,8 @@ class AddTeam extends React.Component {
 
       let messages;
 
+      let mlarray = this.state.multilang;
+
       if ( this.state.message !== undefined && this.state.message !== '' && this.state.serverresponse.callback === 'addteam' ) {
 
           messages = (
@@ -262,7 +273,7 @@ class AddTeam extends React.Component {
       let CreateTeamUI = [
         <h3 className="ui dividing header" >
             <i className="add user icon"></i>
-            <label>PRFL_TEAM_ADD_TEAM</label>
+            <label>{GetText('PRFL_TEAM_ADD_TEAM', mlarray)}</label>
             <a className="action"  onClick={this.onShowFormClick}>
                 <i className="write icon"></i>
             </a>
@@ -271,13 +282,13 @@ class AddTeam extends React.Component {
             {messages}
             <div className="field ui  two column stackable grid " >
                 <div className="column">
-                    <label>PRFL_TEAM_NAME</label>
+                    <label>{GetText('PRFL_TEAM_NAME', mlarray)}</label>
                 </div>
                 <div className="column">
-                    <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text" />
+                    <input placeholder={GetText('PRFL_TEAM_NAME', mlarray)} ref="teamname" type="text" />
                 </div>
             </div>
-            <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE</button>
+            <button type="submit" className="ui submit  button submitt">{GetText('PRFL_TEAM_SAVE', mlarray)}</button>
         </form>
       ];
 
@@ -296,7 +307,8 @@ class EditableMyTeam extends React.Component {
       this.state =
           {
             showform: 'none',
-            value:props.value
+            value:props.value,
+            multilang: MlangStore.getState().multilang
           };
   }
 
@@ -343,6 +355,8 @@ class EditableMyTeam extends React.Component {
 
       let messages;
 
+      let mlarray = this.state.multilang;
+
       if (this.state.message !== undefined && this.state.message !== '' && this.state.serverresponse.callback === this.props.teamid) {
 
           messages = (
@@ -365,13 +379,13 @@ class EditableMyTeam extends React.Component {
                 {messages}
                 <div className="field ui  two column stackable grid " >
                     <div className="column">
-                        <label>PRFL_TEAM_NAME</label>
+                        <label>{GetText('PRFL_TEAM_NAME', mlarray)}</label>
                     </div>
                     <div className="column">
-                        <input placeholder="PRFL_TEAM_NAME" ref="teamname" type="text"  onChange={this.changeValue} value={this.state.value} />
+                        <input placeholder={GetText('PRFL_TEAM_NAME', mlarray)} ref="teamname" type="text"  onChange={this.changeValue} value={this.state.value} />
                     </div>
                 </div>
-                <button type="submit" className="ui submit  button submitt">PRFL_TEAM_SAVE </button>
+                <button type="submit" className="ui submit  button submitt">{GetText('PRFL_TEAM_SAVE', mlarray)} </button>
             </form>
         </div>
       );

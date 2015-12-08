@@ -9,10 +9,17 @@ export default class Appmobile extends React.Component {
   constructor (props) {
       super(props);
       this.state = AppStore.getState();
+      this.noAccess = false;
   }
 
   componentDidMount () {
       AppStore.listen(this._onChange);
+      // Redirect to landing page, if no access
+      setTimeout(function(){
+          if(this.noAccess){
+              window.location.assign('/');
+          }
+      }.bind(this),3000);
   }
 
   componentWillUnmount () {
@@ -30,6 +37,7 @@ export default class Appmobile extends React.Component {
 
       if(!(this.state.isAuthenticated)){
           handler = noPermission;
+          this.noAccess = true;
       }
 
       let sitecontent = [

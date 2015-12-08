@@ -86,3 +86,11 @@ a i.add.circle.icon.large {
 label.column.email {
     word-wrap: break-word;
 }
+
+.extra.content.disabled {
+    pointer-events: none;
+}
+.extra.content.disabled:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+}

@@ -6,6 +6,8 @@ import mixins from 'es6-mixins';
 import MyManager from 'components/MyManager.react';
 import MyTeam from 'components/MyTeam.react';
 // import LanguageContants from 'constants/LanguageConstants';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 export default class MyProfile extends React.Component {
@@ -14,6 +16,7 @@ export default class MyProfile extends React.Component {
       super(props);
       mixins(Navigation, this);
       this.state = UserStore.getState();
+      this.state.multilang = MlangStore.getState().multilang;
       this.state.canSubmit       =  false;
       this.state.summaryEdit     =  false;
       this.state.personalInfo    =  false;
@@ -233,6 +236,7 @@ export default class MyProfile extends React.Component {
       let summarymessage = null;
       let personalinfomessage = null;
       let generalinfomessage = null;
+      let mlarray = this.state.multilang;
 
       if (this.state.message !== '' && this.state.updateType === 'summary' ) {
           summarymessage = (
@@ -270,7 +274,7 @@ export default class MyProfile extends React.Component {
        // Manage user summary
       let summaryForm = [
        <h3 className="ui dividing header">
-            <i className="file text outline icon"></i> PRFL_SUMMARY
+            <i className="file text outline icon"></i> {GetText('PRFL_SUMMARY', mlarray)}
             <a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
        </h3>,
        {summarymessage},
@@ -281,7 +285,7 @@ export default class MyProfile extends React.Component {
           summaryForm = (
             <div>
                 <h3 className="ui dividing header">
-                    <i className="file text outline icon"></i> PRFL_SUMMARY
+                    <i className="file text outline icon"></i> {GetText('PRFL_SUMMARY', mlarray)}
                 </h3>
                 <div className="field">
                     {summarymessage}
@@ -298,25 +302,25 @@ export default class MyProfile extends React.Component {
       let personalInfoForm = (
         <div>
             <h3 className="ui dividing header">
-                <i className="user icon"></i> PRFL_PERSONAL_INFO
+                <i className="user icon"></i> {GetText('PRFL_PERSONAL_INFO', mlarray)}
                 <a className="action"><i onClick={this.onEditPersonalInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
                 {personalinfomessage}
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_PINFO_FNAME</label>
+                    <label className="column">{GetText('PRFL_PINFO_FNAME', mlarray)}</label>
                     <label className="column">{userInfo.fname}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_PINFO_LNAME</label>
+                    <label className="column">{GetText('PRFL_PINFO_LNAME', mlarray)}</label>
                     <label className="column">{userInfo.lname}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_PINFO_CHANGE_PSWD</label>
+                    <label className="column">{GetText('PRFL_PINFO_CHANGE_PSWD', mlarray)}</label>
                     <label className="column">* * * * * * * *</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_PINFO_CNFM_PSWD</label>
+                    <label className="column">{GetText('PRFL_PINFO_CNFM_PSWD', mlarray)}</label>
                     <label className="column">* * * * * * * *</label>
                 </div>
             </div>
@@ -326,23 +330,23 @@ export default class MyProfile extends React.Component {
       if(this.state.personalInfoEdit){
           personalInfoForm = (
             <div>
-                <h3 className="ui dividing header"><i className="user icon"></i>PRFL_PERSONAL_INFO</h3>
+                <h3 className="ui dividing header"><i className="user icon"></i>{GetText('PRFL_PERSONAL_INFO', mlarray)}</h3>
                     <div className=" field">
                         {personalinfomessage}
                         <div className="field">
-                            <label>PRFL_PINFO_FNAME*</label>
+                            <label>{GetText('PRFL_PINFO_FNAME', mlarray)}*</label>
                             <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
                         </div>
                         <div className="field">
-                            <label>PRFL_PINFO_LNAME*</label>
+                            <label>{GetText('PRFL_PINFO_LNAME', mlarray)}*</label>
                             <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text" />
                         </div>
                         <div className="field">
-                            <label>PRFL_PINFO_CHANGE_PSWD</label>
+                            <label>{GetText('PRFL_PINFO_CHANGE_PSWD', mlarray)}</label>
                             <input placeholder="Password" id="password" type="password" />
                         </div>
                         <div className="field">
-                            <label>PRFL_PINFO_CNFM_PSWD</label>
+                            <label>{GetText('PRFL_PINFO_CNFM_PSWD', mlarray)}</label>
                             <input placeholder="Confirm Password" id="cpassword" type="Password" />
                         </div>
                     </div>
@@ -356,21 +360,21 @@ export default class MyProfile extends React.Component {
       let generalInfoForm = (
         <div>
             <h3 className="ui dividing header">
-                <i className="setting icon"></i> PRFL_GENERAL_INFO
+                <i className="setting icon"></i> {GetText('PRFL_GENERAL_INFO', mlarray)}
                 <a className="action"><i onClick={this.onEditGeneralInfoClick} className="write icon"></i></a>
             </h3>
             <div className=" field">
                 {generalinfomessage}
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_GINFO_WRK_EMAIL</label>
+                    <label className="column">{GetText('PRFL_GINFO_WRK_EMAIL', mlarray)}</label>
                     <label className="column">{userInfo.email}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_GINFO_LNG</label>
+                    <label className="column">{GetText('PRFL_GINFO_LNG', mlarray)}</label>
                     <label className="column">{userInfo.language}</label>
                 </div>
                 <div className="field ui two column stackable grid container">
-                    <label className="column">PRFL_GINFO_RPT_FRQ</label>
+                    <label className="column">{GetText('PRFL_GINFO_RPT_FRQ', mlarray)}</label>
                     <label className="column">{userInfo.reportfrequency}</label>
                 </div>
             </div>
@@ -380,15 +384,15 @@ export default class MyProfile extends React.Component {
       if(this.state.generalInfoEdit){
           generalInfoForm = (
             <div>
-                <h3 className="ui dividing header"><i className="setting icon"></i>PRFL_GENERAL_INFO</h3>
+                <h3 className="ui dividing header"><i className="setting icon"></i>{GetText('PRFL_GENERAL_INFO', mlarray)}</h3>
                     <div className="field">
                         {generalinfomessage}
                         <div className="field">
-                            <label>PRFL_GINFO_WRK_EMAIL*</label>
+                            <label>{GetText('PRFL_GINFO_WRK_EMAIL', mlarray)}*</label>
                             <input placeholder="Work Email" disabled onChange={this._onChangeGenerallInfo} id="email" value={userInfo.email} type="text" />
                         </div>
                         <div className="field">
-                            <label>PRFL_GINFO_LNG*</label>
+                            <label>{GetText('PRFL_GINFO_LNG', mlarray)}*</label>
                             <select className="ui dropdown" onChange={this._onChangeGeneralInfo} id="language" value={userInfo.language} >
                                 <option value="">Language</option>
                                 <option value="EN">EN</option>
@@ -396,7 +400,7 @@ export default class MyProfile extends React.Component {
                             </select>
                         </div>
                         <div className="field">
-                            <label>PRFL_GINFO_RPT_FRQ</label>
+                            <label>{GetText('PRFL_GINFO_RPT_FRQ', mlarray)}</label>
                             <select className="ui dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
                                 <option value="">Report Frequency</option>
                                 <option value="Weekly">Weekly</option>
@@ -438,20 +442,20 @@ export default class MyProfile extends React.Component {
            </div>
            <div className="ui secondary  menu account">
                 <a  onClick={this.onTabClick.bind(this,0)}  className=" act-menu active item" style={{"padding":"0 10px!important"}}>
-                    <i className="file image outline icon"></i> PRFL_TAB_MYPROFILE
+                    <i className="file image outline icon"></i> {GetText('PRFL_TAB_MYPROFILE', mlarray)}
                 </a>
                 <a  onClick={this.onTabClick.bind(this,1)}  className="act-menu item" style={{"padding":"0 10px!important"}}>
-                    <i className="user icon"></i> PRFL_TAB_MYMANAGER
+                    <i className="user icon"></i> {GetText('PRFL_TAB_MYMANAGER', mlarray)}
                 </a>
                 <a  onClick={this.onTabClick.bind(this,2)}  className=" act-menu item" style={{"padding":"0 10px!important"}}>
-                    <i className="users icon"></i> PRFL_TAB_MYTEAM
+                    <i className="users icon"></i> {GetText('PRFL_TAB_MYTEAM', mlarray)}
                 </a>
             </div>
            <div className="ui two column stackable grid">
 
               <div className="ten wide column" style={{ "display": activeTab[0] }}>
                  <div className="ui segment">
-                    <h4 className="ui header ryt">PRFL_EDIT_PROFILE</h4>
+                    <h4 className="ui header ryt">{GetText('PRFL_EDIT_PROFILE', mlarray)}</h4>
                     <div className="ui small form">
 
                         {summaryForm}

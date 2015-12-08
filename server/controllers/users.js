@@ -1996,7 +1996,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                     // console.log(employees.length +"==="+ counter);
                                     if(employees.length === counter){
                                         callbacklog.employeeTotalVotes = true;
-                                        console.log(employees);
+                                        //console.log(employees);
                                         existCondition();
                                     }
                                 });
@@ -2021,6 +2021,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             response.data = {};
                             response.data.employees = employees;
                             response.data.mytotalvotes = mytotalvotes;
+                            response.data.current_user_id = req.user._id;
                             callbacklog.myTotalVotes = true;
                             existCondition();
                         });
@@ -2057,7 +2058,14 @@ exports.getPublicProfile = function (req, res, next) {
     response.message = 'Error';
 
     var existCondition = function(){
-        if(response.data.teams !== undefined && response.data.manager !== undefined && response.data.vote !== undefined && response.data.currentuservotes !== undefined && response.data.currentusereom !== undefined){
+        if(
+        response.data.teams !== undefined &&
+        response.data.manager !== undefined &&
+        response.data.vote !== undefined &&
+        response.data.currentuservotes !== undefined &&
+        response.data.currentusereom !== undefined
+        ){
+            response.data.current_user_id = req.user._id;
             req.body.response = response;
             next();
         }

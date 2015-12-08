@@ -6,12 +6,15 @@ import SurveyParticipation from 'utils/SurveyParticipation';
 import PublicUserStore from 'stores/PublicUserStore';
 import EOTMActions from 'actions/EmployeeOfTheMonthActions';
 import EOTMStore from 'stores/EmployeeOfTheMonthStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class PublicProfile extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = PublicUserStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
         this.state.mySurvey = [];
         this.mytotalvotes = 0;
     }
@@ -88,11 +91,12 @@ export default class PublicProfile extends React.Component {
 
         let mySurvey = this.state.mySurvey;
         let sPercentage = SurveyParticipation.surveyPercentage(mySurvey);
+        let mlarray = this.state.multilang;
 
         let content;
         let manager = null;
         let teams   = null;
-        let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> PUBLIC_PROFILE_VOTE_BTN </a>);
+        let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
         if (!isNaN(sPercentage)) {
             content = (<ParticipationGraph percentage={sPercentage} />);
         }
@@ -124,6 +128,13 @@ export default class PublicProfile extends React.Component {
                 // If my vote is true publicUser.data.mytotalvotes < 5 &&
                 voteBtn   = (<a className="ui button vote " onClick={this._onModalClick}> <i className='thumbs up icon'></i> VOTE HERE</a>);
             }
+        }catch(e){}
+
+        try{
+			// Don't shoe vote button, if same user
+			if(this.props.params.hash === publicUser.data.current_user_id){
+				voteBtn = null;
+			}
         }catch(e){}
 
         let modal;
@@ -168,20 +179,20 @@ export default class PublicProfile extends React.Component {
                 <div className="nine wide column">
                     {message}
                     <div className="ui segment">
-                        <h4 className="ui header ryt"> PUBLIC_PROFILE_VOTES </h4>
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
                         <p>{publicUser.data.currentuservotes}</p>
                     </div>
                     <div className="ui segment">
-                        <h4 className="ui header ryt"> PUBLIC_PROFILE_SURVEYS_PARTICIPATED </h4>
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
                         {content}
                     </div>
                 </div>
                 <div className="seven wide column">
                     <div className="ui segment">
-                        <h4 className="ui header ryt"> PUBLIC_PROFILE_MANAGERS </h4>
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
                         {manager}
 
-                        <h4 className="ui header ryt"> PUBLIC_PROFILE_TEAMS </h4>
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
                         {teams}
 
                     </div>

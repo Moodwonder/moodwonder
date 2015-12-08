@@ -3,7 +3,8 @@ import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
-
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class MyManager extends React.Component {
 
@@ -11,6 +12,7 @@ export default class MyManager extends React.Component {
       super(props);
       mixins(Navigation, this);
       this.state = UserStore.getState();
+      this.state.multilang = MlangStore.getState().multilang;
       this.state.canSubmit = false;
       this.state.mymanager = '';
       this.validationErrors = {};
@@ -83,6 +85,8 @@ export default class MyManager extends React.Component {
 
       let userInfo = this.state.userDetails;
 
+      let mlarray = this.state.multilang;
+
       if ( this.state.updateType === 'managerinfo' && this.state.message !== '' ) {
           message = (
                 <div className="ui error message segment">
@@ -96,25 +100,25 @@ export default class MyManager extends React.Component {
       renderedResult = (
         <div className="ten wide column">
           <div className="ui segment">
-           <h4 className="ui header ryt">PRFL_MNGR_MYMANAGER</h4>
+           <h4 className="ui header ryt">{GetText('PRFL_MNGR_MYMANAGER', mlarray)}</h4>
                 {message}
                <div className="ui small form">
-                <h3 className="ui dividing header">PRFL_MNGR_TOP_MSG</h3>
+                <h3 className="ui dividing header">{GetText('PRFL_MNGR_TOP_MSG', mlarray)}</h3>
 
                     <div className=" field">
                         <div className="field ui two column stackable grid container">
-                            <label className="column"><i className="privacy icon large"></i>PRFL_MNGR_ROL</label>
+                            <label className="column"><i className="privacy icon large"></i>{GetText('PRFL_MNGR_ROL', mlarray)}</label>
                             <label className="column"> Manager </label>
                         </div>
                         <div className="field ui two column stackable grid container">
-                            <label className="column"><i className="mail icon large"></i>PRFL_MNGR_EMAIL</label>
+                            <label className="column"><i className="mail icon large"></i>{GetText('PRFL_MNGR_EMAIL', mlarray)}</label>
                             <label className="column"> {userInfo.mymanager} </label>
                         </div>
                         <div className="field ui two column stackable grid container">
-                            <label className="column"><i className="user icon large"></i>PRFL_MNGR_CHNG_MNGR</label>
+                            <label className="column"><i className="user icon large"></i>{GetText('PRFL_MNGR_CHNG_MNGR', mlarray)}</label>
                             <label className="column"> <input placeholder="Work Email" ref="email" type="email" onChange={this.changeValue} /></label>
                         </div>
-                        <div className="ui submit  button cancel">PRFL_MNGR_CANCEL</div><div onClick={this._onSaveSubmit} className="ui submit button submitt">PRFL_MNGR_SUBMIT</div>
+                        <div className="ui submit  button cancel">{GetText('PRFL_MNGR_CANCEL', mlarray)}</div><div onClick={this._onSaveSubmit} className="ui submit button submitt">{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
                     </div>
                </div>
           </div>
