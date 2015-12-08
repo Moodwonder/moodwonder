@@ -2,12 +2,15 @@ import React from 'react';
 import EOTMActions from 'actions/EmployeeOfTheMonthActions';
 import EOTMStore from 'stores/EmployeeOfTheMonthStore';
 import UserStore from 'stores/UserStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class EmployeeOfTheMonth extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = EOTMStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
         this.filtered = [];
         this.ShowMoreStatus = true;
         this.mytotalvotes = 0;
@@ -59,6 +62,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         // key : vote widget unique key
         $( "body" ).addClass( "dimmed dimmable" );
         // console.log(key);
+        console.log(this.state);
         this.setState({
             modal:true,
             emp_id:emp_id,
@@ -155,6 +159,8 @@ export default class EmployeeOfTheMonth extends React.Component {
         // console.log('render..');
         // console.log(this.state);
 
+        let mlarray = this.state.multilang;
+
         let employees = '';
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
@@ -202,17 +208,17 @@ export default class EmployeeOfTheMonth extends React.Component {
                     <div className="ui container">
                         <div className="ui right labeled left icon input">
                             <i className="search icon"></i>
-                            <input type="text" ref="search" onChange={this._onChangeSearch} placeholder="EOM_SEARCH_PLACEHOLDER_1" />
-                            <a className="ui tag label" onClick={this._onSearch} > EOM_SEARCH_BTN_1 </a>
+                            <input type="text" ref="search" onChange={this._onChangeSearch} placeholder={GetText('EOM_SEARCH_PLACEHOLDER_1', mlarray)} />
+                            <a className="ui tag label" onClick={this._onSearch} > {GetText('EOM_SEARCH_BTN_1', mlarray)} </a>
                         </div>
                     </div>
                 </div>
-                <h4 className="ui header ryt">EOM_TITLE_1</h4>
+                <h4 className="ui header ryt">{GetText('EOM_TITLE_1', mlarray)}</h4>
                 {message}
                 <div className="ui link five cards stackable grid cast">
                     {employees}
                 </div>
-                <div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>EOM_SHOW_MORE</a> </div>
+                <div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>{GetText('EOM_SHOW_MORE', mlarray)}</a> </div>
                 {modal}
             </div>
         );
@@ -223,6 +229,8 @@ class VoteWidget extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {};
+        this.state.multilang = MlangStore.getState().multilang;
     }
 
     _onModalClick = () => {
@@ -232,6 +240,8 @@ class VoteWidget extends React.Component {
     }
 
     render() {
+
+		let mlarray = this.state.multilang;
 
         let voteBtn = (
             <div onClick={this._onModalClick} className='extra content' >
@@ -272,6 +282,7 @@ class ProfileHeader extends React.Component {
 
         super(props);
         this.state = UserStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
     }
     componentDidMount () {
         UserStore.listen(this._onChange);
@@ -285,6 +296,7 @@ class ProfileHeader extends React.Component {
     render() {
 
         let text = null;
+		let mlarray = this.state.multilang;
         if(this.state.votes !== undefined) {
             text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
         }

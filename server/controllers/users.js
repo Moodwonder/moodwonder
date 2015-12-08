@@ -2021,6 +2021,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             response.data = {};
                             response.data.employees = employees;
                             response.data.mytotalvotes = mytotalvotes;
+                            response.data.current_user_id = req.user._id;
                             callbacklog.myTotalVotes = true;
                             existCondition();
                         });

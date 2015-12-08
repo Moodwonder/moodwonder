@@ -9,10 +9,17 @@ export default class App extends React.Component {
   constructor (props) {
       super(props);
       this.state = AppStore.getState();
+      this.noAccess = false;
   }
 
   componentDidMount () {
       AppStore.listen(this._onChange);
+      // Redirect to landing page, if no access
+      setTimeout(function(){
+          if(this.noAccess){
+              window.location.assign('/');
+          }
+      }.bind(this),3000);
   }
 
   componentWillUnmount () {
@@ -41,6 +48,7 @@ export default class App extends React.Component {
       if(condition1 && condition2){
           if(!(this.state.isAuthenticated)){
               handler = noPermission;
+              this.noAccess = true;
           }
       }
       // admin and manager only pages
@@ -48,6 +56,7 @@ export default class App extends React.Component {
       if( pages.indexOf(path) >= 0){
           if( (!this.state.isAuthenticated) || this.state.userType !== 'manager' ){
               handler = noPermission;
+              this.noAccess = true;
           }
       }
       // admin only pages
@@ -55,6 +64,7 @@ export default class App extends React.Component {
       if( pages.indexOf(path) >= 0){
           if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
               handler = noPermission;
+              this.noAccess = true;
           }
       }
 

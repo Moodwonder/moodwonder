@@ -529,12 +529,14 @@ module.exports = function (app, passport) {
 
                 switch(page) {
                 
-                    case 'survey': 
-                    case 'surveyforms': 
-                    case 'mymood': 
-                    case 'mycompany': 
-                    case 'openendedresponses': 
-                    case 'logout': 
+                    case 'survey':
+                    case 'surveyforms':
+                    case 'mymood':
+                    case 'mycompany':
+                    case 'openendedresponses':
+                    case 'logout':
+                    case 'myprofile':
+                    case 'employeeofthemonth':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -633,12 +635,14 @@ module.exports = function (app, passport) {
                 }
 
                 switch(page) {
-                    case 'survey': 
-                    case 'surveyforms': 
-                    case 'mymood': 
-                    case 'mycompany': 
-                    case 'openendedresponses': 
-                    case 'logout': 
+                    case 'survey':
+                    case 'surveyforms':
+                    case 'mymood':
+                    case 'mycompany':
+                    case 'openendedresponses':
+                    case 'logout':
+                    case 'myprofile':
+                    case 'employeeofthemonth':
                         break;
 
                     default:
