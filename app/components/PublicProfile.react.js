@@ -136,10 +136,10 @@ export default class PublicProfile extends React.Component {
         }catch(e){}
 
         try{
-			// Don't shoe vote button, if same user
-			if(this.props.params.hash === publicUser.data.current_user_id){
-				voteBtn = null;
-			}
+            // Don't shoe vote button, if same user
+            if(this.props.params.hash === publicUser.data.current_user_id){
+                voteBtn = null;
+            }
         }catch(e){}
 
         let modal;

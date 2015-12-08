@@ -132,7 +132,6 @@ export default class MyProfile extends React.Component {
       this.setState({summary: event.target.value});
   }
 
-
   _onSavePersonalInfo = (model) => {
       let fname     =  document.getElementById('fname').value;
       let lname     =  document.getElementById('lname').value;
@@ -145,7 +144,19 @@ export default class MyProfile extends React.Component {
       else if( lname === '' ){
           this.setState({ message: 'Last name required', updateType: 'personalinfo' });
       }else{
-          this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
+          let validation = true;
+          if(password.trim() !== '' || cpassword.trim() !== '' ){
+              if(password !== cpassword){
+                  this.setState({ message: 'New Password and Confirm Password are not equal.', updateType: 'personalinfo' });
+                  validation = false;
+              }else if(password.length <= 6){
+                  this.setState({ message: 'Password length should be at least 7 characters', updateType: 'personalinfo' });
+                  validation = false;
+              }
+          }
+          if(validation){
+              this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
+          }
       }
   }
 
