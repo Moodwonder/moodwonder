@@ -97,8 +97,13 @@ export default class PublicProfile extends React.Component {
         let manager = null;
         let teams   = null;
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
-        if (!isNaN(sPercentage)) {
-            content = (<ParticipationGraph percentage={sPercentage} />);
+        if (!isNaN(sPercentage) && (sPercentage > 0)) {
+            content = (
+                    <div className="ui segment">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
+                        <ParticipationGraph percentage={sPercentage} />
+                    </div>
+            );
         }
 
         let publicUser = this.state.publicuser;
@@ -182,10 +187,7 @@ export default class PublicProfile extends React.Component {
                         <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
                         <p>{publicUser.data.currentuservotes}</p>
                     </div>
-                    <div className="ui segment">
-                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
-                        {content}
-                    </div>
+                    {content}
                 </div>
                 <div className="seven wide column">
                     <div className="ui segment">
