@@ -13,6 +13,9 @@ var LogoutPage = require('../models/logoutpage');
 var OpenendedresponsesPage = require('../models/openendedresponsespage');
 var SurveyFormsPage = require('../models/surveyformspage');
 var SurveyPage = require('../models/surveypage');
+var MycompanyPage = require('../models/mycompanypage');
+var OpenendedsurveyPage = require('../models/openendedsurveypage');
+
 
 /**
  * Add new language
@@ -167,6 +170,16 @@ exports.getPage = function (req, res) {
         case 'survey':
             modelObj = {};
             modelObj = SurveyPage;
+            break;
+            
+        case 'mycompany':
+            modelObj = {};
+            modelObj = MycompanyPage;
+            break;
+            
+        case 'openendedsurvey':
+            modelObj = {};
+            modelObj = OpenendedsurveyPage;
             break;
 
         default:
@@ -463,6 +476,63 @@ exports.updatePageKeys = function (req, res) {
                 SRVY_OPPORTUNITIES_DES: data.SRVY_OPPORTUNITIES_DES,
                 SRVY_RECOMMENDATION_DES: data.SRVY_RECOMMENDATION_DES,
                 SRVY_SUBMIT_BTN: data.SRVY_SUBMIT_BTN
+            };
+            break;
+            
+        case 'mycompany':
+            modelObj = {};
+            modelObj = MycompanyPage;
+            update = {}
+            update = {
+                MYCO_EGRAPH: data.MYCO_EGRAPH,
+                MYCO_CRATING: data.MYCO_CRATING,
+                MYCO_COMPANYINFO: data.MYCO_COMPANYINFO,
+                MYCO_TITLE: data.MYCO_TITLE,
+                MYCO_OPTMWINDEX: data.MYCO_OPTMWINDEX,
+                MYCO_OPTMOOD: data.MYCO_OPTMOOD,
+                MYCO_OPTMEANING: data.MYCO_OPTMEANING,
+                MYCO_OPTEXPECTATIONS: data.MYCO_OPTEXPECTATIONS,
+                MYCO_OPTSTRENGTHS: data.MYCO_OPTSTRENGTHS,
+                MYCO_OPTRECOGNITION: data.MYCO_OPTRECOGNITION,
+                MYCO_OPTDEVELOPMENT: data.MYCO_OPTDEVELOPMENT,
+                MYCO_OPTINFLUENCE: data.MYCO_OPTINFLUENCE,
+                MYCO_OPTGOALS: data.MYCO_OPTGOALS,
+                MYCO_OPTTEAM: data.MYCO_OPTTEAM,
+                MYCO_OPTFRIENDSHIP: data.MYCO_OPTFRIENDSHIP,
+                MYCO_OPTFEEDBACK: data.MYCO_OPTFEEDBACK,
+                MYCO_OPTOPPORTUNITIES: data.MYCO_OPTOPPORTUNITIES,
+                MYCO_OPTRECOMMENDATION: data.MYCO_OPTRECOMMENDATION,
+                MYCO_MYSELF: data.MYCO_MYSELF
+            };
+            break;
+
+        case 'openendedsurvey':
+            modelObj = {};
+            modelObj = OpenendedsurveyPage;
+            update = {}
+            update = {
+                OPES_TOP_TITLE: data.OPES_TOP_TITLE,
+                OPES_OPTION: data.OPES_OPTION,
+                OPES_TOP_QNSONE: data.OPES_TOP_QNSONE,
+                OPES_TOP_QNSTWO: data.OPES_TOP_QNSTWO,
+                OPES_TOP_QNSTHREE: data.OPES_TOP_QNSTHREE,
+                OPES_WORST_TITLE: data.OPES_WORST_TITLE,
+                OPES_WORST_QNSONE: data.OPES_WORST_QNSONE,
+                OPES_WORST_QNSTWO: data.OPES_WORST_QNSTWO,
+                OPES_WORST_QNSTHREE: data.OPES_WORST_QNSTHREE,
+                OPES_MOOD: data.OPES_MOOD,
+                OPES_EXPECTATIONS: data.OPES_EXPECTATIONS,
+                OPES_STRENGTHS: data.OPES_STRENGTHS,
+                OPES_RECOGNITION: data.OPES_RECOGNITION,
+                OPES_DEVELOPMENT: data.OPES_DEVELOPMENT,
+                OPES_INFLUENCE: data.OPES_INFLUENCE,
+                OPES_TEAM: data.OPES_TEAM,
+                OPES_FRIENDSHIP: data.OPES_FRIENDSHIP,
+                OPES_FEEDBACK: data.OPES_FEEDBACK,
+                OPES_OPPORTUNITIES: data.OPES_OPPORTUNITIES,
+                OPES_RECOMMENDATION: data.OPES_RECOMMENDATION,
+                OPES_CANCEL_BTN: data.OPES_CANCEL_BTN,
+                OPES_SUBMIT_BTN: data.OPES_SUBMIT_BTN
             };
             break;
 

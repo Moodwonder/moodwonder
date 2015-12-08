@@ -29,6 +29,7 @@ var MymoodPage = require('../models/mymoodpage');
 var MycompanyPage = require('../models/mycompanypage');
 var OpenendedresponsesPage = require('../models/openendedresponsespage');
 var LogoutPage = require('../models/logoutpage');
+var OpenendedsurveyPage = require('../models/openendedsurveypage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -335,6 +336,11 @@ module.exports = function (app, passport) {
                 modelObj = LogoutPage;
                 break;
                 
+            case 'openendedsurvey':
+                modelObj = {};
+                modelObj = OpenendedsurveyPage;
+                break;
+                
             case 'testing':
                 modelObj = {};
                 modelObj = SurveyPage;
@@ -538,6 +544,7 @@ module.exports = function (app, passport) {
                     case 'myprofile':
                     case 'employeeofthemonth':
                     case 'publicprofile':
+                    case 'openendedsurvey':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -645,6 +652,7 @@ module.exports = function (app, passport) {
                     case 'myprofile':
                     case 'employeeofthemonth':
                     case 'publicprofile':
+                    case 'openendedsurvey':
                         break;
 
                     default:
