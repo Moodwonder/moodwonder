@@ -1914,7 +1914,8 @@ exports.getAllEmployeesInCompany = function (req, res) {
     var mycompany = '';
     var last_id = req.body.last_id;
     var keyword = req.body.keyword;
-    var limit = 8;
+    // put 21 if you want 20 results
+    var limit = 21;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -1949,6 +1950,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                     EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
 
                         var employees = [];
+                        var hasMoreData = false;
                         lists.map(function (data, key) {
 
                             var empofthemonth =   false;
@@ -1971,6 +1973,13 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             };
                         });
                         // console.log(employees);
+
+                        if( employees.length >= limit ){
+                            hasMoreData = true;
+                        }
+                        // remove 1 last record from the array
+                        // bacause we are using this for checking more records in the db
+                        employees.pop();
 
                         // Set total votes received by each employee
                         if(employees.length >0 ){
@@ -2024,8 +2033,23 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             response.message = 'success';
                             response.data = {};
                             response.data.employees = employees;
+                            response.data.hasMoreData = hasMoreData;
                             response.data.mytotalvotes = mytotalvotes;
                             response.data.current_user_id = req.user._id;
+                            response.data.voteperiod = {};
+
+                            Date.prototype.getMonthStartEnd = function (start) {
+                                var StartDate = new Date(this.getFullYear(), this.getMonth(), 1);
+                                var EndDate = new Date(this.getFullYear(), this.getMonth() + 1, 0);
+                                return [StartDate, EndDate];
+                            }
+
+                            var startEnd = new Date().getMonthStartEnd();
+                            // console.log(typeof startEnd);
+                            var firstDay = startEnd[0].toString().substr(3,12);
+                            var lastDay = startEnd[1].toString().substr(3,12);
+
+                            response.data.voteperiod = { start: firstDay, end: lastDay };
                             callbacklog.myTotalVotes = true;
                             existCondition();
                         });

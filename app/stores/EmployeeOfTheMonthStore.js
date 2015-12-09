@@ -17,6 +17,7 @@ class EmployeeOfTheMonthStore {
       this.emp_id = 0;
       this.isNotValid = true;
       this.voteStatus = false;
+      this.voteperiod = false;
       this.message = '';
 
       this.bindListeners({
