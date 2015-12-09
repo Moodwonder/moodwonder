@@ -30,7 +30,7 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     componentDidUpdate () {
-		//console.log(this.state);
+        //console.log(this.state);
     }
 
     onChangeText = (e) => {
@@ -52,6 +52,7 @@ export default class MyCompanyInfo extends React.Component {
             // Set country dropdown list / fetching country list
             this.onChangeContinent(this.state.userDetailsTmp.continent);
         }
+        this.messageAutoClose(state);
     }
 
     onChangeContinent = (e) => {
@@ -200,6 +201,7 @@ export default class MyCompanyInfo extends React.Component {
                 state.hasError = true;
                 state.messages.push('Company name cannot be empty');
             }
+            /*
             if(key === 'industry' && model[key].trim() === '' ){
                 state.hasError = true;
                 state.messages.push('Industry name cannot be empty');
@@ -232,6 +234,7 @@ export default class MyCompanyInfo extends React.Component {
                 state.hasError = true;
                 state.messages.push('Companysize name cannot be empty');
             }
+            */
         }
         this.setState(state);
         return (!state.hasError);
@@ -251,19 +254,30 @@ export default class MyCompanyInfo extends React.Component {
         }
     }
 
+    messageAutoClose = (state) => {
+        if(state.messages.length > 0){
+            setTimeout(function(){
+                this.setState({ messages: [] });
+            }.bind(this),3000);
+        }
+    }
 
     render() {
 
         let message;
         let userInfo = this.state.userDetailsTmp;
+        let multimessages;
 
-        if (this.state.messages !== undefined && this.state.messages.length > 0 ) {
+        if (this.state.messages !== undefined && this.state.messages.length > 0) {
+            multimessages = this.state.messages.map((mes, key) => {
+                return [<li>{mes}</li>];
+            });
             message = (
-                <div className={ (this.state.hasError) ? 'ui red message' : 'ui green message' }>
-                   <ul className="list">
-                      { this.state.messages.map((data) => { return [<li>{data}</li>]; }) }
-                   </ul>
-                </div>
+              <div className="ui error message segment">
+                <ul className="list">
+                    {multimessages}
+                </ul>
+              </div>
             );
         }
 
@@ -282,6 +296,7 @@ export default class MyCompanyInfo extends React.Component {
                                placeholder="Company name"
                                validationError="Company name is required"
                                onChange={this.onChangeText}
+                               disabled={true}
                                required/>
                             </div>
 

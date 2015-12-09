@@ -862,6 +862,7 @@ exports.postSaveCompanyInfo = function (req, res) {
         hasError = true;
         messages.push('Company name cannot be empty..');
       }
+      /*
       if(key === 'industry' && model[key].trim() === '' ){
         hasError = true;
         messages.push('Industry name cannot be empty');
@@ -894,6 +895,7 @@ exports.postSaveCompanyInfo = function (req, res) {
         hasError = true;
         messages.push('Companysize name cannot be empty');
       }
+      */
     }
 
     if(hasError){
