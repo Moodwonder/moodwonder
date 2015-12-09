@@ -98,12 +98,12 @@ export default class Navigation extends React.Component {
           return mood;
       });
       moodrow.surveyresult = surveyResult;
+      SurveyActions.saveEngagementSurvey(moodrow);
       this.setState({ popup : false });
       //console.log('surveyResult');
-      console.log(JSON.stringify(moodrow));
-      SurveyActions.saveEngagementSurvey(moodrow);
+      //console.log(JSON.stringify(moodrow));
       window.setTimeout(() => {
-          //window.location.reload();
+          window.location.reload();
       });
   }
 
