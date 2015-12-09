@@ -63,18 +63,23 @@ export default class OpenEndedQuestions extends React.Component {
 
       let errorFlag =  false;
 
-      if(openended.most_improved_aone === '' || openended.most_improved_aone === null ||
-         openended.most_improved_atwo === '' || openended.most_improved_atwo === null ||
-         openended.most_improved_athree === '' || openended.most_improved_athree === null ||
-         openended.least_improved_aone === '' || openended.least_improved_aone === null ||
-         openended.least_improved_atwo === '' || openended.least_improved_atwo === null ||
-         openended.least_improved_athree === '' || openended.least_improved_athree === null) {
+      if(openended.most_improved_aone === '' || openended.most_improved_aone === null ) {
+          errorFlag =  true;
+      } else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
           errorFlag =  true;
       }
 
       if (errorFlag) {
           //alert("Please answer all the questions.");
-          this.setState({errormsg: "Error : Responses can't be blank."});
+          this.setState({errormsg: "Error : Responses can't be blank. Please answer all the questions."});
       } else {
           OpenEndedActions.saveAnswers(openended);
       }
