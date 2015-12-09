@@ -15,6 +15,7 @@ var SurveyFormsPage = require('../models/surveyformspage');
 var SurveyPage = require('../models/surveypage');
 var MycompanyPage = require('../models/mycompanypage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
+var MymoodPage = require('../models/mymoodpage');
 
 
 /**
@@ -182,6 +183,11 @@ exports.getPage = function (req, res) {
             modelObj = OpenendedsurveyPage;
             break;
 
+        case 'mymood':
+            modelObj = {};
+            modelObj = MymoodPage;
+            break;
+
         default:
             //modelObj = Homepage;
             break;
@@ -230,7 +236,56 @@ exports.updatePageKeys = function (req, res) {
             modelObj = {};
             modelObj = Homepage;
             update = {}
-            update = {HOM_TITLE: data.HOM_TITLE};
+            update = {
+                HOM_SIGN_IN: data.HOM_SIGN_IN,
+                HOM_REGISTER: data.HOM_REGISTER,
+                HOM_SGN_WORK_EMAIL: data.HOM_SGN_WORK_EMAIL,
+                HOM_GET_STARTED: data.HOM_GET_STARTED,
+                HOM_2_TITLE_1: data.HOM_2_TITLE_1,
+                HOM_2_TITLE_2: data.HOM_2_TITLE_2,
+                HOM_2_ITEM_1: data.HOM_2_ITEM_1,
+                HOM_2_ITEM_2: data.HOM_2_ITEM_2,
+                HOM_2_ITEM_3: data.HOM_2_ITEM_3,
+                HOM_3_TITLE_1: data.HOM_3_TITLE_1,
+                HOM_3_BOX_1_TITLE_1: data.HOM_3_BOX_1_TITLE_1,
+                HOM_3_BOX_1_CONTENT: data.HOM_3_BOX_1_CONTENT,
+                HOM_3_BOX_2_TITLE_1: data.HOM_3_BOX_2_TITLE_1,
+                HOM_3_BOX_2_CONTENT: data.HOM_3_BOX_2_CONTENT,
+                HOM_3_BOX_3_TITLE_1: data.HOM_3_BOX_3_TITLE_1,
+                HOM_3_BOX_3_CONTENT: data.HOM_3_BOX_3_CONTENT,
+                HOM_3_BOX_4_TITLE_1: data.HOM_3_BOX_4_TITLE_1,
+                HOM_3_BOX_4_CONTENT: data.HOM_3_BOX_4_CONTENT,
+                HOM_4_TITLE_1: data.HOM_4_TITLE_1,
+                HOM_4_BOX_1_TITLE_1: data.HOM_4_BOX_1_TITLE_1,
+                HOM_4_BOX_1_CONTENT: data.HOM_4_BOX_1_CONTENT,
+                HOM_4_BOX_2_TITLE_1: data.HOM_4_BOX_2_TITLE_1,
+                HOM_4_BOX_2_CONTENT: data.HOM_4_BOX_2_CONTENT,
+                HOM_4_BOX_3_TITLE_1: data.HOM_4_BOX_3_TITLE_1,
+                HOM_4_BOX_3_CONTENT: data.HOM_4_BOX_3_CONTENT,
+                HOM_4_BOX_4_TITLE_1: data.HOM_4_BOX_4_TITLE_1,
+                HOM_4_BOX_4_CONTENT: data.HOM_4_BOX_4_CONTENT,
+                HOM_5_TITLE_1: data.HOM_5_TITLE_1,
+                HOM_5_BOX_1_TITLE_1: data.HOM_5_BOX_1_TITLE_1,
+                HOM_5_BOX_1_CONTENT: data.HOM_5_BOX_1_CONTENT,
+                HOM_5_BOX_2_TITLE_1: data.HOM_5_BOX_2_TITLE_1,
+                HOM_5_BOX_2_CONTENT: data.HOM_5_BOX_2_CONTENT,
+                HOM_5_BOX_3_TITLE_1: data.HOM_5_BOX_3_TITLE_1,
+                HOM_5_BOX_3_CONTENT: data.HOM_5_BOX_3_CONTENT,
+                HOM_5_BOX_4_TITLE_1: data.HOM_5_BOX_4_TITLE_1,
+                HOM_5_BOX_4_CONTENT: data.HOM_5_BOX_4_CONTENT,
+                HOM_6_TITLE_1: data.HOM_6_TITLE_1,
+                HOM_7_TITLE: data.HOM_7_TITLE,
+                HOM_7_NAME: data.HOM_7_NAME,
+                HOM_7_EMAIL: data.HOM_7_EMAIL,
+                HOM_7_MOBILE: data.HOM_7_MOBILE,
+                HOM_7_LOOKING_FOR: data.HOM_7_LOOKING_FOR,
+                HOM_7_SUBMIT: data.HOM_7_SUBMIT,
+                HOM_FOOTER_ABOUT: data.HOM_FOOTER_ABOUT,
+                HOM_FOOTER_ANONYMITY: data.HOM_FOOTER_ANONYMITY,
+                HOM_FOOTER_TERMS: data.HOM_FOOTER_TERMS,
+                HOM_FOOTER_POLICY: data.HOM_FOOTER_POLICY,
+                HOM_FOOTER_CONTACT: data.HOM_FOOTER_CONTACT
+            };
             break;
 
         case 'signup':
@@ -533,6 +588,73 @@ exports.updatePageKeys = function (req, res) {
                 OPES_RECOMMENDATION: data.OPES_RECOMMENDATION,
                 OPES_CANCEL_BTN: data.OPES_CANCEL_BTN,
                 OPES_SUBMIT_BTN: data.OPES_SUBMIT_BTN
+            };
+            break;
+
+
+        case 'mymood':
+            modelObj = {};
+            modelObj = MymoodPage;
+            update = {}
+            update = {
+                MYMD_EGRAPH: data.MYMD_EGRAPH,
+                MYMD_MRATING: data.MYMD_MRATING,
+                MYMD_CSURVEY: data.MYMD_CSURVEY,
+                MYMD_OPTMWINDEX: data.MYMD_OPTMWINDEX,
+                MYMD_OPTMOOD: data.MYMD_OPTMOOD,
+                MYMD_OPTMEANING: data.MYMD_OPTMEANING,
+                MYMD_OPTEXPECTATIONS: data.MYMD_OPTEXPECTATIONS,
+                MYMD_OPTSTRENGTHS: data.MYMD_OPTSTRENGTHS,
+                MYMD_OPTRECOGNITION: data.MYMD_OPTRECOGNITION,
+                MYMD_OPTDEVELOPMENT: data.MYMD_OPTDEVELOPMENT,
+                MYMD_OPTINFLUENCE: data.MYMD_OPTINFLUENCE,
+                MYMD_OPTGOALS: data.MYMD_OPTGOALS,
+                MYMD_OPTTEAM: data.MYMD_OPTTEAM,
+                MYMD_OPTFRIENDSHIP: data.MYMD_OPTFRIENDSHIP,
+                MYMD_OPTFEEDBACK: data.MYMD_OPTFEEDBACK,
+                MYMD_OPTOPPORTUNITIES: data.MYMD_OPTOPPORTUNITIES,
+                MYMD_OPTRECOMMENDATION: data.MYMD_OPTRECOMMENDATION,
+                MYMD_OPTALLTIME: data.MYMD_OPTALLTIME,
+                MYMD_OPTTWELVE: data.MYMD_OPTTWELVE,
+                MYMD_OPTSIX: data.MYMD_OPTSIX,
+                MYMD_OPTTHREE: data.MYMD_OPTTHREE,
+                MYMD_OPTLASTMONTH: data.MYMD_OPTLASTMONTH,
+                MYMD_ATSTART: data.MYMD_ATSTART,
+                MYMD_HIGHEST: data.MYMD_HIGHEST,
+                MYMD_LOWEST: data.MYMD_LOWEST,
+                MYMD_CURRENT: data.MYMD_CURRENT,
+                MYMD_DAYS_CHANGE: data.MYMD_DAYS_CHANGE,
+                MYMD_WEEK_CHANGE: data.MYMD_WEEK_CHANGE,
+                MYMD_E_ENGAGEMENT: data.MYMD_E_ENGAGEMENT,
+                MYMD_MOST_ENGAGING: data.MYMD_MOST_ENGAGING,
+                MYMD_TOPTHREEAREAS_HEADING: data.MYMD_TOPTHREEAREAS_HEADING,
+                MYMD_WORSTTHREEAREAS_HEADING: data.MYMD_WORSTTHREEAREAS_HEADING,
+                MYMD_MOSTIMPROVEDAREAS_HEADING: data.MYMD_MOSTIMPROVEDAREAS_HEADING,
+                MYMD_LEASTIMPROVEDAREAS_HEADING: data.MYMD_LEASTIMPROVEDAREAS_HEADING,
+                MYMD_HIGHERTHANCOMPANYAVERAGE_HEADING: data.MYMD_HIGHERTHANCOMPANYAVERAGE_HEADING,
+                MYMD_LOWERTHANCOMPANYAVERAGE_HEADING: data.MYMD_LOWERTHANCOMPANYAVERAGE_HEADING,
+                MYMD_HIGHERCAVERAGE_EMPTYMSG: data.MYMD_HIGHERCAVERAGE_EMPTYMSG,
+                MYMD_LOWERCAVERAGE_EMPTYMSG: data.MYMD_LOWERCAVERAGE_EMPTYMSG,
+                MYMD_SGENERATION_TITLE: data.MYMD_SGENERATION_TITLE,
+                MYMD_SLISTSBTN: data.MYMD_SLISTSBTN,
+                MYMD_STITLE: data.MYMD_STITLE,
+                MYMD_TITLE_PLCHOLDER: data.MYMD_TITLE_PLCHOLDER,
+                MYMD_SFREEZE_DATE: data.MYMD_SFREEZE_DATE,
+                MYMD_TARGET_GROUP: data.MYMD_TARGET_GROUP,
+                MYMD_TARGETORG: data.MYMD_TARGETORG,
+                MYMD_TORG_DEFAULT_OPTION: data.MYMD_TORG_DEFAULT_OPTION,
+                MYMD_TARGETSURVEY: data.MYMD_TARGETSURVEY,
+                MYMD_TSURVEY_DEFAULT_OPTION1: data.MYMD_TSURVEY_DEFAULT_OPTION1,
+                MYMD_TSURVEY_DEFAULT_OPTION2: data.MYMD_TSURVEY_DEFAULT_OPTION2,
+                MYMD_QNS_TITLE: data.MYMD_QNS_TITLE,
+                MYMD_ADD_QNS: data.MYMD_ADD_QNS,
+                MYMD_SUBMIT_SURVEY: data.MYMD_SUBMIT_SURVEY,
+                MYMD_QNSTITLE: data.MYMD_QNSTITLE,
+                MYMD_QNSPLCHLOLDER: data.MYMD_QNSPLCHLOLDER,
+                MYMD_ANSTYPE_LBL: data.MYMD_ANSTYPE_LBL,
+                MYMD_ANSTYPE_DEFAULT: data.MYMD_ANSTYPE_DEFAULT,
+                MYMD_CHILD_ADDBTN: data.MYMD_CHILD_ADDBTN,
+                MYMD_CHILD_CANCELBTN: data.MYMD_CHILD_CANCELBTN
             };
             break;
 
