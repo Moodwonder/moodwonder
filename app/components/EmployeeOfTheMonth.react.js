@@ -56,6 +56,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             state.voteStatus = false;
         }
         this.setState(state);
+        this.messageAutoClose(state);
     }
 
     _onPopClick = (emp_id,key) => {
@@ -152,6 +153,14 @@ export default class EmployeeOfTheMonth extends React.Component {
         if(parseInt(this.mytotalvotes) < 5){
             let comment = React.findDOMNode(this.refs.comment).value.trim();
             EOTMActions.saveVote({ emp_id: this.state.emp_id, comment: comment });
+        }
+    }
+
+    messageAutoClose = (state) => {
+        if(state.message !== ''){
+            setTimeout(function(){
+                this.setState({ message: '' });
+            }.bind(this),3000);
         }
     }
 

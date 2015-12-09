@@ -350,6 +350,7 @@ exports.postSignupStep1 = function (req, res, next) {
                     // 'test@example.com' converting into 'example'
                     var email  = req.body.email;
                     var domain = email.substring(email.lastIndexOf("@")+1);
+                    var website = domain;
                     domain = domain.substring(0,domain.lastIndexOf("."));
                     var company = { name: domain};
                     Company.update(company,company,{upsert: true},function(err,newcompany){});
@@ -367,7 +368,7 @@ exports.postSignupStep1 = function (req, res, next) {
                         state : '',
                         city : '',
                         address : '',
-                        website : '',
+                        website : website,
                         companysize : ''
                     }];
                     var options = { multi: false };
@@ -1913,7 +1914,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
     var mycompany = '';
     var last_id = req.body.last_id;
     var keyword = req.body.keyword;
-    var limit = 2;
+    var limit = 8;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
