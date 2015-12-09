@@ -304,11 +304,11 @@ exports.updatePageKeys = function (req, res) {
             modelObj = Loginpage;
             update = {}
             update = {
-                LGN_TITLE: data.LGN_TITLE,
-                LGN_USERNAME: data.LGN_USERNAME,
-                LGN_PASSWORD: data.LGN_PASSWORD,
-                LGN_FORGOT_PASSWORD: data.LGN_FORGOT_PASSWORD,
-                LGN_BTN_SUBMIT: data.LGN_BTN_SUBMIT
+                LGN_PLACEHOLDER_EMAIL: data.LGN_PLACEHOLDER_EMAIL,
+                LGN_PLACEHOLDER_PASSWORD: data.LGN_PLACEHOLDER_PASSWORD,
+                LGN_BTN: data.LGN_BTN,
+                LGN_FORGOT_PSWD: data.LGN_FORGOT_PSWD,
+                LGN_SIGNUP: data.LGN_SIGNUP
             };
             break;
         

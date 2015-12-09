@@ -1,0 +1,12 @@
+
+db.signuppage.insert({ "language" : "EN", 
+                    "SGN_TITLE" : "Signup here", 
+                    "SGN_WORK_EMAIL" : "Work email", 
+                    "SGN_BTN_SUBMIT" : "Submit" 
+});
+
+db.signuppage.insert({ "language" : "FI", 
+                    "SGN_TITLE" : "kirjautumisen täällä", 
+                    "SGN_WORK_EMAIL" : "työ sähköposti", 
+                    "SGN_BTN_SUBMIT" : "esittää" 
+});

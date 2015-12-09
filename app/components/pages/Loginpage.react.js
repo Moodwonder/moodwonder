@@ -11,11 +11,12 @@ export default class Signuppage extends React.Component {
       this.state = {
           pagedata: [],
           language: props.language,
-          LGN_TITLE: '',
-          LGN_USERNAME: '',
-          LGN_PASSWORD: '',
-          LGN_FORGOT_PASSWORD: '',
-          LGN_BTN_SUBMIT: ''
+          LGN_BTN_SUBMIT: '',
+          LGN_PLACEHOLDER_EMAIL: '',
+          LGN_PLACEHOLDER_PASSWORD: '',
+          LGN_BTN: '',
+          LGN_FORGOT_PSWD: '',
+          LGN_SIGNUP: ''
       };
   }
 
@@ -35,11 +36,11 @@ export default class Signuppage extends React.Component {
 
       let pagedata = this.state.pagedata;
       this.setState({
-          LGN_TITLE: pagedata.LGN_TITLE,
-          LGN_USERNAME: pagedata.LGN_USERNAME,
-          LGN_PASSWORD: pagedata.LGN_PASSWORD,
-          LGN_FORGOT_PASSWORD: pagedata.LGN_FORGOT_PASSWORD,
-          LGN_BTN_SUBMIT: pagedata.LGN_BTN_SUBMIT
+          LGN_PLACEHOLDER_EMAIL: pagedata.LGN_PLACEHOLDER_EMAIL,
+          LGN_PLACEHOLDER_PASSWORD: pagedata.LGN_PLACEHOLDER_PASSWORD,
+          LGN_BTN: pagedata.LGN_BTN,
+          LGN_FORGOT_PSWD: pagedata.LGN_FORGOT_PSWD,
+          LGN_SIGNUP: pagedata.LGN_SIGNUP
       });
   }
 
@@ -52,40 +53,40 @@ export default class Signuppage extends React.Component {
       this.props.onClick(this);
   }
 
-  onChangeLoginTitle = (e) => {
+  placeholderEmail = (e) => {
       e.preventDefault();
-      this.setState({ LGN_TITLE: e.target.value });
+      this.setState({ LGN_PLACEHOLDER_EMAIL: e.target.value });
   }
 
-  onChangeUsername = (e) => {
+  placeholderPassword = (e) => {
       e.preventDefault();
-      this.setState({ LGN_USERNAME: e.target.value });
+      this.setState({ LGN_PLACEHOLDER_PASSWORD: e.target.value });
   }
 
-  onChangePassword = (e) => {
+  loginBtn = (e) => {
       e.preventDefault();
-      this.setState({ LGN_PASSWORD: e.target.value });
+      this.setState({ LGN_BTN: e.target.value });
   }
 
-  onChangeFPassword = (e) => {
+  forgotPassword = (e) => {
       e.preventDefault();
-      this.setState({ LGN_FORGOT_PASSWORD: e.target.value });
+      this.setState({ LGN_FORGOT_PSWD: e.target.value });
   }
 
-  onChangeBtnSubmit = (e) => {
+  loginSignup = (e) => {
       e.preventDefault();
-      this.setState({ LGN_BTN_SUBMIT: e.target.value });
+      this.setState({ LGN_SIGNUP: e.target.value });
   }
 
 
   render() {
 
       let pagedata = this.state.pagedata;
-      let LGN_TITLE = this.state.LGN_TITLE;
-      let LGN_USERNAME = this.state.LGN_USERNAME;
-      let LGN_PASSWORD = this.state.LGN_PASSWORD;
-      let LGN_FORGOT_PASSWORD = this.state.LGN_FORGOT_PASSWORD;
-      let LGN_BTN_SUBMIT = this.state.LGN_BTN_SUBMIT;
+      let LGN_PLACEHOLDER_EMAIL = this.state.LGN_PLACEHOLDER_EMAIL;
+      let LGN_PLACEHOLDER_PASSWORD = this.state.LGN_PLACEHOLDER_PASSWORD;
+      let LGN_BTN = this.state.LGN_BTN;
+      let LGN_FORGOT_PSWD = this.state.LGN_FORGOT_PSWD;
+      let LGN_SIGNUP = this.state.LGN_SIGNUP;
 
 
       return (
@@ -93,48 +94,48 @@ export default class Signuppage extends React.Component {
             <h4>Edit - Login page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
-                    <form id="signupForm" className="ui form">
+                    <form id="loginForm" className="ui form">
                       <input type="hidden" name="_id" value={pagedata._id} />
                       <input type="hidden" name="language" value={pagedata.language} />
                       <div className="field">
-                        <label>LGN_TITLE</label>
+                        <label>LGN_PLACEHOLDER_EMAIL</label>
                         <input className="form-control"
-                                 name="LGN_TITLE"
+                                 name="LGN_PLACEHOLDER_EMAIL"
                                  type="text"
-                                 value={LGN_TITLE}
-                                 onChange={this.onChangeLoginTitle} />
+                                 value={LGN_PLACEHOLDER_EMAIL}
+                                 onChange={this.placeholderEmail} />
                       </div>
                       <div className="field">
-                        <label>LGN_USERNAME</label>
+                        <label>LGN_PLACEHOLDER_PASSWORD</label>
                         <input className="form-control"
                                  type="text"
-                                 name="LGN_USERNAME"
-                                 value={LGN_USERNAME}
-                                 onChange={this.onChangeUsername} />
+                                 name="LGN_PLACEHOLDER_PASSWORD"
+                                 value={LGN_PLACEHOLDER_PASSWORD}
+                                 onChange={this.placeholderPassword} />
                       </div>
                       <div className="field">
-                        <label>LGN_PASSWORD</label>
+                        <label>LGN_BTN</label>
                         <input className="form-control"
                                  type="text"
-                                 name="LGN_PASSWORD"
-                                 value={LGN_PASSWORD}
-                                 onChange={this.onChangePassword} />
+                                 name="LGN_BTN"
+                                 value={LGN_BTN}
+                                 onChange={this.loginBtn} />
                       </div>
                       <div className="field">
-                        <label>LGN_FORGOT_PASSWORD</label>
+                        <label>LGN_FORGOT_PSWD</label>
                         <input className="form-control"
                                  type="text"
-                                 name="LGN_FORGOT_PASSWORD"
-                                 value={LGN_FORGOT_PASSWORD}
-                                 onChange={this.onChangeFPassword} />
+                                 name="LGN_FORGOT_PSWD"
+                                 value={LGN_FORGOT_PSWD}
+                                 onChange={this.forgotPassword} />
                       </div>
                       <div className="field">
-                        <label>LGN_BTN_SUBMIT</label>
+                        <label>LGN_SIGNUP</label>
                         <input className="form-control"
                                  type="text"
-                                 name="LGN_BTN_SUBMIT"
-                                 value={LGN_BTN_SUBMIT}
-                                 onChange={this.onChangeBtnSubmit} />
+                                 name="LGN_SIGNUP"
+                                 value={LGN_SIGNUP}
+                                 onChange={this.loginSignup} />
                       </div>
                       <div className="field">
                         <button className="ui blue button" onClick={this.onSubmitLogin}>Submit</button>

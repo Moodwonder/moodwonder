@@ -158,17 +158,17 @@ export default RequireAuth(class Pages extends React.Component {
    * Login page submit
    */
   onSubmitLogin = (e) => {
-      let formData = document.querySelector('#signupForm');
+      let formData = document.querySelector('#loginForm');
       let data = getFormData(formData, {trim: true});
       let pageid = data['_id'];
       let login = login || {};
 
       login.language = data['language'];
-      login.LGN_TITLE = data['LGN_TITLE'];
-      login.LGN_USERNAME = data['LGN_USERNAME'];
-      login.LGN_PASSWORD = data['LGN_PASSWORD'];
-      login.LGN_FORGOT_PASSWORD = data['LGN_FORGOT_PASSWORD'];
-      login.LGN_BTN_SUBMIT = data['LGN_BTN_SUBMIT'];
+      login.LGN_PLACEHOLDER_EMAIL = data['LGN_PLACEHOLDER_EMAIL'];
+      login.LGN_PLACEHOLDER_PASSWORD = data['LGN_PLACEHOLDER_PASSWORD'];
+      login.LGN_BTN = data['LGN_BTN'];
+      login.LGN_FORGOT_PSWD = data['LGN_FORGOT_PSWD'];
+      login.LGN_SIGNUP = data['LGN_SIGNUP'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'login', login);
