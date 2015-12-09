@@ -909,9 +909,9 @@ export default class MyMood extends React.Component {
       let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
       let myEmployeeEngagement = QuickStatistics.getMyEmployeeEngagement(companysurvey, currentuserid);
 
-      let topmanagers;
+      let tmanagers;
       if (engagedmanagers.length > 0) {
-          let tmanagers = engagedmanagers.map((data, index) => {
+          tmanagers = engagedmanagers.map((data, index) => {
               let image = "";
               if (index === 0) {
                   image = "assets/images/gold.png";
@@ -930,15 +930,8 @@ export default class MyMood extends React.Component {
                       );
           });
 
-          topmanagers = (
-                        <div className="column">
-                            <div className="ui segment brdr">
-                                <h2>{GetText('MYMD_MOST_ENGAGING', mlarray)}</h2>
-                                {tmanagers}
-                            </div>
-                        </div>
-            );
-
+      } else {
+          tmanagers = (<span>Please add your manager through <a href="/mymanager">My Manager</a> page.</span>);
       }
 
       let bCount = lastRatings.length - 1;
@@ -1111,7 +1104,12 @@ export default class MyMood extends React.Component {
 
                     <div className="ui two column stackable grid ">
                         {myEngagement}
-                        {topmanagers}
+                        <div className="column">
+                            <div className="ui segment brdr">
+                                <h2>{GetText('MYMD_MOST_ENGAGING', mlarray)}</h2>
+                                {tmanagers}
+                            </div>
+                        </div>
                     </div>
           ];
       }

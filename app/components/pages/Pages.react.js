@@ -19,6 +19,7 @@ import SurveyForms from 'components/pages/SurveyForms.react';
 import Survey from 'components/pages/Survey.react';
 import Mycompany from 'components/pages/Mycompany.react';
 import OpenendedSurvey from 'components/pages/OpenendedSurvey.react';
+import Mymood from 'components/pages/Mymood.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -98,7 +99,54 @@ export default RequireAuth(class Pages extends React.Component {
       let home = home || {};
 
       home.language = data['language'];
-      home.HOM_TITLE = data['HOM_TITLE'];
+      home.HOM_SIGN_IN = data['HOM_SIGN_IN'];
+      home.HOM_REGISTER = data['HOM_REGISTER'];
+      home.HOM_SGN_WORK_EMAIL = data['HOM_SGN_WORK_EMAIL'];
+      home.HOM_GET_STARTED = data['HOM_GET_STARTED'];
+      home.HOM_2_TITLE_1 = data['HOM_2_TITLE_1'];
+      home.HOM_2_TITLE_2 = data['HOM_2_TITLE_2'];
+      home.HOM_2_ITEM_1 = data['HOM_2_ITEM_1'];
+      home.HOM_2_ITEM_2 = data['HOM_2_ITEM_2'];
+      home.HOM_2_ITEM_3 = data['HOM_2_ITEM_3'];
+      home.HOM_3_TITLE_1 = data['HOM_3_TITLE_1'];
+      home.HOM_3_BOX_1_TITLE_1 = data['HOM_3_BOX_1_TITLE_1'];
+      home.HOM_3_BOX_1_CONTENT = data['HOM_3_BOX_1_CONTENT'];
+      home.HOM_3_BOX_2_TITLE_1 = data['HOM_3_BOX_2_TITLE_1'];
+      home.HOM_3_BOX_2_CONTENT = data['HOM_3_BOX_2_CONTENT'];
+      home.HOM_3_BOX_3_TITLE_1 = data['HOM_3_BOX_3_TITLE_1'];
+      home.HOM_3_BOX_3_CONTENT = data['HOM_3_BOX_3_CONTENT'];
+      home.HOM_3_BOX_4_TITLE_1 = data['HOM_3_BOX_4_TITLE_1'];
+      home.HOM_3_BOX_4_CONTENT = data['HOM_3_BOX_4_CONTENT'];
+      home.HOM_4_TITLE_1 = data['HOM_4_TITLE_1'];
+      home.HOM_4_BOX_1_TITLE_1 = data['HOM_4_BOX_1_TITLE_1'];
+      home.HOM_4_BOX_1_CONTENT = data['HOM_4_BOX_1_CONTENT'];
+      home.HOM_4_BOX_2_TITLE_1 = data['HOM_4_BOX_2_TITLE_1'];
+      home.HOM_4_BOX_2_CONTENT = data['HOM_4_BOX_2_CONTENT'];
+      home.HOM_4_BOX_3_TITLE_1 = data['HOM_4_BOX_3_TITLE_1'];
+      home.HOM_4_BOX_3_CONTENT = data['HOM_4_BOX_3_CONTENT'];
+      home.HOM_4_BOX_4_TITLE_1 = data['HOM_4_BOX_4_TITLE_1'];
+      home.HOM_4_BOX_4_CONTENT = data['HOM_4_BOX_4_CONTENT'];
+      home.HOM_5_TITLE_1 = data['HOM_5_TITLE_1'];
+      home.HOM_5_BOX_1_TITLE_1 = data['HOM_5_BOX_1_TITLE_1'];
+      home.HOM_5_BOX_1_CONTENT = data['HOM_5_BOX_1_CONTENT'];
+      home.HOM_5_BOX_2_TITLE_1 = data['HOM_5_BOX_2_TITLE_1'];
+      home.HOM_5_BOX_2_CONTENT = data['HOM_5_BOX_2_CONTENT'];
+      home.HOM_5_BOX_3_TITLE_1 = data['HOM_5_BOX_3_TITLE_1'];
+      home.HOM_5_BOX_3_CONTENT = data['HOM_5_BOX_3_CONTENT'];
+      home.HOM_5_BOX_4_TITLE_1 = data['HOM_5_BOX_4_TITLE_1'];
+      home.HOM_5_BOX_4_CONTENT = data['HOM_5_BOX_4_CONTENT'];
+      home.HOM_6_TITLE_1 = data['HOM_6_TITLE_1'];
+      home.HOM_7_TITLE = data['HOM_7_TITLE'];
+      home.HOM_7_NAME = data['HOM_7_NAME'];
+      home.HOM_7_EMAIL = data['HOM_7_EMAIL'];
+      home.HOM_7_MOBILE = data['HOM_7_MOBILE'];
+      home.HOM_7_LOOKING_FOR = data['HOM_7_LOOKING_FOR'];
+      home.HOM_7_SUBMIT = data['HOM_7_SUBMIT'];
+      home.HOM_FOOTER_ABOUT = data['HOM_FOOTER_ABOUT'];
+      home.HOM_FOOTER_ANONYMITY = data['HOM_FOOTER_ANONYMITY'];
+      home.HOM_FOOTER_TERMS = data['HOM_FOOTER_TERMS'];
+      home.HOM_FOOTER_POLICY = data['HOM_FOOTER_POLICY'];
+      home.HOM_FOOTER_CONTACT = data['HOM_FOOTER_CONTACT'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'home', home);
@@ -110,17 +158,17 @@ export default RequireAuth(class Pages extends React.Component {
    * Login page submit
    */
   onSubmitLogin = (e) => {
-      let formData = document.querySelector('#signupForm');
+      let formData = document.querySelector('#loginForm');
       let data = getFormData(formData, {trim: true});
       let pageid = data['_id'];
       let login = login || {};
 
       login.language = data['language'];
-      login.LGN_TITLE = data['LGN_TITLE'];
-      login.LGN_USERNAME = data['LGN_USERNAME'];
-      login.LGN_PASSWORD = data['LGN_PASSWORD'];
-      login.LGN_FORGOT_PASSWORD = data['LGN_FORGOT_PASSWORD'];
-      login.LGN_BTN_SUBMIT = data['LGN_BTN_SUBMIT'];
+      login.LGN_PLACEHOLDER_EMAIL = data['LGN_PLACEHOLDER_EMAIL'];
+      login.LGN_PLACEHOLDER_PASSWORD = data['LGN_PLACEHOLDER_PASSWORD'];
+      login.LGN_BTN = data['LGN_BTN'];
+      login.LGN_FORGOT_PSWD = data['LGN_FORGOT_PSWD'];
+      login.LGN_SIGNUP = data['LGN_SIGNUP'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'login', login);
@@ -498,6 +546,80 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+  onSubmitMymood = (e) => {
+      let formData = document.querySelector('#mymoodForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let mymood = mymood || {};
+
+      mymood.language = data['language'];
+      mymood.MYMD_EGRAPH = data['MYMD_EGRAPH'];
+      mymood.MYMD_MRATING = data['MYMD_MRATING'];
+      mymood.MYMD_CSURVEY = data['MYMD_CSURVEY'];
+      mymood.MYMD_OPTMWINDEX = data['MYMD_OPTMWINDEX'];
+      mymood.MYMD_OPTMOOD = data['MYMD_OPTMOOD'];
+      mymood.MYMD_OPTMEANING = data['MYMD_OPTMEANING'];
+      mymood.MYMD_OPTEXPECTATIONS = data['MYMD_OPTEXPECTATIONS'];
+      mymood.MYMD_OPTSTRENGTHS = data['MYMD_OPTSTRENGTHS'];
+      mymood.MYMD_OPTRECOGNITION = data['MYMD_OPTRECOGNITION'];
+      mymood.MYMD_OPTDEVELOPMENT = data['MYMD_OPTDEVELOPMENT'];
+      mymood.MYMD_OPTINFLUENCE = data['MYMD_OPTINFLUENCE'];
+      mymood.MYMD_OPTGOALS = data['MYMD_OPTGOALS'];
+      mymood.MYMD_OPTTEAM = data['MYMD_OPTTEAM'];
+      mymood.MYMD_OPTFRIENDSHIP = data['MYMD_OPTFRIENDSHIP'];
+      mymood.MYMD_OPTFEEDBACK = data['MYMD_OPTFEEDBACK'];
+      mymood.MYMD_OPTOPPORTUNITIES = data['MYMD_OPTOPPORTUNITIES'];
+      mymood.MYMD_OPTRECOMMENDATION = data['MYMD_OPTRECOMMENDATION'];
+      mymood.MYMD_OPTALLTIME = data['MYMD_OPTALLTIME'];
+      mymood.MYMD_OPTTWELVE = data['MYMD_OPTTWELVE'];
+      mymood.MYMD_OPTSIX = data['MYMD_OPTSIX'];
+      mymood.MYMD_OPTTHREE = data['MYMD_OPTTHREE'];
+      mymood.MYMD_OPTLASTMONTH = data['MYMD_OPTLASTMONTH'];
+      mymood.MYMD_ATSTART = data['MYMD_ATSTART'];
+      mymood.MYMD_HIGHEST = data['MYMD_HIGHEST'];
+      mymood.MYMD_LOWEST = data['MYMD_LOWEST'];
+      mymood.MYMD_CURRENT = data['MYMD_CURRENT'];
+      mymood.MYMD_DAYS_CHANGE = data['MYMD_DAYS_CHANGE'];
+      mymood.MYMD_WEEK_CHANGE = data['MYMD_WEEK_CHANGE'];
+      mymood.MYMD_E_ENGAGEMENT = data['MYMD_E_ENGAGEMENT'];
+      mymood.MYMD_MOST_ENGAGING = data['MYMD_MOST_ENGAGING'];
+      mymood.MYMD_TOPTHREEAREAS_HEADING = data['MYMD_TOPTHREEAREAS_HEADING'];
+      mymood.MYMD_WORSTTHREEAREAS_HEADING = data['MYMD_WORSTTHREEAREAS_HEADING'];
+      mymood.MYMD_MOSTIMPROVEDAREAS_HEADING = data['MYMD_MOSTIMPROVEDAREAS_HEADING'];
+      mymood.MYMD_LEASTIMPROVEDAREAS_HEADING = data['MYMD_LEASTIMPROVEDAREAS_HEADING'];
+      mymood.MYMD_HIGHERTHANCOMPANYAVERAGE_HEADING = data['MYMD_HIGHERTHANCOMPANYAVERAGE_HEADING'];
+      mymood.MYMD_LOWERTHANCOMPANYAVERAGE_HEADING = data['MYMD_LOWERTHANCOMPANYAVERAGE_HEADING'];
+      mymood.MYMD_HIGHERCAVERAGE_EMPTYMSG = data['MYMD_HIGHERCAVERAGE_EMPTYMSG'];
+      mymood.MYMD_LOWERCAVERAGE_EMPTYMSG = data['MYMD_LOWERCAVERAGE_EMPTYMSG'];
+      mymood.MYMD_SGENERATION_TITLE = data['MYMD_SGENERATION_TITLE'];
+      mymood.MYMD_SLISTSBTN = data['MYMD_SLISTSBTN'];
+      mymood.MYMD_STITLE = data['MYMD_STITLE'];
+      mymood.MYMD_TITLE_PLCHOLDER = data['MYMD_TITLE_PLCHOLDER'];
+      mymood.MYMD_SFREEZE_DATE = data['MYMD_SFREEZE_DATE'];
+      mymood.MYMD_TARGET_GROUP = data['MYMD_TARGET_GROUP'];
+      mymood.MYMD_TARGETORG = data['MYMD_TARGETORG'];
+      mymood.MYMD_TORG_DEFAULT_OPTION = data['MYMD_TORG_DEFAULT_OPTION'];
+      mymood.MYMD_TARGETSURVEY = data['MYMD_TARGETSURVEY'];
+      mymood.MYMD_TSURVEY_DEFAULT_OPTION1 = data['MYMD_TSURVEY_DEFAULT_OPTION1'];
+      mymood.MYMD_TSURVEY_DEFAULT_OPTION2 = data['MYMD_TSURVEY_DEFAULT_OPTION2'];
+      mymood.MYMD_QNS_TITLE = data['MYMD_QNS_TITLE'];
+      mymood.MYMD_ADD_QNS = data['MYMD_ADD_QNS'];
+      mymood.MYMD_SUBMIT_SURVEY = data['MYMD_SUBMIT_SURVEY'];
+      mymood.MYMD_QNSTITLE = data['MYMD_QNSTITLE'];
+      mymood.MYMD_QNSPLCHLOLDER = data['MYMD_QNSPLCHLOLDER'];
+      mymood.MYMD_ANSTYPE_LBL = data['MYMD_ANSTYPE_LBL'];
+      mymood.MYMD_ANSTYPE_DEFAULT = data['MYMD_ANSTYPE_DEFAULT'];
+      mymood.MYMD_CHILD_ADDBTN = data['MYMD_CHILD_ADDBTN'];
+      mymood.MYMD_CHILD_CANCELBTN = data['MYMD_CHILD_CANCELBTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'mymood', mymood);
+          //console.log(JSON.stringify(mymood));
+          this.setState({formstatus: true});
+      }
+  }
+
+
 
   render() {
       let languages = this.state.languages;
@@ -573,6 +695,10 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<OpenendedSurvey language={this.state.language} onClick={this.onSubmitOpenendedSurvey}/>);
               break;
 
+          case 'mymood':
+              contents = (<Mymood language={this.state.language} onClick={this.onSubmitMymood}/>);
+              break;
+
           default: break;
       }
 
@@ -600,6 +726,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="survey">Engagement Survey</option>
                         <option value="mycompany">Mycompany</option>
                         <option value="openendedsurvey">Openended Survey</option>
+                        <option value="mymood">Mymood</option>
                     </select>
                   </div>
                   <div className="field">

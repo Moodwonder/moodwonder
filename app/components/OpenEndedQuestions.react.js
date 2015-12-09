@@ -16,7 +16,8 @@ export default class OpenEndedQuestions extends React.Component {
         questions: [],
         savesurveyflag: false,
         surveyresults: SurveyStore.getState().surveyresults,
-        multilang: MlangStore.getState().multilang
+        multilang: MlangStore.getState().multilang,
+        errormsg: ''
       };
   }
 
@@ -38,7 +39,6 @@ export default class OpenEndedQuestions extends React.Component {
       });
 
       if (this.state.savesurveyflag) {
-          console.log('submitted');
           window.location.assign('/mymood');
       }
   }
@@ -61,36 +61,36 @@ export default class OpenEndedQuestions extends React.Component {
       openended.least_improved_atwo = data['least_improved_atwo'];
       openended.least_improved_athree = data['least_improved_athree'];
 
-      //let errorFlag =  false;
+      let errorFlag =  false;
 
-      //if(openended.most_improved_aone === '' || openended.most_improved_aone === null) {
-      //    errorFlag =  true;
-      //} else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
-      //    errorFlag =  true;
-      //} else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
-      //    errorFlag =  true;
-      //} else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
-      //    errorFlag =  true;
-      //} else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
-      //    errorFlag =  true;
-      //} else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
-      //    errorFlag =  true;
-      //}
+      if(openended.most_improved_aone === '' || openended.most_improved_aone === null ) {
+          errorFlag =  true;
+      } else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
+          errorFlag =  true;
+      } else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
+          errorFlag =  true;
+      }
 
-      //if (errorFlag) {
-      //    alert("Please answer all the questions.");
-      //} else {
-      //    if (window.confirm('Are sure you want to submit Open ended questions?')) {
-      //        OpenEndedActions.saveAnswers(openended);
-      //    }
-      //}
+      if (errorFlag) {
+          //alert("Please answer all the questions.");
+          this.setState({errormsg: "Error : Responses can't be blank. Please answer all the questions."});
+      } else {
+          OpenEndedActions.saveAnswers(openended);
+      }
 
-      OpenEndedActions.saveAnswers(openended);
+      //OpenEndedActions.saveAnswers(openended);
   }
 
   onOpenEndedSurveyCancel = (e) => {
       e.preventDefault();
-      document.getElementById("openEndedForm").reset();
+      //document.getElementById("openEndedForm").reset();
+      window.location.assign('/mymood');
   }
 
 
@@ -98,6 +98,7 @@ export default class OpenEndedQuestions extends React.Component {
   render() {
 
       let surveyresults = this.state.surveyresults;
+      let errormsg = this.state.errormsg;
       let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
       let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
       let mlarray = this.state.multilang;
@@ -142,6 +143,17 @@ export default class OpenEndedQuestions extends React.Component {
           wmood = lowests[wrand].mood;
       } else {
           wmood = '';
+      }
+
+      let errMsg;
+      if (errormsg != '') {
+          errMsg = (
+                    <div className="ui one column stackable grid container ">
+                        <div className="column">
+                            <div className="ui red message">{errormsg}</div>
+                        </div>
+                    </div>
+                  );
       }
 
       let questions = (this.state.questions).map((question) => {
@@ -266,6 +278,7 @@ export default class OpenEndedQuestions extends React.Component {
 
       return (
         <div className="ui segment brdr-none padding-none width-rating">
+            {errMsg}
             <form id="openEndedForm">
                 {questions}
             </form>

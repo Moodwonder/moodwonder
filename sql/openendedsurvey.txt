@@ -22,7 +22,7 @@ db.openendedsurveypage.insert({ "language" : "EN",
                         "OPES_FEEDBACK" : "Feedback",
                         "OPES_OPPORTUNITIES" : "Opportunities",
                         "OPES_RECOMMENDATION" : "Recommendation",
-                        "OPES_CANCEL_BTN" : "Cancel",
+                        "OPES_CANCEL_BTN" : "Skip",
                         "OPES_SUBMIT_BTN" : "Submit"
 });
 
@@ -49,6 +49,6 @@ db.openendedsurveypage.insert({ "language" : "FI",
                         "OPES_FEEDBACK" : "palaute",
                         "OPES_OPPORTUNITIES" : "mahdollisuudet",
                         "OPES_RECOMMENDATION" : "suositus",
-                        "OPES_CANCEL_BTN" : "Peruuttaa",
+                        "OPES_CANCEL_BTN" : "hyppiä",
                         "OPES_SUBMIT_BTN" : "esittää"
 });
