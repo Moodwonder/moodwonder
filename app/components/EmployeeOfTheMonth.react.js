@@ -55,6 +55,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered[this.state.votekey].votes++;
             this.mytotalvotes++;
             state.voteStatus = false;
+            this._onPopClose();
         }
 
         // Set start/end date for employee of the month
@@ -86,9 +87,14 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     _onChangeComment = (e) => {
+
         if(e.target.value.trim() !== ''){
             this.setState({
                 isNotValid: false
+            });
+        }else{
+            this.setState({
+                isNotValid: true
             });
         }
     }
@@ -162,7 +168,7 @@ export default class EmployeeOfTheMonth extends React.Component {
     _onVoteSubmit = (e) => {
         if(parseInt(this.mytotalvotes) < 5){
             let comment = React.findDOMNode(this.refs.comment).value.trim();
-            EOTMActions.saveVote({ emp_id: this.state.emp_id, comment: comment });
+            EOTMActions.saveVote({ emp_id: this.state.emp_id, comment: comment, callback: 'vote' });
         }
     }
 
