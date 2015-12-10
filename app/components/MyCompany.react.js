@@ -86,9 +86,9 @@ export default class MyCompany extends React.Component {
          teams: SurveyStore.getState().teams
       });
 
-      this.engagementmoods = this.state.questions.map((data, key) => {
-          return data.mood;
-      });
+      //this.engagementmoods = this.state.questions.map((data, key) => {
+      //    return data.mood;
+      //});
   }
 
   _onChangeUserData = () => {
@@ -374,62 +374,66 @@ export default class MyCompany extends React.Component {
       let teamgraph = teams.map((data, key) => {
 
           let teamGraphData = CompanyGraphdata.getTeamEngagementGraphData(graphengagement, companyedata, data.member_ids);
-          let  tlastrate = _.last(teamGraphData,1);
-          let tlastrating;
-          if (tlastrate === undefined || tlastrate.length == 0) {
+          if (teamGraphData === undefined || teamGraphData.length == 0) {
+              return null;
           } else {
-              tlastrating = tlastrate[0].rating;
-          }
-
-          let txlabel = [];
-          let tydata = [];
-          let tcount = teamGraphData.length - 1;
-          let tindex = 0;
-
-          for(let data of teamGraphData) {
-              if(tindex <= tcount) {
-                  txlabel[tindex] = data.created.d;
-                  tydata[tindex] = data.rating;
+              let  tlastrate = _.last(teamGraphData,1);
+              let tlastrating;
+              if (tlastrate === undefined || tlastrate.length == 0) {
+              } else {
+                  tlastrating = tlastrate[0].rating;
               }
-              tindex++;
-          }
 
-          if (txlabel.length === 0) {
-              let today = new Date();
-              let year = today.getFullYear();
-              let month = ('0' + (today.getMonth() + 1)).slice(-2);
-              let day = ('0' + today.getDate()).slice(-2);
-              txlabel.push(year + '-' + month + '-' +day);
-          }
+              let txlabel = [];
+              let tydata = [];
+              let tcount = teamGraphData.length - 1;
+              let tindex = 0;
 
-          let tchartdata =  tchartdata || {};
-          let tdata = {
-              label: "First Dataset",
-              fillColor: "rgba(151,187,205,0.2)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(151,187,205,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(151,187,205,1)",
-              data: tydata
-          };
+              for(let data of teamGraphData) {
+                  if(tindex <= tcount) {
+                      txlabel[tindex] = data.created.d;
+                      tydata[tindex] = data.rating;
+                  }
+                  tindex++;
+              }
 
-          let tdatasets = [];
-          tdatasets.push(tdata);
+              if (txlabel.length === 0) {
+                  let today = new Date();
+                  let year = today.getFullYear();
+                  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+                  let day = ('0' + today.getDate()).slice(-2);
+                  txlabel.push(year + '-' + month + '-' +day);
+              }
 
-          tchartdata.labels = txlabel;
-          tchartdata.datasets = tdatasets;
+              let tchartdata =  tchartdata || {};
+              let tdata = {
+                  label: "First Dataset",
+                  fillColor: "rgba(151,187,205,0.2)",
+                  strokeColor: "rgba(151,187,205,1)",
+                  pointColor: "rgba(151,187,205,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(151,187,205,1)",
+                  data: tydata
+              };
 
-          return (
-                    <div className="ui  column stackable grid">
-                        <div className="column ">
-                            <div className="ui segment brdr">
-                                <h2 className="com">{data.teamname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{tlastrating}</span> </h2>
-                                <div><LineChart data={tchartdata} options={chartoptions} width="800" height="250" redraw/></div>
+              let tdatasets = [];
+              tdatasets.push(tdata);
+
+              tchartdata.labels = txlabel;
+              tchartdata.datasets = tdatasets;
+
+              return (
+                        <div className="ui  column stackable grid">
+                            <div className="column ">
+                                <div className="ui segment brdr">
+                                    <h2 className="com">{data.teamname} <span className="chrt"><i className="signal icon large"></i></span> <span className="points">{tlastrating}</span> </h2>
+                                    <div><LineChart data={tchartdata} options={chartoptions} width="800" height="250" redraw/></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-          );
+              );
+          }
       });
       //End : Team Graph Data
 
