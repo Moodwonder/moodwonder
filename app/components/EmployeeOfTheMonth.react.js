@@ -15,6 +15,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         this.ShowMoreStatus = true;
         this.mytotalvotes = 0;
         this.hasData = false;
+        this.hasMoreData = false;
         this.last_id = '';
         this.search = false;
     }
@@ -54,6 +55,12 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered[this.state.votekey].votes++;
             this.mytotalvotes++;
             state.voteStatus = false;
+        }
+
+        // Set start/end date for employee of the month
+        if(this.hasData){
+            state.voteperiod = state.employees.data.voteperiod;
+            this.hasMoreData = state.employees.data.hasMoreData;
         }
         this.setState(state);
         this.messageAutoClose(state);
@@ -171,10 +178,15 @@ export default class EmployeeOfTheMonth extends React.Component {
         let mlarray = this.state.multilang;
 
         let employees = '';
+        let moreusers = null;
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
                 return [<VoteWidget _id={data._id} uid={this.state.employees.data.current_user_id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
             });
+        }
+
+        if(this.hasMoreData){
+            moreusers = [<div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>{GetText('EOM_SHOW_MORE', mlarray)}</a> </div>];
         }
 
         let message;
@@ -212,7 +224,7 @@ export default class EmployeeOfTheMonth extends React.Component {
 
         return (
             <div className="ui main">
-                <ProfileHeader data={{votes: this.mytotalvotes }}/>
+                <ProfileHeader data={{votes: this.mytotalvotes, voteperiod: this.state.voteperiod }}/>
                 <div className="ui secondary menu account">
                     <div className="ui container">
                         <div className="ui right labeled left icon input">
@@ -227,7 +239,7 @@ export default class EmployeeOfTheMonth extends React.Component {
                 <div className="ui link five cards stackable grid cast">
                     {employees}
                 </div>
-                <div className="ui horizontal divider"> <a onClick={this.showMoreUsers}>{GetText('EOM_SHOW_MORE', mlarray)}</a> </div>
+                {moreusers}
                 {modal}
             </div>
         );
@@ -314,9 +326,13 @@ class ProfileHeader extends React.Component {
     render() {
 
         let text = null;
+        let voteperiod = null;
         // let mlarray = this.state.multilang;
         if(this.state.votes !== undefined) {
             text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
+        }
+        if(this.state.voteperiod !== undefined) {
+            voteperiod = [<p className="votes"> Vote period : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
         //console.log(this.state);
 
@@ -330,6 +346,7 @@ class ProfileHeader extends React.Component {
                         <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
                         <span className="text-shadow">{this.state.userData.email} </span>
                         {text}
+                        {voteperiod}
                     </div>
                 </div>
             </div>

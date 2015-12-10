@@ -282,151 +282,151 @@ export default class MyCompanyInfo extends React.Component {
         }
 
         return (
-                <div>
-                    <h4 className="ui header ryt">My Company Info</h4>
-                    {message}
-                    <div className="ui small form">
-                        <form className="field">
-                            <div className="field">
-                               <input
-                               ref="companyname"
-                               name="companyname"
-                               className="form-control"
-                               value={userInfo.companyname}
-                               placeholder="Company name"
-                               validationError="Company name is required"
-                               onChange={this.onChangeText}
-                               disabled={true}
-                               required/>
-                            </div>
+            <div>
+                <h4 className="ui header ryt">My Company Info</h4>
+                {message}
+                <div className="ui small form">
+                    <form className="field">
+                        <div className="field">
+                           <input
+                           ref="companyname"
+                           name="companyname"
+                           className="form-control"
+                           value={userInfo.companyname}
+                           placeholder="Company name"
+                           validationError="Company name is required"
+                           onChange={this.onChangeText}
+                           disabled={true}
+                           required/>
+                        </div>
 
-                            <div className="field">
-                               <input
-                               ref="industry"
-                               name="industry"
-                               className="form-control"
-                               value={userInfo.industry}
-                               placeholder="Industry"
-                               validationError="Industry is required"
-                               onChange={this.onChangeText}
-                               required/>
-                            </div>
+                        <div className="field">
+                           <input
+                           ref="industry"
+                           name="industry"
+                           className="form-control"
+                           value={userInfo.industry}
+                           placeholder="Industry"
+                           validationError="Industry is required"
+                           onChange={this.onChangeText}
+                           required/>
+                        </div>
 
-                            <div className="field">
-                               <select
-                               ref="continent"
-                               name="continent"
-                               className="form-control"
-                               value={userInfo.continent}
-                               onChange={this.onChangeContinent.bind(this)}
-                               >
-                               <option value="">Continent</option>
-                               {
-                                (this.state.continents !==undefined && this.state.continents.length > 0) ? (
-                                this.state.continents.map((data, key) => {
-                                    return (<option value={data.text}>{data.text}</option>);
-                                })) : (<option>Other</option>)
-                               }
-                               <option value="Other">Other</option>
-                               </select>
-                            </div>
+                        <div className="field">
+                           <select
+                           ref="continent"
+                           name="continent"
+                           className="form-control"
+                           value={userInfo.continent}
+                           onChange={this.onChangeContinent.bind(this)}
+                           >
+                           <option value="">Continent</option>
+                           {
+                            (this.state.continents !==undefined && this.state.continents.length > 0) ? (
+                            this.state.continents.map((data, key) => {
+                                return (<option value={data.text}>{data.text}</option>);
+                            })) : (<option>Other</option>)
+                           }
+                           <option value="Other">Other</option>
+                           </select>
+                        </div>
 
-                            <div className="field">
-                               <select
-                               ref="country"
-                               name="country"
-                               className="form-control"
-                               onChange={this.onChangeCountry}
-                               value={userInfo.country}
-                               >
-                               <option value="">Country</option>
-                               {
-                                (this.state.countries.length > 0) ? (
-                                this.state.countries.map((data, key) => {
-                                    return (<option>{data.text}</option>);
-                                })) : null
-                               }
-                               </select>
-                            </div>
+                        <div className="field">
+                           <select
+                           ref="country"
+                           name="country"
+                           className="form-control"
+                           onChange={this.onChangeCountry}
+                           value={userInfo.country}
+                           >
+                           <option value="">Country</option>
+                           {
+                            (this.state.countries.length > 0) ? (
+                            this.state.countries.map((data, key) => {
+                                return (<option>{data.text}</option>);
+                            })) : null
+                           }
+                           </select>
+                        </div>
 
-                            <div className="field">
-                               <select
-                               ref="state"
-                               name="state"
-                               className="form-control"
-                               value={userInfo.state}
-                               onChange={this.onChangeStates}
-                               >
-                               <option value="">State</option>
-                               {
-                                (this.state.states.length > 0) ? (
-                                this.state.states.map((data, key) => {
-                                    return (<option>{data.text}</option>);
-                                })) : null
-                               }
-                               </select>
-                            </div>
+                        <div className="field">
+                           <select
+                           ref="state"
+                           name="state"
+                           className="form-control"
+                           value={userInfo.state}
+                           onChange={this.onChangeStates}
+                           >
+                           <option value="">State</option>
+                           {
+                            (this.state.states.length > 0) ? (
+                            this.state.states.map((data, key) => {
+                                return (<option>{data.text}</option>);
+                            })) : null
+                           }
+                           </select>
+                        </div>
 
-                            <div className="field">
-                               <select
-                               ref="city"
-                               name="city"
-                               className="form-control"
-                               value={userInfo.city}
-                               onChange={this.onChangeCities}
-                               >
-                               <option value="">City</option>
-                               {
-                                (this.state.cities.length > 0) ? (
-                                this.state.cities.map((data, key) => {
-                                    return (<option value={data.text}>{data.text}</option>);
-                                })) : null
-                               }
-                               </select>
-                            </div>
+                        <div className="field">
+                           <select
+                           ref="city"
+                           name="city"
+                           className="form-control"
+                           value={userInfo.city}
+                           onChange={this.onChangeCities}
+                           >
+                           <option value="">City</option>
+                           {
+                            (this.state.cities.length > 0) ? (
+                            this.state.cities.map((data, key) => {
+                                return (<option value={data.text}>{data.text}</option>);
+                            })) : null
+                           }
+                           </select>
+                        </div>
 
-                            <div className="field">
-                               <input
-                               ref="address"
-                               name="address"
-                               className="form-control"
-                               value={userInfo.address}
-                               placeholder="Address"
-                               validationError="Address is required"
-                               onChange={this.onChangeText}
-                               required/>
-                            </div>
+                        <div className="field">
+                           <input
+                           ref="address"
+                           name="address"
+                           className="form-control"
+                           value={userInfo.address}
+                           placeholder="Address"
+                           validationError="Address is required"
+                           onChange={this.onChangeText}
+                           required/>
+                        </div>
 
-                            <div className="field">
-                               <input
-                               ref="website"
-                               name="website"
-                               className="form-control"
-                               value={userInfo.website}
-                               placeholder="Website"
-                               validationError="Website is required"
-                               onChange={this.onChangeText}
-                               required/>
-                            </div>
+                        <div className="field">
+                           <input
+                           ref="website"
+                           name="website"
+                           className="form-control"
+                           value={userInfo.website}
+                           placeholder="Website"
+                           validationError="Website is required"
+                           onChange={this.onChangeText}
+                           required/>
+                        </div>
 
-                            <div className="field">
-                               <select
-                               ref="companysize"
-                               name="companysize"
-                               className="form-control"
-                               value={userInfo.companysize}
-                               onChange={this.onChangeText}
-                               >
-                               <option>Small</option>
-                               <option>Medium</option>
-                               <option>Big</option>
-                               </select>
-                            </div>
+                        <div className="field">
+                           <select
+                           ref="companysize"
+                           name="companysize"
+                           className="form-control"
+                           value={userInfo.companysize}
+                           onChange={this.onChangeText}
+                           >
+                           <option>Small</option>
+                           <option>Medium</option>
+                           <option>Big</option>
+                           </select>
+                        </div>
 
-                            <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>Submit</button>
-                        </form>
-                    </div>
+                        <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>Submit</button>
+                    </form>
                 </div>
+            </div>
         );
     }
 }
