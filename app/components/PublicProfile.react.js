@@ -94,8 +94,11 @@ export default class PublicProfile extends React.Component {
         let mlarray = this.state.multilang;
 
         let content;
-        let manager = null;
-        let teams   = null;
+
+        let manager = [<a href="/myprofile">Add manager</a>];
+
+        let teams = [<a href="/myprofile">Add team</a>];
+
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
         if (!isNaN(sPercentage) && (sPercentage > 0)) {
             content = (
@@ -119,13 +122,20 @@ export default class PublicProfile extends React.Component {
 
         if (publicUser.data !== undefined && publicUser.data.teams !== undefined && publicUser.data.teams.status !== undefined && publicUser.data.teams.status ) {
 
-            teams = publicUser.data.teams.data.map((data, key) => {
-                return (
-                    <div className="my-info teams">
-                        <span className="heading">{data.teamname}</span>
-                    </div>
-                );
-            });
+            try{
+                if(publicUser.data.teams.data.length > 0){
+                    teams = publicUser.data.teams.data.map((data, key) => {
+                        return (
+                            <div className="my-info teams">
+                                <span className="heading">{data.teamname}</span>
+                            </div>
+                        );
+                    });
+                }
+            }catch(e){
+                console.log('Error in my teams list');
+                console.log(e);
+            }
         }
 
         try{

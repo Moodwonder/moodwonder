@@ -2152,22 +2152,30 @@ exports.getPublicProfile = function (req, res, next) {
                 // get manager's name of this user
                 if(lists !== undefined && lists.mymanager !== undefined && lists.mymanager[0] !== undefined &&  lists.mymanager[0].email !== undefined)
                 {
-                    var where = { email: lists.mymanager[0].email };
+                    var userList = lists;
+                    var where = { email: userList.mymanager[0].email };
                     // console.log(where);
                     User.findOne(where).exec(function(err, lists) {
                         if(!err && lists !== null) {
                             // console.log(lists);
                             var propic =  (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
+                            var name = lists.email;
+                            if(lists.firstname !== '' || lists.lastname !== ''){
+                                name = lists.firstname+' '+lists.lastname;
+                            }
                             response.data.manager = {
                                 status: true,
                                 message: "success",
-                                data: { _id: lists._id, name: lists.firstname+' '+lists.lastname, propic: propic }
+                                data: { _id: lists._id, email: lists.email, name: name, propic: propic }
                             };
                         } else {
+
+                            var mymanager = userList.mymanager[0];
+                            var propic = '/images/no-profile-img.gif';
                             response.data.manager = {
-                                status: false,
+                                status: true,
                                 message: "Record not found",
-                                data: []
+                                data: { _id: mymanager._id, name: mymanager.email, email: mymanager.email, propic: propic }
                             };
                         }
                         existCondition();
