@@ -1976,10 +1976,11 @@ exports.getAllEmployeesInCompany = function (req, res) {
 
                         if( employees.length >= limit ){
                             hasMoreData = true;
+                            // remove 1 last record from the array
+                            // bacause we are using this for checking more records in the db
+                            employees.pop();
                         }
-                        // remove 1 last record from the array
-                        // bacause we are using this for checking more records in the db
-                        employees.pop();
+
 
                         // Set total votes received by each employee
                         if(employees.length >0 ){
