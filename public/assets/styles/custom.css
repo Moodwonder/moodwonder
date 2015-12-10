@@ -94,3 +94,13 @@ label.column.email {
     background-color: inherit !important;
     color: inherit !important;
 }
+
+/**** Bug fix : UI fixes #15484 *****/
+.ui.menu .ui.dropdown .menu > .item.drop-down-item {
+    padding: 0 !important;
+}
+.item.drop-down-item a {
+    padding: 0.71428571rem 1.14285714rem !important;
+    display: block;
+}
+/************************************/
