@@ -535,29 +535,6 @@ export default class MyCompany extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="ui card  box-gry ">
-                                <div className="content box-gry-border">
-                                    <div className="header">MY COMPANY Vs COMPANIES (COUNTRY)</div>
-                                </div>
-                                <div className="ui two column stackable grid  ">
-                                    <div className="three column row padding-container  ">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="ui card  box-gry ">
-                                <div className="content box-gry-border">
-                                    <div className="header">MY COMPANY Vs COMPANIES (INDUSTRY)</div>
-                                </div>
-                                <div className="ui two column stackable grid  ">
-                                    <div className="three column row padding-container  ">
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
