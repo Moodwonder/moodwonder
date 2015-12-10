@@ -25,6 +25,10 @@ exports.postVote = function(req, res, next) {
 
   var votefor_userid  = req.body.emp_id;
   var comment  = req.body.comment;
+  var response = {};
+  response.status = false;
+  response.message = 'Error';
+  response.callback = req.body.callback;
   votefor_userid  = new ObjectId(votefor_userid);
     var mycompany = '';
     try {
