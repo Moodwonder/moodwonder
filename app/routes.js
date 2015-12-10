@@ -13,7 +13,6 @@ import CreatePassword from 'components/CreatePassword.react';
 import Customsurvey from 'components/customsurvey/Customsurvey.react';
 import Survey from 'components/Survey.react';
 import MyProfile from 'components/MyProfile.react';
-import MyManagerInfo from 'components/MyManager.react';
 import MyTeam from 'components/MyTeam.react';
 import Tabs from 'components/Tabs.react';
 import Surveyforms from 'components/customsurvey/Customsurveyforms.react';
@@ -113,9 +112,6 @@ const routes = (
     </Route>
     <Route name="myprofile" path="/myprofile" handler={Appuser} >
       <Route name="" handler={MyProfile} />
-    </Route>
-    <Route name="mymanager" path="/mymanager" handler={Appuser} >
-      <Route name="" handler={MyManagerInfo} />
     </Route>
     <Route name="myteam" path="/myteam" handler={Appuser} >
       <Route name="" handler={MyTeam} />
