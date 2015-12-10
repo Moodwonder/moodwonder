@@ -37,6 +37,16 @@ const quickstatistics = {
 
     },
 
+    getNumberOfResponses: function (esurveyresults) {
+        //let userresults = _(esurveyresults).where({user_id: uid});
+        let uGroupResults = _(esurveyresults).groupBy(function(result) {
+                return result.mood;
+            });
+
+        return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
+
+    },
+
     getMyEmployeeEngagement: function (companysurvey, uid) {
 
         let userresults = _(companysurvey).where({user_id: uid});

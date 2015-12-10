@@ -31,6 +31,15 @@ const companyquickstatistics = {
 
     },
 
+    getNumberOfResponses: function (esurveyresults) {
+        let uGroupResults = _(esurveyresults).groupBy(function(result) {
+                return result.mood;
+            });
+
+        return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
+
+    },
+
     getCompanyEmployeeEngagement: function (companysurvey) {
 
         let len = ((companysurvey.length) / 13);

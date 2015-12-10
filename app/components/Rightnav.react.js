@@ -22,7 +22,7 @@ export default class Rightnav extends React.Component {
 
   componentDidMount () {
       SurveyActions.getEngagementSurvey();
-      SurveyActions.getEngagementResults();
+      SurveyActions.getEngagementResults('undefined'); // An undefined check on server.
       SurveyActions.getResultsByCompany();
       SurveyStore.listen(this._onMoodChange);
   }
@@ -62,14 +62,16 @@ export default class Rightnav extends React.Component {
       let pages = ["/mycompany"];
       if( pages.indexOf(cPath) >= 0){
           //MyCompany Statistics.
-          lastMonthResponses = CompanyQuickStatistics.getLastMonthResponses(companysurvey);
+          //lastMonthResponses = CompanyQuickStatistics.getLastMonthResponses(companysurvey);
+          lastMonthResponses = CompanyQuickStatistics.getNumberOfResponses(companysurvey);
           timeSinceLastPost = CompanyQuickStatistics.getTimeSinceLastPosted(companysurvey);
           lastRatings = (CompanyQuickStatistics.getLastRatings(companysurvey)).reverse();
 
       } else {
           //MyMood Statistics.
-          lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
-          timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
+          //lastMonthResponses = QuickStatistics.getLastMonthResponses(surveyresults, currentuserid);
+          lastMonthResponses = QuickStatistics.getNumberOfResponses(surveyresults);
+          timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(surveyresults, currentuserid);
           lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
       }
 
