@@ -1,7 +1,7 @@
 require('react-date-picker/base.css');
 require('react-date-picker/theme/hackerone.css');
 import React from 'react';
-//import getFormData from 'get-form-data';
+
 let LineChart = require("react-chartjs").Line;
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
@@ -122,6 +122,11 @@ export default class MyMood extends React.Component {
           onChange: this.onChangeGraphPeriod
       });
       //}
+
+      if (this.state.formstatus) {
+          document.getElementById("surveyForm").reset();
+          $("#question_q1").val('');
+      }
   }
 
   componentWillUnmount() {
@@ -158,146 +163,132 @@ export default class MyMood extends React.Component {
   }
 
   onSurveySubmit = (e) => {
-      e.preventDefault();
-      let form = document.querySelector('#surveyForm');
-      let data = getFormData(form, {trim: true});
-      let question = this.state.squestions;
-      let survey = survey || {};
+      try {
+          e.preventDefault();
+          let form = document.querySelector('#surveyForm');
+          let data = getFormData(form, {trim: true});
+          let question = this.state.squestions;
+          let survey = survey || {};
 
-      survey.surveytitle = data['surveytitle'];
-      survey.freezedate = data['freezedate'];
-      survey.targetgroup = data['targetgroup'];
-      if(survey.targetgroup === 'organization') {
-          survey.target_teamid = data['target_teamid'];
-      } else {
-          survey.targetlevel = data['targetlevel'];
-          survey.targetvalue = data['targetvalue'];
-      }
-
-      survey.questions = [];
-      let keys = Object.keys(data);
-
-      for(let qid of question){
-          let id = qid.replace('q', '');
-          let qTemp = {};
-
-          qTemp.question = data['question_' + qid];
-          qTemp.question_id = id;
-          qTemp.answertype = data['answertype_' + qid];
-          qTemp.answers = [];
-
-          let rString = qid + 'r';
-          let cString = qid + 'c';
-          let tString = qid + 'te';
-          let txString = qid + 'tx';
-
-          for (let key of keys) {
-              let aTemp = {};
-              if((key.search(rString) !== -1) || (key.search(cString) !== -1))
-              {
-                  aTemp.option = data[key][0];
-                  qTemp.answers.push(aTemp);
-              }
-              if((key.search(tString) !== -1) || (key.search(txString) !== -1))
-              {
-                  aTemp.option = '';
-                  qTemp.answers.push(aTemp);
-              }
+          survey.surveytitle = data['surveytitle'];
+          survey.freezedate = data['freezedate'];
+          survey.targetgroup = data['targetgroup'];
+          if(survey.targetgroup === 'organization') {
+              survey.target_teamid = data['target_teamid'];
+          } else {
+              survey.targetlevel = data['targetlevel'];
+              survey.targetvalue = data['targetvalue'];
           }
 
-          survey.questions.push(qTemp);
-      }
-
-      //Start: Form validation
-      let errorFlag = false;
-      if (survey.surveytitle === '' || survey.surveytitle === null) {
-
-          //alert('Please enter survey title.');
-          this.setState({errormessage: 'Please enter survey title.'});
-          errorFlag = true;
-
-      } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
-
-          //alert('Please create a team or add your company first.');
-          this.setState({errormessage: 'Please create a team or add your company first.'});
-          errorFlag = true;
-
-      } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
-
-          //alert('Please enter survey percentage.');
-          this.setState({errormessage: 'Please enter survey percentage.'});
-          errorFlag = true;
-
-      } else {
+          survey.questions = [];
+          let keys = Object.keys(data);
 
           for(let qid of question){
               let id = qid.replace('q', '');
-              if(data['question_' + qid] === '' || data['question_' + qid] === null) {
+              let qTemp = {};
 
-                  //alert('Please enter question ' + id);
-                  this.setState({errormessage: 'Please enter question ' + id});
-                  errorFlag = true;
-                  break;
+              qTemp.question = data['question_' + qid];
+              qTemp.question_id = id;
+              qTemp.answertype = data['answertype_' + qid];
+              qTemp.answers = [];
 
-              } else if(data['answertype_' + qid] === '0') {
+              let rString = qid + 'r';
+              let cString = qid + 'c';
+              let tString = qid + 'te';
+              let txString = qid + 'tx';
 
-                  //alert('Please choose an answer type for question ' + id);
-                  this.setState({errormessage: 'Please choose an answer type for question ' + id});
-                  errorFlag = true;
-                  break;
+              for (let key of keys) {
+                  let aTemp = {};
+                  if((key.search(rString) !== -1) || (key.search(cString) !== -1))
+                  {
+                      aTemp.option = data[key][0];
+                      qTemp.answers.push(aTemp);
+                  }
+                  if((key.search(tString) !== -1) || (key.search(txString) !== -1))
+                  {
+                      aTemp.option = '';
+                      qTemp.answers.push(aTemp);
+                  }
+              }
 
-              } else if(data['answertype_' + qid] === 'radio') {
+              survey.questions.push(qTemp);
+          }
 
-                  let rString = qid + 'r';
-                  for (let key of keys) {
-                      if((key.search(rString) !== -1))
-                      {
-                          if (data[key][0] === '' || data[key][0] === null) {
-                              //alert('Radio option empty for question ' + id);
-                              this.setState({errormessage: 'Radio option empty for question ' + id});
-                              errorFlag = true;
-                              break;
+          //Start: Form validation
+          let errorFlag = false;
+          if (survey.surveytitle === '' || survey.surveytitle === null) {
+              this.setState({errormessage: 'Please enter survey title.'});
+              errorFlag = true;
+
+          } else if (survey.targetgroup === 'organization' && (survey.target_teamid === '' || survey.target_teamid === '0')) {
+              this.setState({errormessage: 'Please create a team or add your company first.'});
+              errorFlag = true;
+
+          } else if (survey.targetgroup === 'survey' && (survey.targetvalue === '' || survey.targetvalue === null)) {
+              this.setState({errormessage: 'Please enter survey percentage.'});
+              errorFlag = true;
+
+          } else {
+
+              for(let qid of question){
+                  let id = qid.replace('q', '');
+                  if(data['question_' + qid] === '' || data['question_' + qid] === null) {
+                      this.setState({errormessage: 'Please enter question ' + id});
+                      errorFlag = true;
+                      break;
+
+                  } else if(data['answertype_' + qid] === '0') {
+                      this.setState({errormessage: 'Please choose an answer type for question ' + id});
+                      errorFlag = true;
+                      break;
+
+                  } else if(data['answertype_' + qid] === 'radio') {
+
+                      let rString = qid + 'r';
+                      for (let key of keys) {
+                          if((key.search(rString) !== -1))
+                          {
+                              if (data[key][0] === '' || data[key][0] === null) {
+                                  this.setState({errormessage: 'Radio option empty for question ' + id});
+                                  errorFlag = true;
+                                  break;
+                              }
                           }
                       }
-                  }
 
-              } else if(data['answertype_' + qid] === 'checkbox') {
+                  } else if(data['answertype_' + qid] === 'checkbox') {
 
-                  let cString = qid + 'c';
-                  for (let key of keys) {
-                      if((key.search(cString) !== -1))
-                      {
-                          if (data[key][0] === '' || data[key][0] === null) {
-                              //alert('Checkbox option empty for question ' + id);
-                              this.setState({errormessage: 'Checkbox option empty for question ' + id});
-                              errorFlag = true;
-                              break;
+                      let cString = qid + 'c';
+                      for (let key of keys) {
+                          if((key.search(cString) !== -1))
+                          {
+                              if (data[key][0] === '' || data[key][0] === null) {
+                                  this.setState({errormessage: 'Checkbox option empty for question ' + id});
+                                  errorFlag = true;
+                                  break;
+                              }
                           }
                       }
                   }
               }
+
           }
+          //End: Form validation
 
-      }
-      //End: Form validation
-
-
-      if(!errorFlag) {
-          //CustomSurveyActions.createCustomSurveyForm(survey);
-          this.setState({formstatus: true});
-          window.parent.scroll(0,0);
-          //(this.state.squestions).splice(0,(this.state.squestions).length);
-          //let squestions = ['q1'];
-          $('.dp-footer-today').trigger('click');
-         // $("#question_q1").val('');
-          this.setState({squestions: ['q1']});
-          this.setState({radio: []});
-          this.setState({checkbox: []});
-          this.setState({textbox: []});
-          this.setState({textarea: []});
-          document.querySelector(".form-control").value = null;
-          document.getElementById("surveyForm").reset();
-      }
+          if(!errorFlag) {
+              CustomSurveyActions.createCustomSurveyForm(survey);
+              this.setState({formstatus: true});
+              window.parent.scroll(0,0);
+              $('.dp-footer-today').trigger('click');
+              this.setState({squestions: ['q1']});
+              this.setState({freezedate: this.state.today});
+              this.setState({radio: []});
+              this.setState({checkbox: []});
+              this.setState({textbox: []});
+              this.setState({textarea: []});
+              document.getElementById("surveyForm").reset();
+          }
+      }catch(e){}
   }
 
   onAddQuestion = (e) => {
@@ -467,46 +458,48 @@ export default class MyMood extends React.Component {
   //End : Custom survey
 
   _onMoodChange = () => {
-      this.setState({
-         questions : SurveyStore.getState().questions,
-         surveyresults: SurveyStore.getState().surveyresults,
-         companysurvey: SurveyStore.getState().companysurvey,
-         industrysurvey: SurveyStore.getState().industrysurvey,
-         countrysurvey: SurveyStore.getState().countrysurvey,
-         currentuserid: SurveyStore.getState().currentuserid,
-         engagedmanagers: SurveyStore.getState().engagedmanagers,
-         totalcompanyusers: SurveyStore.getState().totalcompanyusers,
-         lastmood: SurveyStore.getState().lastmood
-      });
+      try {
+          this.setState({
+             questions : SurveyStore.getState().questions,
+             surveyresults: SurveyStore.getState().surveyresults,
+             companysurvey: SurveyStore.getState().companysurvey,
+             industrysurvey: SurveyStore.getState().industrysurvey,
+             countrysurvey: SurveyStore.getState().countrysurvey,
+             currentuserid: SurveyStore.getState().currentuserid,
+             engagedmanagers: SurveyStore.getState().engagedmanagers,
+             totalcompanyusers: SurveyStore.getState().totalcompanyusers,
+             lastmood: SurveyStore.getState().lastmood
+          });
 
-      this.engagementmoods = this.state.questions.map((data, key) => {
-          return data.mood;
-      });
+          this.engagementmoods = this.state.questions.map((data, key) => {
+              return data.mood;
+          });
 
-      let today = new Date();
-      let year = today.getFullYear();
-      let month = ('0' + (today.getMonth() + 1)).slice(-2);
-      let day = ('0' + today.getDate()).slice(-2);
-      let datestring = year + '-' + month + '-' + day;
+          let today = new Date();
+          let year = today.getFullYear();
+          let month = ('0' + (today.getMonth() + 1)).slice(-2);
+          let day = ('0' + today.getDate()).slice(-2);
+          let datestring = year + '-' + month + '-' + day;
 
-      //let lastposted = QuickStatistics.getLastPostedDate(this.state.companysurvey, this.state.currentuserid);
-      if (this.state.lastmood == null || this.state.lastmood == 'undefined') {
-          window.location.assign('/survey');
-      } else {
-          //let lastSurveyPosted = '2015-10-28';
-          //let lastSurveyPosted = lastposted;
-          let lastSurveyPosted = this.state.lastmood.created.d;
-          let posteddate = new Date(lastSurveyPosted);
-          posteddate.setDate(posteddate.getDate() + 1);
-
-          let nyear = posteddate.getFullYear();
-          let nmonth = ('0' + (posteddate.getMonth() + 1)).slice(-2);
-          let nday = ('0' + posteddate.getDate()).slice(-2);
-          let ndatestring = nyear + '-' + nmonth + '-' + nday;
-          if (ndatestring <= datestring) {
+          //let lastposted = QuickStatistics.getLastPostedDate(this.state.companysurvey, this.state.currentuserid);
+          if (this.state.lastmood == null || this.state.lastmood == 'undefined') {
               window.location.assign('/survey');
+          } else {
+              //let lastSurveyPosted = '2015-10-28';
+              //let lastSurveyPosted = lastposted;
+              let lastSurveyPosted = this.state.lastmood.created.d;
+              let posteddate = new Date(lastSurveyPosted);
+              posteddate.setDate(posteddate.getDate() + 1);
+
+              let nyear = posteddate.getFullYear();
+              let nmonth = ('0' + (posteddate.getMonth() + 1)).slice(-2);
+              let nday = ('0' + posteddate.getDate()).slice(-2);
+              let ndatestring = nyear + '-' + nmonth + '-' + nday;
+              if (ndatestring <= datestring) {
+                  window.location.assign('/survey');
+              }
           }
-      }
+      } catch(e) {}
   }
 
   onPopupClose = (e) => {
