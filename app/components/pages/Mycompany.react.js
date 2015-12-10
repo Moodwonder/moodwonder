@@ -28,7 +28,11 @@ export default class Mycompany extends React.Component {
           MYCO_OPTFEEDBACK: '',
           MYCO_OPTOPPORTUNITIES: '',
           MYCO_OPTRECOMMENDATION: '',
-          MYCO_MYSELF: ''
+          MYCO_MYSELF: '',
+          MYCO_HEADING_TOPTHREE: '',
+          MYCO_HEADING_WORSTTHREE: '',
+          MYCO_HEADING_MOSTIMPROVED: '',
+          MYCO_HEADING_LEASTIMPROVED: ''
       };
   }
 
@@ -66,7 +70,11 @@ export default class Mycompany extends React.Component {
           MYCO_OPTFEEDBACK: pagedata.MYCO_OPTFEEDBACK,
           MYCO_OPTOPPORTUNITIES: pagedata.MYCO_OPTOPPORTUNITIES,
           MYCO_OPTRECOMMENDATION: pagedata.MYCO_OPTRECOMMENDATION,
-          MYCO_MYSELF: pagedata.MYCO_MYSELF
+          MYCO_MYSELF: pagedata.MYCO_MYSELF,
+          MYCO_HEADING_TOPTHREE: pagedata.MYCO_HEADING_TOPTHREE,
+          MYCO_HEADING_WORSTTHREE: pagedata.MYCO_HEADING_WORSTTHREE,
+          MYCO_HEADING_MOSTIMPROVED: pagedata.MYCO_HEADING_MOSTIMPROVED,
+          MYCO_HEADING_LEASTIMPROVED: pagedata.MYCO_HEADING_LEASTIMPROVED
       });
   }
 
@@ -155,6 +163,22 @@ export default class Mycompany extends React.Component {
       e.preventDefault();
       this.setState({ MYCO_MYSELF: e.target.value });
   }
+  onChangeHeadingTopThree = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_HEADING_TOPTHREE: e.target.value });
+  }
+  onChangeHeadingWorstThree = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_HEADING_WORSTTHREE: e.target.value });
+  }
+  onChangeHeadingMostImp = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_HEADING_MOSTIMPROVED: e.target.value });
+  }
+  onChangeHeadingLeastImp = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_HEADING_LEASTIMPROVED: e.target.value });
+  }
 
 
 
@@ -180,6 +204,10 @@ export default class Mycompany extends React.Component {
       let MYCO_OPTOPPORTUNITIES = this.state.MYCO_OPTOPPORTUNITIES;
       let MYCO_OPTRECOMMENDATION = this.state.MYCO_OPTRECOMMENDATION;
       let MYCO_MYSELF = this.state.MYCO_MYSELF;
+      let MYCO_HEADING_TOPTHREE = this.state.MYCO_HEADING_TOPTHREE;
+      let MYCO_HEADING_WORSTTHREE = this.state.MYCO_HEADING_WORSTTHREE;
+      let MYCO_HEADING_MOSTIMPROVED = this.state.MYCO_HEADING_MOSTIMPROVED;
+      let MYCO_HEADING_LEASTIMPROVED = this.state.MYCO_HEADING_LEASTIMPROVED;
 
 
 
@@ -343,6 +371,38 @@ export default class Mycompany extends React.Component {
                                  type="text"
                                  value={MYCO_MYSELF}
                                  onChange={this.onChangeMyself} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_HEADING_TOPTHREE</label>
+                        <input className="form-control"
+                                 name="MYCO_HEADING_TOPTHREE"
+                                 type="text"
+                                 value={MYCO_HEADING_TOPTHREE}
+                                 onChange={this.onChangeHeadingTopThree} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_HEADING_WORSTTHREE</label>
+                        <input className="form-control"
+                                 name="MYCO_HEADING_WORSTTHREE"
+                                 type="text"
+                                 value={MYCO_HEADING_WORSTTHREE}
+                                 onChange={this.onChangeHeadingWorstThree} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_HEADING_MOSTIMPROVED</label>
+                        <input className="form-control"
+                                 name="MYCO_HEADING_MOSTIMPROVED"
+                                 type="text"
+                                 value={MYCO_HEADING_MOSTIMPROVED}
+                                 onChange={this.onChangeHeadingMostImp} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_HEADING_LEASTIMPROVED</label>
+                        <input className="form-control"
+                                 name="MYCO_HEADING_LEASTIMPROVED"
+                                 type="text"
+                                 value={MYCO_HEADING_LEASTIMPROVED}
+                                 onChange={this.onChangeHeadingLeastImp} />
                       </div>
 
 

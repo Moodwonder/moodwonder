@@ -557,7 +557,11 @@ exports.updatePageKeys = function (req, res) {
                 MYCO_OPTFEEDBACK: data.MYCO_OPTFEEDBACK,
                 MYCO_OPTOPPORTUNITIES: data.MYCO_OPTOPPORTUNITIES,
                 MYCO_OPTRECOMMENDATION: data.MYCO_OPTRECOMMENDATION,
-                MYCO_MYSELF: data.MYCO_MYSELF
+                MYCO_MYSELF: data.MYCO_MYSELF,
+                MYCO_HEADING_TOPTHREE: data.MYCO_HEADING_TOPTHREE,
+                MYCO_HEADING_WORSTTHREE: data.MYCO_HEADING_WORSTTHREE,
+                MYCO_HEADING_MOSTIMPROVED: data.MYCO_HEADING_MOSTIMPROVED,
+                MYCO_HEADING_LEASTIMPROVED: data.MYCO_HEADING_LEASTIMPROVED
             };
             break;
 

@@ -29,7 +29,11 @@ var mycompanypageSchema = new mongoose.Schema({
     MYCO_OPTFEEDBACK: {type: String, default: ''},
     MYCO_OPTOPPORTUNITIES: {type: String, default: ''},
     MYCO_OPTRECOMMENDATION: {type: String, default: ''},
-    MYCO_MYSELF : {type: String, default: ''}
+    MYCO_MYSELF : {type: String, default: ''},
+    MYCO_HEADING_TOPTHREE : {type: String, default: ''},
+    MYCO_HEADING_WORSTTHREE : {type: String, default: ''},
+    MYCO_HEADING_MOSTIMPROVED : {type: String, default: ''},
+    MYCO_HEADING_LEASTIMPROVED : {type: String, default: ''}
         
 }, {
     collection: 'mycompanypage'

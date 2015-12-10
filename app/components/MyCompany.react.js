@@ -494,7 +494,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">COMPANY TOP THREE AREAS</div>
+                                    <div className="header">{GetText('MYCO_HEADING_TOPTHREE', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -505,7 +505,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">COMPANY WORST THREE AREAS</div>
+                                    <div className="header">{GetText('MYCO_HEADING_WORSTTHREE', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container ">
@@ -516,7 +516,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">COMPANY - MOST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">{GetText('MYCO_HEADING_MOSTIMPROVED', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -527,7 +527,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">{GetText('MYCO_HEADING_LEASTIMPROVED', mlarray)}</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">

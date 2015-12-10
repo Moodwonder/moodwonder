@@ -499,6 +499,10 @@ export default RequireAuth(class Pages extends React.Component {
       mycompany.MYCO_OPTOPPORTUNITIES = data['MYCO_OPTOPPORTUNITIES'];
       mycompany.MYCO_OPTRECOMMENDATION = data['MYCO_OPTRECOMMENDATION'];
       mycompany.MYCO_MYSELF = data['MYCO_MYSELF'];
+      mycompany.MYCO_HEADING_TOPTHREE = data['MYCO_HEADING_TOPTHREE'];
+      mycompany.MYCO_HEADING_WORSTTHREE = data['MYCO_HEADING_WORSTTHREE'];
+      mycompany.MYCO_HEADING_MOSTIMPROVED = data['MYCO_HEADING_MOSTIMPROVED'];
+      mycompany.MYCO_HEADING_LEASTIMPROVED = data['MYCO_HEADING_LEASTIMPROVED'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mycompany', mycompany);

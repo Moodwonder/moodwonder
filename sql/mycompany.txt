@@ -18,13 +18,16 @@ db.mycompanypage.insert({ "language" : "EN",
                         "MYCO_OPTFEEDBACK" : "Feedback",
                         "MYCO_OPTOPPORTUNITIES" : "Opportunities",
                         "MYCO_OPTRECOMMENDATION" : "Recommendation",
-                        "MYCO_MYSELF" : "Myself"
-                        
+                        "MYCO_MYSELF" : "Myself",
+                        "MYCO_HEADING_TOPTHREE" : "COMPANY TOP THREE AREAS",
+                        "MYCO_HEADING_WORSTTHREE" : "COMPANY WORST THREE AREAS",
+                        "MYCO_HEADING_MOSTIMPROVED" : "COMPANY - MOST IMPROVED AREAS (LAST 1 MONTH)",
+                        "MYCO_HEADING_LEASTIMPROVED" : "COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)"
 });
 
 db.mycompanypage.insert({ "language" : "FI",
                         "MYCO_EGRAPH" : "engagement Kaavio",
-                        "MYCO_CRATING" : "Mood Arvostelu",
+                        "MYCO_CRATING" : "Yritys Arvosana",
                         "MYCO_COMPANYINFO" : "yrityksen tiedot",
                         "MYCO_TITLE" : "Moodwonder trendi",
                         "MYCO_OPTMWINDEX" : "MW Hakemisto",
@@ -41,6 +44,9 @@ db.mycompanypage.insert({ "language" : "FI",
                         "MYCO_OPTFEEDBACK" : "palaute",
                         "MYCO_OPTOPPORTUNITIES" : "mahdollisuudet",
                         "MYCO_OPTRECOMMENDATION" : "suositus",
-                        "MYCO_MYSELF" : "Itse"
-                        
+                        "MYCO_MYSELF" : "Itse",
+                        "MYCO_HEADING_TOPTHREE" : "YRITYS TOP kolme aluetta",
+                        "MYCO_HEADING_WORSTTHREE" : "YRITYS WORST kolme aluetta",
+                        "MYCO_HEADING_MOSTIMPROVED" : "YRITYS - paranee eniten ALUEET (LAST 1 kuukausi)",
+                        "MYCO_HEADING_LEASTIMPROVED" : "YRITYS - ainakin aiempaa ALUEET (LAST 1 kuukausi)"
 });
