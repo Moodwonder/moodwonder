@@ -93,7 +93,7 @@ export default class EmployeeOfTheMonth extends React.Component {
         }
     }
 
-    _onSearch = () => {
+    _onSearch = (e) => {
 
         // console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
@@ -103,6 +103,9 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered = [];
             EOTMActions.getallemployees({ keyword: keyword });
             this.ShowMoreStatus = true;
+        }
+        if(e){
+            e.preventDefault();
         }
     }
 
@@ -227,11 +230,12 @@ export default class EmployeeOfTheMonth extends React.Component {
                 <ProfileHeader data={{votes: this.mytotalvotes, voteperiod: this.state.voteperiod }}/>
                 <div className="ui secondary menu account">
                     <div className="ui container">
-                        <div className="ui right labeled left icon input">
+                        <form className="ui right labeled left icon input" onSubmit={this._onSearch} >
                             <i className="search icon"></i>
                             <input type="text" ref="search" onChange={this._onChangeSearch} placeholder={GetText('EOM_SEARCH_PLACEHOLDER_1', mlarray)} />
+                            <input type="submit" style={{'display': 'none'}} />
                             <a className="ui tag label" onClick={this._onSearch} > {GetText('EOM_SEARCH_BTN_1', mlarray)} </a>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <h4 className="ui header ryt">{GetText('EOM_TITLE_1', mlarray)}</h4>
