@@ -494,7 +494,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY TOP THREE AREAS</div>
+                                    <div className="header">COMPANY TOP THREE AREAS</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -505,7 +505,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card box-gry">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY WORST THREE AREAS</div>
+                                    <div className="header">COMPANY WORST THREE AREAS</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container ">
@@ -516,7 +516,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY MOST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">COMPANY - MOST IMPROVED AREAS (LAST 1 MONTH)</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -527,7 +527,7 @@ export default class MyCompany extends React.Component {
 
                             <div className="ui card  box-gry ">
                                 <div className="content box-gry-border">
-                                    <div className="header">MY LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
+                                    <div className="header">COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)</div>
                                 </div>
                                 <div className="ui two column stackable grid  ">
                                     <div className="three column row padding-container  ">
@@ -535,6 +535,29 @@ export default class MyCompany extends React.Component {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY COMPANY Vs COMPANIES (COUNTRY)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="ui card  box-gry ">
+                                <div className="content box-gry-border">
+                                    <div className="header">MY COMPANY Vs COMPANIES (INDUSTRY)</div>
+                                </div>
+                                <div className="ui two column stackable grid  ">
+                                    <div className="three column row padding-container  ">
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
