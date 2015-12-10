@@ -283,11 +283,13 @@ export default class MyMood extends React.Component {
 
 
       if(!errorFlag) {
-          CustomSurveyActions.createCustomSurveyForm(survey);
+          //CustomSurveyActions.createCustomSurveyForm(survey);
           this.setState({formstatus: true});
           window.parent.scroll(0,0);
           //(this.state.squestions).splice(0,(this.state.squestions).length);
           //let squestions = ['q1'];
+          $('.dp-footer-today').trigger('click');
+         // $("#question_q1").val('');
           this.setState({squestions: ['q1']});
           this.setState({radio: []});
           this.setState({checkbox: []});
@@ -931,7 +933,7 @@ export default class MyMood extends React.Component {
           });
 
       } else {
-          tmanagers = (<span>Please add your manager through <a href="/mymanager">My Manager</a> page.</span>);
+          tmanagers = (<span>Please add your manager through <a href="/myprofile">My Profile</a> page.</span>);
       }
 
       let bCount = lastRatings.length - 1;
