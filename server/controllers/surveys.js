@@ -213,37 +213,39 @@ var user_id = mongoose.Types.ObjectId(req.user._id);
 };
 
 exports.getSurveyResults = function (req, res) {
-	try{
+    
+    try {
+        
         var user_id = ( req.query.user_id !== undefined && req.query.user_id !== 'undefined' && req.query.user_id !== '' ) ? req.query.user_id: req.user._id;
         user_id = mongoose.Types.ObjectId(user_id);
+         
+        var condition = {user_id: user_id};
+        var orderby = {_id: 1}; // -1: DESC; 1: ASC
 
-                var condition = {user_id: user_id};
-                var orderby = {_id: 1}; // -1: DESC; 1: ASC
+        getLasteRatedMood(user_id, function (lastmood) {
 
-                getLasteRatedMood(user_id, function (lastmood) {
-
-                EngagementResults.find(condition).sort(orderby).exec(function (err, rows) {
+            EngagementResults.find(condition).sort(orderby).exec(function (err, rows) {
                 var response = {};
-                        if (!err) {
-                response.status = 'success';
-                        response.data = rows;
-                        response.lastmood = lastmood;
-                        //console.log('getSurveyResults');
-                        // console.log(response);
+                if (!err) {
+                    response.status = 'success';
+                    response.data = rows;
+                    response.lastmood = lastmood;
                 } else {
-                response.status = 'failure';
-                        response.data = [];
-                        response.lastmood = [];
-                        console.log('Error in getLastSurvey');
+                    response.status = 'failure';
+                    response.data = [];
+                    response.lastmood = [];
+                    console.log('Error in getLastSurvey');
                 }
                 res.send(response);
-                        res.end();
-                });
-                });
-	}catch(e){
+                res.end();
+            });
+        });
+        
+    } catch(e) {
+        console.log(e);
         res.send({ status: 'error' });
         res.end();
-	}
+    }
 };
 
 function getUsersByCompany(company, callback) {

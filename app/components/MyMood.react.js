@@ -89,7 +89,7 @@ export default class MyMood extends React.Component {
 
   componentDidMount() {
       SurveyActions.getEngagementSurvey();
-      SurveyActions.getEngagementResults();
+      SurveyActions.getEngagementResults('undefined'); // An undefined check on server.
       SurveyActions.getResultsByCompany();
       SurveyActions.getResultsByIndustry();
       SurveyActions.getResultsByCountry();
