@@ -22,6 +22,7 @@ var InviteSignupPage = require('../models/invitesignuppage');
 var EOMPage = require('../models/employeeofthemonthpage');
 var PublicProfilePage = require('../models/publicprofilepage');
 var Myprofile = require('../models/myprofilepage');
+var MoodratePage = require('../models/moodratepage');
 
 
 /**
@@ -224,6 +225,11 @@ exports.getPage = function (req, res) {
             modelObj = Myprofile;
             break;
 
+        case 'moodrate':
+            modelObj = {};
+            modelObj = MoodratePage;
+            break;
+
         default:
             //modelObj = Homepage;
             break;
@@ -257,10 +263,8 @@ exports.updatePageKeys = function (req, res) {
     var id = mongoose.Types.ObjectId(req.body.id);
     var data = JSON.parse(req.body.data);
 
-
-    console.log('page');
-    console.log(page);
-
+    //console.log('page');
+    //console.log(page);
 
     var condition = {_id: id};
     var update = {};
@@ -357,6 +361,8 @@ exports.updatePageKeys = function (req, res) {
                 L_MYACCOUNT_LINK: data.L_MYACCOUNT_LINK,
                 L_MYCOMPANY_LINK: data.L_MYCOMPANY_LINK,
                 L_CAST_VOTE: data.L_CAST_VOTE,
+                L_MOODRATE: data.L_MOODRATE,
+                L_INVITEPEOPLE: data.L_INVITEPEOPLE,
                 L_INVITE_PEOPLE_TITLE: data.L_INVITE_PEOPLE_TITLE,
                 L_INVITE_PEOPLE_DES: data.L_INVITE_PEOPLE_DES,
                 L_INVITE_INPUT_PLCHOLDER: data.L_INVITE_INPUT_PLCHOLDER,
@@ -791,6 +797,19 @@ exports.updatePageKeys = function (req, res) {
                 PRFL_TEAM_ADD_ANOTHER: data.PRFL_TEAM_ADD_ANOTHER, 
                 PRFL_TEAM_WRK_EML: data.PRFL_TEAM_WRK_EML, 
                 PRFL_TEAM_SUBORDINATES_SAVE: data.PRFL_TEAM_SUBORDINATES_SAVE
+            };
+            break;
+
+
+        case 'moodrate':
+            modelObj = {};
+            modelObj = MoodratePage;
+            update = {}
+            update = {
+                MDR_RATEMOOD: data.MDR_RATEMOOD,
+                MDR_MOODDESC: data.MDR_MOODDESC,
+                MDR_MOODBTN: data.MDR_MOODBTN,
+                MDR_MOODANSWER_ALL_BTN: data.MDR_MOODANSWER_ALL_BTN
             };
             break;
 

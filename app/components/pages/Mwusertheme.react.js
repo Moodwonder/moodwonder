@@ -13,6 +13,8 @@ export default class Signuppage extends React.Component {
           L_MYACCOUNT_LINK: '',
           L_MYCOMPANY_LINK: '',
           L_CAST_VOTE: '',
+          L_MOODRATE: '',
+          L_INVITEPEOPLE: '',
           L_INVITE_PEOPLE_TITLE: '',
           L_INVITE_PEOPLE_DES: '',
           L_INVITE_INPUT_PLCHOLDER: '',
@@ -67,6 +69,8 @@ export default class Signuppage extends React.Component {
           L_MYACCOUNT_LINK: pagedata.L_MYACCOUNT_LINK,
           L_MYCOMPANY_LINK: pagedata.L_MYCOMPANY_LINK,
           L_CAST_VOTE: pagedata.L_CAST_VOTE,
+          L_MOODRATE: pagedata.L_MOODRATE,
+          L_INVITEPEOPLE: pagedata.L_INVITEPEOPLE,
           L_INVITE_PEOPLE_TITLE: pagedata.L_INVITE_PEOPLE_TITLE,
           L_INVITE_PEOPLE_DES: pagedata.L_INVITE_PEOPLE_DES,
           L_INVITE_INPUT_PLCHOLDER: pagedata.L_INVITE_INPUT_PLCHOLDER,
@@ -285,6 +289,14 @@ export default class Signuppage extends React.Component {
       e.preventDefault();
       this.setState({ MW_OPTRECOMMENDATION: e.target.value });
   }
+  moodRateLink = (e) => {
+      e.preventDefault();
+      this.setState({ L_MOODRATE: e.target.value });
+  }
+  invitePeopleLink = (e) => {
+      e.preventDefault();
+      this.setState({ L_INVITEPEOPLE: e.target.value });
+  }
 
 
 
@@ -295,6 +307,8 @@ export default class Signuppage extends React.Component {
       let L_MYACCOUNT_LINK = this.state.L_MYACCOUNT_LINK;
       let L_MYCOMPANY_LINK = this.state.L_MYCOMPANY_LINK;
       let L_CAST_VOTE = this.state.L_CAST_VOTE;
+      let L_MOODRATE = this.state.L_MOODRATE;
+      let L_INVITEPEOPLE = this.state.L_INVITEPEOPLE;
       let L_INVITE_PEOPLE_TITLE = this.state.L_INVITE_PEOPLE_TITLE;
       let L_INVITE_PEOPLE_DES = this.state.L_INVITE_PEOPLE_DES;
       let L_INVITE_INPUT_PLCHOLDER = this.state.L_INVITE_INPUT_PLCHOLDER;
@@ -371,6 +385,24 @@ export default class Signuppage extends React.Component {
                              type="text"
                              value={L_CAST_VOTE}
                              onChange={this.onChangeCastVote} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_MOODRATE</label>
+                    <input className="form-control"
+                             name="L_MOODRATE"
+                             type="text"
+                             value={L_MOODRATE}
+                             onChange={this.moodRateLink} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_INVITEPEOPLE</label>
+                    <input className="form-control"
+                             name="L_INVITEPEOPLE"
+                             type="text"
+                             value={L_INVITEPEOPLE}
+                             onChange={this.invitePeopleLink} />
                   </div>
 
                   <div className="field">

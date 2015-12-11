@@ -26,6 +26,7 @@ import InviteSignup from 'components/pages/InviteSignup.react';
 import EmployeeOftheMonth from 'components/pages/EmployeeOftheMonth.react';
 import PublicProfile from 'components/pages/PublicProfile.react';
 import Myprofile from 'components/pages/Myprofile.react';
+import Moodrate from 'components/pages/Moodrate.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -197,6 +198,8 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.L_MYACCOUNT_LINK = data['L_MYACCOUNT_LINK'];
       usertheme.L_MYCOMPANY_LINK = data['L_MYCOMPANY_LINK'];
       usertheme.L_CAST_VOTE =  data['L_CAST_VOTE'];
+      usertheme.L_MOODRATE =  data['L_MOODRATE'];
+      usertheme.L_INVITEPEOPLE =  data['L_INVITEPEOPLE'];
       usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
       usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
       usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
@@ -768,6 +771,25 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+  onSubmitMoodrate = (e) => {
+      let formData = document.querySelector('#moodrateForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let moodrate = moodrate || {};
+
+      moodrate.language = data['language'];
+      moodrate.MDR_RATEMOOD = data['MDR_RATEMOOD'];
+      moodrate.MDR_MOODDESC = data['MDR_MOODDESC'];
+      moodrate.MDR_MOODBTN = data['MDR_MOODBTN'];
+      moodrate.MDR_MOODANSWER_ALL_BTN = data['MDR_MOODANSWER_ALL_BTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'moodrate', moodrate);
+          this.setState({formstatus: true});
+      }
+  }
+
+
   render() {
       let languages = this.state.languages;
       let page = this.state.page;
@@ -870,6 +892,10 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Myprofile language={this.state.language} onClick={this.onSubmitMyprofile}/>);
               break;
 
+          case 'moodrate':
+              contents = (<Moodrate language={this.state.language} onClick={this.onSubmitMoodrate}/>);
+              break;
+
           default: break;
       }
 
@@ -893,6 +919,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="invitesignup">Invite Signup</option>
                         <option value="login">Login</option>
                         <option value="logout">Logout</option>
+                        <option value="moodrate">Mood Rate - Mobile</option>
                         <option value="mycompany">My Company</option>
                         <option value="myprofile">My Profile</option>
                         <option value="mymood">My Mood</option>

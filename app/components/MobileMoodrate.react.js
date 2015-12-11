@@ -3,6 +3,8 @@ import SurveyActions from 'actions/SurveyActions';
 import NavSlider from 'components/NavSlider.react';
 import SurveyStore from 'stores/SurveyStore';
 import getFormData from 'get-form-data';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class MobileMoodrate extends React.Component {
 
@@ -11,7 +13,8 @@ export default class MobileMoodrate extends React.Component {
       this.state = {
           mpopup: false,
           questions: [],
-          lastmood: []
+          lastmood: [],
+          multilang: MlangStore.getState().multilang
       };
       this.engagementmoods = [];
   }
@@ -79,6 +82,7 @@ export default class MobileMoodrate extends React.Component {
 
   render () {
       let lastMood = (this.state.lastmood) ? this.state.lastmood : null;
+      let mlarray = this.state.multilang;
       let lastRated = '';
       if(lastMood !== null) {
           lastRated = lastMood.rating;
@@ -156,8 +160,8 @@ export default class MobileMoodrate extends React.Component {
       return (
             <div className="ui segment padding-none width-header rate header-middle-container">
                 <div className="">
-                    <h2>RATE YOUR MOOD</h2>
-                    <p>How are you feeling at work today?</p>
+                    <h2>{GetText('MDR_RATEMOOD', mlarray)}</h2>
+                    <p>{GetText('MDR_MOODDESC', mlarray)}</p>
                 </div>
                 <div className="ui slider range">
                     <form id="moodRating">
@@ -165,10 +169,10 @@ export default class MobileMoodrate extends React.Component {
                     </form>
                 </div>
                 <div  className="">
-                    <button className="ui yellow button" style={{"margin": "0 auto !important"}} onClick={this._onSubmitClick}>Submit</button>
+                    <button className="ui yellow button" style={{"margin": "0 auto !important"}} onClick={this._onSubmitClick}>{GetText('MDR_MOODBTN', mlarray)}</button>
                 </div>
                 <div  className="">
-                    <button onClick={this._onBtnClick} className="ui yellow button answer positive" style={{"margin": "0 auto !important", "marginTop" : "12px !important"}}>Answer all statements</button>
+                    <button onClick={this._onBtnClick} className="ui yellow button answer positive" style={{"margin": "0 auto !important", "marginTop" : "12px !important"}}>{GetText('MDR_MOODANSWER_ALL_BTN', mlarray)}</button>
                 </div>
                 {modal}
             </div>
