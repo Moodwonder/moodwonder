@@ -345,8 +345,7 @@ module.exports = function (app, passport) {
                 modelObj = {};
                 modelObj = SurveyPage;
                 break;
-                
-                
+
             default:
                 modelObj = {};
                 modelObj = Languages;

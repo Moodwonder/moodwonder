@@ -16,6 +16,12 @@ var SurveyPage = require('../models/surveypage');
 var MycompanyPage = require('../models/mycompanypage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
 var MymoodPage = require('../models/mymoodpage');
+var ForgotPasswordPage = require('../models/forgotpasswordpage');
+var CreatePasswordPage = require('../models/createpasswordpage');
+var InviteSignupPage = require('../models/invitesignuppage');
+var EOMPage = require('../models/employeeofthemonthpage');
+var PublicProfilePage = require('../models/publicprofilepage');
+var Myprofile = require('../models/myprofilepage');
 
 
 /**
@@ -186,6 +192,36 @@ exports.getPage = function (req, res) {
         case 'mymood':
             modelObj = {};
             modelObj = MymoodPage;
+            break;
+
+        case 'forgotpassword':
+            modelObj = {};
+            modelObj = ForgotPasswordPage;
+            break;
+
+        case 'createpassword':
+            modelObj = {};
+            modelObj = CreatePasswordPage;
+            break;
+            
+        case 'invitesignup':
+            modelObj = {};
+            modelObj = InviteSignupPage;
+            break;
+
+        case 'eom':
+            modelObj = {};
+            modelObj = EOMPage;
+            break;
+
+        case 'publicprofile':
+            modelObj = {};
+            modelObj = PublicProfilePage;
+            break;
+
+        case 'myprofile':
+            modelObj = {};
+            modelObj = Myprofile;
             break;
 
         default:
@@ -659,6 +695,102 @@ exports.updatePageKeys = function (req, res) {
                 MYMD_ANSTYPE_DEFAULT: data.MYMD_ANSTYPE_DEFAULT,
                 MYMD_CHILD_ADDBTN: data.MYMD_CHILD_ADDBTN,
                 MYMD_CHILD_CANCELBTN: data.MYMD_CHILD_CANCELBTN
+            };
+            break;
+
+        case 'forgotpassword':
+            modelObj = {};
+            modelObj = ForgotPasswordPage;
+            update = {}
+            update = {
+                FORGOTPASS_TITLE: data.FORGOTPASS_TITLE,
+                FORGOTPASS_PLACEHOLDER_PASSWORD: data.FORGOTPASS_PLACEHOLDER_PASSWORD,
+                FORGOTPASS_BTN_CREATE: data.FORGOTPASS_BTN_CREATE
+            };
+            break;
+
+        case 'createpassword':
+            modelObj = {};
+            modelObj = CreatePasswordPage;
+            update = {}
+            update = {
+                CREATEPASS_TITLE: data.CREATEPASS_TITLE,
+                CREATEPASS_PLACEHOLDER_PASSWORD: data.CREATEPASS_PLACEHOLDER_PASSWORD,
+                CREATEPASS_BTN_CREATE: data.CREATEPASS_BTN_CREATE
+            };
+            break;
+
+        case 'invitesignup':
+            modelObj = {};
+            modelObj = InviteSignupPage;
+            update = {}
+            update = {
+                INVITESIGNUP_TITLE: data.INVITESIGNUP_TITLE,
+                INVITESIGNUP_PLACEHOLDER_EMAIL: data.INVITESIGNUP_PLACEHOLDER_EMAIL,
+                INVITESIGNUP_BTN: data.INVITESIGNUP_BTN
+            };
+            break;
+
+        case 'eom':
+            modelObj = {};
+            modelObj = EOMPage;
+            update = {}
+            update = {
+                EOM_TITLE_1: data.EOM_TITLE_1,
+                EOM_SHOW_MORE: data.EOM_SHOW_MORE,
+                EOM_SEARCH_PLACEHOLDER_1: data.EOM_SEARCH_PLACEHOLDER_1,
+                EOM_SEARCH_BTN_1: data.EOM_SEARCH_BTN_1
+            };
+            break;
+
+        case 'publicprofile':
+            modelObj = {};
+            modelObj = PublicProfilePage;
+            update = {}
+            update = {
+                PUBLIC_PROFILE_VOTE_BTN: data.PUBLIC_PROFILE_VOTE_BTN,
+                PUBLIC_PROFILE_VOTES: data.PUBLIC_PROFILE_VOTES,
+                PUBLIC_PROFILE_MANAGERS: data.PUBLIC_PROFILE_MANAGERS,
+                PUBLIC_PROFILE_SURVEYS_PARTICIPATED: data.PUBLIC_PROFILE_SURVEYS_PARTICIPATED,
+                PUBLIC_PROFILE_TEAMS: data.PUBLIC_PROFILE_TEAMS
+            };
+            break;
+
+
+        case 'myprofile':
+            modelObj = {};
+            modelObj = Myprofile;
+            update = {}
+            update = {
+                PRFL_TAB_MYPROFILE: data.PRFL_TAB_MYPROFILE,
+                PRFL_TAB_MYMANAGER: data.PRFL_TAB_MYMANAGER,
+                PRFL_TAB_MYTEAM: data.PRFL_TAB_MYTEAM,
+                PRFL_EDIT_PROFILE: data.PRFL_EDIT_PROFILE,
+                PRFL_SUMMARY: data.PRFL_SUMMARY,
+                PRFL_PERSONAL_INFO: data.PRFL_PERSONAL_INFO,
+                PRFL_PINFO_FNAME: data.PRFL_PINFO_FNAME,
+                PRFL_PINFO_LNAME: data.PRFL_PINFO_LNAME,
+                PRFL_PINFO_CHANGE_PSWD: data.PRFL_PINFO_CHANGE_PSWD,
+                PRFL_PINFO_CNFM_PSWD: data.PRFL_PINFO_CNFM_PSWD,
+                PRFL_GENERAL_INFO: data.PRFL_GENERAL_INFO,
+                PRFL_GINFO_WRK_EMAIL: data.PRFL_GINFO_WRK_EMAIL,
+                PRFL_GINFO_LNG: data.PRFL_GINFO_LNG,
+                PRFL_GINFO_RPT_FRQ: data.PRFL_GINFO_RPT_FRQ,
+                PRFL_MNGR_MYMANAGER: data.PRFL_MNGR_MYMANAGER, 
+                PRFL_MNGR_TOP_MSG: data.PRFL_MNGR_TOP_MSG, 
+                PRFL_MNGR_ROL: data.PRFL_MNGR_ROL, 
+                PRFL_MNGR_EMAIL: data.PRFL_MNGR_EMAIL, 
+                PRFL_MNGR_CHNG_MNGR: data.PRFL_MNGR_CHNG_MNGR, 
+                PRFL_MNGR_CANCEL: data.PRFL_MNGR_CANCEL, 
+                PRFL_MNGR_SUBMIT: data.PRFL_MNGR_SUBMIT,
+                PRFL_TEAM_TOP_MSG: data.PRFL_TEAM_TOP_MSG, 
+                PRFL_TEAM_ADD_TEAM: data.PRFL_TEAM_ADD_TEAM, 
+                PRFL_TEAM_NAME: data.PRFL_TEAM_NAME,
+                PRFL_TEAM_SAVE: data.PRFL_TEAM_SAVE,
+                PRFL_TEAM_SUBORDINATES: data.PRFL_TEAM_SUBORDINATES, 
+                PRFL_TEAM_ADD_ANOTHER: data.PRFL_TEAM_ADD_ANOTHER, 
+                PRFL_TEAM_WRK_EML: data.PRFL_TEAM_WRK_EML, 
+                PRFL_TEAM_SUBORDINATES_SAVE: data.PRFL_TEAM_SUBORDINATES_SAVE
             };
             break;
 
