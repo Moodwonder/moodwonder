@@ -3,12 +3,12 @@ db.moodratepage.insert({ "language" : "EN",
                         "MDR_RATEMOOD" : "RATE YOUR MOOD",
                         "MDR_MOODDESC" : "How are you feeling at work today?",
                         "MDR_MOODBTN" : "Submit",
-                        "MDR_MOODANSWER_ALL_BTN" : "Answer all statements",
+                        "MDR_MOODANSWER_ALL_BTN" : "Answer all statements"
 });
 
 db.moodratepage.insert({ "language" : "FI", 
                         "MDR_RATEMOOD" : "Arvioi MOOD",
                         "MDR_MOODDESC" : "Miltä tuntuu töissä tänään?",
                         "MDR_MOODBTN" : "esittää",
-                        "MDR_MOODANSWER_ALL_BTN" : "Vastaa kaikkiin lausunnot",
+                        "MDR_MOODANSWER_ALL_BTN" : "Vastaa kaikkiin lausunnot"
 });

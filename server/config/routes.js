@@ -31,6 +31,7 @@ var OpenendedresponsesPage = require('../models/openendedresponsespage');
 var LogoutPage = require('../models/logoutpage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
 var MoodratePage = require('../models/moodratepage');
+var InvitepeoplePage = require('../models/invitepeoplepage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -346,6 +347,11 @@ module.exports = function (app, passport) {
                 modelObj = {};
                 modelObj = MoodratePage;
                 break;
+
+            case 'invitepeople':
+                modelObj = {};
+                modelObj = InvitepeoplePage;
+                break;
                 
             case 'testing':
                 modelObj = {};
@@ -551,6 +557,7 @@ module.exports = function (app, passport) {
                     case 'publicprofile':
                     case 'openendedsurvey':
                     case 'moodrate':
+                    case 'invitepeople':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -667,6 +674,7 @@ module.exports = function (app, passport) {
                     case 'publicprofile':
                     case 'openendedsurvey':
                     case 'moodrate':
+                    case 'invitepeople':
                         break;
 
                     default:

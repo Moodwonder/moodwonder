@@ -1,6 +1,8 @@
 import React from 'react';
 import InviteActions from 'actions/InviteActions';
 import InviteStore from 'stores/InviteStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 /*
  * Component for Invite Others Widget
@@ -12,6 +14,7 @@ export default class InviteOthers extends React.Component {
     constructor(props) {
         super(props);
         this.state = InviteStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
         this.state.canSubmit = false;
         this.validationErrors = {};
     }
@@ -49,6 +52,7 @@ export default class InviteOthers extends React.Component {
 
     render() {
         let message;
+        let mlarray = this.state.multilang;
 
         if (this.state.message !== '' ) {
             console.log(this.state.message);
@@ -64,12 +68,12 @@ export default class InviteOthers extends React.Component {
         }
         return (
         <form className="invite-people mobile" onSubmit={this._onSaveSubmit} >
-            <h2> L_INVITE_PEOPLE_TITLE </h2>
-            <p> L_INVITE_PEOPLE_DES </p>
+            <h2>{GetText('INP_TITLE', mlarray)}</h2>
+            <p>{GetText('INP_DESCRIPTION', mlarray)}</p>
             <div className="ui input">
-                <input placeholder=" L_INVITE_INPUT_PLCHOLDER " id="email" ref="email" type="text" />
+                <input placeholder={GetText('INP_PLCHOLDER', mlarray)} id="email" ref="email" type="text" />
             </div>
-            <button type="submit" className="ui orange button"> L_INVITE_BTN </button>
+            <button type="submit" className="ui orange button">{GetText('INP_INVITEBTN', mlarray)}</button>
             {message}
         </form>
         );

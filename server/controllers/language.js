@@ -23,6 +23,7 @@ var EOMPage = require('../models/employeeofthemonthpage');
 var PublicProfilePage = require('../models/publicprofilepage');
 var Myprofile = require('../models/myprofilepage');
 var MoodratePage = require('../models/moodratepage');
+var InvitepeoplePage = require('../models/invitepeoplepage');
 
 
 /**
@@ -228,6 +229,11 @@ exports.getPage = function (req, res) {
         case 'moodrate':
             modelObj = {};
             modelObj = MoodratePage;
+            break;
+
+        case 'invitepeople':
+            modelObj = {};
+            modelObj = InvitepeoplePage;
             break;
 
         default:
@@ -810,6 +816,19 @@ exports.updatePageKeys = function (req, res) {
                 MDR_MOODDESC: data.MDR_MOODDESC,
                 MDR_MOODBTN: data.MDR_MOODBTN,
                 MDR_MOODANSWER_ALL_BTN: data.MDR_MOODANSWER_ALL_BTN
+            };
+            break;
+
+
+        case 'invitepeople':
+            modelObj = {};
+            modelObj = InvitepeoplePage;
+            update = {}
+            update = {
+                INP_TITLE: data.INP_TITLE,
+                INP_DESCRIPTION: data.INP_DESCRIPTION,
+                INP_PLCHOLDER: data.INP_PLCHOLDER,
+                INP_INVITEBTN: data.INP_INVITEBTN
             };
             break;
 
