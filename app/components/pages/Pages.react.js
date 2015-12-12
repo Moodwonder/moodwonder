@@ -28,6 +28,7 @@ import PublicProfile from 'components/pages/PublicProfile.react';
 import Myprofile from 'components/pages/Myprofile.react';
 import Moodrate from 'components/pages/Moodrate.react';
 import Invitepeople from 'components/pages/Invitepeople.react';
+import Error from 'components/pages/Error.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -851,6 +852,24 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+  onSubmitError = (e) => {
+      let formData = document.querySelector('#errorForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let error = error || {};
+
+      error.language = data['language'];
+      error.ERR_MESSAGE = data['ERR_MESSAGE'];
+      error.ERR_TEXTBEFORE_LINK = data['ERR_TEXTBEFORE_LINK'];
+      error.ERR_REDIRECT_LINK = data['ERR_REDIRECT_LINK'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'error', error);
+          this.setState({formstatus: true});
+      }
+  }
+
+
   render() {
       let languages = this.state.languages;
       let page = this.state.page;
@@ -961,6 +980,10 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Invitepeople language={this.state.language} onClick={this.onSubmitInvitePeople}/>);
               break;
 
+          case 'error':
+              contents = (<Error language={this.state.language} onClick={this.onSubmitError}/>);
+              break;
+
           default: break;
       }
 
@@ -980,6 +1003,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="createpassword">Create Password</option>
                         <option value="survey">Engagement Survey</option>
                         <option value="eom">EOM</option>
+                        <option value="error">Error</option>
                         <option value="forgotpassword">Forgot Password</option>
                         <option value="invitepeople">Invite People - Mobile</option>
                         <option value="invitesignup">Invite Signup</option>

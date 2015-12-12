@@ -24,6 +24,7 @@ var PublicProfilePage = require('../models/publicprofilepage');
 var Myprofile = require('../models/myprofilepage');
 var MoodratePage = require('../models/moodratepage');
 var InvitepeoplePage = require('../models/invitepeoplepage');
+var ErrorPage = require('../models/errorpage');
 
 
 /**
@@ -234,6 +235,11 @@ exports.getPage = function (req, res) {
         case 'invitepeople':
             modelObj = {};
             modelObj = InvitepeoplePage;
+            break;
+
+        case 'error':
+            modelObj = {};
+            modelObj = ErrorPage;
             break;
 
         default:
@@ -871,6 +877,18 @@ exports.updatePageKeys = function (req, res) {
                 INP_DESCRIPTION: data.INP_DESCRIPTION,
                 INP_PLCHOLDER: data.INP_PLCHOLDER,
                 INP_INVITEBTN: data.INP_INVITEBTN
+            };
+            break;
+
+
+        case 'error':
+            modelObj = {};
+            modelObj = ErrorPage;
+            update = {}
+            update = {
+                ERR_MESSAGE: data.ERR_MESSAGE,
+                ERR_TEXTBEFORE_LINK: data.ERR_TEXTBEFORE_LINK,
+                ERR_REDIRECT_LINK: data.ERR_REDIRECT_LINK
             };
             break;
 

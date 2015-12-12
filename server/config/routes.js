@@ -32,6 +32,7 @@ var LogoutPage = require('../models/logoutpage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
 var MoodratePage = require('../models/moodratepage');
 var InvitepeoplePage = require('../models/invitepeoplepage');
+var ErrorPage = require('../models/errorpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -360,7 +361,7 @@ module.exports = function (app, passport) {
 
             default:
                 modelObj = {};
-                modelObj = Languages;
+                modelObj = ErrorPage;
                 break;
         }
 
