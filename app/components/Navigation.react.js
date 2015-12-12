@@ -40,13 +40,6 @@ export default class Navigation extends React.Component {
       SurveyStore.unlisten(this._onMoodChange);
   }
 
-  onSelectLanguage = (e) => {
-      //e.preventDefault();
-      Cookie.setCookie('lang', e.target.value, 30);
-      this.setState({lang: e.target.value});
-      location.reload(true);
-  }
-
   onClickLanguage = (lang) => {
       Cookie.setCookie('lang', lang, 30);
       this.setState({lang: lang});
@@ -72,7 +65,6 @@ export default class Navigation extends React.Component {
 
   _onLogout = () => {
       UserActions.logout();
-      console.log('logout');
   }
 
   onSubmitMood = (e) => {
