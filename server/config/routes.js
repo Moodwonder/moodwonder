@@ -30,6 +30,9 @@ var MycompanyPage = require('../models/mycompanypage');
 var OpenendedresponsesPage = require('../models/openendedresponsespage');
 var LogoutPage = require('../models/logoutpage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
+var MoodratePage = require('../models/moodratepage');
+var InvitepeoplePage = require('../models/invitepeoplepage');
+var ErrorPage = require('../models/errorpage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -95,7 +98,7 @@ module.exports = function (app, passport) {
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
     app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
-    app.get('/takesurvey/:hash', users.checkLogin, customSurvey.handleTakeSurvey);
+    app.get('/takesurvey/:hash', customSurvey.handleTakeSurvey);
 
     app.post('/savesurveyresults', users.checkLogin, customSurveyResults.saveSurveyResults);
     app.get('/getsurveyresponses', users.checkLogin, customSurveyResults.getSurveyResponses);
@@ -341,16 +344,25 @@ module.exports = function (app, passport) {
                 modelObj = {};
                 modelObj = OpenendedsurveyPage;
                 break;
+
+            case 'moodrate':
+                modelObj = {};
+                modelObj = MoodratePage;
+                break;
+
+            case 'invitepeople':
+                modelObj = {};
+                modelObj = InvitepeoplePage;
+                break;
                 
             case 'testing':
                 modelObj = {};
                 modelObj = SurveyPage;
                 break;
-                
-                
+
             default:
                 modelObj = {};
-                modelObj = Languages;
+                modelObj = ErrorPage;
                 break;
         }
 
@@ -364,10 +376,15 @@ module.exports = function (app, passport) {
     app.get('*', function (req, res, next) {
 
         var lang = req.cookies.lang;
+        console.log('lang');
+        console.log(lang);
+        
         var pageurl = req.url;
 
         if (lang == 'undefined' || lang == null) {
             lang = 'EN';
+            res.clearCookie('lang');
+            res.cookie('lang', lang);
         }
 
         //var html = App(JSON.stringify(res.locals.data || {}), req.url);
@@ -522,6 +539,9 @@ module.exports = function (app, passport) {
         }else if (pageurl.search('publicprofile') != -1) {
 
             page = 'publicprofile';
+        }else if (pageurl.search('takesurvey') != -1) {
+
+            page = 'takesurvey';
         }else {
 
             page = pageurl.split("/").pop();
@@ -546,6 +566,9 @@ module.exports = function (app, passport) {
                     case 'employeeofthemonth':
                     case 'publicprofile':
                     case 'openendedsurvey':
+                    case 'moodrate':
+                    case 'invitepeople':
+                    case 'takesurvey':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -661,6 +684,9 @@ module.exports = function (app, passport) {
                     case 'employeeofthemonth':
                     case 'publicprofile':
                     case 'openendedsurvey':
+                    case 'moodrate':
+                    case 'invitepeople':
+                    case 'takesurvey':
                         break;
 
                     default:

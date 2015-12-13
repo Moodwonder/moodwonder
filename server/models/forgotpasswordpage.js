@@ -1,8 +1,10 @@
 /**
  * Defining a Forgot Password page schema Model in mongoose
  */
+var bcrypt = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var crypto = require('crypto');
 
 
 /**
@@ -10,9 +12,10 @@ var Schema = mongoose.Schema;
  */
 var forgotPasswordPageSchema = new mongoose.Schema({
     language: {type: String, default: ''},
-    CREATEPASS_TITLE: {type: String, default: ''},
-    CREATEPASS_PLACEHOLDER_PASSWORD: {type: String, default: ''},
-    CREATEPASS_BTN_CREATE: {type: String, default: ''}
+    FORGOTPASS_TITLE: {type: String, default: ''},
+    FORGOTPASS_PLACEHOLDER_PASSWORD: {type: String, default: ''},
+    FORGOTPASS_BTN_CREATE: {type: String, default: ''}
+
 }, {
     collection: 'forgotpasswordpage'
 });

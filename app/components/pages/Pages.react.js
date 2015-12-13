@@ -20,6 +20,15 @@ import Survey from 'components/pages/Survey.react';
 import Mycompany from 'components/pages/Mycompany.react';
 import OpenendedSurvey from 'components/pages/OpenendedSurvey.react';
 import Mymood from 'components/pages/Mymood.react';
+import ForgotPassword from 'components/pages/ForgotPassword.react';
+import CreatePassword from 'components/pages/CreatePassword.react';
+import InviteSignup from 'components/pages/InviteSignup.react';
+import EmployeeOftheMonth from 'components/pages/EmployeeOftheMonth.react';
+import PublicProfile from 'components/pages/PublicProfile.react';
+import Myprofile from 'components/pages/Myprofile.react';
+import Moodrate from 'components/pages/Moodrate.react';
+import Invitepeople from 'components/pages/Invitepeople.react';
+import Error from 'components/pages/Error.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -191,6 +200,8 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.L_MYACCOUNT_LINK = data['L_MYACCOUNT_LINK'];
       usertheme.L_MYCOMPANY_LINK = data['L_MYCOMPANY_LINK'];
       usertheme.L_CAST_VOTE =  data['L_CAST_VOTE'];
+      usertheme.L_MOODRATE =  data['L_MOODRATE'];
+      usertheme.L_INVITEPEOPLE =  data['L_INVITEPEOPLE'];
       usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
       usertheme.L_INVITE_PEOPLE_DES = data['L_INVITE_PEOPLE_DES'];
       usertheme.L_INVITE_INPUT_PLCHOLDER = data['L_INVITE_INPUT_PLCHOLDER'];
@@ -228,7 +239,48 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.MW_OPTFEEDBACK = data['MW_OPTFEEDBACK'];
       usertheme.MW_OPTOPPORTUNITIES =  data['MW_OPTOPPORTUNITIES'];
       usertheme.MW_OPTRECOMMENDATION = data['MW_OPTRECOMMENDATION'];
-
+      usertheme.MDL_TITLE = data['MDL_TITLE'];
+      usertheme.MDL_COMMENT_HEADER = data['MDL_COMMENT_HEADER'];
+      usertheme.MDL_SUBMIT_BTN = data['MDL_SUBMIT_BTN'];
+      usertheme.MDL_CLOSE_BTN = data['MDL_CLOSE_BTN'];
+      usertheme.MDL_OPT_DEFAULT = data['MDL_OPT_DEFAULT'];
+      usertheme.MDL_OPTGRP_ONE = data['MDL_OPTGRP_ONE'];
+      usertheme.MDL_GRPONE_OPT_ONE = data['MDL_GRPONE_OPT_ONE'];
+      usertheme.MDL_GRPONE_OPT_TWO = data['MDL_GRPONE_OPT_TWO'];
+      usertheme.MDL_GRPONE_OPT_THREE = data['MDL_GRPONE_OPT_THREE'];
+      usertheme.MDL_GRPONE_OPT_FOUR = data['MDL_GRPONE_OPT_FOUR'];
+      usertheme.MDL_GRPONE_OPT_FIVE = data['MDL_GRPONE_OPT_FIVE'];
+      usertheme.MDL_GRPONE_OPT_SIX = data['MDL_GRPONE_OPT_SIX'];
+      usertheme.MDL_GRPONE_OPT_SEVEN = data['MDL_GRPONE_OPT_SEVEN'];
+      usertheme.MDL_GRPONE_OPT_EIGHT = data['MDL_GRPONE_OPT_EIGHT'];
+      usertheme.MDL_OPTGRP_TWO = data['MDL_OPTGRP_TWO'];
+      usertheme.MDL_GRPTWO_OPT_ONE = data['MDL_GRPTWO_OPT_ONE'];
+      usertheme.MDL_GRPTWO_OPT_TWO = data['MDL_GRPTWO_OPT_TWO'];
+      usertheme.MDL_GRPTWO_OPT_THREE = data['MDL_GRPTWO_OPT_THREE'];
+      usertheme.MDL_GRPTWO_OPT_FOUR = data['MDL_GRPTWO_OPT_FOUR'];
+      usertheme.MDL_GRPTWO_OPT_FIVE = data['MDL_GRPTWO_OPT_FIVE'];
+      usertheme.MDL_GRPTWO_OPT_SIX = data['MDL_GRPTWO_OPT_SIX'];
+      usertheme.MDL_GRPTWO_OPT_SEVEN = data['MDL_GRPTWO_OPT_SEVEN'];
+      usertheme.MDL_GRPTWO_OPT_EIGHT = data['MDL_GRPTWO_OPT_EIGHT'];
+      usertheme.MDL_GRPTWO_OPT_NINE = data['MDL_GRPTWO_OPT_NINE'];
+      usertheme.MDL_GRPTWO_OPT_TEN = data['MDL_GRPTWO_OPT_TEN'];
+      usertheme.MDL_GRPTWO_OPT_ELEVEN = data['MDL_GRPTWO_OPT_ELEVEN'];
+      usertheme.MDL_GRPTWO_OPT_TWELVE = data['MDL_GRPTWO_OPT_TWELVE'];
+      usertheme.MDL_GRPTWO_OPT_THIRTEEN = data['MDL_GRPTWO_OPT_THIRTEEN'];
+      usertheme.MDL_GRPTWO_OPT_4TEEN = data['MDL_GRPTWO_OPT_4TEEN'];
+      usertheme.MDL_GRPTWO_OPT_FIFTEEN = data['MDL_GRPTWO_OPT_FIFTEEN'];
+      usertheme.MDL_GRPTWO_OPT_6TEEN = data['MDL_GRPTWO_OPT_6TEEN'];
+      usertheme.MDL_GRPTWO_OPT_7TEEN = data['MDL_GRPTWO_OPT_7TEEN'];
+      usertheme.MDL_GRPTWO_OPT_8TEEN = data['MDL_GRPTWO_OPT_8TEEN'];
+      usertheme.MDL_GRPTWO_OPT_NINTEEN = data['MDL_GRPTWO_OPT_NINTEEN'];
+      usertheme.MDL_GRPTWO_OPT_TWENTY = data['MDL_GRPTWO_OPT_TWENTY'];
+      usertheme.MDL_OPTGRP_THREE = data['MDL_OPTGRP_THREE'];
+      usertheme.MDL_GRPTHREE_OPT_ONE = data['MDL_GRPTHREE_OPT_ONE'];
+      usertheme.MDL_GRPTHREE_OPT_TWO = data['MDL_GRPTHREE_OPT_TWO'];
+      usertheme.MDL_GRPTHREE_OPT_THREE = data['MDL_GRPTHREE_OPT_THREE'];
+      usertheme.MDL_OPTGRP_FOUR = data['MDL_OPTGRP_FOUR'];
+      usertheme.MDL_GRPFOUR_OPT_ONE = data['MDL_GRPFOUR_OPT_ONE'];
+      usertheme.MDL_GRPFOUR_OPT_TWO = data['MDL_GRPFOUR_OPT_TWO'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mwusertheme', usertheme);
@@ -624,6 +676,199 @@ export default RequireAuth(class Pages extends React.Component {
   }
 
 
+  onSubmitForgotPassword = (e) => {
+      let formData = document.querySelector('#forgotPasswordForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let fpassword = fpassword || {};
+
+      fpassword.language = data['language'];
+      fpassword.FORGOTPASS_TITLE = data['FORGOTPASS_TITLE'];
+      fpassword.FORGOTPASS_PLACEHOLDER_PASSWORD = data['FORGOTPASS_PLACEHOLDER_PASSWORD'];
+      fpassword.FORGOTPASS_BTN_CREATE = data['FORGOTPASS_BTN_CREATE'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'forgotpassword', fpassword);
+          //console.log(JSON.stringify(fpassword));
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitCreatePassword = (e) => {
+      let formData = document.querySelector('#createPasswordForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let cpassword = cpassword || {};
+
+      cpassword.language = data['language'];
+      cpassword.CREATEPASS_TITLE = data['CREATEPASS_TITLE'];
+      cpassword.CREATEPASS_PLACEHOLDER_PASSWORD = data['CREATEPASS_PLACEHOLDER_PASSWORD'];
+      cpassword.CREATEPASS_BTN_CREATE = data['CREATEPASS_BTN_CREATE'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'createpassword', cpassword);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitInviteSignup = (e) => {
+      let formData = document.querySelector('#inviteSignupForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let inviteSignup = inviteSignup || {};
+
+      inviteSignup.language = data['language'];
+      inviteSignup.INVITESIGNUP_TITLE = data['INVITESIGNUP_TITLE'];
+      inviteSignup.INVITESIGNUP_PLACEHOLDER_EMAIL = data['INVITESIGNUP_PLACEHOLDER_EMAIL'];
+      inviteSignup.INVITESIGNUP_BTN = data['INVITESIGNUP_BTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'invitesignup', inviteSignup);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitEOM = (e) => {
+      let formData = document.querySelector('#employeeOftheMonthForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let eom = eom || {};
+
+      eom.language = data['language'];
+      eom.EOM_TITLE_1 = data['EOM_TITLE_1'];
+      eom.EOM_SHOW_MORE = data['EOM_SHOW_MORE'];
+      eom.EOM_SEARCH_PLACEHOLDER_1 = data['EOM_SEARCH_PLACEHOLDER_1'];
+      eom.EOM_SEARCH_BTN_1 = data['EOM_SEARCH_BTN_1'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'eom', eom);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitPublicProfile = (e) => {
+      let formData = document.querySelector('#publicProfileForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let pubprofile = pubprofile || {};
+
+      pubprofile.language = data['language'];
+      pubprofile.PUBLIC_PROFILE_VOTE_BTN = data['PUBLIC_PROFILE_VOTE_BTN'];
+      pubprofile.PUBLIC_PROFILE_VOTES = data['PUBLIC_PROFILE_VOTES'];
+      pubprofile.PUBLIC_PROFILE_MANAGERS = data['PUBLIC_PROFILE_MANAGERS'];
+      pubprofile.PUBLIC_PROFILE_SURVEYS_PARTICIPATED = data['PUBLIC_PROFILE_SURVEYS_PARTICIPATED'];
+      pubprofile.PUBLIC_PROFILE_TEAMS = data['PUBLIC_PROFILE_TEAMS'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'publicprofile', pubprofile);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitMyprofile = (e) => {
+      let formData = document.querySelector('#myprofileForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let myprofile = myprofile || {};
+
+      myprofile.language = data['language'];
+      myprofile.PRFL_TAB_MYPROFILE = data['PRFL_TAB_MYPROFILE'];
+      myprofile.PRFL_TAB_MYMANAGER = data['PRFL_TAB_MYMANAGER'];
+      myprofile.PRFL_TAB_MYTEAM = data['PRFL_TAB_MYTEAM'];
+      myprofile.PRFL_EDIT_PROFILE = data['PRFL_EDIT_PROFILE'];
+      myprofile.PRFL_SUMMARY = data['PRFL_SUMMARY'];
+      myprofile.PRFL_PERSONAL_INFO = data['PRFL_PERSONAL_INFO'];
+      myprofile.PRFL_PINFO_FNAME = data['PRFL_PINFO_FNAME'];
+      myprofile.PRFL_PINFO_LNAME = data['PRFL_PINFO_LNAME'];
+      myprofile.PRFL_PINFO_CHANGE_PSWD = data['PRFL_PINFO_CHANGE_PSWD'];
+      myprofile.PRFL_PINFO_CNFM_PSWD = data['PRFL_PINFO_CNFM_PSWD'];
+      myprofile.PRFL_GENERAL_INFO = data['PRFL_GENERAL_INFO'];
+      myprofile.PRFL_GINFO_WRK_EMAIL = data['PRFL_GINFO_WRK_EMAIL'];
+      myprofile.PRFL_GINFO_LNG = data['PRFL_GINFO_LNG'];
+      myprofile.PRFL_GINFO_RPT_FRQ = data['PRFL_GINFO_RPT_FRQ'];
+      myprofile.PRFL_MNGR_MYMANAGER = data['PRFL_MNGR_MYMANAGER'];
+      myprofile.PRFL_MNGR_TOP_MSG = data['PRFL_MNGR_TOP_MSG'];
+      myprofile.PRFL_MNGR_ROL = data['PRFL_MNGR_ROL'];
+      myprofile.PRFL_MNGR_EMAIL = data['PRFL_MNGR_EMAIL'];
+      myprofile.PRFL_MNGR_CHNG_MNGR = data['PRFL_MNGR_CHNG_MNGR'];
+      myprofile.PRFL_MNGR_CANCEL = data['PRFL_MNGR_CANCEL'];
+      myprofile.PRFL_MNGR_SUBMIT = data['PRFL_MNGR_SUBMIT'];
+      myprofile.PRFL_TEAM_TOP_MSG = data['PRFL_TEAM_TOP_MSG'];
+      myprofile.PRFL_TEAM_ADD_TEAM = data['PRFL_TEAM_ADD_TEAM'];
+      myprofile.PRFL_TEAM_NAME = data['PRFL_TEAM_NAME'];
+      myprofile.PRFL_TEAM_SAVE = data['PRFL_TEAM_SAVE'];
+      myprofile.PRFL_TEAM_SUBORDINATES = data['PRFL_TEAM_SUBORDINATES'];
+      myprofile.PRFL_TEAM_ADD_ANOTHER = data['PRFL_TEAM_ADD_ANOTHER'];
+      myprofile.PRFL_TEAM_WRK_EML = data['PRFL_TEAM_WRK_EML'];
+      myprofile.PRFL_TEAM_SUBORDINATES_SAVE = data['PRFL_TEAM_SUBORDINATES_SAVE'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'myprofile', myprofile);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitMoodrate = (e) => {
+      let formData = document.querySelector('#moodrateForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let moodrate = moodrate || {};
+
+      moodrate.language = data['language'];
+      moodrate.MDR_RATEMOOD = data['MDR_RATEMOOD'];
+      moodrate.MDR_MOODDESC = data['MDR_MOODDESC'];
+      moodrate.MDR_MOODBTN = data['MDR_MOODBTN'];
+      moodrate.MDR_MOODANSWER_ALL_BTN = data['MDR_MOODANSWER_ALL_BTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'moodrate', moodrate);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitInvitePeople = (e) => {
+      let formData = document.querySelector('#invitepeopleForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let ipeople = ipeople || {};
+
+      ipeople.language = data['language'];
+      ipeople.INP_TITLE = data['INP_TITLE'];
+      ipeople.INP_DESCRIPTION = data['INP_DESCRIPTION'];
+      ipeople.INP_PLCHOLDER = data['INP_PLCHOLDER'];
+      ipeople.INP_INVITEBTN = data['INP_INVITEBTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'invitepeople', ipeople);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitError = (e) => {
+      let formData = document.querySelector('#errorForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let error = error || {};
+
+      error.language = data['language'];
+      error.ERR_MESSAGE = data['ERR_MESSAGE'];
+      error.ERR_TEXTBEFORE_LINK = data['ERR_TEXTBEFORE_LINK'];
+      error.ERR_REDIRECT_LINK = data['ERR_REDIRECT_LINK'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'error', error);
+          this.setState({formstatus: true});
+      }
+  }
+
 
   render() {
       let languages = this.state.languages;
@@ -703,6 +948,42 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Mymood language={this.state.language} onClick={this.onSubmitMymood}/>);
               break;
 
+          case 'forgotpassword':
+              contents = (<ForgotPassword language={this.state.language} onClick={this.onSubmitForgotPassword}/>);
+              break;
+
+          case 'createpassword':
+              contents = (<CreatePassword language={this.state.language} onClick={this.onSubmitCreatePassword}/>);
+              break;
+
+          case 'invitesignup':
+              contents = (<InviteSignup language={this.state.language} onClick={this.onSubmitInviteSignup}/>);
+              break;
+
+          case 'eom':
+              contents = (<EmployeeOftheMonth language={this.state.language} onClick={this.onSubmitEOM}/>);
+              break;
+
+          case 'publicprofile':
+              contents = (<PublicProfile language={this.state.language} onClick={this.onSubmitPublicProfile}/>);
+              break;
+
+          case 'myprofile':
+              contents = (<Myprofile language={this.state.language} onClick={this.onSubmitMyprofile}/>);
+              break;
+
+          case 'moodrate':
+              contents = (<Moodrate language={this.state.language} onClick={this.onSubmitMoodrate}/>);
+              break;
+
+          case 'invitepeople':
+              contents = (<Invitepeople language={this.state.language} onClick={this.onSubmitInvitePeople}/>);
+              break;
+
+          case 'error':
+              contents = (<Error language={this.state.language} onClick={this.onSubmitError}/>);
+              break;
+
           default: break;
       }
 
@@ -717,20 +998,29 @@ export default RequireAuth(class Pages extends React.Component {
                     <label htmlFor="inputPage">Select Page : </label>
                     <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
                         <option value="home">Home</option>
-                        <option value="signup">Signup</option>
-                        <option value="login">Login</option>
-                        <option value="mwusertheme">Mwusertheme</option>
                         <option value="about">About</option>
                         <option value="anonymity">Anonymity</option>
-                        <option value="terms">Terms</option>
-                        <option value="policy">Policy</option>
-                        <option value="logout">Logout</option>
-                        <option value="openendedres">Openended Responses</option>
-                        <option value="surveyforms">Survey Forms</option>
+                        <option value="createpassword">Create Password</option>
                         <option value="survey">Engagement Survey</option>
-                        <option value="mycompany">Mycompany</option>
+                        <option value="eom">EOM</option>
+                        <option value="error">Error</option>
+                        <option value="forgotpassword">Forgot Password</option>
+                        <option value="invitepeople">Invite People - Mobile</option>
+                        <option value="invitesignup">Invite Signup</option>
+                        <option value="login">Login</option>
+                        <option value="logout">Logout</option>
+                        <option value="moodrate">Mood Rate - Mobile</option>
+                        <option value="mycompany">My Company</option>
+                        <option value="myprofile">My Profile</option>
+                        <option value="mymood">My Mood</option>
+                        <option value="mwusertheme">MW Usertheme</option>
+                        <option value="openendedres">Openended Responses</option>
                         <option value="openendedsurvey">Openended Survey</option>
-                        <option value="mymood">Mymood</option>
+                        <option value="policy">Policy</option>
+                        <option value="publicprofile">Public Profile</option>
+                        <option value="signup">Signup</option>
+                        <option value="surveyforms">Survey Forms</option>
+                        <option value="terms">Terms</option>
                     </select>
                   </div>
                   <div className="field">
@@ -747,6 +1037,7 @@ export default RequireAuth(class Pages extends React.Component {
         <div className="field">
          <br/><br/>
          {contents}
+         <br/><br/>
         </div>
       </div>
     );

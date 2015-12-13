@@ -12,6 +12,7 @@ import getFormData from 'get-form-data';
 //import $ from 'jquery';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
+import ModalSelect from 'components/ModalSelect.react';
 
 export default class Navigation extends React.Component {
 
@@ -39,13 +40,6 @@ export default class Navigation extends React.Component {
       SurveyStore.unlisten(this._onMoodChange);
   }
 
-  onSelectLanguage = (e) => {
-      //e.preventDefault();
-      Cookie.setCookie('lang', e.target.value, 30);
-      this.setState({lang: e.target.value});
-      location.reload(true);
-  }
-
   onClickLanguage = (lang) => {
       Cookie.setCookie('lang', lang, 30);
       this.setState({lang: lang});
@@ -71,7 +65,6 @@ export default class Navigation extends React.Component {
 
   _onLogout = () => {
       UserActions.logout();
-      console.log('logout');
   }
 
   onSubmitMood = (e) => {
@@ -97,14 +90,15 @@ export default class Navigation extends React.Component {
           mood.mood = data;
           return mood;
       });
-      moodrow.surveyresult = surveyResult;
-      SurveyActions.saveEngagementSurvey(moodrow);
-      this.setState({ popup : false });
-      //console.log('surveyResult');
-      //console.log(JSON.stringify(moodrow));
-      window.setTimeout(() => {
-          window.location.reload();
-      });
+      if (commentData['comment_title'] != '') {
+          moodrow.surveyresult = surveyResult;
+          SurveyActions.saveEngagementSurvey(moodrow);
+          this.setState({ popup : false });
+          //console.log(JSON.stringify(moodrow));
+          window.setTimeout(() => {
+              window.location.reload();
+          });
+      }
   }
 
   onPopupClose = (e) => {
@@ -139,62 +133,19 @@ export default class Navigation extends React.Component {
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
-                    <div className="header">What has changed?</div>
+                    <div className="header">{GetText('MDL_TITLE', mlarray)}</div>
                     <form id="commentForm">
                         <div className="ui segment">
                             <div className="ui small form">
                                 <div className="field">
-                                    <select name="comment_title">
-                                        <option value="">What happened...?</option>
-                                        <optgroup label="Company, Strategy & Values">
-                                            <option value="63">Company event organized</option>
-                                            <option value="64">New executive level manager started</option>
-                                            <option value="65">Top executive left the company</option>
-                                            <option value="66">Strategy changed</option>
-                                            <option value="67">Strategy is not followed</option>
-                                            <option value="68">Strategy is failing</option>
-                                            <option value="69">Do not believe in our strategy</option>
-                                            <option value="70">Values are not in use</option>
-                                        </optgroup>
-                                        <optgroup label="Daily work & Tasks">
-                                            <option value="38">Got recognition</option>
-                                            <option value="39">Got promotion</option>
-                                            <option value="40">Got raise</option>
-                                            <option value="41">Feedback received</option>
-                                            <option value="42">Targets achieved</option>
-                                            <option value="43">Project success</option>
-                                            <option value="44">Good project progress</option>
-                                            <option value="45">Achieved a lot today</option>
-                                            <option value="46">New tasks received</option>
-                                            <option value="47">New targets agreed</option>
-                                            <option value="48">Changes in job description</option>
-                                            <option value="49">Changes in job title</option>
-                                            <option value="50">Work related trip</option>
-                                            <option value="51">Conference trip</option>
-                                            <option value="52">Training confirmed</option>
-                                            <option value="53">Training attended</option>
-                                            <option value="54">Voluntary work done</option>
-                                            <option value="55">Made a mistake at work</option>
-                                            <option value="56">I am sick</option>
-                                            <option value="57">My child is sick</option>
-                                        </optgroup>
-                                        <optgroup label="My colleagues and team">
-                                            <option value="60">New colleague joined team</option>
-                                            <option value="61">Team event organized</option>
-                                            <option value="62">Colleague is leaving the company</option>
-                                        </optgroup>
-                                        <optgroup label="My manager">
-                                            <option value="58">New boss</option>
-                                            <option value="59">Discussion with boss</option>
-                                        </optgroup>
-                                    </select>
+                                    <ModalSelect />
                                 </div>
                                 <div className="field">
-                                    <label> Comment</label>
+                                    <label>{GetText('MDL_COMMENT_HEADER', mlarray)}</label>
                                     <textarea rows="5" name="comment" ref="comment"></textarea>
                                 </div>
-                                <button type="button" onClick={this.onSubmitMood} className="ui submit button cancel" >Submit</button>
-                                <button type="button" onClick={this.onPopupClose} className="ui submit button submitt" data-dismiss="modal">Close</button>
+                                <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">{GetText('MDL_CLOSE_BTN', mlarray)}</button>
+                                <button type="button" onClick={this.onSubmitMood} className="ui submit button submitt" >{GetText('MDL_SUBMIT_BTN', mlarray)}</button>
                             </div>
                         </div>
                     </form>

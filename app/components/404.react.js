@@ -32,10 +32,10 @@ export default class List extends React.Component {
                                         <h1>404</h1>
                                     </div>
                                     <div className="">
-                                        <h3>PAGE NOT FOUND.</h3>
+                                        <h3>ERR_MESSAGE</h3>
                                     </div>
                                     <div className="">
-                                        The page you are looking for is not here.. Why don't you try the <a href="/" style={{"color": "#000"}}>Homepage</a>?
+                                        ERR_TEXTBEFORE_LINK <a href="/" style={{"color": "#000"}}>ERR_REDIRECT_LINK</a>?
                                     </div>
                                 </div>
                             </div>

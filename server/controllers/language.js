@@ -16,6 +16,15 @@ var SurveyPage = require('../models/surveypage');
 var MycompanyPage = require('../models/mycompanypage');
 var OpenendedsurveyPage = require('../models/openendedsurveypage');
 var MymoodPage = require('../models/mymoodpage');
+var ForgotPasswordPage = require('../models/forgotpasswordpage');
+var CreatePasswordPage = require('../models/createpasswordpage');
+var InviteSignupPage = require('../models/invitesignuppage');
+var EOMPage = require('../models/employeeofthemonthpage');
+var PublicProfilePage = require('../models/publicprofilepage');
+var Myprofile = require('../models/myprofilepage');
+var MoodratePage = require('../models/moodratepage');
+var InvitepeoplePage = require('../models/invitepeoplepage');
+var ErrorPage = require('../models/errorpage');
 
 
 /**
@@ -188,6 +197,51 @@ exports.getPage = function (req, res) {
             modelObj = MymoodPage;
             break;
 
+        case 'forgotpassword':
+            modelObj = {};
+            modelObj = ForgotPasswordPage;
+            break;
+
+        case 'createpassword':
+            modelObj = {};
+            modelObj = CreatePasswordPage;
+            break;
+            
+        case 'invitesignup':
+            modelObj = {};
+            modelObj = InviteSignupPage;
+            break;
+
+        case 'eom':
+            modelObj = {};
+            modelObj = EOMPage;
+            break;
+
+        case 'publicprofile':
+            modelObj = {};
+            modelObj = PublicProfilePage;
+            break;
+
+        case 'myprofile':
+            modelObj = {};
+            modelObj = Myprofile;
+            break;
+
+        case 'moodrate':
+            modelObj = {};
+            modelObj = MoodratePage;
+            break;
+
+        case 'invitepeople':
+            modelObj = {};
+            modelObj = InvitepeoplePage;
+            break;
+
+        case 'error':
+            modelObj = {};
+            modelObj = ErrorPage;
+            break;
+
         default:
             //modelObj = Homepage;
             break;
@@ -221,10 +275,8 @@ exports.updatePageKeys = function (req, res) {
     var id = mongoose.Types.ObjectId(req.body.id);
     var data = JSON.parse(req.body.data);
 
-
-    console.log('page');
-    console.log(page);
-
+    //console.log('page');
+    //console.log(page);
 
     var condition = {_id: id};
     var update = {};
@@ -321,6 +373,8 @@ exports.updatePageKeys = function (req, res) {
                 L_MYACCOUNT_LINK: data.L_MYACCOUNT_LINK,
                 L_MYCOMPANY_LINK: data.L_MYCOMPANY_LINK,
                 L_CAST_VOTE: data.L_CAST_VOTE,
+                L_MOODRATE: data.L_MOODRATE,
+                L_INVITEPEOPLE: data.L_INVITEPEOPLE,
                 L_INVITE_PEOPLE_TITLE: data.L_INVITE_PEOPLE_TITLE,
                 L_INVITE_PEOPLE_DES: data.L_INVITE_PEOPLE_DES,
                 L_INVITE_INPUT_PLCHOLDER: data.L_INVITE_INPUT_PLCHOLDER,
@@ -351,7 +405,49 @@ exports.updatePageKeys = function (req, res) {
                 MW_OPTFRIENDSHIP: data.MW_OPTFRIENDSHIP,
                 MW_OPTFEEDBACK: data.MW_OPTFEEDBACK,
                 MW_OPTOPPORTUNITIES: data.MW_OPTOPPORTUNITIES,
-                MW_OPTRECOMMENDATION: data.MW_OPTRECOMMENDATION
+                MW_OPTRECOMMENDATION: data.MW_OPTRECOMMENDATION,
+                MDL_TITLE: data.MDL_TITLE,
+                MDL_COMMENT_HEADER: data.MDL_COMMENT_HEADER,
+                MDL_SUBMIT_BTN: data.MDL_SUBMIT_BTN,
+                MDL_CLOSE_BTN: data.MDL_CLOSE_BTN,
+                MDL_OPT_DEFAULT: data.MDL_OPT_DEFAULT,
+                MDL_OPTGRP_ONE: data.MDL_OPTGRP_ONE,
+                MDL_GRPONE_OPT_ONE: data.MDL_GRPONE_OPT_ONE,
+                MDL_GRPONE_OPT_TWO: data.MDL_GRPONE_OPT_TWO,
+                MDL_GRPONE_OPT_THREE: data.MDL_GRPONE_OPT_THREE,
+                MDL_GRPONE_OPT_FOUR: data.MDL_GRPONE_OPT_FOUR,
+                MDL_GRPONE_OPT_FIVE: data.MDL_GRPONE_OPT_FIVE,
+                MDL_GRPONE_OPT_SIX: data.MDL_GRPONE_OPT_SIX,
+                MDL_GRPONE_OPT_SEVEN: data.MDL_GRPONE_OPT_SEVEN,
+                MDL_GRPONE_OPT_EIGHT: data.MDL_GRPONE_OPT_EIGHT,
+                MDL_OPTGRP_TWO: data.MDL_OPTGRP_TWO,
+                MDL_GRPTWO_OPT_ONE: data.MDL_GRPTWO_OPT_ONE,
+                MDL_GRPTWO_OPT_TWO: data.MDL_GRPTWO_OPT_TWO,
+                MDL_GRPTWO_OPT_THREE: data.MDL_GRPTWO_OPT_THREE,
+                MDL_GRPTWO_OPT_FOUR: data.MDL_GRPTWO_OPT_FOUR,
+                MDL_GRPTWO_OPT_FIVE: data.MDL_GRPTWO_OPT_FIVE,
+                MDL_GRPTWO_OPT_SIX: data.MDL_GRPTWO_OPT_SIX,
+                MDL_GRPTWO_OPT_SEVEN: data.MDL_GRPTWO_OPT_SEVEN,
+                MDL_GRPTWO_OPT_EIGHT: data.MDL_GRPTWO_OPT_EIGHT,
+                MDL_GRPTWO_OPT_NINE: data.MDL_GRPTWO_OPT_NINE,
+                MDL_GRPTWO_OPT_TEN: data.MDL_GRPTWO_OPT_TEN,
+                MDL_GRPTWO_OPT_ELEVEN: data.MDL_GRPTWO_OPT_ELEVEN,
+                MDL_GRPTWO_OPT_TWELVE: data.MDL_GRPTWO_OPT_TWELVE,
+                MDL_GRPTWO_OPT_THIRTEEN: data.MDL_GRPTWO_OPT_THIRTEEN,
+                MDL_GRPTWO_OPT_4TEEN: data.MDL_GRPTWO_OPT_4TEEN,
+                MDL_GRPTWO_OPT_FIFTEEN: data.MDL_GRPTWO_OPT_FIFTEEN,
+                MDL_GRPTWO_OPT_6TEEN: data.MDL_GRPTWO_OPT_6TEEN,
+                MDL_GRPTWO_OPT_7TEEN: data.MDL_GRPTWO_OPT_7TEEN,
+                MDL_GRPTWO_OPT_8TEEN: data.MDL_GRPTWO_OPT_8TEEN,
+                MDL_GRPTWO_OPT_NINTEEN: data.MDL_GRPTWO_OPT_NINTEEN,
+                MDL_GRPTWO_OPT_TWENTY: data.MDL_GRPTWO_OPT_TWENTY,
+                MDL_OPTGRP_THREE: data.MDL_OPTGRP_THREE,
+                MDL_GRPTHREE_OPT_ONE: data.MDL_GRPTHREE_OPT_ONE,
+                MDL_GRPTHREE_OPT_TWO: data.MDL_GRPTHREE_OPT_TWO,
+                MDL_GRPTHREE_OPT_THREE: data.MDL_GRPTHREE_OPT_THREE,
+                MDL_OPTGRP_FOUR: data.MDL_OPTGRP_FOUR,
+                MDL_GRPFOUR_OPT_ONE: data.MDL_GRPFOUR_OPT_ONE,
+                MDL_GRPFOUR_OPT_TWO: data.MDL_GRPFOUR_OPT_TWO
             };
             break;
             
@@ -659,6 +755,140 @@ exports.updatePageKeys = function (req, res) {
                 MYMD_ANSTYPE_DEFAULT: data.MYMD_ANSTYPE_DEFAULT,
                 MYMD_CHILD_ADDBTN: data.MYMD_CHILD_ADDBTN,
                 MYMD_CHILD_CANCELBTN: data.MYMD_CHILD_CANCELBTN
+            };
+            break;
+
+        case 'forgotpassword':
+            modelObj = {};
+            modelObj = ForgotPasswordPage;
+            update = {}
+            update = {
+                FORGOTPASS_TITLE: data.FORGOTPASS_TITLE,
+                FORGOTPASS_PLACEHOLDER_PASSWORD: data.FORGOTPASS_PLACEHOLDER_PASSWORD,
+                FORGOTPASS_BTN_CREATE: data.FORGOTPASS_BTN_CREATE
+            };
+            break;
+
+        case 'createpassword':
+            modelObj = {};
+            modelObj = CreatePasswordPage;
+            update = {}
+            update = {
+                CREATEPASS_TITLE: data.CREATEPASS_TITLE,
+                CREATEPASS_PLACEHOLDER_PASSWORD: data.CREATEPASS_PLACEHOLDER_PASSWORD,
+                CREATEPASS_BTN_CREATE: data.CREATEPASS_BTN_CREATE
+            };
+            break;
+
+        case 'invitesignup':
+            modelObj = {};
+            modelObj = InviteSignupPage;
+            update = {}
+            update = {
+                INVITESIGNUP_TITLE: data.INVITESIGNUP_TITLE,
+                INVITESIGNUP_PLACEHOLDER_EMAIL: data.INVITESIGNUP_PLACEHOLDER_EMAIL,
+                INVITESIGNUP_BTN: data.INVITESIGNUP_BTN
+            };
+            break;
+
+        case 'eom':
+            modelObj = {};
+            modelObj = EOMPage;
+            update = {}
+            update = {
+                EOM_TITLE_1: data.EOM_TITLE_1,
+                EOM_SHOW_MORE: data.EOM_SHOW_MORE,
+                EOM_SEARCH_PLACEHOLDER_1: data.EOM_SEARCH_PLACEHOLDER_1,
+                EOM_SEARCH_BTN_1: data.EOM_SEARCH_BTN_1
+            };
+            break;
+
+        case 'publicprofile':
+            modelObj = {};
+            modelObj = PublicProfilePage;
+            update = {}
+            update = {
+                PUBLIC_PROFILE_VOTE_BTN: data.PUBLIC_PROFILE_VOTE_BTN,
+                PUBLIC_PROFILE_VOTES: data.PUBLIC_PROFILE_VOTES,
+                PUBLIC_PROFILE_MANAGERS: data.PUBLIC_PROFILE_MANAGERS,
+                PUBLIC_PROFILE_SURVEYS_PARTICIPATED: data.PUBLIC_PROFILE_SURVEYS_PARTICIPATED,
+                PUBLIC_PROFILE_TEAMS: data.PUBLIC_PROFILE_TEAMS
+            };
+            break;
+
+
+        case 'myprofile':
+            modelObj = {};
+            modelObj = Myprofile;
+            update = {}
+            update = {
+                PRFL_TAB_MYPROFILE: data.PRFL_TAB_MYPROFILE,
+                PRFL_TAB_MYMANAGER: data.PRFL_TAB_MYMANAGER,
+                PRFL_TAB_MYTEAM: data.PRFL_TAB_MYTEAM,
+                PRFL_EDIT_PROFILE: data.PRFL_EDIT_PROFILE,
+                PRFL_SUMMARY: data.PRFL_SUMMARY,
+                PRFL_PERSONAL_INFO: data.PRFL_PERSONAL_INFO,
+                PRFL_PINFO_FNAME: data.PRFL_PINFO_FNAME,
+                PRFL_PINFO_LNAME: data.PRFL_PINFO_LNAME,
+                PRFL_PINFO_CHANGE_PSWD: data.PRFL_PINFO_CHANGE_PSWD,
+                PRFL_PINFO_CNFM_PSWD: data.PRFL_PINFO_CNFM_PSWD,
+                PRFL_GENERAL_INFO: data.PRFL_GENERAL_INFO,
+                PRFL_GINFO_WRK_EMAIL: data.PRFL_GINFO_WRK_EMAIL,
+                PRFL_GINFO_LNG: data.PRFL_GINFO_LNG,
+                PRFL_GINFO_RPT_FRQ: data.PRFL_GINFO_RPT_FRQ,
+                PRFL_MNGR_MYMANAGER: data.PRFL_MNGR_MYMANAGER, 
+                PRFL_MNGR_TOP_MSG: data.PRFL_MNGR_TOP_MSG, 
+                PRFL_MNGR_ROL: data.PRFL_MNGR_ROL, 
+                PRFL_MNGR_EMAIL: data.PRFL_MNGR_EMAIL, 
+                PRFL_MNGR_CHNG_MNGR: data.PRFL_MNGR_CHNG_MNGR, 
+                PRFL_MNGR_CANCEL: data.PRFL_MNGR_CANCEL, 
+                PRFL_MNGR_SUBMIT: data.PRFL_MNGR_SUBMIT,
+                PRFL_TEAM_TOP_MSG: data.PRFL_TEAM_TOP_MSG, 
+                PRFL_TEAM_ADD_TEAM: data.PRFL_TEAM_ADD_TEAM, 
+                PRFL_TEAM_NAME: data.PRFL_TEAM_NAME,
+                PRFL_TEAM_SAVE: data.PRFL_TEAM_SAVE,
+                PRFL_TEAM_SUBORDINATES: data.PRFL_TEAM_SUBORDINATES, 
+                PRFL_TEAM_ADD_ANOTHER: data.PRFL_TEAM_ADD_ANOTHER, 
+                PRFL_TEAM_WRK_EML: data.PRFL_TEAM_WRK_EML, 
+                PRFL_TEAM_SUBORDINATES_SAVE: data.PRFL_TEAM_SUBORDINATES_SAVE
+            };
+            break;
+
+
+        case 'moodrate':
+            modelObj = {};
+            modelObj = MoodratePage;
+            update = {}
+            update = {
+                MDR_RATEMOOD: data.MDR_RATEMOOD,
+                MDR_MOODDESC: data.MDR_MOODDESC,
+                MDR_MOODBTN: data.MDR_MOODBTN,
+                MDR_MOODANSWER_ALL_BTN: data.MDR_MOODANSWER_ALL_BTN
+            };
+            break;
+
+
+        case 'invitepeople':
+            modelObj = {};
+            modelObj = InvitepeoplePage;
+            update = {}
+            update = {
+                INP_TITLE: data.INP_TITLE,
+                INP_DESCRIPTION: data.INP_DESCRIPTION,
+                INP_PLCHOLDER: data.INP_PLCHOLDER,
+                INP_INVITEBTN: data.INP_INVITEBTN
+            };
+            break;
+
+
+        case 'error':
+            modelObj = {};
+            modelObj = ErrorPage;
+            update = {}
+            update = {
+                ERR_MESSAGE: data.ERR_MESSAGE,
+                ERR_TEXTBEFORE_LINK: data.ERR_TEXTBEFORE_LINK,
+                ERR_REDIRECT_LINK: data.ERR_REDIRECT_LINK
             };
             break;
 

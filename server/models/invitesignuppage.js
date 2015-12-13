@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
 var InviteSignupSchema = new mongoose.Schema({
     language: {type: String, default: ''},
     INVITESIGNUP_TITLE: {type: String, default: ''},
-    INVITESIGNUPS_PLACEHOLDER_EMAIL: {type: String, default: ''},
+    INVITESIGNUP_PLACEHOLDER_EMAIL: {type: String, default: ''},
     INVITESIGNUP_BTN: {type: String, default: ''}
 }, {
     collection: 'invitesignuppage'

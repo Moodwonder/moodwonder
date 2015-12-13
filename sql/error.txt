@@ -1,0 +1,12 @@
+
+db.errorpage.insert({ "language" : "EN", 
+                        "ERR_MESSAGE" : "PAGE NOT FOUND.",
+                        "ERR_TEXTBEFORE_LINK" : "The page you are looking for is not here.. Why don't you try the",
+                        "ERR_REDIRECT_LINK" : "Homepage"
+});
+
+db.errorpage.insert({ "language" : "FI",
+                        "ERR_MESSAGE" : "SIVUA EI LÖYDETTY.",
+                        "ERR_TEXTBEFORE_LINK" : "Sivu etsit ei ole täällä .. Miksi et yritä",
+                        "ERR_REDIRECT_LINK" : "kotisivu"
+});
