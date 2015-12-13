@@ -13,7 +13,7 @@ var crypto = require('crypto');
 var VoteSchema = new mongoose.Schema({
   user_id: mongoose.Schema.Types.ObjectId,
   votefor_userid: mongoose.Schema.Types.ObjectId,
-  company: { type: String, default: '' },
+  company_id: { type: String, default: '' },
   name: { type: String, default: '' },
   comment: { type: String, default: '' },
   postdate: { type: String, default: '' }

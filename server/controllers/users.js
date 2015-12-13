@@ -1,6 +1,7 @@
 var express = require('express');
 var _ = require('lodash');
 var User = require('../models/user');
+var CompanyInfo = require('../models/companyinfo');
 var Invite = require('../models/invite');
 var Team = require('../models/team');
 var Vote = require('../models/vote');
@@ -171,6 +172,182 @@ exports.postLogin = function (req, res, next) {
 /**
  * Get all Users for admin only
  */
+exports.getallusersforadmin = function (req, res) {
+
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+
+    var condition = {};
+    // How many adjacent pages should be shown on each side?
+    var adjacents = 3;
+    
+    /* 
+       First get total number of rows in data table. 
+       If you have a WHERE clause in your query, make sure you mirror it here.
+    */
+    var total_pages = 0;
+    var find_rows = false;
+
+    User.count({}, function(err, c) {
+        total_pages = c;
+        if(total_pages){
+            var start = 0;
+            var limit = 10                              //how many items to show per page
+            // console.log(req.body);
+            var page = req.body.page;
+            // console.log(typeof page);
+            if(page){
+                start = (page - 1) * limit;             //first item to display on this page
+            }
+            /* Get data. */
+            User.find({}).skip(start).limit(limit).exec(function (err, lists) {
+                if (!err) {
+
+                    // Setup page vars for display.
+                    if (page == 0) page = 1;                    //if no page var is given, default to 1.
+                    prev = page - 1;                            //previous page is page - 1
+                    next = page + 1;                            //next page is page + 1
+                    lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
+                    lpm1 = lastpage - 1;                        //last page minus 1
+
+                    // Now we apply our rules and draw the pagination object. 
+                    // We're actually saving the code to a variable in case we want to draw it more than once.
+                    pagination = [];
+                    if(lastpage > 1)
+                    {
+                        //previous button
+                        if (page > 1){
+                            pagination.push({ page: prev, text: 'previous' });
+                        }else{
+                            pagination.push({ page: false, text: 'previous' });
+                        }
+                        
+                        //pages
+                        if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
+                        {    
+                            for (counter = 1; counter <= lastpage; counter++)
+                            {
+                                if (counter == page){
+                                    pagination.push({ page: false, text: counter });
+                                }else{
+                                    pagination.push({ page: counter, text: counter });
+                                }
+                            }
+                        }
+                        else if(lastpage > 5 + (adjacents * 2))    //enough pages to hide some
+                        {
+                            //close to beginning; only hide later pages
+                            if(page < 1 + (adjacents * 2))
+                            {
+                                for (counter = 1; counter < 4 + (adjacents * 2); counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                                pagination.push({ page: false, text: '..........' });
+                                pagination.push({ page: lpm1, text: lpm1 });
+                                pagination.push({ page: lastpage, text: lastpage });
+                            }
+                            //in middle; hide some front and some back
+                            else if(lastpage - (adjacents * 2) > page && page > (adjacents * 2))
+                            {
+                                pagination.push({ page: 1, text: 1 });
+                                pagination.push({ page: 2, text: 2 });
+                                pagination.push({ page: false, text: '..........' });
+                                for (counter = page - adjacents; counter <= page + adjacents; counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                                pagination.push({ page: false, text: '..........' });
+                                pagination.push({ page: lpm1, text: lpm1 });
+                                pagination.push({ page: lastpage, text: lastpage });
+                            }
+                            //close to end; only hide early pages
+                            else
+                            {
+                                pagination.push({ page: 1, text: 1 });
+                                pagination.push({ page: 2, text: 2 });
+                                pagination.push({ page: false, text: '..........' });
+                                for (counter = lastpage - (2 + (adjacents * 2)); counter <= lastpage; counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //next button
+                        if (page < counter - 1){
+                            pagination.push({ page: next, text: 'next' });
+                        }else{
+                            pagination.push({ page: false, text: 'next' });
+                        }
+                    }
+
+                    response.status = true;
+                    response.message = 'success';
+                    // formatting user data for table
+                    var data          = {};
+                    data.rows         = new Array(lists.length);
+                    data.pagination   = pagination;
+                    data.class = "table";
+                    if(lists !== null){
+                        var counter = 0;
+                        lists.map(function(user, key){
+
+                            // console.log(user);
+                            var company = { _id: user.company_id };
+                            CompanyInfo.findOne(company).exec(function(err,company){
+
+                                var hasComp = false;
+                                if(company){
+                                    hasComp = true;
+                                }
+                                data.rows[key] =  {
+                                 _id: user._id,
+                                 name: ( user.firstname+' '+user.lastname),
+                                 email: user.email,
+                                 usertype: user.usertype,
+                                 verifylink: (user.verifylink === "1") ? true : false,
+                                 country: (hasComp && company.country !== undefined )? company.country: '',
+                                 companyname: (hasComp && company.companyname !== undefined )? company.companyname: '',
+                                 companysize: (hasComp && company.companysize !== undefined )? company.companysize: '',
+                                 language: user.language
+                                };
+                                counter++;
+                                if(counter === data.rows.length){
+                                    response.data = data;
+                                    res.json(response);
+                                }
+                            });
+                        });
+                    }
+                }
+                else
+                {
+                    res.json(response);
+                }
+            });
+        }else{
+            res.json(response);
+        }
+    });
+};
+
+/**
+ * Get all Users for admin only
+ */
 exports.getallusers = function (req, res) {
 
     var response = {};
@@ -190,31 +367,42 @@ exports.getallusers = function (req, res) {
             // formatting user data for table
             var data = {};
             data.header = ['Id','Name', 'Email', 'Type', 'Verify Status', 'Country', 'Company name', 'Company size', 'Language'];
-            data.rows   = [];
+            data.rows   = new Array(lists.length);
             data.class = "table";
             if(lists !== null){
+                var counter = 0;
                 lists.map(function(user, key){
-                    var hasComp = (user.company_info.length > 0);
-                    var Comp    = (hasComp)? user.company_info[0]:{};
-                    data.rows[key] =  [
-                      {
-                          column: user._id,
-                          display:false
-                      }
-                     ,{column: (user.firstname+' '+user.lastname) }
-                     ,{column:user.email}
-                     ,{column:user.usertype}
-                     ,{column: (user.verifylink === "1") ? true : false }
-                     ,{column: (hasComp && Comp.country !== undefined )? Comp.country: '' }
-                     ,{column: (hasComp && Comp.companyname !== undefined )? Comp.companyname: '' }
-                     ,{column: (hasComp && Comp.companysize !== undefined )? Comp.companysize: '' }
-                     ,{column:user.language}
-                    ];
+
+                    // console.log(user);
+                    var company = { _id: user.company_id };
+                    CompanyInfo.findOne(company).exec(function(err,company){
+
+                        var hasComp = false;
+                        if(company){
+                            hasComp = true;
+                        }
+                        data.rows[key] =  [
+                          {
+                              column: user._id,
+                              display:false
+                          }
+                         ,{column: ( user.firstname+' '+user.lastname) }
+                         ,{column: user.email}
+                         ,{column: user.usertype}
+                         ,{column: (user.verifylink === "1") ? true : false }
+                         ,{column: (hasComp && company.country !== undefined )? company.country: '' }
+                         ,{column: (hasComp && company.companyname !== undefined )? company.companyname: '' }
+                         ,{column: (hasComp && company.companysize !== undefined )? company.companysize: '' }
+                         ,{column: user.language }
+                        ];
+                        counter++;
+                        if(counter === data.rows.length){
+                            response.data = data;
+                            res.json(response);
+                        }
+                    });
                 });
-                
             }
-            response.data = data;
-            res.json(response);
         } else {
             res.json(response);
         }
@@ -232,15 +420,45 @@ exports.getUserInfo = function (req, res) {
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
         if (!err && !null) {
+
             response = {};
             response.status = true;
             response.message = 'success';
-            response.data = {'_id': 0, 'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'summary': '', 'usertype' : ''};
+            response.data = {
+                '_id': 0,
+                'fname': '',
+                'lname': '',
+                'email': '',
+                'language': '',
+                'reportfrequency': '',
+                'password': '',
+                'companyname': '',
+                'mymanager': '',
+                'industry': '',
+                'continent': '',
+                'country': '',
+                'state': '',
+                'city': '',
+                'address': '',
+                'website': '',
+                'companysize': '',
+                'summary': '',
+                'usertype' : ''
+            };
             if (req.query.type == 'company') {
-                if (lists.company_info[0] != undefined) {
-                    response.data = lists.company_info[0];
-                }
 
+                var company = { _id: req.user.company_id };
+                CompanyInfo.findOne(company).exec(function(err,mycompany){
+                    if(mycompany !== null){
+                        response.data = mycompany;
+                        res.json(response);
+                    }else{
+                        response = {};
+                        response.status = true;
+                        response.message = 'success';
+                        res.json(response);
+                    }
+                });
             } else {
 
                 if (lists.mymanager[0] == undefined) {
@@ -262,8 +480,8 @@ exports.getUserInfo = function (req, res) {
                     'summary': lists.summary,
                     'usertype' : lists.usertype
                 };
+                res.json(response);
             }
-            res.json(response);
         } else {
             res.json(response);
         }
@@ -352,141 +570,162 @@ exports.postSignupStep1 = function (req, res, next) {
                     var domain = email.substring(email.lastIndexOf("@")+1);
                     var website = domain;
                     domain = domain.substring(0,domain.lastIndexOf("."));
-                    var company = { name: domain};
-                    Company.update(company,company,{upsert: true},function(err,newcompany){});
 
-                    // Update company name in User collection
-                    var conditions = {
-                        _id: new ObjectId(newuser._id)
-                    };
+                    var afterCompanyDetails = function(companyinfo){
 
-                    var update  = [{
-                        companyname : domain,
-                        industry : '',
-                        continent : '',
-                        country : '',
-                        state : '',
-                        city : '',
-                        address : '',
-                        website : website,
-                        companysize : ''
-                    }];
-                    var options = { multi: false };
-                    User.update(conditions, { company_info: update }, options, function (err) {
-                        if (!err) {
+                        console.log(companyinfo);
+                        // Update company id in User collection
+                        var conditions = {
+                            _id: new ObjectId(newuser._id)
+                        };
 
-                            console.log('update done');
-                        } else {
+                        var update  = { company_id : companyinfo._id};
+                        var options = { multi: false };
+                        User.update(conditions, update, options, function (err) {
+                            if (!err) {
 
-                            console.log(err);
-                        }
-                    });
-
-                    var transporter = nodemailer.createTransport();
-                    var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
-                            "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
-                            "<br><br> Best wishes" +
-                            "<br> Moodwonder Team";
-                    body = emailTemplate.general(body);
-                    transporter.sendMail({
-                        from: 'admin@moodewonder.com',
-                        to: email,
-                        subject: 'Create password',
-                        html: body
-                    });
-
-                    response.status = true;
-                    response.message = 'We have sent you an email, with instructions to complete your sign up process';
-
-                    // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
-                    // console.log('--req.body.hash----' + req.body.hash);
-                    if (req.body.hash !== undefined && req.body.hash !== '') {
-
-                        console.log('has hash');
-                        var invite = new Invite({
-                            email: email,
-                            type: 'Team',
-                            link: req.body.hash
-                        });
-
-                        Invite.findOne({email: email}, function (err, existingInvite) {
-                            if (existingInvite) {
-
-                                // removing invitation record after taking the data from the collection
-                                // Otherwise it will show email id repetition in the members list in teams
-                                 Invite.remove({_id: existingInvite._id }, function(err) {
-                                    if (!err) {
-                                        console.log('done....');
-                                    }
-                                    else {
-                                        console.log(err);
-                                    }
-                                });
-                                var team_id = existingInvite.data[0].team._id;
-
-                                var where = {_id: new ObjectId(team_id)}
-                                // console.log(member_email);
-                                // check the team is exist or not
-                                Team.findOne(where, function (err, existingTeam) {
-                                    if (existingTeam) {
-
-                                        // User not exist in this group, Insert this user into this team
-                                        Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
-                                            if (err) {
-                                                response.status = false;
-                                                response.messages = ['Error when adding a new member'];
-                                                res.send(response);
-                                                res.end();
-                                            } else {
-                                                // Find e-mail id of the user who invited this user
-                                                User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
-                                                    if (existingUser) {
-                                                        // console.log('has user');
-                                                        var conditions = {'_id': new ObjectId(newuser._id)}
-                                                        , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
-                                                        , options = {multi: false};
-
-                                                        // Set manager info
-                                                        User.update(conditions, update, options, function (err) {
-                                                            if (!err) {
-                                                                // console.log('updated manager');
-                                                            } else {
-                                                                // console.log('not updated manager');
-                                                            }
-                                                        });
-                                                    }
-                                                    else {
-                                                        // console.log('has no user');
-                                                    }
-                                                });
-
-                                                response.status = true;
-                                                response.messages = ['Member added'];
-                                                res.send(response);
-                                                res.end();
-                                            }
-                                        });
-
-                                    } else {
-                                        response.status = false;
-                                        response.messages = ['Team not exist'];
-                                        res.send(response);
-                                        res.end();
-                                    }
-                                });
-
+                                console.log('update done');
                             } else {
-                                response.status = true;
-                                response.messages = ['Error when processing your invitation'];
-                                res.send(response);
-                                res.end();
+
+                                console.log(err);
                             }
                         });
-                    } else {
-                        res.send(response);
-                        res.end();
-                    }
 
+                        var transporter = nodemailer.createTransport();
+                        var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
+                                "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
+                                "<br><br> Best wishes" +
+                                "<br> Moodwonder Team";
+                        body = emailTemplate.general(body);
+                        transporter.sendMail({
+                            from: 'admin@moodewonder.com',
+                            to: email,
+                            subject: 'Create password',
+                            html: body
+                        });
+
+                        response.status = true;
+                        response.message = 'We have sent you an email, with instructions to complete your sign up process';
+
+                        // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
+                        // console.log('--req.body.hash----' + req.body.hash);
+                        if (req.body.hash !== undefined && req.body.hash !== '') {
+
+                            console.log('has hash');
+                            var invite = new Invite({
+                                email: email,
+                                type: 'Team',
+                                link: req.body.hash
+                            });
+
+                            Invite.findOne({email: email}, function (err, existingInvite) {
+                                if (existingInvite) {
+
+                                    // removing invitation record after taking the data from the collection
+                                    // Otherwise it will show email id repetition in the members list in teams
+                                     Invite.remove({_id: existingInvite._id }, function(err) {
+                                        if (!err) {
+                                            console.log('done....');
+                                        }
+                                        else {
+                                            console.log(err);
+                                        }
+                                    });
+                                    var team_id = existingInvite.data[0].team._id;
+
+                                    var where = {_id: new ObjectId(team_id)}
+                                    // console.log(member_email);
+                                    // check the team is exist or not
+                                    Team.findOne(where, function (err, existingTeam) {
+                                        if (existingTeam) {
+
+                                            // User not exist in this group, Insert this user into this team
+                                            Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
+                                                if (err) {
+                                                    response.status = false;
+                                                    response.messages = ['Error when adding a new member'];
+                                                    res.send(response);
+                                                    res.end();
+                                                } else {
+                                                    // Find e-mail id of the user who invited this user
+                                                    User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                        if (existingUser) {
+                                                            // console.log('has user');
+                                                            var conditions = {'_id': new ObjectId(newuser._id)}
+                                                            , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                            , options = {multi: false};
+
+                                                            // Set manager info
+                                                            User.update(conditions, update, options, function (err) {
+                                                                if (!err) {
+                                                                    // console.log('updated manager');
+                                                                } else {
+                                                                    // console.log('not updated manager');
+                                                                }
+                                                            });
+                                                        }
+                                                        else {
+                                                            // console.log('has no user');
+                                                        }
+                                                    });
+
+                                                    response.status = true;
+                                                    response.messages = ['Member added'];
+                                                    res.send(response);
+                                                    res.end();
+                                                }
+                                            });
+
+                                        } else {
+                                            response.status = false;
+                                            response.messages = ['Team not exist'];
+                                            res.send(response);
+                                            res.end();
+                                        }
+                                    });
+
+                                } else {
+                                    response.status = true;
+                                    response.messages = ['Error when processing your invitation'];
+                                    res.send(response);
+                                    res.end();
+                                }
+                            });
+                        } else {
+                            res.send(response);
+                            res.end();
+                        }
+                    };
+
+                    var company = { domain_name: domain };
+
+                    // Find company details
+                    CompanyInfo.findOne(company,function(err,companyinfo){
+
+                        // If company exist
+                        if (!err && companyinfo !== null) {
+
+                            afterCompanyDetails(companyinfo);
+                        }else{
+                            // Creating new company if not exist
+
+                            company.companyname = domain;
+                            company.website = website;
+                            var newCompany = new CompanyInfo(company);
+                            newCompany.save(function (err, companyinfo) {
+                                if (!err && companyinfo !== null) {
+
+                                    afterCompanyDetails(companyinfo);
+                                }else{
+
+                                    response.status = false;
+                                    response.messages = ['Error when creating new company'];
+                                    res.send(response);
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
                 } else {
                     res.send(response);
                     res.end();
@@ -1429,25 +1668,60 @@ exports.getUserInfoById = function (req, res) {
         var condition = {'_id': new ObjectId(_id)};
         User.findOne(condition, function (err, lists) {
             if (!err && !null) {
+
                 response = {};
                 response.status = true;
                 response.message = 'success';
-                response.data = {'fname': '', 'lname': '', 'email': '', 'language': '', 'reportfrequency': '', 'password': '', 'companyname': '', 'mymanager': '', 'industry': '', 'continent': '', 'country': '', 'state': '', 'city': '', 'address': '', 'website': '', 'companysize': '', 'userstatus': false };
-                if (req.query.type == 'company') {
-                    if (lists.company_info[0] != undefined) {
-                        response.data = lists.company_info[0];
-                    }
+                response.data = {
+                    'fname': '',
+                    'lname': '',
+                    'email': '',
+                    'language': '',
+                    'reportfrequency': '',
+                    'password': '',
+                    'companyname': '',
+                    'mymanager': '',
+                    'industry': '',
+                    'continent': '',
+                    'country': '',
+                    'state': '',
+                    'city': '',
+                    'address': '',
+                    'website': '',
+                    'companysize': '',
+                    'userstatus': false
+                };
+                // Find company details
+                CompanyInfo.findOne({ _id: lists.company_id },function(err,companyinfo){
 
-                } else {
+                    // If company exist
+                    if (!err && companyinfo !== null) {
+                        if (req.query.type == 'company') {
+                            response.data = companyinfo;
+                        } else {
 
-                    if (lists.mymanager[0] == undefined) {
-                        lists.mymanager[0] = {'email': ''};
+                            if (lists.mymanager[0] == undefined) {
+                                lists.mymanager[0] = {'email': ''};
+                            }
+                            var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
+                            response.data = {
+                                'fname': lists.firstname,
+                                'lname': lists.lastname,
+                                'email': lists.email,
+                                'language': lists.language,
+                                'reportfrequency': lists.report_frequency,
+                                'password': '',
+                                'mymanager': lists.mymanager[0].email,
+                                'profile_image': profileimage,
+                                'userstatus': lists.userstatus
+                            };
+                        }
+                        res.json(response);
+                    }else{
+                        // un usual case
+                        console.log('company not found');
                     }
-                    
-                    var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
-                    response.data = {'fname': lists.firstname, 'lname': lists.lastname, 'email': lists.email, 'language': lists.language, 'reportfrequency': lists.report_frequency, 'password': '', 'mymanager': lists.mymanager[0].email, 'profile_image': profileimage, 'userstatus': lists.userstatus };
-                }
-                res.json(response);
+                });
             } else {
                 res.json(response);
             }
@@ -1911,7 +2185,6 @@ exports.getAllEmployeesInCompany = function (req, res) {
         }
     }
 
-    var mycompany = '';
     var last_id = req.body.last_id;
     var keyword = req.body.keyword;
     // put 21 if you want 20 results
@@ -1921,16 +2194,11 @@ exports.getAllEmployeesInCompany = function (req, res) {
     var cdate = JSON.stringify(date).substring(1, 11);
     var yearmonth = cdate.substring(0, 7);
 
-    try {
-        mycompany = req.user.company_info[0].companyname;
-    } catch (ex) {
-        mycompany = false;
-    }
+    var company_id = req.user.company_id;
 
-    if(mycompany){
+    if(company_id){
 
-        var elmatch = { companyname: mycompany };
-        var condition = { company_info: { "$elemMatch": elmatch } };
+        var condition = { company_id: company_id };
         
         if(isValid(last_id)){
             condition._id = { "$gt": new ObjectId(last_id) };
@@ -1947,7 +2215,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
 
                     //console.log(lists);
                     // Find employee of the month
-                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: company_id }, function(err, emp){
 
                         var employees = [];
                         var hasMoreData = false;

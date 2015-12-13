@@ -22,18 +22,7 @@ var UserSchema = new mongoose.Schema({
   usertype: {type: String, default: 'user'},
   teamname: String,
   mymanager: [{ _id: String, email: String }],
-  company_info :
-    [{
-      companyname : String,
-      industry : String,
-      continent : String,
-      country : String,
-      state : String,
-      city : String,
-      address : String,
-      website : String,
-      companysize : String
-    }],
+  company_id :{type: String, default: ''},
   summary: {type: String, default: ''},
   verifylink: {type: String, default: ''},
   userstatus: {type: String, default: 'Active'}

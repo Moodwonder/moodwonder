@@ -30,12 +30,7 @@ exports.postVote = function(req, res, next) {
   response.message = 'Error';
   response.callback = req.body.callback;
   votefor_userid  = new ObjectId(votefor_userid);
-    var mycompany = '';
-    try {
-        mycompany = req.user.company_info[0].companyname;
-    } catch (ex) {
-        mycompany = false;
-    }
+    var company_id = req.user.company_id;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -84,6 +79,7 @@ exports.postVote = function(req, res, next) {
             conditions.votefor_userid = votefor_userid;
             conditions.postdate = cdate;
             conditions.comment = comment;
+            conditions.company_id = company_id;
             conditions.name = req.user.firstname + ' ' + req.user.lastname;
             var vote = new Vote(conditions);
             vote.save(function (err) {
@@ -118,12 +114,9 @@ exports.getEmpMonthView = function(req, res, next) {
   var date            =   req.body.date;
   votefor_userid      =   new ObjectId(votefor_userid);
   var dateObj         =   new Date();
-  var mycompany       =   '';
-  try {
-    mycompany = req.user.company_info[0].companyname;
-  } catch (ex) {
-    mycompany = false;
-  }
+
+  var company_id      =   req.user.company_id;
+
   // date with YYYY-MM-DD format
   var cdate           =   JSON.stringify(dateObj).substring(1, 11);
   if(date !== undefined){
@@ -131,11 +124,9 @@ exports.getEmpMonthView = function(req, res, next) {
   }
 
   var yearmonth = cdate.substring(0, 7)
-  , conditions  = { "company": mycompany, "votefor_userid": votefor_userid, postdate : { $regex : new RegExp(yearmonth,'i')  } };
+  , conditions  = { "company_id": company_id, "votefor_userid": votefor_userid, postdate : { $regex : new RegExp(yearmonth,'i')  } };
 
-  var elmatch = { companyname: mycompany };
-
-  User.findOne({ _id: votefor_userid, company_info: { $elemMatch: elmatch }}, function(err, user){
+  User.findOne({ _id: votefor_userid, company_id: company_id }, function(err, user){
     if (!err) {
 
         Vote.find(conditions, function (err, document) {
@@ -149,7 +140,13 @@ exports.getEmpMonthView = function(req, res, next) {
                 comments[key] = comment;
             });
             var profileimage = (user.profile_image !== '') ? PRO_PIC_PATH+user.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
-            employee = { _id: user._id, photo: profileimage, name: (user.firstname+' '+user.lastname), votes: totalvotes, comments: comments };
+            employee = {
+				_id: user._id,
+				photo: profileimage,
+				name: (user.firstname+' '+user.lastname),
+				votes: totalvotes,
+				comments: comments
+			};
             response.status  = true;
             response.message = 'success';
             response.data = employee;
@@ -174,22 +171,16 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
   var votefor_userid  =   req.body.emp_id;
   votefor_userid      =   new ObjectId(votefor_userid);
   var dateObj         =   new Date();
-  var mycompany       =   '';
-  try {
-    mycompany = req.user.company_info[0].companyname;
-  } catch (ex) {
-    mycompany = false;
-  }
+  var company_id      =   req.user.company_id;
 
   // date with YYYY-MM-DD format
   var cdate           =   JSON.stringify(dateObj).substring(1, 11);
   var yearmonth       =   cdate.substring(0, 7);
-  var elmatch         =   { companyname: mycompany };
  
-  User.findOne({ _id: votefor_userid, company_info: { $elemMatch: elmatch }}, function(err, user){
+  User.findOne({ _id: votefor_userid, company_id: company_id }, function(err, user){
     if (!err) {
         var conditions         =     {};
-        EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+        EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: company_id }, function(err, emp){
             if(emp){
                 response.status = false;
                 response.message = 'Already awarded';
@@ -199,7 +190,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                 // add a record with new vote
                 var conditions         =     {};
                 conditions.date        =     cdate;
-                conditions.company     =     mycompany;
+                conditions.company_id  =     company_id;
                 conditions.emp_id      =     votefor_userid;
                 conditions.emp_details =     user;
                 var eotm               =     new EOTM(conditions);

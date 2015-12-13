@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var Team = require('../models/team');
 var User = require('../models/user');
+var CompanyInfo = require('../models/companyinfo');
 var Company = require('../models/company');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
@@ -25,7 +26,7 @@ response.message = 'Error';
  */
 exports.checkTeam = function(req, res, next) {
 
-    var  response    = {};
+    var response    = {};
     response.status  = false;
     response.message = 'Something went wrong..';
     var teamname = req.body.teamname;
@@ -50,19 +51,23 @@ exports.checkTeam = function(req, res, next) {
     }
 
     if(teamname !== undefined && teamname !== ''){
-      // find team _id from companies collection
-        var email  = req.user.email;
-        var domain = email.substring(email.lastIndexOf("@")+1);
-        domain = domain.substring(0,domain.lastIndexOf("."));
-        var company = { name: domain};
-        Company.findOne(company).exec(function(err,company){
-            if(company){
-                checkWithInCompanay(company);
-            }else{
-              res.send(response);
-              res.end();
-            }
-        });
+        // find team _id from companies collection
+        var company_id  = req.user.company_id;
+        if(company_id !== ''){
+			var company = { _id: company_id };
+			CompanyInfo.findOne(company).exec(function(err,company){
+				if(company){
+					checkWithInCompanay(company);
+				}else{
+				  res.send(response);
+				  res.end();
+				}
+			});
+		}else{
+			response.message = 'Company not found';
+			res.send(response);
+			res.end();
+		}
     }else{
         response.message = 'Team name is missing.';
         res.send(response);
