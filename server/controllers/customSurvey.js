@@ -7,6 +7,7 @@ var emailTemplate = require('../email/emailtemplates');
 var nodemailer = require("nodemailer");
 var EngagementResults = require('../models/engagementResults');
 var SurveyParticipation = require('../models/surveyParticipation');
+var CompanyInfo = require('../models/companyinfo');
 
 exports.handleTakeSurvey = function(req, res, next) {
 
@@ -22,7 +23,7 @@ exports.handleTakeSurvey = function(req, res, next) {
 
 };
 
-function saveSurvey(query, usercompany, callback) {
+function saveSurvey(query, companyid, callback) {
     CustomSurvey.create(query, function (err, candies) {
         if (!err) {
             console.log('New custom survey created.');
@@ -34,7 +35,7 @@ function saveSurvey(query, usercompany, callback) {
     });
 } 
 
-function getSurveyForm(query, usercompany, callback) {
+function getSurveyForm(query, companyid, callback) {
     var condition = {surveytitle: query.surveytitle};
     CustomSurvey.find(condition).lean().exec(function (err, form) {
         if (form != 'undefined') {
@@ -45,10 +46,10 @@ function getSurveyForm(query, usercompany, callback) {
 
 
 
-function getCompanyMembers(query, form, usercompany, callback) {
+function getCompanyMembers(query, form, companyid, callback) {
     
     // Get members by matching company
-    var condition = {company_info: {$elemMatch: {companyname: usercompany}}};
+    var condition = {company_id: companyid};
     User.find(condition).lean().exec(function (err, users) {
         if (users != 'undefined') {
             callback(users);
@@ -102,20 +103,21 @@ exports.createForm = function (req, res) {
     var query = req.body;
     query.user_id = mongoose.Types.ObjectId(req.user._id);
     
-    var usercompany = req.user.company_info[0].companyname;
+    //var usercompany = req.user.company_info[0].companyname;
+    var companyid = req.user.company_id;
     
-    saveSurvey(query, usercompany, function(status){
+    saveSurvey(query, companyid, function(status){
         
         if(status) {
             
-            getSurveyForm(query, usercompany, function(form){
+            getSurveyForm(query, companyid, function(form){
                 
                 if(query.targetgroup == 'organization') {
                     
-                    if(query.target_teamid === usercompany) {
+                    if(query.target_teamid === companyid) {
                         
                         //Get members by matching company
-                        getCompanyMembers(query, form, usercompany, function(members){
+                        getCompanyMembers(query, form, companyid, function(members){
                             
                             for (var mkey in members) {
                                 
@@ -195,7 +197,7 @@ exports.createForm = function (req, res) {
                     }
                     
                 } else if(query.targetgroup == 'survey') {
-                    getCompanyMembers(query, form, usercompany, function(members){
+                    getCompanyMembers(query, form, companyid, function(members){
                         
                         getEngagementResults(query, form, members, function(posts){
                             
@@ -355,32 +357,50 @@ function getTeams(companyname, manager_id, callback) {
 }
 
 
+function getMyCompany(companyid, callback) {
+    
+    var condition = {_id: companyid};
+    
+    CompanyInfo.find(condition).lean().exec(function (err, rows) {
+        if (rows != 'undefined') {
+            callback(rows);
+        }
+    });
+   
+}
+
+
 exports.getOrganisation = function (req, res) {
 
     var user_id = mongoose.Types.ObjectId(req.user._id);
-    var companyname = req.user.company_info[0].companyname;
+    var companyid = mongoose.Types.ObjectId(req.user.company_id);
 
-    
-    getTeams(companyname, user_id, function(teams) {
-        var response = {};
-        var data = {};
-
-        if(!companyname) {
-            companyname = '';
-        }
-
-        if(teams.length == 0 ) {
-            teams = [];
-        }
-
-        data.companyname = companyname;
-        data.teams = teams;
-        response.data = data;
-        response.status = 'success';
+    getMyCompany(companyid, function(company) {
+        var companyname = company[0].companyname;
         
-        res.send(response);
-        res.end();
-        
+        getTeams(companyname, user_id, function(teams) {
+            
+            var response = {};
+            var data = {};
+
+            if(!companyname) {
+                companyname = '';
+            }
+
+            if(teams.length == 0 ) {
+                teams = [];
+            }
+
+            data.companyname = companyname;
+            data.companyid = company[0]._id;
+            data.teams = teams;
+            response.data = data;
+            response.status = 'success';
+
+            res.send(response);
+            res.end();
+
+        });
     });
 
 };

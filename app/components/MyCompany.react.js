@@ -55,8 +55,8 @@ export default class MyCompany extends React.Component {
 
   componentDidMount() {
       SurveyActions.getCompanyData();
-      SurveyActions.getMostEngagingManagers();
-      SurveyActions.getEngagementSurvey();
+      //SurveyActions.getMostEngagingManagers();
+      //SurveyActions.getEngagementSurvey();
       SurveyActions.getMyTeams();
       SurveyStore.listen(this._onChangeData);
 

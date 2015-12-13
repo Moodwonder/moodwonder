@@ -84,14 +84,14 @@ module.exports = function (app, passport) {
     app.get('/getownteams', users.checkLogin, teams.getOwnTeams);
 
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
+    app.post('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
     app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
     app.get('/getlastengagementsurvey', users.checkLogin, surveys.getLastSurvey);
     app.get('/getengagementresults', users.checkLogin, surveys.getSurveyResults);
-    app.get('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
     app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
-    app.get('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
+    app.post('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
 
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);

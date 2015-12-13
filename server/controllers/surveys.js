@@ -248,9 +248,9 @@ exports.getSurveyResults = function (req, res) {
     }
 };
 
-function getUsersByCompany(company, callback) {
+function getUsersByCompany(companyid, callback) {
     
-    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {
+    User.find({company_id: companyid}).lean().exec(function (err, docs) {
         if (docs != 'undefined') {
             callback(docs);
         }
@@ -293,12 +293,12 @@ function getResultsByUserId(uid, callback) {
 exports.getResultsByComapny = function (req, res) {
     
     var currentUser = req.user;
-    var company = currentUser.company_info[0].companyname;
+    var companyid = currentUser.company_id;
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var condition = {user_id: user_id};
     
 
-    getUsersByCompany(company, function (docs) {
+    getUsersByCompany(companyid, function (docs) {
 
         var ids = _(docs).map(function (g, key) {
             return g._id;
@@ -413,8 +413,8 @@ exports.getResultsByCountry = function (req, res) {
 
 // Engaging Managers
 
-function getManagersByCompany(company, callback) {
-    var condition = {usertype: 'manager', company_info: {$elemMatch: {companyname: company}}};
+function getManagersByCompany(companyid, callback) {
+    var condition = {usertype: 'manager', company_id: companyid};
     
     User.find(condition).lean().exec(function (err, docs) {
         if (docs != 'undefined') {
@@ -469,12 +469,12 @@ function getSubordinatesEngagements(docs, memberids, callback) {
 exports.getMostEngagingManagers = function (req, res) {
 
     var currentUser = req.user;
-    var company = currentUser.company_info[0].companyname;
+    var companyid = currentUser.company_id;
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var condition = {user_id: user_id};
     var orderby = {_id: 1}; // -1: DESC; 1: ASC
 
-    getManagersByCompany(company, function (docs) {
+    getManagersByCompany(companyid, function (docs) {
         
         var ids = _(docs).map(function (g, key) {
             return g._id;
@@ -519,7 +519,7 @@ exports.getMostEngagingManagers = function (req, res) {
                     
                     var _docs = docs[d];
                     var temp = {};
-                    temp.name = _docs.name;
+                    temp.name = _docs.firstname + ' ' + _docs.lastname;
                     
                     for (var m in memberids) {
                         var _member = memberids[m];
@@ -574,9 +574,9 @@ exports.getMostEngagingManagers = function (req, res) {
 
 
 // Start : Company statistics
-function getCompanyESurveyUsers(company, currentUser, callback) {
+function getCompanyESurveyUsers(companyid, currentUser, callback) {
     
-    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, docs) {
+    User.find({company_id: companyid}).lean().exec(function (err, docs) {
         if (docs != 'undefined') {
             callback(docs);
         }
@@ -608,11 +608,12 @@ function getCompanyESurvey(employees, currentUser, callback) {
 exports.getCompanyStatisticsData = function (req, res) {
     
     var currentUser = req.user;
-    var company = currentUser.company_info[0].companyname;
+    //var company = currentUser.company_info[0].companyname;
+    var companyid = currentUser.company_id;
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var condition = {user_id: user_id};
     
-    getCompanyESurveyUsers(company, currentUser, function (employees) {
+    getCompanyESurveyUsers(companyid, currentUser, function (employees) {
 
         getCompanyESurvey(employees, currentUser, function (results) {
             var response = {};
