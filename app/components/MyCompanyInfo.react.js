@@ -260,11 +260,13 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     messageAutoClose = (state) => {
-        if(state.messages.length > 0){
-            setTimeout(function(){
-                this.setState({ messages: [] });
-            }.bind(this),3000);
-        }
+        try {
+            if(state.messages.length > 0){
+                setTimeout(function(){
+                    this.setState({ messages: [] });
+                }.bind(this),3000);
+            }
+        } catch (e) {}
     }
 
     render() {
@@ -272,19 +274,20 @@ export default class MyCompanyInfo extends React.Component {
         let message;
         let userInfo = this.state.userDetailsTmp;
         let multimessages;
-
-        if (this.state.messages !== undefined && this.state.messages.length > 0) {
-            multimessages = this.state.messages.map((mes, key) => {
-                return [<li>{mes}</li>];
-            });
-            message = (
-              <div className="ui error message segment">
-                <ul className="list">
-                    {multimessages}
-                </ul>
-              </div>
-            );
-        }
+        try {
+            if (this.state.messages !== undefined && this.state.messages.length > 0) {
+                multimessages = this.state.messages.map((mes, key) => {
+                    return [<li>{mes}</li>];
+                });
+                message = (
+                  <div className="ui error message segment">
+                    <ul className="list">
+                        {multimessages}
+                    </ul>
+                  </div>
+                );
+            }
+        } catch (e) {}
 
         return (
             <div>
