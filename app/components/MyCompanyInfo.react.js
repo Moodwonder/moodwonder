@@ -195,13 +195,14 @@ export default class MyCompanyInfo extends React.Component {
         let state = {};
         state.hasError = false;
         state.messages = [];
+
+        /*
         for (let key in model) {
 
             if(key === 'companyname' && model[key].trim() === '' ){
                 state.hasError = true;
                 state.messages.push('Company name cannot be empty');
             }
-            /*
             if(key === 'industry' && model[key].trim() === '' ){
                 state.hasError = true;
                 state.messages.push('Industry name cannot be empty');
@@ -234,8 +235,8 @@ export default class MyCompanyInfo extends React.Component {
                 state.hasError = true;
                 state.messages.push('Companysize name cannot be empty');
             }
-            */
         }
+        */
         this.setState(state);
         return (!state.hasError);
     }
@@ -246,10 +247,14 @@ export default class MyCompanyInfo extends React.Component {
         let refs = this.refs;
         for (let key in refs) {
             if (refs.hasOwnProperty(key)) {
+                if(!refs[key].props.value){
+                    refs[key].props.value = '';
+                }
                 model[key] = refs[key].props.value;
             }
         }
         if(this.formValidation(model)){
+            console.log(model);
             UserActions.saveCompanyInfo(model);
         }
     }
@@ -296,7 +301,6 @@ export default class MyCompanyInfo extends React.Component {
                            placeholder="Company name"
                            validationError="Company name is required"
                            onChange={this.onChangeText}
-                           disabled={true}
                            required/>
                         </div>
 

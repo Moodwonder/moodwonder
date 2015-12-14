@@ -184,15 +184,15 @@ module.exports = function (app, passport) {
 
         if (/(\.png$|\.map$|\.jpg$)/.test(req.url))
             return;
-        var user = req.user ? {authenticated: true, isWaiting: false, usertype: req.user.usertype } : {authenticated: false, isWaiting: false};
+        var user = req.user ? {authenticated: true, isWaiting: false, usertype: req.user.usertype, company_admin: req.user.company_admin } : {authenticated: false, isWaiting: false};
         var publicprofile = (req.body.response !== undefined) ? { publicuser: req.body.response }: { publicuser: false };
         var inviteEmail = req.body.inviteEmail ? req.body.inviteEmail : '';
 
-        var AppStore = { isAuthenticated: false, userType: false };
+        var AppStore = { isAuthenticated: false, userType: false, company_admin: false };
         if(typeof req.user !== 'undefined' && req.user !== null ){
             // console.log('req.user');
             // console.log((req.user === null) );
-            AppStore = {isAuthenticated: true, userType: req.user.usertype };
+            AppStore = {isAuthenticated: true, userType: req.user.usertype, company_admin: req.user.company_admin };
         }
 
         // To set state of a component from server

@@ -30,7 +30,7 @@ export default RequireAuth(class AllTeams extends React.Component {
     _onCompanyChange = (e) => {
         // console.log(e.target.value);
         if(e.target.value !== ''){
-            AdminTeamActions.getAllTeams({ companyname: e.target.value });
+            AdminTeamActions.getAllTeams({ company_id: e.target.value });
             AdminTeamsStore.listen(this._onChange);
         }
     }
@@ -51,7 +51,7 @@ export default RequireAuth(class AllTeams extends React.Component {
         let companylist;
         if(this.state.companyList){
             companylist = this.state.companyList.map((data, key) => {
-                return [<option>{data.name}</option>];
+                return [<option value={data._id}>{data.companyname}</option>];
             });
         }
 

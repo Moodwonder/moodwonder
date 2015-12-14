@@ -62,7 +62,7 @@ export default class App extends React.Component {
       // admin only pages
       pages = ["/surveyforms"];
       if( pages.indexOf(path) >= 0){
-          if( (!this.state.isAuthenticated) || this.state.userType !== 'admin' ){
+          if( (!this.state.isAuthenticated) || this.state.company_admin){
               handler = noPermission;
               this.noAccess = true;
           }

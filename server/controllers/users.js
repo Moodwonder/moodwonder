@@ -319,6 +319,7 @@ exports.getallusersforadmin = function (req, res) {
                                  name: ( user.firstname+' '+user.lastname),
                                  email: user.email,
                                  usertype: user.usertype,
+                                 company_admin: (user.company_admin) ? true : false,
                                  verifylink: (user.verifylink === "1") ? true : false,
                                  country: (hasComp && company.country !== undefined )? company.country: '',
                                  companyname: (hasComp && company.companyname !== undefined )? company.companyname: '',
@@ -1098,11 +1099,11 @@ exports.postSaveCompanyInfo = function (req, res) {
     var messages = [];
     for (var key in model) {
 
+      /*
       if(key === 'companyname' && model[key].trim() === '' ){
         hasError = true;
         messages.push('Company name cannot be empty..');
       }
-      /*
       if(key === 'industry' && model[key].trim() === '' ){
         hasError = true;
         messages.push('Industry name cannot be empty');
@@ -1146,13 +1147,14 @@ exports.postSaveCompanyInfo = function (req, res) {
     }else{
 
 
-    var model = {'company_info': [model]};
+    var model = model;
 
-    var conditions = {'_id': new ObjectId(req.user._id)}
+    // console.log(req.user.company_id);
+    var conditions = { _id: new ObjectId(req.user.company_id)}
     , update = model
             , options = {multi: false};
 
-    User.update(conditions, update, options, function (err) {
+    CompanyInfo.update(conditions, update, options, function (err) {
         if (!err) {
 
             response.status = true;
@@ -1505,7 +1507,7 @@ exports.getAllEmployees = function (req, res) {
 };
 
 /**
- * Get get all employees by company name
+ * Get check admin status
  */
 exports.isAdmin = function (req, res, next) {
     if(req.user.usertype === 'admin'){
@@ -1752,11 +1754,9 @@ exports.updateUserByAdmin = function (req, res) {
         var options = { multi: false };
         if(model.userstatus !== undefined){
             updateQuery.userstatus = (model.userstatus) ? 'Active':'Inactive';
-        }else if(model.usertype !== undefined){
-            updateQuery.usertype = (model.usertype) ? 'admin':'user';
+        }else if(model.company_admin !== undefined){
+            updateQuery.company_admin = (model.company_admin) ? true:false;
         }
-        console.log((model.usertype));
-        console.log(model.usertype);
 
         User.update(conditionQuery, updateQuery, options, function (err) {
 
@@ -1788,7 +1788,7 @@ exports.getAllCompanies = function(req, res){
     response.status = false;
     response.message = 'Error';
     //console.log(req.body);
-    Company.find({}).exec(function(err, doc){
+    CompanyInfo.find({}).exec(function(err, doc){
         if(!err){
             response.status  = true;
             response.message = 'success';
@@ -1976,8 +1976,8 @@ exports.getAllTeamsFromCompany = function(req, res){
         });
     }
 
-    var companyname = req.body.companyname;
-    var where = { usertype : "manager" };
+    var company_id = req.body.company_id;
+    var where = { company_id: company_id, usertype : "manager" };
 
     User.find(where).exec(function(err, lists) {
         if(!err) {
