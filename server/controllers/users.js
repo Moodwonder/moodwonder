@@ -1099,11 +1099,11 @@ exports.postSaveCompanyInfo = function (req, res) {
     var messages = [];
     for (var key in model) {
 
+      /*
       if(key === 'companyname' && model[key].trim() === '' ){
         hasError = true;
         messages.push('Company name cannot be empty..');
       }
-      /*
       if(key === 'industry' && model[key].trim() === '' ){
         hasError = true;
         messages.push('Industry name cannot be empty');
@@ -1147,13 +1147,14 @@ exports.postSaveCompanyInfo = function (req, res) {
     }else{
 
 
-    var model = {'company_info': [model]};
+    var model = model;
 
-    var conditions = {'_id': new ObjectId(req.user._id)}
+    // console.log(req.user.company_id);
+    var conditions = { _id: new ObjectId(req.user.company_id)}
     , update = model
             , options = {multi: false};
 
-    User.update(conditions, update, options, function (err) {
+    CompanyInfo.update(conditions, update, options, function (err) {
         if (!err) {
 
             response.status = true;

@@ -96,18 +96,10 @@ exports.createTeam = function(req, res, next) {
 
           User.findOne({ _id: new ObjectId(req.user._id) },function(err, user){
               if(user !== null){
-                  if(user.usertype !== 'admin'){
-                      req.body.update  = { 'usertype': 'manager'};
-                      req.body.resmessage  = 'Team created';
-                      req.body._id = req.user._id;
-                      next();
-                  }else{
-                      response.status   = true;
-                      response.message  = 'Team created';
-                      response.callback = req.body.callback;
-                      res.send(response);
-                      res.end();
-                  }
+                  req.body.update  = { 'usertype': 'manager'};
+                  req.body.resmessage  = 'Team created';
+                  req.body._id = req.user._id;
+                  next();
               }else{
                   console.log(err);
                   response.status   = false;
