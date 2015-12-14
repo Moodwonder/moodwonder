@@ -993,8 +993,9 @@ export default class MyMood extends React.Component {
       let data = {
             label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            //strokeColor: "rgba(151,187,205,1)",
+            strokeColor: "#64B5F6",
+            pointColor: "#64B5F6",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -1004,8 +1005,9 @@ export default class MyMood extends React.Component {
       let mooddata = {
             label: "Second Dataset",
             fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(200,127,105,1)",
-            pointColor: "rgba(200,127,105,1)",
+            //strokeColor: "rgba(200,127,105,1)",
+            strokeColor: "#EF5350",
+            pointColor: "#EF5350",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -1069,6 +1071,13 @@ export default class MyMood extends React.Component {
                             <div className="clear"></div>
                             <div className="graph">
                                 <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
+                                <div className="clear"></div>
+                                <div className="legend">
+                                    <label className="legent-img-one"></label>
+                                    <label className="legent-lbl-one">Mood</label>
+                                    <label className="legent-img-two"></label>
+                                    <label className="legent-lbl-one">{graphengagement}</label>
+                                </div>
                             </div>
                           </div>
                           </div>

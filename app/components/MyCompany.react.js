@@ -286,8 +286,8 @@ export default class MyCompany extends React.Component {
       let mydata = {
             label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            strokeColor: "#64B5F6",
+            pointColor: "#64B5F6",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -333,8 +333,8 @@ export default class MyCompany extends React.Component {
       let data = {
             label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
+            strokeColor: "#64B5F6",
+            pointColor: "#64B5F6",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -409,8 +409,8 @@ export default class MyCompany extends React.Component {
               let tdata = {
                   label: "First Dataset",
                   fillColor: "rgba(151,187,205,0.2)",
-                  strokeColor: "rgba(151,187,205,1)",
-                  pointColor: "rgba(151,187,205,1)",
+                  strokeColor: "#64B5F6",
+                  pointColor: "#64B5F6",
                   pointStrokeColor: "#fff",
                   pointHighlightFill: "#fff",
                   pointHighlightStroke: "rgba(151,187,205,1)",
