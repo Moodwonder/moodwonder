@@ -122,8 +122,8 @@ var mgrNotificationIndividual = new CronJob({
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
                                                             from: 'admin@moodewonder.com',
-                                                            //to: manager.email,
-                                                            to: 'useremailtestacc@gmail.com',
+                                                            to: manager.email,
+                                                            //to: 'useremailtestacc@gmail.com',
                                                             subject: 'Notification - Individual Lower limit',
                                                             html: body
                                                         });
