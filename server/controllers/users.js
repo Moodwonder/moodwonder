@@ -415,6 +415,7 @@ exports.getallusers = function (req, res) {
  */
 exports.getUserInfo = function (req, res) {
 
+    response = {};
     response.status = false;
     response.message = 'Error';
 
@@ -454,7 +455,6 @@ exports.getUserInfo = function (req, res) {
                         response.data = mycompany;
                         res.json(response);
                     }else{
-                        response = {};
                         response.status = true;
                         response.message = 'success';
                         res.json(response);
@@ -1705,7 +1705,7 @@ exports.getUserInfoById = function (req, res) {
                             if (lists.mymanager[0] == undefined) {
                                 lists.mymanager[0] = {'email': ''};
                             }
-                            var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '';
+                            var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                             response.data = {
                                 'fname': lists.firstname,
                                 'lname': lists.lastname,

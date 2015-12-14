@@ -18,6 +18,10 @@ export default RequireAuth(class Continents extends React.Component {
         PlacesStore.listen(this._onChange);
     }
 
+    componentDidUpdate(){
+        $('.menu .item').tab();
+    }
+
     _onChange = (state) => {
         console.log(state);
         this.setState(state);
@@ -30,21 +34,10 @@ export default RequireAuth(class Continents extends React.Component {
     render() {
 
         let Tab1     = [<AddContinents />];
-        let Tab2;
+        let Tab2 = [<div>2</div>];
         if(this.state.PlacesList){
             Tab2     = [<DataTable data={this.state.PlacesList}/>];
-        }
-
-        let activeTab = [];
-        activeTab[0] = ['tab-pane fade',''];
-        activeTab[1] = ['tab-pane fade',''];
-
-        if( this.state.Tab !== undefined ){
-            activeTab[this.state.Tab][0] += ' in active';
-            activeTab[this.state.Tab][1] = 'active';
-        }else{
-            activeTab[0][0] += ' in active';
-            activeTab[0][1] = ' active';
+            //Tab2 = [<div>2</div>];
         }
 
         let message;
@@ -63,18 +56,15 @@ export default RequireAuth(class Continents extends React.Component {
             <div className="ui container">
                 <h2>All Continents</h2>
                 {message}
-                <ul className="nav nav-tabs">
-                    <li className={activeTab[0][1]}><a onClick={this.onTabClick.bind(this,0)} >Add Continents</a></li>
-                    <li className={activeTab[1][1]}><a onClick={this.onTabClick.bind(this,1)} >List Continents</a></li>
-                </ul>
-
-                <div className="tab-content">
-                  <div id="home" className={activeTab[0][0]}>
-                   {Tab1}
-                  </div>
-                  <div id="menu1" className={activeTab[1][0]}>
-                   {Tab2}
-                  </div>
+                <div className="ui top attached tabular menu">
+                    <a className="item active" data-tab="first">Add Continents</a>
+                    <a className="item" data-tab="second">List Continents</a>
+                </div>
+                <div className="ui bottom attached tab segment active" data-tab="first">
+                  {Tab1}
+                </div>
+                <div className="ui bottom attached tab segment" data-tab="second">
+                  {Tab2}
                 </div>
             </div>
         );
@@ -247,7 +237,9 @@ class DataTable extends React.Component {
                                 content = ( <Link to={ `/admin/countries/${row[0].column}/${row[1].column}` } className="navigation__item">View countries</Link> );
                             }
                             if(column.edit === true){
-                                content = ( <Editable onSave={this._onUpdateContinents} teamid={row[0].column} value={column.column} /> );
+                                if(row[0].column !== undefined && column.column !== undefined){
+                                    content = ( <Editable onSave={this._onUpdateContinents} teamid={row[0].column} value={column.column} /> );
+                                }
                             }
                             if(column.remove === true){
                                 content = ( <button type="button" data-tag={row[0].column} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button>);

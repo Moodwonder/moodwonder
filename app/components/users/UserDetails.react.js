@@ -24,6 +24,10 @@ export default RequireAuth(class UserDetails extends React.Component {
         AdminUserStore.listen(this._onChange);
     }
 
+    componentDidUpdate(){
+        $('.menu .item').tab();
+    }
+
     _onChange = (state) => {
         this.setState(state);
     }
@@ -62,26 +66,23 @@ export default RequireAuth(class UserDetails extends React.Component {
                 data.status = true;
             }
             userDetails = (
-            <ul className="list-group">
-              <li className="list-group-item"><img src={this.state.userDetails.profile_image} /></li>
-              <li className="list-group-item">First name : {this.state.userDetails.fname}</li>
-              <li className="list-group-item">Last name : {this.state.userDetails.lname}</li>
-              <li className="list-group-item">Work email : {this.state.userDetails.email}</li>
-              <li className="list-group-item">Language : {this.state.userDetails.language}</li>
-              <li className="list-group-item">Manager : {this.state.userDetails.mymanager}</li>
-              <li className="list-group-item">Report frequency : {this.state.userDetails.reportfrequency}</li>
-              <li className="list-group-item">User status : <ChangeUserStatus data={data} /> </li>
-              <li className="list-group-item"><a href={ `/admin/surveystatistics/${this.props.params.uid}` }>Survey Statistics</a></li>
-            </ul>
+            <div className="ui grid">
+              <div className="eight wide column"><img src={this.state.userDetails.profile_image} /></div>
+              <div className="eight wide column">First name : {this.state.userDetails.fname}</div>
+              <div className="eight wide column">Last name : {this.state.userDetails.lname}</div>
+              <div className="eight wide column">Work email : {this.state.userDetails.email}</div>
+              <div className="eight wide column">Language : {this.state.userDetails.language}</div>
+              <div className="eight wide column">Manager : {this.state.userDetails.mymanager}</div>
+              <div className="eight wide column">Report frequency : {this.state.userDetails.reportfrequency}</div>
+              <div className="eight wide column">User status : <ChangeUserStatus data={data} /> </div>
+              <div className="eight wide column"><a href={ `/admin/surveystatistics/${this.props.params.uid}` }>Survey Statistics</a></div>
+            </div>
             );
         }
 
         let Tab = [];
         Tab[0] = userDetails;
         Tab[1] = [ <li>No data</li> ];
-        let activeTab = [];
-        activeTab[0] = 'tab-pane fade';
-        activeTab[1] = 'tab-pane fade';
 
         try{
             Tab[1] = [ <OpenEndedQuestionsAnswers uid={this.props.params.uid} /> ];
@@ -89,27 +90,19 @@ export default RequireAuth(class UserDetails extends React.Component {
             console.log(err);
         }
 
-        if( this.state.Tab !== undefined ){
-            activeTab[this.state.Tab] += ' in active';
-        }else{
-            activeTab[0] += ' in active';
-        }
-
         return (
-            <div className="container">
-            {message}
-            <h1>Users</h1>
-              <ul className="nav nav-tabs">
-                <li><a onClick={this.onTabClick.bind(this,0)} >User Details</a></li>
-                <li><a onClick={this.onTabClick.bind(this,1)} >responses for open ended questions</a></li>
-              </ul>
-                <div className="tab-content">
-                  <div id="home" className={activeTab[0]}>
-                    {Tab[0]}
-                  </div>
-                  <div id="menu1" className={activeTab[1]}>
-                    {Tab[1]}
-                  </div>
+            <div className="ui container">
+                {message}
+                <h1>Users</h1>
+                <div className="ui top attached tabular menu">
+                    <a className="item active" data-tab="first">User Details</a>
+                    <a className="item" data-tab="second">Responses for open ended questions</a>
+                </div>
+                <div className="ui bottom attached tab segment active" data-tab="first">
+                  {Tab[0]}
+                </div>
+                <div className="ui bottom attached tab segment" data-tab="second">
+                  {Tab[1]}
                 </div>
             </div>
         );
@@ -180,10 +173,10 @@ class OpenEndedQuestionsAnswers extends React.Component {
         let res;
         if(data !== undefined){
             res = data.map((data, key) => {
-                return [ <li key={key} className="list-group-item">{data.q} : {data.a}</li> ];
+                return [ <li key={key} className="eight wide column">{data.q} : {data.a}</li> ];
             });
         }else{
-            res = [ <li className="list-group-item"> No record found </li> ];
+            res = [ <li className="eight wide column"> No record found </li> ];
         }
         this.list = res;
     }
