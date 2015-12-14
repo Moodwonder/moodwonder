@@ -9,12 +9,32 @@ var EngagementResults = require('../models/engagementResults');
 var SurveyParticipation = require('../models/surveyParticipation');
 var CompanyInfo = require('../models/companyinfo');
 
+function userHasSurvey(sid, uid, callback) {
+    
+    SurveyParticipation.find({survey_id: sid, user_id: uid}).lean().exec(function (err, survey) {
+        if (!err) {
+            if (survey.length > 0) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        }
+    });
+} 
+
 exports.handleTakeSurvey = function(req, res, next) {
 
   var hash = req.params.hash;
   if(req.user) {
       res.clearCookie('takesurvey');
-      next();
+      userHasSurvey(hash, req.user._id, function(status) {
+          if (status) {
+              next();
+          } else {
+              res.redirect('/mymood');
+          }
+      });
+      
   } else {
       res.cookie('takesurvey', hash);
       res.redirect('/login');
@@ -309,6 +329,13 @@ exports.getForms = function (req, res) {
  */
 exports.deleteForm = function (req, res) {
     var _id = mongoose.Types.ObjectId(req.body.id);
+    
+    SurveyParticipation.remove({survey_id: _id, status: 'notparticipated'}, function (err) {
+        if (err) {
+            console.log('Error in deleting survey participation records.');
+        } 
+    });
+    
     CustomSurvey.remove({_id: _id}, function (err) {
         var response = {};
         if (!err) {
