@@ -546,7 +546,7 @@ export default class MyCompany extends React.Component {
       // Enable company info tab if the current user is admin
       let comInfoTab = null;
       let comInfoTabContent = null;
-      if((this.userstate.user.get('usertype')==='admin')){
+      if(this.userstate.user.get('company_admin')){
           comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#">{GetText('MYCO_COMPANYINFO', mlarray)}</a>];
           comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo/></div>];
       }

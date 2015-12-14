@@ -16,7 +16,6 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
 
         this.hasData = false;
         this.rows = false;
-        this.header = [];
         this.pagination = [];
         this.tableClass = '';
     }
@@ -28,8 +27,6 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
 
     _onChange = (state) => {
         // console.log(state);
-        this.header = state.usersTable.header;
-        this.tableClass = state.usersTable.class;
         this.pagination = state.usersTable.pagination;
 
         state.rows = state.usersTable.rows;
@@ -90,7 +87,7 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
             <div className="ui container">
                 <h2>Company Admin</h2>
                 <div>
-                    <table className={this.tableClass + " ui celled table"}>
+                    <table className="ui celled table">
                         <tr>
                             <td>Name</td>
                             <td>Email</td>
@@ -116,7 +113,7 @@ class ChangeUserStatus extends React.Component {
         super(props);
         try{
             // console.log(this.props.data);
-            if(this.props.data.usertype==='admin'){
+            if(this.props.data.company_admin){
                 this.state = {
                     checked: true,
                     statusText: 'Active'
@@ -149,8 +146,8 @@ class ChangeUserStatus extends React.Component {
                 statusText: 'Active'
             });
         }
-        let usertype = !this.state.checked;
-        AdminUserActions.updateUserDetails({ _id: this.props.data._id, usertype: usertype ,action: 'change user type'});
+        let company_admin = !this.state.checked;
+        AdminUserActions.updateUserDetails({ _id: this.props.data._id, company_admin: company_admin ,action: 'change user type'});
     }
 
     render() {

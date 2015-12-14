@@ -20,6 +20,7 @@ var UserSchema = new mongoose.Schema({
   profile_image: {type: String, default: ''},
   cover_image: {type: String, default: ''},
   usertype: {type: String, default: 'user'},
+  company_admin: {type: Boolean, default: false},
   teamname: String,
   mymanager: [{ _id: String, email: String }],
   company_id :{type: String, default: ''},
