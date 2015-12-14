@@ -73,8 +73,8 @@ function getMWIndexRuleIndividual(key, callback) {
 }
 
 var CronJob = require('cron').CronJob;
-var job = new CronJob({
-    cronTime: '00 10 09 * 1-7',
+var mgrNotificationIndividual = new CronJob({
+    cronTime: '00 00 11 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -122,8 +122,8 @@ var job = new CronJob({
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
                                                             from: 'admin@moodewonder.com',
-                                                            to: manager.email,
-                                                            //to: 'useremailtestacc@gmail.com',
+                                                            //to: manager.email,
+                                                            to: 'useremailtestacc@gmail.com',
                                                             subject: 'Notification - Individual Lower limit',
                                                             html: body
                                                         });
@@ -180,6 +180,6 @@ var job = new CronJob({
     start: true,
     timeZone: ''
 });
-job.start();
+mgrNotificationIndividual.start();
 
 

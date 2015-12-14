@@ -80,8 +80,8 @@ function getMWIndexRule(key, callback) {
 }
 
 var CronJob = require('cron').CronJob;
-var job = new CronJob({
-    cronTime: '00 10 18 * * 1-7',
+var mgrNotificationTeam = new CronJob({
+    cronTime: '00 45 12 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -113,9 +113,6 @@ var job = new CronJob({
                                         if (sum > 0) {
                                             var postedtimes = (posts.length) / 13;
                                             var teamindex = (sum / (postedtimes * 13)).toFixed(1);
-                                            
-                                            console.log('teamindex');
-                                            console.log(teamindex);
                                             
                                             getMWIndexRule('TEAM_LOWER_LIMIT', function (lowerlimit) {
                                                 if (teamindex <= lowerlimit.rule_value) {
@@ -174,6 +171,6 @@ var job = new CronJob({
     start: true,
     timeZone: ''
 });
-job.start();
+mgrNotificationTeam.start();
 
 

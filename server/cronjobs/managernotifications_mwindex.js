@@ -70,8 +70,8 @@ function getMWIndexRule(key, callback) {
 }
 
 var CronJob = require('cron').CronJob;
-var job = new CronJob({
-    cronTime: '00 00 11 * * 1-7',
+var mgrNotificationMWIndex = new CronJob({
+    cronTime: '00 00 12 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -152,6 +152,6 @@ var job = new CronJob({
     start: true,
     timeZone: ''
 });
-job.start();
+mgrNotificationMWIndex.start();
 
 
