@@ -77,7 +77,11 @@ export default class OpenendedResponses extends React.Component {
       let options;
       if (members) {
           options = members.map((member) => {
-              return (<option value={member._id}>{member.name}</option>);
+              if (member.firstname === '' || member.firstname === undefined) {
+                  return (<option value={member._id}>{member.email}</option>);
+              } else {
+                  return (<option value={member._id}>{member.firstname + " " + member.lastname}</option>);
+              }
           });
       }
 
@@ -108,7 +112,11 @@ export default class OpenendedResponses extends React.Component {
       if (uid) {
 
           for (let u in smember) {
-              username = smember[u].name;
+              if(smember[u].firstname === '' || smember[u].firstname === undefined) {
+                  username = smember[u].email;
+              } else {
+                  username = smember[u].firstname + " " + smember[u].lastname;
+              }
           }
 
           content = data.map((row) => {
@@ -186,9 +194,10 @@ export default class OpenendedResponses extends React.Component {
           sResponses = (
                     <div className="custom-box">
                         <div className="ui two column stackable grid survey">
-                            <div className="three wide column ">
+                            <div className="column ">
                                 <label className="line-height">User - {username}</label>
                             </div>
+                            <div className="column "></div>
                         </div>
                     </div>
           );

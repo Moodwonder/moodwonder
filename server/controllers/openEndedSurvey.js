@@ -148,9 +148,12 @@ exports.getOpenEndedSurveyAnswer = function (req, res) {
 exports.getMembers = function (req, res, next) {
 
     var currentUser = req.user;
-    var company = currentUser.company_info[0].companyname;
+    //var company = currentUser.company_info[0].companyname;
+    //console.log('currentUser');
+    //console.log(JSON.stringify(currentUser));
+    var companyid = currentUser.company_id;
     
-    User.find({company_info: {$elemMatch: {companyname: company}}}).lean().exec(function (err, members) {
+    User.find({company_id: companyid}).lean().exec(function (err, members) {
         var response = {};
         if (!err) {
             response.status = true;

@@ -376,9 +376,6 @@ module.exports = function (app, passport) {
     app.get('*', function (req, res, next) {
 
         var lang = req.cookies.lang;
-        console.log('lang');
-        console.log(lang);
-        
         var pageurl = req.url;
 
         if (lang == 'undefined' || lang == null) {
