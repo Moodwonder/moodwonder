@@ -6,7 +6,8 @@ class SurveyStore {
 
   constructor () {
 
-      this.questions = {};
+      //this.questions = {};
+      this.questions = [];
       this.hasQuestions = false;
       this.hasError = false;
       this.message = '';
@@ -47,6 +48,7 @@ class SurveyStore {
   }
 
   handleSurveys (data) {
+      this.questions = [];
       this.questions = data;
       this.hasQuestions = true;
       this.emitChange();

@@ -91,8 +91,8 @@ export default class MyMood extends React.Component {
       SurveyActions.getEngagementSurvey();
       SurveyActions.getEngagementResults('undefined'); // An undefined check on server.
       SurveyActions.getResultsByCompany();
-      SurveyActions.getResultsByIndustry();
-      SurveyActions.getResultsByCountry();
+      //SurveyActions.getResultsByIndustry();
+      //SurveyActions.getResultsByCountry();
       SurveyActions.getMostEngagingManagers();
       SurveyStore.listen(this._onMoodChange);
 
@@ -617,9 +617,11 @@ export default class MyMood extends React.Component {
       let teams = [];
 
       if (organization.companyname !== '') {
-          companyoption = (<option value={organization.companyname}>
-                            {organization.companyname}
-                           </option>);
+          companyoption = (
+                            <option value={organization.companyid}>
+                                {organization.companyname}
+                            </option>
+          );
       }
 
       let teamdata = organization.teams;

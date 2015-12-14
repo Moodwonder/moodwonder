@@ -38,7 +38,7 @@ const utils = {
   getResultsByCompany: () => {
       return $.ajax({
       url: '/getresultsbycompany',
-      type: 'GET',
+      type: 'POST',
       contentType: 'application/json'
     });
   },
@@ -71,7 +71,7 @@ const utils = {
   getCompanyData: () => {
       return $.ajax({
       url: '/getcompanydata',
-      type: 'GET',
+      type: 'POST',
       contentType: 'application/json'
     });
   },
