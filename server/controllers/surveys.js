@@ -519,7 +519,11 @@ exports.getMostEngagingManagers = function (req, res) {
                     
                     var _docs = docs[d];
                     var temp = {};
-                    temp.name = _docs.firstname + ' ' + _docs.lastname;
+                    if (_docs.firstname === '' || _docs.firstname === undefined) {
+                        temp.name = _docs.email;
+                    } else {
+                        temp.name = _docs.firstname + ' ' + _docs.lastname;
+                    }
                     
                     for (var m in memberids) {
                         var _member = memberids[m];
