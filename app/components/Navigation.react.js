@@ -12,7 +12,7 @@ import getFormData from 'get-form-data';
 //import $ from 'jquery';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
-import ModalSelect from 'components/ModalSelect.react';
+
 
 export default class Navigation extends React.Component {
 
@@ -72,8 +72,8 @@ export default class Navigation extends React.Component {
       let form = document.querySelector('#moodRating');
       let data = getFormData(form, {trim: true});
 
-      let commentForm = document.querySelector('#commentForm');
-      let commentData = getFormData(commentForm, {trim: true});
+      //let commentForm = document.querySelector('#commentForm');
+      //let commentData = getFormData(commentForm, {trim: true});
 
       let moodrate = data['moodrate'];
       let surveyResult = [];
@@ -83,27 +83,30 @@ export default class Navigation extends React.Component {
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
-          mood.comment_title = commentData['comment_title'];
-          mood.comment = commentData['comment'];
-          //mood.comment_title = 'comment_title';
-          //mood.comment = 'comment';
+          //mood.comment_title = commentData['comment_title'];
+          //mood.comment = commentData['comment'];
+          mood.comment_title = 'title';
+          mood.comment = 'comment';
           mood.mood = data;
           return mood;
       });
-      if (commentData['comment_title'] != '') {
-          moodrow.surveyresult = surveyResult;
-          SurveyActions.saveEngagementSurvey(moodrow);
-          this.setState({ popup : false });
-          //console.log(JSON.stringify(moodrow));
-          window.setTimeout(() => {
-              window.location.reload();
-          });
-      }
+
+      moodrow.surveyresult = surveyResult;
+      SurveyActions.saveEngagementSurvey(moodrow);
+      //this.setState({ popup : false });
+      this.setState({ popup : true });
+      //console.log(JSON.stringify(moodrow));
+      window.setTimeout(() => {
+          //window.location.reload();
+      });
   }
 
   onPopupClose = (e) => {
       e.preventDefault();
       this.setState({ popup : false });
+      window.setTimeout(() => {
+          window.location.reload();
+      });
   }
 
   onPopupShow = (e) => {
@@ -133,22 +136,17 @@ export default class Navigation extends React.Component {
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
-                    <div className="header">{GetText('MDL_TITLE', mlarray)}</div>
-                    <form id="commentForm">
-                        <div className="ui segment">
-                            <div className="ui small form">
-                                <div className="field">
-                                    <ModalSelect />
-                                </div>
-                                <div className="field">
-                                    <label>{GetText('MDL_COMMENT_HEADER', mlarray)}</label>
-                                    <textarea rows="5" name="comment" ref="comment"></textarea>
-                                </div>
+                    <div className="ui segment" style={{"textAlign" : "center"}}>
+                        <div className="ui small">
+                            <div className="field">
+                                <label>{GetText('MDL_COMMENT_HEADER', mlarray)}</label>
+                            </div>
+                            <div className="field"><br/></div>
+                            <div className="field">
                                 <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">{GetText('MDL_CLOSE_BTN', mlarray)}</button>
-                                <button type="button" onClick={this.onSubmitMood} className="ui submit button submitt" >{GetText('MDL_SUBMIT_BTN', mlarray)}</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
          );
@@ -177,7 +175,7 @@ export default class Navigation extends React.Component {
                       </form>
                   </div>
                   <div  className="header-middle-container">
-                      <button className="ui yellow button" id="test" onClick={this.onPopupShow}>{GetText('TOP_RATE_YOUR_MOODBTN', mlarray)}</button>
+                      <button className="ui yellow button" id="test" onClick={this.onSubmitMood}>{GetText('TOP_RATE_YOUR_MOODBTN', mlarray)}</button>
                   </div>
                   <div  className="header-middle-container">
                       <a href="/survey" className="ui positive button answer">{GetText('TOP_RATE_YOUR_MOODANSWER_ALL_BTN', mlarray)}</a>

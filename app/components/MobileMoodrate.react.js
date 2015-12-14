@@ -5,7 +5,7 @@ import SurveyStore from 'stores/SurveyStore';
 import getFormData from 'get-form-data';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
-import ModalSelect from 'components/ModalSelect.react';
+
 
 export default class MobileMoodrate extends React.Component {
 
@@ -23,7 +23,7 @@ export default class MobileMoodrate extends React.Component {
 
   componentDidMount () {
       SurveyActions.getEngagementSurvey();
-      SurveyActions.getEngagementResults();
+      SurveyActions.getEngagementResults('undefined');
       SurveyStore.listen(this._onMoodrateChange);
   }
 
@@ -47,6 +47,9 @@ export default class MobileMoodrate extends React.Component {
 
   onPopupClose = () => {
       this.setState({ mpopup : false });
+      window.setTimeout(() => {
+          window.location.reload();
+      });
   }
 
   _onSubmitClick = () => {
@@ -58,8 +61,8 @@ export default class MobileMoodrate extends React.Component {
       let form = document.querySelector('#moodRating');
       let data = getFormData(form, {trim: true});
 
-      let commentForm = document.querySelector('#commentForm');
-      let commentData = getFormData(commentForm, {trim: true});
+      //let commentForm = document.querySelector('#commentForm');
+      //let commentData = getFormData(commentForm, {trim: true});
 
       let moodrate = data['moodrate'];
       let surveyResult = [];
@@ -68,18 +71,18 @@ export default class MobileMoodrate extends React.Component {
       surveyResult = this.engagementmoods.map((data, key) => {
           let mood = mood || {};
           mood.rating = moodrate;
-          mood.comment_title = commentData['comment_title'];
-          mood.comment = commentData['comment'];
+          //mood.comment_title = commentData['comment_title'];
+          //mood.comment = commentData['comment'];
+          mood.comment_title = 'title';
+          mood.comment = 'comment';
           mood.mood = data;
           return mood;
       });
 
-      if (commentData['comment_title'] != '') {
-          moodrow.surveyresult = surveyResult;
-          this.setState({ mpopup : false });
-          SurveyActions.saveEngagementSurvey(moodrow);
-          //console.log(JSON.stringify(surveyResult));
-      }
+      moodrow.surveyresult = surveyResult;
+      SurveyActions.saveEngagementSurvey(moodrow);
+      this.setState({ mpopup : true });
+      console.log(JSON.stringify(moodrow));
   }
 
 
@@ -97,22 +100,17 @@ export default class MobileMoodrate extends React.Component {
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
-                    <div className="header">{GetText('MDL_TITLE', mwkeys)}</div>
-                    <form id="commentForm">
-                        <div className="ui segment">
-                            <div className="ui small form">
-                                <div className="field">
-                                    <ModalSelect />
-                                </div>
+                        <div className="ui segment" style={{"textAlign" : "center"}}>
+                            <div className="ui small">
                                 <div className="field">
                                     <label>{GetText('MDL_COMMENT_HEADER', mwkeys)}</label>
-                                    <textarea rows="5" name="comment" ref="comment"></textarea>
                                 </div>
-                                <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">{GetText('MDL_CLOSE_BTN', mwkeys)}</button>
-                                <button type="button" onClick={this.onMoodSubmit} className="ui submit button submitt" >{GetText('MDL_SUBMIT_BTN', mwkeys)}</button>
+                                <div className="field"><br/></div>
+                                <div className="field">
+                                    <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">{GetText('MDL_CLOSE_BTN', mwkeys)}</button>
+                                </div>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
          );
@@ -130,7 +128,7 @@ export default class MobileMoodrate extends React.Component {
                     </form>
                 </div>
                 <div  className="">
-                    <button className="ui yellow button" style={{"margin": "0 auto !important"}} onClick={this._onSubmitClick}>{GetText('MDR_MOODBTN', mlarray)}</button>
+                    <button className="ui yellow button" style={{"margin": "0 auto !important"}} onClick={this.onMoodSubmit}>{GetText('MDR_MOODBTN', mlarray)}</button>
                 </div>
                 <div  className="">
                     <button onClick={this._onBtnClick} className="ui yellow button answer positive" style={{"margin": "0 auto !important", "marginTop" : "12px !important"}}>{GetText('MDR_MOODANSWER_ALL_BTN', mlarray)}</button>

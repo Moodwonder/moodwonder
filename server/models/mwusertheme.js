@@ -51,54 +51,8 @@ var mwuserthemeSchema = new mongoose.Schema({
     MW_OPTFEEDBACK: {type: String, default: ''},
     MW_OPTOPPORTUNITIES: {type: String, default: ''},
     MW_OPTRECOMMENDATION: {type: String, default: ''},
-        
-    MDL_TITLE: {type: String, default: ''},
     MDL_COMMENT_HEADER: {type: String, default: ''},
-    MDL_SUBMIT_BTN: {type: String, default: ''},
-    MDL_CLOSE_BTN: {type: String, default: ''},
-    MDL_OPT_DEFAULT: {type: String, default: ''},
-
-    MDL_OPTGRP_ONE: {type: String, default: ''},
-    MDL_GRPONE_OPT_ONE: {type: String, default: ''},
-    MDL_GRPONE_OPT_TWO: {type: String, default: ''},
-    MDL_GRPONE_OPT_THREE: {type: String, default: ''},
-    MDL_GRPONE_OPT_FOUR: {type: String, default: ''},
-    MDL_GRPONE_OPT_FIVE: {type: String, default: ''},
-    MDL_GRPONE_OPT_SIX: {type: String, default: ''},
-    MDL_GRPONE_OPT_SEVEN: {type: String, default: ''},
-    MDL_GRPONE_OPT_EIGHT: {type: String, default: ''},
-
-    MDL_OPTGRP_TWO: {type: String, default: ''},
-    MDL_GRPTWO_OPT_ONE: {type: String, default: ''},
-    MDL_GRPTWO_OPT_TWO: {type: String, default: ''},
-    MDL_GRPTWO_OPT_THREE: {type: String, default: ''},
-    MDL_GRPTWO_OPT_FOUR: {type: String, default: ''},
-    MDL_GRPTWO_OPT_FIVE: {type: String, default: ''},
-    MDL_GRPTWO_OPT_SIX: {type: String, default: ''},
-    MDL_GRPTWO_OPT_SEVEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_EIGHT: {type: String, default: ''},
-    MDL_GRPTWO_OPT_NINE: {type: String, default: ''},
-    MDL_GRPTWO_OPT_TEN: {type: String, default: ''},
-
-    MDL_GRPTWO_OPT_ELEVEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_TWELVE: {type: String, default: ''},
-    MDL_GRPTWO_OPT_THIRTEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_4TEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_FIFTEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_6TEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_7TEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_8TEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_NINTEEN: {type: String, default: ''},
-    MDL_GRPTWO_OPT_TWENTY: {type: String, default: ''},
-
-    MDL_OPTGRP_THREE: {type: String, default: ''},
-    MDL_GRPTHREE_OPT_ONE: {type: String, default: ''},
-    MDL_GRPTHREE_OPT_TWO: {type: String, default: ''},
-    MDL_GRPTHREE_OPT_THREE: {type: String, default: ''},
-
-    MDL_OPTGRP_FOUR: {type: String, default: ''},
-    MDL_GRPFOUR_OPT_ONE: {type: String, default: ''},
-    MDL_GRPFOUR_OPT_TWO: {type: String, default: ''}
+    MDL_CLOSE_BTN: {type: String, default: ''}
         
 }, {
     collection: 'mwusertheme'

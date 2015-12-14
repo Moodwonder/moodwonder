@@ -1039,4 +1039,15 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
 .slider .nav-mood-rating input {
     margin-top: 0;
 }
+.legend {
+    width: 100%;
+    float: none;
+}
+.legend label {
+    float: left;
+    width: 6%;
+}
+.legend label img {
+    float: left;
+}
 /* End: Edited by Dev */

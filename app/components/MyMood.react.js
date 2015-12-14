@@ -1035,6 +1035,13 @@ export default class MyMood extends React.Component {
           );
       }
 
+      let blueLegend;
+      if (graphengagement !== 'Mood') {
+          blueLegend = [<label><img src="/assets/images/blue-graph.png" /></label>,
+                        <label>{graphengagement}</label>
+                       ];
+      }
+
 
       let engagementGraphTabContent = null;
       if (engagementgraphtab) {
@@ -1071,12 +1078,12 @@ export default class MyMood extends React.Component {
                             <div className="clear"></div>
                             <div className="graph">
                                 <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
-                                <div className="clear"></div>
                                 <div className="legend">
-                                    <label className="legent-img-one"></label>
-                                    <label className="legent-lbl-one">Mood</label>
-                                    <label className="legent-img-two"></label>
-                                    <label className="legent-lbl-one">{graphengagement}</label>
+                                    <div className="legend-sub" style={{"width": "100%", "marginLeft": "38%"}}>
+                                        <label><img src="/assets/images/red.png" /></label>
+                                        <label>Mood</label>
+                                        {blueLegend}
+                                    </div>
                                 </div>
                             </div>
                           </div>
