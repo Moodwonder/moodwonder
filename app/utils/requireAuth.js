@@ -6,7 +6,7 @@ const requireAuth = (Component) => {
         static willTransitionTo(transition, params, query, callback) {
             if (typeof window !== 'undefined') {
                 AdminWebAPIUtils.loggedin().done((response) => {
-                    if (!response.authenticated) {
+                    if (!response.authenticated && response.role !== "ADMIN") {
                         //transition.redirect('/admin', {}, {'nextPath': transition.path});
                         localStorage.setItem('isAuth', "false");
                         transition.redirect('/admin', {}, {});
