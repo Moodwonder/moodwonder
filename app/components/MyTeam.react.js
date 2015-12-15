@@ -313,7 +313,8 @@ class EditableMyTeam extends React.Component {
           {
             showform: 'none',
             value:props.value,
-            multilang: MlangStore.getState().multilang
+            multilang: MlangStore.getState().multilang,
+            btnDisabled: true
           };
   }
 
@@ -332,6 +333,15 @@ class EditableMyTeam extends React.Component {
 
   changeValue = (event) => {
       this.setState({value:event.target.value});
+      if( event.target.value.trim() !== this.state.value ){
+          this.setState({
+              btnDisabled: false
+          });
+      }else{
+          this.setState({
+              btnDisabled: true
+          });
+      }
   }
 
   onShowFormClick = () => {
@@ -388,7 +398,7 @@ class EditableMyTeam extends React.Component {
                         <input placeholder={GetText('PRFL_TEAM_NAME', mlarray)} ref="teamname" type="text"  onChange={this.changeValue} value={this.state.value} />
                     </div>
                 </div>
-                <button type="submit" className="ui submit  button submitt">{GetText('PRFL_TEAM_SAVE', mlarray)} </button>
+                <button type="submit" disabled={this.state.btnDisabled} className="ui submit  button submitt">{GetText('PRFL_TEAM_SAVE', mlarray)} </button>
             </form>
         </div>
       );

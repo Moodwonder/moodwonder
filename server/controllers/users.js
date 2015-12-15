@@ -463,7 +463,7 @@ exports.getUserInfo = function (req, res) {
                 });
             } else {
 
-                if (lists.mymanager[0] == undefined) {
+                if (lists.mymanager === undefined || lists.mymanager[0] === undefined) {
                     lists.mymanager[0] = {'email': ''};
                 }
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
