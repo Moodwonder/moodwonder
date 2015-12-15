@@ -222,8 +222,8 @@ export default class EmployeeOfTheMonth extends React.Component {
                                 <label> Comment</label>
                                 <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
                             </div>
-                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit    button cancel" >Vote</button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button submitt" data-dismiss="modal">Close</button>
+                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >Vote</button>
+                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
