@@ -239,10 +239,19 @@ class AddTeam extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
-      console.log(state);
+      this.messageAutoClose(state);
+      // console.log(state);
       // clear text box after adding a new team
       if( state.serverresponse.callback === 'addteam' && state.serverresponse.status){
           React.findDOMNode(this.refs.teamname).value = '';
+      }
+  }
+
+  messageAutoClose = (state) => {
+      if(state.message !== ''){
+          setTimeout(function(){
+              this.setState({ message: '' });
+          }.bind(this),3000);
       }
   }
 
@@ -324,6 +333,7 @@ class EditableMyTeam extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      this.messageAutoClose(state);
   }
 
   componentWillReceiveProps(e) {
@@ -333,13 +343,13 @@ class EditableMyTeam extends React.Component {
 
   changeValue = (event) => {
       this.setState({value:event.target.value});
-      if( event.target.value.trim() !== this.state.value ){
+      if( event.target.value.trim() === this.props.value.trim() ){
           this.setState({
-              btnDisabled: false
+              btnDisabled: true
           });
       }else{
           this.setState({
-              btnDisabled: true
+              btnDisabled: false
           });
       }
   }
@@ -348,13 +358,22 @@ class EditableMyTeam extends React.Component {
       this.setState({ showform: 'block' });
   }
 
+  messageAutoClose = (state) => {
+      if(state.message !== ''){
+          setTimeout(function(){
+              this.setState({ message: '' });
+          }.bind(this),3000);
+      }
+  }
+
   onSaveClick = (e) => {
       // console.log('onSaveClick');
       let teamname = this.state.value;
       let teamid   = this.props.teamid;
       if(this.props.value !== this.state.value){
           if(teamname.trim() !== ''){
-              this.props.onSave({ callback: teamid,teamname: teamname,teamid: teamid});
+              this.setState({ btnDisabled: true });
+              this.props.onSave({ callback: teamid,teamname: teamname.trim(),teamid: teamid});
           }else{
               this.setState({ serverresponse: { callback: this.props.teamid }, message: 'Team name is required' });
           }

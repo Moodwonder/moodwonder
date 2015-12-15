@@ -303,3 +303,8 @@ a.act-cover-image {
 	text-align: center;
 }
 .text-shadow{ text-shadow: 1px 1px 1px #000;}
+@media only screen and (max-width: 767px) {
+p.votes {
+    width: 45% !important;
+}
+}
