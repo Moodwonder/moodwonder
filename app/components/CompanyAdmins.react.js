@@ -60,6 +60,7 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
                             <td>{row.usertype}</td>
                             <td>{(row.verifylink) ? 'Verified': 'Not verified'}</td>
                             <td>{row.country}</td>
+                            <td>{row.domain_name}</td>
                             <td>{row.companyname}</td>
                             <td>{row.companysize}</td>
                             <td><ChangeUserStatus data={row} /></td>
@@ -94,6 +95,7 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
                             <td>Type</td>
                             <td>Verify Status</td>
                             <td>Country</td>
+                            <td>Domain name</td>
                             <td>Company name</td>
                             <td>Company size</td>
                             <td>Admin</td>
