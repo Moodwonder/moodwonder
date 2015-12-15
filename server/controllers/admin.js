@@ -131,12 +131,14 @@ exports.logout = function (req, res, next) {
  */
 exports.getLoggedIn = function (req, res, next) {
     // Do email and password validation for the server
-    // console.log(req);
-    if ((req.user) && (req.user.role === "ADMIN")) {
-        res.json({authenticated: true});
+    // console.log(req.user.role);
+    if ((req.user) && (req.user.role == "ADMIN")) {
+        res.json({authenticated: true, role: req.user.role});
+        next();
     } else {
-        res.json({authenticated: false});
+        //res.json({authenticated: false, role: req.user.role});
+        res.redirect('/admin');
     }
-    next();
+    
 };
 
