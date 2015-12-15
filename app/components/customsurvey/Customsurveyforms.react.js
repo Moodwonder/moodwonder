@@ -127,7 +127,7 @@ export default class Customsurveyforms extends React.Component {
                     </div>
                     <div className="column">
                         <div className="three  column">
-                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/mymood">{GetText('SVFM_CREATE_BTN', mlarray)}</a></div>
+                            <div className="test-gen ui submit button" style={{"marginRight": "-28px"}}> <a href="/customsurvey">{GetText('SVFM_CREATE_BTN', mlarray)}</a></div>
                         </div>
                     </div>
                 </div>

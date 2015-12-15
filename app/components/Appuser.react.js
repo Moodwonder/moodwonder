@@ -25,10 +25,10 @@ export default class App extends React.Component {
 
       // Redirect to landing page, if no access
       setTimeout(function(){
-          if(this.noAccess){
-              window.location.assign('/');
+          if((this.noAccess === true) && !(this.state.isAuthenticated)) {
+              window.location.assign('/login');
           }
-      }.bind(this),3000);
+      }.bind(this),1500);
   }
 
   componentWillUnmount () {

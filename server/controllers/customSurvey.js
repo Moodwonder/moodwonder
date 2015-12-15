@@ -471,7 +471,7 @@ exports.getOrganisation = function (req, res) {
     var user_id = mongoose.Types.ObjectId(req.user._id);
     var companyid = mongoose.Types.ObjectId(req.user.company_id);
 
-    getMyCompany(companyid, function(company) {
+    getMyCompany(companyid, function(company) { 
         var companyname = company[0].companyname;
         
         getTeams(companyname, user_id, function(teams) {

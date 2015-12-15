@@ -32,9 +32,9 @@ export default class Footer extends React.Component {
 
       return (
             <header className="entry-header ui menu">
-                <div style={{"display":"flex!important"}} className="">
+                <div style={{"display":"flex!important"}} className="ui menu">
                     <div className="ui container custom-header"> <a className="item " href="/"><img src="assets/images/logo-mw.png" alt=""/></a>
-                        <div className="right menu">
+                        <div className="right menu custom-dropdown">
                             <div className="item padding-row">
                                 <div className="ui icon top  pointing dropdown  "> <span>{lang}</span>
                                     <div className="menu">

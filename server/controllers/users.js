@@ -422,7 +422,7 @@ exports.getUserInfo = function (req, res) {
 
     var condition = {'_id': new ObjectId(req.user._id)};
     User.findOne(condition, function (err, lists) {
-        if (!err && !null) {
+        if (!err && lists !== null) {
 
             response = {};
             response.status = true;
@@ -466,6 +466,7 @@ exports.getUserInfo = function (req, res) {
                 if (lists.mymanager === undefined || lists.mymanager[0] === undefined) {
                     lists.mymanager[0] = {'email': ''};
                 }
+                
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                 var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
                 response.data = {

@@ -1046,6 +1046,11 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
 .legend label {
     float: left;
     width: 6%;
+    max-width:65px;
+}
+.legend label.custom-lbl {
+    width: 100%;
+    max-width:65px;
 }
 .legend label img {
     float: left;

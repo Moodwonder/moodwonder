@@ -587,14 +587,14 @@ export default class MyMood extends React.Component {
       let companysurvey = this.state.companysurvey;
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
-      let user = this.state.userData;
+      //let user = this.state.userData;
       let errormessage = this.state.errormessage;
       let mlarray = this.state.multilang;
 
-      let usertype;
-      if(typeof user !== 'undefined') {
-          usertype = user.usertype;
-      }
+      //let usertype;
+      //if(typeof user !== 'undefined') {
+      //    usertype = user.usertype;
+      //}
 
       let xlabel = [];
       let ydata = [];
@@ -1037,8 +1037,8 @@ export default class MyMood extends React.Component {
 
       let blueLegend;
       if (graphengagement !== 'Mood') {
-          blueLegend = [<label><img src="/assets/images/blue-graph.png" /></label>,
-                        <label>{graphengagement}</label>
+          blueLegend = [<label className="custom-lbl"><img src="/assets/images/blue-graph.png" /></label>,
+                        <label className="custom-lbl">{graphengagement}</label>
                        ];
       }
 
@@ -1080,8 +1080,8 @@ export default class MyMood extends React.Component {
                                 <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
                                 <div className="legend">
                                     <div className="legend-sub" style={{"width": "100%", "marginLeft": "38%"}}>
-                                        <label><img src="/assets/images/red.png" /></label>
-                                        <label>Mood</label>
+                                        <label className="custom-lbl"><img src="/assets/images/red.png" /></label>
+                                        <label className="custom-lbl">Mood</label>
                                         {blueLegend}
                                     </div>
                                 </div>
@@ -1363,23 +1363,25 @@ export default class MyMood extends React.Component {
           );
       }
 
-      let tabs;
-      if (typeof usertype !== 'undefined' && usertype === 'manager') {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#">{GetText('MYMD_CSURVEY', mlarray)}</a>
-                 ];
-      } else {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
-                 ];
-      }
+//      let tabs;
+//      if (typeof usertype !== 'undefined' && usertype === 'manager') {
+//          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.customSurveyClick} href="#">{GetText('MYMD_CSURVEY', mlarray)}</a>
+//                 ];
+//      } else {
+//          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
+//                 ];
+//      }
+
 
 
       return (
             <div>
-                <div className="ui tabular menu tab three column">
-                    {tabs}
+                <div className="ui tabular menu tab two column">
+                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}

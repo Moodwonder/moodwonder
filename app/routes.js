@@ -10,7 +10,6 @@ import InviteSignup from 'components/InviteSignup.react';
 import SignupPage from 'components/SignupPage.react';
 import ForgotPassword from 'components/ForgotPassword.react';
 import CreatePassword from 'components/CreatePassword.react';
-import Customsurvey from 'components/customsurvey/Customsurvey.react';
 import Survey from 'components/Survey.react';
 import MyProfile from 'components/MyProfile.react';
 import MyTeam from 'components/MyTeam.react';
@@ -56,6 +55,7 @@ import MobileInvite from 'components/MobileInvite.react';
 import Appmobile from 'components/Appmobile.react';
 import OpenendedResponses from 'components/OpenendedResponses.react';
 import Viewsurvey from 'components/customsurvey/Viewsurvey.react';
+import CreateCustomSurvey from 'components/customsurvey/CreateCustomSurvey.react';
 
 
 const routes = (
@@ -130,7 +130,7 @@ const routes = (
       <Route name="" handler={Viewsurvey} />
     </Route>
     <Route name="customsurvey" path="/customsurvey" handler={Appuser} >
-      <Route name="" handler={Customsurvey} />
+      <Route name="" handler={CreateCustomSurvey} />
     </Route>
     <Route name="mymoodtest" path="/mymoodtest" handler={Appuser} >
       <Route name="" handler={MyMoodtest} />

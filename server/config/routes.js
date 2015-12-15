@@ -323,6 +323,7 @@ module.exports = function (app, passport) {
                 break;
                 
             case 'mymood':
+            case 'customsurvey':
                 modelObj = {};
                 modelObj = MymoodPage;
                 break;
@@ -525,6 +526,10 @@ module.exports = function (app, passport) {
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/transition.js"></script>';
         loginscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/loginpage/login.js"></script>';
         
+        var customsurveystyles = '';
+        customsurveystyles += userstyles;
+        customsurveystyles += '<link rel="stylesheet" href="/assets/customsurvey/customsurvey.css" />';
+        
         //var page = pageurl.split("/").pop();
         var page = '';
         if (pageurl == '/') {
@@ -560,6 +565,7 @@ module.exports = function (app, passport) {
                     case 'surveyforms':
                     case 'viewsurvey':
                     case 'mymood':
+                    case 'customsurvey':
                     case 'mycompany':
                     case 'openendedresponses':
                     case 'logout':
@@ -659,6 +665,12 @@ module.exports = function (app, passport) {
                         .replace("BODYCLASS", 'login loginpage')
                         .replace("JSCRIPTS", userscripts);
 
+                } else if (pageurl == '/customsurvey') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", customsurveystyles)
+                        .replace("BODYCLASS", '')
+                        .replace("JSCRIPTS", userscripts);
                 } else {
                     html = html.replace("TITLE", Header.title)
                         .replace("META", Header.meta)
@@ -679,6 +691,7 @@ module.exports = function (app, passport) {
                     case 'surveyforms':
                     case 'viewsurvey':
                     case 'mymood':
+                    case 'customsurvey':
                     case 'mycompany':
                     case 'openendedresponses':
                     case 'logout':
