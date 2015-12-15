@@ -322,6 +322,7 @@ exports.getallusersforadmin = function (req, res) {
                                  company_admin: (user.company_admin) ? true : false,
                                  verifylink: (user.verifylink === "1") ? true : false,
                                  country: (hasComp && company.country !== undefined )? company.country: '',
+                                 domain_name: (hasComp && company.domain_name !== undefined )? company.domain_name: '',
                                  companyname: (hasComp && company.companyname !== undefined )? company.companyname: '',
                                  companysize: (hasComp && company.companysize !== undefined )? company.companysize: '',
                                  language: user.language
@@ -574,7 +575,7 @@ exports.postSignupStep1 = function (req, res, next) {
 
                     var afterCompanyDetails = function(companyinfo){
 
-                        console.log(companyinfo);
+                        // console.log(companyinfo);
                         // Update company id in User collection
                         var conditions = {
                             _id: new ObjectId(newuser._id)
@@ -1388,11 +1389,9 @@ exports.usersInTeams = function (req, res) {
  */
 exports.getAllEmployees = function (req, res) {
 
-    var mycompany = '';
-    try {
-        mycompany = req.user.company_info[0].companyname;
-    } catch (ex) {
-        mycompany = false;
+    var company_id = req.user.company_id
+    if(company_id !=='' ){
+        company_id = false;
     }
 
     var date = new Date();
@@ -1400,9 +1399,8 @@ exports.getAllEmployees = function (req, res) {
     var cdate = JSON.stringify(date).substring(1, 11);
     var yearmonth = cdate.substring(0, 7);
 
-    if(mycompany){
-        var elmatch = { companyname: mycompany };
-        User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
+    if(company_id){
+        User.find({ company_id: company_id }).exec(function (err, lists) {
             if (!err) {
 
                 Vote.aggregate([
@@ -1412,7 +1410,7 @@ exports.getAllEmployees = function (req, res) {
                             {
                                 $regex : new RegExp(yearmonth,'i')
                             },
-                            company: mycompany
+                            company_id: company_id
                         }
                     },
                     {
@@ -1436,7 +1434,7 @@ exports.getAllEmployees = function (req, res) {
                         });
                     }
 
-                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company: mycompany }, function(err, emp){
+                    EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: company_id }, function(err, emp){
 
                         var employees = [];
                         // var mytotalvotes = 0;
@@ -2576,110 +2574,153 @@ exports.handleInviteSignup = function(req, res, next) {
                 user.save(function (err, newuser) {
                     if (!err) {
 
+                        var redirectUrl = function(){
+                            // Redirect to create password page
+                            res.redirect('/createpassword/' + verifystring );
+                        }
                         // Get domian name without extension
                         // 'test@example.com' converting into 'example'
-                        var email   =  req.body.email;
-                        var domain  =  email.substring(email.lastIndexOf("@")+1);
-                        domain      =  domain.substring(0,domain.lastIndexOf("."));
-                        var company =  { name: domain};
-                        Company.update(company,company,{upsert: true},function(err,newcompany){});
+                        var email  = req.body.email;
+                        var domain = email.substring(email.lastIndexOf("@")+1);
+                        var website = domain;
+                        domain = domain.substring(0,domain.lastIndexOf("."));
 
-                        // Update company name in User collection
-                        var conditions = {
-                            _id: new ObjectId(newuser._id)
-                        };
+                        var afterCompanyDetails = function(companyinfo){
 
-                        var update  = [{
-                            companyname : domain,
-                            industry : '',
-                            continent : '',
-                            country : '',
-                            state : '',
-                            city : '',
-                            address : '',
-                            website : '',
-                            companysize : ''
-                        }];
+                            // Update company id in User collection
+                            var conditions = {
+                                _id: new ObjectId(newuser._id)
+                            };
 
-                        var options = { multi: false };
-                        User.update(conditions, { company_info: update }, options, function (err) {});
+                            var update  = { company_id : companyinfo._id};
+                            var options = { multi: false };
+                            User.update(conditions, update, options, function (err) {
+                                if (!err) {
 
-                        // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
-                        // console.log('--req.body.hash----' + req.body.hash);
-                        if (req.body.hash !== undefined && req.body.hash !== '') {
+                                    console.log('update done');
+                                } else {
 
-                            var invite = new Invite({
-                                email: email,
-                                type: 'Team',
-                                link: req.body.hash
+                                    console.log(err);
+                                }
                             });
+                            // if 'hash' params is exist, then add this user into the a team based on the team id in the Invite collections
+                            // console.log('--req.body.hash----' + req.body.hash);
+                            if (req.body.hash !== undefined && req.body.hash !== '') {
 
-                            Invite.findOne({ email: email }, function (err, existingInvite) {
-                                if (existingInvite) {
+                                var invite = new Invite({
+                                    email: email,
+                                    type: 'Team',
+                                    link: req.body.hash
+                                });
 
-                                    // removing invitation record after taking the data from the collection
-                                    // Otherwise it will show email id repetition in the members list in teams
-                                    Invite.remove({_id: existingInvite._id }, function(err) {});
-                                    var team_id = existingInvite.data[0].team._id;
+                                Invite.findOne({ email: email }, function (err, existingInvite) {
+                                    if (existingInvite) {
 
-                                    var where = {_id: new ObjectId(team_id)}
-                                    // console.log(member_email);
-                                    // check the team is exist or not
-                                    Team.findOne(where, function (err, existingTeam) {
-                                        if (existingTeam) {
+                                        // console.log(existingInvite);
+                                        // removing invitation record after taking the data from the collection
+                                        // Otherwise it will show email id repetition in the members list in teams
+                                        Invite.remove({_id: existingInvite._id }, function(err) {});
 
-                                            // User not exist in this group, Insert this user into this team
-                                            Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
-                                                if (err) {
-                                                    response.status = false;
-                                                    response.messages = ['Error when adding a new member'];
-                                                } else {
-                                                    // Find e-mail id of the user who invited this user
-                                                    User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
-                                                        if (existingUser) {
-                                                            // console.log('has user');
-                                                            var conditions = {'_id': new ObjectId(newuser._id)}
-                                                            , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
-                                                            , options = {multi: false};
+                                        if(existingInvite.type === 'Team'){
+                                            var team_id = existingInvite.data[0].team._id;
+                                            var where = {_id: new ObjectId(team_id)}
+                                            // console.log(member_email);
+                                            // check the team is exist or not
+                                            Team.findOne(where, function (err, existingTeam) {
+                                                if (existingTeam) {
 
-                                                            // Set manager info
-                                                            User.update(conditions, update, options, function (err) {
-                                                                if (!err) {
-                                                                    // console.log('updated manager');
-                                                                } else {
-                                                                    // console.log('not updated manager');
+                                                    // User not exist in this group, Insert this user into this team
+                                                    Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
+                                                        if (err) {
+                                                            response.status = false;
+                                                            response.messages = ['Error when adding a new member'];
+                                                        } else {
+                                                            // Find e-mail id of the user who invited this user
+                                                            User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                                if (existingUser) {
+                                                                    // console.log('has user');
+                                                                    var conditions = {'_id': new ObjectId(newuser._id)}
+                                                                    , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                                    , options = {multi: false};
+
+                                                                    // Set manager info
+                                                                    User.update(conditions, update, options, function (err) {
+                                                                        if (!err) {
+                                                                            // console.log('updated manager');
+                                                                        } else {
+                                                                            // console.log('not updated manager');
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else {
+                                                                    // console.log('has no user');
                                                                 }
                                                             });
-                                                        }
-                                                        else {
-                                                            // console.log('has no user');
+
+                                                            response.status = true;
+                                                            response.messages = ['Member added'];
                                                         }
                                                     });
 
-                                                    response.status = true;
-                                                    response.messages = ['Member added'];
+                                                } else {
+                                                    response.status = false;
+                                                    response.messages = ['Team not exist'];
                                                 }
                                             });
-
-                                        } else {
-                                            response.status = false;
-                                            response.messages = ['Team not exist'];
+                                            redirectUrl();
+                                        }else{
+                                            redirectUrl();
                                         }
-                                    });
 
-                                } else {
-                                    response.status = true;
-                                    response.messages = ['Error when processing your invitation'];
-                                }
-                            });
-                        } else {
+                                    } else {
+                                        response.status = true;
+                                        response.messages = ['Error when processing your invitation'];
+                                        req.body.response = response;
+                                        next();
+                                    }
+                                });
+                            } else {
 
-                            response.status = true;
-                            response.messages = ['Error when processing your invitation'];
-                        }
+                                response.status = true;
+                                response.messages = ['Error when processing your invitation'];
+                                req.body.response = response;
+                                next();
+                            }
+                        };
 
-                        // Redirect to create password page
-                        res.redirect('/createpassword/' + verifystring );
+                        var company = { domain_name: domain };
+
+                        // Find company details
+                        CompanyInfo.findOne(company,function(err,companyinfo){
+
+                            // If company exist
+                            if (!err && companyinfo !== null) {
+
+                                afterCompanyDetails(companyinfo);
+                            }else{
+                                // Creating new company if not exist
+
+                                company.companyname = domain;
+                                company.website = website;
+                                var newCompany = new CompanyInfo(company);
+                                newCompany.save(function (err, companyinfo) {
+                                    if (!err && companyinfo !== null) {
+
+                                        // console.log(companyinfo);
+                                        // return;
+                                        // afterCompanyDetails(companyinfo);
+                                    }else{
+
+                                        response.status = false;
+                                        response.messages = ['Error when creating new company'];
+                                        res.send(response);
+                                        //res.end();
+                                        req.body.response = response;
+                                        next();
+                                    }
+                                });
+                            }
+                        });
 
                     } else {
                         response.status = true;
