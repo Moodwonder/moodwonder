@@ -3,14 +3,15 @@ import React from 'react';
  * Component for Editable UI
  *
  */
-export class Editable extends React.Component {
+export default class Editable extends React.Component {
 
   constructor(props) {
       super(props);
       this.state =
           {
             Edit: false,
-            value:props.value
+            value:props.value,
+            btnDisabled: true
           };
   }
 
@@ -23,7 +24,12 @@ export class Editable extends React.Component {
   }
 
   changeValue = (event) => {
-      this.setState({value:event.target.value});
+
+      let btnDisabled = true;
+      if(this.props.value !== event.target.value){
+          btnDisabled = false;
+      }
+      this.setState({value:event.target.value, btnDisabled: btnDisabled});
   }
 
   onEditClick = () => {
@@ -31,6 +37,8 @@ export class Editable extends React.Component {
   }
 
   onSaveClick = (teamname,teamid) => {
+      console.log(teamname);
+      console.log(teamid);
       if(this.props.value !== this.state.value && teamname.trim() !== ''){
           this.props.onSave({teamname:teamname,teamid:teamid});
       }
@@ -55,22 +63,16 @@ export class Editable extends React.Component {
           );
 
           actionButton = (
-            <button type="button" className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
           );
       }
 
       return (
         <div className="row">
-          <div className="col-sm-8">
            {inputORLable}
-          </div>
-          <div className="col-sm-1"></div>
-          <div className="col-sm-1"></div>
-          <div className="col-sm-1">
            {actionButton}
-          </div>
         </div>
       );
   }
 }
-// export { Editable as default, EditableMyTeam };
+//export { Editable as default };

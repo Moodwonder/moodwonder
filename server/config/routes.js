@@ -483,6 +483,7 @@ module.exports = function (app, passport) {
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/visibility.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/sidebar.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/transition.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/tab.min.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/dropdown.js"></script>';
         //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/adminscripts.js"></script>';
         
