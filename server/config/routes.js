@@ -95,6 +95,7 @@ module.exports = function (app, passport) {
 
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
+    app.post('/getmysurveyforms', users.checkLogin, customSurvey.getMyCSurveyForms);
     app.get('/getsurveyforms', users.checkLogin, customSurvey.getForms);
     app.get('/getsurveyform', users.checkLogin, customSurvey.getSurveyForm);
     app.get('/getorganization', users.checkLogin, customSurvey.getOrganisation);
@@ -316,6 +317,7 @@ module.exports = function (app, passport) {
                 break;
                 
             case 'surveyforms':
+            case 'viewsurvey':
                 modelObj = {};
                 modelObj = SurveyFormsPage;
                 break;
@@ -556,6 +558,7 @@ module.exports = function (app, passport) {
                 
                     case 'survey':
                     case 'surveyforms':
+                    case 'viewsurvey':
                     case 'mymood':
                     case 'mycompany':
                     case 'openendedresponses':
@@ -674,6 +677,7 @@ module.exports = function (app, passport) {
                 switch(page) {
                     case 'survey':
                     case 'surveyforms':
+                    case 'viewsurvey':
                     case 'mymood':
                     case 'mycompany':
                     case 'openendedresponses':

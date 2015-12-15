@@ -49,6 +49,29 @@ class CustomSurveyActions {
       //this.dispatch(data);
   }
 
+  getMyCSurveyForms () {
+      this.dispatch();
+      CustomSurveyWebAPIUtils.getMyCSurveyForms()
+      .then((response, textStatus) => {
+          if (response.status === 'success') {
+              this.actions.mycsurveyforms(response.forms);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  mycsurveyforms (data) {
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
+  }
+
   getSurveyForm (id) {
       this.dispatch();
       CustomSurveyWebAPIUtils.getSurveyForm(id)

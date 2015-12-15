@@ -55,6 +55,7 @@ import MobileMoodrate from 'components/MobileMoodrate.react';
 import MobileInvite from 'components/MobileInvite.react';
 import Appmobile from 'components/Appmobile.react';
 import OpenendedResponses from 'components/OpenendedResponses.react';
+import Viewsurvey from 'components/customsurvey/Viewsurvey.react';
 
 
 const routes = (
@@ -124,6 +125,9 @@ const routes = (
     </Route>
     <Route name="surveyresponses/:key" path="/surveyresponses/:key" handler={Appuser} >
       <Route name="" handler={Customsurveyresponses} />
+    </Route>
+    <Route name="viewsurvey" path="/viewsurvey" handler={Appuser} >
+      <Route name="" handler={Viewsurvey} />
     </Route>
     <Route name="customsurvey" path="/customsurvey" handler={Appuser} >
       <Route name="" handler={Customsurvey} />
