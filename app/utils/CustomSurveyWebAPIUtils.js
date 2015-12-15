@@ -11,6 +11,14 @@ const utils = {
     });
   },
 
+  getMyCSurveyForms: () => {
+      return $.ajax({
+      url: '/getmysurveyforms',
+      type: 'POST',
+      contentType: 'application/json'
+    });
+  },
+
   getCustomSurveyForms: () => {
       return $.ajax({
       url: '/getsurveyforms',

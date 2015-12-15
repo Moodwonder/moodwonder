@@ -10,11 +10,13 @@ class CustomSurveyStore {
       this.isSurveyCreated = false;
       this.form = Immutable.Map({});
       this.organization = [];
+      this.myforms = [];
 
       this.bindListeners({
       handleCustomSurveyForm: CustomSurveyActions.CREATESURVEYFORM,
       handleSurveyForm: CustomSurveyActions.HANDLESURVEYFORM,
-      handleOrganization: CustomSurveyActions.HANDLEORGANIZATION
+      handleOrganization: CustomSurveyActions.HANDLEORGANIZATION,
+      handleMycSurveyForms: CustomSurveyActions.MYCSURVEYFORMS
     });
   }
 
@@ -37,6 +39,12 @@ class CustomSurveyStore {
   handleOrganization (data) {
       this.organization = [];
       this.organization = data;
+      this.emitChange();
+  }
+
+  handleMycSurveyForms (data) {
+      this.myforms = [];
+      this.myforms = data;
       this.emitChange();
   }
 

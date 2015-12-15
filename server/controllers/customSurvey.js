@@ -22,6 +22,19 @@ function userHasSurvey(sid, uid, callback) {
     });
 } 
 
+function managerOwnedSurvey(uid, callback) {
+    
+    CustomSurvey.find({user_id: mongoose.Types.ObjectId(uid)}).lean().exec(function (err, survey) {
+        if (!err) {
+            if (survey.length > 0) {
+                callback(true);
+            } else {
+                callback(false);
+            }
+        }
+    });
+}
+
 exports.handleTakeSurvey = function(req, res, next) {
 
   var hash = req.params.hash;
@@ -31,7 +44,13 @@ exports.handleTakeSurvey = function(req, res, next) {
           if (status) {
               next();
           } else {
-              res.redirect('/mymood');
+              managerOwnedSurvey(req.user._id, function(mstatus) {
+                  if (mstatus) {
+                    next();
+                  } else {
+                    res.redirect('/mymood');
+                  }
+              })
           }
       });
       
@@ -138,7 +157,6 @@ exports.createForm = function (req, res) {
                         
                         //Get members by matching company
                         getCompanyMembers(query, form, companyid, function(members){
-                            
                             for (var mkey in members) {
                                 
                                 var member = members[mkey];
@@ -323,6 +341,57 @@ exports.getForms = function (req, res) {
         res.end();
     });
 };
+
+
+function getUserSurveyParticipation(uid, callback) {
+    
+    SurveyParticipation.find({user_id: uid, status: 'notparticipated'}).lean().exec(function (err, surveys) {
+        if (surveys != 'undefined') {
+            callback(surveys);
+        }
+    });
+} 
+
+
+exports.getMyCSurveyForms = function (req, res) {
+    
+    var user_id = mongoose.Types.ObjectId(req.user._id);
+    
+    getUserSurveyParticipation(req.user._id, function(sforms){
+        
+        if (sforms.length > 0) {
+            
+            var surveyids = [];
+            for (var mKey in sforms) {
+                surveyids.push(mongoose.Types.ObjectId(sforms[mKey].survey_id));
+            }
+
+            var condition = {_id: {$in: surveyids}};
+
+            CustomSurvey.find(condition).sort({_id: -1}).exec(function (err, forms) {
+
+                var response = {};
+                if (!err) {
+                    response.status = 'success';
+                    response.forms = forms;
+
+                } else {
+                    response.status = 'failure';
+                    response.forms = [];
+                    console.log('Error in first query');
+                }
+                res.send(response);
+                res.end();
+            });
+            
+        } else {
+            res.send({status: 'failure', forms: []});
+            res.end();
+        }
+        
+    });
+};
+
 
 /**
  * Get all custome survey forms 
