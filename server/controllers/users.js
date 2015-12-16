@@ -446,7 +446,8 @@ exports.getUserInfo = function (req, res) {
                 'website': '',
                 'companysize': '',
                 'summary': '',
-                'usertype' : ''
+                'usertype' : '',
+                'company_admin' : false
             };
             if (req.query.type == 'company') {
 
@@ -481,7 +482,8 @@ exports.getUserInfo = function (req, res) {
                     'profile_image': profileimage,
                     'cover_image': cover_image,
                     'summary': lists.summary,
-                    'usertype' : lists.usertype
+                    'usertype' : lists.usertype,
+                    'company_admin' : lists.company_admin
                 };
                 res.json(response);
             }

@@ -87,7 +87,7 @@ export default class Leftnav extends React.Component {
       }
 
       let viewvotes;
-      if (user.usertype === 'manager') {
+      if (user.company_admin) {
           viewvotes = (
                 <a className="item" href="/viewvotes">
                     <i className="thumbs trophy icon"></i>
