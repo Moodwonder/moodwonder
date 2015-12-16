@@ -36,7 +36,7 @@ import CompanyAdmins from 'components/CompanyAdmins.react';
 import MyMood from 'components/MyMood.react';
 import MyMoodtest from 'components/MyMoodtest.react';
 import EmployeeOfTheMonth from 'components/EmployeeOfTheMonth.react';
-import Employees from 'components/Employees.react';
+import ChooseEOTM from 'components/ChooseEOTM.react';
 import Engagementarea from 'components/engagementarea/Engagementarea.react';
 import Appuser from 'components/Appuser.react';
 import OpenEndedQuestions from 'components/OpenEndedQuestions.react';
@@ -144,8 +144,8 @@ const routes = (
     <Route name="employeeofthemonth" path="/employeeofthemonth" handler={Appuser} >
       <Route name="" handler={EmployeeOfTheMonth} />
     </Route>
-    <Route name="allemployees" path="/allemployees" handler={Appuser} >
-      <Route name="" handler={Employees} />
+    <Route name="viewvotes" path="/viewvotes" handler={Appuser} >
+      <Route name="" handler={ChooseEOTM} />
     </Route>
     <Route name="publicprofile" path="/publicprofile" handler={Appuser} >
       <Route name="/publicprofile/:hash" handler={PublicProfile} />

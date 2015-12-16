@@ -104,3 +104,13 @@ label.column.email {
     display: block;
 }
 /************************************/
+
+/*** Employee of the month winner ***/
+.extra.content.winner {
+    background-color: #FBBD08 !important;
+    color: #fff !important;
+}
+
+.extra.content.winner .icon:before {
+    content: "\f091" !important;
+}

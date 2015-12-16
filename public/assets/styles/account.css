@@ -130,7 +130,8 @@ p.votes {
 	background: rgba(255,255,255, 0.4);
 	padding: 4px 10px;
 	border-radius: 20px;
-	width: 25%!important;
+	width: 100%!important;
+	max-width: 390px;
 }
 .total-votes {
 	color: #64B5F6;
@@ -303,8 +304,12 @@ a.act-cover-image {
 	text-align: center;
 }
 .text-shadow{ text-shadow: 1px 1px 1px #000;}
-@media only screen and (max-width: 767px) {
 p.votes {
-    width: 45% !important;
+    background: rgba(255, 255, 255, 0.4) none repeat scroll 0 0;
+    border-radius: 20px;
+    color: #000 !important;
+    max-width: 390px;
+    padding: 4px 10px;
+    width: 100% !important;
 }
-}
+

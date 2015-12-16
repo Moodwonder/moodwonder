@@ -7,18 +7,19 @@ class EmployeeOfTheMonthStore {
   constructor () {
 
       // All employees
-      this.employees = {};
-      this.hasEmployees = false;
+      this.employees    =   {};
+      this.hasEmployees =   false;
       // record of a single employee
-      this.employee = {};
-      this.hasEmployee = false;
-      this.hasError = false;
-      this.modal = false;
-      this.emp_id = 0;
-      this.isNotValid = true;
-      this.voteStatus = false;
-      this.voteperiod = false;
-      this.message = '';
+      this.employee     =   {};
+      this.hasEmployee  =   false;
+      this.hasError     =   false;
+      this.modal        =   false;
+      this.emp_id       =   0;
+      this.isNotValid   =   true;
+      this.voteStatus   =   false;
+      this.awardStatus  =   false;
+      this.voteperiod   =   false;
+      this.message      =   '';
 
       this.bindListeners({
       handleGetEmployees: EmployeeOfTheMonthActions.GETEMPLOYEES,
@@ -31,6 +32,9 @@ class EmployeeOfTheMonthStore {
   handleGetEmployees (data) {
       console.log('handleGetEmployees');
       this.employees = data;
+      if(data.data.awardStatus){
+          this.awardStatus = true;
+      }
       this.hasEmployees = true;
       this.emitChange();
   }
@@ -59,6 +63,10 @@ class EmployeeOfTheMonthStore {
   handleSetEOTM (data) {
       console.log('handleSetEOTM');
       this.message = data.message;
+      if(data.status){
+          this.awardStatus = true;
+      }
+      this.hasError = !data.status;
       this.hasEmployees = true;
       this.modalBox = false;
       this.emitChange();

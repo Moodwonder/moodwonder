@@ -286,6 +286,11 @@ module.exports = function (app, passport) {
                 modelObj = EOMPage;
                 break;
 
+            case 'viewvotes':
+                modelObj = {};
+                modelObj = EOMPage;
+                break;
+
             case 'publicprofile':
                 modelObj = {};
                 modelObj = PublicProfilePage;
@@ -565,6 +570,7 @@ module.exports = function (app, passport) {
                     case 'logout':
                     case 'myprofile':
                     case 'employeeofthemonth':
+                    case 'viewvotes':
                     case 'publicprofile':
                     case 'openendedsurvey':
                     case 'moodrate':
@@ -684,6 +690,7 @@ module.exports = function (app, passport) {
                     case 'logout':
                     case 'myprofile':
                     case 'employeeofthemonth':
+                    case 'viewvotes':
                     case 'publicprofile':
                     case 'openendedsurvey':
                     case 'moodrate':

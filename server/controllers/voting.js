@@ -178,7 +178,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
   var yearmonth       =   cdate.substring(0, 7);
  
   User.findOne({ _id: votefor_userid, company_id: company_id }, function(err, user){
-    if (!err) {
+    if ( !err && user !== null ) {
         var conditions         =     {};
         EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: company_id }, function(err, emp){
             if(emp){

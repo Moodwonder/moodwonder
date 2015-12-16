@@ -5,7 +5,7 @@ import UserStore from 'stores/UserStore';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
-export default class EmployeeOfTheMonth extends React.Component {
+export default class ChooseEOTM extends React.Component {
 
     constructor(props) {
         super(props);
@@ -33,15 +33,11 @@ export default class EmployeeOfTheMonth extends React.Component {
 
     _onChange = (state) => {
 
-        // console.log(state);
-        // console.log(this.ShowMoreStatus);
         if(this.ShowMoreStatus){
             this.ShowMoreStatus = false;
             state.employees.data.employees.map((data, key) => {
                 this.filtered.push(data);
             });
-           // console.log(state);
-            // console.log(this.filtered);
             this.mytotalvotes = state.employees.data.mytotalvotes;
             this.hasData = state.hasEmployees;
             let last_employee = this.filtered[this.filtered.length-1];
@@ -50,11 +46,9 @@ export default class EmployeeOfTheMonth extends React.Component {
             }
         }
 
-        if(this.state.voteStatus && (!this.state.hasError)){
-            this.filtered[this.state.votekey].myvote = true;
-            this.filtered[this.state.votekey].votes++;
-            this.mytotalvotes++;
-            state.voteStatus = false;
+        if(this.state.awardStatus && (!this.state.hasError) && this.filtered[this.state.selectkey]){
+            this.filtered[this.state.selectkey].empofthemonth = true;
+            // state.awardStatus = false;
             this._onPopClose();
         }
 
@@ -66,21 +60,27 @@ export default class EmployeeOfTheMonth extends React.Component {
         this.setState(state);
         this.messageAutoClose(state);
     }
+    _onChooseSubmit = (emp_id) => {
+
+        if(this.state.emp_id !== ''){
+            console.log(this.state.emp_id);
+            EOTMActions.chooseEOTM({ emp_id: this.state.emp_id });
+        }
+    }
 
     _onPopClick = (emp_id,key) => {
-        // key : vote widget unique key
         $( "body" ).addClass( "dimmed dimmable" );
         this.setState({
-            modal:true,
+            modalBox:true,
             emp_id:emp_id,
-            votekey: key
+            selectkey: key
         });
     }
 
-    _onPopClose = (emp_id) => {
+    _onPopClose = () => {
         $( "body" ).removeClass( "dimmed dimmable" );
         this.setState({
-            modal:false
+           modalBox:false
         });
     }
 
@@ -141,26 +141,6 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered = [];
             EOTMActions.getallemployees();
         }
-
-        /*
-        if(text !== ''){
-            if(this.hasData){
-                this.filtered = [];
-                let i =0;
-                this.state.employees.data.employees.map((data, key) => {
-                    if((data.name.toLowerCase()).indexOf(text.toLowerCase()) === 0){
-                        this.filtered[i] = data;
-                        i++;
-                    }
-                });
-                this.hasData = true;
-                this.setState(this.state);
-            }
-        }else{
-            this.filtered = this.state.employees.data.employees;
-            this.setState(this.state);
-        }
-        */
     }
 
     _onVoteSubmit = (e) => {
@@ -188,7 +168,17 @@ export default class EmployeeOfTheMonth extends React.Component {
         let moreusers = null;
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
-                return [<VoteWidget _id={data._id} uid={this.state.employees.data.current_user_id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
+                return [
+                    <SelectWidget
+                    _id={data._id}
+                    uid={this.state.employees.data.current_user_id}
+                    photo={data.photo} name={data.name}
+                    votes={data.votes}
+                    active={data.empofthemonth}
+                    disabled={this.state.awardStatus}
+                    click={this._onPopClick}
+                    index={key} />
+                ];
             });
         }
 
@@ -207,20 +197,19 @@ export default class EmployeeOfTheMonth extends React.Component {
             );
         }
 
-        let modal;
-        if(this.state.modal){
+        let modal = null;
+        if(this.state.modalBox){
             modal = (
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">Vote</div>
+                    <div className="header">Employee of the month</div>
                     <div className="ui segment">
                         <div className="ui small form">
                             <div className="field">
-                                <label> Comment</label>
-                                <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                                Are you sure ?
                             </div>
-                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >Vote</button>
+                            <button type="button" onClick={this._onChooseSubmit.bind(this,this.props._id)} className="ui submit button submitt" >Yes, Proceed </button>
                             <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -233,7 +222,7 @@ export default class EmployeeOfTheMonth extends React.Component {
             <div className="ui main">
                 <ProfileHeader data={{votes: this.mytotalvotes, voteperiod: this.state.voteperiod }}/>
                 <div className="ui secondary menu account">
-                    <div className="ui container">
+                    <div className="ui container srch">
                         <form className="ui right labeled left icon input" onSubmit={this._onSearch} >
                             <i className="search icon"></i>
                             <input type="text" ref="search" onChange={this._onChangeSearch} placeholder={GetText('EOM_SEARCH_PLACEHOLDER_1', mlarray)} />
@@ -242,7 +231,7 @@ export default class EmployeeOfTheMonth extends React.Component {
                         </form>
                     </div>
                 </div>
-                <h4 className="ui header ryt">{GetText('EOM_TITLE_1', mlarray)}</h4>
+                <h4 className="ui header ryt">{GetText('VIEWVOTES_TITLE_1', mlarray)}</h4>
                 {message}
                 <div className="ui link five cards stackable grid cast">
                     {employees}
@@ -254,11 +243,11 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 }
 
-class VoteWidget extends React.Component {
+class SelectWidget extends React.Component {
 
     constructor(props) {
         super(props);
-        //this.state = {};
+        this.state = {};
         //this.state.multilang = MlangStore.getState().multilang;
     }
 
@@ -270,29 +259,32 @@ class VoteWidget extends React.Component {
 
     render() {
 
+        console.log(this.props);
+
         //let mlarray = this.state.multilang;
 
         let voteBtn = (
             <div onClick={this._onModalClick} className='extra content' >
-                <i className="thumbs outline up icon"></i>
-                VOTE
+                <i className="thumbs outline"></i>
+                SELECT
             </div>
         );
 
-        if(this.props._id === this.props.uid){
+        if(this.props.active){
             voteBtn = (
-                <div className='extra content disabled' >
-                    <i className="thumbs outline up icon"></i>
-                    VOTE
+                <div className='extra content winner' >
+                    <i className="thumbs outline trophy icon"></i>
+                    SELECTED
                 </div>
             );
         }
 
-        if(this.props.active){
+        if((!this.props.active) && this.props.disabled){
+            // To disable the click if already selected the winner
             voteBtn = (
-                <div className='extra content voted' >
-                    <i className="thumbs outline up icon"></i>
-                    VOTE
+                <div className='extra content disabled' >
+                    <i className="thumbs outline"></i>
+                    SELECT
                 </div>
             );
         }
@@ -317,7 +309,6 @@ class VoteWidget extends React.Component {
 class ProfileHeader extends React.Component {
 
     constructor(props) {
-
         super(props);
         this.state = UserStore.getState();
         // this.state.multilang = MlangStore.getState().multilang;
@@ -333,12 +324,9 @@ class ProfileHeader extends React.Component {
     }
     render() {
 
-        let text = null;
         let voteperiod = null;
         // let mlarray = this.state.multilang;
-        if(this.state.votes !== undefined) {
-            text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
-        }
+
         if(this.state.voteperiod !== undefined) {
             voteperiod = [<p className="votes"> Vote period : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
@@ -353,7 +341,6 @@ class ProfileHeader extends React.Component {
                     <div className="title">
                         <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
                         <span className="text-shadow">{this.state.userData.email} </span>
-                        {text}
                         {voteperiod}
                     </div>
                 </div>
