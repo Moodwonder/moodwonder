@@ -587,14 +587,14 @@ export default class MyMood extends React.Component {
       let companysurvey = this.state.companysurvey;
       let engagedmanagers = this.state.engagedmanagers;
       let currentuserid = this.state.currentuserid;
-      let user = this.state.userData;
+      //let user = this.state.userData;
       let errormessage = this.state.errormessage;
       let mlarray = this.state.multilang;
 
-      let usertype;
-      if(typeof user !== 'undefined') {
-          usertype = user.usertype;
-      }
+      //let usertype;
+      //if(typeof user !== 'undefined') {
+      //    usertype = user.usertype;
+      //}
 
       let xlabel = [];
       let ydata = [];
@@ -765,39 +765,81 @@ export default class MyMood extends React.Component {
                   );
       });
 
-      let improvedareas = improvedAreas.map((data, key) => {
+      let improvedareas;
+      if(improvedAreas.length > 0) {
+          improvedareas = improvedAreas.map((data, key) => {
 
-          let rows = this.getStars(data.difference, "green");
+              let rows = this.getStars(data.difference, "green");
 
-          return (
+              return (
+                        <div className="column padding-ryt">
+                            <div className="extra center aligned">
+                                <p className="head">{data.difference}</p>
+                                <div data-rating={data.difference} className="ui star rating">
+                                    {rows}
+                                </div>
+                                <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                            </div>
+                        </div>
+                     );
+          });
+      } else {
+          improvedareas = [
+                    <div className="column padding-ryt"></div>,
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
-                            <p className="head">{data.difference}</p>
-                            <div data-rating={data.difference} className="ui star rating">
-                                {rows}
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
                             </div>
-                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                            <div className="title">You don't have enough values to compare.</div>
                         </div>
-                    </div>
-                  );
-      });
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
+      }
 
-      let worstareas = worstAreas.map((data, key) => {
+      let worstareas;
+      if(worstAreas.length > 0) {
+          worstareas = worstAreas.map((data, key) => {
 
-          let rows = this.getStars(data.difference, "red");
+              let rows = this.getStars(data.difference, "red");
 
-          return (
+              return (
+                        <div className="column padding-ryt">
+                            <div className="extra center aligned">
+                                <p className="head">{data.difference}</p>
+                                <div data-rating={data.difference} className="ui star rating">
+                                    {rows}
+                                </div>
+                                <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                            </div>
+                        </div>
+                     );
+          });
+      } else {
+          worstareas = [
+                    <div className="column padding-ryt"></div>,
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
-                            <p className="head">{data.difference}</p>
-                            <div data-rating={data.difference} className="ui star rating">
-                                {rows}
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
                             </div>
-                            <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                            <div className="title">You don't have enough values to compare.</div>
                         </div>
-                    </div>
-                 );
-      });
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
+      }
 
       let topthreevscompany;
       if(topThreeVsCompany.length > 0) {
@@ -1037,8 +1079,8 @@ export default class MyMood extends React.Component {
 
       let blueLegend;
       if (graphengagement !== 'Mood') {
-          blueLegend = [<label><img src="/assets/images/blue-graph.png" /></label>,
-                        <label>{graphengagement}</label>
+          blueLegend = [<label className="custom-lbl"><img src="/assets/images/blue-graph.png" /></label>,
+                        <label className="custom-lbl">{graphengagement}</label>
                        ];
       }
 
@@ -1080,8 +1122,8 @@ export default class MyMood extends React.Component {
                                 <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
                                 <div className="legend">
                                     <div className="legend-sub" style={{"width": "100%", "marginLeft": "38%"}}>
-                                        <label><img src="/assets/images/red.png" /></label>
-                                        <label>Mood</label>
+                                        <label className="custom-lbl"><img src="/assets/images/red.png" /></label>
+                                        <label className="custom-lbl">Mood</label>
                                         {blueLegend}
                                     </div>
                                 </div>
@@ -1363,23 +1405,25 @@ export default class MyMood extends React.Component {
           );
       }
 
-      let tabs;
-      if (typeof usertype !== 'undefined' && usertype === 'manager') {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.customSurveyClick} href="#">{GetText('MYMD_CSURVEY', mlarray)}</a>
-                 ];
-      } else {
-          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
-                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
-                 ];
-      }
+//      let tabs;
+//      if (typeof usertype !== 'undefined' && usertype === 'manager') {
+//          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.customSurveyClick} href="#">{GetText('MYMD_CSURVEY', mlarray)}</a>
+//                 ];
+//      } else {
+//          tabs = [  <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>,
+//                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
+//                 ];
+//      }
+
 
 
       return (
             <div>
-                <div className="ui tabular menu tab three column">
-                    {tabs}
+                <div className="ui tabular menu tab two column">
+                    <a className="item mobile active column" onClick={this.engagementGraphClick} href="#">{GetText('MYMD_EGRAPH', mlarray)}</a>
+                    <a className="item mobile column" onClick={this.moodRatingsClick} href="#">{GetText('MYMD_MRATING', mlarray)}</a>
                 </div>
                 {engagementGraphTabContent}
                 {moodRatingsTabContent}

@@ -74,3 +74,12 @@
         font-size: 1.5em;
     }
 }
+
+/* Start : Added by Dev */
+.custom-header {
+    padding : 0 17px !important;
+}
+.custom-dropdown {
+    margin:4px -15px !important;
+}
+/* End : Added by Dev */

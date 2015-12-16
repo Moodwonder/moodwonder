@@ -50,38 +50,46 @@ const moodratings = {
     getMostImprovedAreas: function (surveyresults) {
 
         let results = this.getLastMonthData(surveyresults);
-        let sortedArray = _.sortBy(results, function(o) { return o.rating;}).reverse();
-        let groupedArray = _(sortedArray).groupBy(function(surveyresult) { return surveyresult.mood; });
+        if ((results.length / 13) > 1) {
+            let sortedArray = _.sortBy(results, function(o) { return o.rating;}).reverse();
+            let groupedArray = _(sortedArray).groupBy(function(surveyresult) { return surveyresult.mood; });
 
-        let data = _(groupedArray).map(function(g, key) {
-            let mtop = _.sortBy(g, function(o) { return o.created.d; });
-            let difference = (mtop[mtop.length -1].rating - mtop[0].rating).toFixed(1);
-            let mood = mtop[0].mood;
-            return {mood : mood, difference: difference};
-        });
+            let data = _(groupedArray).map(function(g, key) {
+                let mtop = _.sortBy(g, function(o) { return o.created.d; });
+                let difference = (mtop[mtop.length -1].rating - mtop[0].rating).toFixed(1);
+                let mood = mtop[0].mood;
+                return {mood : mood, difference: difference};
+            });
 
-        let finalArray = _.sortBy(data, function(o) { return o.difference;}).reverse();
-        let improvedareas = _.first(_.uniq(finalArray, function(row) { return row.difference; }),3);
-        return improvedareas;
+            let finalArray = _.sortBy(data, function(o) { return o.difference;}).reverse();
+            let improvedareas = _.first(_.uniq(finalArray, function(row) { return row.difference; }),3);
+            return improvedareas;
+        } else {
+            return [];
+        }
 
     },
 
     getWorstImprovedAreas: function (surveyresults) {
 
         let results = this.getLastMonthData(surveyresults);
-        let sortedArray = _.sortBy(results, function(o) { return o.rating;});
-        let groupedArray = _(sortedArray).groupBy(function(surveyresult) { return surveyresult.mood; });
+        if ((results.length / 13) > 1) {
+            let sortedArray = _.sortBy(results, function(o) { return o.rating;});
+            let groupedArray = _(sortedArray).groupBy(function(surveyresult) { return surveyresult.mood; });
 
-        let data = _(groupedArray).map(function(g, key) {
-            let mtop = _.sortBy(g, function(o) { return o.created.d; });
-            let difference = (mtop[mtop.length -1].rating - mtop[0].rating).toFixed(1);
-            let mood = mtop[0].mood;
-            return {mood : mood, difference: difference};
-        });
+            let data = _(groupedArray).map(function(g, key) {
+                let mtop = _.sortBy(g, function(o) { return o.created.d; });
+                let difference = (mtop[mtop.length -1].rating - mtop[0].rating).toFixed(1);
+                let mood = mtop[0].mood;
+                return {mood : mood, difference: difference};
+            });
 
-        let finalArray = _.sortBy(data, function(o) { return o.difference;});
-        let improvedareas = _.first(_.uniq(finalArray, function(row) { return row.difference; }),3);
-        return improvedareas;
+            let finalArray = _.sortBy(data, function(o) { return o.difference;});
+            let improvedareas = _.first(_.uniq(finalArray, function(row) { return row.difference; }),3);
+            return improvedareas;
+        } else {
+            return [];
+        }
 
     },
 

@@ -210,39 +210,81 @@ export default class MyCompany extends React.Component {
                  );
       });
 
-      let improvedareas = improvedAreas.map((data, key) => {
+      let improvedareas;
+      if(improvedAreas.length > 0) {
+          improvedareas = improvedAreas.map((data, key) => {
 
-          let rows = this.getStars(data.avg, "green");
+              let rows = this.getStars(data.avg, "green");
 
-          return (
+              return (
+                        <div className="column padding-ryt">
+                            <div className="extra center aligned">
+                                <p className="head">{data.avg}</p>
+                                <div data-rating={data.avg} className="ui star rating">
+                                    {rows}
+                                </div>
+                                <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
+                            </div>
+                        </div>
+                     );
+          });
+      } else {
+          improvedareas = [
+                    <div className="column padding-ryt"></div>,
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
-                            <p className="head">{data.avg}</p>
-                            <div data-rating={data.avg} className="ui star rating">
-                                {rows}
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
                             </div>
-                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
+                            <div className="title">Don't have enough values to compare.</div>
                         </div>
-                    </div>
-                 );
-      });
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
+      }
 
-      let worstareas = worstAreas.map((data, key) => {
+      let worstareas;
+      if(worstAreas.length > 0) {
+          worstareas = worstAreas.map((data, key) => {
 
-          let rows = this.getStars(data.avg, "red");
+              let rows = this.getStars(data.avg, "red");
 
-          return (
+              return (
+                        <div className="column padding-ryt">
+                            <div className="extra center aligned">
+                                <p className="head">{data.avg}</p>
+                                <div data-rating={data.avg} className="ui star rating">
+                                    {rows}
+                                </div>
+                                <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
+                            </div>
+                        </div>
+                     );
+          });
+      } else {
+          worstareas = [
+                    <div className="column padding-ryt"></div>,
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
-                            <p className="head">{data.avg}</p>
-                            <div data-rating={data.avg} className="ui star rating">
-                                {rows}
+                            <p className="head"></p>
+                            <div className="ui star rating">
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
+                                <i className="icon"></i>
                             </div>
-                            <div className="title">{GetText('MYCO_OPT' + data.mood, mlarray)}</div>
+                            <div className="title">Don't have enough values to compare.</div>
                         </div>
-                    </div>
-                 );
-      });
+                    </div>,
+                    <div className="column padding-ryt"></div>
+          ];
+      }
       //End : CompanyRatings
 
 
