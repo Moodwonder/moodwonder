@@ -412,6 +412,8 @@
 }
 }
 
+
+
 @media only screen and (min-width: 768px) {
 .invite-people.mobile {
 	display: none;
@@ -1055,4 +1057,10 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
 .legend label img {
     float: left;
 }
+
 /* End: Edited by Dev */
+@media only screen and (max-width: 430px) {
+.legend-sub {
+    margin-left:12% !important;
+}
+}
