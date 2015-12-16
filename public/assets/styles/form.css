@@ -2152,7 +2152,7 @@ transform:rotate(360deg)
 	margin-right: -1em
 }
 .ui.two.cards>.card {
-	width: calc(50% - 2em);
+	width: calc(50% - 2em) !important;
 	margin-left: 1em;
 	margin-right: 1em
 }
@@ -3940,4 +3940,15 @@ transform:rotate(360deg)
     width: 100%;
     height: auto;
     vertical-align: middle;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1199px) {
+
+
+.ui.five.cards>.card {
+    width: calc(50% - 1.5em);
+    margin-left: .75em;
+    margin-right: .75em;
+}
+
 }

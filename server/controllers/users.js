@@ -2198,7 +2198,6 @@ exports.getAllEmployeesInCompany = function (req, res) {
     if(company_id){
 
         var condition = { company_id: company_id };
-        
         if(isValid(last_id)){
             condition._id = { "$gt": new ObjectId(last_id) };
         }
@@ -2218,14 +2217,16 @@ exports.getAllEmployeesInCompany = function (req, res) {
 
                         var employees = [];
                         var hasMoreData = false;
+                        var awardStatus = false;
                         lists.map(function (data, key) {
 
                             var empofthemonth =   false;
                             var profileimage  = (data.profile_image !== '') ? PRO_PIC_PATH+data.profile_image : '/images/no-profile-img.gif';
                             // set employee of the month status
                             try {
-                                if(emp.emp_id === data._id){
+                                if(emp.emp_id.toString() === data._id.toString()){
                                     empofthemonth =   true;
+                                    awardStatus =   true;
                                 }
                             } catch (ex) {}
 
@@ -2281,6 +2282,8 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                         existCondition();
                                     }
                                 });
+                                // To disable the click if already selected the winner
+                                employees[key].disabled = awardStatus;
                             });
                         }else{
                             callbacklog.employeeTotalVotes = true;
@@ -2305,6 +2308,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                             response.data.mytotalvotes = mytotalvotes;
                             response.data.current_user_id = req.user._id;
                             response.data.voteperiod = {};
+                            response.data.awardStatus = awardStatus;
 
                             Date.prototype.getMonthStartEnd = function (start) {
                                 var StartDate = new Date(this.getFullYear(), this.getMonth(), 1);

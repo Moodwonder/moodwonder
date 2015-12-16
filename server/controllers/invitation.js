@@ -260,5 +260,4 @@ exports.inviteSignup = function(req, res, next) {
         res.send(response);
         res.end();
     }
-
 };

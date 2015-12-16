@@ -86,6 +86,16 @@ export default class Leftnav extends React.Component {
           ];
       }
 
+      let viewvotes;
+      if (user.usertype === 'manager') {
+          viewvotes = (
+                <a className="item" href="/viewvotes">
+                    <i className="thumbs trophy icon"></i>
+                    {GetText('L_VIEW_VOTE', mlarray)}
+                </a>
+          );
+      }
+
       return (
             <div className="ui left fixed vertical menu ">
                 <div className="profile item">
@@ -114,6 +124,11 @@ export default class Leftnav extends React.Component {
                 <a className="item" href="/employeeofthemonth">
                     <i className="thumbs up icon"></i>
                     {GetText('L_CAST_VOTE', mlarray)}
+                </a>
+                {viewvotes}
+                <a className="item" href="/viewsurvey">
+                    <i className="thumbs up icon"></i>
+                    My Surveys
                 </a>
                 {openresponselink}
                 <InviteOthers />
