@@ -1051,16 +1051,17 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     max-width:65px;
 }
 .legend label.custom-lbl {
+    max-width:57px;
     width: 100%;
-    max-width:65px;
 }
 .legend label img {
     float: left;
 }
 
 /* End: Edited by Dev */
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 468px) {
 .legend-sub {
-    margin-left:12% !important;
+    font-size: 12px;
+    margin-left: 11% !important;
 }
 }
