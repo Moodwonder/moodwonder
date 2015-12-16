@@ -93,16 +93,24 @@ const moodratings = {
     getCompanyMostImprovedAreas: function (surveyresults) {
 
         let results = this.getLastMonthData(surveyresults);
-        let improvedareas = this.companyImprovedAreaCalulation(results);
-        return _.first(improvedareas, 3);
+        if ((results.length / 13) > 1) {
+            let improvedareas = this.companyImprovedAreaCalulation(results);
+            return _.first(improvedareas, 3);
+        } else {
+            return [];
+        }
 
     },
 
     getCompanyWorstImprovedAreas: function (surveyresults) {
 
         let results = this.getLastMonthData(surveyresults);
-        let improvedareas = this.companyImprovedAreaCalulation(results);
-        return _.last(improvedareas, 3);
+        if ((results.length / 13) > 1) {
+            let improvedareas = this.companyImprovedAreaCalulation(results);
+            return _.last(improvedareas, 3);
+        } else {
+            return [];
+        }
 
     },
 
