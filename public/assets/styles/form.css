@@ -3946,7 +3946,7 @@ transform:rotate(360deg)
 
 
 .ui.five.cards>.card {
-    width: calc(50% - 1.5em);
+    width: calc(33% - 1.5em);
     margin-left: .75em;
     margin-right: .75em;
 }
