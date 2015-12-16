@@ -182,13 +182,28 @@ export default class EmployeeOfTheMonth extends React.Component {
         // console.log('render..');
         // console.log(this.state);
 
+        this.disableVote = true;
+        if(this.mytotalvotes < 5){
+			this.disableVote = false;
+		}
+
         let mlarray = this.state.multilang;
 
         let employees = '';
         let moreusers = null;
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
-                return [<VoteWidget _id={data._id} uid={this.state.employees.data.current_user_id} photo={data.photo} name={data.name} votes={data.votes} active={data.myvote} click={this._onPopClick} index={key} />];
+                return [
+					<VoteWidget
+					_id={data._id}
+					uid={this.state.employees.data.current_user_id}
+					photo={data.photo} name={data.name}
+					votes={data.votes}
+					active={data.myvote}
+					disabled={this.disableVote}
+					click={this._onPopClick}
+					index={key} />
+				];
             });
         }
 
@@ -279,7 +294,7 @@ class VoteWidget extends React.Component {
             </div>
         );
 
-        if(this.props._id === this.props.uid){
+        if((this.props._id === this.props.uid) || this.props.disabled){
             voteBtn = (
                 <div className='extra content disabled' >
                     <i className="thumbs outline up icon"></i>
