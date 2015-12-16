@@ -1059,20 +1059,45 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
 .legend label img {
     float: left;
 }
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+.sliderinput {
+   width: 88% !important;
+}
+}
 @media only screen and (max-width: 767px) {
-    p.votes{
-        width:45% !important;
-    }
+p.votes{
+   width:45% !important;
+}
+.sliderinput {
+   width: 86% !important;
+}
 }
 @media only screen and (min-width: 1199px) and (max-width:1279px) {
-    .srch{
-        width:100%!important;
-    }
+.srch {
+    width:100%!important;
+}
 }
 @media only screen and (max-width: 468px) {
 .legend-sub {
     font-size: 12px;
     margin-left: 11% !important;
 }
+.sliderinput {
+    width: 78% !important;
+}
+}
+.slider-value {
+    border: 1px solid #FBBD08;
+    border-radius: 4px;
+    color: #FBBD08;
+    float: right;
+    margin: 0 10px 0 0;
+    padding: 4px;
+    text-align: center;
+    width: 30px;
+}
+.sliderinput {
+    width: 80%;
+    float: left;
 }
 /* End: Edited by Dev */
