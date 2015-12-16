@@ -4,25 +4,37 @@ import _ from 'underscore';
 import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
+import UserStore from 'stores/UserStore';
 
 
 export default class Takesurvey extends React.Component {
 
   constructor(props) {
       super(props);
+      this.state = UserStore.getState();
       this.state = CustomSurveyStore.getState();
-      this.state.formstatus = false;
+      this.state.popup = false;
+      this.state.errormessage = '';
   }
 
   componentDidMount() {
       let id = this.props.params.key;
       CustomSurveyActions.getSurveyForm(id);
       CustomSurveyStore.listen(this._onChange);
-      this.setState({formstatus: false});
+      UserStore.listen(this._onUserDataChange);
   }
 
   componentWillUnmount() {
       CustomSurveyStore.unlisten(this._onChange);
+      UserStore.unlisten(this._onUserDataChange);
+  }
+
+  componentDidUpdate () {
+      window.setTimeout(() => {
+          if (this.state.errormessage !== '') {
+              this.setState({errormessage: ''});
+          }
+      }, 4000);
   }
 
   _onChange = () => {
@@ -31,49 +43,78 @@ export default class Takesurvey extends React.Component {
     });
   }
 
+  _onUserDataChange = (state) => {
+      this.setState(state);
+  }
+
+  onPopupClose = (e) => {
+      e.preventDefault();
+      this.setState({ popup : false });
+      let user = this.state.userData;
+      window.setTimeout(() => {
+          if(typeof user !== 'undefined' && user.usertype === 'manager') {
+              window.location.assign('/surveyforms');
+          } else {
+              window.location.assign('/viewsurvey');
+          }
+      });
+  }
+
   onCancelSurvey = (e) => {
       e.preventDefault();
       document.getElementById("surveyForm").reset();
   }
 
   onSubmitSurvey = (e) => {
-      e.preventDefault();
-      let formData = document.querySelector('#surveyForm');
-      let data = getFormData(formData, {trim: true});
-      let surveyResults = [];
-      let form = this.state.form;
-      let qcount = _.size(form.questions);
+      try {
+          e.preventDefault();
+          let formData = document.querySelector('#surveyForm');
+          let data = getFormData(formData, {trim: true});
+          let surveyResults = [];
+          let form = this.state.form;
+          let qcount = _.size(form.questions);
+          let ansCheck = [];
 
-      for(let i = 1; i <= qcount; i++){
-          let survey = survey || {};
-          //survey.user_id = 1; // Need to change in future.
-          survey.survey_id = data.surveyid;
-          survey.question_id = data['questionid_' + i];
-          survey.question = data['question_' + i];
-          survey.answertype = data['answer_type_' + i];
-          survey.answers = [];
-          let options = {};
-          if(data['answer_type_' + i] === 'checkbox') {
-              for(let answer of data['answer_' + i + '_[]']){
-                  options = {};
-                  options.option = answer;
+          for(let i = 1; i <= qcount; i++){
+              let survey = survey || {};
+              //survey.user_id = 1; // Need to change in future.
+              survey.survey_id = data.surveyid;
+              survey.question_id = data['questionid_' + i];
+              survey.question = data['question_' + i];
+              survey.answertype = data['answer_type_' + i];
+              survey.answers = [];
+              let options = {};
+              if(data['answer_type_' + i] === 'checkbox') {
+                  if (data.hasOwnProperty('answer_' + i + '_[]')) {
+                      for(let answer of data['answer_' + i + '_[]']){
+                          options = {};
+                          options.option = answer;
+                          survey.answers.push(options);
+                          if ((answer !== null) && (answer !== undefined) && (answer !== "")) {
+                              ansCheck.push(answer);
+                          }
+                      }
+                  }
+              } else {
+                  options.option = data['answer_' + i];
                   survey.answers.push(options);
+                  if ((data['answer_' + i] !== null) && (data['answer_' + i] !== undefined) && (data['answer_' + i] !== "")) {
+                      ansCheck.push(data['answer_' + i]);
+                  }
               }
-          } else {
-              options.option = data['answer_' + i];
-              survey.answers.push(options);
+              surveyResults.push(JSON.stringify(survey));
           }
-          surveyResults.push(JSON.stringify(survey));
-          // console.log(JSON.stringify(survey));
-      }
 
-      if (window.confirm('Are you sure you want to submit survey details ?')) {
-          let results = {};
-          results.surveyresults = surveyResults;
-          console.log(results);
-          CustomSurveyResultsActions.saveSurveyResults(results);
-          this.setState({formstatus: true});
-      }
+          if (ansCheck.length == 0) {
+              this.setState({errormessage: 'Please answer atleast one question.'});
+          } else {
+              let results = {};
+              results.surveyresults = surveyResults;
+              CustomSurveyResultsActions.saveSurveyResults(results);
+              this.setState({popup: true});
+          }
+
+      } catch (e) {}
   }
 
   getTodaysDate = () => {
@@ -87,8 +128,7 @@ export default class Takesurvey extends React.Component {
 
   render() {
       let form = this.state.form;
-      let formstatus = this.state.formstatus;
-      let statusmessage = '';
+      let errormessage = this.state.errormessage;
       let questions = [];
       let fields = '';
       let qcount = _.size(form.questions);
@@ -178,14 +218,37 @@ export default class Takesurvey extends React.Component {
           ]);
       });
 
-      if(formstatus) {
-          statusmessage = (
-                <div className="ui one column stackable grid container ">
-                    <div className="column">
-                        <div className="ui green message">Survey submitted successfully.</div>
+      let modal;
+      if(this.state.popup){
+          modal = (
+            <div className="ui dimmer modals page transition visible active">
+                <div className="ui active modal">
+                    <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
+                    <div className="ui segment" style={{"textAlign" : "center"}}>
+                        <div className="ui small">
+                            <div className="field">
+                                <label>Survey submitted successfully.</label>
+                            </div>
+                            <div className="field"><br/></div>
+                            <div className="field">
+                                <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-          );
+            </div>
+         );
+      }
+
+      let errorbox;
+      if (errormessage !== '') {
+          errorbox = (
+                        <div className="ui one column stackable grid container ">
+                            <div className="column">
+                                <div className="ui red message">{errormessage}</div>
+                            </div>
+                        </div>
+                     );
       }
 
       let content = '';
@@ -213,6 +276,7 @@ export default class Takesurvey extends React.Component {
 
                         <div className="ui two column stackable grid survey">
                             {fields}
+                            {errorbox}
                             <div className="one wide column qst-mobile"></div>
                             <div className="fifteen wide column padin-lft">
                                 <div className="ui form options">
@@ -234,7 +298,7 @@ export default class Takesurvey extends React.Component {
       return (
                 <div className="ui segment brdr-none padding-none width-rating  ">
                     <div className="clear"></div>
-                    {statusmessage}
+                    {modal}
                     <div className="ui two column stackable grid container ">
                         <div className="column">
                             <h4 className="ui header ryt com">{form.surveytitle}</h4>
