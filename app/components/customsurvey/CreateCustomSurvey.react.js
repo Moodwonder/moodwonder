@@ -27,12 +27,12 @@ export default class CreateCustomSurvey extends React.Component {
           tIndex: 1,
           textarea: [],
           txIndex: 1,
-          formstatus: false,
           freezedate: '',
           today: '',
           organization: [],
           errormessage: '',
-          multilang: MlangStore.getState().multilang
+          multilang: MlangStore.getState().multilang,
+          popup: false
       };
   }
 
@@ -47,16 +47,16 @@ export default class CreateCustomSurvey extends React.Component {
 
       CustomSurveyActions.getOrganization();
       CustomSurveyStore.listen(this._onChange);
-      this.setState({formstatus: false});
       this.setState({freezedate: today});
       this.setState({today: today});
   }
 
   componentDidUpdate () {
-      if (this.state.formstatus) {
-          //document.getElementById("surveyForm").reset();
-          $("#question_q1").val('');
-      }
+      window.setTimeout(() => {
+          if (this.state.errormessage !== '') {
+              this.setState({errormessage: ''});
+          }
+      }, 4000).bind(this);
   }
 
   componentWillUnmount() {
@@ -82,6 +82,14 @@ export default class CreateCustomSurvey extends React.Component {
           window.pageXOffset = 0;
           window.pageYOffset = 0;
       }
+  }
+
+  onPopupClose = (e) => {
+      e.preventDefault();
+      this.setState({ popup : false });
+      window.setTimeout(() => {
+          window.location.reload();
+      });
   }
 
   onSurveySubmit = (e) => {
@@ -202,24 +210,10 @@ export default class CreateCustomSurvey extends React.Component {
 
           if(!errorFlag) {
               CustomSurveyActions.createCustomSurveyForm(survey);
-              console.log('survey');
-              console.log(JSON.stringify(survey));
-              this.setState({formstatus: true});
-              window.parent.scroll(0,0);
-              $('.dp-footer-today').trigger('click');
-              this.setState({freezedate: this.state.today});
-              this.setState({squestions: ['q1']});
-              this.setState({qIndex: 1});
-              this.setState({radio: []});
-              this.setState({rIndex: 1});
-              this.setState({checkbox: []});
-              this.setState({cIndex: 1});
-              this.setState({textbox: []});
-              this.setState({tIndex: 1});
-              this.setState({textarea: []});
-              this.setState({txIndex: 1});
-              this.setState({errormessage: ''});
-              document.getElementById("surveyForm").reset();
+              this.setState({ popup : true });
+              //console.log('survey');
+              //console.log(JSON.stringify(survey));
+              //window.parent.scroll(0,0);
           }
       }catch(e){}
   }
@@ -402,11 +396,9 @@ export default class CreateCustomSurvey extends React.Component {
       let checkbox = this.state.checkbox;
       let textbox = this.state.textbox;
       let textarea = this.state.textarea;
-      let formstatus = this.state.formstatus;
       let freezedate = this.state.freezedate;
       let today = this.state.today;
       let organization = this.state.organization;
-      let statusmessage = '';
 
       let teamoption = '';
       let companyoption = '';
@@ -431,15 +423,6 @@ export default class CreateCustomSurvey extends React.Component {
           return (<option value={team._id}>{team.teamname}</option>);
       });
 
-      if(formstatus) {
-          statusmessage = (
-                        <div className="ui one column stackable grid container ">
-                            <div className="column">
-                                <div className="ui green message">Survey created successfully.</div>
-                            </div>
-                        </div>
-          );
-      }
 
       let sno = 1;
       let contents = squestions.map((qid) => {
@@ -519,11 +502,33 @@ export default class CreateCustomSurvey extends React.Component {
                      );
       }
 
+      let modal;
+      if(this.state.popup){
+          modal = (
+            <div className="ui dimmer modals page transition visible active">
+                <div className="ui active modal">
+                    <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
+                    <div className="ui segment" style={{"textAlign" : "center"}}>
+                        <div className="ui small">
+                            <div className="field">
+                                <label>Survey created successfully.</label>
+                            </div>
+                            <div className="field"><br/></div>
+                            <div className="field">
+                                <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         );
+      }
+
       let customSurveyTabContent = (
               <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
             <div className="ui segment brdr-none padding-none width-rating  ">
                 <div className="clear"></div>
-                {statusmessage}
+                {modal}
                 <div className="ui two column stackable grid container ">
                     <div className="column">
                         <h4 className="ui header ryt com">{GetText('MYMD_SGENERATION_TITLE', mlarray)}</h4>
