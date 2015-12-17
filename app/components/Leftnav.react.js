@@ -131,7 +131,4 @@ export default class Leftnav extends React.Component {
             </div>
       );
   }
-
 }
-
-

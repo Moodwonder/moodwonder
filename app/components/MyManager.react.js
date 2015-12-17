@@ -45,6 +45,11 @@ export default class MyManager extends React.Component {
       this.messageAutoClose(state);
   }
 
+  _clearTextBox = () => {
+
+      React.findDOMNode(this.refs.email).value = '';
+  }
+
   _onSaveSubmit = (model) => {
 
       let email = React.findDOMNode(this.refs.email).value.trim();
@@ -118,7 +123,8 @@ export default class MyManager extends React.Component {
                             <label className="column"><i className="user icon large"></i>{GetText('PRFL_MNGR_CHNG_MNGR', mlarray)}</label>
                             <label className="column"> <input placeholder="Work Email" ref="email" type="email" onChange={this.changeValue} /></label>
                         </div>
-                        <div className="ui submit  button cancel">{GetText('PRFL_MNGR_CANCEL', mlarray)}</div><div onClick={this._onSaveSubmit} className="ui submit button submitt">{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
+                        <div className="ui submit  button cancel" onClick={this._clearTextBox} >{GetText('PRFL_MNGR_CANCEL', mlarray)}</div>
+                        <div onClick={this._onSaveSubmit} className="ui submit button submitt">{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
                     </div>
                </div>
           </div>
