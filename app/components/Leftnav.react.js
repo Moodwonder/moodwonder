@@ -109,13 +109,13 @@ export default class Leftnav extends React.Component {
                         </div>
                     </div>
                 </div>
-                <a className="item" href="/mymood">
-                    <i className="smile icon"></i>
-                    {GetText('L_MYMOOD_LINK', mlarray)}
-                </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
                     {GetText('L_MYACCOUNT_LINK', mlarray)}
+                </a>
+                <a className="item" href="/mymood">
+                    <i className="smile icon"></i>
+                    {GetText('L_MYMOOD_LINK', mlarray)}
                 </a>
                 <a className="item" href="/mycompany">
                     <i className="building icon"></i>
