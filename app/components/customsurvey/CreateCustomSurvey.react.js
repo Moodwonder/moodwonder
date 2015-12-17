@@ -616,21 +616,48 @@ export default class CreateCustomSurvey extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="two wide column padin-lft ">
-                            <div className="ui form options" style={{"maxWidth": "100%"}}>
+                        <div className="ten wide column padin-lft ">
+                            <div className="ui form options">
                                 <select className="" name="targetlevel" style={{"maxWidth": "100%"}}>
                                     <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
                                     <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
                                 </select>
                             </div>
                         </div>
-                        <div className="two wide column padin-lft ">
-                            <div className="ui form options" style={{"maxWidth": "100%"}}>
-                                <label><input type="text" name="targetvalue" palceholher="" />%</label>
+                    </div>
+                    <div className="ui two column stackable grid survey">
+                        <div className="three wide column padin-lft ">
+                            <label className="line-height"></label>
+                        </div>
+                        <div className="two wide column padin-lft">
+                            <div className="ui form ">
+                                <div className="inline fields">
+                                    <div className="ui radio checkbox">
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div className="ten wide column padin-lft ">
+                            <div className="ui form options">
+                                <input type="text" name="targetvalue" palceholher="" style={{"float":"left", "width":"90%"}}/>
+                                <label style={{"float":"right", "width":"10%", "padding":"8px"}}>%</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="ui two column stackable grid survey">
                         <div className="three wide column padin-lft ">
-                            <div className="ui form options" style={{"maxWidth": "100%"}}>
+                            <label className="line-height"></label>
+                        </div>
+                        <div className="two wide column padin-lft">
+                            <div className="ui form ">
+                                <div className="inline fields">
+                                    <div className="ui radio checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ten wide column padin-lft ">
+                            <div className="ui form options">
                                 <select className="" name="targetmood" style={{"maxWidth": "100%"}}>
                                     <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
                                     <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
