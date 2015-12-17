@@ -14,10 +14,10 @@ export default class OpenEndedQuestions extends React.Component {
       super(props);
       this.state = {
         questions: [],
-        savesurveyflag: false,
         surveyresults: SurveyStore.getState().surveyresults,
         multilang: MlangStore.getState().multilang,
-        errormsg: ''
+        errormsg: '',
+        popup: false
       };
   }
 
@@ -34,18 +34,21 @@ export default class OpenEndedQuestions extends React.Component {
 
   _onChange = (state) => {
       this.setState({
-          questions: OpenEndedStore.getState().questions,
-          savesurveyflag: OpenEndedStore.getState().savesurveyflag
+          questions: OpenEndedStore.getState().questions
       });
-
-      if (this.state.savesurveyflag) {
-          window.location.assign('/mymood');
-      }
   }
 
   _onSurveyChange = (state) => {
       this.setState({
           surveyresults: SurveyStore.getState().surveyresults
+      });
+  }
+
+  onPopupClose = (e) => {
+      e.preventDefault();
+      this.setState({ popup : false });
+      window.setTimeout(() => {
+          window.location.assign('/mymood');
       });
   }
 
@@ -89,13 +92,13 @@ export default class OpenEndedQuestions extends React.Component {
           this.setState({errormsg: "Error : Responses can't be blank. Please answer all the questions."});
       } else {
           OpenEndedActions.saveAnswers(openended);
-          console.log(JSON.stringify(openended));
+          this.setState({ popup : true });
       }
   }
 
   onOpenEndedSurveyCancel = (e) => {
       e.preventDefault();
-      //window.location.assign('/mymood');
+      window.location.assign('/mymood');
   }
 
 
@@ -148,6 +151,28 @@ export default class OpenEndedQuestions extends React.Component {
           wmood = lowests[wrand].mood;
       } else {
           wmood = '';
+      }
+
+      let modal;
+      if(this.state.popup){
+          modal = (
+            <div className="ui dimmer modals page transition visible active">
+                <div className="ui active modal">
+                    <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
+                    <div className="ui segment" style={{"textAlign" : "center"}}>
+                        <div className="ui small">
+                            <div className="field">
+                                <label>Answers submitted successfully.</label>
+                            </div>
+                            <div className="field"><br/></div>
+                            <div className="field">
+                                <button type="button" onClick={this.onPopupClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         );
       }
 
       let errMsg;
@@ -292,6 +317,7 @@ export default class OpenEndedQuestions extends React.Component {
 
       return (
         <div className="ui segment brdr-none padding-none width-rating">
+            {modal}
             <form id="openEndedForm">
                 {questions}
             </form>
