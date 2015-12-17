@@ -74,7 +74,7 @@ export default class Leftnav extends React.Component {
                 </a>,
                 <a className="item" href="/openendedresponses">
                     <i className="thumbs up icon"></i>
-                    Openedned Responses
+                    Openended Responses
                 </a>
           ];
       } else {

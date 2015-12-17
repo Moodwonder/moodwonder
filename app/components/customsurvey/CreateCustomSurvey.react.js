@@ -108,6 +108,7 @@ export default class CreateCustomSurvey extends React.Component {
           } else {
               survey.targetlevel = data['targetlevel'];
               survey.targetvalue = data['targetvalue'];
+              survey.targetmood = data['targetmood'];
           }
 
           survey.questions = [];
@@ -617,19 +618,34 @@ export default class CreateCustomSurvey extends React.Component {
                         </div>
                         <div className="two wide column padin-lft ">
                             <div className="ui form options" style={{"maxWidth": "100%"}}>
-                                <input type="text" name="targetvalue" palceholher="" />
-                            </div>
-                        </div>
-                        <div className="one wide column padin-lft ">
-                            <div className="ui form options" style={{"paddingTop":"20px"}}>
-                                <label>%</label>
-                            </div>
-                        </div>
-                        <div className="four wide column padin-lft ">
-                            <div className="ui form options" style={{"maxWidth": "100%"}}>
                                 <select className="" name="targetlevel" style={{"maxWidth": "100%"}}>
                                     <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
                                     <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="two wide column padin-lft ">
+                            <div className="ui form options" style={{"maxWidth": "100%"}}>
+                                <label><input type="text" name="targetvalue" palceholher="" />%</label>
+                            </div>
+                        </div>
+                        <div className="three wide column padin-lft ">
+                            <div className="ui form options" style={{"maxWidth": "100%"}}>
+                                <select className="" name="targetmood" style={{"maxWidth": "100%"}}>
+                                    <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
+                                    <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
+                                    <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
+                                    <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
+                                    <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
+                                    <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
+                                    <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
+                                    <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
+                                    <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
+                                    <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
+                                    <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
+                                    <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
+                                    <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
+                                    <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
                                 </select>
                             </div>
                         </div>

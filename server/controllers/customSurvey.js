@@ -239,7 +239,7 @@ exports.createForm = function (req, res) {
                         
                         getEngagementResults(query, form, members, function(posts){
                             
-                            var _USERCOUNT = members.length;
+                            //var _USERCOUNT = members.length;
 
                             var survey = [];
                             for (var mKey in members) {
@@ -251,20 +251,31 @@ exports.createForm = function (req, res) {
                                 
                                 var userposts = _.filter(posts, function(v) { return v.user_id == user._id; });
                                 var recentposts = _.first(_.sortBy(userposts, function(o) { return o._id; }).reverse(), 13);
-                                var sum = _(userposts).reduce(function(m,x) { return m + x.rating; }, 0);
-                                var avg = (sum/13).toFixed(1);
+                                var sum;
+                                var avg;
+                                if (query.targetmood == 'mw_index') {
+                                    sum = _(userposts).reduce(function(m,x) { return m + x.rating; }, 0);
+                                    avg = (sum/13).toFixed(1);
+                                    console.log('index');
+                                } else {
+                                    var tempmood  = _.filter(recentposts, function(v) { return v.mood == query.targetmood; });
+                                    sum = _(tempmood).reduce(function(m,x) { return x.rating; }, 0);
+                                    avg = sum;
+                                }
                                  
                                 temp.sum = sum;
                                 temp.avg = avg;
                                 //temp.recentposts = recentposts;		
                                 survey.push(temp); 		    
                             }
-
+                            
+                            survey = _.filter(survey, function(v) { return v.avg != 0; });
                             survey = _.sortBy(survey, function(o) { return o.avg; }).reverse();
 
                             var sValue = query.targetvalue;
                             var sLevel = query.targetlevel;
-                            sValue = Math.ceil((_USERCOUNT * sValue ) / 100);
+                            //sValue = Math.ceil((_USERCOUNT * sValue ) / 100);
+                            sValue = Math.ceil(((survey.length) * sValue ) / 100);
                             
                             if(sLevel == 'above') {
                                 survey = _.first(survey, sValue);
