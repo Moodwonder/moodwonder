@@ -54,12 +54,20 @@ export default class OpenEndedQuestions extends React.Component {
       let form = document.querySelector('#openEndedForm');
       let data = getFormData(form, {trim: true});
       let openended = openended || {};
+      openended.most_improved_qone = data['most_improved_qone'];
       openended.most_improved_aone = data['most_improved_aone'];
+      openended.most_improved_qtwo = data['most_improved_qtwo'];
       openended.most_improved_atwo = data['most_improved_atwo'];
+      openended.most_improved_qthree = data['most_improved_qthree'];
       openended.most_improved_athree = data['most_improved_athree'];
+      openended.least_improved_qone = data['least_improved_qone'];
       openended.least_improved_aone = data['least_improved_aone'];
+      openended.least_improved_qtwo = data['least_improved_qtwo'];
       openended.least_improved_atwo = data['least_improved_atwo'];
+      openended.least_improved_qthree = data['least_improved_qthree'];
       openended.least_improved_athree = data['least_improved_athree'];
+      openended.most_improved_mood = data['most_improved_mood'];
+      openended.least_improved_mood = data['least_improved_mood'];
 
       let errorFlag =  false;
 
@@ -78,19 +86,16 @@ export default class OpenEndedQuestions extends React.Component {
       }
 
       if (errorFlag) {
-          //alert("Please answer all the questions.");
           this.setState({errormsg: "Error : Responses can't be blank. Please answer all the questions."});
       } else {
           OpenEndedActions.saveAnswers(openended);
+          console.log(JSON.stringify(openended));
       }
-
-      //OpenEndedActions.saveAnswers(openended);
   }
 
   onOpenEndedSurveyCancel = (e) => {
       e.preventDefault();
-      //document.getElementById("openEndedForm").reset();
-      window.location.assign('/mymood');
+      //window.location.assign('/mymood');
   }
 
 
@@ -175,6 +180,8 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="most_improved_mood" value={hmood} />
+                                        <input type="hidden" name="most_improved_qone" value={question.most_improved_qone} />
                                         <textarea name="most_improved_aone" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -189,6 +196,7 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="most_improved_qtwo" value={question.most_improved_qtwo} />
                                         <textarea name="most_improved_atwo" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -203,6 +211,7 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="most_improved_qthree" value={question.most_improved_qthree} />
                                         <textarea name="most_improved_athree" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -226,6 +235,8 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="least_improved_mood" value={wmood} />
+                                        <input type="hidden" name="least_improved_qone" value={question.least_improved_qone} />
                                         <textarea name="least_improved_aone" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -240,6 +251,7 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="least_improved_qtwo" value={question.least_improved_qtwo} />
                                         <textarea name="least_improved_atwo" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -254,6 +266,7 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
+                                        <input type="hidden" name="least_improved_qthree" value={question.least_improved_qthree} />
                                         <textarea name="least_improved_athree" rows="2"></textarea>
                                     </div>
                                 </div>
