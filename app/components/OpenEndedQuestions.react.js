@@ -275,6 +275,7 @@ export default class OpenEndedQuestions extends React.Component {
 
                         <div className="one wide column qst-mobile"></div>
                         <div className="fifteen wide column padin-lft">
+                            <div className="ui left">{errMsg}</div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
@@ -291,7 +292,6 @@ export default class OpenEndedQuestions extends React.Component {
 
       return (
         <div className="ui segment brdr-none padding-none width-rating">
-            {errMsg}
             <form id="openEndedForm">
                 {questions}
             </form>
