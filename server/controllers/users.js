@@ -498,7 +498,7 @@ exports.getUserInfo = function (req, res) {
  */
 exports.test = function (req, res) {
     var body = "Hi,<br><br> To complete your registration and verify your email please use the following link" +
-            "<br><b>Click here :</b>" + 'http://' + req.get('host') + "/createpassword/sdfdsfsdfsdfsdf" +
+            "<br><b>Click here :</b>" + ' http://' + req.get('host') + "/createpassword/sdfdsfsdfsdfsdf" +
             "<br> Best wishes" +
             "<br> Moodwonder Team";
     body = emailTemplate.general(body);
@@ -598,7 +598,7 @@ exports.postSignupStep1 = function (req, res, next) {
 
                         var transporter = nodemailer.createTransport();
                         var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
-                                "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
+                                "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
                                 "<br><br> Best wishes" +
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
@@ -1201,7 +1201,7 @@ exports.postForgotPassword = function (req, res) {
 
                     var transporter = nodemailer.createTransport();
                     var body = "Hi,<br><br> To reset your password please use the following link <br>" +
-                            "<b>Click here :</b>" + 'http://' + req.get('host') + '/createpassword/' + verifystring +
+                            "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
                             "<br><br> Best wishes" +
                             "<br> Moodwonder Team";
                     body = emailTemplate.general(body);

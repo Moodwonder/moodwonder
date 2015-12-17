@@ -83,7 +83,7 @@ exports.sendInvitation = function(req, res, next) {
                         if(!err){
                             var transporter = nodemailer.createTransport();
                             var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                            "<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/invitesignup/'+inviteString+
+                            "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
                             "<br><br> Best wishes"+
                             "<br> Moodwonder Team";
                             body = emailTemplate.general(body);
@@ -141,7 +141,7 @@ exports.sendInvitation = function(req, res, next) {
 
                                 var transporter = nodemailer.createTransport();
                                 var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                                "<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/invitesignup/'+inviteString+
+                                "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
                                 "<br><br> Best wishes"+
                                 "<br> Moodwonder Team";
                                 body = emailTemplate.general(body);
@@ -235,7 +235,7 @@ exports.inviteSignup = function(req, res, next) {
 
         var transporter = nodemailer.createTransport();
         var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-        "<b>Click here to join :</b>"+ 'http://'+req.get('host') +'/invitesignup/'+inviteString+
+        "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
         "<br><br> Best wishes"+
         "<br> Moodwonder Team";
 
