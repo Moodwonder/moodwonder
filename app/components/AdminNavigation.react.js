@@ -34,17 +34,17 @@ export default class AdminNavigation extends React.Component {
 
   componentDidUpdate () {
       if (this.state.isAuth === "true") {
-          //$('.masthead').visibility({
-          //  once: false,
-          //  onBottomPassed: function () {
-          //      $('.fixed.menu').transition('fade in');
-          //  },
-          //  onBottomPassedReverse: function () {
-          //      $('.fixed.menu').transition('fade out');
-          //  }
-          //});
+          $('.masthead').visibility({
+            once: false,
+            onBottomPassed: function () {
+                $('.fixed.menu').transition('fade in');
+            },
+            onBottomPassedReverse: function () {
+                $('.fixed.menu').transition('fade out');
+            }
+          });
 
-          //$('.ui.sidebar').sidebar('attach events', '.toc.item');
+          $('.ui.sidebar').sidebar('attach events', '.toc.item');
       }
   }
 
