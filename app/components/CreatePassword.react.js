@@ -40,7 +40,7 @@ export default class CreatePassword extends React.Component {
           this.showNotification(this.state.message);
       }
       if(this.state.responseStatus){
-          window.location.assign('/survey');
+          window.location.assign('/mymood');
           //this.context.router.transitionTo('/survey');
       }
   }
