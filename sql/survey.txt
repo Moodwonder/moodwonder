@@ -1,6 +1,6 @@
 
 db.surveypage.insert({ "language" : "EN", 
-                        "SRVY_TITLE" : "Survey", 
+                        "SRVY_TITLE" : "Moodwonder Survey", 
                         "SRVY_MOOD_KEY" : "Mood",
                         "SRVY_MEANING_KEY" : "Meaning",
                         "SRVY_EXPECTATIONS_KEY" : "Expectations",
@@ -32,7 +32,7 @@ db.surveypage.insert({ "language" : "EN",
 });
 
 db.surveypage.insert({ "language" : "FI", 
-                        "SRVY_TITLE" : "tutkimus", 
+                        "SRVY_TITLE" : "Moodwonder Survey", 
                         "SRVY_MOOD_KEY" : "mieliala",
                         "SRVY_MEANING_KEY" : "merkitys",
                         "SRVY_EXPECTATIONS_KEY" : "odotukset",

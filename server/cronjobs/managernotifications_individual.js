@@ -8,6 +8,7 @@ var emailTemplate = require('../email/emailtemplates');
 var EngagementResults = require('../models/engagementResults');
 var NotificationRules = require('../models/notificationRules');
 var CustomSurveyResults = require('../models/customSurveyResults');
+var Config = require('../config/config');
 
 function getAllManagersIndividual(callback) {
 
@@ -121,7 +122,7 @@ var mgrNotificationIndividual = new CronJob({
                                                                 "<br> Moodwonder Team";
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
-                                                            from: 'admin@moodewonder.com',
+                                                            from: Config.fromEmail,
                                                             to: manager.email,
                                                             //to: 'useremailtestacc@gmail.com',
                                                             subject: 'Notification - Individual Lower limit',
@@ -148,7 +149,7 @@ var mgrNotificationIndividual = new CronJob({
                                                                     "<br> Moodwonder Team";
                                                             body = emailTemplate.general(body);
                                                             transporter.sendMail({
-                                                                from: 'admin@moodewonder.com',
+                                                                from: Config.fromEmail,
                                                                 to: manager.email,
                                                                 //to: 'useremailtestacc@gmail.com',
                                                                 subject: 'Notification - Individual Upper limit',

@@ -73,7 +73,7 @@ var customSurveyAlert = new CronJob({
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodewonder.com',
+                            from: Config.fromEmail,
                             to: user.email,
                             //to: 'useremailtestacc@gmail.com',
                             subject: 'Take a survey',

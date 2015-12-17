@@ -13,6 +13,7 @@ export default class Signuppage extends React.Component {
           L_MYACCOUNT_LINK: '',
           L_MYCOMPANY_LINK: '',
           L_CAST_VOTE: '',
+          L_VIEW_VOTE: '',
           L_MOODRATE: '',
           L_INVITEPEOPLE: '',
           L_INVITE_PEOPLE_TITLE: '',
@@ -71,6 +72,10 @@ export default class Signuppage extends React.Component {
           L_MYACCOUNT_LINK: pagedata.L_MYACCOUNT_LINK,
           L_MYCOMPANY_LINK: pagedata.L_MYCOMPANY_LINK,
           L_CAST_VOTE: pagedata.L_CAST_VOTE,
+          L_VIEW_VOTE: pagedata.L_VIEW_VOTE,
+          L_MY_SURVEYS: pagedata.L_MY_SURVEYS,
+          L_CREATE_NEW_SURVEY: pagedata.L_CREATE_NEW_SURVEY,
+          L_OPENENDED_RESPONSES: pagedata.L_OPENENDED_RESPONSES,
           L_MOODRATE: pagedata.L_MOODRATE,
           L_INVITEPEOPLE: pagedata.L_INVITEPEOPLE,
           L_INVITE_PEOPLE_TITLE: pagedata.L_INVITE_PEOPLE_TITLE,
@@ -137,6 +142,26 @@ export default class Signuppage extends React.Component {
   onChangeCastVote = (e) => {
       e.preventDefault();
       this.setState({ L_CAST_VOTE: e.target.value });
+  }
+
+  onChangeViewVote = (e) => {
+      e.preventDefault();
+      this.setState({ L_VIEW_VOTE: e.target.value });
+  }
+
+  onChangeMySurveys = (e) => {
+      e.preventDefault();
+      this.setState({ L_MY_SURVEYS: e.target.value });
+  }
+
+  onChangeCreateNewSurvey = (e) => {
+      e.preventDefault();
+      this.setState({ L_CREATE_NEW_SURVEY: e.target.value });
+  }
+
+  onChangeOpenendedResponses = (e) => {
+      e.preventDefault();
+      this.setState({ L_OPENENDED_RESPONSES: e.target.value });
   }
 
   onChangeInviteTitle = (e) => {
@@ -318,6 +343,10 @@ export default class Signuppage extends React.Component {
       let L_MYACCOUNT_LINK = this.state.L_MYACCOUNT_LINK;
       let L_MYCOMPANY_LINK = this.state.L_MYCOMPANY_LINK;
       let L_CAST_VOTE = this.state.L_CAST_VOTE;
+      let L_VIEW_VOTE = this.state.L_VIEW_VOTE;
+      let L_MY_SURVEYS = this.state.L_MY_SURVEYS;
+      let L_CREATE_NEW_SURVEY = this.state.L_CREATE_NEW_SURVEY;
+      let L_OPENENDED_RESPONSES = this.state.L_OPENENDED_RESPONSES;
       let L_MOODRATE = this.state.L_MOODRATE;
       let L_INVITEPEOPLE = this.state.L_INVITEPEOPLE;
       let L_INVITE_PEOPLE_TITLE = this.state.L_INVITE_PEOPLE_TITLE;
@@ -398,6 +427,42 @@ export default class Signuppage extends React.Component {
                              type="text"
                              value={L_CAST_VOTE}
                              onChange={this.onChangeCastVote} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_VIEW_VOTE</label>
+                    <input className="form-control"
+                             name="L_VIEW_VOTE"
+                             type="text"
+                             value={L_VIEW_VOTE}
+                             onChange={this.onChangeViewVote} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_MY_SURVEYS</label>
+                    <input className="form-control"
+                             name="L_MY_SURVEYS"
+                             type="text"
+                             value={L_MY_SURVEYS}
+                             onChange={this.onChangeMySurveys} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_CREATE_NEW_SURVEY</label>
+                    <input className="form-control"
+                             name="L_CREATE_NEW_SURVEY"
+                             type="text"
+                             value={L_CREATE_NEW_SURVEY}
+                             onChange={this.onChangeCreateNewSurvey} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_OPENENDED_RESPONSES</label>
+                    <input className="form-control"
+                             name="L_OPENENDED_RESPONSES"
+                             type="text"
+                             value={L_OPENENDED_RESPONSES}
+                             onChange={this.onChangeOpenendedResponses} />
                   </div>
 
                   <div className="field">

@@ -8,6 +8,7 @@ var emailTemplate = require('../email/emailtemplates');
 var EngagementResults = require('../models/engagementResults');
 var NotificationRules = require('../models/notificationRules');
 var CustomSurveyResults = require('../models/customSurveyResults');
+var Config = require('../config/config');
 
 
 function getAllManagers(callback) {
@@ -115,7 +116,7 @@ var mgrNotificationMWIndex = new CronJob({
                                                                 "<br> Moodwonder Team";
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
-                                                            from: 'admin@moodewonder.com',
+                                                            from: Config.fromEmail,
                                                             to: manager.email,
                                                             //to: 'useremailtestacc@gmail.com',
                                                             subject: 'Notification - MW Index',

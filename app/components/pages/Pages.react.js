@@ -200,6 +200,10 @@ export default RequireAuth(class Pages extends React.Component {
       usertheme.L_MYACCOUNT_LINK = data['L_MYACCOUNT_LINK'];
       usertheme.L_MYCOMPANY_LINK = data['L_MYCOMPANY_LINK'];
       usertheme.L_CAST_VOTE =  data['L_CAST_VOTE'];
+      usertheme.L_VIEW_VOTE =  data['L_VIEW_VOTE'];
+      usertheme.L_MY_SURVEYS =  data['L_MY_SURVEYS'];
+      usertheme.L_CREATE_NEW_SURVEY =  data['L_CREATE_NEW_SURVEY'];
+      usertheme.L_OPENENDED_RESPONSES =  data['L_OPENENDED_RESPONSES'];
       usertheme.L_MOODRATE =  data['L_MOODRATE'];
       usertheme.L_INVITEPEOPLE =  data['L_INVITEPEOPLE'];
       usertheme.L_INVITE_PEOPLE_TITLE = data['L_INVITE_PEOPLE_TITLE'];
