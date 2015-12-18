@@ -64,6 +64,7 @@ export default class Navigation extends React.Component {
   }
 
   _onLogout = () => {
+      sessionStorage.setItem("engagementsurvey", '');
       UserActions.logout();
   }
 
