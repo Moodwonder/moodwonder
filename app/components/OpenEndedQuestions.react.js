@@ -22,6 +22,9 @@ export default class OpenEndedQuestions extends React.Component {
   }
 
   componentDidMount() {
+      if(typeof sessionStorage.getItem("engagementsurvey") === "undefined" || sessionStorage.getItem("engagementsurvey") == null || sessionStorage.getItem("engagementsurvey") == '' || sessionStorage.getItem("engagementsurvey") === undefined) {
+          window.location.assign('/survey');
+      }
       OpenEndedActions.getQuestions();
       OpenEndedStore.listen(this._onChange);
       SurveyStore.listen(this._onSurveyChange);
@@ -74,30 +77,28 @@ export default class OpenEndedQuestions extends React.Component {
 
       let errorFlag =  false;
 
-      if(openended.most_improved_aone === '' || openended.most_improved_aone === null ) {
+      if((openended.most_improved_aone === '' || openended.most_improved_aone === null) &&
+         (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) &&
+         (openended.most_improved_athree === '' || openended.most_improved_athree === null)) {
           errorFlag =  true;
-      } else if (openended.most_improved_atwo === '' || openended.most_improved_atwo === null) {
-          errorFlag =  true;
-      } else if (openended.most_improved_athree === '' || openended.most_improved_athree === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_aone === '' || openended.least_improved_aone === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) {
-          errorFlag =  true;
-      } else if (openended.least_improved_athree === '' || openended.least_improved_athree === null) {
+      } else if ((openended.least_improved_aone === '' || openended.least_improved_aone === null) &&
+                 (openended.least_improved_atwo === '' || openended.least_improved_atwo === null) &&
+                 (openended.least_improved_athree === '' || openended.least_improved_athree === null)) {
           errorFlag =  true;
       }
 
       if (errorFlag) {
-          this.setState({errormsg: "Error : Responses can't be blank. Please answer all the questions."});
+          this.setState({errormsg: "Error : Responses can't be blank. Please answer atleast one question from each section."});
       } else {
           OpenEndedActions.saveAnswers(openended);
+          sessionStorage.setItem("engagementsurvey", '');
           this.setState({ popup : true });
       }
   }
 
   onOpenEndedSurveyCancel = (e) => {
       e.preventDefault();
+      sessionStorage.setItem("engagementsurvey", '');
       window.location.assign('/mymood');
   }
 

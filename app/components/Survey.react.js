@@ -54,6 +54,7 @@ export default class Survey extends React.Component {
       moodrow.surveyresult = surveyResult;
       //console.log(JSON.stringify(moodrow));
       SurveyActions.saveEngagementSurvey(moodrow);
+      sessionStorage.setItem("engagementsurvey", "true");
   }
 
   render() {
