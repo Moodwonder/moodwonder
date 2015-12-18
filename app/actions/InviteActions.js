@@ -22,6 +22,22 @@ class InviteActions {
   invitesignupsuccess (response) {
       this.dispatch(response);
   }
+
+  // Invite People Anonymously
+  invitePeopleAnonymously (data) {
+      this.dispatch();
+      CommonWebAPIUtils.inviteAnonymously(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.inviteanonymouslysuccess(response);
+            }
+        }, () => {
+        });
+  }
+
+  inviteanonymouslysuccess (response) {
+      this.dispatch(response);
+  }
 }
 
 export default alt.createActions(InviteActions);

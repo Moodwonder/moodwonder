@@ -60,6 +60,15 @@ const utils = {
     });
   },
 
+  inviteAnonymously: (data) => {
+      return $.ajax({
+      url: '/inviteanonymously',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data)
+    });
+  },
+
   getAllEmployees: (data) => {
       return $.ajax({
       url: '/getallemployees',

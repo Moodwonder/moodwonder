@@ -14,11 +14,20 @@ class InviteStore {
       this.canSubmit              =    false;
 
       this.bindListeners({
-        handleInviteSignupSuccess: InviteActions.INVITESIGNUPSUCCESS
+        handleInviteSignupSuccess: InviteActions.INVITESIGNUPSUCCESS,
+        handleInviteAnonymouslySuccess: InviteActions.INVITEANONYMOUSLYSUCCESS
       });
   }
 
   handleInviteSignupSuccess (response) {
+      console.log(response);
+      this.isServerCallWaiting    =    false;
+      this.hasError               =    !response.status;
+      this.message                =    response.message;
+      this.emitChange();
+  }
+
+  handleInviteAnonymouslySuccess (response) {
       console.log(response);
       this.isServerCallWaiting    =    false;
       this.hasError               =    !response.status;
