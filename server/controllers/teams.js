@@ -54,20 +54,20 @@ exports.checkTeam = function(req, res, next) {
         // find team _id from companies collection
         var company_id  = req.user.company_id;
         if(company_id !== ''){
-			var company = { _id: company_id };
-			CompanyInfo.findOne(company).exec(function(err,company){
-				if(company){
-					checkWithInCompanay(company);
-				}else{
-				  res.send(response);
-				  res.end();
-				}
-			});
-		}else{
-			response.message = 'Company not found';
-			res.send(response);
-			res.end();
-		}
+            var company = { _id: company_id };
+            CompanyInfo.findOne(company).exec(function(err,company){
+                if(company){
+                    checkWithInCompanay(company);
+                }else{
+                  res.send(response);
+                  res.end();
+                }
+            });
+        }else{
+            response.message = 'Company not found';
+            res.send(response);
+            res.end();
+        }
     }else{
         response.message = 'Team name is missing.';
         res.send(response);
@@ -215,137 +215,156 @@ exports.getOwnTeams = function(req, res, next) {
 exports.addMemberToTeam = function(req, res, next) {
 
   //function for exiting from the callback function
-  var response = {};
-  function checkExitCondition(key){
-    if(total_member_email == (key+1)){
-        // Go to invitation.sendInvitation() route if there is non member emails
-        if(invite_member_email.length>0){
-            next();
-        }
-        else{
-            response.status = false;
-            response.message = '';
-            response.messages = feedback;
-            response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-            res.send(response);
-            res.end();
-        }
-    }
+  var response            =  {};
+  var invite_member_email =  [];
+  response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+
+  function isValidEmailAddress(emailAddress){
+      var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+      return pattern.test(emailAddress);
   }
-
-  var membername = req.body.membername;
-  var feedback   = [];
   
-  // Extracting domain name for making e-mail id
-  var domainname = req.user.email;
-  domainname     = domainname.substring(domainname.lastIndexOf("@"));
+  var memberemail = req.body.memberemail;
+  var team_id     = req.body.team_id;
+  var feedback    = [];
 
-  var member_email = [];
-  var invite_member_email = [];
-
-
-  membername.map(function(value, key) {
-    // Making e-mail id
-    if(value !== ''){
-        member_email[key] = value+domainname;
-        if(member_email[key] == req.user.email) {
-          feedback.push(req.user.email+': You are the team leader');
-        }
-    }else{
-        feedback.push('Work email is required');
-    }
-  });
-  
-  var total_member_email = member_email.length;
-  var team_id = req.body.team_id;
-
-  if(total_member_email < 1){
-    response.status = false;
-    response.message = '';
-    response.messages = feedback;
-    response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-    res.send(response);
-    res.end();
+  if(memberemail === ''){
+      response.messages = ['Name is required'];
+      feedback.push('Name is required');
   }
-  member_email.map(function(value, key) {
-    var where = { _id: new ObjectId(team_id) }
-    
-    // check the team is exist or not
-    Team.findOne(where, function(err, existingTeam) {
-        if(existingTeam) {
+  else if(!isValidEmailAddress(memberemail))
+  {
+      response.messages = ['Invalid e-mail address'];
+      feedback.push('Invalid e-mail address');
+  }
+  else if(memberemail === req.user.email)
+  {
+      response.messages = [req.user.email+': You are the team leader'];
+      feedback.push(req.user.email+': You are the team leader');
+  }
+  else
+  {
+    var afterDomainCheck = function(){
+		if(team_id !== ''){
+			try{
+				var where = { _id: new ObjectId(team_id) };
+				// check the team is exist or not
+				Team.findOne(where, function(err, existingTeam) {
+					if(existingTeam) {
 
-            var current_member_email = value;
-            User.findOne({ _id: new ObjectId(req.user._id) }, function(err, currentUser) {
-                if( !err && currentUser!== null ){
+						// For getting live data from the current user
+						User.findOne({ _id: new ObjectId(req.user._id) }, function(err, currentUser) {
+							if( !err && currentUser!== null ){
 
-                    var mymanager = '';
-                    if(currentUser.mymanager && currentUser.mymanager[0] && currentUser.mymanager[0].email){
-                        mymanager = currentUser.mymanager[0].email;
-                    }
+								var mymanager = '';
+								if(currentUser.mymanager && currentUser.mymanager[0] && currentUser.mymanager[0].email){
+									mymanager = currentUser.mymanager[0].email;
+								}
 
-                    if(mymanager === current_member_email){
-                        response.status = false;
-                        response.messages = ["You can't add your manager as your subordinate"];
-                        response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-                        res.send(response);
-                        res.end();
-                        return;
-                    }else{
-                        // check the user is exist or not
-                        User.findOne({email: current_member_email }, function(err, existingUser) {
-                            if(existingUser) {
-                                
-                                // check the member already exist in the group
-                                var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+								if(mymanager === memberemail){
+									response.status = false;
+									response.messages = ["You can't add your manager as your subordinate"];
+									feedback.push("You can't add your manager as your subordinate");
+									response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+									res.send(response);
+									res.end();
+									return;
+								}else{
+									// check the user is exist or not
+									User.findOne({email: memberemail }, function(err, existingUser) {
+										if(existingUser) {
+											// check the member already exist in the group
+											var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+											Team.findOne(where_mem_exist, function(err, existingMember) {
+												if(existingMember) {
+													response.status = false;
+													response.messages = [memberemail+': This user is already exist in the team'];
+													//feedback.push(memberemail+': This user is already exist in the team');
+													res.send(response);
+													res.end();
+												}else{
+													// User not exist in this group, Insert this user into this team
+													Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
+														if(err){
+															response.status   = false;
+															response.messages = ['Unknown error with :'+ memberemail];
+															//feedback.push('Unknown error with :'+ memberemail);
+														}else{
+															response.status  = true;
+															response.messages = [memberemail+': Added as a member'];
+															//feedback.push(memberemail+': Added as a member');
+														}
+														res.send(response);
+														res.end();
+													});
+												}
+											});
+										}else{
+											// Calling another controller for Invite a user with the given e-mail id
+											// Calling invitation.js/sendInvitation()
+											req.body.invitetype = 'Team';
+											req.body.data       = { 'email': memberemail, 'team': existingTeam ,feedback: feedback };
+											next();
+										}
+									});
+								}
+							}else{
+								response.status = false;
+								response.messages = ['Unknow error'];
+								response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+								res.send(response);
+								res.end();
+								return;
+							}
+						});
 
-                                Team.findOne(where_mem_exist, function(err, existingMember) {
-                                    if(existingMember) {
-                                        feedback.push(current_member_email+': This user is already exist in the team');
-                                        checkExitCondition(key);
-                                    }else{
-                                        // User not exist in this group, Insert this user into this team
-                                        Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
-                                            if(err){
-                                                feedback.push('Unknown error with :'+ current_member_email);
-                                            }else{
-                                                feedback.push(current_member_email+': Added as a member');
-                                            }
-                                            checkExitCondition(key);
-                                        });
-                                    }
-                                });
-                            }else{
-                                // Calling another controller for Invite a user with the given e-mail id
-                                // Calling invitation.js/sendInvitation()
-                                invite_member_email.push(current_member_email);
-                                req.body.invitetype = 'Team';
-                                req.body.data = { 'email': invite_member_email, 'team': existingTeam ,feedback: feedback };
-                                checkExitCondition(key);
-                            }
-                        });
-                    }
-                    
-                }else{
-                    response.status = false;
-                    response.message = 'Unknow error';
-                    response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-                    res.send(response);
-                    res.end();
-                    return;
-                }
-            });
+					}else{
+						response.status = false;
+						response.messages = ['Team not exist'];
+						res.send(response);
+						res.end();
+					}
+				});
+			}catch(e){
+				console.log(e);
+			}
+		}else{
+			response.status = false;
+			response.messages = ['Something went wrong'];
+			res.send(response);
+			res.end();
+		}
+	}
 
-        }else{
-            response.status = false;
-            response.message = 'Team not exist';
-            response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-            res.send(response);
-            res.end();
-        }
-    });
-  });
-
-  
+	var domain = memberemail.replace(/.*@/, "");
+	domain     = domain.split('.')[0];
+	try{
+		CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) }, function(err, company){
+			if(company !== null){
+				// console.log(company);
+				if(company.domain_name !== domain){
+					response.status = false;
+					response.messages = ['Wrong domain name'];
+					res.send(response);
+					res.end();
+				}else{
+					// to continue the execution
+					afterDomainCheck();
+				}
+			}else{
+				response.status = false;
+				response.messages = ['Company domain not found'];
+				res.send(response);
+				res.end();
+			}
+		});
+	}catch(e){
+		response.status = false;
+		response.messages = ['Something went wrong'];
+		res.send(response);
+		res.end();
+	}
+  }
 };
 
 /**

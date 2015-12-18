@@ -346,19 +346,19 @@ export default class MyProfile extends React.Component {
                         {personalinfomessage}
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_FNAME', mlarray)}*</label>
-                            <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text" />
+                            <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_LNAME', mlarray)}*</label>
-                            <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text" />
+                            <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_CHANGE_PSWD', mlarray)}</label>
-                            <input placeholder="Password" id="password" type="password" />
+                            <input placeholder="Password" id="password" type="password"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_CNFM_PSWD', mlarray)}</label>
-                            <input placeholder="Confirm Password" id="cpassword" type="Password" />
+                            <input placeholder="Confirm Password" id="cpassword" type="Password"  autoComplete="off" />
                         </div>
                     </div>
                 <div className="ui submit  button cancel" onClick={this.onCancelEditPersonalInfoClick} >Cancel</div>

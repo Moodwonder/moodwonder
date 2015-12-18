@@ -92,11 +92,12 @@ const utils = {
       });
   },
 
-  getIndustries: () => {
+  getIndustries: (data) => {
       return $.ajax({
         url: '/getindustries',
         type: 'POST',
-        contentType: 'application/json'
+        contentType: 'application/json',
+        data: JSON.stringify(data)
       });
   },
 
