@@ -623,77 +623,72 @@ exports.postSignupStep1 = function (req, res, next) {
                                 link: req.body.hash
                             });
 
-                            Invite.findOne({email: email}, function (err, existingInvite) {
-                                if (existingInvite) {
+                            Invite.find({ email: email }, function (err, allInvites) {
+                                if(allInvites !== null){
+                                    allInvites.map(function(existingInvite, key){
+                                        if (existingInvite) {
 
-                                    // removing invitation record after taking the data from the collection
-                                    // Otherwise it will show email id repetition in the members list in teams
-                                     Invite.remove({_id: existingInvite._id }, function(err) {
-                                        if (!err) {
-                                            console.log('done....');
-                                        }
-                                        else {
-                                            console.log(err);
-                                        }
-                                    });
-                                    var team_id = existingInvite.data[0].team._id;
+                                            // console.log(existingInvite);
+                                            // removing invitation record after taking the data from the collection
+                                            // Otherwise it will show email id repetition in the members list in teams
+                                            Invite.remove({_id: existingInvite._id }, function(err) {});
 
-                                    var where = {_id: new ObjectId(team_id)}
-                                    // console.log(member_email);
-                                    // check the team is exist or not
-                                    Team.findOne(where, function (err, existingTeam) {
-                                        if (existingTeam) {
+                                            if(existingInvite.type === 'Team'){
+                                                var team_id = existingInvite.data[0].team._id;
+                                                var where = {_id: new ObjectId(team_id)}
+                                                // console.log(member_email);
+                                                // check the team is exist or not
+                                                Team.findOne(where, function (err, existingTeam) {
+                                                    if (existingTeam) {
 
-                                            // User not exist in this group, Insert this user into this team
-                                            Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
-                                                if (err) {
-                                                    response.status = false;
-                                                    response.messages = ['Error when adding a new member'];
-                                                    res.send(response);
-                                                    res.end();
-                                                } else {
-                                                    // Find e-mail id of the user who invited this user
-                                                    User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
-                                                        if (existingUser) {
-                                                            // console.log('has user');
-                                                            var conditions = {'_id': new ObjectId(newuser._id)}
-                                                            , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
-                                                            , options = {multi: false};
+                                                        // User not exist in this group, Insert this user into this team
+                                                        Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
+                                                            if (err) {
+                                                                response.status = false;
+                                                                response.messages = ['Error when adding a new member'];
+                                                            } else {
+                                                                // Find e-mail id of the user who invited this user
+                                                                User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                                    if (existingUser) {
+                                                                        // console.log('has user');
+                                                                        var conditions = {'_id': new ObjectId(newuser._id)}
+                                                                        , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                                        , options = {multi: false};
 
-                                                            // Set manager info
-                                                            User.update(conditions, update, options, function (err) {
-                                                                if (!err) {
-                                                                    // console.log('updated manager');
-                                                                } else {
-                                                                    // console.log('not updated manager');
-                                                                }
-                                                            });
-                                                        }
-                                                        else {
-                                                            // console.log('has no user');
-                                                        }
-                                                    });
-
-                                                    response.status = true;
-                                                    response.messages = ['Member added'];
-                                                    res.send(response);
-                                                    res.end();
-                                                }
-                                            });
+                                                                        // Set manager info
+                                                                        User.update(conditions, update, options, function (err) {
+                                                                            if (!err) {
+                                                                                // console.log('updated manager');
+                                                                            } else {
+                                                                                // console.log('not updated manager');
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    else {
+                                                                        // console.log('has no user');
+                                                                    }
+                                                                });
+                                                                response.status = true;
+                                                                response.messages = ['Member added'];
+                                                            }
+                                                        });
+                                                    } else {
+                                                        response.status = false;
+                                                        response.messages = ['Team not exist'];
+                                                    }
+                                                });
+                                                // redirectUrl();
+                                            }else{
+                                                // redirectUrl();
+                                            }
 
                                         } else {
-                                            response.status = false;
-                                            response.messages = ['Team not exist'];
-                                            res.send(response);
-                                            res.end();
+                                            response.status = true;
+                                            response.messages = ['Error when processing your invitation'];
+                                            req.body.response = response;
+                                            // next();
                                         }
                                     });
-
-                                } else {
-                                    response.status = true;
-                                    response.messages = ['Error when processing your invitation'];
-                                    res.send(response);
-                                    res.end();
                                 }
                             });
                         } else {
@@ -2620,72 +2615,75 @@ exports.handleInviteSignup = function(req, res, next) {
                                     link: req.body.hash
                                 });
 
-                                Invite.findOne({ email: email }, function (err, existingInvite) {
-                                    if (existingInvite) {
+                                Invite.find({ email: email }, function (err, allInvites) {
+                                    if(allInvites !== null){
+                                        allInvites.map(function(existingInvite, key){
+                                            if (existingInvite) {
 
-                                        // console.log(existingInvite);
-                                        // removing invitation record after taking the data from the collection
-                                        // Otherwise it will show email id repetition in the members list in teams
-                                        Invite.remove({_id: existingInvite._id }, function(err) {});
+                                                // console.log(existingInvite);
+                                                // removing invitation record after taking the data from the collection
+                                                // Otherwise it will show email id repetition in the members list in teams
+                                                Invite.remove({_id: existingInvite._id }, function(err) {});
 
-                                        if(existingInvite.type === 'Team'){
-                                            var team_id = existingInvite.data[0].team._id;
-                                            var where = {_id: new ObjectId(team_id)}
-                                            // console.log(member_email);
-                                            // check the team is exist or not
-                                            Team.findOne(where, function (err, existingTeam) {
-                                                if (existingTeam) {
+                                                if(existingInvite.type === 'Team'){
+                                                    var team_id = existingInvite.data[0].team._id;
+                                                    var where = {_id: new ObjectId(team_id)}
+                                                    // console.log(member_email);
+                                                    // check the team is exist or not
+                                                    Team.findOne(where, function (err, existingTeam) {
+                                                        if (existingTeam) {
 
-                                                    // User not exist in this group, Insert this user into this team
-                                                    Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
-                                                        if (err) {
-                                                            response.status = false;
-                                                            response.messages = ['Error when adding a new member'];
-                                                        } else {
-                                                            // Find e-mail id of the user who invited this user
-                                                            User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
-                                                                if (existingUser) {
-                                                                    // console.log('has user');
-                                                                    var conditions = {'_id': new ObjectId(newuser._id)}
-                                                                    , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
-                                                                    , options = {multi: false};
+                                                            // User not exist in this group, Insert this user into this team
+                                                            Team.update({"_id": existingTeam._id}, {$push: {member_ids: {_id: newuser._id}}}, function (err) {
+                                                                if (err) {
+                                                                    response.status = false;
+                                                                    response.messages = ['Error when adding a new member'];
+                                                                } else {
+                                                                    // Find e-mail id of the user who invited this user
+                                                                    User.findOne({_id: new ObjectId(existingTeam.manager_id)}, function (err, existingUser) {
+                                                                        if (existingUser) {
+                                                                            // console.log('has user');
+                                                                            var conditions = {'_id': new ObjectId(newuser._id)}
+                                                                            , update = {'mymanager': [{'_id': existingUser._id, 'email': existingUser.email}]}
+                                                                            , options = {multi: false};
 
-                                                                    // Set manager info
-                                                                    User.update(conditions, update, options, function (err) {
-                                                                        if (!err) {
-                                                                            // console.log('updated manager');
-                                                                        } else {
-                                                                            // console.log('not updated manager');
+                                                                            // Set manager info
+                                                                            User.update(conditions, update, options, function (err) {
+                                                                                if (!err) {
+                                                                                    // console.log('updated manager');
+                                                                                } else {
+                                                                                    // console.log('not updated manager');
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        else {
+                                                                            // console.log('has no user');
                                                                         }
                                                                     });
-                                                                }
-                                                                else {
-                                                                    // console.log('has no user');
+                                                                    response.status = true;
+                                                                    response.messages = ['Member added'];
                                                                 }
                                                             });
-
-                                                            response.status = true;
-                                                            response.messages = ['Member added'];
+                                                        } else {
+                                                            response.status = false;
+                                                            response.messages = ['Team not exist'];
                                                         }
                                                     });
-
-                                                } else {
-                                                    response.status = false;
-                                                    response.messages = ['Team not exist'];
+                                                    // redirectUrl();
+                                                }else{
+                                                    // redirectUrl();
                                                 }
-                                            });
-                                            redirectUrl();
-                                        }else{
-                                            redirectUrl();
-                                        }
 
-                                    } else {
-                                        response.status = true;
-                                        response.messages = ['Error when processing your invitation'];
-                                        req.body.response = response;
-                                        next();
+                                            } else {
+                                                response.status = true;
+                                                response.messages = ['Error when processing your invitation'];
+                                                req.body.response = response;
+                                                // next();
+                                            }
+                                        });
                                     }
                                 });
+                                redirectUrl();
                             } else {
 
                                 response.status = true;

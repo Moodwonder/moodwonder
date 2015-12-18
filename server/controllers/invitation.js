@@ -10,6 +10,7 @@ var App = require('../../public/assets/app.server');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
+var CompanyInfo = require('../models/companyinfo');
 
 /**
  *  JSON response format
@@ -34,139 +35,177 @@ exports.sendInvitation = function(req, res, next) {
         response.type = req.body.type;
     }
 
-    if( type == 'Team' ) {
+    var afterDomainCheck = function(){
+        if( type == 'Team' ) {
 
-        var email = '';
-        if(data !== undefined){
-            email = data.email;
-        }
+            var email = '';
+            if(data !== undefined){
+                email = data.email;
+            }
 
-        var inviteString = email + Date.now();
-        inviteString = crypto.createHash('md5').update(inviteString).digest("hex");
+            var inviteString = email + Date.now();
+            inviteString = crypto.createHash('md5').update(inviteString).digest("hex");
 
-        // reference is used to check this invitation is already sent or not
-        var reference = {};
-        if( data !== undefined && data.team !== undefined && data.team._id !== undefined ) {
-            reference = { "team": data.team._id, "manager_id": data.team.manager_id, "email": email };
-        }
+            // reference is used to check this invitation is already sent or not
+            var reference = {};
+            if( data !== undefined && data.team !== undefined && data.team._id !== undefined ) {
+                reference = { "team": data.team._id, "manager_id": data.team.manager_id, "email": email };
+            }
 
-        var invite =  new Invite({
-            email: email,
-            type: type,
-            link: inviteString,
-            reference: reference,
-            data: data
-        });
+            var invite =  new Invite({
+                email: email,
+                type: type,
+                link: inviteString,
+                reference: reference,
+                data: data
+            });
 
-        var where = { email: email, type : "Team", reference: { $elemMatch: reference } };
-        Invite.findOne(where, function(err, existingInvite) {
-            if(existingInvite) {
-                feedback.push(email+': Waiting to accept invitation');
-                // Exiting from the Callback function
-                response.status = true;
-                response.message = '';
-                response.messages = feedback;
-                response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-                res.send(response);
-                res.end();
-            }else{
-                invite.save(function(err) {
-                    if(!err){
-                        var transporter = nodemailer.createTransport();
-                        var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                        "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
-                        "<br><br> Best wishes"+
-                        "<br> Moodwonder Team";
-                        body = emailTemplate.general(body);
-                        transporter.sendMail({
-                            from: 'admin@moodewonder.com',
-                            to: email,
-                            subject: 'Moodwonder invitation',
-                            html: body
-                        });
-                        feedback.push('Invitation sent successfully');
-                    }else{
-                        feedback.push('Error with :'+current_member_email);
-                    }
+            var where = { email: email, type : "Team", reference: { $elemMatch: reference } };
+            Invite.findOne(where, function(err, existingInvite) {
+                if(existingInvite) {
+                    feedback.push(email+': Waiting to accept invitation');
                     // Exiting from the Callback function
-                    response.status   = true;
-                    response.message  = '';
+                    response.status = true;
+                    response.message = '';
                     response.messages = feedback;
                     response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
                     res.send(response);
                     res.end();
-                });
-            }
-        });
-    }else if( type == 'Signup' ) {
-
-        email = req.body.email;
-        var inviteString = email + Date.now();
-        inviteString = crypto.createHash('md5').update(inviteString).digest("hex");
-
-        // reference is used to check this invitation is already sent or not
-        var reference = { "invitedby": req.user.email, "email": req.body.email };
-        
-        var invite =  new Invite({
-        email: email,
-        type: type,
-        link: inviteString,
-        reference: reference
-        });
-
-        var where = { email: email };
-        User.findOne(where, function(err, existingUser) {
-            if(existingUser) {
-                response.status = false;
-                response.message = 'The email address you have entered is already registered';
-                res.send(response);
-                res.end();
-                return;
-            }else{
-                where = { email: email, type : type, reference: { $elemMatch: reference } };
-                Invite.findOne(where, function(err, existingInvite) {
-                    if(existingInvite) {
-                        response.status = false;
-                        response.message = 'Waiting to accept invitation';
+                }else{
+                    invite.save(function(err) {
+                        if(!err){
+                            var transporter = nodemailer.createTransport();
+                            var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
+                            "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
+                            "<br><br> Best wishes"+
+                            "<br> Moodwonder Team";
+                            body = emailTemplate.general(body);
+                            transporter.sendMail({
+                                from: 'admin@moodewonder.com',
+                                to: email,
+                                subject: 'Moodwonder invitation',
+                                html: body
+                            });
+                            feedback.push('Invitation sent successfully');
+                        }else{
+                            feedback.push('Error with :'+current_member_email);
+                        }
+                        // Exiting from the Callback function
+                        response.status   = true;
+                        response.message  = '';
+                        response.messages = feedback;
+                        response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
                         res.send(response);
                         res.end();
-                    }else{
-                        invite.save(function(err) {
-                            if(!err){
+                    });
+                }
+            });
+        }else if( type == 'Signup' ) {
 
-                                var transporter = nodemailer.createTransport();
-                                var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                                "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
-                                "<br><br> Best wishes"+
-                                "<br> Moodwonder Team";
-                                body = emailTemplate.general(body);
-                                transporter.sendMail({
-                                    from: 'admin@moodewonder.com',
-                                    to: email,
-                                    subject: 'Moodwonder invitation',
-                                    html: body
-                                });
-                                response.status = true;
-                                response.message = 'Invitation sent successfully';
-                                res.send(response);
-                                res.end();
-                            }else{
-                                res.send(response);
-                                res.end();
-                            }
-                        });
-                    }
-                });
+            email = req.body.email;
+            var inviteString = email + Date.now();
+            inviteString = crypto.createHash('md5').update(inviteString).digest("hex");
+
+            // reference is used to check this invitation is already sent or not
+            var reference = { "invitedby": req.user.email, "email": req.body.email };
+            
+            var invite =  new Invite({
+            email: email,
+            type: type,
+            link: inviteString,
+            reference: reference
+            });
+
+            var where = { email: email };
+            User.findOne(where, function(err, existingUser) {
+                if(existingUser) {
+                    response.status = false;
+                    response.message = 'The email address you have entered is already registered';
+                    res.send(response);
+                    res.end();
+                    return;
+                }else{
+                    where = { email: email, type : type, reference: { $elemMatch: reference } };
+                    Invite.findOne(where, function(err, existingInvite) {
+                        if(existingInvite) {
+                            response.status = false;
+                            response.message = 'Waiting to accept invitation';
+                            res.send(response);
+                            res.end();
+                        }else{
+                            invite.save(function(err) {
+                                if(!err){
+
+                                    var transporter = nodemailer.createTransport();
+                                    var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
+                                    "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
+                                    "<br><br> Best wishes"+
+                                    "<br> Moodwonder Team";
+                                    body = emailTemplate.general(body);
+                                    transporter.sendMail({
+                                        from: 'admin@moodewonder.com',
+                                        to: email,
+                                        subject: 'Moodwonder invitation',
+                                        html: body
+                                    });
+                                    response.status = true;
+                                    response.message = 'Invitation sent successfully';
+                                    res.send(response);
+                                    res.end();
+                                }else{
+                                    res.send(response);
+                                    res.end();
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        }else{
+            response.status = false;
+            response.message = 'Something went wrong';
+            res.send(response);
+            res.end();
+        }}
+    ;
+
+    var email = '';
+    if(data !== undefined){
+        email = data.email;
+    }
+    var domain = email.replace(/.*@/, "");
+    domain     = domain.split('.')[0];
+    try{
+        CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) }, function(err, company){
+            if(company !== null){
+                // console.log(company);
+                if(company.domain_name !== domain){
+                    response.status = false;
+                    response.message = 'Wrong domain name';
+                    response.messages = ['Wrong domain name'];
+                    res.send(response);
+                    res.end();
+                }else{
+                    // to continue the execution
+                    afterDomainCheck();
+                }
+            }else{
+                response.status = false;
+                response.message = 'Company domain not found';
+                response.messages = ['Company domain not found'];
+                res.send(response);
+                res.end();
             }
         });
-
-    }else{
+    }catch(e){
+        console.log(e);
         response.status = false;
         response.message = 'Something went wrong';
+        response.messages = ['Something went wrong'];
         res.send(response);
         res.end();
     }
-
 };
 
 /**
@@ -254,5 +293,58 @@ exports.inviteSignup = function(req, res, next) {
     }else{
         res.send(response);
         res.end();
+    }
+};
+
+/**
+ * Handle signup invitation
+ * 
+ */
+exports.inviteAnonymously = function(req, res, next) {
+
+    var response = {};
+    var email = req.body.email;
+    if(email!==''){
+
+		User.findOne( { email: email }, function(err, record) {
+			if(!record){
+
+				var transporter = nodemailer.createTransport();
+				var body = "Hi There,<br><br> <br>"+
+				"<br><br> You've been invited to join moodwonder.com"+
+				"<br> Sincerely,"+
+				"<br> MoodWonder team";
+
+				body = emailTemplate.general(body);
+
+				transporter.sendMail({
+					from: 'admin@moodewonder.com',
+					to: email,
+					subject: 'Moodwonder invitation',
+					html: body
+				}, function(error, info){
+					if(error){
+						// Error handling
+					}
+				});
+
+				response.status = true;
+				response.message = 'Invitation sent successfully';
+				res.send(response);
+				res.end();
+
+			}else{
+				response.status = false;
+				response.message = 'The email address you have entered is already registered';
+				res.send(response);
+				res.end();
+			}
+		});
+
+    }else{
+		response.status = false;
+		response.message = 'error';
+		res.send(response);
+		res.end();
     }
 };

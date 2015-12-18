@@ -43,7 +43,7 @@ export default class InviteOthers extends React.Component {
                 invitetype: 'Signup',
                 email: email
             };
-            InviteActions.invitePeople(obj);
+            InviteActions.invitePeopleAnonymously(obj);
         }else{
             this.setState({ message: 'Invalid email address', hasError: true });
         }
