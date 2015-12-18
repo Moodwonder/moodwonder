@@ -154,22 +154,33 @@ class AddAnotherMember extends React.Component {
       this.setState({ showform: 'block' });
   }
 
+  isValidEmailAddress = (emailAddress) => {
+      let pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+      return pattern.test(emailAddress);
+  }
+
   onSaveClick = (e) => {
 
-      let membername = React.findDOMNode(this.refs.membername).value.trim();
+      let memberemail = React.findDOMNode(this.refs.membername).value.trim();
       let team_id = this.props.options.team_id;
       // let feedback = this.props.options.onsave({ team_id: this.props.options.team_id, membername: membername });
       // callback is a unique string to identify the componet to display the message
-      if(membername !== ''){
-          let model = { callback: team_id, team_id: team_id, membername: membername };
-          if(typeof model.membername === 'string'){
-              model.membername = [model.membername];
-          }
-          // console.log(model);
+      if(memberemail === ''){
+          this.setState({ messages: ['Name is required'], serverresponse: { callback : this.props.options.team_id } });
+      }
+      else if(!this.isValidEmailAddress(memberemail))
+      {
+          this.setState({ messages: ['Invalid e-mail address'], serverresponse: { callback : this.props.options.team_id } });
+      }
+      else
+      {
+          let model = {
+            callback: team_id,
+            team_id: team_id,
+            memberemail: memberemail
+          };
           TeamActions.addMemberToTeam(model);
           React.findDOMNode(this.refs.membername).value = "";
-      }else{
-          this.setState({ messages: ['Name is required'], serverresponse: { callback : this.props.options.team_id } });
       }
       e.preventDefault();
   }

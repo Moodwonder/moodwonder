@@ -8,10 +8,11 @@ class IndustryStore {
 
   constructor () {
 
-      this.IndustryList =  false;
-      this.DataChange   =  false;
-      this.hasError     =  false;
-      this.message      =  false;
+      this.IndustryList   =  false;
+      this.DataChange     =  false;
+      this.hasError       =  false;
+      this.message        =  false;
+      this.ServerResponse =  false;
 
       this.bindListeners({
         handleAddIndustry: IndustryActions.ADDINDUSTRY,
@@ -24,6 +25,7 @@ class IndustryStore {
   handleAddIndustry (res) {
       this.message  =  res.message;
       this.hasError =  !res.status;
+      this.ServerResponse =  res;
       this.emitChange();
   }
 
@@ -38,8 +40,9 @@ class IndustryStore {
 
   handleUpdateIndustry (res) {
       //console.log(res);
-      this.message  =  res.message;
-      this.hasError =  !res.status;
+      this.message        =  res.message;
+      this.hasError       =  !res.status;
+      this.ServerResponse =  res;
       this.emitChange();
   }
 

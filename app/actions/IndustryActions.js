@@ -1,5 +1,5 @@
 import alt from 'altInstance';
-import AdminWebAPIUtils from 'utils/CommonAdminWebAPIUtils';
+import CommonAdminWebAPIUtils from 'utils/CommonAdminWebAPIUtils';
 
 /**
  * IndustryActions
@@ -9,7 +9,7 @@ class IndustryActions {
   // add new industry
   addIndustry (data) {
       this.dispatch();
-      AdminWebAPIUtils.addIndustry(data)
+      CommonAdminWebAPIUtils.addIndustry(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.addindustry(response);
@@ -24,9 +24,9 @@ class IndustryActions {
   }
 
   // Get all industries
-  getIndustries () {
+  getIndustries (data) {
       this.dispatch();
-      AdminWebAPIUtils.getIndustries()
+      CommonAdminWebAPIUtils.getIndustries(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.getindustries(response);
@@ -43,7 +43,7 @@ class IndustryActions {
   // update industry
   updateIndustry (data) {
       this.dispatch();
-      AdminWebAPIUtils.updateIndustry(data)
+      CommonAdminWebAPIUtils.updateIndustry(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.updateindustry(response);
@@ -60,7 +60,7 @@ class IndustryActions {
   // delete Industry
   deleteIndustry (data) {
       this.dispatch();
-      AdminWebAPIUtils.deleteIndustry(data)
+      CommonAdminWebAPIUtils.deleteIndustry(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.deleteindustry(response);
