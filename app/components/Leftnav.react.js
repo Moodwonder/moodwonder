@@ -65,22 +65,22 @@ export default class Leftnav extends React.Component {
       if (user.usertype === 'manager') {
           openresponselink = [
                 <a className="item" href="/customsurvey">
-                    <i className="thumbs up icon"></i>
+                    <i className="bar chart icon"></i>
                     {GetText('L_CREATE_NEW_SURVEY', mlarray)}
                 </a>,
                 <a className="item" href="/surveyforms">
-                    <i className="thumbs up icon"></i>
+                    <i className="line chart icon"></i>
                     {GetText('L_MY_SURVEYS', mlarray)}
                 </a>,
                 <a className="item" href="/openendedresponses">
-                    <i className="thumbs up icon"></i>
+                    <i className="list icon"></i>
                     {GetText('L_OPENENDED_RESPONSES', mlarray)}
                 </a>
           ];
       } else {
           openresponselink = [
                 <a className="item" href="/viewsurvey">
-                    <i className="thumbs up icon"></i>
+                    <i className="line chart icon"></i>
                     {GetText('L_MY_SURVEYS', mlarray)}
                 </a>
           ];

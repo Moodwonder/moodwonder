@@ -54,9 +54,9 @@ class OpenEndedActions {
       this.dispatch(data);
   }
 
-  getAnswers(uid) {
+  getAnswers(area, mood) {
       this.dispatch();
-      OpenEndedWebAPIUtils.getAnswers(uid)
+      OpenEndedWebAPIUtils.getAnswers(area, mood)
       .then((response, textStatus) => {
           if (response.status === true) {
               this.actions.getanswers(response.answers);

@@ -11,21 +11,25 @@ export default class OpenendedResponses extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-          members : OpenEndedStore.getState().members,
           answers : OpenEndedStore.getState().answers,
-          uid: '',
-          multilang: MlangStore.getState().multilang
+          multilang: MlangStore.getState().multilang,
+          area: 'most_improved',
+          mood: 'Mood'
       };
   }
 
   componentDidMount() {
-      OpenEndedActions.getMembers();
       OpenEndedStore.listen(this._onOpenChange);
+      OpenEndedActions.getAnswers(this.state.area, this.state.mood);
 
-      $('.member').dropdown('show');
+      //$('.area, .mood').dropdown('show');
 
-      $('.member').dropdown({
-         onChange: this.myFunction
+      $('.area').dropdown({
+         onChange: this.onChangeArea
+      });
+
+      $('.mood').dropdown({
+         onChange: this.onChangeMood
       });
   }
 
@@ -39,47 +43,36 @@ export default class OpenendedResponses extends React.Component {
 
   _onOpenChange = () => {
       this.setState({
-          members : OpenEndedStore.getState().members,
           answers : OpenEndedStore.getState().answers
       });
   }
 
-  onChangeMember = (e) => {
-      let uid = e.target.value;
-      if (uid) {
-          OpenEndedActions.getAnswers(uid);
-          this.setState({ uid: uid});
-      }
+  onChangeArea = () => {
+      let area = document.getElementById("area").value;
+      this.setState({ area: area});
+      OpenEndedActions.getAnswers(area, this.state.mood);
+  }
+
+  onChangeMood = () => {
+      let mood = document.getElementById("mood").value;
+      this.setState({ mood: mood});
+      OpenEndedActions.getAnswers(this.state.area, mood);
   }
 
   myFunction = () => {
-      let x = document.getElementById("member");
-      let uid = x.value;
-      if (uid) {
-          OpenEndedActions.getAnswers(uid);
-          this.setState({ uid: uid});
-      }
+      //let x = document.getElementById("member");
+      //let uid = x.value;
+      //if (uid) {
+      //    OpenEndedActions.getAnswers(uid);
+      //    this.setState({ uid: uid});
+      //}
   }
 
 
   render() {
 
-      let members = this.state.members;
       let answers = this.state.answers;
-      let uid = this.state.uid;
       let mlarray = this.state.multilang;
-
-      let options;
-      if (members) {
-          options = members.map((member) => {
-              if (member.firstname === '' || member.firstname === undefined) {
-                  return (<option value={member._id}>{member.email}</option>);
-              } else {
-                  return (<option value={member._id}>{member.firstname + " " + member.lastname}</option>);
-              }
-          });
-      }
-
       let content;
 
       let data = answers.map((ans) => {
@@ -103,13 +96,19 @@ export default class OpenendedResponses extends React.Component {
           return temp;
       });
 
-      if (uid) {
 
-          if (data.length > 0) {
-              content = data.map((row) => {
+      if (data.length > 0) {
 
-                  return (
-                            <div className="custom-box">
+          content = data.map((row, index) => {
+              let color;
+              if ((index % 2) == 0) {
+                  color = '#F5F5F5';
+              } else {
+                  color = '#EEEEEE';
+              }
+
+              return (
+                            <div className="custom-box" style={{"background":color}}>
                                 <div className="ui one column stackable grid survey">
 
                                     <div className="column padin-lft">
@@ -194,12 +193,12 @@ export default class OpenendedResponses extends React.Component {
 
                                 </div>
                             </div>
-                  );
-              });
+              );
+          });
 
-          } else {
+      } else {
 
-              content = (
+          content = (
                         <div className="custom-box">
                             <div className="ui two column stackable grid survey">
                                 <div className="column ">
@@ -209,9 +208,8 @@ export default class OpenendedResponses extends React.Component {
                             </div>
                         </div>
               );
-          }
-
       }
+
 
 
       return (
@@ -221,12 +219,30 @@ export default class OpenendedResponses extends React.Component {
                     <div className="column">
                         <h4 className="ui header ryt com">{GetText('OPER_TITLE', mlarray)}</h4>
                     </div>
-                    <div className="column"></div>
                     <div className="column">
                         <div className="three column">
-                            <select id="member" onChange={this.onChangeMember} style={{"float": "right"}} className="ui dropdown member">
-                                <option value="">Select a member</option>
-                                {options}
+                            <select style={{"float": "right"}} id="area" className="ui dropdown area">
+                                <option value="most_improved">Most Improved</option>
+                                <option value="least_improved">Least Improved</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="column">
+                        <div className="three column">
+                            <select name="optmood" style={{"float": "right"}} id="mood" className="ui dropdown mood">
+                                <option value="Mood">Mood</option>
+                                <option value="Meaning">Meaning</option>
+                                <option value="Expectations">Expectations</option>
+                                <option value="Strengths">Strengths</option>
+                                <option value="Recognition">Recognition</option>
+                                <option value="Development">Development</option>
+                                <option value="Influence">Influence</option>
+                                <option value="Goals">Goals</option>
+                                <option value="Team">Team</option>
+                                <option value="Friendship">Friendship</option>
+                                <option value="Feedback">Feedback</option>
+                                <option value="Opportunities">Opportunities</option>
+                                <option value="Recommendation">Recommendation</option>
                             </select>
                         </div>
                     </div>

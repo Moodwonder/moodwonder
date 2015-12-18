@@ -27,12 +27,12 @@ const utils = {
     });
   },
 
-  getAnswers: (id) => {
+  getAnswers: (area, mood) => {
       return $.ajax({
       url: '/getanswers',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({_id : id})
+      data: JSON.stringify({area: area, mood : mood})
     });
   }
 

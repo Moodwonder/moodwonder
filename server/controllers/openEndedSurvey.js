@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var OpenEndedQuestions = require('../models/openEndedQuestions');
 var OpenEndedAnswers = require('../models/openEndedAnswers');
 var User = require('../models/user');
+var Team = require('../models/team');
 
 /**
  * home page
@@ -169,7 +170,7 @@ exports.getMembers = function (req, res, next) {
     });
 };
 
-exports.getAnswers = function (req, res, next) {
+exports.getAnswers_bk = function (req, res, next) {
     
     var _id = req.body._id;
     OpenEndedAnswers.find({user_id: _id}).lean().exec(function (err, data) {
@@ -187,6 +188,66 @@ exports.getAnswers = function (req, res, next) {
         res.end();
     });
 
+};
+
+function getMyTeams(uid, callback) {
+    
+    //Get members from team
+    var condition = {manager_id: uid};
+    Team.find(condition).lean().exec(function (err, teams) {
+        if (teams != 'undefined') {
+            callback(teams);
+        }
+    });
+}
+
+exports.getAnswers = function (req, res, next) {
+    
+    var mood = req.body.mood;
+    var area = req.body.area;
+    var uid = req.user._id;
+    
+    getMyTeams(uid, function(teams){
+       if (teams.length > 0) {
+           var memberIds = [];
+           for (var tkey in teams) {
+              for (var mkey in teams[tkey].member_ids) {
+                  memberIds.push(teams[tkey].member_ids[mkey]._id);
+              }
+           }
+           
+           var condition;
+           if (area == "most_improved") {
+               condition = {user_id: {$in: memberIds}, most_improved_mood: mood};
+           } else {
+               condition = {user_id: {$in: memberIds}, least_improved_mood: mood};
+           }
+           
+           OpenEndedAnswers.find(condition).lean().exec(function (err, data) {
+                var response = {};
+                if (!err) {
+                    response.status = true;
+                    response.message = 'success';
+                    response.answers = data;
+                } else {
+                    response.status = false;
+                    response.message = 'failure';
+                    response.answers = [];
+                }
+                res.json(response);
+                res.end();
+            });
+           
+       } else {
+           var response = {};
+           response.status = false;
+           response.message = 'failure';
+           response.answers = [];
+           res.json(response);
+           res.end();
+       }
+    });
+    
 };
 
 

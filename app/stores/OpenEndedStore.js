@@ -41,7 +41,6 @@ class OpenEndedStore {
       this.emitChange();
   }
 
-
 }
 
 // Export our newly created Store
