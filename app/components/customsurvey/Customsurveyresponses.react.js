@@ -43,74 +43,77 @@ export default class Customsurveyresponses extends React.Component {
       let surveyform = this.state.surveyform;
       let users = this.state.users;
       let surveyresponses = this.state.surveyresponses;
-
-      let userGroup = _(surveyresponses).groupBy(function(row) {
-          return row.user_id;
-      });
-
-      let rData = _(userGroup).map(function(g, key) {
-
-          for (let u in users) {
-              let user = users[u];
-              if(user._id === key) {
-                  return {
-                            username: user.name,
-                            surveyresponse: _.sortBy(g, function(o) { return o.question_id; })
-                        };
-              }
-          }
-
-      });
-
+      let content = '';
 
       let stitle = surveyform.map(function(survey) {
           return survey.surveytitle;
       });
-      let content = '';
 
-      content = rData.map(function(data) {
-          let username = data.username;
-          let surveyresponse = data.surveyresponse;
-          let responsecontent = '';
-
-          responsecontent = surveyresponse.map(function(resdata) {
-
-              let answers = resdata.answers.map(function(ans) {
-                  return (
-                            <div className="thirteen wide column padin-lft">
-                                <div className="ui form options">
-                                    <div className="inline fields">
-                                        {ans.option}
-                                    </div>
-                                </div>
-                            </div>
-                    );
-              });
-
-              return ([
-                        <div className="three wide column ">
-                            <label className="line-height">{resdata.question}:</label>
-                        </div>,
-                        {answers}
-              ]);
+      if (surveyresponses.length > 0) {
+          let userGroup = _(surveyresponses).groupBy(function(row) {
+              return row.user_id;
           });
 
-          return (
-                    <div className="custom-box">
-                        <div className="ui two column stackable grid survey">
-                            <div className="three wide column ">
-                                <label className="line-height">User - {username}</label>
-                            </div>
-                            <div className="thirteen wide column padin-lft">
-                                <div className="ui form options">
-                                    <div className="inline fields"></div>
+          let rData = _(userGroup).map(function(g, key) {
+
+              for (let u in users) {
+                  let user = users[u];
+                  if(user._id === key) {
+                      return {
+                                //username: user.name,
+                                surveyresponse: _.sortBy(g, function(o) { return o.question_id; })
+                            };
+                  }
+              }
+          });
+
+          content = rData.map(function(data) {
+              //let username = data.username;
+              let surveyresponse = data.surveyresponse;
+              let responsecontent = '';
+
+              responsecontent = surveyresponse.map(function(resdata) {
+
+                  let answers = resdata.answers.map(function(ans) {
+                      return (
+                                <div className="thirteen wide column padin-lft">
+                                    <div className="ui form options">
+                                        <div className="inline fields">
+                                            {ans.option}
+                                        </div>
+                                    </div>
                                 </div>
+                      );
+                  });
+
+                  return ([
+                            <div className="three wide column ">
+                                <label className="line-height">{resdata.question}:</label>
+                            </div>,
+                            {answers}
+                  ]);
+              });
+
+              return (
+                        <div className="custom-box">
+                            <div className="ui two column stackable grid survey">
+                                {responsecontent}
                             </div>
-                            {responsecontent}
+                        </div>
+                     );
+          });
+
+      } else {
+          content = (
+                    <div className="custom-box">
+                        <div className="ui one column stackable grid survey">
+                            <div className="column ">
+                                <label className="line-height">No responses.</label>
+                            </div>
                         </div>
                     </div>
-                  );
-      });
+          );
+      }
 
 
       return (
