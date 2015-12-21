@@ -8,6 +8,10 @@ var Team = require('../models/team');
 /**
  * home page
  */
+
+//exports.handleOpenendedSurvey = function(req, res, next) {
+//};
+
 exports.getQuestions = function (req, res) {
 
     OpenEndedQuestions.find().lean().exec(function (err, data) {
@@ -190,13 +194,11 @@ exports.getAnswers_bk = function (req, res, next) {
 
 };
 
-function getMyTeams(uid, callback) {
+function getCompanyMembers(companyid, callback) {
     
-    //Get members from team
-    var condition = {manager_id: uid};
-    Team.find(condition).lean().exec(function (err, teams) {
-        if (teams != 'undefined') {
-            callback(teams);
+    User.find({company_id: companyid}).lean().exec(function (err, members) {
+        if (!err) {
+            callback(members);
         }
     });
 }
@@ -206,14 +208,13 @@ exports.getAnswers = function (req, res, next) {
     var mood = req.body.mood;
     var area = req.body.area;
     var uid = req.user._id;
+    var companyid = req.user.company_id;
     
-    getMyTeams(uid, function(teams){
-       if (teams.length > 0) {
+    getCompanyMembers(companyid, function(members){
+       if (members.length > 0) {
            var memberIds = [];
-           for (var tkey in teams) {
-              for (var mkey in teams[tkey].member_ids) {
-                  memberIds.push(teams[tkey].member_ids[mkey]._id);
-              }
+           for (var mkey in members) {
+                  memberIds.push(members[mkey]._id);
            }
            
            var condition;
