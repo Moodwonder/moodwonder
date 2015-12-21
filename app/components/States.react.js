@@ -1,265 +1,130 @@
 import React from 'react';
 import RequireAuth from 'utils/requireAuth';
-import { MyOwnInput } from 'components/Formsy-components';
 import PlacesActions from 'actions/PlacesActions';
 import PlacesStore from 'stores/PlacesStore';
-import Pagination from 'components/Pagination';
-import Editable from 'components/Editable.react';
 import { Link } from 'react-router';
 
 export default RequireAuth(class States extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = PlacesStore.getState();
+        this.state.rows = [];
+        this.state.currentPage = 0;
+        this.state.totalPages = [];
+        this.state.modal = false;
+        this.state.PlacesList = false;
+
+        this.hasData = false;
+        this.rows = false;
+        this.header = [];
+        this.pagination = [];
+        this.page = 0;
     }
 
     componentDidMount(){
-        PlacesActions.getPlaces({ _id: this.props.params.id, placeType: 'state' });
+        PlacesActions.getPlaces({ _id: this.props.params.id, placeType: 'state', page: 1 });
         PlacesStore.listen(this._onChange);
     }
 
-    _onChange = (state) => {
-        this.setState(state);
-    }
-
-    onTabClick = (Tab) => {
-        this.setState({ Tab: Tab });
-    }
-
-    render() {
-
-        let Tab1     = [<AddStates data={ {countryID: this.props.params.id} }/>];
-        let Tab2;
-        if(this.state.PlacesList){
-            let data = this.state.PlacesList;
-            data.countryID = this.props.params.id;
-            Tab2     = [<DataTable data={data} />];
-        }
-
-        let activeTab = [];
-        activeTab[0] = ['tab-pane fade',''];
-        activeTab[1] = ['tab-pane fade',''];
-
-        if( this.state.Tab !== undefined ){
-            activeTab[this.state.Tab][0] += ' in active';
-            activeTab[this.state.Tab][1] = 'active';
-        }else{
-            activeTab[0][0] += ' in active';
-            activeTab[0][1] = ' active';
-        }
-
-        let message;
-        if (this.state.message) {
-            message = (
-                <div className="login__container">
-                      <fieldset className="login__fieldset">
-                         <div className="alert alert-info">
-                                {this.state.message}
-                         </div>
-                      </fieldset>
-                </div>
-            );
-        }
-        return (
-            <div className="container">
-                <h1>All States under {this.props.params.country}</h1>
-                {message}
-                <ul className="nav nav-tabs">
-                    <li className={activeTab[0][1]}><a onClick={this.onTabClick.bind(this,0)} >Add States</a></li>
-                    <li className={activeTab[1][1]}><a onClick={this.onTabClick.bind(this,1)} >List States</a></li>
-                </ul>
-
-                <div className="tab-content">
-                  <div id="home" className={activeTab[0][0]}>
-                   {Tab1}
-                  </div>
-                  <div id="menu1" className={activeTab[1][0]}>
-                   {Tab2}
-                  </div>
-                </div>
-            </div>
-        );
-    }
-});
-
-class AddStates extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-        this.state.canSubmit = false;
-    }
-
-    enableButton = () => {
-        this.setState({canSubmit: true});
-    }
-
-    disableButton = () => {
-        this.setState({canSubmit: false});
+    componentDidUpdate(){
+        $('.menu .item').tab();
     }
 
     _onChange = (state) => {
-        this.setState(state);
-    }
 
-    _onAddStates = (model) => {
-
-        let countryID = this.props.data.countryID;
-        let country     = model.country.trim();
-
-        PlacesActions.addPlaces({ _id: countryID, placeType: 'state', place: country });
-        PlacesStore.listen(this._onChange);
-    }
-
-    render() {
-
-        return (
-            <div>
-                <Formsy.Form onValidSubmit={this._onAddStates} onValid={this.enableButton} onInvalid={this.disableButton} >
-                   <MyOwnInput
-                   name="country"
-                   className="form-control"
-                   placeholder="Enter country name"
-                   required/>
-                   <button type="submit" className="btn btn-default" disabled={!this.state.canSubmit}>Submit</button>
-                </Formsy.Form>
-            </div>
-        );
-    }
-}
-
-class DataTable extends React.Component {
-
-    constructor(props) {
-        super(props);
-        try{
-            this.state = {
-                rows: props.data.rows,
-                currentPage: 0,
-                totalPages: 0,
-                modal: false,
-                userTeams: false
-            };
-        }catch(err){
-            console.log(err);
-        }
-        this.hasData = false;
-        this.rows = false;
-    }
-
-    _onChange = (state) => {
-        this.setState({ userTeams: state.userTeams });
-    }
-
-    _onUpdateStates = (model) => {
-        PlacesActions.updatePlaces({ _id: model.teamid, place: model.teamname , placeType: 'state'},this.props.data.countryID);
-        PlacesStore.listen(this._onChange);
-    }
-
-    _onRemoveClick = (params) => {
-        if(confirm('Are you sure ?')){
-            PlacesActions.deletePlaces(params,this.props.data.countryID);
-        }
-    }
-
-    componentWillReceiveProps() {
-        if(this.props.data){
-            this.rows = this.props.data.rows;
-            this.setTable(this.state.currentPage);
-        }
-    }
-
-    setTable = (page) => {
-
-        if(this.props.data){
-
-            let totalPages = 0;
-            // Data for the current page
-            let rows = this.rows;
-
-            if( this.props.data && this.rows !== undefined ){
-
-                // find total rows
-                let totalRows = this.rows.length;
-                let rowsPerPage = 4;
-
-                // find total pages
-                totalPages = parseInt(totalRows/rowsPerPage);
-                if( (totalRows % rowsPerPage) !== 0 ){
-                    totalPages++;
-                }
-
-                //if no page var is given, set start to 0
-                // start row
-                let start = 0;
-
-                if(page){
-                    // first item to display on this page
-                    start = page * rowsPerPage;
-                    start++;
-                    // console.log(start);
-                }
-
-                // End row
-                let end = start + rowsPerPage;
-
-                rows = [];
-                for( let i = 0, dataIndex = start; dataIndex < end; dataIndex++, i++ ){
-                    if(this.rows[dataIndex] !== undefined ){
-                        rows[i] = this.rows[dataIndex];
-                    }
-                }
+        console.log(state);
+        this.pagination = state.PlacesList.pagination;
+        state.rows = state.PlacesList.rows;
+        if(this.state.ServerResponse){
+            if(this.state.ServerResponse.message !== ''){
+                state.message = this.state.ServerResponse.message;
             }
-
-            this.setState({
-                rows: rows,
-                totalPages: totalPages,
-                currentPage: page
-            });
         }
+        this.setState(state);
+        this.messageAutoClose(state);
     }
+
     // Example Pagination
     // http://carlosrocha.github.io/react-data-components/
     onChangePage = (page) => {
-        this.setTable((page));
+        this.page = page;
+        if(page){
+            PlacesActions.getPlaces({ placeType: 'state', _id: this.props.params.id, page: page });
+        }
+    }
+
+    _onUpdateStates = (model) => {
+        model._id       =  model.teamid;
+        model.place     =  model.teamname;
+        model.placeType =  'state';
+        model.type      =  'updatestate';
+        PlacesActions.updatePlaces(model,this.props.params.id); // Second parameter used to fetch the updated list of countries
+        PlacesStore.listen(this._onChange);
+    }
+
+    _onRemoveClick = (e) => {
+        if(confirm('Are you sure ?')){
+            let params = {
+                _id: e.target.dataset.tag,
+                placeType: 'state',
+                type: 'deletestate'
+            };
+            PlacesActions.deletePlaces(params,this.props.params.id); // Second parameter used to fetch the updated list of countries
+            PlacesActions.getPlaces({ placeType: 'state', page: this.page });
+        }
+    }
+
+    messageAutoClose = (state) => {
+        if(state.message !== ''){
+            setTimeout(function(){
+                this.setState({ message: '' });
+            }.bind(this),3000);
+        }
     }
 
     render() {
 
-        let header;
         let rows;
-        let tableClass = this.props.data.class;
+        let pagination;
+        let message;
+        if (
+            this.state.ServerResponse &&
+            this.state.message !== '' &&
+            (this.state.ServerResponse.type === 'updatestate'|| this.state.ServerResponse.type === 'deletestate')
+        ) {
+            message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
 
         try
         {
             if(this.state.rows !== undefined){
-                header = this.props.data.header.map((data, key) => {
-                    // Skip _id from display, It will only used as a document reference
-                    if(data !== 'Id'){
-                        return [<th>{data}</th>];
-                    }
-                });
-
                 rows = this.state.rows.map((row, key) => {
-
+                    // console.log(row);
                     this.hasData = true;
-                    let columns = row.map((column, key) => {
-                        // Skip column from display
-                        if(column.display !== false && column.hasChild !== true){
-                            let content = column.column;
-                            if(column.Link === true){
-                                content = ( <Link to={ `/admin/cities/${row[0].column}/${row[1].column}` } className="navigation__item">View states</Link> );
-                            }
-                            if(column.edit === true){
-                                content = ( <Editable onSave={this._onUpdateStates} teamid={row[0].column} value={column.column} /> );
-                            }
-                            if(column.remove === true){
-                                content = ( <button type="button" onClick={this._onRemoveClick.bind(this,{_id: row[0].column, placeType: 'state' })} className="btn btn-default" >Delete</button>);
-                            }
-                            return [<td>{content}</td>];
-                        }
-                    });
-                    return [<tr>{columns}</tr>];
+                    return (
+                        <tr key={row._id}>
+                            <td><Editable onSave={this._onUpdateStates} teamid={row._id} value={row.name} /></td>
+                            <td><Link to={ `/admin/cities/${row._id}/${row.name}` } className="navigation__item">View cities</Link></td>
+                            <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
+                        </tr>
+                    );
                 });
+
+                let pages = this.pagination.map((data, key) => {
+                    return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
+                });
+                //console.log(this.pagination);
+                pagination = (
+                    <div className="ui pagination menu">
+                        {pages}
+                    </div>
+                );
             }
         }
         catch(err)
@@ -268,17 +133,174 @@ class DataTable extends React.Component {
         }
 
         return (
-        <div>
-            <table className={tableClass}>
-                <tbody>
-                    <tr>
-                    {header}
-                    </tr>
-                    {rows}
-                </tbody>
-            </table>
-            <Pagination className="pagination pull-right" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+            <div className="ui container">
+                <h1>All States under {this.props.params.country}</h1>
+                <div className="ui top attached tabular menu">
+                    <a className="item active" data-tab="first">Add State</a>
+                    <a className="item" data-tab="second">List States</a>
+                </div>
+                <div className="ui bottom attached tab segment active" data-tab="first">
+                    <AddStates data={ {countryID: this.props.params.id} }/>
+                </div>
+                <div className="ui bottom attached tab segment" data-tab="second">
+                    <div>
+                    {message}
+                        <table className="ui celled table">
+                            <tr>
+                                <td>Name</td>
+                                <td>Cities</td>
+                                <td>Actions</td>
+                            </tr>
+                            {rows}
+                        </table>
+                        {pagination}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+});
+
+class Editable extends React.Component {
+
+  constructor(props) {
+      super(props);
+      this.state =
+          {
+            Edit: false,
+            value:props.value,
+            btnDisabled: true
+          };
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillReceiveProps(e) {
+      // to set default
+      this.setState({Edit: false, value: this.props.value });
+  }
+
+  changeValue = (event) => {
+
+      let btnDisabled = true;
+      if(this.props.value !== event.target.value){
+          btnDisabled = false;
+      }
+      this.setState({value:event.target.value, btnDisabled: btnDisabled});
+  }
+
+  onEditClick = () => {
+      this.setState({ Edit: true, value: this.props.value });
+  }
+
+  onSaveClick = (teamname,teamid) => {
+
+      if(this.props.value !== this.state.value && teamname.trim() !== ''){
+          this.props.onSave({teamname:teamname,teamid:teamid});
+      }
+  }
+
+  render() {
+
+      let buttonlabel = 'Edit';
+
+      let inputORLable = (
+        <label htmlFor="email">{this.props.value}</label>
+      );
+
+      let actionButton = (
+        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+      );
+
+      if(this.state.Edit){
+          buttonlabel  = 'Save';
+          inputORLable = (
+            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+          );
+
+          actionButton = (
+            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+          );
+      }
+
+      return (
+        <div className="row">
+           {inputORLable}
+           {actionButton}
         </div>
+      );
+  }
+}
+
+class AddStates extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+        this.state.canSubmit = false;
+    }
+
+    _onChange = (state) => {
+        //console.log(state);
+        this.setState(state);
+        this.messageAutoClose(state);
+    }
+
+    _onChangeText = (e) => {
+        if(e.target.value && e.target.value.trim() !== ''){
+            this.setState({ canSubmit: true });
+        }
+    }
+
+    _onAddStates = (model) => {
+
+        let countryID = this.props.data.countryID;
+        let state = React.findDOMNode(this.refs.state).value.trim();
+        console.log(state);
+        PlacesActions.addPlaces({ _id: countryID, placeType: 'state', type: 'addstate', action: 'add', place: state });
+        PlacesStore.listen(this._onChange);
+    }
+
+    messageAutoClose = (state) => {
+        if(state.message !== ''){
+            setTimeout(function(){
+                this.setState({ message: '' });
+            }.bind(this),3000);
+        }
+    }
+
+    render() {
+
+        let message = null;
+        if (this.state.ServerResponse && this.state.message !== '' && this.state.ServerResponse.type === 'addstate') {
+            message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
+
+        return (
+            <div className="form-group">
+                {message}
+                <div className="ui three column stackable grid container ">
+                    <div className="column">
+                        <form className="ui form">
+                            <div className="field">
+                                <label>State name</label>
+                                <input type="text" className="form-control"  onChange={this._onChangeText} ref="state" />
+                            </div>
+                            <div className="field">
+                                <button type="button" className="ui blue button" onClick={this._onAddStates} disabled={!this.state.canSubmit}>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="column"></div>
+                    <div className="column"></div>
+                </div>
+            </div>
         );
     }
 }
