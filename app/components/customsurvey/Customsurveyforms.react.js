@@ -103,19 +103,62 @@ export default class Customsurveyforms extends React.Component {
       let forms = this.state.filtered;
       let items = null;
       let sno = 1;
-      items = forms.map((form) => {
-          return (
-              <tr>
-                  <td>{sno++}</td>
-                  <td>{form.surveytitle}</td>
-                  <td>{form.createddate}</td>
-                  <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>{GetText('SVFM_VIEWSURVEY_LINK', mlarray)}</a> &nbsp;|&nbsp;
-                  <a href="#" onClick={this.onViewResponse} id={form._id}>{GetText('SVFM_VIEWRESPONSES_LINK', mlarray)}</a> &nbsp;|&nbsp;
-                  <a href="#" onClick={this.onDeleteForm} id={form._id}>{GetText('SVFM_DELETE_LINK', mlarray)}</a>
-                  </td>
-              </tr>
+      let content;
+
+      if ((this.state.forms).length > 0) {
+          items = forms.map((form) => {
+              return (
+                <tr>
+                    <td>{sno++}</td>
+                    <td>{form.surveytitle}</td>
+                    <td>{form.createddate}</td>
+                    <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>{GetText('SVFM_VIEWSURVEY_LINK', mlarray)}</a> &nbsp;|&nbsp;
+                    <a href="#" onClick={this.onViewResponse} id={form._id}>{GetText('SVFM_VIEWRESPONSES_LINK', mlarray)}</a> &nbsp;|&nbsp;
+                    <a href="#" onClick={this.onDeleteForm} id={form._id}>{GetText('SVFM_DELETE_LINK', mlarray)}</a>
+                    </td>
+                </tr>
               );
-      });
+          });
+
+          content = [
+                  <div className="ui four column stackable grid container">
+                      <div className="five column">
+                          <div className="ui search">
+                              <div className="ui icon input">
+                                  <input className="prompt" type="text" placeholder={GetText('SVFM_SEARCH_BOX', mlarray)} name="searchtitle" id="searchtitle" onChange={this.onSearchTitle} />
+                                  <i className="search icon"></i> </div>
+                              <div className="results"></div>
+                          </div>
+                      </div>
+                  </div>,
+
+                  <div className="ui container">
+                      <table id="tableData" className="ui celled striped table">
+                          <thead>
+                              <tr>
+                                  <th>{GetText('SVFM_TBLNUMBER', mlarray)}</th>
+                                  <th>{GetText('SVFM_TBLTITLE', mlarray)}</th>
+                                  <th>{GetText('SVFM_TBLDATE', mlarray)}</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {items}
+                          </tbody>
+                      </table>
+                  </div>
+          ];
+      } else {
+          content = [
+                    <div className="custom-box">
+                        <div className="ui one column stackable grid survey">
+                            <div className="column ">
+                                <label className="line-height">No items found.</label>
+                            </div>
+                        </div>
+                    </div>
+          ];
+      }
 
 
       return (
@@ -131,31 +174,7 @@ export default class Customsurveyforms extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui four column stackable grid container">
-                    <div className="five column">
-                        <div className="ui search">
-                            <div className="ui icon input">
-                                <input className="prompt" type="text" placeholder={GetText('SVFM_SEARCH_BOX', mlarray)} name="searchtitle" id="searchtitle" onChange={this.onSearchTitle} />
-                                <i className="search icon"></i> </div>
-                            <div className="results"></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="ui container">
-                    <table id="tableData" className="ui celled striped table">
-                        <thead>
-                            <tr>
-                                <th>{GetText('SVFM_TBLNUMBER', mlarray)}</th>
-                                <th>{GetText('SVFM_TBLTITLE', mlarray)}</th>
-                                <th>{GetText('SVFM_TBLDATE', mlarray)}</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {items}
-                        </tbody>
-                    </table>
-                </div>
+                {content}
             </div>
       );
   }

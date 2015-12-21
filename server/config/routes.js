@@ -539,21 +539,18 @@ module.exports = function (app, passport) {
         //var page = pageurl.split("/").pop();
         var page = '';
         if (pageurl == '/') {
-
             page = 'home';
-        }else if (pageurl.search('createpassword') != -1) {
-
+        } else if (pageurl.search('createpassword') != -1) {
             page = 'createpassword';
-        }else if (pageurl.search('invitesignup') != -1) {
-
+        } else if (pageurl.search('invitesignup') != -1) {
             page = 'invitesignup';
-        }else if (pageurl.search('publicprofile') != -1) {
-
+        } else if (pageurl.search('publicprofile') != -1) {
             page = 'publicprofile';
-        }else if (pageurl.search('takesurvey') != -1) {
-
+        } else if (pageurl.search('takesurvey') != -1) {
             page = 'takesurvey';
-        }else {
+        } else if (pageurl.search('surveyresponses') != -1) {
+            page = 'surveyresponses';
+        } else {
 
             page = pageurl.split("/").pop();
         }
@@ -583,6 +580,7 @@ module.exports = function (app, passport) {
                     case 'moodrate':
                     case 'invitepeople':
                     case 'takesurvey':
+                    case 'surveyresponses':
                         res.locals.data.MlangStore = { multilang : JSON.stringify(response), mwkeys: JSON.stringify(mwkeys) };
                         //res.locals.data.MlangStore = { multilang : response };
                         break;
@@ -710,6 +708,7 @@ module.exports = function (app, passport) {
                     case 'moodrate':
                     case 'invitepeople':
                     case 'takesurvey':
+                    case 'surveyresponses':
                         break;
 
                     default:

@@ -75,28 +75,22 @@ export default class Viewsurvey extends React.Component {
       let myforms = this.state.filtered;
       let items = null;
       let sno = 1;
-      items = myforms.map((form) => {
-          return (
-              <tr>
-                  <td>{sno++}</td>
-                  <td>{form.surveytitle}</td>
-                  <td>{form.createddate}</td>
-                  <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>{GetText('SVFM_VIEWSURVEY_LINK', mlarray)}</a>
-                  </td>
-              </tr>
+      let content;
+
+      if ((this.state.myforms).length > 0) {
+          items = myforms.map((form) => {
+              return (
+                <tr>
+                    <td>{sno++}</td>
+                    <td>{form.surveytitle}</td>
+                    <td>{form.createddate}</td>
+                    <td><a href="#" onClick={this.onTakeASurvey} id={form._id}>{GetText('SVFM_VIEWSURVEY_LINK', mlarray)}</a>
+                    </td>
+                </tr>
               );
-      });
+          });
 
-
-      return (
-            <div className="ui segment brdr-none padding-none width-rating  ">
-                <div className="clear"></div>
-                <div className="ui two column stackable grid container ">
-                    <div className="column">
-                        <h4 className="ui header ryt com">{GetText('SVFM_TITLE', mlarray)}</h4>
-                    </div>
-                    <div className="column"></div>
-                </div>
+          content = [
                 <div className="ui four column stackable grid container">
                     <div className="five column">
                         <div className="ui search">
@@ -106,7 +100,8 @@ export default class Viewsurvey extends React.Component {
                             <div className="results"></div>
                         </div>
                     </div>
-                </div>
+                </div>,
+
                 <div className="ui container">
                     <table id="tableData" className="ui celled striped table">
                         <thead>
@@ -122,6 +117,30 @@ export default class Viewsurvey extends React.Component {
                         </tbody>
                     </table>
                 </div>
+          ];
+
+      } else {
+          content = (
+                    <div className="custom-box">
+                        <div className="ui one column stackable grid survey">
+                            <div className="column ">
+                                <label className="line-height">No surveys.</label>
+                            </div>
+                        </div>
+                    </div>
+          );
+      }
+
+      return (
+            <div className="ui segment brdr-none padding-none width-rating  ">
+                <div className="clear"></div>
+                <div className="ui two column stackable grid container ">
+                    <div className="column">
+                        <h4 className="ui header ryt com">{GetText('SVFM_TITLE', mlarray)}</h4>
+                    </div>
+                    <div className="column"></div>
+                </div>
+                {content}
             </div>
       );
   }
