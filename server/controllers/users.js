@@ -501,6 +501,7 @@ exports.test = function (req, res) {
             "<br><b>Click here :</b>" + ' http://' + req.get('host') + "/createpassword/sdfdsfsdfsdfsdf" +
             "<br> Best wishes" +
             "<br> Moodwonder Team";
+            
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
