@@ -2,7 +2,6 @@ import React from 'react';
 import RequireAuth from 'utils/requireAuth';
 import PlacesActions from 'actions/PlacesActions';
 import PlacesStore from 'stores/PlacesStore';
-import { Link } from 'react-router';
 
 export default RequireAuth(class Continents extends React.Component {
     constructor(props) {
@@ -55,11 +54,11 @@ export default RequireAuth(class Continents extends React.Component {
 
     _onUpdateContinents = (model) => {
         try{
-            model.callback = model.teamid;
-            model._id = model.teamid;
-            model.place = model.teamname;
-            model.placeType = 'continent';
-            model.type = 'updatecontinent';
+            model.callback  =  model.teamid;
+            model._id       =  model.teamid;
+            model.place     =  model.teamname;
+            model.placeType =  'continent';
+            model.type      =  'updatecontinent';
             PlacesActions.updatePlaces(model);
             PlacesStore.listen(this._onChange);
         }catch(e){
@@ -110,7 +109,7 @@ export default RequireAuth(class Continents extends React.Component {
                     return (
                         <tr key={row._id}>
                             <td><Editable onSave={this._onUpdateContinents} teamid={row._id} value={row.name} /></td>
-                            <td><Link to={ `/admin/countries/${row._id}/${row.name}` } className="navigation__item">View countries</Link></td>
+                            <td><a href={ `/admin/countries/${row._id}/${row.name}` } className="navigation__item">View countries</a></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
                         </tr>
                     );
@@ -134,10 +133,10 @@ export default RequireAuth(class Continents extends React.Component {
 
         return (
             <div className="ui container">
-                <h1>All Countries</h1>
+                <h1>All Continents</h1>
                 <div className="ui top attached tabular menu">
-                    <a className="item active" data-tab="first">Add Country</a>
-                    <a className="item" data-tab="second">List Countries</a>
+                    <a className="item active" data-tab="first">Add Continent</a>
+                    <a className="item" data-tab="second">List Continents</a>
                 </div>
                 <div className="ui bottom attached tab segment active" data-tab="first">
                     <AddContinents />

@@ -2,7 +2,6 @@ import React from 'react';
 import RequireAuth from 'utils/requireAuth';
 import PlacesActions from 'actions/PlacesActions';
 import PlacesStore from 'stores/PlacesStore';
-import { Link } from 'react-router';
 
 export default RequireAuth(class Countries extends React.Component {
     constructor(props) {
@@ -33,15 +32,19 @@ export default RequireAuth(class Countries extends React.Component {
     _onChange = (state) => {
 
         console.log(state);
-        this.pagination = state.PlacesList.pagination;
-        state.rows = state.PlacesList.rows;
-        if(this.state.ServerResponse){
-            if(this.state.ServerResponse.message !== ''){
-                state.message = this.state.ServerResponse.message;
-            }
-        }
-        this.setState(state);
-        this.messageAutoClose(state);
+		if(state.PlacesList){
+			this.pagination = state.PlacesList.pagination;
+			state.rows = state.PlacesList.rows;
+			if(this.state.ServerResponse){
+				if(this.state.ServerResponse.message !== ''){
+					state.message = this.state.ServerResponse.message;
+				}
+			}
+			this.setState(state);
+			this.messageAutoClose(state);
+		}else{
+			this.setState(state);
+		}
     }
 
     // Example Pagination
@@ -87,10 +90,21 @@ export default RequireAuth(class Countries extends React.Component {
         let rows;
         let pagination;
         let message;
+
+        if (this.state.hasError){
+            message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
+
         if (
             this.state.ServerResponse &&
             this.state.message !== '' &&
-            (this.state.ServerResponse.type === 'updatecountry'|| this.state.ServerResponse.type === 'deletecountry')
+            (this.state.ServerResponse.type === 'updatecountry'|| this.state.ServerResponse.type === 'deletecountry'|| this.state.hasError)
         ) {
             message = (
                 <div className="ui error message segment">
@@ -110,7 +124,7 @@ export default RequireAuth(class Countries extends React.Component {
                     return (
                         <tr key={row._id}>
                             <td><Editable onSave={this._onUpdateCountries} teamid={row._id} value={row.name} /></td>
-                            <td><Link to={ `/admin/states/${row._id}/${row.name}` } className="navigation__item">View states</Link></td>
+                            <td><a href={ `/admin/states/${row._id}/${row.name}` } className="navigation__item">View states</a></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
                         </tr>
                     );

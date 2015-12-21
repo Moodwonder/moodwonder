@@ -34,8 +34,9 @@ class PlacesStore {
       this.hasError     =  !res.status;
       if(this.hasError){
           this.message    =  res.message;
+      }else{
+          this.PlacesList =  res.data;
       }
-      this.PlacesList =  res.data;
       this.emitChange();
   }
 

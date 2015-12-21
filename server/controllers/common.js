@@ -491,6 +491,7 @@ exports.getPlaces = function(req, res) {
         collectionObj.count(condition , function(err, c) {
             total_pages = c;
             if(total_pages){
+				// console.log(total_pages);
                 var start = 0;
                 var limit = 10;                              //how many items to show per page
                 // console.log(req.body);
@@ -617,6 +618,8 @@ exports.getPlaces = function(req, res) {
                     }
                 });
             }else{
+                response.data = false;
+                response.message = 'No data';
                 res.json(response);
             }
         });

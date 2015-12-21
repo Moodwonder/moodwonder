@@ -87,6 +87,18 @@ export default RequireAuth(class States extends React.Component {
         let rows;
         let pagination;
         let message;
+
+
+        if (this.state.hasError){
+            message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
+
         if (
             this.state.ServerResponse &&
             this.state.message !== '' &&
@@ -110,7 +122,7 @@ export default RequireAuth(class States extends React.Component {
                     return (
                         <tr key={row._id}>
                             <td><Editable onSave={this._onUpdateStates} teamid={row._id} value={row.name} /></td>
-                            <td><Link to={ `/admin/cities/${row._id}/${row.name}` } className="navigation__item">View cities</Link></td>
+                            <td><a href={ `/admin/cities/${row._id}/${row.name}` } className="navigation__item">View cities</a></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
                         </tr>
                     );

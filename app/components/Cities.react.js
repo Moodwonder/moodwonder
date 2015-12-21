@@ -86,6 +86,17 @@ export default RequireAuth(class States extends React.Component {
         let rows;
         let pagination;
         let message;
+
+        if (this.state.hasError){
+            message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
+
         if (
             this.state.ServerResponse &&
             this.state.message !== '' &&
