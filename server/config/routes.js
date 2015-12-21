@@ -80,7 +80,7 @@ module.exports = function (app, passport) {
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
     app.post('/inviteanonymously', users.checkLogin, invitation.inviteAnonymously);
     app.get('/logout', users.getLogout);
-    app.get('/test', users.sendEOTMstats);
+    app.get('/test', users.test);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     app.get('/getownteams', users.checkLogin, teams.getOwnTeams);
 
