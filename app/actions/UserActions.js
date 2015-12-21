@@ -171,7 +171,14 @@ class UserActions {
   }
 
   userdatasuccess (response) {
-      this.dispatch(response);
+      //this.dispatch(response);
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(response);
+          });
+      } else {
+          this.dispatch(response);
+      }
   }
 }
 

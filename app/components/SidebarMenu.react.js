@@ -40,14 +40,6 @@ export default class SidebarMenu extends React.Component {
                         <i className="building icon"></i>
                         {GetText('L_MYCOMPANY_LINK', mlarray)}
                     </a>
-                    <a className="item" href="/moodrate">
-                        <i className="building icon"></i>
-                        {GetText('L_MOODRATE', mlarray)}
-                    </a>
-                    <a className="item" href="/invitepeople">
-                        <i className="building icon"></i>
-                        {GetText('L_INVITEPEOPLE', mlarray)}
-                    </a>
             </div>
       );
   }

@@ -56,7 +56,7 @@ export default class CreateCustomSurvey extends React.Component {
           if (this.state.errormessage !== '') {
               this.setState({errormessage: ''});
           }
-      }, 4000).bind(this);
+      }, 4000);
   }
 
   componentWillUnmount() {
