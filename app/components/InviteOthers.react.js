@@ -53,7 +53,6 @@ export default class InviteOthers extends React.Component {
     render() {
         let message;
         let mlarray = this.state.mwkeys;
-        let index = this.props.pid;
 
         if (this.state.message !== '' ) {
             console.log(this.state.message);
@@ -64,16 +63,15 @@ export default class InviteOthers extends React.Component {
             );
 
             if(!this.state.hasError) {
-                //document.getElementById('email').value = '';
-                document.getElementByName('email').value = '';
+                document.getElementById('email').value = '';
             }
         }
         return (
-        <form className="invite-people" onSubmit={this._onSaveSubmit} id={index} key={index}>
+        <form className="invite-people" onSubmit={this._onSaveSubmit} >
             <h2>{GetText('L_INVITE_PEOPLE_TITLE', mlarray)}</h2>
             <p>{GetText('L_INVITE_PEOPLE_DES', mlarray)}</p>
-            <div className="ui input" id={index} key={index}>
-                <input type="text" id={index} key={index} placeholder={GetText('L_INVITE_INPUT_PLCHOLDER', mlarray)} name="email" ref="email"  />
+            <div className="ui input">
+                <input placeholder={GetText('L_INVITE_INPUT_PLCHOLDER', mlarray)} id="email" ref="email" type="text" />
             </div>
             <button type="submit" className="ui orange button">{GetText('L_INVITE_BTN', mlarray)}</button>
             {message}

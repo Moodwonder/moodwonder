@@ -4,7 +4,6 @@ import UserStore from 'stores/UserStore';
 import InviteOthers from 'components/InviteOthers.react';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
-import ProfileLeft from 'components/ProfileLeft.react';
 
 
 export default class Leftnav extends React.Component {
@@ -54,7 +53,7 @@ export default class Leftnav extends React.Component {
   render () {
       let user = this.state.userData;
       let mlarray = this.state.mwkeys;
-      let userfullname;
+      let userfullname = '';
       if( user.fname !== undefined && user.fname !== 'undefined' ){
           userfullname = user.fname;
       }
@@ -99,12 +98,17 @@ export default class Leftnav extends React.Component {
 
       return (
             <div className="ui left fixed vertical menu ">
-                <ProfileLeft pid={2}
-                             uname={userfullname}
-                             profileimg= {user.profile_image}
-                             uid= {user._id}
-                             plink= {GetText('L_MYPROFILE_LINK', mlarray)}
-                             logoutlink= {GetText('L_LOGOUT_LINK', mlarray)} />
+                <div className="profile item">
+                    <img className="ui mini image" src={user.profile_image} alt=""/>
+                    <div className="ui dropdown">
+                        <span id="userfullname" >{userfullname}</span>
+                        <i className="angle down icon"></i>
+                        <div className="menu">
+                            <div className="item drop-down-item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
+                            <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
+                        </div>
+                    </div>
+                </div>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
                     {GetText('L_MYACCOUNT_LINK', mlarray)}
@@ -123,7 +127,7 @@ export default class Leftnav extends React.Component {
                 </a>
                 {viewvotes}
                 {openresponselink}
-                <InviteOthers pid={2} key={2}/>
+                <InviteOthers />
             </div>
       );
   }

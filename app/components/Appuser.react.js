@@ -42,7 +42,6 @@ export default class App extends React.Component {
 
       let handler      = (<RouteHandler />);
       let leftnav;
-      let sidebar;
       let rightnav;
       let pageconter   = 'ui segment  width padding-top-110 ';
       let noPermission = (
@@ -71,7 +70,6 @@ export default class App extends React.Component {
 
       if (this.state.isAuthenticated) {
           leftnav = (<Leftnav />);
-          sidebar = (<SidebarMenu />);
           rightnav = (<Rightnav />);
       }
 
@@ -89,7 +87,7 @@ export default class App extends React.Component {
 
       let sitecontent = [
                     <Navigation />,
-                    {sidebar},
+                    <SidebarMenu />,
                     <div className="pusher">
                         <div className="ui inverted vertical masthead center aligned "></div>
                         {leftnav}
