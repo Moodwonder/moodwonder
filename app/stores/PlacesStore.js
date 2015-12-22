@@ -8,11 +8,12 @@ class PlacesStore {
 
   constructor () {
 
-      this.PlacesList =  false;
-      this.PlacesData =  false;
-      this.DataChange   =  false;
-      this.hasError     =  false;
-      this.message      =  false;
+      this.PlacesList     =  false;
+      this.PlacesData     =  false;
+      this.DataChange     =  false;
+      this.hasError       =  false;
+      this.message        =  false;
+      this.ServerResponse =  false;
 
       this.bindListeners({
         handleAddPlaces: PlacesActions.ADDPLACES,
@@ -23,8 +24,9 @@ class PlacesStore {
   }
 
   handleAddPlaces (res) {
-      this.message  =  res.message;
-      this.hasError =  !res.status;
+      this.message        =  res.message;
+      this.hasError       =  !res.status;
+      this.ServerResponse =  res;
       this.emitChange();
   }
 
@@ -32,8 +34,9 @@ class PlacesStore {
       this.hasError     =  !res.status;
       if(this.hasError){
           this.message    =  res.message;
+      }else{
+          this.PlacesList =  res.data;
       }
-      this.PlacesList =  res.data;
       this.emitChange();
   }
 

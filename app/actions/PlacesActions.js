@@ -51,7 +51,7 @@ class PlacesActions {
             if (textStatus === 'success') {
                 this.actions.updateplaces(response);
 
-                // only using `placeType` param
+                // only using `placeType` param - Fetching new list after the update
                 if(data.placeType === 'country' || data.placeType === 'state' || data.placeType === 'city'){
                     data._id = _id;
                     this.actions.getPlaces(data);
