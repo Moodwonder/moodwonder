@@ -76,10 +76,10 @@ export default class Customsurveyresponses extends React.Component {
 
                   let answers = resdata.answers.map(function(ans) {
                       return (
-                                <div className="thirteen wide column padin-lft">
-                                    <div className="ui form options">
+                                <div className="column padin-lft" style={{"marginBottom":"10px"}}>
+                                    <div className="">
                                         <div className="inline fields">
-                                            {ans.option}
+                                            A : {ans.option}
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +87,8 @@ export default class Customsurveyresponses extends React.Component {
                   });
 
                   return ([
-                            <div className="three wide column ">
-                                <label className="line-height">{resdata.question}:</label>
+                            <div className="column ">
+                                <label className="">Q : {resdata.question}:</label>
                             </div>,
                             {answers}
                   ]);
@@ -96,7 +96,7 @@ export default class Customsurveyresponses extends React.Component {
 
               return (
                         <div className="custom-box">
-                            <div className="ui two column stackable grid survey">
+                            <div className="ui one column stackable grid survey">
                                 {responsecontent}
                             </div>
                         </div>

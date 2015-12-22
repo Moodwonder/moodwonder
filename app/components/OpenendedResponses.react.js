@@ -118,37 +118,49 @@ export default class OpenendedResponses extends React.Component {
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height"></label>
+                                        <label className=""></label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.most_improved_qone}</div>
                                         </div>
                                     </div>
-
+                                    
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.most_improved_aone}</label>
+                                        <label className="">A:&nbsp; {row.most_improved_aone}</label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="ui form ">
+                                            <div className="inline fields"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="column padin-lft">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.most_improved_qtwo}</div>
                                         </div>
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.most_improved_atwo}</label>
+                                        <label className="">A:&nbsp; {row.most_improved_atwo}</label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="ui form ">
+                                            <div className="inline fields"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="column padin-lft">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.most_improved_qthree}</div>
                                         </div>
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.most_improved_athree}</label>
+                                        <label className="">A:&nbsp; {row.most_improved_athree}</label>
                                     </div>
 
                                     <div className="column padin-lft">
@@ -158,37 +170,49 @@ export default class OpenendedResponses extends React.Component {
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height"></label>
+                                        <label className=""></label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.least_improved_qone}</div>
                                         </div>
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.least_improved_aone}</label>
+                                        <label className="">A:&nbsp; {row.least_improved_aone}</label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="ui form ">
+                                            <div className="inline fields"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="column padin-lft">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.least_improved_qtwo}</div>
                                         </div>
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.least_improved_atwo}</label>
+                                        <label className="">A:&nbsp; {row.least_improved_atwo}</label>
                                     </div>
 
                                     <div className="column padin-lft">
-                                        <div className="ui form options">
+                                        <div className="ui form ">
+                                            <div className="inline fields"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="column padin-lft">
+                                        <div className="">
                                             <div className="inline fields">Q:&nbsp; {row.least_improved_qthree}</div>
                                         </div>
                                     </div>
 
                                     <div className="column ">
-                                        <label className="line-height">A:&nbsp; {row.least_improved_athree}</label>
+                                        <label className="">A:&nbsp; {row.least_improved_athree}</label>
                                     </div>
 
                                 </div>

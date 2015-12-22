@@ -209,8 +209,8 @@ export default class Takesurvey extends React.Component {
 
                     <div className="fifteen wide column padin-lft">
                         <div className="ui left pointing label"> <span className="qst-mobile-1">Q.{qno}</span> {question.question} </div>
-                        <div className="ui form options">
-                            <div className="ui form options">
+                        <div className="ui form options" style={{"maxWidth":"100%"}}>
+                            <div className="ui form options" style={{"maxWidth":"100%"}}>
                                 {ansoptions}
                             </div>
                         </div>
