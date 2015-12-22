@@ -58,6 +58,7 @@ var customsurveyalert = require('../cronjobs/customsurveyalert');
 var managernotifications_mwindex = require('../cronjobs/managernotifications_mwindex');
 var managernotifications_individual = require('../cronjobs/managernotifications_individual');
 var managernotifications_team = require('../cronjobs/managernotifications_team');
+var report = require('../cronjobs/report');
 
 
 module.exports = function (app, passport) {
@@ -167,6 +168,7 @@ module.exports = function (app, passport) {
     // app.get('/invitesignup/:hash', invitation.handleSignup); Old handler
     app.get('/publicprofile/:hash', admin.checkLogin, users.getPublicProfile);
 
+    //app.get('/openendedsurvey', users.checkLogin, openEndedSurvey.handleOpenendedSurvey);
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
     app.post('/saveopenendedsurvey', users.checkLogin, openEndedSurvey.saveOpenEndedSurvey);
     app.post('/getmembers', users.checkLogin, openEndedSurvey.getMembers);
