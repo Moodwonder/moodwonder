@@ -1072,6 +1072,9 @@ p.votes{
    width: 86% !important;
    margin-left: 10px;
 }
+.sidebar-view {
+    display: block;
+}
 }
 @media only screen and (min-width: 1199px) and (max-width:1279px) {
 .srch {
@@ -1100,5 +1103,8 @@ p.votes{
 .sliderinput {
     width: 80%;
     float: left;
+}
+.sidebar-view {
+    display: none;
 }
 /* End: Edited by Dev */
