@@ -76,7 +76,7 @@ export default class Customsurveyresponses extends React.Component {
 
                   let answers = resdata.answers.map(function(ans) {
                       return (
-                                <div className="column padin-lft" style={{"marginBottom":"10px"}}>
+                                <div className="column padin-lft">
                                     <div className="">
                                         <div className="inline fields">
                                             A : {ans.option}
@@ -87,7 +87,7 @@ export default class Customsurveyresponses extends React.Component {
                   });
 
                   return ([
-                            <div className="column ">
+                            <div className="column " style={{"marginTop":"10px"}}>
                                 <label className="">Q : {resdata.question}:</label>
                             </div>,
                             {answers}

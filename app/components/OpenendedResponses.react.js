@@ -126,7 +126,7 @@ export default class OpenendedResponses extends React.Component {
                                             <div className="inline fields">Q:&nbsp; {row.most_improved_qone}</div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className="column ">
                                         <label className="">A:&nbsp; {row.most_improved_aone}</label>
                                     </div>
