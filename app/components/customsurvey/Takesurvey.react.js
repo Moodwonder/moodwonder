@@ -190,7 +190,7 @@ export default class Takesurvey extends React.Component {
 
           let ansoptions = '';
           if(question.answertype === 'radio' || question.answertype === 'checkbox') {
-              ansoptions = (<div className="inline fields">
+              ansoptions = (<div className=" fields">
                               {ans}
                             </div>
                            );
