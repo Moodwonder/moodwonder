@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
+import GoogleAnalytics from "components/analytics/GoogleAnalytics";
 import Navigation from 'components/Navigation.react';
 import Footer from 'components/Footer.react';
 import AppStore from 'stores/AppStore';
@@ -69,12 +70,13 @@ export default class App extends React.Component {
       }
 
       return (
-        <div>
-          <Navigation />
-          {handler}
-          <br/><br/>
-          <Footer />
-        </div>
+          <div>
+              <Navigation />
+              <GoogleAnalytics id="UA-40351687-1" />
+              {handler}
+              <br/><br/>
+              <Footer />
+          </div>
       );
   }
 }
