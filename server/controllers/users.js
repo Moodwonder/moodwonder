@@ -896,12 +896,9 @@ exports.postSaveUserInfo = function (req, res, next) {
 
         if( model.type === 'summary' ){
             var summary = model.summary;
-            if(hasValue(summary)){
-                response.type = 'summary';
-                update = { summary: summary };
-            }else{
-                response.message = 'Summary cannot be empty';
-            }
+            response.type = 'summary';
+            update = { summary: summary };
+
         }else if( model.type === 'personalinfo' ){
 
             var firstname =  model.fname;
@@ -911,36 +908,33 @@ exports.postSaveUserInfo = function (req, res, next) {
             var real_pass =  model.real_password;
             var cpassword =  model.cpassword;
     
-            if( hasValue(firstname) && hasValue(lastname) ){
-                response.type = 'personalinfo';
-                var update = { firstname: firstname, lastname: lastname };
+            //if( hasValue(firstname) && hasValue(lastname) ){
+            response.type = 'personalinfo';
+            update = { firstname: firstname, lastname: lastname };
 
-                console.log(real_pass);
-                if ( hasValue(real_pass) && hasValue(cpassword) ) {
+            // console.log(real_pass);
+            if ( hasValue(real_pass) && hasValue(cpassword) ) {
 
-                    if( real_pass !== cpassword ){
-                        validation       =  false;
-                        response.message =  'New Password and Confirm Password are not equal.';
-                    }else if(real_pass.length <=6 ){
-                        validation       =  false;
-                        response.message = 'Password length should be at least 7 characters';
-                    }else{
-                        update = { firstname: firstname, lastname: lastname, password: password };
-                    }
+                if( real_pass !== cpassword ){
+                    validation       =  false;
+                    response.message =  'New Password and Confirm Password are not equal.';
+                }else if(real_pass.length <=6 ){
+                    validation       =  false;
+                    response.message = 'Password length should be at least 7 characters';
+                }else{
+                    update = { firstname: firstname, lastname: lastname, password: password };
                 }
-            }else{
-                validation = false;
-                response.message = 'Please fill the required fields';
             }
+
         }else if( model.type === 'generalinfo' ){
 
             var email             =  model.email;
-            var report_frequency   =  model.report_frequency;
+            var report_frequency  =  model.report_frequency;
             var language          =  model.language;
     
             if( hasValue(email) && hasValue(report_frequency) && hasValue(language) ){
                 response.type = 'generalinfo';
-                var update = { email: email, report_frequency: report_frequency, language: language };
+                update = { email: email, report_frequency: report_frequency, language: language };
             }else{
                 validation = false;
                 response.message = 'Please fill the required fields';

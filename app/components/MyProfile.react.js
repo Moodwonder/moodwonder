@@ -138,26 +138,28 @@ export default class MyProfile extends React.Component {
       let password  =  document.getElementById('password').value;
       let cpassword =  document.getElementById('cpassword').value;
 
+      /*
       if(fname === '' ){
           this.setState({ message: 'First name required', updateType: 'personalinfo' });
       }
       else if( lname === '' ){
           this.setState({ message: 'Last name required', updateType: 'personalinfo' });
       }else{
-          let validation = true;
-          if(password.trim() !== '' || cpassword.trim() !== '' ){
-              if(password !== cpassword){
-                  this.setState({ message: 'New Password and Confirm Password are not equal.', updateType: 'personalinfo' });
-                  validation = false;
-              }else if(password.length <= 6){
-                  this.setState({ message: 'Password length should be at least 7 characters', updateType: 'personalinfo' });
-                  validation = false;
-              }
-          }
-          if(validation){
-              this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
+      */
+      let validation = true;
+      if(password.trim() !== '' || cpassword.trim() !== '' ){
+          if(password !== cpassword){
+              this.setState({ message: 'New Password and Confirm Password are not equal.', updateType: 'personalinfo' });
+              validation = false;
+          }else if(password.length <= 6){
+              this.setState({ message: 'Password length should be at least 7 characters', updateType: 'personalinfo' });
+              validation = false;
           }
       }
+      if(validation){
+          this._onSaveSubmit({ fname: fname, lname: lname, password: password, cpassword: cpassword, type: 'personalinfo'});
+      }
+      //}
   }
 
   onEditPersonalInfoClick = () => {
@@ -186,7 +188,6 @@ export default class MyProfile extends React.Component {
           this.setState({ userDetails: userDetails });
       }
   }
-
 
   _onSaveGeneralInfo = (model) => {
       //let email             =  document.getElementById('email').value;
@@ -240,9 +241,9 @@ export default class MyProfile extends React.Component {
       }
   }
 
-
   render() {
 
+      console.log(this.state);
       let userInfo = this.state.userDetails;
       let summarymessage = null;
       let personalinfomessage = null;
@@ -345,11 +346,11 @@ export default class MyProfile extends React.Component {
                     <div className=" field">
                         {personalinfomessage}
                         <div className="field">
-                            <label>{GetText('PRFL_PINFO_FNAME', mlarray)}*</label>
+                            <label>{GetText('PRFL_PINFO_FNAME', mlarray)}</label>
                             <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">
-                            <label>{GetText('PRFL_PINFO_LNAME', mlarray)}*</label>
+                            <label>{GetText('PRFL_PINFO_LNAME', mlarray)}</label>
                             <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">

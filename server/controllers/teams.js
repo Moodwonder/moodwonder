@@ -344,7 +344,9 @@ exports.addMemberToTeam = function(req, res, next) {
 				// console.log(company);
 				if(company.domain_name !== domain){
 					response.status = false;
-					response.messages = ['The person whom you want to add as a subordinate should be an employee of your company and hence should have the same domain as in your email id.'];
+					// response.messages = ['The person whom you want to add as a subordinate should be an employee of your company and hence should have the same domain as in your email id.'];
+					response.messages = ['It is a restricted email domain. Please make sure you enter your work email address'];
+					// Feature #15688
 					res.send(response);
 					res.end();
 				}else{
