@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, DefaultRoute, NotFoundRoute } from 'react-router';
 
-
 import App from 'components/App.react';
 import Index from 'components/Index.react';
 import Login from 'components/Login.react';

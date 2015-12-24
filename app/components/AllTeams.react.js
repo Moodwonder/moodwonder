@@ -9,145 +9,101 @@ import AdminTeamsStore from 'stores/AdminTeamsStore';
 import AdminUserActions from 'actions/AdminUserActions';
 import AdminUserStore from 'stores/AdminUserStore';
 
-import Pagination from 'components/Pagination';
-
 export default RequireAuth(class AllTeams extends React.Component {
     constructor(props) {
         super(props);
         this.state = AdminCompanyStore.getState();
+        this.state.rows = [];
+        this.state.currentPage = 0;
+        this.state.totalPages = [];
+        this.state.modal = false;
+        this.state.PlacesList = false;
+        this.state.userTeams = false;
+        this.state.btnDisabled = true;
+
+        this.hasData = false;
+        this.rows = false;
+        this.header = [];
+        this.pagination = [];
+        this.page = 0;
+        this.company_id = false;
     }
 
     componentDidMount(){
         AdminCompanyActions.getAllCompanies({});
-        AdminCompanyStore.listen(this._onChange);
+        AdminCompanyStore.listen(this._setCompanyList);
+        AdminUserStore.listen(this._setUserTeamList);
     }
 
-    _onChange = (state) => {
+    _setCompanyList = (state) => {
+        // console.log(state);
         this.setState(state);
+    }
+
+    _setUserTeamList = (state) => {
         console.log(state);
+        this.setState({ userTeams: state.userTeams });
     }
 
     _onCompanyChange = (e) => {
         // console.log(e.target.value);
         if(e.target.value !== ''){
-            AdminTeamActions.getAllTeams({ company_id: e.target.value });
-            AdminTeamsStore.listen(this._onChange);
+            this.company_id = e.target.value;
+            AdminTeamActions.getAllTeams({ company_id: e.target.value, page: this.page });
+            AdminTeamsStore.listen(this._setTeams);
         }
     }
 
-    onTabClick = (Tab) => {
-        this.setState({ Tab: Tab });
-    }
-
-    _onTeamSearch = () => {
-        let teamSearchText = React.findDOMNode(this.refs.teamsearch).value.trim();
-        AdminTeamActions.searchTeam({ teamname: teamSearchText });
-        AdminTeamsStore.listen(this._onChange);
-    }
-
-    render() {
-
-        let dataTable;
-        let companylist;
-        if(this.state.companyList){
-            companylist = this.state.companyList.map((data, key) => {
-                return [<option value={data._id}>{data.companyname}</option>];
-            });
-        }
-
-        if(this.state.TeamList !== undefined && this.state.TeamList){
-            dataTable = [<DataTable data={this.state.TeamList}/>];
-        }
-
-        let activeTab = [];
-        activeTab[0] = 'tab-pane fade';
-        activeTab[1] = 'tab-pane fade';
-
-        if( this.state.Tab !== undefined ){
-            activeTab[this.state.Tab] += ' in active';
+    _setTeams = (state) => {
+        if(state.TeamList){
+            this.pagination = state.TeamList.pagination;
+            state.rows = state.TeamList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }
+            }
+            this.setState(state);
+            this.messageAutoClose(state);
         }else{
-            activeTab[0] += ' in active';
+            this.setState(state);
         }
-
-        let teamSearchResult;
-        if(this.state.SearchTeamList){
-            teamSearchResult = [<DataTable data={this.state.SearchTeamList}/>];
-        }else if(this.state.hasError){
-            teamSearchResult = (<div className="alert alert-info">{this.state.message}</div>);
-        }
-
-        return (
-        <div className="ui container">
-            <h2>All Teams</h2>
-            <ul className="nav nav-tabs">
-                <li><a onClick={this.onTabClick.bind(this,0)} >Teams</a></li>
-                <li><a onClick={this.onTabClick.bind(this,1)} >Search Teams</a></li>
-            </ul>
-
-            <div className="ui three column stackable grid container ">
-                <div className="column">
-                    <form className="ui form">
-                        <div className="field">
-                            <div id="home" className={activeTab[0]}>
-                                  <select className="form-control" onChange={this._onCompanyChange} >
-                                    <option value="">--select a company --</option>
-                                    {companylist}
-                                  </select>
-                                  {dataTable}
-                            </div>
-                        </div>
-                        <div className="field">
-                            <div id="menu1" className={activeTab[1]}>
-                              <div>
-                                  <input type="text" ref="teamsearch" placeholder="Search a team" />
-                                  <button className="ui blue button" onClick={this._onTeamSearch} >Search</button>
-                                  {teamSearchResult}
-                              </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div className="column"></div>
-                <div className="column"></div>
-            </div>
-        </div>
-        );
-    }
-});
-
-class DataTable extends React.Component {
-
-    constructor(props) {
-        super(props);
-        try{
-            this.state = {
-                rows: props.data.rows,
-                currentPage: 0,
-                totalPages: 0,
-                modal: false,
-                userTeams: false
-            };
-        }catch(err){
-            console.log(err);
-        }
-        this.hasData = false;
-        this.rows = false;
     }
 
-    componentDidMount(){
-        AdminUserStore.listen(this._onChange);
-    }
-
-    _onChange = (state) => {
-        // console.log(state);
-        this.setState({ userTeams: state.userTeams });
-    }
-
-    componentWillReceiveProps() {
-        if(this.props.data){
-            this.rows = this.props.data.rows;
-            this.setTable(this.state.currentPage);
+    _setTeamSearch = (state) => {
+        if(state.SearchTeamList){
+            this.s_pagination = state.SearchTeamList.pagination;
+            state.s_rows = state.SearchTeamList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }
+            }
+            this.setState(state);
+            this.messageAutoClose(state);
+        }else{
+            this.setState(state);
         }
+    }
+
+    componentDidUpdate(){
+        $('.menu .item').tab();
+    }
+
+    // Example Pagination
+    // http://carlosrocha.github.io/react-data-components/
+    onChangePage = (page) => {
+        this.page = page;
+        if(page){
+            AdminTeamActions.getAllTeams({ company_id: this.company_id, page: page });
+        }
+    }
+
+    _onTeamSearch = (e) => {
+        let teamSearchText = React.findDOMNode(this.refs.teamsearch).value.trim();
+        AdminTeamActions.searchTeam({ teamname: teamSearchText, callback: 'teamsearch' });
+        AdminTeamsStore.listen(this._setTeamSearch);
+        e.preventDefault();
     }
 
     _onPopClick = (e) => {
@@ -165,67 +121,110 @@ class DataTable extends React.Component {
         });
     }
 
-    setTable = (page) => {
-
-        if(this.props.data){
-
-            let totalPages = 0;
-            // Data for the current page
-            let rows = this.rows;
-
-            if( this.props.data && this.rows !== undefined ){
-
-                // find total rows
-                let totalRows = this.rows.length;
-                let rowsPerPage = 3;
-                rowsPerPage--;
-
-                // find total pages
-                totalPages = parseInt(totalRows/rowsPerPage);
-                if( (totalRows % rowsPerPage) !== 0 ){
-                    totalPages++;
-                }
-
-                //if no page var is given, set start to 0
-                // start row
-                let start = 0;
-
-                if(page){
-                    // first item to display on this page
-                    start = page * rowsPerPage;
-                    start++;
-                    // console.log(start);
-                }
-
-                // End row
-                let end = start + rowsPerPage;
-
-                rows = [];
-                for( let i = 0, dataIndex = start; dataIndex <= end; dataIndex++, i++ ){
-                    if(this.rows[dataIndex] !== undefined ){
-                        rows[i] = this.rows[dataIndex];
-                    }
-                }
-            }
-
-            this.setState({
-                rows: rows,
-                totalPages: (totalPages-1),
-                currentPage: page
-            });
+    messageAutoClose = (state) => {
+        if(state.message !== ''){
+            setTimeout(function(){
+                this.setState({ message: '' });
+            }.bind(this),3000);
         }
     }
-    // Example Pagination
-    // http://carlosrocha.github.io/react-data-components/
-    onChangePage = (page) => {
-        this.setTable((page));
+
+    changeValue = (event) => {
+
+        let btnDisabled = true;
+        if(event.target.value.trim() !== ''){
+            btnDisabled = false;
+        }
+        this.setState({ btnDisabled: btnDisabled });
     }
 
     render() {
 
-        let header;
+        console.log(this.state);
         let rows;
-        let tableClass = this.props.data.class;
+        let s_rows;
+        let s_pagination;
+        let pagination;
+        let message_tab_1;
+        let message_tab_2;
+        let companylist;
+        if(this.state.companyList){
+            companylist = this.state.companyList.map((data, key) => {
+                return [<option value={data._id}>{data.companyname+ '-' +data.domain_name}</option>];
+            });
+        }
+
+        if (this.state.hasError && this.state.ServerResponse.callback === 'teamsearch') {
+            message_tab_2 = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+            );
+        }
+
+        try
+        {
+            if(this.state.rows !== undefined){
+                rows = this.state.rows.map((row, key) => {
+                    // console.log(row);
+                    this.hasData = true;
+                    return (
+                        <tr key={row._id}>
+                            <td>{row.name}</td>
+                            <td><a data-tag={row._id} onClick={this._onPopClick}  className="navigation__item">Show team members</a></td>
+                        </tr>
+                    );
+                });
+
+                let pages = this.pagination.map((data, key) => {
+                    return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
+                });
+                //console.log(this.pagination);
+                pagination = (
+                    <div className="ui pagination menu">
+                        {pages}
+                    </div>
+                );
+            }
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+
+        try
+        {
+            if(this.state.s_rows !== undefined){
+                s_rows = this.state.s_rows.map((row, key) => {
+                    // console.log(row);
+                    this.hasData = true;
+                    return (
+                        <tr key={row._id}>
+                            <td>{row.teamname}</td>
+                            <td><a data-tag={row._id} onClick={this._onPopClick}  className="navigation__item">Show team members</a></td>
+                            <td>{row.companyname}</td>
+                            <td>{row.domain_name}</td>
+                        </tr>
+                    );
+                });
+
+                let pages = this.s_pagination.map((data, key) => {
+                    return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
+                });
+                //console.log(this.pagination);
+                s_pagination = (
+                    <div className="ui pagination menu">
+                        {pages}
+                    </div>
+                );
+            }
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
 
         let teamUserList;
         if(this.state.userTeams){
@@ -235,9 +234,9 @@ class DataTable extends React.Component {
                 if(data.members.length>0){
                     members = data.members.map((mem, key) => {
                         return (
-                        <div className="row">
-                          <div className="col-sm-6">{mem.member_email}</div>
-                          <div className="col-sm-4">{mem.member_name}</div>
+                        <div className="ui grid">
+                          <div className="ten wide column">{mem.member_email}</div>
+                          <div className="six wide column">{mem.member_name}</div>
                         </div>
                         );
                     });
@@ -246,73 +245,74 @@ class DataTable extends React.Component {
             });
         }
 
-        try
-        {
-            if(this.state.rows !== undefined){
-                header = this.props.data.header.map((data, key) => {
-                    // Skip _id from display, It will only used as a document reference
-                    if(data !== 'Id'){
-                        return [<th>{data}</th>];
-                    }
-                });
-
-                rows = this.state.rows.map((row, key) => {
-
-                    this.hasData = true;
-                    let columns = row.map((column, key) => {
-                        // Skip column from display
-                        if(column.display !== false){
-                            let content = column.column;
-                            if(column.popup === true){
-                                content = ( <a data-tag={row[0].column} onClick={this._onPopClick}  className="navigation__item">{column.column}</a> );
-                            }
-                            return [<td>{content}</td>];
-                        }
-                    });
-                    return [<tr>{columns}</tr>];
-                });
-            }
-        }
-        catch(err)
-        {
-            console.log(err);
-        }
-
         let modal;
         if(this.state.modal){
             modal = (
-                <div className="modal fade in cmodal-show" id="myModal" role="dialog">
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <button type="button" onClick={this._onPopClose} className="close" data-dismiss="modal">&times;</button>
-                      <h4 className="modal-title">Teams</h4>
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal" id="myModal" role="dialog">
+                        <i className="close icon" onClick={this._onPopClose} ></i>
+                        <div className="header">Teams</div>
+                        <div className="html ui top attached segment">
+                            {teamUserList}
+                        </div>
                     </div>
-                    <div className="modal-body modal-height-350">
-                        {teamUserList}
-                    </div>
-                    <div className="modal-footer">
-                    </div>
-                  </div>
-                </div>
                 </div>
             );
         }
 
-
         return (
             <div className="ui container">
-                <table className={tableClass + " ui celled table"}>
-                    <tbody>
-                        <tr>
-                            {header}
-                        </tr>
-                        {rows}
-                    </tbody>
-                </table>
-                <Pagination className="ui right floated pagination menu" currentPage={this.state.currentPage} totalPages={this.state.totalPages} onChangePage={this.onChangePage} />
+                <h1>All Teams</h1>
+                <div className="ui top attached tabular menu">
+                    <a className="item active" data-tab="first">Teams</a>
+                    <a className="item" data-tab="second">Search Teams</a>
+                </div>
+                <div className="ui bottom attached tab segment active" data-tab="first">
+                    {message_tab_1}
+                    <div className="ui two column stackable grid container" >
+                        <div className="column" >
+                            <form className="ui form" >
+                                <select className="form-control" onChange={this._onCompanyChange} >
+                                    <option value="">-- Select a company --</option>
+                                    {companylist}
+                                </select>
+                            </form>
+                        </div>
+                        <table className="ui celled table">
+                            <tr>
+                                <td>Team name</td>
+                                <td>Actions</td>
+                            </tr>
+                            {rows}
+                        </table>
+                        {pagination}
+                    </div>
+                </div>
+                <div className="ui bottom attached tab segment" data-tab="second">
+                    {message_tab_2}
+                    <div className="ui three column stackable grid container" >
+                        <form className="ui form column" onSubmit={this._onTeamSearch}>
+                            <div className="field" >
+                                <input type="text" ref="teamsearch" onChange={this.changeValue} className="form-control" placeholder="Search a team" />
+                            </div>
+                            <div className="field" >
+                                <button className="ui blue button" disabled={this.state.btnDisabled} >Search</button>
+                            </div>
+                        </form>
+                        <table className="ui celled table">
+                            <tr>
+                                <td>Team name</td>
+                                <td>Action</td>
+                                <td>Company</td>
+                                <td>Domain name</td>
+                            </tr>
+                            {s_rows}
+                        </table>
+                        {s_pagination}
+                    </div>
+                </div>
                 {modal}
             </div>
         );
     }
-}
+});

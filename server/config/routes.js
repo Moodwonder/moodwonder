@@ -162,8 +162,8 @@ module.exports = function (app, passport) {
     app.post('/requestdemo', common.requestDemo);
 
     // Set variables from server side
-    app.get('/mycompany', common.handleGetContinents);
-    app.get('/my_company', common.handleGetContinents);
+    app.get('/mycompany', common.handleMycompany);
+    app.get('/my_company', common.handleMycompany);
     app.get('/invitesignup/:hash', users.handleInviteSignup);
     // app.get('/invitesignup/:hash', invitation.handleSignup); Old handler
     app.get('/publicprofile/:hash', admin.checkLogin, users.getPublicProfile);
@@ -207,9 +207,12 @@ module.exports = function (app, passport) {
         // console.log(publicprofile);
         // console.log(req.url);
         
-        
+        var UserStore = { user: user, continents: req.body.continents };
+        if(req.body.industries){
+            UserStore.industries = req.body.industries;
+        }
         res.locals.data = {
-            UserStore: { user: user, continents: req.body.continents },
+            UserStore: UserStore,
             PublicUserStore: publicprofile,
             CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
             SignupStore: {inviteEmail: inviteEmail},

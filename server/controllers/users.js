@@ -1935,61 +1935,164 @@ exports.getTeamsByCompany = function(req, res){
 /**
 * Get all teams from a company
 **/
-exports.getAllTeamsFromCompany = function(req, res){
+exports.getAllTeamsFromCompany = function (req, res) {
 
-    var response = {};
-    response.status = false;
+    var response     = {};
+    response.status  = false;
     response.message = 'Error';
+    var company_id   = req.body.company_id;
 
-    var numberOfManagers = 0;
-    var ManagersCounter = 0;
-    var companyTeamsIndex = 0;
-    var teamData = {};
-    teamData.header = ['Id','Team Names', ''];
-    teamData.rows   = [];
-    
-    function getTeamByManagerId(_id,name){
-        var where = { manager_id: new ObjectId(_id) };
-        Team.find(where).exec(function(err, lists) {
-            if(!err) {
-                lists.map(function(data, key){
-                    var currentRow = [];
-                    currentRow[0] = { column: data._id, display : false  };
-                    currentRow[1] = { column: data.teamname  };
-                    currentRow[2] = { column: 'Show team members', popup: true  };
-                    teamData.rows[companyTeamsIndex] = currentRow;
-                    companyTeamsIndex++;
-                });
-
-                ManagersCounter++;
-                if(numberOfManagers == ManagersCounter){
-                    response.status   = true;
-                    response.message  = 'success';
-                    response.data     = teamData;
-                    res.send(response);
-                    res.end();
-                }
-            }
-        });
+    if(!company_id){
+        response.message = 'Invalid company id';
+        res.json(response);
+        return;
     }
+    var condition = {
+        company_id: company_id
+    };
+    // How many adjacent pages should be shown on each side?
+    var adjacents = 3;
+    
+    /* 
+       First get total number of rows in data table. 
+       If you have a WHERE clause in your query, make sure you mirror it here.
+    */
+    var total_pages = 0;
+    var find_rows = false;
 
-    var company_id = req.body.company_id;
-    var where = { company_id: company_id, usertype : "manager" };
+    Team.count(condition, function(err, c) {
+        total_pages = c;
+        if(total_pages){
+            var start = 0;
+            var limit = 4                              //how many items to show per page
+            // console.log(req.body);
+            var page = req.body.page;
+            // console.log(typeof page);
+            if(page){
+                start = (page - 1) * limit;             //first item to display on this page
+            }
+            /* Get data. */
+            Team.find(condition).skip(start).limit(limit).exec(function (err, lists) {
+                if (!err) {
 
-    User.find(where).exec(function(err, lists) {
-        if(!err) {
+                    // Setup page vars for display.
+                    if (page == 0) page = 1;                    //if no page var is given, default to 1.
+                    prev = page - 1;                            //previous page is page - 1
+                    next = page + 1;                            //next page is page + 1
+                    lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
+                    lpm1 = lastpage - 1;                        //last page minus 1
 
-            numberOfManagers = lists.length;
-            lists.map(function(data, key){
-                // get teams by manager id
-                getTeamByManagerId(data._id);
+                    // Now we apply our rules and draw the pagination object. 
+                    // We're actually saving the code to a variable in case we want to draw it more than once.
+                    pagination = [];
+                    if(lastpage > 1)
+                    {
+                        //previous button
+                        if (page > 1){
+                            pagination.push({ page: prev, text: 'previous' });
+                        }else{
+                            pagination.push({ page: false, text: 'previous' });
+                        }
+                        
+                        //pages
+                        if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
+                        {    
+                            for (counter = 1; counter <= lastpage; counter++)
+                            {
+                                if (counter == page){
+                                    pagination.push({ page: false, text: counter });
+                                }else{
+                                    pagination.push({ page: counter, text: counter });
+                                }
+                            }
+                        }
+                        else if(lastpage > 5 + (adjacents * 2))    //enough pages to hide some
+                        {
+                            //close to beginning; only hide later pages
+                            if(page < 1 + (adjacents * 2))
+                            {
+                                for (counter = 1; counter < 4 + (adjacents * 2); counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                                pagination.push({ page: false, text: '..........' });
+                                pagination.push({ page: lpm1, text: lpm1 });
+                                pagination.push({ page: lastpage, text: lastpage });
+                            }
+                            //in middle; hide some front and some back
+                            else if(lastpage - (adjacents * 2) > page && page > (adjacents * 2))
+                            {
+                                pagination.push({ page: 1, text: 1 });
+                                pagination.push({ page: 2, text: 2 });
+                                pagination.push({ page: false, text: '..........' });
+                                for (counter = page - adjacents; counter <= page + adjacents; counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                                pagination.push({ page: false, text: '..........' });
+                                pagination.push({ page: lpm1, text: lpm1 });
+                                pagination.push({ page: lastpage, text: lastpage });
+                            }
+                            //close to end; only hide early pages
+                            else
+                            {
+                                pagination.push({ page: 1, text: 1 });
+                                pagination.push({ page: 2, text: 2 });
+                                pagination.push({ page: false, text: '..........' });
+                                for (counter = lastpage - (2 + (adjacents * 2)); counter <= lastpage; counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //next button
+                        if (page < counter - 1){
+                            pagination.push({ page: next, text: 'next' });
+                        }else{
+                            pagination.push({ page: false, text: 'next' });
+                        }
+                    }
+
+                    response.status = true;
+                    response.message = 'success';
+                    // formatting user data for table
+                    var data          = {};
+                    data.rows         = new Array(lists.length);
+                    data.pagination   = pagination;
+                    data.class = "table";
+                    if(lists !== null){
+                        var counter = 0;
+                        lists.map(function(item, key){
+
+                            data.rows[key] =  {
+                                _id: item._id,
+                                name: item.teamname
+                            };
+                        });
+                    }
+                    response.data = data;
+                    res.json(response);
+                }
+                else
+                {
+                    res.json(response);
+                }
             });
-
-        } else {
-            response.status   = false;
-            response.message  = 'Something went wrong..';
-            res.send(response);
-            res.end();
+        }else{
+            res.json(response);
         }
     });
 };
@@ -2027,11 +2130,201 @@ exports.getAllTeamsMembers = function(req, res, next){
 /**
 *  search Team By key word
 **/
+exports.searchTeam = function (req, res) {
 
-exports.searchTeam = function (req, res){
     var response = {};
     response.status = false;
     response.message = 'Error';
+    response.callback = req.body.callback;
+
+
+    var teamname = req.body.teamname;
+    if(teamname !== undefined && teamname !== ''){
+
+		var condition = { teamname: { $regex : new RegExp(teamname,'i') } };
+		// How many adjacent pages should be shown on each side?
+		var adjacents = 3;
+		
+		/* 
+		   First get total number of rows in data table. 
+		   If you have a WHERE clause in your query, make sure you mirror it here.
+		*/
+		var total_pages = 0;
+		var find_rows = false;
+
+		Team.count(condition, function(err, c) {
+			total_pages = c;
+			if(total_pages){
+				var start = 0;
+				var limit = 10                              //how many items to show per page
+				// console.log(req.body);
+				var page = req.body.page;
+				// console.log(typeof page);
+				if(page){
+					start = (page - 1) * limit;             //first item to display on this page
+				}
+				/* Get data. */
+				Team.find(condition).skip(start).limit(limit).exec(function (err, lists) {
+					if (!err) {
+
+						// Setup page vars for display.
+						if (page == 0) page = 1;                    //if no page var is given, default to 1.
+						prev = page - 1;                            //previous page is page - 1
+						next = page + 1;                            //next page is page + 1
+						lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
+						lpm1 = lastpage - 1;                        //last page minus 1
+
+						// Now we apply our rules and draw the pagination object. 
+						// We're actually saving the code to a variable in case we want to draw it more than once.
+						pagination = [];
+						if(lastpage > 1)
+						{
+							//previous button
+							if (page > 1){
+								pagination.push({ page: prev, text: 'previous' });
+							}else{
+								pagination.push({ page: false, text: 'previous' });
+							}
+							
+							//pages
+							if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
+							{    
+								for (counter = 1; counter <= lastpage; counter++)
+								{
+									if (counter == page){
+										pagination.push({ page: false, text: counter });
+									}else{
+										pagination.push({ page: counter, text: counter });
+									}
+								}
+							}
+							else if(lastpage > 5 + (adjacents * 2))    //enough pages to hide some
+							{
+								//close to beginning; only hide later pages
+								if(page < 1 + (adjacents * 2))
+								{
+									for (counter = 1; counter < 4 + (adjacents * 2); counter++)
+									{
+										if (counter == page){
+											pagination.push({ page: false, text: counter });
+										}else{
+											pagination.push({ page: counter, text: counter });
+										}
+									}
+									pagination.push({ page: false, text: '..........' });
+									pagination.push({ page: lpm1, text: lpm1 });
+									pagination.push({ page: lastpage, text: lastpage });
+								}
+								//in middle; hide some front and some back
+								else if(lastpage - (adjacents * 2) > page && page > (adjacents * 2))
+								{
+									pagination.push({ page: 1, text: 1 });
+									pagination.push({ page: 2, text: 2 });
+									pagination.push({ page: false, text: '..........' });
+									for (counter = page - adjacents; counter <= page + adjacents; counter++)
+									{
+										if (counter == page){
+											pagination.push({ page: false, text: counter });
+										}else{
+											pagination.push({ page: counter, text: counter });
+										}
+									}
+									pagination.push({ page: false, text: '..........' });
+									pagination.push({ page: lpm1, text: lpm1 });
+									pagination.push({ page: lastpage, text: lastpage });
+								}
+								//close to end; only hide early pages
+								else
+								{
+									pagination.push({ page: 1, text: 1 });
+									pagination.push({ page: 2, text: 2 });
+									pagination.push({ page: false, text: '..........' });
+									for (counter = lastpage - (2 + (adjacents * 2)); counter <= lastpage; counter++)
+									{
+										if (counter == page){
+											pagination.push({ page: false, text: counter });
+										}else{
+											pagination.push({ page: counter, text: counter });
+										}
+									}
+								}
+							}
+							
+							//next button
+							if (page < counter - 1){
+								pagination.push({ page: next, text: 'next' });
+							}else{
+								pagination.push({ page: false, text: 'next' });
+							}
+						}
+
+						response.status = true;
+						response.message = 'success';
+						// formatting user data for table
+						var data          = {};
+						data.rows         = new Array(lists.length);
+						data.pagination   = pagination;
+						data.class = "table";
+						if(lists !== null){
+							var teamCounter = 0;
+							lists.map(function(item, key){
+
+								CompanyInfo.findOne({ _id: new ObjectId(item.company_id)}).exec(function(err, company){
+
+									var companyname = 'No company name';
+									var domain_name = 'No domain name';
+									if(!err && company !== null){
+										// console.log(item);
+										companyname = company.companyname;
+										domain_name = company.domain_name;
+									}
+
+									data.rows[key] =  {
+										_id: item._id,
+										teamname: item.teamname,
+										companyname: companyname,
+										domain_name: domain_name
+									};
+									//console.log(data.rows[key]);
+									teamCounter++;
+
+									// Exit condition
+									if(lists.length === teamCounter){
+										response.data = data;
+										res.json(response);
+									}
+								});
+							});
+						}else{
+							res.json(response);
+						}
+					}
+					else
+					{
+						response.message = 'Something went wrong !';
+						res.json(response);
+					}
+				});
+			}else{
+				response.message = 'No result found';
+				res.json(response);
+			}
+		});
+        
+    }else{
+        response.message = 'Please enter a team name';
+        res.send(response);
+        res.end();
+    }
+
+
+};
+
+exports.searchTeam1 = function (req, res){
+    var response = {};
+    response.status = false;
+    response.message = 'Error';
+    response.callback = req.body.callback;
 
     var joinCompany = function(list){
         var teamCounter = 0;
