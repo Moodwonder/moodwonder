@@ -100,9 +100,13 @@ export default class PublicProfile extends React.Component {
 
         let content;
 
-        let manager = [<a href="/myprofile">Add manager</a>];
 
-        let teams = [<a href="/myprofile">Add team</a>];
+        let manager = [<a>No manager</a>];
+        let teams = [<a>No teams</a>];
+        if( this.publicuser && this.publicuser.data && this.publicuser.datacurrent_user_id && this.publicuser.datacurrent_user_id === this.props.params.hash ){
+            manager = [<a href="/myprofile">Add manager</a>];
+            teams = [<a href="/myprofile">Add team</a>];
+        }
 
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
         if (!isNaN(sPercentage) && (sPercentage > 0)) {

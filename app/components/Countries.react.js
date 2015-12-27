@@ -31,20 +31,19 @@ export default RequireAuth(class Countries extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
-		if(state.PlacesList){
-			this.pagination = state.PlacesList.pagination;
-			state.rows = state.PlacesList.rows;
-			if(this.state.ServerResponse){
-				if(this.state.ServerResponse.message !== ''){
-					state.message = this.state.ServerResponse.message;
-				}
-			}
-			this.setState(state);
-			this.messageAutoClose(state);
-		}else{
-			this.setState(state);
-		}
+        if(state.PlacesList){
+            this.pagination = state.PlacesList.pagination;
+            state.rows = state.PlacesList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }
+            }
+            this.setState(state);
+            this.messageAutoClose(state);
+        }else{
+            this.setState(state);
+        }
     }
 
     // Example Pagination

@@ -8,10 +8,11 @@ class AdminTeamsStore {
 
   constructor () {
 
-      this.TeamList = false;
+      this.TeamList       = false;
       this.SearchTeamList = false;
-      this.hasError = false;
-      this.message = '';
+      this.hasError       = false;
+      this.ServerResponse =  false;
+      this.message        = '';
 
       this.bindListeners({
         handleSetAllTeams: AdminTeamActions.SETALLTEAMS,
@@ -27,7 +28,8 @@ class AdminTeamsStore {
 
   handleSetSearchTeams (res) {
       this.SearchTeamList = res.data;
-      this.hasError = !res.status;
+      this.hasError       = !res.status;
+      this.ServerResponse = res;
       if(this.hasError){
           this.message = res.message;
       }

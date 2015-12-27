@@ -21,9 +21,9 @@ var hasValue = function(val){
 }
 
 /**
- * handlePlaces
+ * handleMycompany
  */
-exports.handleGetContinents = function(req, res, next) {
+exports.handleMycompany = function(req, res, next) {
 
     Places.Continent.find({}, function (err, document) {
         var continents = [];
@@ -34,8 +34,14 @@ exports.handleGetContinents = function(req, res, next) {
         }
 
         req.body.continents = continents;
-        // going to * route handler
-        next();
+        req.body.industries = [];
+        Industry.find({},function (err, documents) {
+            if(documents != null){
+                req.body.industries = documents;
+            }
+            // going to * route handler
+            next();
+        });
     });
 };
 
