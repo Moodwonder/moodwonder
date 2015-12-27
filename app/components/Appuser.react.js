@@ -5,6 +5,7 @@ import Navigation from 'components/Navigation.react';
 import Leftnav from 'components/Leftnav.react';
 import Rightnav from 'components/Rightnav.react';
 import SidebarMenu from 'components/SidebarMenu.react';
+import GoogleAnalytics from "components/analytics/GoogleAnalytics.react";
 
 export default class App extends React.Component {
 
@@ -97,7 +98,8 @@ export default class App extends React.Component {
                             </div>
                             {rightnav}
                         </div>
-                    </div>
+                    </div>,
+                    <GoogleAnalytics id="UA-40351687-1" />
               ];
 
       return (

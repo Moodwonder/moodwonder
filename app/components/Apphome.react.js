@@ -2,6 +2,7 @@ import React from 'react';
 import Homeheader from 'components/mainhome/Homeheader.react';
 import Homecontent from 'components/mainhome/Homecontent.react';
 import Homefooter from 'components/mainhome/Homefooter.react';
+import GoogleAnalytics from "components/analytics/GoogleAnalytics.react";
 
 
 export default class Apphome extends React.Component {
@@ -24,7 +25,8 @@ export default class Apphome extends React.Component {
       let content = [
                         <Homeheader />,
                         <Homecontent />,
-                        <Homefooter />
+                        <Homefooter />,
+                        <GoogleAnalytics id="UA-40351687-1" />
                     ];
 
       return (
