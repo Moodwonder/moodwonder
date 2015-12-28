@@ -16,12 +16,13 @@ export default class App extends React.Component {
 
   componentDidMount () {
       AppStore.listen(this._onChange);
-//      let rootNode = React.findDOMNode(this);
-//
-//      // Initialize the sidebar
-//      $(rootNode).find('.ui.sidebar').sidebar({
-//          context: $(rootNode)
-//      });
+
+      let rootNode = React.findDOMNode(this);
+      $(rootNode).find('.ui.sidebar').sidebar({
+          transition: 'slide along',
+          context: $(rootNode)
+      })
+      .sidebar('attach events', '.toc.item');
 
       // Redirect to landing page, if no access
       setTimeout(function(){
@@ -29,6 +30,19 @@ export default class App extends React.Component {
               window.location.assign('/login');
           }
       }.bind(this),1500);
+      
+      
+      $('.toc').on("click", function() {
+          let rootNode = React.findDOMNode(this);
+          $(rootNode).find('.ui.sidebar').sidebar({
+              transition: 'slide along',
+              context: $(rootNode)
+          })
+          .sidebar('attach events', '.toc.item');
+      });
+  }
+
+  componentDidUpdate () {
   }
 
   componentWillUnmount () {
@@ -37,6 +51,8 @@ export default class App extends React.Component {
 
   _onChange = () => {
   }
+
+
 
   render() {
 
@@ -87,7 +103,10 @@ export default class App extends React.Component {
 
       let sitecontent = [
                     <Navigation />,
-                    <SidebarMenu />,
+                    <div className="ui vertical inverted sidebar menu" style={{"overflowY":"auto"}}>
+                        <a href="#" className="slide-side"></a>
+                        <SidebarMenu />
+                    </div>,
                     <div className="pusher">
                         <div className="ui inverted vertical masthead center aligned "></div>
                         {leftnav}
