@@ -30,8 +30,7 @@ export default class App extends React.Component {
               window.location.assign('/login');
           }
       }.bind(this),1500);
-      
-      
+
       $('.toc').on("click", function() {
           let rootNode = React.findDOMNode(this);
           $(rootNode).find('.ui.sidebar').sidebar({
