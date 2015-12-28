@@ -597,9 +597,10 @@ exports.postSignupStep1 = function (req, res, next) {
                             }
                         });
 
+                        var link = 'http://' + req.get('host') + '/createpassword/' +verifystring;
                         var transporter = nodemailer.createTransport();
                         var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
-                                "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
+                                "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
                                 "<br><br> Best wishes" +
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
@@ -956,7 +957,6 @@ exports.postSaveUserInfo = function (req, res, next) {
         res.send(response);
         res.end();
     }
-
 };
 
 /**
@@ -1189,9 +1189,10 @@ exports.postForgotPassword = function (req, res) {
             User.update(conditions, update, options, function (err) {
                 if (!err) {
 
+                    var link = 'http://' + req.get('host') + '/createpassword/' + verifystring;
                     var transporter = nodemailer.createTransport();
                     var body = "Hi,<br><br> To reset your password please use the following link <br>" +
-                            "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
+                            "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
                             "<br><br> Best wishes" +
                             "<br> Moodwonder Team";
                     body = emailTemplate.general(body);
