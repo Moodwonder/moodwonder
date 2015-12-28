@@ -63,45 +63,35 @@ export default class SidebarMenu extends React.Component {
       let viewvotes;
       if (user.company_admin) {
           viewvotes = [
-                        <div>
-                            <a className="item" href="/viewvotes">
-                                <i className="thumbs trophy icon"></i>
-                                {GetText('L_VIEW_VOTE', mlarray)}
-                            </a>
-                        </div>
+                        <a className="item" href="/viewvotes">
+                            <i className="thumbs trophy icon"></i>
+                            {GetText('L_VIEW_VOTE', mlarray)}
+                        </a>
           ];
       }
 
       let links;
       if (usertype == "manager") {
           links = [
-                    <div>
-                        <a className="item" href="/customsurvey">
-                            <i className="bar chart icon"></i>
-                            {GetText('L_CREATE_NEW_SURVEY', mlarray)}
-                        </a>
-                    </div>,
-                    <div>
-                        <a className="item" href="/surveyforms">
-                            <i className="line chart icon"></i>
-                            {GetText('L_MY_SURVEYS', mlarray)}
-                        </a>
-                    </div>,
-                    <div>
-                        <a className="item" href="/openendedresponses">
-                            <i className="list icon"></i>
-                            {GetText('L_OPENENDED_RESPONSES', mlarray)}
-                        </a>
-                    </div>
+                    <a className="item" href="/customsurvey">
+                        <i className="bar chart icon"></i>
+                        {GetText('L_CREATE_NEW_SURVEY', mlarray)}
+                    </a>,
+                    <a className="item" href="/surveyforms">
+                        <i className="line chart icon"></i>
+                        {GetText('L_MY_SURVEYS', mlarray)}
+                    </a>,
+                    <a className="item" href="/openendedresponses">
+                        <i className="list icon"></i>
+                        {GetText('L_OPENENDED_RESPONSES', mlarray)}
+                    </a>
           ];
       } else if (usertype == 'user') {
           links = [
-                    <div>
-                        <a className="item" href="/surveyforms">
-                            <i className="line chart icon"></i>
-                            {GetText('L_MY_SURVEYS', mlarray)}
-                        </a>
-                    </div>
+                    <a className="item" href="/surveyforms">
+                        <i className="line chart icon"></i>
+                        {GetText('L_MY_SURVEYS', mlarray)}
+                    </a>
           ];
       }
 
@@ -109,43 +99,33 @@ export default class SidebarMenu extends React.Component {
 
 
       return (
-                <div id="leftsidebar">
-                    <div>
-                        <div className="profile item">
-                            <div><img className="ui mini image" src={user.profile_image} alt=""/></div>
-                            <div className="ui dropdown">
-                                <span id="userfullname" >{userfullname}</span>
-                                <i className="angle down icon"></i>
-                                <div className="menu">
-                                    <div className="item drop-down-item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
-                                    <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
-                                </div>
+                <div>
+                    <div className="profile item">
+                        <div><img className="ui mini image" src={user.profile_image} alt=""/></div>
+                        <div className="ui dropdown">
+                            <span id="userfullname" >{userfullname}</span>
+                            <i className="angle down icon"></i>
+                            <div className="menu">
+                                <div className="item drop-down-item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
+                                <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <a className="item" href="/myprofile">
-                            <i className="setting icon"></i>
-                            {GetText('L_MYACCOUNT_LINK', mlarray)}
-                        </a>
-                    </div>
-                    <div>
-                        <a className="item" href="/mymood">
-                            <i className="smile icon"></i>
-                            {GetText('L_MYMOOD_LINK', mlarray)}
-                        </a>
-                    </div>
-                    <div>
-                        <a className="item" href="/mycompany">
-                            <i className="building icon"></i>
-                            {GetText('L_MYCOMPANY_LINK', mlarray)}
-                        </a>
-                    </div>
+                    <a className="item" href="/myprofile">
+                        <i className="setting icon"></i>
+                        {GetText('L_MYACCOUNT_LINK', mlarray)}
+                    </a>
+                    <a className="item" href="/mymood">
+                        <i className="smile icon"></i>
+                        {GetText('L_MYMOOD_LINK', mlarray)}
+                    </a>
+                    <a className="item" href="/mycompany">
+                        <i className="building icon"></i>
+                        {GetText('L_MYCOMPANY_LINK', mlarray)}
+                    </a>
                     {viewvotes}
                     {links}
-                    <div>
-                        <InviteOthers />
-                    </div>
+                    <InviteOthers />
                 </div>
       );
   }
