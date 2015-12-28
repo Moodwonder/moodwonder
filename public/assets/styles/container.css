@@ -57,6 +57,7 @@
     border: none!important;
 }
 .ui.segment.width {
+    background: #FFFFFF;
     width: 100%!important;
     margin-left: 0%!important;
     padding: 0 30px;
