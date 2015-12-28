@@ -63,49 +63,57 @@ export default class Leftnav extends React.Component {
 
       let openresponselink;
       if (user.usertype === 'manager') {
-          openresponselink = [
-                <a className="item" href="/customsurvey">
-                    <i className="bar chart icon"></i>
-                    {GetText('L_CREATE_NEW_SURVEY', mlarray)}
-                </a>,
-                <a className="item" href="/surveyforms">
-                    <i className="line chart icon"></i>
-                    {GetText('L_MY_SURVEYS', mlarray)}
-                </a>,
-                <a className="item" href="/openendedresponses">
-                    <i className="list icon"></i>
-                    {GetText('L_OPENENDED_RESPONSES', mlarray)}
-                </a>
-          ];
+          openresponselink = (
+                <div>
+                    <a className="item" href="/customsurvey">
+                        <i className="bar chart icon"></i>
+                        {GetText('L_CREATE_NEW_SURVEY', mlarray)}
+                    </a>
+                    <a className="item" href="/surveyforms">
+                        <i className="line chart icon"></i>
+                        {GetText('L_MY_SURVEYS', mlarray)}
+                    </a>
+                    <a className="item" href="/openendedresponses">
+                        <i className="list icon"></i>
+                        {GetText('L_OPENENDED_RESPONSES', mlarray)}
+                    </a>
+                </div>
+          );
       } else {
-          openresponselink = [
-                <a className="item" href="/viewsurvey">
-                    <i className="line chart icon"></i>
-                    {GetText('L_MY_SURVEYS', mlarray)}
-                </a>
-          ];
+          openresponselink = (
+                <div>
+                    <a className="item" href="/viewsurvey">
+                        <i className="line chart icon"></i>
+                        {GetText('L_MY_SURVEYS', mlarray)}
+                    </a>
+                </div>
+          );
       }
 
       let viewvotes;
       if (user.company_admin) {
           viewvotes = (
-                <a className="item" href="/viewvotes">
-                    <i className="thumbs trophy icon"></i>
-                    {GetText('L_VIEW_VOTE', mlarray)}
-                </a>
+                <div>
+                    <a className="item" href="/viewvotes">
+                        <i className="thumbs trophy icon"></i>
+                        {GetText('L_VIEW_VOTE', mlarray)}
+                    </a>
+                </div>
           );
       }
 
       return (
             <div className="ui left fixed vertical menu ">
-                <div className="profile item">
-                    <img className="ui mini image" src={user.profile_image} alt=""/>
-                    <div className="ui dropdown">
-                        <span id="userfullname" >{userfullname}</span>
-                        <i className="angle down icon"></i>
-                        <div className="menu">
-                            <div className="item drop-down-item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
-                            <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
+                <div>
+                    <div className="profile item">
+                        <div><img className="ui mini image" src={user.profile_image} alt=""/></div>
+                        <div className="ui dropdown">
+                            <span id="userfullname" >{userfullname}</span>
+                            <i className="angle down icon"></i>
+                            <div className="menu">
+                                <div className="item drop-down-item"><a href={ `/publicprofile/${user._id}` } style={{"color":"#000 !important"}}>{GetText('L_MYPROFILE_LINK', mlarray)}</a></div>
+                                <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{GetText('L_LOGOUT_LINK', mlarray)}</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,7 +135,9 @@ export default class Leftnav extends React.Component {
                 </a>
                 {viewvotes}
                 {openresponselink}
-                <InviteOthers />
+                <div>
+                    <InviteOthers />
+                </div>
             </div>
       );
   }
