@@ -181,7 +181,7 @@ exports.createForm = function (req, res) {
                                             "<br> Moodwonder Team";
                                 body = emailTemplate.general(body);
                                 transporter.sendMail({
-                                    from: 'admin@moodewonder.com',
+                                    from: 'admin@moodwonder.com',
                                     to: member.email,
                                     //to: 'useremailtestacc@gmail.com',
                                     subject: 'Take a survey',
@@ -221,7 +221,7 @@ exports.createForm = function (req, res) {
                                             "<br> Moodwonder Team";
                                 body = emailTemplate.general(body);
                                 transporter.sendMail({
-                                    from: 'admin@moodewonder.com',
+                                    from: 'admin@moodwonder.com',
                                     to: user.email,
                                     //to: 'useremailtestacc@gmail.com',
                                     subject: 'Take a survey',
@@ -307,7 +307,7 @@ exports.createForm = function (req, res) {
                                             "<br> Moodwonder Team";
                                 body = emailTemplate.general(body);
                                 transporter.sendMail({
-                                    from: 'admin@moodewonder.com',
+                                    from: 'admin@moodwonder.com',
                                     to: data.email,
                                     subject: 'Take a survey',
                                     html: body

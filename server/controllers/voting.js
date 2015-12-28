@@ -96,7 +96,7 @@ exports.postVote = function(req, res, next) {
                                     "<br> Moodwonder Team";
                             body = emailTemplate.general(body);
                             transporter.sendMail({
-                                from: 'admin@moodewonder.com',
+                                from: 'admin@moodwonder.com',
                                 to: user.email,
                                 subject: 'Moodwonder - vote cast',
                                 html: body
@@ -225,7 +225,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodewonder.com',
+                            from: 'admin@moodwonder.com',
                             to: user.email,
                             subject: 'Employee of the month',
                             html: body

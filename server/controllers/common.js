@@ -997,7 +997,7 @@ exports.requestDemo = function(req, res) {
     body = emailTemplate.general(body);
 
     var mailOptions = {
-        from: 'admin@moodewonder.com',
+        from: 'admin@moodwonder.com',
         to: secrets.adminemail,
         subject: 'MoodWonder demo request',
         html: body

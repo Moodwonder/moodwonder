@@ -505,7 +505,7 @@ exports.test = function (req, res) {
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
-        from: 'admin@moodewonder.com',
+        from: 'admin@moodwonder.com',
         to: 'sijo.vijayan@titechnologies.in',
         subject: 'Test mail',
         html: body
@@ -605,7 +605,7 @@ exports.postSignupStep1 = function (req, res, next) {
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodewonder.com',
+                            from: 'admin@moodwonder.com',
                             to: email,
                             subject: 'Create password',
                             html: body
@@ -1198,7 +1198,7 @@ exports.postForgotPassword = function (req, res) {
                     body = emailTemplate.general(body);
 
                     transporter.sendMail({
-                        from: 'admin@moodewonder.com',
+                        from: 'admin@moodwonder.com',
                         to: email,
                         subject: 'Reset password',
                         html: body
@@ -1597,7 +1597,7 @@ var job = new CronJob({
                                     "<br> Moodwonder Team";
                             body = emailTemplate.general(body);
                             transporter.sendMail({
-                                from: 'admin@moodewonder.com',
+                                from: 'admin@moodwonder.com',
                                 to: data.email,
                                 subject: 'Vote Summary',
                                 html: body
