@@ -243,7 +243,7 @@ export default class MyProfile extends React.Component {
 
   render() {
 
-      console.log(this.state);
+      // console.log(this.state);
       let userInfo = this.state.userDetails;
       let summarymessage = null;
       let personalinfomessage = null;

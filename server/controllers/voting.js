@@ -86,6 +86,28 @@ exports.postVote = function(req, res, next) {
                 if (!err) {
                     response.status = true;
                     response.message = 'success';
+
+                    try{
+                        votefor_userid = new ObjectId(votefor_userid);
+                        User.findOne({ _id: votefor_userid }, function(err, user){
+                            var transporter = nodemailer.createTransport();
+                            var body = "Hi "+user.firstname+", You have got one more vote through MoodWonder which might help you to get the Employee of the Month position. <br> Congrats!" +
+                                    "<br><br> Best wishes" +
+                                    "<br> Moodwonder Team";
+                            body = emailTemplate.general(body);
+                            transporter.sendMail({
+                                from: 'admin@moodwonder.com',
+                                to: user.email,
+                                subject: 'Moodwonder - vote cast',
+                                html: body
+                            });
+                        });
+                    }
+                    catch(e)
+                    {
+                        console.log('Vote email - Error');
+                    }
+
                 } else {
                     response.status = false;
                     response.message = 'something went wrong';
@@ -141,12 +163,12 @@ exports.getEmpMonthView = function(req, res, next) {
             });
             var profileimage = (user.profile_image !== '') ? PRO_PIC_PATH+user.profile_image : PRO_PIC_PATH+'no-profile-img.gif';
             employee = {
-				_id: user._id,
-				photo: profileimage,
-				name: (user.firstname+' '+user.lastname),
-				votes: totalvotes,
-				comments: comments
-			};
+                _id: user._id,
+                photo: profileimage,
+                name: (user.firstname+' '+user.lastname),
+                votes: totalvotes,
+                comments: comments
+            };
             response.status  = true;
             response.message = 'success';
             response.data = employee;
@@ -203,7 +225,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodewonder.com',
+                            from: 'admin@moodwonder.com',
                             to: user.email,
                             subject: 'Employee of the month',
                             html: body

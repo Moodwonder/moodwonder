@@ -505,7 +505,7 @@ exports.test = function (req, res) {
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
-        from: 'admin@moodewonder.com',
+        from: 'admin@moodwonder.com',
         to: 'sijo.vijayan@titechnologies.in',
         subject: 'Test mail',
         html: body
@@ -597,14 +597,15 @@ exports.postSignupStep1 = function (req, res, next) {
                             }
                         });
 
+                        var link = 'http://' + req.get('host') + '/createpassword/' +verifystring;
                         var transporter = nodemailer.createTransport();
                         var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
-                                "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
+                                "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
                                 "<br><br> Best wishes" +
                                 "<br> Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodewonder.com',
+                            from: 'admin@moodwonder.com',
                             to: email,
                             subject: 'Create password',
                             html: body
@@ -956,7 +957,6 @@ exports.postSaveUserInfo = function (req, res, next) {
         res.send(response);
         res.end();
     }
-
 };
 
 /**
@@ -1189,15 +1189,16 @@ exports.postForgotPassword = function (req, res) {
             User.update(conditions, update, options, function (err) {
                 if (!err) {
 
+                    var link = 'http://' + req.get('host') + '/createpassword/' + verifystring;
                     var transporter = nodemailer.createTransport();
                     var body = "Hi,<br><br> To reset your password please use the following link <br>" +
-                            "<b>Click here :</b>" + ' http://' + req.get('host') + '/createpassword/' + verifystring +
+                            "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
                             "<br><br> Best wishes" +
                             "<br> Moodwonder Team";
                     body = emailTemplate.general(body);
 
                     transporter.sendMail({
-                        from: 'admin@moodewonder.com',
+                        from: 'admin@moodwonder.com',
                         to: email,
                         subject: 'Reset password',
                         html: body
@@ -1596,7 +1597,7 @@ var job = new CronJob({
                                     "<br> Moodwonder Team";
                             body = emailTemplate.general(body);
                             transporter.sendMail({
-                                from: 'admin@moodewonder.com',
+                                from: 'admin@moodwonder.com',
                                 to: data.email,
                                 subject: 'Vote Summary',
                                 html: body

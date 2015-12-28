@@ -81,7 +81,7 @@ exports.sendInvitation = function(req, res, next) {
                             "<br> Moodwonder Team";
                             body = emailTemplate.general(body);
                             transporter.sendMail({
-                                from: 'admin@moodewonder.com',
+                                from: 'admin@moodwonder.com',
                                 to: email,
                                 subject: 'Moodwonder invitation',
                                 html: body
@@ -143,7 +143,7 @@ exports.sendInvitation = function(req, res, next) {
                                     "<br> Moodwonder Team";
                                     body = emailTemplate.general(body);
                                     transporter.sendMail({
-                                        from: 'admin@moodewonder.com',
+                                        from: 'admin@moodwonder.com',
                                         to: email,
                                         subject: 'Moodwonder invitation',
                                         html: body
@@ -276,7 +276,7 @@ exports.inviteSignup = function(req, res, next) {
         body = emailTemplate.general(body);
 
         transporter.sendMail({
-            from: 'admin@moodewonder.com',
+            from: 'admin@moodwonder.com',
             to: email,
             subject: 'Moodwonder invitation',
             html: body
@@ -318,7 +318,7 @@ exports.inviteAnonymously = function(req, res, next) {
 				body = emailTemplate.general(body);
 
 				transporter.sendMail({
-					from: 'admin@moodewonder.com',
+					from: 'admin@moodwonder.com',
 					to: email,
 					subject: 'Moodwonder invitation',
 					html: body
