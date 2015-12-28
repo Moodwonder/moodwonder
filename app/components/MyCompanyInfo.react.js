@@ -55,6 +55,13 @@ export default class MyCompanyInfo extends React.Component {
         this.messageAutoClose(state);
     }
 
+    onChangeIndustry = (e) => {
+
+        let userDetailsTmp = this.state.userDetailsTmp;
+        userDetailsTmp[e.target.name] = e.target.value;
+        this.setState(userDetailsTmp);
+    }
+
     onChangeContinent = (e) => {
         // Set country dropdown list / fetching country list
         let continent = e;
@@ -308,15 +315,22 @@ export default class MyCompanyInfo extends React.Component {
                         </div>
 
                         <div className="field">
-                           <input
+                           <select
                            ref="industry"
                            name="industry"
                            className="form-control"
                            value={userInfo.industry}
-                           placeholder="Industry"
-                           validationError="Industry is required"
-                           onChange={this.onChangeText}
-                           required/>
+                           onChange={this.onChangeIndustry.bind(this)}
+                           >
+                           <option value="">Industry</option>
+                           {
+                            (this.state.industries !==undefined && this.state.industries.length > 0) ? (
+                            this.state.industries.map((data, key) => {
+                                return (<option value={data.name}>{data.name}</option>);
+                            })) : (<option>Other</option>)
+                           }
+                           <option value="Other">Other</option>
+                           </select>
                         </div>
 
                         <div className="field">

@@ -2,7 +2,6 @@ import React from 'react';
 import RequireAuth from 'utils/requireAuth';
 import PlacesActions from 'actions/PlacesActions';
 import PlacesStore from 'stores/PlacesStore';
-import { Link } from 'react-router';
 
 export default RequireAuth(class States extends React.Component {
     constructor(props) {

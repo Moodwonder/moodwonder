@@ -14,6 +14,7 @@ class AdminUserStore {
       this.serverCall  =  false;
       this.hasError    =  false;
       this.openEnded   =  false;
+      this.ServerResponse =  false;
       this.message     =  '';
 
       this.bindListeners({

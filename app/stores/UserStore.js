@@ -71,6 +71,8 @@ class UserStore {
   }
 
   handleSaveUserDetailsSuccess (response) {
+      console.log('handleSaveUserDetailsSuccess');
+      console.log(response);
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
       this.message = response.message;
@@ -111,10 +113,14 @@ class UserStore {
   }
 
   handleUserInfoSuccess (response) {
+      console.log('handleUserInfoSuccess');
+      console.log(response);
       this.isServerCallWaiting = false;
       this.hasError = !response.status;
       if (!this.hasError) {
           this.userDetails = response.data;
+          let v1 = JSON.parse(JSON.stringify(response.data));
+          this.userData = v1;
           this.userDetailsTmp = response.data;
           this.profile_image = response.data.profile_image;
       }else{
