@@ -87,7 +87,10 @@ export default class App extends React.Component {
 
       let sitecontent = [
                     <Navigation />,
-                    <SidebarMenu />,
+                    <div className="ui vertical inverted sidebar menu" style={{"overflowY":"auto"}}>
+                        <a href="#" className="slide-side"></a>
+                        <SidebarMenu />
+                    </div>,
                     <div className="pusher">
                         <div className="ui inverted vertical masthead center aligned "></div>
                         {leftnav}
