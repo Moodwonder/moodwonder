@@ -131,33 +131,100 @@ function getReport(userid, companyid, callback) {
         }
         
     });
-    
 }
-
-
 
 var CronJob = require('cron').CronJob;
 var report = new CronJob({
-    cronTime: '00 27 13 * * 1-7',
+    cronTime: '00 00 23 * * 1',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
-         * Runs every day (Sunday through Saturday)
-         * at 10:00:00 AM. 
-         * cronTime: '00 00 10 * * 1-7',
+         * Runs every Monday 
+         * at 11:00:00 PM. 
+         * cronTime: '00 00 23 * * 1',
          */
-        
-        var userid = "566d3ae45a5b7a8e15d2c286";
-        var companyid = "566d3a585a5b7a8e15d2c285";
-        getReport(userid, companyid, function(report) { 
-            console.log('report');
-            console.log(JSON.stringify(report));
+        console.log('report cron');
+
+        Date.prototype.getMonthStartEnd = function (start) {
+            var StartDate = new Date(this.getFullYear(), this.getMonth(), 1);
+            var EndDate = new Date(this.getFullYear(), this.getMonth() + 1, 0);
+            return [StartDate, EndDate];
+        }
+
+        var sendReport = function(user){
+            getReport(user._id, user.company_id, function(report) {
+
+                var today = new Date();
+                var firstDay = (new Date(today.getTime() - 30*24*60*60*1000)).toString().substr(3,12);
+                var lastDay = today.toString().substr(3,12);
+                // console.log(JSON.stringify(report));
+
+                var body = "Hi,<br><br> Hope you are doing well at work." +
+                            "<br><br> Here is your engagement level summary ("+ firstDay +" - "+ lastDay +" ):" +
+                            '<br> <table cellpadding="0" style="border:none;border-collapse:collapse;border-spacing:inherit;background-color:#e8edff">'+
+                                '<tbody><tr style="background-color:#bbc8fd">'+
+                                    '<td style="color:#112557;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#a5b5e6 0%,#bdc9ef 100%)">Moodwonder</td>'+
+                                    '<td style="color:#112557;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#a5b5e6 0%,#bdc9ef 100%)">Today</td>'+
+                                    '<td style="color:#112557;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#a5b5e6 0%,#bdc9ef 100%)">1 Week Ago</td>'+
+                                    '<td style="color:#112557;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#a5b5e6 0%,#bdc9ef 100%)">1 Month Ago</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">Your MW index</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mwindex_today +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mwindex_weekago +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mwindex_monthago +'</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">Your Mood</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mood_today +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mood_weekago +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.u_mood_monthago +'</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)"> MW Index</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mwindex_today +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mwindex_weekago +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mwindex_monthago +'</td>'+
+                                '</tr>'+
+                                '<tr>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)"> Mood</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mood_today +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mood_weekago +'</td>'+
+                                    '<td style="color:#575c70;padding:10px;border-bottom:1px solid #fff;background:-webkit-linear-gradient(top,#dbe0ff 0%,#e8eefc 100%)">'+ report.c_mood_monthago +'</td>'+
+                                '</tr>'+
+                            '</tbody>'+
+                            '</table>'+
+                        "<br><b>Do not forget to invite your colleagues and friends. This will help us create the real employee engagement rankings." +
+                        "<br><br> Best wishes" +
+                        "<br> Moodwonder Team";
+
+                body = emailTemplate.general(body);
+                var transporter = nodemailer.createTransport();
+                transporter.sendMail({
+                    from: 'admin@moodwonder.com',
+                    to: user.email,
+                    subject: 'Moodwonder Report - dev',
+                    html: body
+                });
+            });
+        }
+
+        var condition = { report_frequency: 'Weekly' };
+        var d = new Date();
+        if(d.getDate() <= 7){
+            condition = { $or: [{report_frequency: 'Monthly'}, {report_frequency: 'Weekly'}] };
+        }
+        User.find(condition, function(err, users){
+            if(!err && users !== null){
+                users.map(function (user, key) {
+                    sendReport(user);
+                });
+            }else{
+                console.log('Error or No data');
+            }
         });
-        
     },
     start: true,
-    timeZone: ''
+    timeZone: 'Asia/Kolkata'
 });
 report.start();
-
-
