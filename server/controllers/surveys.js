@@ -4,6 +4,49 @@ var EngagementArea = require('../models/engagementArea');
 var EngagementResults = require('../models/engagementResults');
 var User = require('../models/user');
 var Team = require('../models/team');
+var moment = require('moment')
+
+
+
+exports.handleMyMood = function(req, res, next) {
+
+  if(req.user) {
+      getLasteRatedMood(req.user._id, function(data) {
+          if (data) {
+              
+              var today = new Date();
+              var year = today.getFullYear();
+              var month = ('0' + (today.getMonth() + 1)).slice( - 2);
+              var day = ('0' + today.getDate()).slice( - 2);
+              var hour = ('0' + today.getHours()).slice( - 2);
+              var minutes = ('0' + today.getMinutes()).slice( - 2);
+              var seconds = ('0' + today.getSeconds()).slice( - 2);
+              var datestring = year + '-' + month + '-' + (day) + ' ' + hour + ':' + minutes + ':' + seconds;
+              
+              var now  = datestring;
+              var then = data.created.d + ' ' + data.created.t;
+              
+              var ms = moment(now,"YYYY-MM-DD HH:mm:ss").diff(moment(then,"YYYY-MM-DD HH:mm:ss"));
+              var d = moment.duration(ms);
+              var h = Math.floor(d.asHours());
+              if (h >= 24) {
+                  res.redirect('/survey');
+              } else {
+                  next();
+              }
+                            
+          } else {
+              res.redirect('/survey');
+          }
+          
+      });
+      
+  } else {
+      res.redirect('/login');
+  }
+  
+
+};
 
 /**
  * GET /getEngagementSurvey

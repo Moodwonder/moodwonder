@@ -475,30 +475,26 @@ export default class MyMood extends React.Component {
               return data.mood;
           });
 
-          let today = new Date();
-          let year = today.getFullYear();
-          let month = ('0' + (today.getMonth() + 1)).slice(-2);
-          let day = ('0' + today.getDate()).slice(-2);
-          let datestring = year + '-' + month + '-' + day;
+          //let today = new Date();
+          //let year = today.getFullYear();
+          //let month = ('0' + (today.getMonth() + 1)).slice(-2);
+          //let day = ('0' + today.getDate()).slice(-2);
+          //let datestring = year + '-' + month + '-' + day;
 
-          //let lastposted = QuickStatistics.getLastPostedDate(this.state.companysurvey, this.state.currentuserid);
-          if (this.state.lastmood == null || this.state.lastmood == 'undefined') {
-              window.location.assign('/survey');
-          } else {
-              //let lastSurveyPosted = '2015-10-28';
-              //let lastSurveyPosted = lastposted;
-              let lastSurveyPosted = this.state.lastmood.created.d;
-              let posteddate = new Date(lastSurveyPosted);
-              posteddate.setDate(posteddate.getDate() + 1);
-
-              let nyear = posteddate.getFullYear();
-              let nmonth = ('0' + (posteddate.getMonth() + 1)).slice(-2);
-              let nday = ('0' + posteddate.getDate()).slice(-2);
-              let ndatestring = nyear + '-' + nmonth + '-' + nday;
-              if (ndatestring <= datestring) {
-                  window.location.assign('/survey');
-              }
-          }
+          //if (this.state.lastmood == null || this.state.lastmood == 'undefined') {
+          //    window.location.assign('/survey');
+          //} else {
+          //    let lastSurveyPosted = this.state.lastmood.created.d;
+          //    let posteddate = new Date(lastSurveyPosted);
+          //    posteddate.setDate(posteddate.getDate() + 1);
+          //    let nyear = posteddate.getFullYear();
+          //    let nmonth = ('0' + (posteddate.getMonth() + 1)).slice(-2);
+          //    let nday = ('0' + posteddate.getDate()).slice(-2);
+          //    let ndatestring = nyear + '-' + nmonth + '-' + nday;
+          //    if (ndatestring <= datestring) {
+          //        window.location.assign('/survey');
+          //    }
+          //}
       } catch(e) {}
   }
 

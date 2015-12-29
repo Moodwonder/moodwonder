@@ -87,13 +87,14 @@ module.exports = function (app, passport) {
 
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.post('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
+    app.post('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
     app.get('/getengagementsurvey', users.checkLogin, surveys.getEngagementSurvey);
     app.get('/getlastengagementsurvey', users.checkLogin, surveys.getLastSurvey);
     app.get('/getengagementresults', users.checkLogin, surveys.getSurveyResults);
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
     app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
-    app.post('/getcompanydata', users.checkLogin, surveys.getCompanyStatisticsData);
+    app.get('/mymood', users.checkLogin, surveys.handleMyMood);
 
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
