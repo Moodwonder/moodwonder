@@ -94,7 +94,7 @@ module.exports = function (app, passport) {
     app.get('/getresultsbyindustry', users.checkLogin, surveys.getResultsByIndustry);
     app.get('/getresultsbycountry', users.checkLogin, surveys.getResultsByCountry);
     app.get('/getengagingmanagers', users.checkLogin, surveys.getMostEngagingManagers);
-    app.get('/mymood', users.checkLogin, surveys.handleMyMood);
+    app.get('/mymood', surveys.handleMyMood);
 
     app.post('/createsurveyform', users.checkLogin, customSurvey.createForm);
     app.post('/deleteform', users.checkLogin, customSurvey.deleteForm);
