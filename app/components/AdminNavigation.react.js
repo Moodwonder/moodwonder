@@ -17,23 +17,12 @@ export default class AdminNavigation extends React.Component {
       AdminStore.listen(this._onChange);
       let isAuth = localStorage.getItem('isAuth');
       this.setState({isAuth: isAuth});
-
-      $('.masthead').visibility({
-            once: false,
-            onBottomPassed: function () {
-                $('.fixed.menu').transition('fade in');
-            },
-            onBottomPassedReverse: function () {
-                $('.fixed.menu').transition('fade out');
-            }
-      }).bind(this);
-
-        // create sidebar and attach to menu open
-      $('.ui.sidebar').sidebar('attach events', '.toc.item').bind(this);
   }
 
   componentDidUpdate () {
       if (this.state.isAuth === "true") {
+          $('.ui.sidebar').sidebar('attach events', '.toc.item');
+
           $('.masthead').visibility({
             once: false,
             onBottomPassed: function () {
@@ -43,8 +32,6 @@ export default class AdminNavigation extends React.Component {
                 $('.fixed.menu').transition('fade out');
             }
           });
-
-          $('.ui.sidebar').sidebar('attach events', '.toc.item');
       }
   }
 
@@ -60,6 +47,15 @@ export default class AdminNavigation extends React.Component {
       //if(this.state.isAuthenticated === false) {
       //    window.location.href = "/admin/logout";
       //}
+  }
+
+  showAdminMenu = (e) => {
+      e.preventDefault();
+      $('.ui.sidebar').sidebar({
+          transition: 'push'
+      });
+      //$('.ui.sidebar').sidebar('attach events', '.toc.item');
+      $('.ui.sidebar').sidebar('show');
   }
 
   _onLogout = () => {
@@ -89,7 +85,7 @@ export default class AdminNavigation extends React.Component {
                         <a href="/admin/rules" className="item">Notificationrules</a>
                         <div className="right menu">
                             <div className="item">
-                                <a onClick={this._onLogout} className="ui button" href="#">Log out</a>
+                                <a onClick={this._onLogout} className="ui button" href="javascript:void(0);">Log out</a>
                             </div>
                         </div>
                     </div>
@@ -114,7 +110,7 @@ export default class AdminNavigation extends React.Component {
                     <div className="ui inverted vertical masthead center aligned segment">
                         <div className="ui container">
                             <div className="ui large secondary inverted pointing menu">
-                                <a className="toc item">
+                                <a href="javascript:void(0);" className="toc item" onClick={this.showAdminMenu}>
                                     <i className="sidebar icon"></i>
                                 </a>
                                 <a href="/admin/dashboard" className="active item">Moodwonder</a>
@@ -128,7 +124,7 @@ export default class AdminNavigation extends React.Component {
                                 <a href="/admin/pages" className="item">Pages</a>
                                 <a href="/admin/rules" className="item">Notificationrules</a>
                                 <div className="right item">
-                                    <a onClick={this._onLogout} className="ui inverted button" href="#">Logout</a>
+                                    <a onClick={this._onLogout} className="ui inverted button" href="javascript:void(0);">Logout</a>
                                 </div>
                             </div>
                         </div>
@@ -174,7 +170,7 @@ export default class AdminNavigation extends React.Component {
 
 
       return (
-        <div>
+        <div id="app-container" style={{"zIndex":"3"}}>
             {loginOrOut}
         </div>
       );
