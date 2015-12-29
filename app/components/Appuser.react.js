@@ -19,7 +19,7 @@ export default class App extends React.Component {
 
       let rootNode = React.findDOMNode(this);
       $(rootNode).find('.ui.sidebar').sidebar({
-          transition: 'slide along',
+          transition: 'push',
           context: $(rootNode)
       })
       .sidebar('attach events', '.toc.item');
@@ -34,7 +34,8 @@ export default class App extends React.Component {
       $('.toc').on("click", function() {
           let rootNode = React.findDOMNode(this);
           $(rootNode).find('.ui.sidebar').sidebar({
-              transition: 'slide along',
+              //transition: 'slide along',
+              transition: 'push',
               context: $(rootNode)
           })
           .sidebar('attach events', '.toc.item');
@@ -102,7 +103,7 @@ export default class App extends React.Component {
 
       let sitecontent = [
                     <Navigation />,
-                    <div className="ui vertical inverted sidebar menu" style={{"overflowY":"auto"}}>
+                    <div className="ui vertical inverted sidebar menu" style={{"zIndex":"1", "minHeight":"480%"}}>
                         <a href="#" className="slide-side"></a>
                         <SidebarMenu />
                     </div>,
