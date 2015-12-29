@@ -469,7 +469,9 @@ exports.getUserInfo = function (req, res) {
                 }
                 
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
+                var profileimage_status = (lists.profile_image !== '') ? true : false;
                 var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
+                var cover_image_status = (lists.cover_image !== '') ? true : false;
                 response.data = {
                     '_id': lists._id,
                     'fname': lists.firstname,
@@ -480,7 +482,9 @@ exports.getUserInfo = function (req, res) {
                     'password': '',
                     'mymanager': lists.mymanager[0].email,
                     'profile_image': profileimage,
+                    'profileimage_status': profileimage_status,
                     'cover_image': cover_image,
+                    'cover_image_status': cover_image_status,
                     'summary': lists.summary,
                     'usertype' : lists.usertype,
                     'company_admin' : lists.company_admin
@@ -969,7 +973,7 @@ exports.postSaveUserInfo = function (req, res, next) {
 exports.UpdateUserPhoto = function (req, res) {
 
     var ext=path.extname(req.files.profilephoto.name);
-    console.log(req.files);
+    // console.log(req.files);
     console.log(typeof req.files.profilephoto);
     if(typeof req.files.profilephoto != 'undefined')
     {
@@ -995,19 +999,35 @@ exports.UpdateUserPhoto = function (req, res) {
                      , options = {multi: false};
 
                 // Set manager info
-                User.update(conditions, update, options, function (err) {
-                    if (!err) {
-                        response.status  = true;
-                        response.message = 'Profile picture updated.';
-                        response.image   = PRO_PIC_PATH + imagename;
-                    } else {
-                        response.status  = false;
-                        response.message = 'Something went wrong..';
-                    }
-                    res.send(response);
-                    res.end();
+                User.findOne(conditions, function (errUser, user) {
+                    User.update(conditions, update, options, function (err) {
+                        if (!err) {
+                            response.status  = true;
+                            response.message = 'Profile picture updated.';
+                            response.image   = PRO_PIC_PATH + imagename;
+
+                            try{
+                                if (!errUser && user !== null && user.profile_image !== '') {
+                                    var filename = path.join(__dirname,'..','..')+"/public/images/profilepics/" + user.profile_image;
+                                    fs.unlink(filename, function (err) {
+                                        if (!err){
+                                            // console.log('file deleted');
+                                        }else{
+                                            console.log('file not found - unable to delete the file');
+                                        }
+                                    });
+                                }
+                            }catch(e){
+                                console.log(e);
+                            }
+                        } else {
+                            response.status  = false;
+                            response.message = 'Something went wrong..';
+                        }
+                        res.send(response);
+                        res.end();
+                    });
                 });
-                
             });
             source.on('error', function (err) {
                 response.status  = false;
@@ -2136,175 +2156,175 @@ exports.searchTeam = function (req, res) {
     var teamname = req.body.teamname;
     if(teamname !== undefined && teamname !== ''){
 
-		var condition = { teamname: { $regex : new RegExp(teamname,'i') } };
-		// How many adjacent pages should be shown on each side?
-		var adjacents = 3;
-		
-		/* 
-		   First get total number of rows in data table. 
-		   If you have a WHERE clause in your query, make sure you mirror it here.
-		*/
-		var total_pages = 0;
-		var find_rows = false;
+        var condition = { teamname: { $regex : new RegExp(teamname,'i') } };
+        // How many adjacent pages should be shown on each side?
+        var adjacents = 3;
+        
+        /* 
+           First get total number of rows in data table. 
+           If you have a WHERE clause in your query, make sure you mirror it here.
+        */
+        var total_pages = 0;
+        var find_rows = false;
 
-		Team.count(condition, function(err, c) {
-			total_pages = c;
-			if(total_pages){
-				var start = 0;
-				var limit = 10                              //how many items to show per page
-				// console.log(req.body);
-				var page = req.body.page;
-				// console.log(typeof page);
-				if(page){
-					start = (page - 1) * limit;             //first item to display on this page
-				}
-				/* Get data. */
-				Team.find(condition).skip(start).limit(limit).exec(function (err, lists) {
-					if (!err) {
+        Team.count(condition, function(err, c) {
+            total_pages = c;
+            if(total_pages){
+                var start = 0;
+                var limit = 10                              //how many items to show per page
+                // console.log(req.body);
+                var page = req.body.page;
+                // console.log(typeof page);
+                if(page){
+                    start = (page - 1) * limit;             //first item to display on this page
+                }
+                /* Get data. */
+                Team.find(condition).skip(start).limit(limit).exec(function (err, lists) {
+                    if (!err) {
 
-						// Setup page vars for display.
-						if (page == 0) page = 1;                    //if no page var is given, default to 1.
-						prev = page - 1;                            //previous page is page - 1
-						next = page + 1;                            //next page is page + 1
-						lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
-						lpm1 = lastpage - 1;                        //last page minus 1
+                        // Setup page vars for display.
+                        if (page == 0) page = 1;                    //if no page var is given, default to 1.
+                        prev = page - 1;                            //previous page is page - 1
+                        next = page + 1;                            //next page is page + 1
+                        lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
+                        lpm1 = lastpage - 1;                        //last page minus 1
 
-						// Now we apply our rules and draw the pagination object. 
-						// We're actually saving the code to a variable in case we want to draw it more than once.
-						pagination = [];
-						if(lastpage > 1)
-						{
-							//previous button
-							if (page > 1){
-								pagination.push({ page: prev, text: 'previous' });
-							}else{
-								pagination.push({ page: false, text: 'previous' });
-							}
-							
-							//pages
-							if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
-							{    
-								for (counter = 1; counter <= lastpage; counter++)
-								{
-									if (counter == page){
-										pagination.push({ page: false, text: counter });
-									}else{
-										pagination.push({ page: counter, text: counter });
-									}
-								}
-							}
-							else if(lastpage > 5 + (adjacents * 2))    //enough pages to hide some
-							{
-								//close to beginning; only hide later pages
-								if(page < 1 + (adjacents * 2))
-								{
-									for (counter = 1; counter < 4 + (adjacents * 2); counter++)
-									{
-										if (counter == page){
-											pagination.push({ page: false, text: counter });
-										}else{
-											pagination.push({ page: counter, text: counter });
-										}
-									}
-									pagination.push({ page: false, text: '..........' });
-									pagination.push({ page: lpm1, text: lpm1 });
-									pagination.push({ page: lastpage, text: lastpage });
-								}
-								//in middle; hide some front and some back
-								else if(lastpage - (adjacents * 2) > page && page > (adjacents * 2))
-								{
-									pagination.push({ page: 1, text: 1 });
-									pagination.push({ page: 2, text: 2 });
-									pagination.push({ page: false, text: '..........' });
-									for (counter = page - adjacents; counter <= page + adjacents; counter++)
-									{
-										if (counter == page){
-											pagination.push({ page: false, text: counter });
-										}else{
-											pagination.push({ page: counter, text: counter });
-										}
-									}
-									pagination.push({ page: false, text: '..........' });
-									pagination.push({ page: lpm1, text: lpm1 });
-									pagination.push({ page: lastpage, text: lastpage });
-								}
-								//close to end; only hide early pages
-								else
-								{
-									pagination.push({ page: 1, text: 1 });
-									pagination.push({ page: 2, text: 2 });
-									pagination.push({ page: false, text: '..........' });
-									for (counter = lastpage - (2 + (adjacents * 2)); counter <= lastpage; counter++)
-									{
-										if (counter == page){
-											pagination.push({ page: false, text: counter });
-										}else{
-											pagination.push({ page: counter, text: counter });
-										}
-									}
-								}
-							}
-							
-							//next button
-							if (page < counter - 1){
-								pagination.push({ page: next, text: 'next' });
-							}else{
-								pagination.push({ page: false, text: 'next' });
-							}
-						}
+                        // Now we apply our rules and draw the pagination object. 
+                        // We're actually saving the code to a variable in case we want to draw it more than once.
+                        pagination = [];
+                        if(lastpage > 1)
+                        {
+                            //previous button
+                            if (page > 1){
+                                pagination.push({ page: prev, text: 'previous' });
+                            }else{
+                                pagination.push({ page: false, text: 'previous' });
+                            }
+                            
+                            //pages
+                            if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
+                            {    
+                                for (counter = 1; counter <= lastpage; counter++)
+                                {
+                                    if (counter == page){
+                                        pagination.push({ page: false, text: counter });
+                                    }else{
+                                        pagination.push({ page: counter, text: counter });
+                                    }
+                                }
+                            }
+                            else if(lastpage > 5 + (adjacents * 2))    //enough pages to hide some
+                            {
+                                //close to beginning; only hide later pages
+                                if(page < 1 + (adjacents * 2))
+                                {
+                                    for (counter = 1; counter < 4 + (adjacents * 2); counter++)
+                                    {
+                                        if (counter == page){
+                                            pagination.push({ page: false, text: counter });
+                                        }else{
+                                            pagination.push({ page: counter, text: counter });
+                                        }
+                                    }
+                                    pagination.push({ page: false, text: '..........' });
+                                    pagination.push({ page: lpm1, text: lpm1 });
+                                    pagination.push({ page: lastpage, text: lastpage });
+                                }
+                                //in middle; hide some front and some back
+                                else if(lastpage - (adjacents * 2) > page && page > (adjacents * 2))
+                                {
+                                    pagination.push({ page: 1, text: 1 });
+                                    pagination.push({ page: 2, text: 2 });
+                                    pagination.push({ page: false, text: '..........' });
+                                    for (counter = page - adjacents; counter <= page + adjacents; counter++)
+                                    {
+                                        if (counter == page){
+                                            pagination.push({ page: false, text: counter });
+                                        }else{
+                                            pagination.push({ page: counter, text: counter });
+                                        }
+                                    }
+                                    pagination.push({ page: false, text: '..........' });
+                                    pagination.push({ page: lpm1, text: lpm1 });
+                                    pagination.push({ page: lastpage, text: lastpage });
+                                }
+                                //close to end; only hide early pages
+                                else
+                                {
+                                    pagination.push({ page: 1, text: 1 });
+                                    pagination.push({ page: 2, text: 2 });
+                                    pagination.push({ page: false, text: '..........' });
+                                    for (counter = lastpage - (2 + (adjacents * 2)); counter <= lastpage; counter++)
+                                    {
+                                        if (counter == page){
+                                            pagination.push({ page: false, text: counter });
+                                        }else{
+                                            pagination.push({ page: counter, text: counter });
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            //next button
+                            if (page < counter - 1){
+                                pagination.push({ page: next, text: 'next' });
+                            }else{
+                                pagination.push({ page: false, text: 'next' });
+                            }
+                        }
 
-						response.status = true;
-						response.message = 'success';
-						// formatting user data for table
-						var data          = {};
-						data.rows         = new Array(lists.length);
-						data.pagination   = pagination;
-						data.class = "table";
-						if(lists !== null){
-							var teamCounter = 0;
-							lists.map(function(item, key){
+                        response.status = true;
+                        response.message = 'success';
+                        // formatting user data for table
+                        var data          = {};
+                        data.rows         = new Array(lists.length);
+                        data.pagination   = pagination;
+                        data.class = "table";
+                        if(lists !== null){
+                            var teamCounter = 0;
+                            lists.map(function(item, key){
 
-								CompanyInfo.findOne({ _id: new ObjectId(item.company_id)}).exec(function(err, company){
+                                CompanyInfo.findOne({ _id: new ObjectId(item.company_id)}).exec(function(err, company){
 
-									var companyname = 'No company name';
-									var domain_name = 'No domain name';
-									if(!err && company !== null){
-										// console.log(item);
-										companyname = company.companyname;
-										domain_name = company.domain_name;
-									}
+                                    var companyname = 'No company name';
+                                    var domain_name = 'No domain name';
+                                    if(!err && company !== null){
+                                        // console.log(item);
+                                        companyname = company.companyname;
+                                        domain_name = company.domain_name;
+                                    }
 
-									data.rows[key] =  {
-										_id: item._id,
-										teamname: item.teamname,
-										companyname: companyname,
-										domain_name: domain_name
-									};
-									//console.log(data.rows[key]);
-									teamCounter++;
+                                    data.rows[key] =  {
+                                        _id: item._id,
+                                        teamname: item.teamname,
+                                        companyname: companyname,
+                                        domain_name: domain_name
+                                    };
+                                    //console.log(data.rows[key]);
+                                    teamCounter++;
 
-									// Exit condition
-									if(lists.length === teamCounter){
-										response.data = data;
-										res.json(response);
-									}
-								});
-							});
-						}else{
-							res.json(response);
-						}
-					}
-					else
-					{
-						response.message = 'Something went wrong !';
-						res.json(response);
-					}
-				});
-			}else{
-				response.message = 'No result found';
-				res.json(response);
-			}
-		});
+                                    // Exit condition
+                                    if(lists.length === teamCounter){
+                                        response.data = data;
+                                        res.json(response);
+                                    }
+                                });
+                            });
+                        }else{
+                            res.json(response);
+                        }
+                    }
+                    else
+                    {
+                        response.message = 'Something went wrong !';
+                        res.json(response);
+                    }
+                });
+            }else{
+                response.message = 'No result found';
+                res.json(response);
+            }
+        });
         
     }else{
         response.message = 'Please enter a team name';
@@ -2416,19 +2436,35 @@ exports.UpdateProfileBanner = function (req, res) {
                      , options = {multi: false};
 
                 // Set manager info
-                User.update(conditions, update, options, function (err) {
-                    if (!err) {
-                        response.status  = true;
-                        response.message = 'Banner image updated.';
-                        response.image   = BANNER_PIC_PATH + imagename;
-                    } else {
-                        response.status  = false;
-                        response.message = 'Something went wrong..';
-                    }
-                    res.send(response);
-                    res.end();
+                User.findOne(conditions, function (errUser, user) {
+                    User.update(conditions, update, options, function (err) {
+                        if (!err) {
+                            response.status  = true;
+                            response.message = 'Banner image updated.';
+                            response.image   = BANNER_PIC_PATH + imagename;
+
+                            try{
+                                if (!errUser && user !== null && user.cover_image !== '') {
+                                    var filename = path.join(__dirname,'..','..')+"/public/images/bannerpics/" + user.cover_image;
+                                    fs.unlink(filename, function (err) {
+                                        if (!err){
+                                            // console.log('file deleted');
+                                        }else{
+                                            console.log('file not found - unable to delete the file');
+                                        }
+                                    });
+                                }
+                            }catch(e){
+                                console.log(e);
+                            }
+                        } else {
+                            response.status  = false;
+                            response.message = 'Something went wrong..';
+                        }
+                        res.send(response);
+                        res.end();
+                    });
                 });
-                
             });
             source.on('error', function (err) {
                 response.status  = false;
