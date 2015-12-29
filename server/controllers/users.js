@@ -3064,12 +3064,21 @@ exports.handleInviteSignup = function(req, res, next) {
         });
     }else{
         // Invalid invitation link
+
+        if(req.user){
+            res.redirect('/mymood');
+        }else{
+            res.redirect('/');
+        }
+        // redirect to landing page
+        /*
         req.body.response = {
             message: 'Invalid invitation link',
             hasErrorMessage: true,
             status: false
         };
         next();
+        */
     }
   });
 
