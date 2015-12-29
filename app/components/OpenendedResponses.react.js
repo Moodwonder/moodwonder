@@ -107,115 +107,127 @@ export default class OpenendedResponses extends React.Component {
                   color = '#EEEEEE';
               }
 
+              let mostImproved;
+              let leastImproved;
+              if (this.state.area === 'most_improved') {
+                  mostImproved = (
+                                    <div className="ui one column stackable grid survey">
+                                        <div className="column padin-lft">
+                                            <div className="ui form options">
+                                                <div className="inline fields">{'Most improved areas - ' + row.most_improved_mood}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className=""></label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.most_improved_qone}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.most_improved_aone}</label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="ui form ">
+                                                <div className="inline fields"></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.most_improved_qtwo}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.most_improved_atwo}</label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="ui form ">
+                                                <div className="inline fields"></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.most_improved_qthree}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.most_improved_athree}</label>
+                                        </div>
+                                    </div>
+                  );
+
+              } else {
+                  leastImproved = (
+                                    <div className="ui one column stackable grid survey">
+                                        <div className="column padin-lft">
+                                            <div className="ui form options">
+                                                <div className="inline fields">{'Least improved areas - ' + row.least_improved_mood}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className=""></label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.least_improved_qone}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.least_improved_aone}</label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="ui form ">
+                                                <div className="inline fields"></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.least_improved_qtwo}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.least_improved_atwo}</label>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="ui form ">
+                                                <div className="inline fields"></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column padin-lft">
+                                            <div className="">
+                                                <div className="inline fields">Q:&nbsp; {row.least_improved_qthree}</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="column ">
+                                            <label className="">A:&nbsp; {row.least_improved_athree}</label>
+                                        </div>
+                                    </div>
+                  );
+              }
+
               return (
                             <div className="custom-box" style={{"background":color}}>
-                                <div className="ui one column stackable grid survey">
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form options">
-                                            <div className="inline fields">{'Most improved areas - ' + row.most_improved_mood}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className=""></label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.most_improved_qone}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.most_improved_aone}</label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form ">
-                                            <div className="inline fields"></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.most_improved_qtwo}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.most_improved_atwo}</label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form ">
-                                            <div className="inline fields"></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.most_improved_qthree}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.most_improved_athree}</label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form options">
-                                            <div className="inline fields">{'Least improved areas - ' + row.least_improved_mood}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className=""></label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.least_improved_qone}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.least_improved_aone}</label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form ">
-                                            <div className="inline fields"></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.least_improved_qtwo}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.least_improved_atwo}</label>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="ui form ">
-                                            <div className="inline fields"></div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column padin-lft">
-                                        <div className="">
-                                            <div className="inline fields">Q:&nbsp; {row.least_improved_qthree}</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="column ">
-                                        <label className="">A:&nbsp; {row.least_improved_athree}</label>
-                                    </div>
-
-                                </div>
+                                {mostImproved}
+                                {leastImproved}
                             </div>
               );
           });
