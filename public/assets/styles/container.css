@@ -1076,6 +1076,9 @@ p.votes{
 .sidebar-view {
     display: block;
 }
+#sidebar {
+    min-height: 480%;
+}
 }
 @media only screen and (min-width: 1199px) and (max-width:1279px) {
 .srch {
