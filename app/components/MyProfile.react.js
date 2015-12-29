@@ -22,6 +22,7 @@ export default class MyProfile extends React.Component {
       this.state.personalInfo    =  false;
       this.state.generalInfoEdit =  false;
       this.validationErrors      =  {};
+      this.fileupload            =  {};
   }
 
   componentDidMount () {
@@ -29,6 +30,7 @@ export default class MyProfile extends React.Component {
       UserStore.listen(this._onChange);
 
       let _this = this;
+      //console.log(this.state);
 
       $(function() {
 
@@ -58,7 +60,8 @@ export default class MyProfile extends React.Component {
           options.onComplete = function(file, response, btn) {
               _this.fileUploadSuccessProfile(response);
           };
-          new ss.SimpleUpload(options);
+          _this.fileupload.updateuserphoto = new ss.SimpleUpload(options);
+          _this.fileupload.updateuserphoto._input.title = 'Upload profile image';
 
           // updateuserbanner
           options.url  = '/updateuserbanner';
@@ -67,7 +70,8 @@ export default class MyProfile extends React.Component {
           options.onComplete = function(file, response, btn) {
               _this.fileUploadSuccessBanner(response);
           };
-          new ss.SimpleUpload(options);
+          _this.fileupload.updateuserbanner = new ss.SimpleUpload(options);
+          _this.fileupload.updateuserbanner._input.title = 'Upload cover image';
       });
   }
 
@@ -91,6 +95,7 @@ export default class MyProfile extends React.Component {
       let userDetails = this.state.userDetails;
       if(response.status){
           userDetails.profile_image = response.image;
+          userDetails.profileimage_status = true;
           this.setState({ userDetails: userDetails });
       }
   }
@@ -99,6 +104,7 @@ export default class MyProfile extends React.Component {
       let userDetails = this.state.userDetails;
       if(response.status){
           userDetails.cover_image = response.image;
+          userDetails.cover_image_status = true;
           this.setState({ userDetails: userDetails });
       }
   }
@@ -249,6 +255,14 @@ export default class MyProfile extends React.Component {
       let personalinfomessage = null;
       let generalinfomessage = null;
       let mlarray = this.state.multilang;
+
+      if(userInfo && userInfo.profileimage_status){
+          this.fileupload.updateuserphoto._input.title = 'Change profile image';
+      }
+
+      if(userInfo && userInfo.cover_image_status){
+          this.fileupload.updateuserbanner._input.title = 'Change cover image';
+      }
 
       if (this.state.message !== '' && this.state.updateType === 'summary' ) {
           summarymessage = (

@@ -30,11 +30,15 @@ export default RequireAuth(class Industry extends React.Component {
     }
 
     _onChange = (state) => {
-        this.pagination = state.IndustryList.pagination;
-        state.rows = state.IndustryList.rows;
-        if(this.state.ServerResponse){
-            if(this.state.ServerResponse.message !== ''){
-                state.message = this.state.ServerResponse.message;
+
+        // console.log(state);
+        if(state.ServerResponse){
+            this.pagination = state.IndustryList.pagination;
+            state.rows = state.IndustryList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }
             }
         }
         this.setState(state);
@@ -76,7 +80,11 @@ export default RequireAuth(class Industry extends React.Component {
 
     render() {
 
-        let rows;
+        let rows = (
+            <tr>
+                <td colSpan="2" style={{'text-align':'center'}}>No data</td>
+            </tr>
+        );
         let pagination;
         let message;
         if (
@@ -95,9 +103,9 @@ export default RequireAuth(class Industry extends React.Component {
 
         try
         {
-            if(this.state.rows !== undefined){
+            if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
-                    // console.log(row);
+                    console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={row._id}>
@@ -116,12 +124,16 @@ export default RequireAuth(class Industry extends React.Component {
                         {pages}
                     </div>
                 );
+            }else{
+
             }
+
         }
         catch(err)
         {
             console.log(err);
         }
+        // console.log(rows);
 
         return (
             <div className="ui container">
