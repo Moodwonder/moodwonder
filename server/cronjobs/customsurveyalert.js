@@ -39,7 +39,7 @@ function getUserData(userid, callback) {
 
 var CronJob = require('cron').CronJob;
 var customSurveyAlert = new CronJob({
-    cronTime: '00 00 10 * * 1-7',
+    cronTime: '00 30 12 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -67,16 +67,17 @@ var customSurveyAlert = new CronJob({
                         }
                         
                         var transporter = nodemailer.createTransport();
-                        var body = "Hi " + name + ",<br><br> Please complete your survey by click on below link <br>" +
-                                "<b>Click here :</b>" + Config.staticUrl + 'takesurvey/' + surveys[i].survey_id +
-                                "<br><br> Best wishes" +
-                                "<br> Moodwonder Team";
+                        var body =  "Hurry up " +  name + " to take the survey because it will expire after midnight and you'll no longer be able to participate in the survey." +
+                                    "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + Config.staticUrl + "takesurvey/" + surveys[i].survey_id +"'>Take survey</a>" +
+                                    "<br><br>You may copy/paste this link into your browser: <br>" + Config.staticUrl + "takesurvey/" + surveys[i].survey_id +
+                                    "<br><br>Thanks," +
+                                    "<br>Moodwonder Team";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
                             from: Config.fromEmail,
                             to: user.email,
                             //to: 'useremailtestacc@gmail.com',
-                            subject: 'Take a survey',
+                            subject: 'Last day to take the pending survey on Moodwonder',
                             html: body
                         });
                         
@@ -91,7 +92,7 @@ var customSurveyAlert = new CronJob({
         
     },
     start: true,
-    timeZone: ''
+    timeZone: 'Asia/Kolkata'
 });
 customSurveyAlert.start();
 

@@ -72,7 +72,7 @@ function getMWIndexRule(key, callback) {
 
 var CronJob = require('cron').CronJob;
 var mgrNotificationMWIndex = new CronJob({
-    cronTime: '00 00 12 * * 1-7',
+    cronTime: '00 00 11 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -114,12 +114,18 @@ var mgrNotificationMWIndex = new CronJob({
                                                         var body = "Hi ,<br><br> The user " + member.firstname + "'s (" + member.email + ")" + " MW index is " + mwindex + " <br>" +
                                                                 "<br><br> Best wishes" +
                                                                 "<br> Moodwonder Team";
+                                                        var body = "Watch out " + manager.firstname + " " + manager.lastname + "!," + 
+                                                                   "<br><br> Someone in " + team.teamname + " team average engagement rating is going below " + rule.rule_value + ". It is time to work hard on the company culture." +
+                                                                   "<br>We suggest that you should have a team meeting or face to face meetings with all your subordinates to find out what's wrong and think how you can improve the situation." +
+                                                                   "<br>Employee avg rating = " + mwindex + 
+                                                                   "<br><br>Thanks," +
+                                                                   "<br> Moodwonder Team";
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
                                                             from: Config.fromEmail,
                                                             to: manager.email,
                                                             //to: 'useremailtestacc@gmail.com',
-                                                            subject: 'Notification - MW Index',
+                                                            subject: "Beware! Someone in " + team.teamname + " has the average rating below " + rule.rule_value,
                                                             html: body
                                                         });
 
@@ -151,7 +157,7 @@ var mgrNotificationMWIndex = new CronJob({
 
     },
     start: true,
-    timeZone: ''
+    timeZone: 'Asia/Kolkata'
 });
 mgrNotificationMWIndex.start();
 

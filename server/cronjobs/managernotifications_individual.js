@@ -75,7 +75,7 @@ function getMWIndexRuleIndividual(key, callback) {
 
 var CronJob = require('cron').CronJob;
 var mgrNotificationIndividual = new CronJob({
-    cronTime: '00 00 11 * * 1-7',
+    cronTime: '00 00 12 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -95,6 +95,7 @@ var mgrNotificationIndividual = new CronJob({
                         var tCount = teams.length;
                         function teamrepeater(t) {
                             if (t < tCount) {
+                                
                                 var team = teams[t];
                                 getTeamMembersIndividual(team.member_ids, function (tmembers) {
 
@@ -110,22 +111,25 @@ var mgrNotificationIndividual = new CronJob({
                                                     for (var p = 0; p < posts.length; p++) {
                                                         var post = posts[p];
                                                         if (post.rating <= lowerlimit.rule_value) {
-                                                            lowerstatement += 'Mood - ' + post.mood + '(' + post.rating + ')';
+                                                            lowerstatement += post.mood + ' = ' + post.rating + '<br>';
                                                         }
                                                     }
 
-                                                    if (lowerstatement) {
+                                                    if (lowerstatement) { 
                                                         var transporter = nodemailer.createTransport();
-                                                        var body = "Hi ,<br><br> The user, " + member.firstname + "(" + member.email + ")" + " individual statement <br>" +
-                                                                "Statement: " + lowerstatement +
-                                                                "<br><br> Best wishes" +
-                                                                "<br> Moodwonder Team";
+                                                        var body =  "Hi " + manager.firstname + " " + manager.lastname + "," + 
+                                                                    "<br><br> Unfortunately, someone in " + team.teamname + " team individual statement(s) are at critical level." +
+                                                                    "<br><br> Snapshot of the engagement level:" +
+                                                                    "<br>" + lowerstatement +
+                                                                    "<br> It is sad to hear that employees aren't feeling motivated enough. Let's work harder to create a more engaging workplace. We suggest that you should have a team meeting or face to face meetings with all your subordinates to find out what's wrong and think how you can improve the situation." +
+                                                                    "<br><br> Thanks," +
+                                                                    "<br> Moodwonder Team";
                                                         body = emailTemplate.general(body);
                                                         transporter.sendMail({
                                                             from: Config.fromEmail,
                                                             to: manager.email,
                                                             //to: 'useremailtestacc@gmail.com',
-                                                            subject: 'Notification - Individual Lower limit',
+                                                            subject: 'Sadly, Someone in ' + team.teamname + ' has rating below ' + lowerlimit.rule_value,
                                                             html: body
                                                         });
                                                     }
@@ -136,23 +140,26 @@ var mgrNotificationIndividual = new CronJob({
                                                         for (var p = 0; p < posts.length; p++) {
                                                             var post = posts[p];
                                                             if (post.rating >= upperlimit.rule_value) {
-                                                                upperstatement += 'Mood - ' + post.mood + '(' + post.rating + ')';
+                                                                upperstatement += post.mood + ' = ' + post.rating + '<br>';
                                                             }
                                                         }
 
 
-                                                        if (upperstatement) {
+                                                        if (upperstatement) { 
                                                             var transporter = nodemailer.createTransport();
-                                                            var body = "Hi ,<br><br> The user, " + member.firstname + "(" + member.email + ")" + " individual statement <br>" +
-                                                                    "Statement: " + upperstatement +
-                                                                    "<br><br> Best wishes" +
-                                                                    "<br> Moodwonder Team";
+                                                            var body =  "Awesome job " + manager.firstname + " " + manager.lastname + "!" +
+                                                                        "<br><br>Someone in " + team.teamname + " team individual statement(s) are at an exceptionally good level. Good job on keeping the engegement level high!" +
+                                                                        "<br><br>Snapshot of the engagement level:" +
+                                                                        "<br>" + upperstatement +
+                                                                        "<br>Keep up the good work! We suggest that you'll set up a team meeting or type an email and tell the great news to the whole team!" +
+                                                                        "<br><br>Thanks," +
+                                                                        "<br>Moodwonder Team";
                                                             body = emailTemplate.general(body);
                                                             transporter.sendMail({
                                                                 from: Config.fromEmail,
                                                                 to: manager.email,
                                                                 //to: 'useremailtestacc@gmail.com',
-                                                                subject: 'Notification - Individual Upper limit',
+                                                                subject: 'Kudos, someone in ' + team.teamname + ' has rating above ' + upperlimit.rule_value,
                                                                 html: body
                                                             });
                                                         }
@@ -179,7 +186,7 @@ var mgrNotificationIndividual = new CronJob({
         });
     },
     start: true,
-    timeZone: ''
+    timeZone: 'Asia/Kolkata'
 });
 mgrNotificationIndividual.start();
 

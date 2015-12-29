@@ -9,6 +9,7 @@ var EngagementResults = require('../models/engagementResults');
 var NotificationRules = require('../models/notificationRules');
 var CustomSurveyResults = require('../models/customSurveyResults');
 var Config = require('../config/config');
+var CompanyInfo = require('../models/companyinfo');
 
 function getAllManagers(callback) {
 
@@ -80,9 +81,21 @@ function getMWIndexRule(key, callback) {
     });
 }
 
+function getMyCompany(companyid, callback) {
+    
+    var condition = {_id: companyid};
+    
+    CompanyInfo.find(condition).lean().exec(function (err, rows) {
+        if (rows != 'undefined') {
+            callback(rows);
+        }
+    });
+   
+}
+
 var CronJob = require('cron').CronJob;
 var mgrNotificationTeam = new CronJob({
-    cronTime: '00 45 12 * * 1-7',
+    cronTime: '00 30 11 * * 1-7',
     //cronTime: '* * * * * *',
     onTick: function () {
         /*
@@ -104,57 +117,68 @@ var mgrNotificationTeam = new CronJob({
                             if (t < tCount) {
                                 var team = teams[t];
                                 getTeamMembers(team.member_ids, function (tmembers) {
+                                    
+                                    getMyCompany(manager.company_id, function(company) { 
+                                        var companyname = company[0].companyname;
 
-                                    getEngagementResults(team.member_ids, function (posts) {
+                                        getEngagementResults(team.member_ids, function (posts) {
 
-                                        var sum = _(posts).reduce(function (m, x) {
-                                            return m + x.rating;
-                                        }, 0);
+                                            var sum = _(posts).reduce(function (m, x) {
+                                                return m + x.rating;
+                                            }, 0);
 
-                                        if (sum > 0) {
-                                            var postedtimes = (posts.length) / 13;
-                                            var teamindex = (sum / (postedtimes * 13)).toFixed(1);
-                                            
-                                            getMWIndexRule('TEAM_LOWER_LIMIT', function (lowerlimit) {
-                                                if (teamindex <= lowerlimit.rule_value) {
-                                                    
-                                                    var transporter = nodemailer.createTransport();
-                                                    var body = "Hi ,<br><br> The team, " + team.teamname + " has lower index value " + teamindex + " <br>" +
-                                                            "<br><br> Best wishes" +
-                                                            "<br> Moodwonder Team";
-                                                    body = emailTemplate.general(body);
-                                                    transporter.sendMail({
-                                                        from: Config.fromEmail,
-                                                        to: manager.email,
-                                                        //to: 'useremailtestacc@gmail.com',
-                                                        subject: 'Notification - Team Lower Index',
-                                                        html: body
-                                                    });
+                                            if (sum > 0) {
+                                                var postedtimes = (posts.length) / 13;
+                                                var teamindex = (sum / (postedtimes * 13)).toFixed(1);
 
-                                                }
-                                                
-                                            });
-                                            
-                                            getMWIndexRule('TEAM_UPPER_LIMIT', function (upperlimit) {
-                                                if (teamindex >= upperlimit.rule_value) {
-                                                    
-                                                    var transporter = nodemailer.createTransport();
-                                                    var body = "Hi ,<br><br> The team, " + team.teamname + " has upper index value " + teamindex + " <br>" +
-                                                            "<br><br> Best wishes" +
-                                                            "<br> Moodwonder Team";
-                                                    body = emailTemplate.general(body);
-                                                    transporter.sendMail({
-                                                        from: Config.fromEmail,
-                                                        to: manager.email,
-                                                        //to: 'useremailtestacc@gmail.com',
-                                                        subject: 'Notification - Team Upper Index',
-                                                        html: body
-                                                    });
+                                                getMWIndexRule('TEAM_LOWER_LIMIT', function (lowerlimit) {
+                                                    if (teamindex <= lowerlimit.rule_value) {
 
-                                                }
-                                                
-                                            });
-                                        }
+                                                        var transporter = nodemailer.createTransport();
+                                                        var body =  "Hi " + manager.firstname + " " + manager.lastname + "," +
+                                                                    "<br><br> " + team.teamname + " team average engagement rating is dropping below " + lowerlimit.rule_value + "." + 
+                                                                    "Let's change it now by creating a more rewarding workplace environment." + 
+                                                                    "We suggest that you should have a team meeting or face to face meetings with all your subordinates to find out what's wrong and think how you can improve the situation." +
+                                                                    "<br><br>Average " + team.teamname + " engagement = " + teamindex + 
+                                                                    "<br><br>Thanks," +
+                                                                    "<br>Moodwonder Team";
+                                                        body = emailTemplate.general(body);
+                                                        transporter.sendMail({
+                                                            from: Config.fromEmail,
+                                                            to: manager.email,
+                                                            //to: 'useremailtestacc@gmail.com',
+                                                            subject: 'Unfortunately, ' + team.teamname + ' team is not engaged in ' + companyname,
+                                                            html: body
+                                                        });
+
+                                                    }
+
+                                                });
+
+                                                getMWIndexRule('TEAM_UPPER_LIMIT', function (upperlimit) {
+                                                    if (teamindex >= upperlimit.rule_value) {
+
+                                                        var transporter = nodemailer.createTransport();
+                                                        var body =  "Amazing job " + manager.firstname + " " + manager.lastname + "!" +
+                                                                    "<br><br>" + team.teamname + " team average engagement rating is high (above " + upperlimit.rule_value + ")." +
+                                                                    "<br><br>Average " + team.teamname + " engagement = " + teamindex + 
+                                                                    "<br><br>Keep up the good work and make sure to maintain the high standards in employees' engagement. You are on the right track! We suggest that you'll set up a team meeting or type an email and tell the great news to the whole team!" +
+                                                                    "<br><br>Thanks," +
+                                                                    "<br> Moodwonder Team";
+                                                        body = emailTemplate.general(body);
+                                                        transporter.sendMail({
+                                                            from: Config.fromEmail,
+                                                            to: manager.email,
+                                                            //to: 'useremailtestacc@gmail.com',
+                                                            subject: 'Kudos, ' + team.teamname + ' team is very engaged in ' + companyname,
+                                                            html: body
+                                                        });
+
+                                                    }
+
+                                                });
+                                            }
+                                        });
                                     });
 
                                 });
@@ -170,7 +194,7 @@ var mgrNotificationTeam = new CronJob({
         });
     },
     start: true,
-    timeZone: ''
+    timeZone: 'Asia/Kolkata'
 });
 mgrNotificationTeam.start();
 
