@@ -3065,7 +3065,11 @@ exports.handleInviteSignup = function(req, res, next) {
     }else{
         // Invalid invitation link
 
-        res.redirect('/');
+        if(req.user){
+            res.redirect('/mymood');
+        }else{
+            res.redirect('/');
+        }
         // redirect to landing page
         /*
         req.body.response = {
