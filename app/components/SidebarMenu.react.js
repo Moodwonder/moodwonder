@@ -131,8 +131,8 @@ export default class SidebarMenu extends React.Component {
                         <i className="thumbs up icon"></i>
                         {GetText('L_CAST_VOTE', mlarray)}
                     </a>
-                    {viewvotes}
                     {links}
+                    {viewvotes}
                     <InviteOthers />
                 </div>
       );

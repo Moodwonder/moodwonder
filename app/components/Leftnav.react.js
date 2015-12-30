@@ -131,8 +131,8 @@ export default class Leftnav extends React.Component {
                     <i className="thumbs up icon"></i>
                     {GetText('L_CAST_VOTE', mlarray)}
                 </a>
-                {viewvotes}
                 {openresponselink}
+                {viewvotes}
                 <div>
                     <InviteOthers />
                 </div>
