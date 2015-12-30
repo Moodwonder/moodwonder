@@ -111,10 +111,6 @@ export default class Leftnav extends React.Component {
                         </div>
                     </div>
                 </div>
-                <a className="item" href="/myprofile">
-                    <i className="setting icon"></i>
-                    {GetText('L_MYACCOUNT_LINK', mlarray)}
-                </a>
                 <a className="item" href="/mymood">
                     <i className="smile icon"></i>
                     {GetText('L_MYMOOD_LINK', mlarray)}
@@ -123,16 +119,16 @@ export default class Leftnav extends React.Component {
                     <i className="building icon"></i>
                     {GetText('L_MYCOMPANY_LINK', mlarray)}
                 </a>
-                <a className="item" href="/survey">
-                    <i className="thumbs up icon"></i>
-                    Engagement Survey
-                </a>
                 <a className="item" href="/employeeofthemonth">
                     <i className="thumbs up icon"></i>
                     {GetText('L_CAST_VOTE', mlarray)}
                 </a>
-                {openresponselink}
                 {viewvotes}
+                {openresponselink}
+                <a className="item" href="/myprofile">
+                    <i className="setting icon"></i>
+                    {GetText('L_MYACCOUNT_LINK', mlarray)}
+                </a>
                 <div>
                     <InviteOthers />
                 </div>
