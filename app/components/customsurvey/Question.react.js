@@ -166,7 +166,6 @@ export default class Question extends React.Component {
                                         <option value="0">{anstypedefault}</option>
                                         <option value="radio">Radio</option>
                                         <option value="checkbox">Checkbox</option>
-                                        <option value="textbox">Textbox</option>
                                         <option value="textarea">Textarea</option>
                                     </select>
                                 </div>
