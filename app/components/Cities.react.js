@@ -31,16 +31,23 @@ export default RequireAuth(class States extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
-        this.pagination = state.PlacesList.pagination;
-        state.rows = state.PlacesList.rows;
-        if(this.state.ServerResponse){
-            if(this.state.ServerResponse.message !== ''){
-                state.message = this.state.ServerResponse.message;
+        if(state.PlacesList.rows){
+            this.pagination = state.PlacesList.pagination;
+            state.rows = state.PlacesList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }else{
+                    state.message = '';
+                }
             }
+            this.setState(state);
+            this.messageAutoClose(state);
+        }else{
+            state.rows = [];
+            this.setState(state);
+            this.messageAutoClose(state);
         }
-        this.setState(state);
-        this.messageAutoClose(state);
     }
 
     // Example Pagination
@@ -87,7 +94,7 @@ export default RequireAuth(class States extends React.Component {
         let pagination;
         let message;
 
-        if (this.state.hasError){
+        if (this.state.hasError && this.state.message !==''){
             message = (
                 <div className="ui error message segment">
                     <ul className="list">
@@ -118,7 +125,7 @@ export default RequireAuth(class States extends React.Component {
                     // console.log(row);
                     this.hasData = true;
                     return (
-                        <tr key={row._id}>
+                        <tr key={(key+1)}>
                             <td><Editable onSave={this._onUpdatecity} teamid={row._id} value={row.name} /></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
                         </tr>
@@ -133,6 +140,12 @@ export default RequireAuth(class States extends React.Component {
                     <div className="ui pagination menu">
                         {pages}
                     </div>
+                );
+            }else{
+                rows = (
+                    <tr key="1">
+                        <td colSpan="3" style={{'textAlign':'center'}}>No data</td>
+                    </tr>
                 );
             }
         }
@@ -155,7 +168,7 @@ export default RequireAuth(class States extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr>
+                            <tr key="0">
                                 <td>Name</td>
                                 <td>Actions</td>
                             </tr>
@@ -252,20 +265,26 @@ class Addcities extends React.Component {
         //console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
+        if(state.ServerResponse.status){
+            React.findDOMNode(this.refs.city).value = '';
+        }
     }
 
     _onChangeText = (e) => {
         if(e.target.value && e.target.value.trim() !== ''){
             this.setState({ canSubmit: true });
+        }else{
+            this.setState({ canSubmit: false });
         }
     }
 
-    _onAddcity = (model) => {
+    _onAddcity = (e) => {
 
         let stateID = this.props.data.stateID;
         let city    = React.findDOMNode(this.refs.city).value.trim();
         PlacesActions.addPlaces({ _id: stateID, placeType: 'city', type: 'addcity', action: 'add', place: city });
         PlacesStore.listen(this._onChange);
+        e.preventDefault();
     }
 
     messageAutoClose = (state) => {
@@ -294,7 +313,7 @@ class Addcities extends React.Component {
                 {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <form className="ui form">
+                        <form className="ui form" onSubmit={this._onAddcity}>
                             <div className="field">
                                 <label>City name</label>
                                 <input type="text" className="form-control"  onChange={this._onChangeText} ref="city" />

@@ -31,18 +31,23 @@ export default RequireAuth(class Countries extends React.Component {
 
     _onChange = (state) => {
 
-        if(state.PlacesList){
+        console.log(state);
+        if(state.PlacesList.rows){
             this.pagination = state.PlacesList.pagination;
             state.rows = state.PlacesList.rows;
             if(this.state.ServerResponse){
                 if(this.state.ServerResponse.message !== ''){
                     state.message = this.state.ServerResponse.message;
+                }else{
+                    state.message = '';
                 }
             }
             this.setState(state);
             this.messageAutoClose(state);
         }else{
+            state.rows = [];
             this.setState(state);
+            this.messageAutoClose(state);
         }
     }
 
@@ -56,10 +61,11 @@ export default RequireAuth(class Countries extends React.Component {
     }
 
     _onUpdateCountries = (model) => {
-        model._id       =  model.teamid;
-        model.place     =  model.teamname;
-        model.placeType =  'country';
-        model.type      =  'updatecountry';
+        model._id          =  model.teamid;
+        model.continent_id =  this.props.params.id;
+        model.place        =  model.teamname;
+        model.placeType    =  'country';
+        model.type         =  'updatecountry';
         PlacesActions.updatePlaces(model,this.props.params.id); // Second parameter used to fetch the updated list of countries
         PlacesStore.listen(this._onChange);
     }
@@ -90,7 +96,7 @@ export default RequireAuth(class Countries extends React.Component {
         let pagination;
         let message;
 
-        if (this.state.hasError){
+        if (this.state.hasError && this.state.message !==''){
             message = (
                 <div className="ui error message segment">
                     <ul className="list">
@@ -103,7 +109,11 @@ export default RequireAuth(class Countries extends React.Component {
         if (
             this.state.ServerResponse &&
             this.state.message !== '' &&
-            (this.state.ServerResponse.type === 'updatecountry'|| this.state.ServerResponse.type === 'deletecountry'|| this.state.hasError)
+            (
+                this.state.ServerResponse.type === 'updatecountry'||
+                this.state.ServerResponse.type === 'deletecountry'||
+                this.state.hasError
+            )
         ) {
             message = (
                 <div className="ui error message segment">
@@ -116,12 +126,12 @@ export default RequireAuth(class Countries extends React.Component {
 
         try
         {
-            if(this.state.rows !== undefined){
+            if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
                     // console.log(row);
                     this.hasData = true;
                     return (
-                        <tr key={row._id}>
+                        <tr key={key}>
                             <td><Editable onSave={this._onUpdateCountries} teamid={row._id} value={row.name} /></td>
                             <td><a href={ `/admin/states/${row._id}/${row.name}` } className="navigation__item">View states</a></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
@@ -137,6 +147,12 @@ export default RequireAuth(class Countries extends React.Component {
                     <div className="ui pagination menu">
                         {pages}
                     </div>
+                );
+            }else{
+                rows = (
+                    <tr key="1">
+                        <td colSpan="3" style={{'textAlign':'center'}}>No data</td>
+                    </tr>
                 );
             }
         }
@@ -159,12 +175,14 @@ export default RequireAuth(class Countries extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr>
-                                <td>Name</td>
-                                <td>States</td>
-                                <td>Actions</td>
-                            </tr>
-                            {rows}
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>States</td>
+                                    <td>Actions</td>
+                                </tr>
+                                {rows}
+                            </tbody>
                         </table>
                         {pagination}
                     </div>
@@ -254,23 +272,28 @@ class AddCountries extends React.Component {
     }
 
     _onChange = (state) => {
-        //console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
+        if(state.ServerResponse.status){
+            React.findDOMNode(this.refs.country).value = '';
+        }
     }
 
     _onChangeText = (e) => {
         if(e.target.value && e.target.value.trim() !== ''){
             this.setState({ canSubmit: true });
+        }else{
+            this.setState({ canSubmit: false });
         }
     }
 
-    _onAddCountries = (model) => {
+    _onAddCountries = (e) => {
 
         let continentID = this.props.data.countinentID;
         let country = React.findDOMNode(this.refs.country).value.trim();
         PlacesActions.addPlaces({ _id: continentID, placeType: 'country', type: 'addcountry', action: 'add', place: country });
         PlacesStore.listen(this._onChange);
+        e.preventDefault();
     }
 
     messageAutoClose = (state) => {
@@ -299,7 +322,7 @@ class AddCountries extends React.Component {
                 {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <form className="ui form">
+                        <form className="ui form" onSubmit={this._onAddCountries}>
                             <div className="field">
                                 <label>Country name</label>
                                 <input type="text" className="form-control"  onChange={this._onChangeText} ref="country" />

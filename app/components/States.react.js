@@ -31,16 +31,23 @@ export default RequireAuth(class States extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
-        this.pagination = state.PlacesList.pagination;
-        state.rows = state.PlacesList.rows;
-        if(this.state.ServerResponse){
-            if(this.state.ServerResponse.message !== ''){
-                state.message = this.state.ServerResponse.message;
+        if(state.PlacesList.rows){
+            this.pagination = state.PlacesList.pagination;
+            state.rows = state.PlacesList.rows;
+            if(this.state.ServerResponse){
+                if(this.state.ServerResponse.message !== ''){
+                    state.message = this.state.ServerResponse.message;
+                }else{
+                    state.message = '';
+                }
             }
+            this.setState(state);
+            this.messageAutoClose(state);
+        }else{
+            state.rows = [];
+            this.setState(state);
+            this.messageAutoClose(state);
         }
-        this.setState(state);
-        this.messageAutoClose(state);
     }
 
     // Example Pagination
@@ -88,7 +95,7 @@ export default RequireAuth(class States extends React.Component {
         let message;
 
 
-        if (this.state.hasError){
+        if (this.state.hasError && this.state.message !==''){
             message = (
                 <div className="ui error message segment">
                     <ul className="list">
@@ -114,12 +121,12 @@ export default RequireAuth(class States extends React.Component {
 
         try
         {
-            if(this.state.rows !== undefined){
+            if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
                     // console.log(row);
                     this.hasData = true;
                     return (
-                        <tr key={row._id}>
+                        <tr key={(key+1)}>
                             <td><Editable onSave={this._onUpdateStates} teamid={row._id} value={row.name} /></td>
                             <td><a href={ `/admin/cities/${row._id}/${row.name}` } className="navigation__item">View cities</a></td>
                             <td><button type="button" data-tag={row._id} onClick={this._onRemoveClick} className="btn btn-default" >Delete</button></td>
@@ -135,6 +142,12 @@ export default RequireAuth(class States extends React.Component {
                     <div className="ui pagination menu">
                         {pages}
                     </div>
+                );
+            }else{
+                rows = (
+                    <tr key="1">
+                        <td colSpan="3" style={{'textAlign':'center'}}>No data</td>
+                    </tr>
                 );
             }
         }
@@ -157,12 +170,14 @@ export default RequireAuth(class States extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr>
-                                <td>Name</td>
-                                <td>Cities</td>
-                                <td>Actions</td>
-                            </tr>
-                            {rows}
+                            <tbody>
+                                <tr key="0">
+                                    <td>Name</td>
+                                    <td>Cities</td>
+                                    <td>Actions</td>
+                                </tr>
+                                {rows}
+                            </tbody>
                         </table>
                         {pagination}
                     </div>
@@ -255,21 +270,26 @@ class AddStates extends React.Component {
         //console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
+        if(state.ServerResponse.status){
+            React.findDOMNode(this.refs.state).value = '';
+        }
     }
 
     _onChangeText = (e) => {
         if(e.target.value && e.target.value.trim() !== ''){
             this.setState({ canSubmit: true });
+        }else{
+            this.setState({ canSubmit: false });
         }
     }
 
-    _onAddStates = (model) => {
+    _onAddStates = (e) => {
 
         let countryID = this.props.data.countryID;
         let state = React.findDOMNode(this.refs.state).value.trim();
-        console.log(state);
         PlacesActions.addPlaces({ _id: countryID, placeType: 'state', type: 'addstate', action: 'add', place: state });
         PlacesStore.listen(this._onChange);
+        e.preventDefault();
     }
 
     messageAutoClose = (state) => {
@@ -298,7 +318,7 @@ class AddStates extends React.Component {
                 {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <form className="ui form">
+                        <form className="ui form" onSubmit={this._onAddStates}>
                             <div className="field">
                                 <label>State name</label>
                                 <input type="text" className="form-control"  onChange={this._onChangeText} ref="state" />
