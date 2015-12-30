@@ -547,7 +547,7 @@ exports.getMostEngagingManagers = function (req, res) {
                 });
 
                 var eData = _(eGroupResults).map(function(g, key) {
-                    eCount =  g.length;
+                    var eCount =  g.length;
                     return {   user_id: key,
                                count: eCount,
                                avg : ((_(g).reduce(function(m,x) { return m + x.rating; }, 0))/( 13 * (eCount / 13)) ).toFixed(1)
@@ -597,7 +597,8 @@ exports.getMostEngagingManagers = function (req, res) {
                     mostEngaged.push(temp);
                 }
                 
-                mostEngaged = _(mostEngaged).sortBy(function(data){return data.avg;}).reverse();
+                //mostEngaged = _(mostEngaged).sortBy(function(data){return data.avg;}).reverse();
+                mostEngaged = _.first(_(mostEngaged).sortBy(function(data){return data.avg;}).reverse(),3);
                 
                 var response = {};
                 if (mostEngaged.length > 0) {

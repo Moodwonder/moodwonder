@@ -103,7 +103,7 @@ export default class App extends React.Component {
 
       let sitecontent = [
                     <Navigation />,
-                    <div className="ui vertical inverted sidebar menu" style={{"zIndex":"1", "minHeight":"480%"}}>
+                    <div className="ui vertical inverted sidebar menu" id="sidebar" style={{"zIndex":"1"}}>
                         <a href="#" className="slide-side"></a>
                         <SidebarMenu />
                     </div>,

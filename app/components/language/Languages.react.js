@@ -46,11 +46,17 @@ export default RequireAuth(class Languages extends React.Component {
       let id = data['id'];
 
       if (window.confirm('Are sure you want to add new Language.')) {
+          this.setState({formstatus: true});
           if(id === '') {
               LanguageActions.addLanguage(language);
           } else {
               LanguageActions.editLanguage(id, language);
           }
+          this.setState({
+              editcode: '',
+              editid: '',
+              editlanguage: ''
+          });
       }
   }
 
@@ -59,6 +65,7 @@ export default RequireAuth(class Languages extends React.Component {
       this.setState({addlanguageform: true});
       this.setState({editlanguageform: false});
       this.setState({showform: true});
+      this.setState({formstatus: false});
       this.setState({editcode: ''});
       this.setState({editid: ''});
       this.setState({editlanguage: ''});
@@ -67,6 +74,7 @@ export default RequireAuth(class Languages extends React.Component {
   onDeleteLanguage = (e) => {
       e.preventDefault();
       this.setState({showform: false});
+      this.setState({formstatus: false});
       let id = e.target.id;
       LanguageActions.deleteLanguage(id);
   }
@@ -74,6 +82,7 @@ export default RequireAuth(class Languages extends React.Component {
   onEditLanguage = (e, child) => {
       this.setState({addlanguageform: false});
       this.setState({showform: true});
+      this.setState({formstatus: false});
       let id = e.target.id;
       let languages = this.state.languages;
 
@@ -175,10 +184,22 @@ export default RequireAuth(class Languages extends React.Component {
       }
 
       if(formstatus) {
-          statusmessage = (<div className="alert alert-success">
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
+
+          if (addlanguageform) {
+              statusmessage = (
+                                <div className="alert alert-success">
+                                    <br/>
+                                    New language added successfully.
+                                </div>
+              );
+          } else {
+              statusmessage = (
+                                <div className="alert alert-success">
+                                    <br/>
+                                    Language updated successfully.
+                                </div>
+              );
+          }
       }
 
       return (
