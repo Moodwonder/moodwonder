@@ -843,12 +843,13 @@ export default RequireAuth(class Pages extends React.Component {
       //let pagekeys = pagekeys || {};
       //pagekeys.pagekey = pagedata;
       let statusmessage = '';
-
       if(formstatus) {
-          statusmessage = (<div className="alert alert-success">
-                            <strong>Success!</strong> Form submitted.
-                           </div>
-                          );
+          statusmessage = (
+                            <div className="alert alert-success">
+                                <br/>
+                                Fields updated successfully.
+                            </div>
+          );
       }
 
       switch(page){
