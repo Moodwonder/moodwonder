@@ -31,14 +31,19 @@ export default RequireAuth(class Continents extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
-        this.pagination = state.PlacesList.pagination;
-        state.rows = state.PlacesList.rows;
+        if(state.PlacesList.rows){
+            state.rows = state.PlacesList.rows;
+            this.pagination = state.PlacesList.pagination;
+        }else{
+            state.rows = [];
+        }
+
         if(this.state.ServerResponse){
             if(this.state.ServerResponse.message !== ''){
                 state.message = this.state.ServerResponse.message;
             }
         }
+        // console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
     }
@@ -69,7 +74,7 @@ export default RequireAuth(class Continents extends React.Component {
     _onRemoveClick = (e) => {
         if(confirm('Are you sure ?')){
             PlacesActions.deletePlaces({ _id: e.target.dataset.tag, placeType: 'continent', type: 'deletecontinent' });
-            PlacesActions.getPlaces({ placeType: 'continent', page: this.page });
+            // PlacesActions.getPlaces({ placeType: 'continent', page: this.page });
         }
     }
 
@@ -102,7 +107,7 @@ export default RequireAuth(class Continents extends React.Component {
 
         try
         {
-            if(this.state.rows !== undefined){
+            if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
                     // console.log(row);
                     this.hasData = true;
@@ -123,6 +128,12 @@ export default RequireAuth(class Continents extends React.Component {
                     <div className="ui pagination menu">
                         {pages}
                     </div>
+                );
+            }else{
+                rows = (
+                    <tr key="1">
+                        <td colSpan="3" style={{'textAlign':'center'}}>No data</td>
+                    </tr>
                 );
             }
         }
@@ -145,12 +156,14 @@ export default RequireAuth(class Continents extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr>
-                                <td>Name</td>
-                                <td>Countries</td>
-                                <td>Actions</td>
-                            </tr>
-                            {rows}
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Countries</td>
+                                    <td>Actions</td>
+                                </tr>
+                                {rows}
+                            </tbody>
                         </table>
                         {pagination}
                     </div>
@@ -243,18 +256,24 @@ class AddContinents extends React.Component {
         //console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
+        if(state.ServerResponse.status){
+            React.findDOMNode(this.refs.continent).value = '';
+        }
     }
 
     _onChangeText = (e) => {
         if(e.target.value && e.target.value.trim() !== ''){
             this.setState({ canSubmit: true });
+        }else{
+            this.setState({ canSubmit: false });
         }
     }
 
-    _onAddContinents = (model) => {
+    _onAddContinents = (e) => {
         let continent = React.findDOMNode(this.refs.continent).value.trim();
         PlacesActions.addPlaces({ place: continent, placeType: 'continent', type: 'addcontinent' });
         PlacesStore.listen(this._onChange);
+        e.preventDefault();
     }
 
     messageAutoClose = (state) => {
@@ -283,7 +302,7 @@ class AddContinents extends React.Component {
                 {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <form className="ui form">
+                        <form className="ui form" onSubmit={this._onAddContinents}>
                             <div className="field">
                                 <label>Continent name</label>
                                 <input type="text" className="form-control"  onChange={this._onChangeText} ref="continent" />

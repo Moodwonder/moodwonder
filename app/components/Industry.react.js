@@ -82,7 +82,7 @@ export default RequireAuth(class Industry extends React.Component {
 
         let rows = (
             <tr>
-                <td colSpan="2" style={{'text-align':'center'}}>No data</td>
+                <td colSpan="2" style={{'textAlign':'center'}}>No data</td>
             </tr>
         );
         let pagination;
@@ -105,7 +105,7 @@ export default RequireAuth(class Industry extends React.Component {
         {
             if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
-                    console.log(row);
+                    // console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={row._id}>

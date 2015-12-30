@@ -51,12 +51,15 @@ class PlacesActions {
             if (textStatus === 'success') {
                 this.actions.updateplaces(response);
 
-                // only using `placeType` param - Fetching new list after the update
-                if(data.placeType === 'country' || data.placeType === 'state' || data.placeType === 'city'){
-                    data._id = _id;
-                    this.actions.getPlaces(data);
-                }else{
-                    this.actions.getPlaces(data);
+                // No need to fech new list if response.status is false
+                if(response.status){
+                    // only using `placeType` param - Fetching new list after the update
+                    if(data.placeType === 'country' || data.placeType === 'state' || data.placeType === 'city'){
+                        data._id = _id;
+                        this.actions.getPlaces(data);
+                    }else{
+                        this.actions.getPlaces(data);
+                    }
                 }
             }
         }, () => {

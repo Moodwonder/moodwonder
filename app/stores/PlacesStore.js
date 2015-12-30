@@ -19,7 +19,8 @@ class PlacesStore {
         handleAddPlaces: PlacesActions.ADDPLACES,
         handleGetPlaces: PlacesActions.GETPLACES,
         handleUpdatePlaces: PlacesActions.UPDATEPLACES,
-        handleGetPlacesData: PlacesActions.GETPLACESDATA
+        handleGetPlacesData: PlacesActions.GETPLACESDATA,
+        handleDeletePlacesData: PlacesActions.DELETEPLACES
       });
   }
 
@@ -34,6 +35,7 @@ class PlacesStore {
       this.hasError     =  !res.status;
       if(this.hasError){
           this.message    =  res.message;
+          this.PlacesList =  res.data;
       }else{
           this.PlacesList =  res.data;
       }
@@ -50,8 +52,16 @@ class PlacesStore {
   }
 
   handleUpdatePlaces (res) {
-      this.hasError   =  !res.status;
-      this.message    =  res.message;
+      this.hasError        =  !res.status;
+      this.message         =  res.message;
+      this.ServerResponse  =  res;
+      this.emitChange();
+  }
+
+  handleDeletePlacesData (res) {
+      this.hasError        =  !res.status;
+      this.message         =  res.message;
+      this.ServerResponse  =  res;
       this.emitChange();
   }
 
