@@ -1051,6 +1051,7 @@ exports.postSaveManagerInfo = function (req, res, next) {
     var model = req.body;
     var response = {};
     response.type = 'managerinfo';
+    // console.log(model);
 
     if (model.email == '') {
 
@@ -1075,10 +1076,14 @@ exports.postSaveManagerInfo = function (req, res, next) {
                 response.status = false;
                 response.message = 'Something went wrong..';
             }
+            // console.log(req.body.searchData._id.toString());
+            // console.log((req.body.searchData._id.toString() === '0'));
             if(req.body.searchData._id.toString() === '0'){
                 req.body.type = "managerinfo";
                 req.body.invitetype = "Signup";
                 req.body.email = model.email;
+                req.body.data = req.body;
+                //console.log(model);
                 next();
             }else{
                 res.send(response);

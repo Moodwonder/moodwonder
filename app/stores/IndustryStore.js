@@ -34,6 +34,7 @@ class IndustryStore {
       if(this.hasError){
           this.message    =  res.message;
       }
+      this.ServerResponse =  res;
       this.IndustryList =  res.data;
       this.emitChange();
   }
@@ -50,6 +51,7 @@ class IndustryStore {
       //console.log(res);
       this.message  =  res.message;
       this.hasError =  !res.status;
+      this.ServerResponse =  res;
       this.emitChange();
   }
 

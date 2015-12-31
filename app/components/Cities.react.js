@@ -168,11 +168,13 @@ export default RequireAuth(class States extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr key="0">
-                                <td>Name</td>
-                                <td>Actions</td>
-                            </tr>
-                            {rows}
+                            <tbody>
+                                <tr key="0">
+                                    <td>Name</td>
+                                    <td>Actions</td>
+                                </tr>
+                                {rows}
+                            </tbody>
                         </table>
                         {pagination}
                     </div>

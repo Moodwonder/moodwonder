@@ -31,7 +31,7 @@ export default RequireAuth(class Industry extends React.Component {
 
     _onChange = (state) => {
 
-        // console.log(state);
+        console.log(state);
         if(state.ServerResponse){
             this.pagination = state.IndustryList.pagination;
             state.rows = state.IndustryList.rows;
@@ -149,11 +149,13 @@ export default RequireAuth(class Industry extends React.Component {
                     <div>
                     {message}
                         <table className="ui celled table">
-                            <tr>
-                                <td>Name</td>
-                                <td>Actions</td>
-                            </tr>
-                            {rows}
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Actions</td>
+                                </tr>
+                                {rows}
+                            </tbody>
                         </table>
                         {pagination}
                     </div>
@@ -244,7 +246,7 @@ class AddIndustry extends React.Component {
     }
 
     _onChange = (state) => {
-        //console.log(state);
+        console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
     }

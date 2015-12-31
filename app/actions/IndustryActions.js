@@ -13,7 +13,9 @@ class IndustryActions {
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.addindustry(response);
-                this.actions.getIndustries();
+                if(response.status){
+                    this.actions.getIndustries();
+                }
             }
         }, () => {
         });
