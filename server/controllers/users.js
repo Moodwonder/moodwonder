@@ -1095,36 +1095,59 @@ exports.postSaveManagerInfo = function (req, res, next) {
     };
 
     // check this user is existing as subordinate
-    if(req.body.searchData && req.body.searchData._id.toString() !== '0'){
-        try{
-            if(req.body.email !== req.user.email){
-                var condition = {
-                    manager_id: new ObjectId(req.user._id),
-                    member_ids: {
-                        $elemMatch: {
-                            _id: new ObjectId(req.body.searchData._id),
-                        }
-                    }
-                };
-                Team.findOne(condition, function(err, team){
-                    if(!err && team !== null){
-                        response.message = "You can't add your subordinate as your manager";
-                        res.send(response);
-                        res.end();
-                    }else{
-                        afterFeasibilityCheck();
-                    }
-                });
-            }else{
-                response.message = "You can't add your self as your manager";
-                res.send(response);
-                res.end();
-            }
-        }catch(e){
-            console.log(e);
-        }
-    }
+    if(req.body.email !== req.user.email){
+		if(req.body.searchData && req.body.searchData._id.toString() !== '0'){
+			try{
+				var condition = {
+					manager_id: new ObjectId(req.user._id),
+					member_ids: {
+						$elemMatch: {
+							_id: new ObjectId(req.body.searchData._id),
+						}
+					}
+				};
+				Team.findOne(condition, function(err, team){
+					if(!err && team !== null){
+						response.message = "You can't add your subordinate as your manager";
+						res.send(response);
+						res.end();
+					}else{
+						afterFeasibilityCheck();
+					}
+				});
 
+			}catch(e){
+				console.log(e);
+			}
+		}else{
+			try{
+				var condition = {
+					email : req.body.searchData.email,
+					type : "Team",
+					reference: {
+						$elemMatch: {
+							manager_id: new ObjectId(req.user._id),
+						}
+					}
+				};
+				Invite.findOne(condition, function(err, team){
+					if(!err && team !== null){
+						response.message = "You have already invited this user as your subordinate";
+						res.send(response);
+						res.end();
+					}else{
+						afterFeasibilityCheck();
+					}
+				});
+			}catch(e){
+				console.log(e);
+			}
+		}
+	}else{
+		response.message = "You can't add your self as your manager";
+		res.send(response);
+		res.end();
+	}
 };
 
 
