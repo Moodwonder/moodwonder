@@ -8,3 +8,9 @@
 /nbproject/private/
 /public/assets/admin.js
 npm-debug.log
+.DS_Store
+.idea
+*.swp
+**/*.swp
+*.log
+*.pyc
