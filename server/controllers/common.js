@@ -58,9 +58,11 @@ exports.addIndustry = function(req, res) {
     var name = req.body.name;
     
     if(name !== undefined && name !== ''){
-        Industry.findOne({ name: { $regex : new RegExp(name,'i') } }).exec(function (err, industrydoc) {
+        Industry.findOne({ name: { $regex : new RegExp('^'+name+ '$','i') } }).exec(function (err, industrydoc) {
             if(!err){
 
+                console.log('industrydoc');
+                console.log(industrydoc);
                 if(industrydoc !==null){
                     response.message = 'Already Exist..';
                     res.send(response);
@@ -98,6 +100,7 @@ exports.getIndustry = function (req, res) {
     var response = {};
     response.status = false;
     response.message = 'Error';
+    response.type = 'industrylist';
 
     var condition = {};
     // How many adjacent pages should be shown on each side?
@@ -242,6 +245,7 @@ exports.getIndustry = function (req, res) {
                 }
             });
         }else{
+            response.message = 'No data';
             res.json(response);
         }
     });
@@ -352,7 +356,7 @@ exports.addPlaces = function(req, res) {
     // to add continent
     if( hasValue(place) && hasValue(placeType) && placeType === 'continent' ){
 
-        Places.Continent.findOne({ name: { $regex : new RegExp(place,'i') } }).exec(function (err, continentdoc) {
+        Places.Continent.findOne({ name: { $regex : new RegExp('^'+place+ '$','i') } }).exec(function (err, continentdoc) {
             if(!err){
 
                 if(continentdoc !==null){
@@ -381,7 +385,7 @@ exports.addPlaces = function(req, res) {
 
     }else if( hasValue(place) && hasValue(placeType) && hasValue(_id) && placeType === 'country' ){
 
-        Places.Country.findOne({ continent_id: _id, name: { $regex : new RegExp(place,'i') } }).exec(function (err, countrydoc) {
+        Places.Country.findOne({ continent_id: _id, name: { $regex : new RegExp('^'+place+ '$','i') } }).exec(function (err, countrydoc) {
             if(!err){
 
                 if(countrydoc !==null){
@@ -409,7 +413,7 @@ exports.addPlaces = function(req, res) {
         });
     }else if( hasValue(place) && hasValue(placeType) && hasValue(_id) && placeType === 'state' ){
 
-        Places.State.findOne({ country_id: _id, name: { $regex : new RegExp(place,'i') } }).exec(function (err, statedoc) {
+        Places.State.findOne({ country_id: _id, name: { $regex : new RegExp('^'+place+ '$','i') } }).exec(function (err, statedoc) {
             if(!err){
 
                 if(statedoc !==null){
@@ -437,7 +441,7 @@ exports.addPlaces = function(req, res) {
         });
     }else if( hasValue(place) && hasValue(placeType) && hasValue(_id) && placeType === 'city' ){
 
-        Places.City.findOne({ state_id: _id, name: { $regex : new RegExp(place,'i') } }).exec(function (err, statedoc) {
+        Places.City.findOne({ state_id: _id, name: { $regex : new RegExp('^'+place+ '$','i') } }).exec(function (err, statedoc) {
             if(!err){
 
                 if(statedoc !==null){
@@ -669,7 +673,7 @@ exports.updatePlaces = function(req, res) {
 
     if( hasValue(place) && hasValue(_id) && hasValue(placeType) && placeType === 'continent' ){
 
-        Places.Continent.findOne({ name: { $regex : new RegExp(place,'i') } }).exec(function (err, continentdoc) {
+        Places.Continent.findOne({ name: { $regex : new RegExp('^'+place+ '$','i') } }).exec(function (err, continentdoc) {
             if(!err){
 
                 if(continentdoc !==null){
@@ -700,7 +704,7 @@ exports.updatePlaces = function(req, res) {
         });
     }else if( hasValue(place) && hasValue(_id) && hasValue(continent_id) && hasValue(placeType) && placeType === 'country' ){
 
-        Places.Country.findOne({ name: { $regex : new RegExp(place,'i') } , continent_id: continent_id }).exec(function (err, countrydoc) {
+        Places.Country.findOne({ name: { $regex : new RegExp('^'+place+ '$','i') } , continent_id: continent_id }).exec(function (err, countrydoc) {
             if(!err){
                 console.log(countrydoc);
                 if(countrydoc !==null){
@@ -731,7 +735,7 @@ exports.updatePlaces = function(req, res) {
         });
     }else if( hasValue(place) && hasValue(_id) && hasValue(placeType) && placeType === 'state' ){
 
-        Places.State.findOne({ name: { $regex : new RegExp(place,'i') }, country_id: _id }).exec(function (err, statedoc) {
+        Places.State.findOne({ name: { $regex : new RegExp('^'+place+ '$','i') }, country_id: _id }).exec(function (err, statedoc) {
 
             if(!err){
 
@@ -763,7 +767,7 @@ exports.updatePlaces = function(req, res) {
         });
     }else if( hasValue(place) && hasValue(_id) && hasValue(placeType) && placeType === 'city' ){
 
-        Places.City.findOne({ name: { $regex : new RegExp(place,'i') }, state_id: _id }).exec(function (err, statedoc) {
+        Places.City.findOne({ name: { $regex : new RegExp('^'+place+ '$','i') }, state_id: _id }).exec(function (err, statedoc) {
             if(!err){
 
                 if(statedoc !==null){

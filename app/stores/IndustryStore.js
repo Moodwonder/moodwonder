@@ -30,12 +30,15 @@ class IndustryStore {
   }
 
   handleGetIndustries (res) {
+      console.log(res);
       this.hasError     =  !res.status;
       if(this.hasError){
           this.message    =  res.message;
+          this.IndustryList =  [];
+      }else{
+          this.IndustryList =  res.data;
       }
       this.ServerResponse =  res;
-      this.IndustryList =  res.data;
       this.emitChange();
   }
 
