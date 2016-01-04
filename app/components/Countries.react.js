@@ -31,7 +31,7 @@ export default RequireAuth(class Countries extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
+        // console.log(state);
         if(state.PlacesList.rows){
             this.pagination = state.PlacesList.pagination;
             state.rows = state.PlacesList.rows;

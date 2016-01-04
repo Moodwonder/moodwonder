@@ -167,15 +167,18 @@ exports.sendInvitation = function(req, res, next) {
             response.message = 'Something went wrong';
             res.send(response);
             res.end();
-        }}
-    ;
+        }
+    };
 
     var email = '';
     if(data !== undefined){
         email = data.email;
     }
+
     var domain = email.replace(/.*@/, "");
+    // console.log(domain);
     domain     = domain.split('.')[0];
+    //console.log(domain);
     try{
         CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) }, function(err, company){
             if(company !== null){

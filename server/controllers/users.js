@@ -1051,41 +1051,103 @@ exports.postSaveManagerInfo = function (req, res, next) {
     var model = req.body;
     var response = {};
     response.type = 'managerinfo';
+    // console.log(model);
 
-    if (model.email == '') {
+    var afterFeasibilityCheck = function (){
+        if (model.email == '') {
 
-        validation = false;
-        response.status = false;
-        response.message = 'Invalid email id';
-        res.send(response);
-        res.end();
-    } else {
+            validation = false;
+            response.status = false;
+            response.message = 'Invalid email id';
+            res.send(response);
+            res.end();
+        } else {
 
-        var conditions = {'_id': new ObjectId(req.user._id)}
-        , update = {'mymanager': [{'_id': req.body.searchData._id, 'email': req.body.searchData.email}]}
-        , options = {multi: false};
+            var conditions = {'_id': new ObjectId(req.user._id)}
+            , update = {'mymanager': [{'_id': req.body.searchData._id, 'email': req.body.searchData.email}]}
+            , options = {multi: false};
 
-        User.update(conditions, update, options, function (err) {
-            if (!err) {
+            User.update(conditions, update, options, function (err) {
+                if (!err) {
 
-                response.status = true;
-                response.message = "Manager's email updated successfully";
-            } else {
+                    response.status = true;
+                    response.message = "Manager's email updated successfully";
+                } else {
 
-                response.status = false;
-                response.message = 'Something went wrong..';
-            }
-            if(req.body.searchData._id.toString() === '0'){
-                req.body.type = "managerinfo";
-                req.body.invitetype = "Signup";
-                req.body.email = model.email;
-                next();
-            }else{
-                res.send(response);
-                res.end();
-            }
-        });
-    }
+                    response.status = false;
+                    response.message = 'Something went wrong..';
+                }
+                // console.log(req.body.searchData._id.toString());
+                // console.log((req.body.searchData._id.toString() === '0'));
+                if(req.body.searchData._id.toString() === '0'){
+                    req.body.type = "managerinfo";
+                    req.body.invitetype = "Signup";
+                    req.body.email = model.email;
+                    req.body.data = req.body;
+                    //console.log(model);
+                    next();
+                }else{
+                    res.send(response);
+                    res.end();
+                }
+            });
+        }
+    };
+
+    // check this user is existing as subordinate
+    if(req.body.email !== req.user.email){
+		if(req.body.searchData && req.body.searchData._id.toString() !== '0'){
+			try{
+				var condition = {
+					manager_id: new ObjectId(req.user._id),
+					member_ids: {
+						$elemMatch: {
+							_id: new ObjectId(req.body.searchData._id),
+						}
+					}
+				};
+				Team.findOne(condition, function(err, team){
+					if(!err && team !== null){
+						response.message = "You can't add your subordinate as your manager";
+						res.send(response);
+						res.end();
+					}else{
+						afterFeasibilityCheck();
+					}
+				});
+
+			}catch(e){
+				console.log(e);
+			}
+		}else{
+			try{
+				var condition = {
+					email : req.body.searchData.email,
+					type : "Team",
+					reference: {
+						$elemMatch: {
+							manager_id: new ObjectId(req.user._id),
+						}
+					}
+				};
+				Invite.findOne(condition, function(err, team){
+					if(!err && team !== null){
+						response.message = "You have already invited this user as your subordinate";
+						res.send(response);
+						res.end();
+					}else{
+						afterFeasibilityCheck();
+					}
+				});
+			}catch(e){
+				console.log(e);
+			}
+		}
+	}else{
+		response.message = "You can't add your self as your manager";
+		res.send(response);
+		res.end();
+	}
 };
 
 
