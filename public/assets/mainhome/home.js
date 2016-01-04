@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $('#fullpage').fullpage({
-        anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage', '6thPage', '7thPage'],
+        anchors: ['home', 'engaging-employees', 'get-started', 'features', 'why-mw', 'sneak-peek', 'contact'],
         sectionsColor: ['#26A69A ', '#F44336', '#64B5F6', '#FBBD08', '#66BB6A', '#ba68c8', '#4dd0e1'],
         navigation: true,
         navigationPosition: 'right',
