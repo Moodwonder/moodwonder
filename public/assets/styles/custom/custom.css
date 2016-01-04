@@ -1,0 +1,116 @@
+/*!
+ * Custom css for developer
+ */
+
+.filepicker.dropzone{
+    display:none;
+}
+
+/* home page fixes */
+.home .ui.input input {
+    text-transform: none;
+}
+
+.home .ui.input input[type="text"] {
+    text-transform: none;
+}
+
+.home .ui.error.message, .home .ui.success.message {
+    box-shadow: none;
+    margin-left: 0;
+}
+
+/* css fix in eom page */
+.card .content .header a {
+    color: inherit;
+}
+
+.extra.content.voted {
+    background-color: #FBBD08 !important;
+    color: #fff !important;
+}
+
+.extra.content.voted .icon:before {
+    content: "\f00c" !important;
+}
+
+.ui.card>.image>img, .ui.cards>.card>.image>img {
+    height: 200px;
+    object-fit: contain;
+    background: #fff;
+}
+
+.ui.tiny.images .image, .ui.tiny.images img, .ui.tiny.images svg, .ui.tiny.image {
+    height: 80px;
+    object-fit: cover;
+}
+.my-info .tiny.image {
+    border: 1px solid #ccc;
+}
+.my-info.teams {
+    margin: 10px 0;
+}
+
+/* Login page fixes */
+.ui.form .error.message, .ui.form .success.message, .ui.form .warning.message{
+    display: block;
+}
+
+
+/* Invite people winget */
+.invite-people .message.segment {
+    margin: 5px 0px 5px 0px;
+    box-shadow: none !important;
+}
+
+/* my profile - my team tab fix */
+.ui.small.form.team {
+    max-width: 100%;
+}
+
+#surveyParticipation {
+    width: 250px !important;
+}
+
+a i.write.icon {
+    cursor: pointer;
+}
+a i.add.circle.icon.large {
+    cursor: pointer;
+}
+
+/*
+ * my team tab UI fix
+ * UI fixes #15407
+*/
+label.column.email {
+    word-wrap: break-word;
+}
+
+.extra.content.disabled {
+    pointer-events: none;
+}
+.extra.content.disabled:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+}
+
+/**** Bug fix : UI fixes #15484 *****/
+.ui.menu .ui.dropdown .menu > .item.drop-down-item {
+    padding: 0 !important;
+}
+.item.drop-down-item a {
+    padding: 0.71428571rem 1.14285714rem !important;
+    display: block;
+}
+/************************************/
+
+/*** Employee of the month winner ***/
+.extra.content.winner {
+    background-color: #FBBD08 !important;
+    color: #fff !important;
+}
+
+.extra.content.winner .icon:before {
+    content: "\f091" !important;
+}
