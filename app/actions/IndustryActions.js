@@ -31,7 +31,7 @@ class IndustryActions {
       CommonAdminWebAPIUtils.getIndustries(data)
         .then((response, textStatus) => {
             //if (response.status) {
-                this.actions.getindustries(response);
+            this.actions.getindustries(response);
             //}
         }, () => {
         });
