@@ -500,6 +500,8 @@ module.exports = function (app, passport) {
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/transition.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/tab.min.js"></script>';
         adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/dropdown.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/dimmer.js"></script>';
+        adminscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/modal.js"></script>';
         //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/js/custom/adminscripts.js"></script>';
         
         var staticstyles = '';

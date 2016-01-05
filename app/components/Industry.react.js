@@ -32,17 +32,26 @@ export default RequireAuth(class Industry extends React.Component {
     _onChange = (state) => {
 
         console.log(state);
-        if(state.ServerResponse){
+        if(state.IndustryList.rows){
             this.pagination = state.IndustryList.pagination;
             state.rows = state.IndustryList.rows;
-            if(this.state.ServerResponse){
-                if(this.state.ServerResponse.message !== ''){
+            if(this.state.ServerResponse && !this.state.ServerResponse.status){
+                if(this.state.ServerResponse.type === 'industrylist' && this.state.ServerResponse.message !== ''){
                     state.message = this.state.ServerResponse.message;
                 }
             }
+            this.setState(state);
+            // this.messageAutoClose(state);
+        }else{
+            state.rows = [];
+            this.setState(state);
+            // this.messageAutoClose(state);
         }
-        this.setState(state);
-        this.messageAutoClose(state);
+        if(this.state.message.trim() !==''){
+			console.log(this.state.message);
+            $('#msg').text(this.state.message);
+            $('.ui.modal').modal('show');
+        }
     }
 
     // Example Pagination
@@ -73,6 +82,7 @@ export default RequireAuth(class Industry extends React.Component {
     messageAutoClose = (state) => {
         if(state.message !== ''){
             setTimeout(function(){
+                console.log('timeout');
                 this.setState({ message: '' });
             }.bind(this),3000);
         }
@@ -86,20 +96,17 @@ export default RequireAuth(class Industry extends React.Component {
             </tr>
         );
         let pagination;
-        let message;
-        if (
+        let a = (
             this.state.ServerResponse &&
             this.state.message !== '' &&
-            (this.state.ServerResponse.type === 'updateindustry'|| this.state.ServerResponse.type === 'deleteindustry')
-        ) {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
+            (
+            this.state.ServerResponse.type === 'updateindustry' ||
+            this.state.ServerResponse.type === 'deleteindustry' ||
+            this.state.ServerResponse.type === 'industrylist'
+            )
+        );
+        console.log(a);
+
 
         try
         {
@@ -147,7 +154,6 @@ export default RequireAuth(class Industry extends React.Component {
                 </div>
                 <div className="ui bottom attached tab segment" data-tab="second">
                     <div>
-                    {message}
                         <table className="ui celled table">
                             <tbody>
                                 <tr>
@@ -160,8 +166,14 @@ export default RequireAuth(class Industry extends React.Component {
                         {pagination}
                     </div>
                 </div>
+                <div className="ui modal">
+                  <i className="close icon"></i>
+                  <div className="header">Message</div>
+                  <div className="content" id="msg"></div>
+                </div>
             </div>
         );
+        
     }
 });
 
@@ -246,9 +258,14 @@ class AddIndustry extends React.Component {
     }
 
     _onChange = (state) => {
-        console.log(state);
-        this.setState(state);
-        this.messageAutoClose(state);
+
+        if(state.ServerResponse && state.ServerResponse.type === 'addindustry'){
+            this.setState(state);
+            // this.messageAutoClose(state);
+            if(state.ServerResponse.status){
+                React.findDOMNode(this.refs.industry).value = '';
+            }
+        }
     }
 
     _onChangeText = (e) => {
@@ -257,10 +274,11 @@ class AddIndustry extends React.Component {
         }
     }
 
-    _onAddIndustry = (model) => {
+    _onAddIndustry = (e) => {
         let industry = React.findDOMNode(this.refs.industry).value.trim();
         IndustryActions.addIndustry({ name: industry, type: 'addindustry' });
         IndustryStore.listen(this._onChange);
+        e.preventDefault();
     }
 
     messageAutoClose = (state) => {
@@ -273,23 +291,11 @@ class AddIndustry extends React.Component {
 
     render() {
 
-        let message = null;
-        if (this.state.ServerResponse && this.state.message !== '' && this.state.ServerResponse.type === 'addindustry') {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
-
         return (
             <div className="form-group">
-                {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
-                        <form className="ui form">
+                        <form className="ui form" onSubmit={this._onAddIndustry}>
                             <div className="field">
                                 <label>Industry name</label>
                                 <input type="text" className="form-control"  onChange={this._onChangeText} ref="industry" />

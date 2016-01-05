@@ -30,9 +30,9 @@ class IndustryActions {
       this.dispatch();
       CommonAdminWebAPIUtils.getIndustries(data)
         .then((response, textStatus) => {
-            if (textStatus === 'success') {
+            //if (response.status) {
                 this.actions.getindustries(response);
-            }
+            //}
         }, () => {
         });
   }
