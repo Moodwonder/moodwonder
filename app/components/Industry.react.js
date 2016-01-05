@@ -48,7 +48,7 @@ export default RequireAuth(class Industry extends React.Component {
             // this.messageAutoClose(state);
         }
         if(this.state.message.trim() !==''){
-			console.log(this.state.message);
+            console.log(this.state.message);
             $('#msg').text(this.state.message);
             $('.ui.modal').modal('show');
         }
@@ -173,7 +173,6 @@ export default RequireAuth(class Industry extends React.Component {
                 </div>
             </div>
         );
-        
     }
 });
 
