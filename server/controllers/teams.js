@@ -456,3 +456,50 @@ exports.getTeamsById = function(req, res, next) {
         res.end();
     }
 };
+
+/**
+ * get my teams
+ *
+ */
+exports.getTeamsByMember = function(req, res, next) {
+
+  var _id = new ObjectId(req.user._id);
+  var condition = { member_ids: { $elemMatch: { _id: _id } } };
+
+  Team.find(condition).exec(function(err, lists) {
+    if(!err) {
+        response.status   = true;
+        response.data  = lists;
+        response.message  = 'Teams';
+        res.send(response);
+        res.end();
+    } else {
+        response.status   = false;
+        response.message  = 'Something went wrong..';
+        res.send(response);
+        res.end();
+    }
+  });
+};
+
+
+exports.getCompanyDetails = function(req, res, next) {
+
+  var company_id = new ObjectId(req.user.company_id);
+  var condition = { _id: company_id };
+  
+  CompanyInfo.findOne(condition).exec(function(err,company){
+    if(!err) {
+        response.status   = true;
+        response.data  = company;
+        response.message  = 'Teams';
+        res.send(response);
+        res.end();
+    } else {
+        response.status   = false;
+        response.message  = 'Something went wrong..';
+        res.send(response);
+        res.end();
+    }
+  });
+};

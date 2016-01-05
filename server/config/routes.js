@@ -84,6 +84,8 @@ module.exports = function (app, passport) {
     app.get('/test', users.test);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
     app.get('/getownteams', users.checkLogin, teams.getOwnTeams);
+    app.get('/getteamsbymember', users.checkLogin, teams.getTeamsByMember);
+    app.get('/getcompanydetails', users.checkLogin, teams.getCompanyDetails);
 
     app.post('/saveengagementsurveyresult', users.checkLogin, surveys.saveEngagementSurveyResult);
     app.post('/getresultsbycompany', users.checkLogin, surveys.getResultsByComapny);
