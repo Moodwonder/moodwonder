@@ -159,9 +159,10 @@ export default class CreatePassword extends React.Component {
               );
           }
       }
-      var pswdForm = null;
+      let pswdForm = null;
       if(!this.state.noPswdForm){
-		    pswdForm = (<div className="ui stacked segment">
+          pswdForm = (
+            <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="password" ref="password" id="password" placeholder=" CREATEPASS_PLACEHOLDER_PASSWORD " />
@@ -169,9 +170,9 @@ export default class CreatePassword extends React.Component {
                   </div>
                 </div>
                 <button className="ui yellow button" onClick={this._onSignupStep2Submit}> CREATEPASS_BTN_CREATE </button>
-              </div>
-            );
-	  }
+            </div>
+          );
+      }
       // console.log(message);
 
       return (
