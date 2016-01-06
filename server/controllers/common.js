@@ -3,7 +3,7 @@ var Industry = require('../models/industry');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
-var secrets = require('../config/secrets');
+var config = require('../config/config');
 
 /**
  *  JSON response format
@@ -1005,8 +1005,8 @@ exports.requestDemo = function(req, res) {
     body = emailTemplate.general(body);
 
     var mailOptions = {
-        from: 'admin@moodwonder.com',
-        to: secrets.adminemail,
+        from: config.fromEmail,
+        to: config.adminemail,
         subject: 'MoodWonder demo request',
         html: body
     };

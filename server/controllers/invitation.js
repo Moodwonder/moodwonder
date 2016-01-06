@@ -11,6 +11,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
 var CompanyInfo = require('../models/companyinfo');
+var config = require('../config/config');
 
 /**
  *  JSON response format
@@ -103,7 +104,7 @@ exports.sendInvitation = function(req, res, next) {
                                     body = emailTemplate.general(body);
 
                                     transporter.sendMail({
-                                        from: 'admin@moodwonder.com',
+                                        from: config.fromEmail,
                                         to: email,
                                         subject: 'You have been invited to join '+ company_name +' on Moodwonder',
                                         html: body
@@ -194,7 +195,7 @@ exports.sendInvitation = function(req, res, next) {
                                             body = emailTemplate.general(body);
 
                                             transporter.sendMail({
-                                                from: 'admin@moodwonder.com',
+                                                from: config.fromEmail,
                                                 to: email,
                                                 subject: 'You have been invited to join '+ company_name +' on Moodwonder',
                                                 html: body
@@ -339,7 +340,7 @@ exports.inviteSignup = function(req, res, next) {
         body = emailTemplate.general(body);
 
         transporter.sendMail({
-            from: 'admin@moodwonder.com',
+            from: config.fromEmail,
             to: email,
             subject: 'Moodwonder invitation',
             html: body
@@ -388,7 +389,7 @@ exports.inviteAnonymously = function(req, res, next) {
                         body = emailTemplate.general(body);
 
                         transporter.sendMail({
-                            from: 'admin@moodwonder.com',
+                            from: config.fromEmail,
                             to: email,
                             subject: 'You have been invited to join '+ company_name +' on Moodwonder',
                             html: body

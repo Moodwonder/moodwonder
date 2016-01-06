@@ -21,7 +21,7 @@ var path = require('path');
 var blockedDomains = require('../config/blocked-domains');
 var VoteRank = require('../models/voterank');
 var moment = require('moment');
-
+var config = require('../config/config');
 PRO_PIC_PATH = '/images/profilepics/';
 BANNER_PIC_PATH = '/images/bannerpics/';
 
@@ -511,7 +511,7 @@ exports.test = function (req, res) {
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
-        from: 'admin@moodwonder.com',
+        from: config.fromEmail,
         to: 'sijo.vijayan@titechnologies.in',
         subject: 'Test mail',
         html: body
@@ -628,7 +628,7 @@ exports.postSignupStep1 = function (req, res, next) {
                                 "<br> Thanks again for joining Moodwonder!";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodwonder.com',
+                            from: config.fromEmail,
                             to: email,
                             subject: 'Welcome to Moodwonder!',
                             html: body
@@ -1323,7 +1323,7 @@ exports.postForgotPassword = function (req, res) {
                     body = emailTemplate.general(body);
 
                     transporter.sendMail({
-                        from: 'admin@moodwonder.com',
+                        from: config.fromEmail,
                         to: email,
                         subject: 'Reset your password',
                         html: body
@@ -1678,7 +1678,7 @@ var job = new CronJob({
             usernamePart = (user.firstname !== '')? 'for '+userfullname : '';
 
             transporter.sendMail({
-                from: 'admin@moodwonder.com',
+                from: config.fromEmail,
                 to: user.email,
                 subject: company_name + ' voting summary '+usernamePart,
                 html: body

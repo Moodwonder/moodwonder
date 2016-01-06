@@ -8,6 +8,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
 var moment = require('moment');
+var config = require('../config/config');
 PRO_PIC_PATH = '/images/profilepics/';
 
 /**
@@ -106,7 +107,7 @@ exports.postVote = function(req, res, next) {
                                             "<br> Moodwonder Team";
                                     body = emailTemplate.general(body);
                                     transporter.sendMail({
-                                        from: 'admin@moodwonder.com',
+                                        from: config.fromEmail,
                                         to: user.email,
                                         subject: 'Good Job! Someone in '+ company_name +' has voted for you',
                                         html: body
@@ -253,7 +254,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                                             "<br> Moodwonder Team";
                                     body = emailTemplate.general(body);
                                     transporter.sendMail({
-                                        from: 'admin@moodwonder.com',
+                                        from: config.fromEmail,
                                         to: user.email,
                                         subject: 'Well done!, You have been receiving the most votes in '+ company_name +'. You should be named as the Employee of the Month!',
                                         html: body

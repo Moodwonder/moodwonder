@@ -1,5 +1,6 @@
 module.exports = {
     //staticUrl: 'http://localhost:3000/'
     staticUrl: 'http://moodwonder.titechnologies.org:9039/',
-    fromEmail: 'admin@moodwonder.com'
+    fromEmail: 'admin@moodwonder.com',
+    adminemail: 'admin@moodwonder.com'
 };
