@@ -32,28 +32,39 @@ export default class RequestDemo extends React.Component {
   _demoFormSubmit = () => {
 
       let errorMsg = [];
+      let error  = false;
       let name   = React.findDOMNode(this.refs.name).value.trim();
       let email  = React.findDOMNode(this.refs.email).value.trim();
       let mobile = React.findDOMNode(this.refs.mobile).value.trim();
       let text   = React.findDOMNode(this.refs.text).value.trim();
 
-      if(name === ''){
+      if((!error) && name === ''){
           //errorMsg.push('Name is required');
           errorMsg[0] = 'Name is required';
+          error = true;
       }
-      if(errorMsg[0] != '' || !this.isValidEmailAddress(email)){
+
+      if((!error) && !this.isValidEmailAddress(email)){
           //errorMsg.push('Invalid email id');
           errorMsg[0] = 'Invalid email id';
+          error = true;
       }
-      if(errorMsg[0] != '' || text === ''){
+
+      if((!error) && text === ''){
           errorMsg[0] = 'Please enter your requirements';
+          error = true;
       }
+
       if(errorMsg.length === 0){
           HomePageActions.requestDemo({
                 name: name,
                 email: email,
                 mobile: mobile,
                 text: text
+          });
+          this.setState({
+            messages: errorMsg,
+            hasErrorMessage: false
           });
       }else{
           this.setState({
