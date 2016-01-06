@@ -1,13 +1,14 @@
 var _ = require('lodash');
 var User = require('../models/user');
 var Vote = require('../models/vote');
+var VoteRank = require('../models/voterank');
 var EOTM = require('../models/employeeOfTheMonth');
+var CompanyInfo = require('../models/companyinfo');
 var ObjectId = require('mongoose').Types.ObjectId;
 var nodemailer = require("nodemailer");
 var emailTemplate = require('../email/emailtemplates');
-
+var moment = require('moment');
 PRO_PIC_PATH = '/images/profilepics/';
-
 
 /**
  *  JSON response format
@@ -88,26 +89,45 @@ exports.postVote = function(req, res, next) {
                     response.message = 'success';
 
                     try{
-                        votefor_userid = new ObjectId(votefor_userid);
-                        User.findOne({ _id: votefor_userid }, function(err, user){
-                            var transporter = nodemailer.createTransport();
-                            var body = "Hi "+user.firstname+", You have got one more vote through MoodWonder which might help you to get the Employee of the Month position. <br> Congrats!" +
-                                    "<br><br> Best wishes" +
-                                    "<br> Moodwonder Team";
-                            body = emailTemplate.general(body);
-                            transporter.sendMail({
-                                from: 'admin@moodwonder.com',
-                                to: user.email,
-                                subject: 'Moodwonder - vote cast',
-                                html: body
-                            });
+                        // Find company details
+                        CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
+                            // If company exist
+                            if (!err && companyinfo !== null) {
+                                var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+                                votefor_userid = new ObjectId(votefor_userid);
+                                User.findOne({ _id: votefor_userid }, function(err, user){
+                                    var transporter = nodemailer.createTransport();
+                                    var link = 'http://' + req.get('host') + '/employeeofthemonth';
+                                    var body = "Hooray "+user.firstname+"! <br><br>" +
+                                            "Someone in "+ company_name +" has voted for you on Moodwonder! You have done something remarkable or shown you are a great team player! Congrats! <br><br>" +
+                                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
+                                            "It's time to cast your vote and thank someone for being a great colleague or for doing a great job!<br><br>" +
+                                            "Thanks,"+
+                                            "<br> Moodwonder Team";
+                                    body = emailTemplate.general(body);
+                                    transporter.sendMail({
+                                        from: 'admin@moodwonder.com',
+                                        to: user.email,
+                                        subject: 'Good Job! Someone in '+ company_name +' has voted for you',
+                                        html: body
+                                    });
+                                    var postdate = moment().format('YYYY-MM-01');
+                                    var conditions  = { user_id: user._id, company_id : companyinfo._id, postdate : postdate };
+                                    var update  = { user_id: user._id, company_id : companyinfo._id, $inc: { count : 1 }, postdate : postdate };
+                                    var options = { upsert: true };
+                                    VoteRank.update(conditions, update, options, function (err) {
+                                        // console.log('Vote rank updated');
+                                    });
+                                });
+                            }else{
+                                console.log('Company record not found.');
+                            }
                         });
                     }
                     catch(e)
                     {
-                        console.log('Vote email - Error');
+                        console.log('Vote email - Error'+e);
                     }
-
                 } else {
                     response.status = false;
                     response.message = 'something went wrong';
@@ -219,17 +239,35 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                 eotm.save(function (err) {
                     if (!err) {
 
-                        var transporter = nodemailer.createTransport();
-                        var body = "Hi,<br><br>Congratulations! You have been selected as the 'Employee of the Month' <br>" +
-                                "<br><br> Best wishes" +
-                                "<br> Moodwonder Team";
-                        body = emailTemplate.general(body);
-                        transporter.sendMail({
-                            from: 'admin@moodwonder.com',
-                            to: user.email,
-                            subject: 'Employee of the month',
-                            html: body
-                        });
+                        try{
+                            // Find company details
+                            CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
+                                // If company exist
+                                if (!err && companyinfo !== null) {
+                                    var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+                                    var transporter = nodemailer.createTransport();
+                                    var link = 'http://' + req.get('host') + '/publicprofile/'+user._id;
+                                    var body = "Congratulations "+ user.firstname +' '+ user.lastname +"! You have received the most votes in Moodwonder within "+ company_name +" this month!<br><br>" +
+                                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Check it out</a> <br><br>" +
+                                            "Thanks,"+
+                                            "<br> Moodwonder Team";
+                                    body = emailTemplate.general(body);
+                                    transporter.sendMail({
+                                        from: 'admin@moodwonder.com',
+                                        to: user.email,
+                                        subject: 'Well done!, You have been receiving the most votes in '+ company_name +'. You should be named as the Employee of the Month!',
+                                        html: body
+                                    });
+                                }else{
+                                    console.log('Company record not found.');
+                                }
+                            });
+                        }
+                        catch(e)
+                        {
+                            console.log('Vote email - Error'+e);
+                        }
+
                         response.status = true;
                         response.message = 'success';
                     } else {

@@ -26,6 +26,7 @@ var UserSchema = new mongoose.Schema({
   company_id :{type: String, default: ''},
   summary: {type: String, default: ''},
   verifylink: {type: String, default: ''},
+  verifylink_date: {type: String, default: ''},
   userstatus: {type: String, default: 'Active'}
 });
 

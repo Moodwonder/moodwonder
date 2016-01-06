@@ -74,17 +74,47 @@ exports.sendInvitation = function(req, res, next) {
                 }else{
                     invite.save(function(err) {
                         if(!err){
-                            var transporter = nodemailer.createTransport();
-                            var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                            "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
-                            "<br><br> Best wishes"+
-                            "<br> Moodwonder Team";
-                            body = emailTemplate.general(body);
-                            transporter.sendMail({
-                                from: 'admin@moodwonder.com',
-                                to: email,
-                                subject: 'Moodwonder invitation',
-                                html: body
+
+                            // Find company details
+                            CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
+
+                                // If company exist
+                                if (!err && companyinfo !== null) {
+                                    var invitedby   = req.body.invitedby;
+                                    if(invitedby && invitedby === 'manager'){
+                                        // Invited by Team manager
+                                        invitedby = 'Yay! Your manager in ';
+                                    }else if(invitedby && invitedby === 'colleague'){
+                                        // Invite as a manager
+                                        invitedby = 'Your colleague in ';
+                                    }
+
+                                    var link = 'http://' + req.get('host') + '/invitesignup/' +inviteString;
+                                    var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+                                    var transporter = nodemailer.createTransport();
+                                    var body = "Welcome to Moodwonder! <br><br>" +
+                                                invitedby + company_name +" has invited you to join Moodwonder. <br><br>" +
+                                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                                "You may copy/paste this link into your browser: <br><br>" +
+                                                "registration: " + link + "<br><br>" +
+                                                "Thanks," +
+                                                "<br> Moodwonder Team";
+
+                                    body = emailTemplate.general(body);
+
+                                    transporter.sendMail({
+                                        from: 'admin@moodwonder.com',
+                                        to: email,
+                                        subject: 'You have been invited to join '+ company_name +' on Moodwonder',
+                                        html: body
+                                    }, function(error, info){
+                                        if(error){
+                                            // Error handling
+                                        }
+                                    });
+                                }else{
+                                    console.log('Company record not found.');
+                                }
                             });
                             feedback.push('Invitation sent successfully');
                         }else{
@@ -136,18 +166,48 @@ exports.sendInvitation = function(req, res, next) {
                             invite.save(function(err) {
                                 if(!err){
 
-                                    var transporter = nodemailer.createTransport();
-                                    var body = "Hi,<br><br> Welcome to moodwonder. <br>"+
-                                    "<b>Click here to join :</b>"+ ' http://'+req.get('host') +'/invitesignup/'+inviteString+
-                                    "<br><br> Best wishes"+
-                                    "<br> Moodwonder Team";
-                                    body = emailTemplate.general(body);
-                                    transporter.sendMail({
-                                        from: 'admin@moodwonder.com',
-                                        to: email,
-                                        subject: 'Moodwonder invitation',
-                                        html: body
+                            // Find company details
+                            CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
+
+                                        // If company exist
+                                        if (!err && companyinfo !== null) {
+                                            var invitedby   = req.body.invitedby;
+                                            if(invitedby && invitedby === 'manager'){
+                                                // Invited by Team manager
+                                                invitedby = 'Yay! Your manager in ';
+                                            }else if(invitedby && invitedby === 'colleague'){
+                                                // Invite as a manager
+                                                invitedby = 'Your colleague in ';
+                                            }
+
+                                            var link = 'http://' + req.get('host') + '/invitesignup/' +inviteString;
+                                            var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+                                            var transporter = nodemailer.createTransport();
+                                            var body = "Welcome to Moodwonder! <br><br>" +
+                                                        invitedby + company_name +" has invited you to join Moodwonder. <br><br>" +
+                                                        "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                                        "You may copy/paste this link into your browser: <br><br>" +
+                                                        "registration: " + link + "<br><br>" +
+                                                        "Thanks," +
+                                                        "<br> Moodwonder Team";
+
+                                            body = emailTemplate.general(body);
+
+                                            transporter.sendMail({
+                                                from: 'admin@moodwonder.com',
+                                                to: email,
+                                                subject: 'You have been invited to join '+ company_name +' on Moodwonder',
+                                                html: body
+                                            }, function(error, info){
+                                                if(error){
+                                                    // Error handling
+                                                }
+                                            });
+                                        }else{
+                                            console.log('Company record not found.');
+                                        }
                                     });
+                                    
                                     response.status = true;
                                     response.message = 'Invitation sent successfully';
                                     res.send(response);
@@ -309,45 +369,56 @@ exports.inviteAnonymously = function(req, res, next) {
     var email = req.body.email;
     if(email!==''){
 
-		User.findOne( { email: email }, function(err, record) {
-			if(!record){
+        User.findOne( { email: email }, function(err, record) {
+            if(!record){
 
-				var transporter = nodemailer.createTransport();
-				var body = "Hi There,<br><br> <br>"+
-				"<br><br> You've been invited to join moodwonder.com"+
-				"<br> Sincerely,"+
-				"<br> MoodWonder team";
+                // Find company details
+                CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
 
-				body = emailTemplate.general(body);
+                    // If company exist
+                    if (!err && companyinfo !== null) {
 
-				transporter.sendMail({
-					from: 'admin@moodwonder.com',
-					to: email,
-					subject: 'Moodwonder invitation',
-					html: body
-				}, function(error, info){
-					if(error){
-						// Error handling
-					}
-				});
+                        var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+                        var transporter = nodemailer.createTransport();
+                        var body = "Welcome to Moodwonder! <br><br>" +
+                                    "Yay! Someone has invited you anynomously to join Moodwonder.! <br><br>" +
+                                    "Best wishes" +
+                                    "<br> Thanks again for joining Moodwonder!";
 
-				response.status = true;
-				response.message = 'Invitation sent successfully';
-				res.send(response);
-				res.end();
+                        body = emailTemplate.general(body);
 
-			}else{
-				response.status = false;
-				response.message = 'The email address you have entered is already registered';
-				res.send(response);
-				res.end();
-			}
-		});
+                        transporter.sendMail({
+                            from: 'admin@moodwonder.com',
+                            to: email,
+                            subject: 'You have been invited to join '+ company_name +' on Moodwonder',
+                            html: body
+                        }, function(error, info){
+                            if(error){
+                                // Error handling
+                            }
+                        });
+                    }else{
+                        console.log('Company record not found.');
+                    }
+                });
+
+                response.status = true;
+                response.message = 'Invitation sent successfully';
+                res.send(response);
+                res.end();
+
+            }else{
+                response.status = false;
+                response.message = 'The email address you have entered is already registered';
+                res.send(response);
+                res.end();
+            }
+        });
 
     }else{
-		response.status = false;
-		response.message = 'error';
-		res.send(response);
-		res.end();
+        response.status = false;
+        response.message = 'error';
+        res.send(response);
+        res.end();
     }
 };

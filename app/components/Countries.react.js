@@ -43,11 +43,14 @@ export default RequireAuth(class Countries extends React.Component {
                 }
             }
             this.setState(state);
-            this.messageAutoClose(state);
         }else{
             state.rows = [];
             this.setState(state);
-            this.messageAutoClose(state);
+        }
+        if(this.state.message.trim() !==''){
+            console.log(this.state.message);
+            $('#msg').text(this.state.message);
+            $('.ui.modal').modal('show');
         }
     }
 
@@ -82,47 +85,10 @@ export default RequireAuth(class Countries extends React.Component {
         }
     }
 
-    messageAutoClose = (state) => {
-        if(state.message !== ''){
-            setTimeout(function(){
-                this.setState({ message: '' });
-            }.bind(this),3000);
-        }
-    }
-
     render() {
 
         let rows;
         let pagination;
-        let message;
-
-        if (this.state.hasError && this.state.message !==''){
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
-
-        if (
-            this.state.ServerResponse &&
-            this.state.message !== '' &&
-            (
-                this.state.ServerResponse.type === 'updatecountry'||
-                this.state.ServerResponse.type === 'deletecountry'||
-                this.state.hasError
-            )
-        ) {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
 
         try
         {
@@ -173,7 +139,6 @@ export default RequireAuth(class Countries extends React.Component {
                 </div>
                 <div className="ui bottom attached tab segment" data-tab="second">
                     <div>
-                    {message}
                         <table className="ui celled table">
                             <tbody>
                                 <tr>
@@ -186,6 +151,11 @@ export default RequireAuth(class Countries extends React.Component {
                         </table>
                         {pagination}
                     </div>
+                </div>
+                <div className="ui modal">
+                  <i className="close icon"></i>
+                  <div className="header">Message</div>
+                  <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -273,7 +243,6 @@ class AddCountries extends React.Component {
 
     _onChange = (state) => {
         this.setState(state);
-        this.messageAutoClose(state);
         if(state.ServerResponse.status){
             React.findDOMNode(this.refs.country).value = '';
         }
@@ -296,30 +265,10 @@ class AddCountries extends React.Component {
         e.preventDefault();
     }
 
-    messageAutoClose = (state) => {
-        if(state.message !== ''){
-            setTimeout(function(){
-                this.setState({ message: '' });
-            }.bind(this),3000);
-        }
-    }
-
     render() {
-
-        let message = null;
-        if (this.state.ServerResponse && this.state.message !== '' && this.state.ServerResponse.type === 'addcountry') {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
 
         return (
             <div className="form-group">
-                {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
                         <form className="ui form" onSubmit={this._onAddCountries}>
