@@ -246,6 +246,58 @@ class SurveyActions {
       //this.dispatch(data);
   }
 
+  getTeamsByMember() {
+      this.dispatch();
+      SurveyWebAPIUtils.getTeamsByMember()
+      .then((response, textStatus) => {
+          if (response.status) {
+              //console.log('teams');
+              //console.log(JSON.stringify(response.data));
+              this.actions.teamsbymember(response.data);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  teamsbymember(data)
+  {
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
+  }
+
+  getCompanyDetails() {
+      this.dispatch();
+      SurveyWebAPIUtils.getCompanyDetails()
+      .then((response, textStatus) => {
+          if (response.status) {
+              //console.log('teams');
+              //console.log(JSON.stringify(response.data));
+              this.actions.companydetails(response.data);
+          }
+      }, () => {
+        // Dispatch another event for a bad request
+      });
+  }
+
+  companydetails(data)
+  {
+      if (alt.dispatcher.$Dispatcher_isDispatching) {
+          window.setTimeout(() => {
+              this.dispatch(data);
+          });
+      } else {
+          this.dispatch(data);
+      }
+      //this.dispatch(data);
+  }
+
 }
 
 export default alt.createActions(SurveyActions);

@@ -22,6 +22,8 @@ class SurveyStore {
       this.currentuserid = '';
       this.totalcompanyusers = '';
       this.teams = [];
+      this.memberteams = [];
+      this.companyDetails = [];
 
       //Start :Company statistics
       this.companyedata = [];
@@ -39,10 +41,12 @@ class SurveyStore {
       handleResultsByIndustry: SurveyActions.RESULTSBYINDUSTRY,
       handleResultsByCountry: SurveyActions.RESULTSBYCOUNTRY,
       handleEngagingManagers: SurveyActions.MOSTENGAGINGMANAGERS,
-      handleMyTeams: SurveyActions.MYTEAMS,
+      handleMyTeams: SurveyActions.MYTEAMS, // For the case of managers
+      handleTeamsByMember: SurveyActions.TEAMSBYMEMBER, // For team members
 
       //Start :Company statistics
-      handleCompanyData: SurveyActions.COMPANYDATA
+      handleCompanyData: SurveyActions.COMPANYDATA,
+      handleCompanyDetails: SurveyActions.COMPANYDETAILS
       //End :Company statistics
     });
   }
@@ -121,6 +125,18 @@ class SurveyStore {
   handleMyTeams (data) {
       this.teams = [];
       this.teams = data;
+      this.emitChange();
+  }
+
+  handleTeamsByMember (data) {
+      this.memberteams = [];
+      this.memberteams = data;
+      this.emitChange();
+  }
+
+  handleCompanyDetails (data) {
+      this.companyDetails = [];
+      this.companyDetails = data;
       this.emitChange();
   }
 

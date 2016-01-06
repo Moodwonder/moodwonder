@@ -46,7 +46,8 @@ export default class MyCompany extends React.Component {
           graphtabclick: false,
           loggeduserid: '',
           teams: [],
-          userDetails: [],
+          memberteams: [],
+          companyDetails: [],
           multilang: MlangStore.getState().multilang
       };
       this.engagementmoods = [];
@@ -58,16 +59,15 @@ export default class MyCompany extends React.Component {
       //SurveyActions.getMostEngagingManagers();
       //SurveyActions.getEngagementSurvey();
       SurveyActions.getMyTeams();
+      SurveyActions.getTeamsByMember();
+      SurveyActions.getCompanyDetails();
       SurveyStore.listen(this._onChangeData);
 
-      UserActions.getcompanyinfo();
       UserActions.getCurrentUserId();
-      UserStore.listen(this._onChangeUserData);
   }
 
   componentWillUnmount() {
       SurveyStore.unlisten(this._onChangeData);
-      UserStore.unlisten(this._onChangeUserData);
   }
 
   componentDidUpdate () {
@@ -83,18 +83,14 @@ export default class MyCompany extends React.Component {
          companyedata: SurveyStore.getState().companyedata,
          questions : SurveyStore.getState().questions,
          loggeduserid: SurveyStore.getState().loggeduserid,
-         teams: SurveyStore.getState().teams
+         teams: SurveyStore.getState().teams,
+         memberteams: SurveyStore.getState().memberteams,
+         companyDetails: SurveyStore.getState().companyDetails
       });
 
       //this.engagementmoods = this.state.questions.map((data, key) => {
       //    return data.mood;
       //});
-  }
-
-  _onChangeUserData = () => {
-      this.setState({
-         userDetails: UserStore.getState().userDetails
-      });
   }
 
   engagementGraphClick = (e) => {
@@ -166,7 +162,8 @@ export default class MyCompany extends React.Component {
       let graphengagement = this.state.graphengagement;
       let loggeduserid = this.state.loggeduserid;
       let teams = this.state.teams;
-      let userDetails = this.state.userDetails;
+      let memberteams = this.state.memberteams;
+      let companyDetails = this.state.companyDetails;
       let mlarray = this.state.multilang;
 
 
@@ -390,9 +387,9 @@ export default class MyCompany extends React.Component {
       chartdata.datasets = datasets;
 
       let companyname;
-      if (userDetails === undefined || userDetails.length == 0) {
+      if (companyDetails === undefined || companyDetails.length == 0) {
       } else {
-          companyname = userDetails.companyname;
+          companyname = companyDetails.companyname;
       }
 
       let cmpGraph;
@@ -411,9 +408,11 @@ export default class MyCompany extends React.Component {
       }
       //End : CompanyGraphdata
 
+      let uniqueteams = _.uniq(teams.concat(memberteams), function(item, key, _id) {
+          return item._id;
+      });
 
-      //Start : Team Graph Data
-      let teamgraph = teams.map((data, key) => {
+      let teamgraph = (uniqueteams).map((data, key) => {
 
           let teamGraphData = CompanyGraphdata.getTeamEngagementGraphData(graphengagement, companyedata, data.member_ids);
           if (teamGraphData === undefined || teamGraphData.length == 0) {

@@ -82,6 +82,22 @@ const utils = {
       type: 'GET',
       contentType: 'application/json'
     });
+  },
+
+  getTeamsByMember: () => {
+      return $.ajax({
+      url: '/getteamsbymember',
+      type: 'GET',
+      contentType: 'application/json'
+    });
+  },
+
+  getCompanyDetails: () => {
+      return $.ajax({
+      url: '/getcompanydetails',
+      type: 'GET',
+      contentType: 'application/json'
+    });
   }
 
 };
