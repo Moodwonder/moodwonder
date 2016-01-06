@@ -816,7 +816,8 @@ exports.postSignupStep2 = function (req, res, next) {
 
 				if(document.verifylink_date && document.verifylink_date !== ''){
 
-					var ms = moment(verifylink_date,"YYYY-MM-DD HH:mm:ss").diff(moment());
+					var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+					console.log(ms);
 					// 86400000 ms = 24 hours
 					if(ms > 86400000){
 						response.status = false;
@@ -3171,3 +3172,54 @@ exports.handleInviteSignup = function(req, res, next) {
   });
 
 };
+
+exports.handleSetPassword = function(req, res, next) {
+
+    var verifyString = req.params.hash.trim();
+    var ErrorState = {};
+
+    if (verifyString == '') {
+
+        response.status = false;
+        response.message = 'Invalid verification link';
+
+    } else {
+
+        var conditions = { verifylink: verifyString };
+
+        /**
+         * Checking the verifylink is exist in the user collections
+         */
+        User.findOne(conditions, function (err, document) {
+
+            if (document !== null) {
+
+				if(document.verifylink_date && document.verifylink_date !== ''){
+
+					var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+					// console.log(ms);
+					// 86400000 ms = 24 hours
+					if(ms > 86400000){
+						ErrorState.hasError  =   true;
+						ErrorState.noPswdForm =   true;
+						ErrorState.message = 'Verification link has expired';
+						req.body.ErrorState = ErrorState;
+						next();
+					}else{
+						next();
+					}
+				}else{
+					next();
+				}
+            } else {
+
+				ErrorState.hasError  =   true;
+				ErrorState.noPswdForm =   true;
+				ErrorState.message = 'Invalid verification link';
+				req.body.ErrorState = ErrorState;
+				next();
+            }
+        });
+    }
+};
+
