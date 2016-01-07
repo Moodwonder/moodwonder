@@ -1,0 +1,13 @@
+db.engagementAreas.insert({ "description" : "I am happy at work today", "status" : "active", "mood" : "Mood" });
+db.engagementAreas.insert({ "description" : "My company is a workplace to make meaningful things", "status" : "active", "mood" : "Meaning" });
+db.engagementAreas.insert({ "description" : "I know what my manager expects of me", "status" : "active", "mood" : "Expectations" });
+db.engagementAreas.insert({ "description" : "I am using my strengths at work", "status" : "active", "mood" : "Strengths" });
+db.engagementAreas.insert({ "description" : "My manager recognizes me sufficiently for a job well done", "status" : "active", "mood" : "Recognition" });
+db.engagementAreas.insert({ "description" : "My manager supports my personal development", "status" : "active", "mood" : "Development" });
+db.engagementAreas.insert({ "description" : "My opinions make a difference at my workplace", "status" : "active", "mood" : "Influence" });
+db.engagementAreas.insert({ "description" : "I understand how I can contribute to the goals of my company", "status" : "active", "mood" : "Goals" });
+db.engagementAreas.insert({ "description" : "I am surrounded by colleagues who are motivated and doing great things", "status" : "active", "mood" : "Team" });
+db.engagementAreas.insert({ "description" : "I have a close friends at work", "status" : "active", "mood" : "Friendship" });
+db.engagementAreas.insert({ "description" : "I receive frequent feedback in order to progress in my role", "status" : "active", "mood" : "Feedback" });
+db.engagementAreas.insert({ "description" : "I have opportunities to learn and grow", "status" : "active", "mood" : "Opportunities" });
+db.engagementAreas.insert({ "description" : "I would recommend my workplace to my friends", "status" : "active", "mood" : "Recommendation" });

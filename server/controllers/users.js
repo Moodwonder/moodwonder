@@ -19,7 +19,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var fs = require('fs');
 var path = require('path');
 var blockedDomains = require('../config/blocked-domains');
-
+var VoteRank = require('../models/voterank');
+var moment = require('moment');
+var config = require('../config/config');
 PRO_PIC_PATH = '/images/profilepics/';
 BANNER_PIC_PATH = '/images/bannerpics/';
 
@@ -509,7 +511,7 @@ exports.test = function (req, res) {
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
-        from: 'admin@moodwonder.com',
+        from: config.fromEmail,
         to: 'sijo.vijayan@titechnologies.in',
         subject: 'Test mail',
         html: body
@@ -536,6 +538,9 @@ exports.getLogout = function (req, res, next) {
  */
 exports.postSignupStep1 = function (req, res, next) {
 
+    /************************************************
+       Make same changes in handleInviteSignup
+    ************************************************/
     var response = {};
     req.body.email = req.body.email.toLowerCase();
     var email = req.body.email;
@@ -583,13 +588,21 @@ exports.postSignupStep1 = function (req, res, next) {
 
                     var afterCompanyDetails = function(companyinfo){
 
+                        // Make same changes in handleInviteSignup
+                        var thismonth = moment().format('YYYY-MM-01');
+                        var query  = { company_id : companyinfo._id, user_id: newuser._id, postdate : thismonth };
+                        var newVoteRank = new VoteRank(query);
+                        newVoteRank.save(function (err, doc) {
+                            console.log('Vote rank inserted');
+                        });
                         // console.log(companyinfo);
                         // Update company id in User collection
                         var conditions = {
                             _id: new ObjectId(newuser._id)
                         };
 
-                        var update  = { company_id : companyinfo._id};
+                        var today = moment().format('YYYY-MM-DD HH:mm:ss');
+                        var update  = { company_id : companyinfo._id, verifylink_date: today };
                         var options = { multi: false };
                         User.update(conditions, update, options, function (err) {
                             if (!err) {
@@ -601,17 +614,23 @@ exports.postSignupStep1 = function (req, res, next) {
                             }
                         });
 
+                        var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
                         var link = 'http://' + req.get('host') + '/createpassword/' +verifystring;
                         var transporter = nodemailer.createTransport();
-                        var body = "Hi,<br><br> To complete your registration and verify your email please use the following link <br>" +
-                                "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
-                                "<br><br> Best wishes" +
-                                "<br> Moodwonder Team";
+                        var body = "Welcome to Moodwonder!,<br><br>" +
+                                "We're happy you're here.<br><br>" +
+                                "When you created "+company_name+" account, we didn't ask you to set a password. Let's do that now!<br><br>" +
+                                "If you don't set a password within a day, you will not be able to use the link below.<br><br>" +
+                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                "You may copy/paste this link into your browser: <br><br>" +
+                                "registration: " + link + "<br><br>" +
+                                "Best wishes" +
+                                "<br> Thanks again for joining Moodwonder!";
                         body = emailTemplate.general(body);
                         transporter.sendMail({
-                            from: 'admin@moodwonder.com',
+                            from: config.fromEmail,
                             to: email,
-                            subject: 'Create password',
+                            subject: 'Welcome to Moodwonder!',
                             html: body
                         });
 
@@ -774,23 +793,44 @@ exports.postSignupStep2 = function (req, res, next) {
          */
         User.findOne(conditions, function (err, document) {
 
-            if (document) {
-                User.update(conditions, update, options, function (err) {
-                    if (!err) {
+            if (document !== null) {
 
-                        response.status = true;
-                        response.message = 'Password created';
-                        req.body.email = document.email;
-                        req.body.password = req.body.real_password;
-                        next();
-                    } else {
+                var afterLinkValidityCheck = function(){
+                    User.update(conditions, update, options, function (err) {
+                        if (!err) {
 
+                            response.status = true;
+                            response.message = 'Password created';
+                            req.body.email = document.email;
+                            req.body.password = req.body.real_password;
+                            next();
+                        } else {
+
+                            response.status = false;
+                            response.message = 'Something went wrong..';
+                            res.send(response);
+                            res.end();
+                        }
+                    });
+                }
+
+                if(document.verifylink_date && document.verifylink_date !== ''){
+
+                    var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+                    console.log(ms);
+                    // 86400000 ms = 24 hours
+                    if(ms > 86400000){
                         response.status = false;
-                        response.message = 'Something went wrong..';
+                        response.message = 'Verification link has expired';
                         res.send(response);
                         res.end();
+                    }else{
+                        afterLinkValidityCheck();
                     }
-                });
+                }else{
+                    afterLinkValidityCheck();
+                }
+
             } else {
 
                 response.status = false;
@@ -1081,6 +1121,7 @@ exports.postSaveManagerInfo = function (req, res, next) {
                 // console.log((req.body.searchData._id.toString() === '0'));
                 if(req.body.searchData._id.toString() === '0'){
                     req.body.type = "managerinfo";
+                    req.body.invitedby = "colleague";
                     req.body.invitetype = "Signup";
                     req.body.email = model.email;
                     req.body.data = req.body;
@@ -1096,58 +1137,58 @@ exports.postSaveManagerInfo = function (req, res, next) {
 
     // check this user is existing as subordinate
     if(req.body.email !== req.user.email){
-		if(req.body.searchData && req.body.searchData._id.toString() !== '0'){
-			try{
-				var condition = {
-					manager_id: new ObjectId(req.user._id),
-					member_ids: {
-						$elemMatch: {
-							_id: new ObjectId(req.body.searchData._id),
-						}
-					}
-				};
-				Team.findOne(condition, function(err, team){
-					if(!err && team !== null){
-						response.message = "You can't add your subordinate as your manager";
-						res.send(response);
-						res.end();
-					}else{
-						afterFeasibilityCheck();
-					}
-				});
+        if(req.body.searchData && req.body.searchData._id.toString() !== '0'){
+            try{
+                var condition = {
+                    manager_id: new ObjectId(req.user._id),
+                    member_ids: {
+                        $elemMatch: {
+                            _id: new ObjectId(req.body.searchData._id),
+                        }
+                    }
+                };
+                Team.findOne(condition, function(err, team){
+                    if(!err && team !== null){
+                        response.message = "You can't add your subordinate as your manager";
+                        res.send(response);
+                        res.end();
+                    }else{
+                        afterFeasibilityCheck();
+                    }
+                });
 
-			}catch(e){
-				console.log(e);
-			}
-		}else{
-			try{
-				var condition = {
-					email : req.body.searchData.email,
-					type : "Team",
-					reference: {
-						$elemMatch: {
-							manager_id: new ObjectId(req.user._id),
-						}
-					}
-				};
-				Invite.findOne(condition, function(err, team){
-					if(!err && team !== null){
-						response.message = "You have already invited this user as your subordinate";
-						res.send(response);
-						res.end();
-					}else{
-						afterFeasibilityCheck();
-					}
-				});
-			}catch(e){
-				console.log(e);
-			}
-		}
-	}else{
-		response.message = "You can't add your self as your manager";
-		res.send(response);
-		res.end();
-	}
+            }catch(e){
+                console.log(e);
+            }
+        }else{
+            try{
+                var condition = {
+                    email : req.body.searchData.email,
+                    type : "Team",
+                    reference: {
+                        $elemMatch: {
+                            manager_id: new ObjectId(req.user._id),
+                        }
+                    }
+                };
+                Invite.findOne(condition, function(err, team){
+                    if(!err && team !== null){
+                        response.message = "You have already invited this user as your subordinate";
+                        res.send(response);
+                        res.end();
+                    }else{
+                        afterFeasibilityCheck();
+                    }
+                });
+            }catch(e){
+                console.log(e);
+            }
+        }
+    }else{
+        response.message = "You can't add your self as your manager";
+        res.send(response);
+        res.end();
+    }
 };
 
 
@@ -1273,16 +1314,18 @@ exports.postForgotPassword = function (req, res) {
 
                     var link = 'http://' + req.get('host') + '/createpassword/' + verifystring;
                     var transporter = nodemailer.createTransport();
-                    var body = "Hi,<br><br> To reset your password please use the following link <br>" +
-                            "<b>Click here :</b> <a href='" + link + "'>"+ link + "<a>" +
-                            "<br><br> Best wishes" +
-                            "<br> Moodwonder Team";
+                    var body = "To reset your password please click the following button: <br><br>" +
+                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                            "You may copy/paste this link into your browser: <br><br>" +
+                            "registration: " + link + "<br><br>" +
+                            "Best wishes" +
+                            "<br> Thanks again for joining Moodwonder!";
                     body = emailTemplate.general(body);
 
                     transporter.sendMail({
-                        from: 'admin@moodwonder.com',
+                        from: config.fromEmail,
                         to: email,
-                        subject: 'Reset password',
+                        subject: 'Reset your password',
                         html: body
                     });
                     response.status = true;
@@ -1382,6 +1425,7 @@ exports.usersInTeams = function (req, res) {
     var response = {};
     response.status = false;
     response.message = 'Error';
+    response.type = 'usersInTeams';
 
     var team_users_result = [];
     var teamlength = req.body.resdata.length;
@@ -1609,125 +1653,112 @@ exports.sendEOTMstats = function (req, res) {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob({
-  cronTime: '10 30 06 22 * 1-5',
+  cronTime: '00 59 23 * * *',
   onTick: function() {
+    /*
+    * Runs every day 
+    * at 23:59:00 AM. 
+    * cronTime: '00 59 23 * * *',
+    */
 
-    var transporter = nodemailer.createTransport();
-    function company(mycompany,EOTMdate){
-        var elmatch = { companyname: mycompany };
-        User.find({ company_info: { $elemMatch: elmatch } }).exec(function (err, lists) {
-            if (!err) {
+    var sendVoteSummary = function(_id,rank,count,company){
 
-                Vote.aggregate([
-                    {
-                        $match: {
-                            postdate:
-                            {
-                                $regex : new RegExp(EOTMdate,'i')
-                            },
-                            company: mycompany
-                        }
-                    },
-                    {
-                        $group : {
-                            _id : "$votefor_userid",
-                            total : { $sum : 1 },
-                            user_ids: {
-                                $push: "$user_id"
-                             }
-                        }
+        User.findOne({ _id: new ObjectId(_id) }, function (err, user) {
+            var company_name = (company.companyname.trim() !== '')? company.companyname: company.domain_name;
+            var transporter = nodemailer.createTransport();
+
+            var userfullname = user.firstname+' '+user.lastname ;
+            var body =     userfullname + ", here is your current vote summary <br><br>" +
+                        "Number of votes you have this far :  "+ count +" <br><br>" +
+                        "You currently stand at position " + rank + " to become 'Employee of the Month'. Keep up the great work and we wish you all the best!<br><br>" +
+                        "Thanks," +
+                        "<br>Moodwonder Team";
+
+            body = emailTemplate.general(body);
+
+            usernamePart = (user.firstname !== '')? 'for '+userfullname : '';
+            console.log(user.email);
+
+            transporter.sendMail({
+                from: config.fromEmail,
+                to: user.email,
+                subject: company_name + ' voting summary '+usernamePart,
+                html: body
+            }, function(error, info){
+                if(error){
+                    // Error handling
+                }
+            });
+        });
+    }
+
+    var loopUsers = function(company){
+        // var month = moment().subtract(1, 'months').format('YYYY-MM-01');
+        var month = moment().format('YYYY-MM-01');
+        VoteRank.find({ company_id: company._id, postdate: month }).sort({count: -1}).exec(function(err, voterank){
+            if(!err && voterank!==null){
+                var rank = 0;
+                var old_count = 0;
+                voterank.map(function (data, key) {
+                    if(old_count !== data.count){
+                        rank++;
                     }
-                ],
-                function (err, result) {
-                    var emp_meta = {};
-                    if (err) {
-                        console.log(err);
-                    }else{
-                        result.map(function (data, key) {
-                            emp_meta[data._id] = data;
-                        });
+                    if( rank === 0 ){
+                        rank++;
                     }
-
-                    EOTM.findOne({ date: { $regex : new RegExp(EOTMdate,'i') }, company: mycompany }, function(err, emp){
-                        var mailDate = [];
-                        lists.map(function (data, key) {
-
-                            var empofthemonth =   false;
-                            if(emp !== null){
-                                empofthemonth =   emp.emp_details[0].firstname +' '+emp.emp_details[0].lastname;
-                            }
-                            var votes         =   0;
-                            if(emp_meta[data._id] !== undefined){
-                                var cemp      =   emp_meta[data._id];
-                                var userids   =   emp_meta[data._id].user_ids;
-                                var user_ids  =   [];
-                                userids.map(function (id, key) { user_ids[key] = id.toString(); });
-                                votes         =  cemp.total;
-                            }
-                            mailDate[key]  = { _id: data._id, email: data.email,name: (data.firstname+' '+data.lastname), votes: votes, empofthemonth: empofthemonth };
-                        });
-
-
-                        var monthNum  =  EOTMdate.split("-");
-                        monthNum      =  monthNum[1];
-                        mailDate.map(function (data, key) {
-                            var body = "Hi there,<br><br> Vote summary <br>" +
-                                    "<b> "+data.name+"</b> is the Employee of the Month for <b>"+dateByNumber(monthNum)+"</b>"+
-                                    "<br>"+
-                                    "<br>Number of votes you got : <b>"+data.votes+"</b>"+
-                                    "<br><br> Best wishes" +
-                                    "<br> Moodwonder Team";
-                            body = emailTemplate.general(body);
-                            transporter.sendMail({
-                                from: 'admin@moodwonder.com',
-                                to: data.email,
-                                subject: 'Vote Summary',
-                                html: body
+                    old_count = data.count;
+                    // console.log(data.user_id +'-'+rank+'-'+data.count+'-'+company);
+                    sendVoteSummary(data.user_id,rank,data.count,company);
+                });
+                // Remove/update VoteRank entries of previous month
+                voterank.map(function (data, key) {
+                    VoteRank.remove({ user_id: data.user_id, postdate: month }).exec(function (err) {
+                        if(err){
+                            console.log(err);
+                        }
+                        // console.log('Vote rank removed');
+                    });
+                    // var thismonth = moment().format('YYYY-MM-01');
+                    var nextmonth = moment().add(1, 'months').format('YYYY-MM-01');
+                    VoteRank.findOne({ user_id: data.user_id, postdate: nextmonth }).exec(function (err, doc) {
+                        if(!err && doc === null){
+                            // Insert new record if not exist
+                            var query  = { company_id : data.company_id, user_id: data.user_id, postdate : nextmonth };
+                            var newVoteRank = new VoteRank(query);
+                            newVoteRank.save(function (err, doc) {
+                                // console.log('Vote rank inserted');
                             });
-                        });
-
+                        }
                     });
                 });
-
-            } else {
-                console.log('Cron job error');
+                
             }
         });
     }
 
-    User.aggregate(
-    [
-      { $group : { _id : "$_id", comp : { $first : "$company_info" } } },
-      { $group : { _id : "$comp.companyname" } }
-    ],
-    function (err, lists) {
-        var d = new Date();
-        // It will return previous month number
-        // Since it is start from 0
-        var m = d.getMonth();
-        var y = d.getFullYear();
-        m = (m < 10) ? ("0" + m) : m;
-        var ym = y+'-'+m;
-        if (!err) {
-            var totalCompanies = lists.length;
-            var i = 0;
-            lists.map(function (data, key) {
-                i++;
-                if(data._id[0]!==undefined && data._id[0]!==''){
-                    //console.log(data._id[0] +'====='+ ym);
-                    company(data._id[0],ym);
-                }
-            });
-            if(totalCompanies === i){
-                console.log('Cron job completed');
+    var today = moment().format('DD');
+    var second_last_day = moment().endOf('month').subtract(1, 'days').format('DD');
+    // var second_last_day = '07';
+
+    // Run this only the second last day of this month
+
+    // console.log(today +'==='+ second_last_day);
+    // console.log(today === second_last_day);
+    if(today === second_last_day){
+		
+        CompanyInfo.find({}).exec(function(err,company){
+            if(!err && company!==null){
+                company.map(function (data, key) {
+                    // console.log(data);
+                    loopUsers(data);
+                });
             }
-        } else {
-            console.log('Cron job error');
-            console.log(err);
-        }
-    });
+        });
+    }
+
   },
-  start: true
+  start: true,
+  timeZone: 'Asia/Kolkata'
 });
 job.start();
 
@@ -2922,6 +2953,9 @@ exports.getPublicProfile = function (req, res, next) {
  */
 exports.handleInviteSignup = function(req, res, next) {
 
+    /************************************************
+       Make same changes in postSignupStep1
+    ************************************************/
   var response =  {};
   var hash     =  req.params.hash;
   req.body.hash = hash; // temp fix
@@ -2975,6 +3009,14 @@ exports.handleInviteSignup = function(req, res, next) {
                         domain = domain.substring(0,domain.lastIndexOf("."));
 
                         var afterCompanyDetails = function(companyinfo){
+
+                            // Make same changes in postSignupStep1
+                            var thismonth = moment().format('YYYY-MM-01');
+                            var query  = { company_id : companyinfo._id, user_id: newuser._id, postdate : thismonth };
+                            var newVoteRank = new VoteRank(query);
+                            newVoteRank.save(function (err, doc) {
+                                console.log('Vote rank inserted');
+                            });
 
                             // Update company id in User collection
                             var conditions = {
@@ -3144,4 +3186,54 @@ exports.handleInviteSignup = function(req, res, next) {
     }
   });
 
+};
+
+exports.handleSetPassword = function(req, res, next) {
+
+    var verifyString = req.params.hash.trim();
+    var ErrorState = {};
+
+    if (verifyString == '') {
+
+        response.status = false;
+        response.message = 'Invalid verification link';
+
+    } else {
+
+        var conditions = { verifylink: verifyString };
+
+        /**
+         * Checking the verifylink is exist in the user collections
+         */
+        User.findOne(conditions, function (err, document) {
+
+            if (document !== null) {
+
+                if(document.verifylink_date && document.verifylink_date !== ''){
+
+                    var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+                    // console.log(ms);
+                    // 86400000 ms = 24 hours
+                    if(ms > 86400000){
+                        ErrorState.hasError  =   true;
+                        ErrorState.noPswdForm =   true;
+                        ErrorState.message = 'Verification link has expired';
+                        req.body.ErrorState = ErrorState;
+                        next();
+                    }else{
+                        next();
+                    }
+                }else{
+                    next();
+                }
+            } else {
+
+                ErrorState.hasError  =   true;
+                ErrorState.noPswdForm =   true;
+                ErrorState.message = 'Invalid verification link';
+                req.body.ErrorState = ErrorState;
+                next();
+            }
+        });
+    }
 };

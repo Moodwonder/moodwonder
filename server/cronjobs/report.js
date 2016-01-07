@@ -7,7 +7,6 @@ var EngagementResults = require('../models/engagementResults');
 var SurveyParticipation = require('../models/surveyParticipation');
 var Config = require('../config/config');
 
-
 function getCompanyMemberIds(companyid, callback) {
     // Get members by matching company
     var condition = {company_id: companyid};
@@ -201,7 +200,7 @@ var report = new CronJob({
                 body = emailTemplate.general(body);
                 var transporter = nodemailer.createTransport();
                 transporter.sendMail({
-                    from: 'admin@moodwonder.com',
+                    from: Config.fromEmail,
                     to: user.email,
                     subject: 'Moodwonder Report - dev',
                     html: body

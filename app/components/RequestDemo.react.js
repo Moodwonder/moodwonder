@@ -19,6 +19,12 @@ export default class RequestDemo extends React.Component {
 
   _onChange = (state) => {
       this.setState(state);
+      if(this.state.responseStatus){
+          React.findDOMNode(this.refs.name).value = "";
+          React.findDOMNode(this.refs.email).value = "";
+          React.findDOMNode(this.refs.mobile).value = "";
+          React.findDOMNode(this.refs.text).value = "";
+      }
   }
 
   formSubmit = (e) => { e.preventDefault(); }
@@ -32,28 +38,39 @@ export default class RequestDemo extends React.Component {
   _demoFormSubmit = () => {
 
       let errorMsg = [];
+      let error  = false;
       let name   = React.findDOMNode(this.refs.name).value.trim();
       let email  = React.findDOMNode(this.refs.email).value.trim();
       let mobile = React.findDOMNode(this.refs.mobile).value.trim();
       let text   = React.findDOMNode(this.refs.text).value.trim();
 
-      if(name === ''){
+      if((!error) && name === ''){
           //errorMsg.push('Name is required');
           errorMsg[0] = 'Name is required';
+          error = true;
       }
-      if(errorMsg[0] != '' || !this.isValidEmailAddress(email)){
+
+      if((!error) && !this.isValidEmailAddress(email)){
           //errorMsg.push('Invalid email id');
           errorMsg[0] = 'Invalid email id';
+          error = true;
       }
-      if(errorMsg[0] != '' || text === ''){
+
+      if((!error) && text === ''){
           errorMsg[0] = 'Please enter your requirements';
+          error = true;
       }
+
       if(errorMsg.length === 0){
           HomePageActions.requestDemo({
                 name: name,
                 email: email,
                 mobile: mobile,
                 text: text
+          });
+          this.setState({
+            messages: errorMsg,
+            hasErrorMessage: false
           });
       }else{
           this.setState({
@@ -95,30 +112,30 @@ export default class RequestDemo extends React.Component {
 
       return (
         <div className="eight wide column fade-in one">
-			<div className="ui segment">
-				<div className="row">
-					<div className=" ui small form">
-						<div className="field">
-							<label>HOM_7_NAME</label>
-							<input ref="name" placeholder="Name" type="text" />
-						</div>
-						<div className="field">
-							<label>HOM_7_EMAIL</label>
-							<input ref="email" placeholder="Email" type="email" />
-						</div>
-						<div className="field">
-							<label>HOM_7_MOBILE</label>
-							<input ref="mobile" placeholder="Mobile" type="text" />
-						</div>
-						<div className="field">
-							<label> HOM_7_LOOKING_FOR </label>
-							<textarea ref="text"></textarea>
-						</div>
-						<button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
-					</div>
-				</div>
-			</div>
-			{multimessages}
+            <div className="ui segment">
+                <div className="row">
+                    <div className=" ui small form">
+                        <div className="field">
+                            <label>HOM_7_NAME</label>
+                            <input ref="name" placeholder="Name" type="text" />
+                        </div>
+                        <div className="field">
+                            <label>HOM_7_EMAIL</label>
+                            <input ref="email" placeholder="Email" type="email" />
+                        </div>
+                        <div className="field">
+                            <label>HOM_7_MOBILE</label>
+                            <input ref="mobile" placeholder="Mobile" type="text" />
+                        </div>
+                        <div className="field">
+                            <label> HOM_7_LOOKING_FOR </label>
+                            <textarea ref="text"></textarea>
+                        </div>
+                        <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
+                    </div>
+                </div>
+            </div>
+            {multimessages}
         </div>
       );
   }

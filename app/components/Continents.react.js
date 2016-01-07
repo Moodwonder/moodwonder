@@ -46,6 +46,11 @@ export default RequireAuth(class Continents extends React.Component {
         // console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
+        if(this.state.message.trim() !==''){
+            console.log(this.state.message);
+            $('#msg').text(this.state.message);
+            $('.ui.modal').modal('show');
+        }
     }
 
     // Example Pagination
@@ -90,20 +95,6 @@ export default RequireAuth(class Continents extends React.Component {
 
         let rows;
         let pagination;
-        let message;
-        if (
-            this.state.ServerResponse &&
-            this.state.message !== '' &&
-            (this.state.ServerResponse.type === 'updatecontinent'|| this.state.ServerResponse.type === 'deletecontinent')
-        ) {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
 
         try
         {
@@ -154,7 +145,6 @@ export default RequireAuth(class Continents extends React.Component {
                 </div>
                 <div className="ui bottom attached tab segment" data-tab="second">
                     <div>
-                    {message}
                         <table className="ui celled table">
                             <tbody>
                                 <tr>
@@ -167,6 +157,11 @@ export default RequireAuth(class Continents extends React.Component {
                         </table>
                         {pagination}
                     </div>
+                </div>
+                <div className="ui modal">
+                  <i className="close icon"></i>
+                  <div className="header">Message</div>
+                  <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -286,20 +281,8 @@ class AddContinents extends React.Component {
 
     render() {
 
-        let message = null;
-        if (this.state.ServerResponse && this.state.message !== '' && this.state.ServerResponse.type === 'addcontinent') {
-            message = (
-                <div className="ui error message segment">
-                    <ul className="list">
-                        <li>{this.state.message}</li>
-                    </ul>
-                </div>
-            );
-        }
-
         return (
             <div className="form-group">
-                {message}
                 <div className="ui three column stackable grid container ">
                     <div className="column">
                         <form className="ui form" onSubmit={this._onAddContinents}>

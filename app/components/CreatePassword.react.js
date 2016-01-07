@@ -129,6 +129,16 @@ export default class CreatePassword extends React.Component {
           );
       }
 
+      if (this.state.hasError && this.state.message) {
+          message = (
+                <div className="ui error message segment">
+                    <ul className="list">
+                        <li>{this.state.message}</li>
+                    </ul>
+                </div>
+          );
+      }
+
       if (this.state.isRegistered) {
           message = (
                 <div className="ui success message segment">
@@ -149,14 +159,10 @@ export default class CreatePassword extends React.Component {
               );
           }
       }
-
-      return (
-        <div className="ui middle aligned center aligned grid">
-          <div className="column">
-            <h2 className="ui header"> CREATEPASS_TITLE </h2>
-            <h2 className="ui  image header"> <a href="/" ><img src="../assets/images/logo.png" className="image"/></a> </h2>
-            <div className="ui large form">
-              <div className="ui stacked segment">
+      let pswdForm = null;
+      if(!this.state.noPswdForm){
+          pswdForm = (
+            <div className="ui stacked segment">
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="password" ref="password" id="password" placeholder=" CREATEPASS_PLACEHOLDER_PASSWORD " />
@@ -164,7 +170,18 @@ export default class CreatePassword extends React.Component {
                   </div>
                 </div>
                 <button className="ui yellow button" onClick={this._onSignupStep2Submit}> CREATEPASS_BTN_CREATE </button>
-              </div>
+            </div>
+          );
+      }
+      // console.log(message);
+
+      return (
+        <div className="ui middle aligned center aligned grid">
+          <div className="column">
+            <h2 className="ui header"> CREATEPASS_TITLE </h2>
+            <h2 className="ui  image header"> <a href="/" ><img src="../assets/images/logo.png" className="image"/></a> </h2>
+            <div className="ui large form">
+              {pswdForm}
               {message}
               {multimessages}
             </div>

@@ -245,127 +245,128 @@ exports.addMemberToTeam = function(req, res, next) {
   else
   {
     var afterDomainCheck = function(){
-		if(team_id !== ''){
-			try{
-				var where = { _id: new ObjectId(team_id) };
-				// check the team is exist or not
-				Team.findOne(where, function(err, existingTeam) {
-					if(existingTeam) {
+        if(team_id !== ''){
+            try{
+                var where = { _id: new ObjectId(team_id) };
+                // check the team is exist or not
+                Team.findOne(where, function(err, existingTeam) {
+                    if(existingTeam) {
 
-						// For getting live data from the current user
-						User.findOne({ _id: new ObjectId(req.user._id) }, function(err, currentUser) {
-							if( !err && currentUser!== null ){
+                        // For getting live data from the current user
+                        User.findOne({ _id: new ObjectId(req.user._id) }, function(err, currentUser) {
+                            if( !err && currentUser!== null ){
 
-								var mymanager = '';
-								if(currentUser.mymanager && currentUser.mymanager[0] && currentUser.mymanager[0].email){
-									mymanager = currentUser.mymanager[0].email;
-								}
+                                var mymanager = '';
+                                if(currentUser.mymanager && currentUser.mymanager[0] && currentUser.mymanager[0].email){
+                                    mymanager = currentUser.mymanager[0].email;
+                                }
 
-								if(mymanager === memberemail){
-									response.status = false;
-									response.messages = ["You can't add your manager as your subordinate"];
-									feedback.push("You can't add your manager as your subordinate");
-									response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-									res.send(response);
-									res.end();
-									return;
-								}else{
-									// check the user is exist or not
-									User.findOne({email: memberemail }, function(err, existingUser) {
-										if(existingUser) {
-											// check the member already exist in the group
-											var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
-											Team.findOne(where_mem_exist, function(err, existingMember) {
-												if(existingMember) {
-													response.status = false;
-													response.messages = [memberemail+': This user is already exist in the team'];
-													//feedback.push(memberemail+': This user is already exist in the team');
-													res.send(response);
-													res.end();
-												}else{
-													// User not exist in this group, Insert this user into this team
-													Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
-														if(err){
-															response.status   = false;
-															response.messages = ['Unknown error with :'+ memberemail];
-															//feedback.push('Unknown error with :'+ memberemail);
-														}else{
-															response.status  = true;
-															response.messages = [memberemail+': Added as a member'];
-															//feedback.push(memberemail+': Added as a member');
-														}
-														res.send(response);
-														res.end();
-													});
-												}
-											});
-										}else{
-											// Calling another controller for Invite a user with the given e-mail id
-											// Calling invitation.js/sendInvitation()
-											req.body.invitetype = 'Team';
-											req.body.data       = { 'email': memberemail, 'team': existingTeam ,feedback: feedback };
-											next();
-										}
-									});
-								}
-							}else{
-								response.status = false;
-								response.messages = ['Unknow error'];
-								response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
-								res.send(response);
-								res.end();
-								return;
-							}
-						});
+                                if(mymanager === memberemail){
+                                    response.status = false;
+                                    response.messages = ["You can't add your manager as your subordinate"];
+                                    feedback.push("You can't add your manager as your subordinate");
+                                    response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+                                    res.send(response);
+                                    res.end();
+                                    return;
+                                }else{
+                                    // check the user is exist or not
+                                    User.findOne({email: memberemail }, function(err, existingUser) {
+                                        if(existingUser) {
+                                            // check the member already exist in the group
+                                            var where_mem_exist = { _id: existingTeam._id, member_ids: { $elemMatch: { _id: existingUser._id } } };
+                                            Team.findOne(where_mem_exist, function(err, existingMember) {
+                                                if(existingMember) {
+                                                    response.status = false;
+                                                    response.messages = [memberemail+': This user is already exist in the team'];
+                                                    //feedback.push(memberemail+': This user is already exist in the team');
+                                                    res.send(response);
+                                                    res.end();
+                                                }else{
+                                                    // User not exist in this group, Insert this user into this team
+                                                    Team.update({ "_id" : existingTeam._id },{$push: {member_ids: { _id: existingUser._id }}},function(err){
+                                                        if(err){
+                                                            response.status   = false;
+                                                            response.messages = ['Unknown error with :'+ memberemail];
+                                                            //feedback.push('Unknown error with :'+ memberemail);
+                                                        }else{
+                                                            response.status  = true;
+                                                            response.messages = [memberemail+': Added as a member'];
+                                                            //feedback.push(memberemail+': Added as a member');
+                                                        }
+                                                        res.send(response);
+                                                        res.end();
+                                                    });
+                                                }
+                                            });
+                                        }else{
+                                            // Calling another controller for Invite a user with the given e-mail id
+                                            // Calling invitation.js/sendInvitation()
+                                            req.body.invitetype = 'Team';
+                                            req.body.invitedby  = "manager";
+                                            req.body.data       = { 'email': memberemail, 'team': existingTeam ,feedback: feedback };
+                                            next();
+                                        }
+                                    });
+                                }
+                            }else{
+                                response.status = false;
+                                response.messages = ['Unknow error'];
+                                response.callback = (req.body.callback !== undefined) ? req.body.callback: '';
+                                res.send(response);
+                                res.end();
+                                return;
+                            }
+                        });
 
-					}else{
-						response.status = false;
-						response.messages = ['Team not exist'];
-						res.send(response);
-						res.end();
-					}
-				});
-			}catch(e){
-				console.log(e);
-			}
-		}else{
-			response.status = false;
-			response.messages = ['Something went wrong'];
-			res.send(response);
-			res.end();
-		}
-	}
+                    }else{
+                        response.status = false;
+                        response.messages = ['Team not exist'];
+                        res.send(response);
+                        res.end();
+                    }
+                });
+            }catch(e){
+                console.log(e);
+            }
+        }else{
+            response.status = false;
+            response.messages = ['Something went wrong'];
+            res.send(response);
+            res.end();
+        }
+    }
 
-	var domain = memberemail.replace(/.*@/, "");
-	domain     = domain.split('.')[0];
-	try{
-		CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) }, function(err, company){
-			if(company !== null){
-				// console.log(company);
-				if(company.domain_name !== domain){
-					response.status = false;
-					// response.messages = ['The person whom you want to add as a subordinate should be an employee of your company and hence should have the same domain as in your email id.'];
-					response.messages = ['It is a restricted email domain. Please make sure you enter your work email address'];
-					// Feature #15688
-					res.send(response);
-					res.end();
-				}else{
-					// to continue the execution
-					afterDomainCheck();
-				}
-			}else{
-				response.status = false;
-				response.messages = ['Company domain not found'];
-				res.send(response);
-				res.end();
-			}
-		});
-	}catch(e){
-		response.status = false;
-		response.messages = ['Something went wrong'];
-		res.send(response);
-		res.end();
-	}
+    var domain = memberemail.replace(/.*@/, "");
+    domain     = domain.split('.')[0];
+    try{
+        CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) }, function(err, company){
+            if(company !== null){
+                // console.log(company);
+                if(company.domain_name !== domain){
+                    response.status = false;
+                    // response.messages = ['The person whom you want to add as a subordinate should be an employee of your company and hence should have the same domain as in your email id.'];
+                    response.messages = ['It is a restricted email domain. Please make sure you enter your work email address'];
+                    // Feature #15688
+                    res.send(response);
+                    res.end();
+                }else{
+                    // to continue the execution
+                    afterDomainCheck();
+                }
+            }else{
+                response.status = false;
+                response.messages = ['Company domain not found'];
+                res.send(response);
+                res.end();
+            }
+        });
+    }catch(e){
+        response.status = false;
+        response.messages = ['Something went wrong'];
+        res.send(response);
+        res.end();
+    }
   }
 };
 

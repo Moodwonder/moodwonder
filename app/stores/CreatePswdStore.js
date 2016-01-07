@@ -11,6 +11,7 @@ class CreatePswdStore {
       this.message   =   '';
       this.hasError  =   false;
       this.responseStatus =   false;
+      this.noPswdForm =   false;
       this.bindListeners({
       handleSignupStep2Feedback: CreatePswdActions.SIGNUPSTEP2FEEDBACK
     });

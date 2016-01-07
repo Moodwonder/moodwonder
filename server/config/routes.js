@@ -170,6 +170,7 @@ module.exports = function (app, passport) {
     app.get('/invitesignup/:hash', users.handleInviteSignup);
     // app.get('/invitesignup/:hash', invitation.handleSignup); Old handler
     app.get('/publicprofile/:hash', admin.checkLogin, users.getPublicProfile);
+    app.get('/createpassword/:hash', users.handleSetPassword);
 
     //app.get('/openendedsurvey', users.checkLogin, openEndedSurvey.handleOpenendedSurvey);
     app.get('/openendedquestions', users.checkLogin, openEndedSurvey.getQuestions);
@@ -214,10 +215,17 @@ module.exports = function (app, passport) {
         if(req.body.industries){
             UserStore.industries = req.body.industries;
         }
+        var CreatePswdStore = { user: { uid: req.user ? req.user._id : null } };
+        if(req.body.ErrorState){
+			var ErrorState = req.body.ErrorState;
+            CreatePswdStore.message = ErrorState.message;
+            CreatePswdStore.noPswdForm = ErrorState.noPswdForm;
+            CreatePswdStore.hasError = ErrorState.hasError;
+        }
         res.locals.data = {
             UserStore: UserStore,
             PublicUserStore: publicprofile,
-            CreatePswdStore: {user: {uid: req.user ? req.user._id : null}},
+            CreatePswdStore: CreatePswdStore,
             SignupStore: {inviteEmail: inviteEmail},
             AppStore: AppStore
         };
@@ -496,6 +504,11 @@ module.exports = function (app, passport) {
   
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/admin_main.css" />';
+        //adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/adminstyles.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/404.css"/>';
         

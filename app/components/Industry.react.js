@@ -31,7 +31,6 @@ export default RequireAuth(class Industry extends React.Component {
 
     _onChange = (state) => {
 
-        console.log(state);
         if(state.IndustryList.rows){
             this.pagination = state.IndustryList.pagination;
             state.rows = state.IndustryList.rows;
@@ -48,7 +47,7 @@ export default RequireAuth(class Industry extends React.Component {
             // this.messageAutoClose(state);
         }
         if(this.state.message.trim() !==''){
-			console.log(this.state.message);
+            console.log(this.state.message);
             $('#msg').text(this.state.message);
             $('.ui.modal').modal('show');
         }
@@ -96,17 +95,6 @@ export default RequireAuth(class Industry extends React.Component {
             </tr>
         );
         let pagination;
-        let a = (
-            this.state.ServerResponse &&
-            this.state.message !== '' &&
-            (
-            this.state.ServerResponse.type === 'updateindustry' ||
-            this.state.ServerResponse.type === 'deleteindustry' ||
-            this.state.ServerResponse.type === 'industrylist'
-            )
-        );
-        console.log(a);
-
 
         try
         {
@@ -173,7 +161,6 @@ export default RequireAuth(class Industry extends React.Component {
                 </div>
             </div>
         );
-        
     }
 });
 
