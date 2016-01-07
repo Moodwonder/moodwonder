@@ -795,41 +795,41 @@ exports.postSignupStep2 = function (req, res, next) {
 
             if (document !== null) {
 
-				var afterLinkValidityCheck = function(){
-					User.update(conditions, update, options, function (err) {
-						if (!err) {
+                var afterLinkValidityCheck = function(){
+                    User.update(conditions, update, options, function (err) {
+                        if (!err) {
 
-							response.status = true;
-							response.message = 'Password created';
-							req.body.email = document.email;
-							req.body.password = req.body.real_password;
-							next();
-						} else {
+                            response.status = true;
+                            response.message = 'Password created';
+                            req.body.email = document.email;
+                            req.body.password = req.body.real_password;
+                            next();
+                        } else {
 
-							response.status = false;
-							response.message = 'Something went wrong..';
-							res.send(response);
-							res.end();
-						}
-					});
-				}
+                            response.status = false;
+                            response.message = 'Something went wrong..';
+                            res.send(response);
+                            res.end();
+                        }
+                    });
+                }
 
-				if(document.verifylink_date && document.verifylink_date !== ''){
+                if(document.verifylink_date && document.verifylink_date !== ''){
 
-					var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
-					console.log(ms);
-					// 86400000 ms = 24 hours
-					if(ms > 86400000){
-						response.status = false;
-						response.message = 'Verification link has expired';
-						res.send(response);
-						res.end();
-					}else{
-						afterLinkValidityCheck();
-					}
-				}else{
-					afterLinkValidityCheck();
-				}
+                    var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+                    console.log(ms);
+                    // 86400000 ms = 24 hours
+                    if(ms > 86400000){
+                        response.status = false;
+                        response.message = 'Verification link has expired';
+                        res.send(response);
+                        res.end();
+                    }else{
+                        afterLinkValidityCheck();
+                    }
+                }else{
+                    afterLinkValidityCheck();
+                }
 
             } else {
 
@@ -1425,6 +1425,7 @@ exports.usersInTeams = function (req, res) {
     var response = {};
     response.status = false;
     response.message = 'Error';
+    response.type = 'usersInTeams';
 
     var team_users_result = [];
     var teamlength = req.body.resdata.length;
@@ -1652,12 +1653,12 @@ exports.sendEOTMstats = function (req, res) {
 
 var CronJob = require('cron').CronJob;
 var job = new CronJob({
-  cronTime: '00 58 11 * * *',
+  cronTime: '00 59 23 * * *',
   onTick: function() {
     /*
-    * Runs every Monday 
-    * at 11:00:00 PM. 
-    * cronTime: '00 00 23 * * 1',
+    * Runs every day 
+    * at 23:59:00 AM. 
+    * cronTime: '00 59 23 * * *',
     */
 
     var sendVoteSummary = function(_id,rank,count,company){
@@ -1676,6 +1677,7 @@ var job = new CronJob({
             body = emailTemplate.general(body);
 
             usernamePart = (user.firstname !== '')? 'for '+userfullname : '';
+            console.log(user.email);
 
             transporter.sendMail({
                 from: config.fromEmail,
@@ -1691,9 +1693,9 @@ var job = new CronJob({
     }
 
     var loopUsers = function(company){
-        var lastmonth = moment().subtract(1, 'months').format('YYYY-MM-01');
-        //var lastmonth = moment().format('YYYY-MM-01');
-        VoteRank.find({ company_id: company._id, postdate: lastmonth }).sort({count: -1}).exec(function(err, voterank){
+        // var month = moment().subtract(1, 'months').format('YYYY-MM-01');
+        var month = moment().format('YYYY-MM-01');
+        VoteRank.find({ company_id: company._id, postdate: month }).sort({count: -1}).exec(function(err, voterank){
             if(!err && voterank!==null){
                 var rank = 0;
                 var old_count = 0;
@@ -1710,20 +1712,21 @@ var job = new CronJob({
                 });
                 // Remove/update VoteRank entries of previous month
                 voterank.map(function (data, key) {
-                    VoteRank.remove({ user_id: data.user_id, postdate: lastmonth }).exec(function (err) {
+                    VoteRank.remove({ user_id: data.user_id, postdate: month }).exec(function (err) {
                         if(err){
                             console.log(err);
                         }
-                        console.log('Vote rank removed');
+                        // console.log('Vote rank removed');
                     });
-                    var thismonth = moment().format('YYYY-MM-01');
-                    VoteRank.findOne({ user_id: data.user_id, postdate: thismonth }).exec(function (err, doc) {
+                    // var thismonth = moment().format('YYYY-MM-01');
+                    var nextmonth = moment().add(1, 'months').format('YYYY-MM-01');
+                    VoteRank.findOne({ user_id: data.user_id, postdate: nextmonth }).exec(function (err, doc) {
                         if(!err && doc === null){
                             // Insert new record if not exist
-                            var query  = { company_id : data.company_id, user_id: data.user_id, postdate : thismonth };
+                            var query  = { company_id : data.company_id, user_id: data.user_id, postdate : nextmonth };
                             var newVoteRank = new VoteRank(query);
                             newVoteRank.save(function (err, doc) {
-                                console.log('Vote rank inserted');
+                                // console.log('Vote rank inserted');
                             });
                         }
                     });
@@ -1733,14 +1736,26 @@ var job = new CronJob({
         });
     }
 
-    CompanyInfo.find({}).exec(function(err,company){
-        if(!err && company!==null){
-            company.map(function (data, key) {
-                // console.log(data);
-                loopUsers(data);
-            });
-        }
-    });
+    var today = moment().format('DD');
+    // var second_last_day = moment().endOf('month').subtract(1, 'days').format('DD');
+    var second_last_day = '07';
+
+    // Run this only the second last day of this month
+
+    // console.log(today +'==='+ second_last_day);
+    // console.log(today === second_last_day);
+    if(today === second_last_day){
+		
+        CompanyInfo.find({}).exec(function(err,company){
+            if(!err && company!==null){
+                company.map(function (data, key) {
+                    // console.log(data);
+                    loopUsers(data);
+                });
+            }
+        });
+    }
+
   },
   start: true,
   timeZone: 'Asia/Kolkata'
@@ -3194,32 +3209,31 @@ exports.handleSetPassword = function(req, res, next) {
 
             if (document !== null) {
 
-				if(document.verifylink_date && document.verifylink_date !== ''){
+                if(document.verifylink_date && document.verifylink_date !== ''){
 
-					var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
-					// console.log(ms);
-					// 86400000 ms = 24 hours
-					if(ms > 86400000){
-						ErrorState.hasError  =   true;
-						ErrorState.noPswdForm =   true;
-						ErrorState.message = 'Verification link has expired';
-						req.body.ErrorState = ErrorState;
-						next();
-					}else{
-						next();
-					}
-				}else{
-					next();
-				}
+                    var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
+                    // console.log(ms);
+                    // 86400000 ms = 24 hours
+                    if(ms > 86400000){
+                        ErrorState.hasError  =   true;
+                        ErrorState.noPswdForm =   true;
+                        ErrorState.message = 'Verification link has expired';
+                        req.body.ErrorState = ErrorState;
+                        next();
+                    }else{
+                        next();
+                    }
+                }else{
+                    next();
+                }
             } else {
 
-				ErrorState.hasError  =   true;
-				ErrorState.noPswdForm =   true;
-				ErrorState.message = 'Invalid verification link';
-				req.body.ErrorState = ErrorState;
-				next();
+                ErrorState.hasError  =   true;
+                ErrorState.noPswdForm =   true;
+                ErrorState.message = 'Invalid verification link';
+                req.body.ErrorState = ErrorState;
+                next();
             }
         });
     }
 };
-

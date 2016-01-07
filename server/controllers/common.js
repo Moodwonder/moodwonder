@@ -997,7 +997,7 @@ exports.requestDemo = function(req, res) {
 
     var transporter = nodemailer.createTransport();
     var body = "<br><table> "+
-                "<tr> <td>Name</td> <td>: "+req.body.name+"</td> </tr>"+
+                "<tr> <td colspan='2'>"+req.body.name+" has requested for a demo through MoodWonder. Here are the details.</td> </tr>"+
                 "<tr> <td>Email</td> <td>: "+req.body.email+"</td> </tr>"+
                 "<tr> <td>Mobile</td> <td>: "+req.body.mobile+"</td> </tr>"+
                 "<tr> <td>Message</td> <td>: "+req.body.text+"</td> </tr>"+
