@@ -15,11 +15,11 @@
 *******************************/
 
 .dimmable {
-  position: relative;
+  position: absolute;
 }
 .ui.dimmer {
   display: none;
-  position: absolute;
+  position: absolute !important;
   top: 0em !important;
   left: 0em !important;
   width: 100%;
@@ -41,6 +41,7 @@
           user-select: none;
   will-change: opacity;
   z-index: 1000;
+  padding: 200px 400px 600px 400px !important;
 }
 
 /* Dimmer Content */

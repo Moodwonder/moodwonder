@@ -114,3 +114,183 @@ label.column.email {
 .extra.content.winner .icon:before {
     content: "\f091" !important;
 }
+
+/* Start: button css */
+
+.ui.button {
+    /* background: none !important; */
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    text-align: center;
+}
+.ui.button.toggle.active:hover {
+    background-color: #ef5350!important;
+    text-transform: uppercase;
+}
+.ui.orange.buttons .button, .ui.orange.button {
+    background-color: #ef5350;
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+    height: 35px;
+    webkit-transition: background-color 100ms linear;
+    -moz-transition: background-color 100ms linear;
+    -o-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+}
+.home .ui.orange.button {
+    height: 50px;
+}
+.ui.orange.button {
+    box-shadow: none !important;
+}
+.ui.orange.buttons .button:hover, .ui.orange.button:hover {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.orange.buttons .button:focus, .ui.orange.button:focus {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.orange.buttons .button:active, .ui.orange.button:active {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.teal.buttons .button, .ui.teal.button {
+    background-color: #EF5350;
+}
+.ui.teal.buttons .button:hover, .ui.teal.button:hover {
+    background-color: #f44336;
+}
+.ui.teal.buttons .button:focus, .ui.teal.button:focus {
+    background-color: #f44336;
+}
+.ui.teal.buttons .button:active, .ui.teal.button:active {
+    background-color: #f44336;
+}
+.ui.teal.buttons .active.button, .ui.teal.buttons .active.button:active, .ui.teal.active.button, .ui.teal.button .active.button:active {
+    background-color: #f44336;
+}
+.ui.yellow.buttons .button, .ui.yellow.button {
+    background-color: #fbbd08 !important;
+    color: #000;
+    text-shadow: none;
+    background-image: none;
+    width: 100px;
+    font-size: 16px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    webkit-transition: background-color 100ms linear;
+    -moz-transition: background-color 100ms linear;
+    -o-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+    padding:0.785714em 1.5em;
+
+}
+.ui.yellow.buttons .button:hover, .ui.yellow.button:hover {
+    background-color: #eaae00;
+    color: #000;
+    text-shadow: none;
+    cursor: pointer;
+}
+.ui.yellow.buttons .button:focus, .ui.yellow.button:focus {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.yellow.buttons .button:active, .ui.yellow.button:active {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.positive.buttons .button, .ui.positive.button {
+    background-color:  #00897B!important;
+    color: #fff;
+    text-shadow: none;
+    background-image: none;
+    webkit-transition: background-color 100ms linear;
+    -moz-transition: background-color 100ms linear;
+    -o-transition: background-color 100ms linear;
+    -ms-transition: background-color 100ms linear;
+    transition: background-color 100ms linear;
+    padding: 14px 5px;
+    width:auto;
+}
+.ui.positive.button {
+    box-shadow: none !important;
+}
+.ui.positive.buttons .button:hover, .ui.positive.button:hover {
+    background-color: #00796B !important;
+}
+.ui.positive.buttons .button:focus, .ui.positive.button:focus {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.positive.buttons .button:active, .ui.positive.button:active {
+    background-color: #f44336;
+    color: #fff;
+    text-shadow: none;
+}
+.ui.positive.buttons .active.button, .ui.positive.active.button, .ui.positive.buttons .active.button:active {
+    background-color: #26A69A;
+}
+.ui.buttons > .ui.button:not(.basic):not(.inverted), .ui.buttons:not(.basic):not(.inverted) > .button {
+    box-shadow: none !important;
+}
+.ble {
+    background-color: #64b5f6 !important;
+}
+/* End : button css */
+
+/* Start : header css */
+.ui.header {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+}
+.ui.header.ryt {
+    border: none;
+    margin-bottom: 0!important;
+    padding: 0em 0em 20px 0;
+    font-family: "Brandon-bold";
+    line-height: 1.2857em;
+    text-transform: none;
+    color: #26a69a;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+.ui.header > .icon {
+    display: inline-block;
+    vertical-align: auto;
+}
+.ui.header .icon:only-child {
+    margin-right: auto;
+}
+.ui.dividing.header {
+    margin: 40px 0 30px 0!important;
+}
+.header-middle-container {
+    float: left;
+    padding: 20px 30px 20px 0;
+}
+.header-middle-container:last-child {
+    float: left;
+    padding: 20px 0px 20px 0;
+}
+.header-middle-container .ui.yellow.button {
+    width: auto!important;
+}
+.header-middle-container .ui.yellow.button {
+    padding: 0.785714em 0.5em !important;
+    width: auto !important;
+}
+/* End : header css */
