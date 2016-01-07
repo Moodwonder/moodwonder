@@ -500,7 +500,10 @@ module.exports = function (app, passport) {
   
         var adminstyles = '';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/adminstyles.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/404.css"/>';
         

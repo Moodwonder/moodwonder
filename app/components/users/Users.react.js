@@ -13,6 +13,7 @@ export default RequireAuth(class Dashboard extends React.Component {
         this.state.totalPages = [];
         this.state.modal = false;
         this.state.userTeams = false;
+        this.state.popup = false;
 
         this.hasData = false;
         this.rows = false;
@@ -29,22 +30,25 @@ export default RequireAuth(class Dashboard extends React.Component {
         if(e.target.dataset.tag !== ''){
             AdminUserActions.getUsersTeams({ _id: e.target.dataset.tag });
         }
-        this.setState({
-            modal:true
-        });
     }
 
     _onPopClose = (emp_id) => {
         this.setState({
-            modal:false
+            ServerResponse:false,
+            popup:false
         });
     }
 
     _onChange = (state) => {
-        this.pagination = state.usersTable.pagination;
 
+        this.pagination = state.usersTable.pagination;
         state.rows = state.usersTable.rows;
         this.setState(state);
+        if(this.state.popup && this.state.ServerResponse && this.state.ServerResponse.type ==='usersInTeams'){
+            let _this = this;
+            let onHide = function(){ _this._onPopClose(); };
+            $('.ui.modal').modal({onHide,detachable: false}).modal('show');
+        }
     }
     // Example Pagination
     // http://carlosrocha.github.io/react-data-components/
@@ -54,12 +58,10 @@ export default RequireAuth(class Dashboard extends React.Component {
         }
     }
 
-
     render() {
 
         let rows;
         let pagination;
-
         let teamUserList;
         if(this.state.userTeams){
             teamUserList = this.state.userTeams.map((data, key) => {
@@ -67,22 +69,22 @@ export default RequireAuth(class Dashboard extends React.Component {
                 let members;
                 members = data.members.map((mem, key) => {
                     return (
-                    <div className="row">
+                    <div className="row" key={key}>
                       <div className="col-sm-6">{mem.member_email}</div>
                       <div className="col-sm-4">{mem.member_name}</div>
                     </div>
                     );
                 });
                 return [
-                  <li className="list-group-item">
+                  <div className="list-group-item" key={data._id+1}>
                    {data.name}
-                  </li>,
-                  <li className="list-group-item">
+                  </div>,
+                  <div className="list-group-item" key={data._id+2}>
                     <div className="row">
                       <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
                     </div>
                     {members}
-                  </li>
+                  </div>
                 ];
             });
         }
@@ -129,27 +131,12 @@ export default RequireAuth(class Dashboard extends React.Component {
             console.log(err);
         }
 
-        let modal;
-        if(this.state.modal){
-            modal = (
-            <div className="ui dimmer modals page transition visible active">
-                <div className="ui active modal" id="myModal" role="dialog">
-                    <i className="close icon" onClick={this._onPopClose} ></i>
-                    <div className="header">Teams</div>
-                    <div className="content">
-                        {teamUserList}
-                    </div>
-                </div>
-            </div>
-            );
-        }
-
-
         return (
             <div className="ui container">
                 <h2>Company Admin</h2>
                 <div>
                     <table className="ui celled table">
+                        <tbody>
                         <tr>
                             <td>Name</td>
                             <td>Email</td>
@@ -161,10 +148,17 @@ export default RequireAuth(class Dashboard extends React.Component {
                             <td>Company size</td>
                         </tr>
                         {rows}
+                        </tbody>
                     </table>
                     {pagination}
                 </div>
-                {modal}
+                <div className="ui modal">
+                  <i className="close icon"></i>
+                  <div className="header">Message</div>
+                  <div className="content">
+                  {teamUserList}
+                  </div>
+                </div>
             </div>
         );
     }

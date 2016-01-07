@@ -15,6 +15,7 @@ class AdminUserStore {
       this.hasError    =  false;
       this.openEnded   =  false;
       this.ServerResponse =  false;
+      this.popup       =  false;
       this.message     =  '';
 
       this.bindListeners({
@@ -28,6 +29,7 @@ class AdminUserStore {
 
   handleSetUsers (res) {
       this.usersTable = res.data;
+      this.popup      = false;
       this.emitChange();
   }
 
@@ -45,6 +47,8 @@ class AdminUserStore {
 
   handleSetUserTeams (res) {
       this.userTeams = res.data;
+      this.popup = true;
+      this.ServerResponse = res;
       this.emitChange();
   }
 

@@ -92,6 +92,9 @@ export default RequireAuth(class UserDetails extends React.Component {
 
         return (
             <div className="ui container">
+            <div className="ui grid page">
+            <div className="column">
+            <div className="ui segment">
                 {message}
                 <h1>Users</h1>
                 <div className="ui top attached tabular menu">
@@ -104,6 +107,9 @@ export default RequireAuth(class UserDetails extends React.Component {
                 <div className="ui bottom attached tab segment" data-tab="second">
                   {Tab[1]}
                 </div>
+            </div>
+            </div>
+            </div>
             </div>
         );
     }
