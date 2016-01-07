@@ -1737,8 +1737,8 @@ var job = new CronJob({
     }
 
     var today = moment().format('DD');
-    // var second_last_day = moment().endOf('month').subtract(1, 'days').format('DD');
-    var second_last_day = '07';
+    var second_last_day = moment().endOf('month').subtract(1, 'days').format('DD');
+    // var second_last_day = '07';
 
     // Run this only the second last day of this month
 
