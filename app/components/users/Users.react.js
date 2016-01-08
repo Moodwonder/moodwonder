@@ -133,7 +133,7 @@ export default RequireAuth(class Dashboard extends React.Component {
 
         return (
             <div className="ui container">
-                <h2>Company Admin</h2>
+                <h2>All Users</h2>
                 <div>
                     <table className="ui celled table">
                         <tbody>
