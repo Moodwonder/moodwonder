@@ -554,7 +554,7 @@ exports.postSignupStep1 = function (req, res, next) {
 
     if (!blockedDomains.checkDomain(email)) {
         response.status = false;
-        response.message = 'This domain name is blocked';
+        response.message = 'It is a restricted email domain. Please make sure you enter your work email address';
         res.send(response);
         return;
     }
@@ -2969,7 +2969,7 @@ exports.handleInviteSignup = function(req, res, next) {
         req.body.email = email; // temp fix
         if (!blockedDomains.checkDomain(email)) {
             response.status  = false;
-            response.message = 'This domain name is blocked';
+            response.message = 'It is a restricted email domain. Please make sure you enter your work email address';
             req.body.response = response;
             next();
             return;
