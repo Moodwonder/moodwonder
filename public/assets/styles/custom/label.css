@@ -981,12 +981,12 @@ a.ui.black.labels .label:hover, a.ui.black.label:hover {
 	margin: 0px 0;
 	display: block;
 	transition: background-color 100ms linear 0s;
-	float: left;	
+	float: left;
 	width: 30%!important;
 	vertical-align: middle!important;
 	display: flex!important;
 	align-items: center!important;
-	cursor:default!important;
+	cursor: default!important;
 }
 .survey-mw .mood-slider {
 	float: right;
@@ -998,7 +998,10 @@ a.ui.black.labels .label:hover, a.ui.black.label:hover {
 	margin-top: 0px;
 	float: right;
 }
-.survey-mw .submitt{float:right!important;margin-top:10px;}
+.survey-mw .submitt {
+	float: right!important;
+	margin-top: 10px;
+}
 
 @media only screen and (max-width: 991px) {
 .survey-mw .ui.pointing.left.label {

@@ -26,7 +26,7 @@ export default class Footer extends React.Component {
                             <a href="/anonymity">ABT_LINK_ANONYMITY </a> |
                             <a href="/terms"> ABT_LINK_TERMS</a> |
                             <a href="/policy"> ABT_LINK_POLICY</a> |
-                            <a href="/#7thPage"> ABT_LINK_CONTACT </a>
+                            <a href="/#contact"> ABT_LINK_CONTACT </a>
                         </div>
                         <a href="#"> © Moodwonder 2015 </a>
                     </div>

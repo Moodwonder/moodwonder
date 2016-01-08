@@ -29,20 +29,12 @@
 ---------------*/
 
 .ui.menu {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	margin: 1rem 0em;
+	
 	background: #4DB6AC;
 	height: 80px;
 }
 .ui.menu.tab {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	margin: 1rem 0em;
+	
 	font-family: "Brandon-bold";
 	background: #4DB6AC;
 	font-weight: normal;
@@ -546,7 +538,7 @@
 	transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
 	font-size: 14px;
 }
-}
+
 
 @media only screen and (min-width: 561px) and (max-width: 540px) {
 .ui.secondary.menu .header.item {

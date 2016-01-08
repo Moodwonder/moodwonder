@@ -417,24 +417,25 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/custom-container.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/header.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/image.css" />';
-        userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/menu.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/menu.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/divider.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/dropdown.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/button.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/list.css" />';
-        userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/sidebar.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/sidebar.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/transition.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/popup.css" />';
-        userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/icon.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/icon.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/input.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/card.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/rating.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/account.css" />';
-        userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/label.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/label.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/form.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/custom.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/modal.css" />';
@@ -459,6 +460,7 @@ module.exports = function (app, passport) {
         
         var homestyles = '';
         homestyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/custom/semantic_custom.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/styles/custom/animation.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/fullPage.js-master/jquery.fullPage.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/styles/custom/examples.css" />';
@@ -478,28 +480,31 @@ module.exports = function (app, passport) {
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/custom-container.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/header.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/image.css" />';
-        moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/menu.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/menu.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/divider.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/dropdown.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/button.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/list.css" />';
-        moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/sidebar.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/sidebar.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/transition.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/popup.css" />';
-        moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/icon.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/icon.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/input.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/card.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/rating.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/modal.css" />';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/custom.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/custom/404.css" />';
         
   
         var adminstyles = '';
-        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/admin_main.css" />';
+        //adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';
@@ -520,6 +525,7 @@ module.exports = function (app, passport) {
         
         var staticstyles = '';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
+        staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/semantic_custom.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/static.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/404.css"/>';
         
@@ -532,10 +538,11 @@ module.exports = function (app, passport) {
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/custom/custom-container.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/header.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/image.css" />';
-        loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/menu.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/custom/menu.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/divider.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/custom/form.css" />';
@@ -543,7 +550,7 @@ module.exports = function (app, passport) {
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/button.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/list.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';
-        loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/icon.css" />';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/custom/icon.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/custom/login-page-custom.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/custom/custom.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/custom/404.css"/>';

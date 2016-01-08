@@ -33,7 +33,6 @@
 	max-height: 100%;
 	border-radius: 0em !important;
 	margin: 0em !important;
-	
 	z-index: 102;
 }
 /* GPU Layers for Child Elements */
@@ -80,13 +79,10 @@
 ---------------*/
 
 .pushable {
-	
-	
 	padding: 0em !important;
 }
 /* Whole Page */
 body.pushable {
-	
 }
 /* Page Context */
 .pushable:not(body) {
@@ -118,17 +114,11 @@ body.pushable {
 	position: absolute;
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
-	
 	min-height: 100%;
 	-webkit-transition: -webkit-transform 500ms ease;
 	transition: transform 500ms ease;
 	z-index: 2;
-
 }
-
-
-
-
 }
 body.pushable > .pusher {
 	background: #ffffff;
@@ -136,8 +126,8 @@ body.pushable > .pusher {
 /* Pusher should inherit background from context */
 .pushable > .pusher {
 	background: inherit;
-	width:100%;
-	min-height:128%;
+	width: 100%;
+	min-height: 128%;
 }
 /*--------------
      Dimmer
