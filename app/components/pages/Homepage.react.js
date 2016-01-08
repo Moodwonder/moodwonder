@@ -178,7 +178,7 @@ export default class Homepage extends React.Component {
       e.preventDefault();
       this.setState({ HOM_3_BOX_1_TITLE_1: e.target.value });
   }
-  homThreeBoxOneTitleOne = (e) => {
+  homThreeBoxOneContent = (e) => {
       e.preventDefault();
       this.setState({ HOM_3_BOX_1_CONTENT: e.target.value });
   }
@@ -230,7 +230,7 @@ export default class Homepage extends React.Component {
       e.preventDefault();
       this.setState({ HOM_4_BOX_3_TITLE_1: e.target.value });
   }
-  homFourBoxThreeTitleOne = (e) => {
+  homFourBoxThreeContent = (e) => {
       e.preventDefault();
       this.setState({ HOM_4_BOX_3_CONTENT: e.target.value });
   }
