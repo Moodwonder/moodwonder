@@ -1,3 +1,4 @@
+var config = require('../config/config');
 const emailtemplates = {
 
 
@@ -203,6 +204,7 @@ const emailtemplates = {
  '                                  <td  style="font-family: Open Sans, sans-serif; font-size: 16px;  color: #fbbd08; text-align:justify; line-height: 24px;"> '+ 
  '                                    '+ 
  '                                    Copyright &copy; 2015 MoodWonder '+ 
+ '                                    <a href="' + config.staticUrl +'" style=" float: right; padding-right: 20px; color: #fbbd08; ">Visit MoodWonder</a>'+ 
  '                                  </td> '+ 
  '                               </tr> '+ 
  '                               <!-- Spacing --> '+ 
