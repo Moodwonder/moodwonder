@@ -95,6 +95,7 @@ export default class Signup extends React.Component {
               this.setState({ message: '' });
           }.bind(this),3000);
       }
+      React.findDOMNode(this.refs.email).value = '';
   }
 
   render() {
