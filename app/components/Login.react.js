@@ -136,6 +136,7 @@ export default class Login extends React.Component {
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="password" ref="password" name="password" placeholder="LGN_PLACEHOLDER_PASSWORD" />
+                    <input type="hidden" name="javascript_status" value="not loaded" />
                   </div>
                 </div>
                 <button type="submit" className="ui yellow button">LGN_BTN</button>

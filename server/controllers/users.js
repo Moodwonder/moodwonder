@@ -125,7 +125,14 @@ exports.checkLogin = function (req, res, next) {
  * Login
  */
 exports.postLogin = function (req, res, next) {
-    
+
+    if(req.body.javascript_status){
+		// if not set client_side_rendering_identifier
+		// To fix script loading issue in the browser
+		// refer bug Bug #15825
+		next();
+		return;
+	}
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
