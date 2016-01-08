@@ -126,6 +126,7 @@ exports.checkLogin = function (req, res, next) {
  */
 exports.postLogin = function (req, res, next) {
 
+	var response = {};
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
