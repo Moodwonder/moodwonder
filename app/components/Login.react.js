@@ -127,7 +127,7 @@ export default class Login extends React.Component {
           <div className="column">
             <h2 className="ui  image header"> <a href="/" ><img src="assets/images/logo.png" className="image"/></a> </h2>
             <div className="ui large form">
-              <form className="ui stacked segment" onSubmit={this._onLoginSubmit}>
+              <form className="ui stacked segment" onSubmit={this._onLoginSubmit} method="post" >
                 <div className="field">
                   <div className="ui left icon input">
                     <input type="text" ref="email" name="email" placeholder="LGN_PLACEHOLDER_EMAIL" />

@@ -81,7 +81,7 @@ export default class Adminlogin extends React.Component {
                 <div className="ui three column stackable grid container ">
                     <div className="column"></div>
                     <div className="column">
-                        <form id="adminLogin" className="ui form">
+                        <form id="adminLogin" className="ui form" method="post" >
                           <div className="field">
                             <input type="text" name="username" placeholder="username"/>
                           </div>
