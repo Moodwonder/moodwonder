@@ -126,14 +126,6 @@ exports.checkLogin = function (req, res, next) {
  */
 exports.postLogin = function (req, res, next) {
 
-    if(req.body.javascript_status){
-		// if not set client_side_rendering_identifier
-		// To fix script loading issue in the browser
-		// refer bug Bug #15825
-		res.redirect('/login');
-		//next();
-		return;
-	}
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
@@ -172,8 +164,17 @@ exports.postLogin = function (req, res, next) {
             response.status = true;
             response.message = 'Success! You are logged in';
             response.user = user;
-            res.send(response);
-            res.end();
+			if(req.body.javascript_status){
+				// if not set client_side_rendering_identifier
+				// To fix script loading issue in the browser
+				// refer bug Bug #15825
+				res.redirect('/login');
+				//next();
+				return;
+			}else{
+                res.send(response);
+                res.end();
+		    }
         });
     })(req, res, next);
 };
