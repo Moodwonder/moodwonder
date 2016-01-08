@@ -3237,3 +3237,16 @@ exports.handleSetPassword = function(req, res, next) {
         });
     }
 };
+
+exports.loginHandler = function(req, res, next) {
+	if(req.user && req.user.company_id){
+		// this is a normal user because company_id exist
+		res.redirect('/mymood');
+	}else if(req.user && req.user.role && req.user.role === 'ADMIN'){
+		// this is a normal user because company_id exist
+		res.redirect('/admin/users');
+	}else{
+		// No user
+		next();
+	}
+};
