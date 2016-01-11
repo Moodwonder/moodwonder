@@ -86,13 +86,6 @@ export default class SidebarMenu extends React.Component {
                         {GetText('L_OPENENDED_RESPONSES', mlarray)}
                     </a>
           ];
-      } else if (usertype == 'user') {
-          links = [
-                    <a className="item" href="/surveyforms">
-                        <i className="line chart icon"></i>
-                        {GetText('L_MY_SURVEYS', mlarray)}
-                    </a>
-          ];
       }
 
 
@@ -125,6 +118,10 @@ export default class SidebarMenu extends React.Component {
                     </a>
                     {viewvotes}
                     {links}
+                    <a className="item" href="/viewsurvey">
+                        <i className="line chart icon"></i>
+                        Participate in Surveys
+                    </a>
                     <a className="item" href="/survey">
                         <i className="thumbs up icon"></i>
                         Engagement Survey

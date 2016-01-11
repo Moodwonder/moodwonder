@@ -77,13 +77,6 @@ export default class Leftnav extends React.Component {
                         {GetText('L_OPENENDED_RESPONSES', mlarray)}
                     </a>
           ];
-      } else {
-          openresponselink = [
-                    <a className="item" href="/viewsurvey">
-                        <i className="line chart icon"></i>
-                        {GetText('L_MY_SURVEYS', mlarray)}
-                    </a>
-          ];
       }
 
       let viewvotes;
@@ -125,6 +118,10 @@ export default class Leftnav extends React.Component {
                 </a>
                 {viewvotes}
                 {openresponselink}
+                <a className="item" href="/viewsurvey">
+                    <i className="line chart icon"></i>
+                    Participate In Surveys
+                </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
                     {GetText('L_MYACCOUNT_LINK', mlarray)}
