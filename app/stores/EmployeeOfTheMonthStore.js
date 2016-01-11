@@ -20,6 +20,7 @@ class EmployeeOfTheMonthStore {
       this.awardStatus  =   false;
       this.voteperiod   =   false;
       this.message      =   '';
+      this.ServerResponse =  false;
 
       this.bindListeners({
       handleGetEmployees: EmployeeOfTheMonthActions.GETEMPLOYEES,
@@ -43,6 +44,7 @@ class EmployeeOfTheMonthStore {
       console.log('handleSaveVote');
       this.message = response.message;
       this.hasError = !response.status;
+      this.ServerResponse = response;
       this.modal = false;
       this.voteStatus = true;
       this.emitChange();

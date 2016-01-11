@@ -57,6 +57,9 @@ export default class EmployeeOfTheMonth extends React.Component {
             state.voteStatus = false;
             this._onPopClose();
         }
+        if(this.state.ServerResponse && this.state.ServerResponse.messages !== '' && this.state.ServerResponse.callback === 'vote'){
+			this._onPopClose();
+        }
 
         // Set start/end date for employee of the month
         if(this.hasData){
