@@ -164,35 +164,38 @@ exports.createForm = function (req, res) {
                                 for (var mkey in members) {
 
                                     var member = members[mkey];
-                                    var sParticipation = {};
-                                    sParticipation.survey_id = form[0]._id;
-                                    sParticipation.user_id = member._id;
-                                    sParticipation.freezedate = form[0].freezedate;
-                                    sParticipation.status = 'notparticipated';
+                                    
+                                    if (String(req.user._id) !== String(member._id)) { 
+                                        var sParticipation = {};
+                                        sParticipation.survey_id = form[0]._id;
+                                        sParticipation.user_id = member._id;
+                                        sParticipation.freezedate = form[0].freezedate;
+                                        sParticipation.status = 'notparticipated';
 
-                                    SurveyParticipation.create(sParticipation, function (err, data) {
-                                        if (!err) {
-                                            console.log('New record added to survey participation.');
-                                        } else {
-                                            console.log('Error in adding new record to survey participation.');
-                                        }
-                                    });
+                                        SurveyParticipation.create(sParticipation, function (err, data) {
+                                            if (!err) {
+                                                console.log('New record added to survey participation.');
+                                            } else {
+                                                console.log('Error in adding new record to survey participation.');
+                                            }
+                                        });
 
-                                    var transporter = nodemailer.createTransport();
-                                    var body = "Hi " + member.firstname + " " + member.lastname + "," +
-                                               "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
-                                               "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
-                                               "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
-                                               "<br><br> Thanks," +
-                                               "<br> Moodwonder Team";
-                                    body = emailTemplate.general(body);
-                                    transporter.sendMail({
-                                        from: Config.fromEmail,
-                                        to: member.email,
-                                        //to: 'useremailtestacc@gmail.com',
-                                        subject: companyname + ' created a quick survey for you on Moodwonder',
-                                        html: body
-                                    });
+                                        var transporter = nodemailer.createTransport();
+                                        var body = "Hi " + member.firstname + " " + member.lastname + "," +
+                                                   "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
+                                                   "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
+                                                   "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                                   "<br><br> Thanks," +
+                                                   "<br> Moodwonder Team";
+                                        body = emailTemplate.general(body);
+                                        transporter.sendMail({
+                                            from: Config.fromEmail,
+                                            to: member.email,
+                                            //to: 'useremailtestacc@gmail.com',
+                                            subject: companyname + ' created a quick survey for you on Moodwonder',
+                                            html: body
+                                        });
+                                    }
                                 }
                                 res.json({status: true, message: 'query success'});
                             });
@@ -205,36 +208,37 @@ exports.createForm = function (req, res) {
                                 getTeamMemberDetails(query, member.member_ids, function(users){
                                     for (var ukey in users) {
                                     var user = users[ukey];
+                                    if (String(req.user._id) !== String(user._id)) { 
+                                        var sParticipation = {};
+                                        sParticipation.survey_id = form[0]._id;
+                                        sParticipation.user_id = user._id;
+                                        sParticipation.freezedate = form[0].freezedate;
+                                        sParticipation.status = 'notparticipated';
 
-                                    var sParticipation = {};
-                                    sParticipation.survey_id = form[0]._id;
-                                    sParticipation.user_id = user._id;
-                                    sParticipation.freezedate = form[0].freezedate;
-                                    sParticipation.status = 'notparticipated';
+                                        SurveyParticipation.create(sParticipation, function (err, data) {
+                                            if (!err) {
+                                                console.log('New record added to survey participation.');
+                                            } else {
+                                                console.log('Error in adding new record to survey participation.');
+                                            }
+                                        });
 
-                                    SurveyParticipation.create(sParticipation, function (err, data) {
-                                        if (!err) {
-                                            console.log('New record added to survey participation.');
-                                        } else {
-                                            console.log('Error in adding new record to survey participation.');
-                                        }
-                                    });
-
-                                    var transporter = nodemailer.createTransport();
-                                    var body = "Hi " + user.firstname + " " + user.lastname + "," +
-                                               "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
-                                               "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
-                                               "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
-                                               "<br><br> Thanks," +
-                                               "<br> Moodwonder Team";    
-                                    body = emailTemplate.general(body);
-                                    transporter.sendMail({
-                                        from: Config.fromEmail,
-                                        to: user.email,
-                                        //to: 'useremailtestacc@gmail.com',
-                                        subject: companyname + ' created a quick survey for you on Moodwonder',
-                                        html: body
-                                    });
+                                        var transporter = nodemailer.createTransport();
+                                        var body = "Hi " + user.firstname + " " + user.lastname + "," +
+                                                   "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
+                                                   "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
+                                                   "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                                   "<br><br> Thanks," +
+                                                   "<br> Moodwonder Team";    
+                                        body = emailTemplate.general(body);
+                                        transporter.sendMail({
+                                            from: Config.fromEmail,
+                                            to: user.email,
+                                            //to: 'useremailtestacc@gmail.com',
+                                            subject: companyname + ' created a quick survey for you on Moodwonder',
+                                            html: body
+                                        });
+                                    }
                                 }
                                 res.json({status: true, message: 'query success'});
                                 });
@@ -294,36 +298,38 @@ exports.createForm = function (req, res) {
 
                                 for (var skey in survey) {
                                     var data = survey[skey];
+                                    
+                                    if (String(req.user._id) !== String(data.user_id)) { 
+                                        var sParticipation = {};
+                                        sParticipation.survey_id = form[0]._id;
+                                        sParticipation.user_id = data.user_id;
+                                        sParticipation.freezedate = form[0].freezedate;
+                                        sParticipation.status = 'notparticipated';
 
-                                    var sParticipation = {};
-                                    sParticipation.survey_id = form[0]._id;
-                                    sParticipation.user_id = data.user_id;
-                                    sParticipation.freezedate = form[0].freezedate;
-                                    sParticipation.status = 'notparticipated';
+                                        SurveyParticipation.create(sParticipation, function (err, data) {
+                                            if (!err) {
+                                                console.log('New record added to survey participation.');
+                                            } else {
+                                                console.log('Error in adding new record to survey participation.');
+                                            }
+                                        });
 
-                                    SurveyParticipation.create(sParticipation, function (err, data) {
-                                        if (!err) {
-                                            console.log('New record added to survey participation.');
-                                        } else {
-                                            console.log('Error in adding new record to survey participation.');
-                                        }
-                                    });
-
-                                    var transporter = nodemailer.createTransport();
-                                    var body = "Hi " + data.firstname + " " + data.lastname + "," +
-                                               "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
-                                               "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
-                                               "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
-                                               "<br><br> Thanks," +
-                                               "<br> Moodwonder Team";    
-                                    body = emailTemplate.general(body);
-                                    transporter.sendMail({
-                                        from: Config.fromEmail,
-                                        to: data.email,
-                                        //to: 'useremailtestacc@gmail.com',
-                                        subject: companyname + ' created a quick survey for you on Moodwonder',
-                                        html: body
-                                    });
+                                        var transporter = nodemailer.createTransport();
+                                        var body = "Hi " + data.firstname + " " + data.lastname + "," +
+                                                   "<br><br> " + companyname + " has created a new quick survey for you on Moodwonder." +
+                                                   "<br><br><a style='text-decoration: none; color: #ffffff; background: #03afa9; padding: 5px;' href='" + "http://" + req.get("host") + "/takesurvey/" + form[0]._id +"'>Take survey</a>" +
+                                                   "<br><br>You may copy/paste this link into your browser: <br>" + 'http://' + req.get('host') + '/takesurvey/' + form[0]._id +
+                                                   "<br><br> Thanks," +
+                                                   "<br> Moodwonder Team";    
+                                        body = emailTemplate.general(body);
+                                        transporter.sendMail({
+                                            from: Config.fromEmail,
+                                            to: data.email,
+                                            //to: 'useremailtestacc@gmail.com',
+                                            subject: companyname + ' created a quick survey for you on Moodwonder',
+                                            html: body
+                                        });
+                                    }
                                 }
 
 
