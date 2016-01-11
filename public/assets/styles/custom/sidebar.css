@@ -103,7 +103,8 @@ body.pushable {
 	-webkit-transition: -webkit-transform 500ms ease;
 	transition: transform 500ms ease;
 	will-change: transform;
-	z-index: 101;
+	/* z-index: 101; */
+	z-index: 13;
 }
 /*--------------
      Page
@@ -117,9 +118,9 @@ body.pushable {
 	min-height: 100%;
 	-webkit-transition: -webkit-transform 500ms ease;
 	transition: transform 500ms ease;
-	z-index: 2;
+	/* z-index: 2; */
 }
-}
+
 body.pushable > .pusher {
 	background: #ffffff;
 }
