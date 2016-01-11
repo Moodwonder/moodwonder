@@ -7,6 +7,6 @@
 /server/config/secrets.js
 /nbproject/private/
 /public/assets/admin.js
-npm-debug.log
+/npm-debug.log
 .idea
 .DS_Store

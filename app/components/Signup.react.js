@@ -95,6 +95,7 @@ export default class Signup extends React.Component {
               this.setState({ message: '' });
           }.bind(this),3000);
       }
+      React.findDOMNode(this.refs.email).value = '';
   }
 
   render() {
@@ -152,7 +153,7 @@ export default class Signup extends React.Component {
           }
       }
       return (
-        <form className="six wide column"  onSubmit={this._onSignupStep1Submit} >
+        <form className="six wide column"  onSubmit={this._onSignupStep1Submit} method="post" >
             <div className="ui segment slideExpandUp ">
                 <div className="ui input">
                     <input ref="email" id="email" name="email" placeholder="HOM_SGN_WORK_EMAIL" type="text" />

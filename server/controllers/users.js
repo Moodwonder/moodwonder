@@ -125,7 +125,8 @@ exports.checkLogin = function (req, res, next) {
  * Login
  */
 exports.postLogin = function (req, res, next) {
-    
+
+	var response = {};
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
@@ -164,8 +165,17 @@ exports.postLogin = function (req, res, next) {
             response.status = true;
             response.message = 'Success! You are logged in';
             response.user = user;
-            res.send(response);
-            res.end();
+			if(req.body.javascript_status){
+				// if not set client_side_rendering_identifier
+				// To fix script loading issue in the browser
+				// refer bug Bug #15825
+				res.redirect('/login');
+				//next();
+				return;
+			}else{
+                res.send(response);
+                res.end();
+		    }
         });
     })(req, res, next);
 };
@@ -554,7 +564,7 @@ exports.postSignupStep1 = function (req, res, next) {
 
     if (!blockedDomains.checkDomain(email)) {
         response.status = false;
-        response.message = 'This domain name is blocked';
+        response.message = 'It is a restricted email domain. Please make sure you enter your work email address';
         res.send(response);
         return;
     }
@@ -2969,7 +2979,7 @@ exports.handleInviteSignup = function(req, res, next) {
         req.body.email = email; // temp fix
         if (!blockedDomains.checkDomain(email)) {
             response.status  = false;
-            response.message = 'This domain name is blocked';
+            response.message = 'It is a restricted email domain. Please make sure you enter your work email address';
             req.body.response = response;
             next();
             return;
@@ -3236,4 +3246,17 @@ exports.handleSetPassword = function(req, res, next) {
             }
         });
     }
+};
+
+exports.loginHandler = function(req, res, next) {
+	if(req.user && req.user.company_id){
+		// this is a normal user because company_id exist
+		res.redirect('/mymood');
+	}else if(req.user && req.user.role && req.user.role === 'ADMIN'){
+		// this is a normal user because company_id exist
+		res.redirect('/admin/users');
+	}else{
+		// No user
+		next();
+	}
 };

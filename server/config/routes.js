@@ -80,6 +80,7 @@ module.exports = function (app, passport) {
     app.post('/removememberfromteam', users.checkLogin, teams.removeMemberFromTeam, invitation.removeInvitation);
     app.post('/invitesignup', users.checkLogin, invitation.sendInvitation);
     app.post('/inviteanonymously', users.checkLogin, invitation.inviteAnonymously);
+    app.get('/login', users.loginHandler);
     app.get('/logout', users.getLogout);
     app.get('/test', users.test);
     app.get('/userinfo', users.checkLogin, users.getUserInfo);
@@ -119,6 +120,7 @@ module.exports = function (app, passport) {
     app.get('/getlanguages', language.getLanguages);
 
     app.post('/adminlogin', admin.login);
+    app.get('/admin', users.loginHandler);
     app.get('/adminlogout', admin.logout);
     app.get('/loggedin', admin.getLoggedIn);
 
