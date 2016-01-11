@@ -119,7 +119,7 @@ export default class SidebarMenu extends React.Component {
                     {viewvotes}
                     {links}
                     <a className="item" href="/viewsurvey">
-                        <i className="line chart icon"></i>
+                        <i className="area chart icon"></i>
                         {GetText('L_PARTICIPATE_SURVEYS', mlarray)}
                     </a>
                     <a className="item" href="/survey">
