@@ -707,6 +707,24 @@ module.exports = function (app, passport) {
                         .replace("LINK", customsurveystyles)
                         .replace("BODYCLASS", '')
                         .replace("JSCRIPTS", userscripts);
+                } else if (pageurl == '/employeeofthemonth') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", userstyles)
+                        .replace("BODYCLASS", 'employeeofthemonth')
+                        .replace("JSCRIPTS", userscripts);
+                } else if (pageurl == '/viewvotes') {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", userstyles)
+                        .replace("BODYCLASS", 'viewvotes')
+                        .replace("JSCRIPTS", userscripts);
+                } else if (pageurl.search("publicprofile") !== -1) {
+                    html = html.replace("TITLE", Header.title)
+                        .replace("META", Header.meta)
+                        .replace("LINK", userstyles)
+                        .replace("BODYCLASS", 'publicprofile')
+                        .replace("JSCRIPTS", userscripts);
                 } else {
                     html = html.replace("TITLE", Header.title)
                         .replace("META", Header.meta)
