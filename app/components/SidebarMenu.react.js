@@ -120,11 +120,11 @@ export default class SidebarMenu extends React.Component {
                     {links}
                     <a className="item" href="/viewsurvey">
                         <i className="line chart icon"></i>
-                        Participate in Surveys
+                        {GetText('L_PARTICIPATE_SURVEYS', mlarray)}
                     </a>
                     <a className="item" href="/survey">
                         <i className="thumbs up icon"></i>
-                        Engagement Survey
+                        {GetText('L_ENGAGEMENT_SURVEY', mlarray)}
                     </a>
                     <a className="item" href="/myprofile">
                         <i className="setting icon"></i>

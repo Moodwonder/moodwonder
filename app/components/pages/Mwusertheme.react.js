@@ -14,6 +14,8 @@ export default class Signuppage extends React.Component {
           L_MYCOMPANY_LINK: '',
           L_CAST_VOTE: '',
           L_VIEW_VOTE: '',
+          L_PARTICIPATE_SURVEYS: '',
+          L_ENGAGEMENT_SURVEY: '',
           L_MOODRATE: '',
           L_INVITEPEOPLE: '',
           L_INVITE_PEOPLE_TITLE: '',
@@ -74,6 +76,8 @@ export default class Signuppage extends React.Component {
           L_CAST_VOTE: pagedata.L_CAST_VOTE,
           L_VIEW_VOTE: pagedata.L_VIEW_VOTE,
           L_MY_SURVEYS: pagedata.L_MY_SURVEYS,
+          L_PARTICIPATE_SURVEYS: pagedata.L_PARTICIPATE_SURVEYS,
+          L_ENGAGEMENT_SURVEY: pagedata.L_ENGAGEMENT_SURVEY,
           L_CREATE_NEW_SURVEY: pagedata.L_CREATE_NEW_SURVEY,
           L_OPENENDED_RESPONSES: pagedata.L_OPENENDED_RESPONSES,
           L_MOODRATE: pagedata.L_MOODRATE,
@@ -152,6 +156,16 @@ export default class Signuppage extends React.Component {
   onChangeMySurveys = (e) => {
       e.preventDefault();
       this.setState({ L_MY_SURVEYS: e.target.value });
+  }
+
+  onChangeParticipateSurveys = (e) => {
+      e.preventDefault();
+      this.setState({ L_PARTICIPATE_SURVEYS: e.target.value });
+  }
+
+  onChangeEngagementSurvey = (e) => {
+      e.preventDefault();
+      this.setState({ L_ENGAGEMENT_SURVEY: e.target.value });
   }
 
   onChangeCreateNewSurvey = (e) => {
@@ -345,6 +359,8 @@ export default class Signuppage extends React.Component {
       let L_CAST_VOTE = this.state.L_CAST_VOTE;
       let L_VIEW_VOTE = this.state.L_VIEW_VOTE;
       let L_MY_SURVEYS = this.state.L_MY_SURVEYS;
+      let L_PARTICIPATE_SURVEYS = this.state.L_PARTICIPATE_SURVEYS;
+      let L_ENGAGEMENT_SURVEY = this.state.L_ENGAGEMENT_SURVEY;
       let L_CREATE_NEW_SURVEY = this.state.L_CREATE_NEW_SURVEY;
       let L_OPENENDED_RESPONSES = this.state.L_OPENENDED_RESPONSES;
       let L_MOODRATE = this.state.L_MOODRATE;
@@ -445,6 +461,24 @@ export default class Signuppage extends React.Component {
                              type="text"
                              value={L_MY_SURVEYS}
                              onChange={this.onChangeMySurveys} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_PARTICIPATE_SURVEYS</label>
+                    <input className="form-control"
+                             name="L_PARTICIPATE_SURVEYS"
+                             type="text"
+                             value={L_PARTICIPATE_SURVEYS}
+                             onChange={this.onChangeParticipateSurveys} />
+                  </div>
+
+                  <div className="field">
+                    <label>L_ENGAGEMENT_SURVEY</label>
+                    <input className="form-control"
+                             name="L_ENGAGEMENT_SURVEY"
+                             type="text"
+                             value={L_ENGAGEMENT_SURVEY}
+                             onChange={this.onChangeEngagementSurvey} />
                   </div>
 
                   <div className="field">

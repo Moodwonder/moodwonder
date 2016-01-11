@@ -375,6 +375,8 @@ exports.updatePageKeys = function (req, res) {
                 L_CAST_VOTE: data.L_CAST_VOTE,
                 L_VIEW_VOTE: data.L_VIEW_VOTE,
                 L_MY_SURVEYS: data.L_MY_SURVEYS,
+                L_PARTICIPATE_SURVEYS: data.L_PARTICIPATE_SURVEYS,
+                L_ENGAGEMENT_SURVEY: data.L_ENGAGEMENT_SURVEY,
                 L_CREATE_NEW_SURVEY: data.L_CREATE_NEW_SURVEY,
                 L_OPENENDED_RESPONSES: data.L_OPENENDED_RESPONSES,
                 L_MOODRATE: data.L_MOODRATE,

@@ -120,7 +120,7 @@ export default class Leftnav extends React.Component {
                 {openresponselink}
                 <a className="item" href="/viewsurvey">
                     <i className="line chart icon"></i>
-                    Participate In Surveys
+                    {GetText('L_PARTICIPATE_SURVEYS', mlarray)}
                 </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>

@@ -17,6 +17,8 @@ var mwuserthemeSchema = new mongoose.Schema({
     L_CAST_VOTE: {type: String, default: ''},
     L_VIEW_VOTE: {type: String, default: ''},
     L_MY_SURVEYS: {type: String, default: ''},
+    L_PARTICIPATE_SURVEYS: {type: String, default: ''},
+    L_ENGAGEMENT_SURVEY: {type: String, default: ''},
     L_CREATE_NEW_SURVEY: {type: String, default: ''},
     L_OPENENDED_RESPONSES: {type: String, default: ''},
     L_MOODRATE: {type: String, default: ''},
