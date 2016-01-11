@@ -441,6 +441,7 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/form.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/custom.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/modal.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/custom_modal.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/dimmer.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/404.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';

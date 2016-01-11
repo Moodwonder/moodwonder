@@ -134,7 +134,7 @@ export default class Navigation extends React.Component {
       let modal;
       if(this.state.popup){
           modal = (
-            <div className="ui dimmer modals page transition visible active">
+            <div className="ui dimmer modals page transition visible active navigation">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this.onPopupClose} data-dismiss="modal"></i>
                     <div className="ui segment" style={{"textAlign" : "center"}}>
