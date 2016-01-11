@@ -499,7 +499,19 @@ exports.getUserInfo = function (req, res) {
                     'usertype' : lists.usertype,
                     'company_admin' : lists.company_admin
                 };
-                res.json(response);
+
+				var date = new Date();
+				// date with YYYY-MM-DD format
+				var cdate = JSON.stringify(date).substring(1, 11);
+				var yearmonth = cdate.substring(0, 7);
+                EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
+
+					if(!err && emp!==null){
+						response.data.disablevote = true;
+					}
+					res.json(response);
+				});
+
             }
         } else {
             res.json(response);
@@ -2785,6 +2797,7 @@ exports.getPublicProfile = function (req, res, next) {
         response.data.teams !== undefined &&
         response.data.manager !== undefined &&
         response.data.vote !== undefined &&
+        response.data.disablevote !== undefined &&
         response.data.currentuservotes !== undefined &&
         response.data.currentusereom !== undefined
         ){
@@ -2939,6 +2952,21 @@ exports.getPublicProfile = function (req, res, next) {
                     existCondition();
                 });
 
+
+				// Employee of the month selection status
+				var date = new Date();
+				// date with YYYY-MM-DD format
+				var cdate = JSON.stringify(date).substring(1, 11);
+				var yearmonth = cdate.substring(0, 7);
+                EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
+
+					if(!err && emp!==null){
+						response.data.disablevote = true;
+					}else{
+						response.data.disablevote = false;
+					}
+					existCondition();
+				});
 
             } else {
                 req.body.response = response;
