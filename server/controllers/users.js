@@ -1338,8 +1338,8 @@ exports.postForgotPassword = function (req, res) {
                             "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
                             "You may copy/paste this link into your browser: <br><br>" +
                             "registration: " + link + "<br><br>" +
-                            "Best wishes" +
-                            "<br> Thanks again for joining Moodwonder!";
+                            "Thanks," +
+                            "<br> Moodwonder Team";
                     body = emailTemplate.general(body);
 
                     transporter.sendMail({

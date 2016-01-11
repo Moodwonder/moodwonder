@@ -109,6 +109,12 @@ export default class PublicProfile extends React.Component {
         }
 
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
+        try{
+            if (this.state.publicuser.data.disablevote) {
+                voteBtn   = (<a className="ui button vote disabled" > <i className='checkmark icon'></i> VOTE HERE</a>);
+            }
+        }catch(e){}
+
         if (!isNaN(sPercentage) && (sPercentage > 0)) {
             content = (
                     <div className="ui segment">
@@ -150,7 +156,11 @@ export default class PublicProfile extends React.Component {
         try{
             if ( publicUser.data.vote.mytotalvotes < 5 && !publicUser.data.vote.myvote) {
                 // If my vote is true publicUser.data.mytotalvotes < 5 &&
-                voteBtn   = (<a className="ui button vote " onClick={this._onModalClick}> <i className='thumbs up icon'></i> VOTE HERE</a>);
+                if (publicUser.data.disablevote) {
+                    voteBtn   = (<a className="ui button vote disabled" > <i className='thumbs up icon'></i> VOTE HERE</a>);
+                }else{
+                    voteBtn   = (<a className="ui button vote " onClick={this._onModalClick}> <i className='thumbs up icon'></i> VOTE HERE</a>);
+                }
             }
         }catch(e){}
 

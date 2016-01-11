@@ -383,8 +383,8 @@ exports.inviteAnonymously = function(req, res, next) {
                         var transporter = nodemailer.createTransport();
                         var body = "Welcome to Moodwonder! <br><br>" +
                                     "Yay! Someone has invited you anynomously to join Moodwonder.! <br><br>" +
-                                    "Best wishes" +
-                                    "<br> Thanks again for joining Moodwonder!";
+                                    "Thanks," +
+                                    "<br>Moodwonder Team";
 
                         body = emailTemplate.general(body);
 
