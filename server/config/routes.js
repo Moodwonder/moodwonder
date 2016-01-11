@@ -219,7 +219,7 @@ module.exports = function (app, passport) {
         }
         var CreatePswdStore = { user: { uid: req.user ? req.user._id : null } };
         if(req.body.ErrorState){
-			var ErrorState = req.body.ErrorState;
+            var ErrorState = req.body.ErrorState;
             CreatePswdStore.message = ErrorState.message;
             CreatePswdStore.noPswdForm = ErrorState.noPswdForm;
             CreatePswdStore.hasError = ErrorState.hasError;
@@ -445,7 +445,6 @@ module.exports = function (app, passport) {
         userstyles += '<link rel="stylesheet" href="/assets/styles/custom/404.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/message.css" />';
 
-        
         var userscripts = '';
         userscripts += '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>';
         userscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/semantic.js"></script>';

@@ -13,10 +13,12 @@ export default class Login extends React.Component {
       this.state = UserStore.getState();
       this.state.canSubmit = false;
       this.validationErrors = {};
+      this.state.loginBtn = true;
   }
 
   componentDidMount() {
       UserStore.listen(this._onChange);
+      this.setState({loginBtn: false});
   }
 
   componentWillUnmount() {
@@ -139,7 +141,7 @@ export default class Login extends React.Component {
                     <input type="hidden" name="javascript_status" value="not loaded" />
                   </div>
                 </div>
-                <button type="submit" className="ui yellow button">LGN_BTN</button>
+                <button type="submit" className="ui yellow button" disabled={this.state.loginBtn} >LGN_BTN</button>
               </form>
               {message}
               {multimessages}

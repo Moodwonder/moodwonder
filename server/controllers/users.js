@@ -119,14 +119,12 @@ exports.checkLogin = function (req, res, next) {
     }
 }
 
-
-
 /**
  * Login
  */
 exports.postLogin = function (req, res, next) {
 
-	var response = {};
+    var response = {};
     passport.use('local-user', new LocalStrategy({
         usernameField: 'email'
     }, function (email, password, done) {
@@ -165,17 +163,17 @@ exports.postLogin = function (req, res, next) {
             response.status = true;
             response.message = 'Success! You are logged in';
             response.user = user;
-			if(req.body.javascript_status){
-				// if not set client_side_rendering_identifier
-				// To fix script loading issue in the browser
-				// refer bug Bug #15825
-				res.redirect('/login');
-				//next();
-				return;
-			}else{
+            if(req.body.javascript_status){
+                // if not set client_side_rendering_identifier
+                // To fix script loading issue in the browser
+                // refer bug Bug #15825
+                res.redirect('/login');
+                //next();
+                return;
+            }else{
                 res.send(response);
                 res.end();
-		    }
+            }
         });
     })(req, res, next);
 };
@@ -1755,7 +1753,7 @@ var job = new CronJob({
     // console.log(today +'==='+ second_last_day);
     // console.log(today === second_last_day);
     if(today === second_last_day){
-		
+        
         CompanyInfo.find({}).exec(function(err,company){
             if(!err && company!==null){
                 company.map(function (data, key) {
@@ -3195,7 +3193,6 @@ exports.handleInviteSignup = function(req, res, next) {
         */
     }
   });
-
 };
 
 exports.handleSetPassword = function(req, res, next) {
@@ -3249,14 +3246,14 @@ exports.handleSetPassword = function(req, res, next) {
 };
 
 exports.loginHandler = function(req, res, next) {
-	if(req.user && req.user.company_id){
-		// this is a normal user because company_id exist
-		res.redirect('/mymood');
-	}else if(req.user && req.user.role && req.user.role === 'ADMIN'){
-		// this is a normal user because company_id exist
-		res.redirect('/admin/users');
-	}else{
-		// No user
-		next();
-	}
+    if(req.user && req.user.company_id){
+        // this is a normal user because company_id exist
+        res.redirect('/mymood');
+    }else if(req.user && req.user.role && req.user.role === 'ADMIN'){
+        // this is a normal user because company_id exist
+        res.redirect('/admin/users');
+    }else{
+        // No user
+        next();
+    }
 };
