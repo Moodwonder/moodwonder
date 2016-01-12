@@ -33,7 +33,9 @@ var mycompanypageSchema = new mongoose.Schema({
     MYCO_HEADING_TOPTHREE : {type: String, default: ''},
     MYCO_HEADING_WORSTTHREE : {type: String, default: ''},
     MYCO_HEADING_MOSTIMPROVED : {type: String, default: ''},
-    MYCO_HEADING_LEASTIMPROVED : {type: String, default: ''}
+    MYCO_HEADING_LEASTIMPROVED : {type: String, default: ''},
+    MYCO_INFO_HEADING : {type: String, default: ''},
+    MYCO_INFO_SUBMIT : {type: String, default: ''}
         
 }, {
     collection: 'mycompanypage'

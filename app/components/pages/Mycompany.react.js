@@ -32,7 +32,9 @@ export default class Mycompany extends React.Component {
           MYCO_HEADING_TOPTHREE: '',
           MYCO_HEADING_WORSTTHREE: '',
           MYCO_HEADING_MOSTIMPROVED: '',
-          MYCO_HEADING_LEASTIMPROVED: ''
+          MYCO_HEADING_LEASTIMPROVED: '',
+          MYCO_INFO_HEADING: '',
+          MYCO_INFO_SUBMIT: ''
       };
   }
 
@@ -74,7 +76,9 @@ export default class Mycompany extends React.Component {
           MYCO_HEADING_TOPTHREE: pagedata.MYCO_HEADING_TOPTHREE,
           MYCO_HEADING_WORSTTHREE: pagedata.MYCO_HEADING_WORSTTHREE,
           MYCO_HEADING_MOSTIMPROVED: pagedata.MYCO_HEADING_MOSTIMPROVED,
-          MYCO_HEADING_LEASTIMPROVED: pagedata.MYCO_HEADING_LEASTIMPROVED
+          MYCO_HEADING_LEASTIMPROVED: pagedata.MYCO_HEADING_LEASTIMPROVED,
+          MYCO_INFO_HEADING: pagedata.MYCO_INFO_HEADING,
+          MYCO_INFO_SUBMIT: pagedata.MYCO_INFO_SUBMIT
       });
   }
 
@@ -179,6 +183,14 @@ export default class Mycompany extends React.Component {
       e.preventDefault();
       this.setState({ MYCO_HEADING_LEASTIMPROVED: e.target.value });
   }
+  onChangeInfoHeading = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_HEADING: e.target.value });
+  }
+  onChangeInfoSubmit = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_SUBMIT: e.target.value });
+  }
 
 
 
@@ -208,6 +220,8 @@ export default class Mycompany extends React.Component {
       let MYCO_HEADING_WORSTTHREE = this.state.MYCO_HEADING_WORSTTHREE;
       let MYCO_HEADING_MOSTIMPROVED = this.state.MYCO_HEADING_MOSTIMPROVED;
       let MYCO_HEADING_LEASTIMPROVED = this.state.MYCO_HEADING_LEASTIMPROVED;
+      let MYCO_INFO_HEADING = this.state.MYCO_INFO_HEADING;
+      let MYCO_INFO_SUBMIT = this.state.MYCO_INFO_SUBMIT;
 
 
 
@@ -403,6 +417,22 @@ export default class Mycompany extends React.Component {
                                  type="text"
                                  value={MYCO_HEADING_LEASTIMPROVED}
                                  onChange={this.onChangeHeadingLeastImp} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_HEADING</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_HEADING"
+                                 type="text"
+                                 value={MYCO_INFO_HEADING}
+                                 onChange={this.onChangeInfoHeading} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_SUBMIT</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_SUBMIT"
+                                 type="text"
+                                 value={MYCO_INFO_SUBMIT}
+                                 onChange={this.onChangeInfoSubmit} />
                       </div>
 
 

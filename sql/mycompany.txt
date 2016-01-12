@@ -22,7 +22,9 @@ db.mycompanypage.insert({ "language" : "EN",
                         "MYCO_HEADING_TOPTHREE" : "COMPANY TOP THREE AREAS",
                         "MYCO_HEADING_WORSTTHREE" : "COMPANY WORST THREE AREAS",
                         "MYCO_HEADING_MOSTIMPROVED" : "COMPANY - MOST IMPROVED AREAS (LAST 1 MONTH)",
-                        "MYCO_HEADING_LEASTIMPROVED" : "COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)"
+                        "MYCO_HEADING_LEASTIMPROVED" : "COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)",
+                        "MYCO_INFO_HEADING" : "My Company Info",
+                        "MYCO_INFO_SUBMIT" : "Submit"
 });
 
 db.mycompanypage.insert({ "language" : "FI",
@@ -48,5 +50,7 @@ db.mycompanypage.insert({ "language" : "FI",
                         "MYCO_HEADING_TOPTHREE" : "YRITYS TOP kolme aluetta",
                         "MYCO_HEADING_WORSTTHREE" : "YRITYS WORST kolme aluetta",
                         "MYCO_HEADING_MOSTIMPROVED" : "YRITYS - paranee eniten ALUEET (LAST 1 kuukausi)",
-                        "MYCO_HEADING_LEASTIMPROVED" : "YRITYS - ainakin aiempaa ALUEET (LAST 1 kuukausi)"
+                        "MYCO_HEADING_LEASTIMPROVED" : "YRITYS - ainakin aiempaa ALUEET (LAST 1 kuukausi)",
+                        "MYCO_INFO_HEADING" : "Oma Yritystiedot",
+                        "MYCO_INFO_SUBMIT" : "esittää"
 });

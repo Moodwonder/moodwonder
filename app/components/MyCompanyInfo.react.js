@@ -281,6 +281,8 @@ export default class MyCompanyInfo extends React.Component {
         let message;
         let userInfo = this.state.userDetailsTmp;
         let multimessages;
+        let heading = this.props.heading;
+        let submit = this.props.submit;
         try {
             if (this.state.messages !== undefined && this.state.messages.length > 0) {
                 multimessages = this.state.messages.map((mes, key) => {
@@ -298,7 +300,7 @@ export default class MyCompanyInfo extends React.Component {
 
         return (
             <div>
-                <h4 className="ui header ryt">My Company Info</h4>
+                <h4 className="ui header ryt">{heading}</h4>
                 {message}
                 <div className="ui small form">
                     <form className="field">
@@ -444,7 +446,7 @@ export default class MyCompanyInfo extends React.Component {
                            </select>
                         </div>
 
-                        <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>Submit</button>
+                        <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>{submit}</button>
                     </form>
                 </div>
             </div>

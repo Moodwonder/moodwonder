@@ -539,7 +539,22 @@ exports.updatePageKeys = function (req, res) {
             modelObj = OpenendedresponsesPage;
             update = {}
             update = {
-                OPER_TITLE: data.OPER_TITLE
+                OPER_TITLE: data.OPER_TITLE,
+                OPER_MOST_IMPROVED: data.OPER_MOST_IMPROVED,
+                OPER_LEAST_IMPROVED: data.OPER_LEAST_IMPROVED,
+                OPER_OPTMOOD: data.OPER_OPTMOOD,
+                OPER_OPTMEANING: data.OPER_OPTMEANING,
+                OPER_OPTEXPECTATIONS: data.OPER_OPTEXPECTATIONS,
+                OPER_OPTSTRENGTHS: data.OPER_OPTSTRENGTHS,
+                OPER_OPTRECOGNITION: data.OPER_OPTRECOGNITION,
+                OPER_OPTDEVELOPMENT: data.OPER_OPTDEVELOPMENT,
+                OPER_OPTINFLUENCE: data.OPER_OPTINFLUENCE,
+                OPER_OPTGOALS: data.OPER_OPTGOALS,
+                OPER_OPTTEAM: data.OPER_OPTTEAM,
+                OPER_OPTFRIENDSHIP: data.OPER_OPTFRIENDSHIP,
+                OPER_OPTFEEDBACK: data.OPER_OPTFEEDBACK,
+                OPER_OPTOPPORTUNITIES: data.OPER_OPTOPPORTUNITIES,
+                OPER_OPTRECOMMENDATION: data.OPER_OPTRECOMMENDATION
             };
             break;
 
@@ -623,7 +638,9 @@ exports.updatePageKeys = function (req, res) {
                 MYCO_HEADING_TOPTHREE: data.MYCO_HEADING_TOPTHREE,
                 MYCO_HEADING_WORSTTHREE: data.MYCO_HEADING_WORSTTHREE,
                 MYCO_HEADING_MOSTIMPROVED: data.MYCO_HEADING_MOSTIMPROVED,
-                MYCO_HEADING_LEASTIMPROVED: data.MYCO_HEADING_LEASTIMPROVED
+                MYCO_HEADING_LEASTIMPROVED: data.MYCO_HEADING_LEASTIMPROVED,
+                MYCO_INFO_HEADING: data.MYCO_INFO_HEADING,
+                MYCO_INFO_SUBMIT: data.MYCO_INFO_SUBMIT
             };
             break;
 

@@ -414,6 +414,21 @@ export default RequireAuth(class Pages extends React.Component {
 
       openendedres.language = data['language'];
       openendedres.OPER_TITLE = data['OPER_TITLE'];
+      openendedres.OPER_MOST_IMPROVED = data['OPER_MOST_IMPROVED'];
+      openendedres.OPER_LEAST_IMPROVED = data['OPER_LEAST_IMPROVED'];
+      openendedres.OPER_OPTMOOD = data['OPER_OPTMOOD'];
+      openendedres.OPER_OPTMEANING = data['OPER_OPTMEANING'];
+      openendedres.OPER_OPTEXPECTATIONS = data['OPER_OPTEXPECTATIONS'];
+      openendedres.OPER_OPTSTRENGTHS = data['OPER_OPTSTRENGTHS'];
+      openendedres.OPER_OPTRECOGNITION = data['OPER_OPTRECOGNITION'];
+      openendedres.OPER_OPTDEVELOPMENT = data['OPER_OPTDEVELOPMENT'];
+      openendedres.OPER_OPTINFLUENCE = data['OPER_OPTINFLUENCE'];
+      openendedres.OPER_OPTGOALS = data['OPER_OPTGOALS'];
+      openendedres.OPER_OPTTEAM = data['OPER_OPTTEAM'];
+      openendedres.OPER_OPTFRIENDSHIP = data['OPER_OPTFRIENDSHIP'];
+      openendedres.OPER_OPTFEEDBACK = data['OPER_OPTFEEDBACK'];
+      openendedres.OPER_OPTOPPORTUNITIES = data['OPER_OPTOPPORTUNITIES'];
+      openendedres.OPER_OPTRECOMMENDATION = data['OPER_OPTRECOMMENDATION'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'openendedres', openendedres);
@@ -521,6 +536,8 @@ export default RequireAuth(class Pages extends React.Component {
       mycompany.MYCO_HEADING_WORSTTHREE = data['MYCO_HEADING_WORSTTHREE'];
       mycompany.MYCO_HEADING_MOSTIMPROVED = data['MYCO_HEADING_MOSTIMPROVED'];
       mycompany.MYCO_HEADING_LEASTIMPROVED = data['MYCO_HEADING_LEASTIMPROVED'];
+      mycompany.MYCO_INFO_HEADING = data['MYCO_INFO_HEADING'];
+      mycompany.MYCO_INFO_SUBMIT = data['MYCO_INFO_SUBMIT'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mycompany', mycompany);
