@@ -34,7 +34,15 @@ export default class Mycompany extends React.Component {
           MYCO_HEADING_MOSTIMPROVED: '',
           MYCO_HEADING_LEASTIMPROVED: '',
           MYCO_INFO_HEADING: '',
-          MYCO_INFO_SUBMIT: ''
+          MYCO_INFO_SUBMIT: '',
+          MYCO_INFO_PLCHLDR_COMPANYNAME : '',
+          MYCO_INFO_PLCHLDR_INDUSTRY : '',
+          MYCO_INFO_PLCHLDR_CONTINENT : '',
+          MYCO_INFO_PLCHLDR_COUNTRY : '',
+          MYCO_INFO_PLCHLDR_STATE : '',
+          MYCO_INFO_PLCHLDR_CITY : '',
+          MYCO_INFO_PLCHLDR_ADDRESS : '',
+          MYCO_INFO_PLCHLDR_WEBSITE : ''
       };
   }
 
@@ -78,7 +86,15 @@ export default class Mycompany extends React.Component {
           MYCO_HEADING_MOSTIMPROVED: pagedata.MYCO_HEADING_MOSTIMPROVED,
           MYCO_HEADING_LEASTIMPROVED: pagedata.MYCO_HEADING_LEASTIMPROVED,
           MYCO_INFO_HEADING: pagedata.MYCO_INFO_HEADING,
-          MYCO_INFO_SUBMIT: pagedata.MYCO_INFO_SUBMIT
+          MYCO_INFO_SUBMIT: pagedata.MYCO_INFO_SUBMIT,
+          MYCO_INFO_PLCHLDR_COMPANYNAME: pagedata.MYCO_INFO_PLCHLDR_COMPANYNAME,
+          MYCO_INFO_PLCHLDR_INDUSTRY: pagedata.MYCO_INFO_PLCHLDR_INDUSTRY,
+          MYCO_INFO_PLCHLDR_CONTINENT: pagedata.MYCO_INFO_PLCHLDR_CONTINENT,
+          MYCO_INFO_PLCHLDR_COUNTRY: pagedata.MYCO_INFO_PLCHLDR_COUNTRY,
+          MYCO_INFO_PLCHLDR_STATE: pagedata.MYCO_INFO_PLCHLDR_STATE,
+          MYCO_INFO_PLCHLDR_CITY: pagedata.MYCO_INFO_PLCHLDR_CITY,
+          MYCO_INFO_PLCHLDR_ADDRESS: pagedata.MYCO_INFO_PLCHLDR_ADDRESS,
+          MYCO_INFO_PLCHLDR_WEBSITE: pagedata.MYCO_INFO_PLCHLDR_WEBSITE
       });
   }
 
@@ -191,6 +207,38 @@ export default class Mycompany extends React.Component {
       e.preventDefault();
       this.setState({ MYCO_INFO_SUBMIT: e.target.value });
   }
+  mycoInfoPlchldrCompanyname = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_COMPANYNAME: e.target.value });
+  }
+  mycoInfoPlchldrIndustry = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_INDUSTRY: e.target.value });
+  }
+  mycoInfoPlchldrContinent = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_CONTINENT: e.target.value });
+  }
+  mycoInfoPlchldrCountry = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_COUNTRY: e.target.value });
+  }
+  mycoInfoPlchldrState = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_STATE: e.target.value });
+  }
+  mycoInfoPlchldrCity = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_CITY: e.target.value });
+  }
+  mycoInfoPlchldrAddress = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_ADDRESS: e.target.value });
+  }
+  mycoInfoPlchldrWebsite = (e) => {
+      e.preventDefault();
+      this.setState({ MYCO_INFO_PLCHLDR_WEBSITE: e.target.value });
+  }
 
 
 
@@ -222,6 +270,14 @@ export default class Mycompany extends React.Component {
       let MYCO_HEADING_LEASTIMPROVED = this.state.MYCO_HEADING_LEASTIMPROVED;
       let MYCO_INFO_HEADING = this.state.MYCO_INFO_HEADING;
       let MYCO_INFO_SUBMIT = this.state.MYCO_INFO_SUBMIT;
+      let MYCO_INFO_PLCHLDR_COMPANYNAME = this.state.MYCO_INFO_PLCHLDR_COMPANYNAME;
+      let MYCO_INFO_PLCHLDR_INDUSTRY = this.state.MYCO_INFO_PLCHLDR_INDUSTRY;
+      let MYCO_INFO_PLCHLDR_CONTINENT = this.state.MYCO_INFO_PLCHLDR_CONTINENT;
+      let MYCO_INFO_PLCHLDR_COUNTRY = this.state.MYCO_INFO_PLCHLDR_COUNTRY;
+      let MYCO_INFO_PLCHLDR_STATE = this.state.MYCO_INFO_PLCHLDR_STATE;
+      let MYCO_INFO_PLCHLDR_CITY = this.state.MYCO_INFO_PLCHLDR_CITY;
+      let MYCO_INFO_PLCHLDR_ADDRESS = this.state.MYCO_INFO_PLCHLDR_ADDRESS;
+      let MYCO_INFO_PLCHLDR_WEBSITE = this.state.MYCO_INFO_PLCHLDR_WEBSITE;
 
 
 
@@ -433,6 +489,70 @@ export default class Mycompany extends React.Component {
                                  type="text"
                                  value={MYCO_INFO_SUBMIT}
                                  onChange={this.onChangeInfoSubmit} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_COMPANYNAME</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_COMPANYNAME"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_COMPANYNAME}
+                                 onChange={this.mycoInfoPlchldrCompanyname} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_INDUSTRY</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_INDUSTRY"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_INDUSTRY}
+                                 onChange={this.mycoInfoPlchldrIndustry} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_CONTINENT</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_CONTINENT"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_CONTINENT}
+                                 onChange={this.mycoInfoPlchldrContinent} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_COUNTRY</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_COUNTRY"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_COUNTRY}
+                                 onChange={this.mycoInfoPlchldrCountry} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_STATE</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_STATE"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_STATE}
+                                 onChange={this.mycoInfoPlchldrState} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_CITY</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_CITY"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_CITY}
+                                 onChange={this.mycoInfoPlchldrCity} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_ADDRESS</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_ADDRESS"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_ADDRESS}
+                                 onChange={this.mycoInfoPlchldrAddress} />
+                      </div>
+                      <div className="field">
+                        <label>MYCO_INFO_PLCHLDR_WEBSITE</label>
+                        <input className="form-control"
+                                 name="MYCO_INFO_PLCHLDR_WEBSITE"
+                                 type="text"
+                                 value={MYCO_INFO_PLCHLDR_WEBSITE}
+                                 onChange={this.mycoInfoPlchldrWebsite} />
                       </div>
 
 

@@ -24,7 +24,16 @@ db.mycompanypage.insert({ "language" : "EN",
                         "MYCO_HEADING_MOSTIMPROVED" : "COMPANY - MOST IMPROVED AREAS (LAST 1 MONTH)",
                         "MYCO_HEADING_LEASTIMPROVED" : "COMPANY - LEAST IMPROVED AREAS (LAST 1 MONTH)",
                         "MYCO_INFO_HEADING" : "My Company Info",
-                        "MYCO_INFO_SUBMIT" : "Submit"
+                        "MYCO_INFO_SUBMIT" : "Submit",
+
+                        "MYCO_INFO_PLCHLDR_COMPANYNAME" : "Company name",
+                        "MYCO_INFO_PLCHLDR_INDUSTRY" : "Industry",
+                        "MYCO_INFO_PLCHLDR_CONTINENT" : "Continent",
+                        "MYCO_INFO_PLCHLDR_COUNTRY" : "Country",
+                        "MYCO_INFO_PLCHLDR_STATE" : "State",
+                        "MYCO_INFO_PLCHLDR_CITY" : "City",
+                        "MYCO_INFO_PLCHLDR_ADDRESS" : "Address",
+                        "MYCO_INFO_PLCHLDR_WEBSITE" : "Website"
 });
 
 db.mycompanypage.insert({ "language" : "FI",
@@ -52,5 +61,13 @@ db.mycompanypage.insert({ "language" : "FI",
                         "MYCO_HEADING_MOSTIMPROVED" : "YRITYS - paranee eniten ALUEET (LAST 1 kuukausi)",
                         "MYCO_HEADING_LEASTIMPROVED" : "YRITYS - ainakin aiempaa ALUEET (LAST 1 kuukausi)",
                         "MYCO_INFO_HEADING" : "Oma Yritystiedot",
-                        "MYCO_INFO_SUBMIT" : "esittää"
+                        "MYCO_INFO_SUBMIT" : "esittää",
+                        "MYCO_INFO_PLCHLDR_COMPANYNAME" : "Yrityksen nimi",
+                        "MYCO_INFO_PLCHLDR_INDUSTRY" : "teollisuus",
+                        "MYCO_INFO_PLCHLDR_CONTINENT" : "maanosa",
+                        "MYCO_INFO_PLCHLDR_COUNTRY" : "maa",
+                        "MYCO_INFO_PLCHLDR_STATE" : "Osavaltio",
+                        "MYCO_INFO_PLCHLDR_CITY" : "Kaupunki",
+                        "MYCO_INFO_PLCHLDR_ADDRESS" : "Osoite",
+                        "MYCO_INFO_PLCHLDR_WEBSITE" : "verkkosivusto"
 });

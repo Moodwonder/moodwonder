@@ -25,6 +25,8 @@ var Myprofile = require('../models/myprofilepage');
 var MoodratePage = require('../models/moodratepage');
 var InvitepeoplePage = require('../models/invitepeoplepage');
 var ErrorPage = require('../models/errorpage');
+var TakesurveyPage = require('../models/takesurveypage');
+var SurveyresponsesPage = require('../models/surveyresponsespage');
 
 
 /**
@@ -240,6 +242,16 @@ exports.getPage = function (req, res) {
         case 'error':
             modelObj = {};
             modelObj = ErrorPage;
+            break;
+
+        case 'takesurvey':
+            modelObj = {};
+            modelObj = TakesurveyPage;
+            break;
+
+        case 'surveyresponses':
+            modelObj = {};
+            modelObj = SurveyresponsesPage;
             break;
 
         default:
@@ -640,7 +652,15 @@ exports.updatePageKeys = function (req, res) {
                 MYCO_HEADING_MOSTIMPROVED: data.MYCO_HEADING_MOSTIMPROVED,
                 MYCO_HEADING_LEASTIMPROVED: data.MYCO_HEADING_LEASTIMPROVED,
                 MYCO_INFO_HEADING: data.MYCO_INFO_HEADING,
-                MYCO_INFO_SUBMIT: data.MYCO_INFO_SUBMIT
+                MYCO_INFO_SUBMIT: data.MYCO_INFO_SUBMIT,
+                MYCO_INFO_PLCHLDR_COMPANYNAME: data.MYCO_INFO_PLCHLDR_COMPANYNAME,
+                MYCO_INFO_PLCHLDR_INDUSTRY: data.MYCO_INFO_PLCHLDR_INDUSTRY,
+                MYCO_INFO_PLCHLDR_CONTINENT: data.MYCO_INFO_PLCHLDR_CONTINENT,
+                MYCO_INFO_PLCHLDR_COUNTRY: data.MYCO_INFO_PLCHLDR_COUNTRY,
+                MYCO_INFO_PLCHLDR_STATE: data.MYCO_INFO_PLCHLDR_STATE,
+                MYCO_INFO_PLCHLDR_CITY: data.MYCO_INFO_PLCHLDR_CITY,
+                MYCO_INFO_PLCHLDR_ADDRESS: data.MYCO_INFO_PLCHLDR_ADDRESS,
+                MYCO_INFO_PLCHLDR_WEBSITE: data.MYCO_INFO_PLCHLDR_WEBSITE
             };
             break;
 
@@ -782,7 +802,15 @@ exports.updatePageKeys = function (req, res) {
                 EOM_TITLE_1: data.EOM_TITLE_1,
                 EOM_SHOW_MORE: data.EOM_SHOW_MORE,
                 EOM_SEARCH_PLACEHOLDER_1: data.EOM_SEARCH_PLACEHOLDER_1,
-                EOM_SEARCH_BTN_1: data.EOM_SEARCH_BTN_1
+                EOM_SEARCH_BTN_1: data.EOM_SEARCH_BTN_1,
+                EOM_VOTE_BTN: data.EOM_VOTE_BTN,
+                EOM_VOTECOUNT_TEXT: data.EOM_VOTECOUNT_TEXT,
+                EOM_VOTE_PERIOD: data.EOM_VOTE_PERIOD,
+                EOM_POPUP_TITLE: data.EOM_POPUP_TITLE,
+                EOM_POPUP_COMMENT: data.EOM_POPUP_COMMENT,
+                EOM_POPUP_VOTE_BTN: data.EOM_POPUP_VOTE_BTN,
+                EOM_POPUP_CLOSE_BTN: data.EOM_POPUP_CLOSE_BTN,
+                EOM_VOTE_COUNT_MESSAGE: data.EOM_VOTE_COUNT_MESSAGE
             };
             break;
 
@@ -810,6 +838,7 @@ exports.updatePageKeys = function (req, res) {
                 PRFL_TAB_MYTEAM: data.PRFL_TAB_MYTEAM,
                 PRFL_EDIT_PROFILE: data.PRFL_EDIT_PROFILE,
                 PRFL_SUMMARY: data.PRFL_SUMMARY,
+                PRFL_SMMRY_TITLE: data.PRFL_SMMRY_TITLE,
                 PRFL_PERSONAL_INFO: data.PRFL_PERSONAL_INFO,
                 PRFL_PINFO_FNAME: data.PRFL_PINFO_FNAME,
                 PRFL_PINFO_LNAME: data.PRFL_PINFO_LNAME,
@@ -872,6 +901,26 @@ exports.updatePageKeys = function (req, res) {
                 ERR_MESSAGE: data.ERR_MESSAGE,
                 ERR_TEXTBEFORE_LINK: data.ERR_TEXTBEFORE_LINK,
                 ERR_REDIRECT_LINK: data.ERR_REDIRECT_LINK
+            };
+            break;
+
+        case 'takesurvey':
+            modelObj = {};
+            modelObj = TakesurveyPage;
+            update = {}
+            update = {
+                TSVY_CANCEL_BTN: data.TSVY_CANCEL_BTN,
+                TSVY_SUBMIT_BTN: data.TSVY_SUBMIT_BTN
+            };
+            break;
+            
+        case 'surveyresponses':
+            modelObj = {};
+            modelObj = SurveyresponsesPage;
+            update = {}
+            update = {
+                SVRS_LIST_BTN: data.SVRS_LIST_BTN,
+                SVRS_NODATA_MSG: data.SVRS_NODATA_MSG
             };
             break;
 

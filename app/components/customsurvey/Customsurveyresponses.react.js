@@ -4,6 +4,9 @@ import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyResultsStore from 'stores/CustomSurveyResultsStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
+
 
 export default class Customsurveyresponses extends React.Component {
 
@@ -13,7 +16,8 @@ export default class Customsurveyresponses extends React.Component {
       this.state = {
           surveyform: [],
           users: [],
-          surveyresponses: []
+          surveyresponses: [],
+          multilang: MlangStore.getState().multilang
       };
   }
 
@@ -43,6 +47,7 @@ export default class Customsurveyresponses extends React.Component {
       let surveyform = this.state.surveyform;
       let users = this.state.users;
       let surveyresponses = this.state.surveyresponses;
+      let mlarray = this.state.multilang;
       let content = '';
 
       let stitle = surveyform.map(function(survey) {
@@ -108,7 +113,7 @@ export default class Customsurveyresponses extends React.Component {
                     <div className="custom-box">
                         <div className="ui one column stackable grid survey">
                             <div className="column ">
-                                <label className="line-height">No responses.</label>
+                                <label className="line-height">{GetText('SVRS_NODATA_MSG', mlarray)}</label>
                             </div>
                         </div>
                     </div>
@@ -125,7 +130,7 @@ export default class Customsurveyresponses extends React.Component {
                 </div>
                 <div className="column">
                     <div className="three  column">
-                        <div className="test-gen ui submit ble button "> <a href="/surveyforms">Survey lists</a></div>
+                        <div className="test-gen ui submit ble button "> <a href="/surveyforms">{GetText('SVRS_LIST_BTN', mlarray)}</a></div>
                     </div>
                 </div>
             </div>

@@ -589,7 +589,7 @@ export default class MyCompany extends React.Component {
       let comInfoTabContent = null;
       if(this.userstate.user.get('company_admin')){
           comInfoTab = [<a className="item mobile column" onClick={this.companyInfoClick} href="#">{GetText('MYCO_COMPANYINFO', mlarray)}</a>];
-          comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo heading={GetText('MYCO_INFO_HEADING', mlarray)} submit={GetText('MYCO_INFO_SUBMIT', mlarray)} /></div>];
+          comInfoTabContent = [<div style={{display: display}}><MyCompanyInfo /></div>];
       }
 
 

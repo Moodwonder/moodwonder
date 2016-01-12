@@ -1,0 +1,10 @@
+
+db.surveyresponsespage.insert({ "language" : "EN", 
+                        SVRS_LIST_BTN: "Survey lists", 
+                        SVRS_NODATA_MSG : "No responses"
+});
+
+db.surveyresponsespage.insert({ "language" : "FI", 
+                        SVRS_LIST_BTN: "Survey luettelot", 
+                        SVRS_NODATA_MSG : "ei vastauksia"
+});

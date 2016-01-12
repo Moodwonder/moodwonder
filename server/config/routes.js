@@ -33,6 +33,8 @@ var OpenendedsurveyPage = require('../models/openendedsurveypage');
 var MoodratePage = require('../models/moodratepage');
 var InvitepeoplePage = require('../models/invitepeoplepage');
 var ErrorPage = require('../models/errorpage');
+var TakesurveyPage = require('../models/takesurveypage');
+var SurveyresponsesPage = require('../models/surveyresponsespage');
 
 var users = require('../controllers/users');
 var teams = require('../controllers/teams');
@@ -380,6 +382,16 @@ module.exports = function (app, passport) {
             case 'invitepeople':
                 modelObj = {};
                 modelObj = InvitepeoplePage;
+                break;
+
+            case 'takesurvey':
+                modelObj = {};
+                modelObj = TakesurveyPage;
+                break;
+                
+            case 'surveyresponses':
+                modelObj = {};
+                modelObj = SurveyresponsesPage;
                 break;
                 
             case 'testing':

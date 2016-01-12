@@ -315,11 +315,11 @@ export default class MyProfile extends React.Component {
                 </h3>
                 <div className="field">
                     {summarymessage}
-                    <label>Text</label>
+                    <label>{GetText('PRFL_SMMRY_TITLE', mlarray)}</label>
                     <textarea id="summary" name="summary" onChange={this._onChangeSummary} value={this.state.summary}></textarea>
                 </div>
-                <div className="ui submit  button cancel" onClick={this.onCancelEditSummaryClick} >Cancel</div>
-                <div className="ui submit button submitt" onClick={this._onSaveSummary.bind(this)} >Submit</div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditSummaryClick} >{GetText('PRFL_MNGR_CANCEL', mlarray)}</div>
+                <div className="ui submit button submitt" onClick={this._onSaveSummary.bind(this)} >{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
             </div>
           );
       }
@@ -361,23 +361,23 @@ export default class MyProfile extends React.Component {
                         {personalinfomessage}
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_FNAME', mlarray)}</label>
-                            <input placeholder="First Name" onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text"  autoComplete="off" />
+                            <input placeholder={GetText('PRFL_PINFO_FNAME', mlarray)} onChange={this._onChangePersonalInfo} id="fname" value={userInfo.fname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_LNAME', mlarray)}</label>
-                            <input placeholder="Last Name" onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text"  autoComplete="off" />
+                            <input placeholder={GetText('PRFL_PINFO_LNAME', mlarray)} onChange={this._onChangePersonalInfo} id="lname" value={userInfo.lname} type="text"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_CHANGE_PSWD', mlarray)}</label>
-                            <input placeholder="Password" id="password" type="password"  autoComplete="off" />
+                            <input placeholder={GetText('PRFL_PINFO_CHANGE_PSWD', mlarray)} id="password" type="password"  autoComplete="off" />
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_PINFO_CNFM_PSWD', mlarray)}</label>
-                            <input placeholder="Confirm Password" id="cpassword" type="Password"  autoComplete="off" />
+                            <input placeholder={GetText('PRFL_PINFO_CNFM_PSWD', mlarray)} id="cpassword" type="Password"  autoComplete="off" />
                         </div>
                     </div>
-                <div className="ui submit  button cancel" onClick={this.onCancelEditPersonalInfoClick} >Cancel</div>
-                <div className="ui submit button submitt" onClick={this._onSavePersonalInfo.bind(this)} >Submit</div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditPersonalInfoClick} >{GetText('PRFL_MNGR_CANCEL', mlarray)}</div>
+                <div className="ui submit button submitt" onClick={this._onSavePersonalInfo.bind(this)} >{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
             </div>
           );
       }
@@ -435,8 +435,8 @@ export default class MyProfile extends React.Component {
                          </select>
                         </div>
                     </div>
-                <div className="ui submit  button cancel" onClick={this.onCancelEditGeneralInfoClick} >Cancel</div>
-                <div className="ui submit button submitt" onClick={this._onSaveGeneralInfo.bind(this)} >Submit</div>
+                <div className="ui submit  button cancel" onClick={this.onCancelEditGeneralInfoClick} >{GetText('PRFL_MNGR_CANCEL', mlarray)}</div>
+                <div className="ui submit button submitt" onClick={this._onSaveGeneralInfo.bind(this)} >{GetText('PRFL_MNGR_SUBMIT', mlarray)}</div>
             </div>
           );
       }
