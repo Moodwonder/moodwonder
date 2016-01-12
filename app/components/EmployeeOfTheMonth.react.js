@@ -57,6 +57,9 @@ export default class EmployeeOfTheMonth extends React.Component {
             state.voteStatus = false;
             this._onPopClose();
         }
+        if(this.state.ServerResponse && this.state.ServerResponse.messages !== '' && this.state.ServerResponse.callback === 'vote'){
+            this._onPopClose();
+        }
 
         // Set start/end date for employee of the month
         if(this.hasData){
@@ -183,9 +186,6 @@ export default class EmployeeOfTheMonth extends React.Component {
         // console.log(this.state);
 
         this.disableVote = true;
-        if(this.mytotalvotes < 5){
-            this.disableVote = false;
-        }
 
         let mlarray = this.state.multilang;
 
@@ -193,6 +193,11 @@ export default class EmployeeOfTheMonth extends React.Component {
         let moreusers = null;
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
+
+                if(this.mytotalvotes < 5 && !(data.disabled)){
+                    this.disableVote = false;
+                }
+
                 return [
                     <VoteWidget
                     _id={data._id}
@@ -294,6 +299,7 @@ class VoteWidget extends React.Component {
             </div>
         );
 
+        // console.log(this.props);
         if((this.props._id === this.props.uid) || this.props.disabled){
             voteBtn = (
                 <div className='extra content disabled' >

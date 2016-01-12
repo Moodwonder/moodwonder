@@ -2,6 +2,12 @@
              Modal
 *******************************/
 
+.dimmable {
+    position: relative;
+}
+.employeeofthemonth.dimmable, .publicprofile.dimmable, .viewvotes.dimmable {
+    position: relative;
+}
 .ui.modal {
 	display: none;
 	position: fixed;

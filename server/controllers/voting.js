@@ -77,65 +77,83 @@ exports.postVote = function(req, res, next) {
 
         else if(mytotalvotes < 5){
 
-            // add a record with new vote
-            conditions.votefor_userid = votefor_userid;
-            conditions.postdate = cdate;
-            conditions.comment = comment;
-            conditions.company_id = company_id;
-            conditions.name = req.user.firstname + ' ' + req.user.lastname;
-            var vote = new Vote(conditions);
-            vote.save(function (err) {
-                if (!err) {
-                    response.status = true;
-                    response.message = 'success';
+            var afterFeasibilityCheck = function(){
+				// add a record with new vote
+				conditions.votefor_userid = votefor_userid;
+				conditions.postdate = cdate;
+				conditions.comment = comment;
+				conditions.company_id = company_id;
+				conditions.name = req.user.firstname + ' ' + req.user.lastname;
+				var vote = new Vote(conditions);
+				vote.save(function (err) {
+					if (!err) {
+						response.status = true;
+						response.message = 'success';
 
-                    try{
-                        // Find company details
-                        CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
-                            // If company exist
-                            if (!err && companyinfo !== null) {
-                                var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
-                                votefor_userid = new ObjectId(votefor_userid);
-                                User.findOne({ _id: votefor_userid }, function(err, user){
-                                    var transporter = nodemailer.createTransport();
-                                    var link = 'http://' + req.get('host') + '/employeeofthemonth';
-                                    var body = "Hooray "+user.firstname+"! <br><br>" +
-                                            "Someone in "+ company_name +" has voted for you on Moodwonder! You have done something remarkable or shown you are a great team player! Congrats! <br><br>" +
-                                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
-                                            "It's time to cast your vote and thank someone for being a great colleague or for doing a great job!<br><br>" +
-                                            "Thanks,"+
-                                            "<br> Moodwonder Team";
-                                    body = emailTemplate.general(body);
-                                    transporter.sendMail({
-                                        from: config.fromEmail,
-                                        to: user.email,
-                                        subject: 'Good Job! Someone in '+ company_name +' has voted for you',
-                                        html: body
-                                    });
-                                    var postdate = moment().format('YYYY-MM-01');
-                                    var conditions  = { user_id: user._id, company_id : companyinfo._id, postdate : postdate };
-                                    var update  = { user_id: user._id, company_id : companyinfo._id, $inc: { count : 1 }, postdate : postdate };
-                                    var options = { upsert: true };
-                                    VoteRank.update(conditions, update, options, function (err) {
-                                        // console.log('Vote rank updated');
-                                    });
-                                });
-                            }else{
-                                console.log('Company record not found.');
-                            }
-                        });
-                    }
-                    catch(e)
-                    {
-                        console.log('Vote email - Error'+e);
-                    }
-                } else {
-                    response.status = false;
-                    response.message = 'something went wrong';
-                }
-                res.send(response);
-                res.end();
-            });
+						try{
+							// Find company details
+							CompanyInfo.findOne({ _id: new ObjectId(req.user.company_id) },function(err,companyinfo){
+								// If company exist
+								if (!err && companyinfo !== null) {
+									var company_name = (companyinfo.companyname.trim() !== '')? companyinfo.companyname: companyinfo.domain_name;
+									votefor_userid = new ObjectId(votefor_userid);
+									User.findOne({ _id: votefor_userid }, function(err, user){
+										var transporter = nodemailer.createTransport();
+										var link = 'http://' + req.get('host') + '/employeeofthemonth';
+										var body = "Hooray "+user.firstname+"! <br><br>" +
+												"Someone in "+ company_name +" has voted for you on Moodwonder! You have done something remarkable or shown you are a great team player! Congrats! <br><br>" +
+												"<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
+												"It's time to cast your vote and thank someone for being a great colleague or for doing a great job!<br><br>" +
+												"Thanks,"+
+												"<br> Moodwonder Team";
+										body = emailTemplate.general(body);
+										transporter.sendMail({
+											from: config.fromEmail,
+											to: user.email,
+											subject: 'Good Job! Someone in '+ company_name +' has voted for you',
+											html: body
+										});
+										var postdate = moment().format('YYYY-MM-01');
+										var conditions  = { user_id: user._id, company_id : companyinfo._id, postdate : postdate };
+										var update  = { user_id: user._id, company_id : companyinfo._id, $inc: { count : 1 }, postdate : postdate };
+										var options = { upsert: true };
+										VoteRank.update(conditions, update, options, function (err) {
+											// console.log('Vote rank updated');
+										});
+									});
+								}else{
+									console.log('Company record not found.');
+								}
+							});
+						}
+						catch(e)
+						{
+							console.log('Vote email - Error'+e);
+						}
+					} else {
+						response.status = false;
+						response.message = 'something went wrong';
+					}
+					res.send(response);
+					res.end();
+				});
+            }
+
+			// Employee of the month selection status
+			EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: req.user.company_id }, function(err, emp){
+
+				if(!err && emp!==null){
+					// Not allowed to vote if already awarded the EOTM
+					response.status = false;
+					response.message = "Employee of the month has already been awarded";
+					res.send(response);
+					res.end();
+				}else{
+					// Allow the vote if not awarded the EOTM
+					afterFeasibilityCheck();
+				}
+			});
+
         } else {
 
             response.status = false;
