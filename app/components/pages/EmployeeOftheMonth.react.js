@@ -21,7 +21,13 @@ export default class EmployeeOftheMonth extends React.Component {
           EOM_POPUP_COMMENT: '',
           EOM_POPUP_VOTE_BTN: '',
           EOM_POPUP_CLOSE_BTN: '',
-          EOM_VOTE_COUNT_MESSAGE: ''
+          EOM_VOTE_COUNT_MESSAGE: '',
+          EOM_VIEWVOTES_SELECT: '',
+          EOM_VIEW_VOTES_SELECTED: '',
+          EOM_VIEWVOTES_POPUP_TITLE: '',
+          EOM_VIEWVOTES_POPUP_MESSAGE: '',
+          EOM_VIEWVOTES_POPUP_CLOSEBTN: '',
+          EOM_VIEWVOTES_POPUP_PROCEEDBTN: ''
       };
   }
 
@@ -52,7 +58,13 @@ export default class EmployeeOftheMonth extends React.Component {
           EOM_POPUP_COMMENT: pagedata.EOM_POPUP_COMMENT,
           EOM_POPUP_VOTE_BTN: pagedata.EOM_POPUP_VOTE_BTN,
           EOM_POPUP_CLOSE_BTN: pagedata.EOM_POPUP_CLOSE_BTN,
-          EOM_VOTE_COUNT_MESSAGE: pagedata.EOM_VOTE_COUNT_MESSAGE
+          EOM_VOTE_COUNT_MESSAGE: pagedata.EOM_VOTE_COUNT_MESSAGE,
+          EOM_VIEWVOTES_SELECT: pagedata.EOM_VIEWVOTES_SELECT,
+          EOM_VIEW_VOTES_SELECTED: pagedata.EOM_VIEW_VOTES_SELECTED,
+          EOM_VIEWVOTES_POPUP_TITLE: pagedata.EOM_VIEWVOTES_POPUP_TITLE,
+          EOM_VIEWVOTES_POPUP_MESSAGE: pagedata.EOM_VIEWVOTES_POPUP_MESSAGE,
+          EOM_VIEWVOTES_POPUP_CLOSEBTN: pagedata.EOM_VIEWVOTES_POPUP_CLOSEBTN,
+          EOM_VIEWVOTES_POPUP_PROCEEDBTN: pagedata.EOM_VIEWVOTES_POPUP_PROCEEDBTN
       });
   }
 
@@ -113,6 +125,30 @@ export default class EmployeeOftheMonth extends React.Component {
       e.preventDefault();
       this.setState({ EOM_VOTE_COUNT_MESSAGE: e.target.value });
   }
+  eomViewvotesSelect = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_SELECT: e.target.value });
+  }
+  eomViewVotesSelected = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEW_VOTES_SELECTED: e.target.value });
+  }
+  eomViewvotesPopupTitle = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_POPUP_TITLE: e.target.value });
+  }
+  eomViewvotesPopupMessage = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_POPUP_MESSAGE: e.target.value });
+  }
+  eomViewvotesPopupCloseBtn = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_POPUP_CLOSEBTN: e.target.value });
+  }
+  eomViewvotesPopupProceedBtn = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_POPUP_PROCEEDBTN: e.target.value });
+  }
 
 
 
@@ -131,6 +167,12 @@ export default class EmployeeOftheMonth extends React.Component {
       let EOM_POPUP_VOTE_BTN = this.state.EOM_POPUP_VOTE_BTN;
       let EOM_POPUP_CLOSE_BTN = this.state.EOM_POPUP_CLOSE_BTN;
       let EOM_VOTE_COUNT_MESSAGE = this.state.EOM_VOTE_COUNT_MESSAGE;
+      let EOM_VIEWVOTES_SELECT = this.state.EOM_VIEWVOTES_SELECT;
+      let EOM_VIEW_VOTES_SELECTED = this.state.EOM_VIEW_VOTES_SELECTED;
+      let EOM_VIEWVOTES_POPUP_TITLE = this.state.EOM_VIEWVOTES_POPUP_TITLE;
+      let EOM_VIEWVOTES_POPUP_MESSAGE = this.state.EOM_VIEWVOTES_POPUP_MESSAGE;
+      let EOM_VIEWVOTES_POPUP_CLOSEBTN = this.state.EOM_VIEWVOTES_POPUP_CLOSEBTN;
+      let EOM_VIEWVOTES_POPUP_PROCEEDBTN = this.state.EOM_VIEWVOTES_POPUP_PROCEEDBTN;
 
 
       return (
@@ -237,6 +279,54 @@ export default class EmployeeOftheMonth extends React.Component {
                                  type="text"
                                  value={EOM_VOTE_COUNT_MESSAGE}
                                  onChange={this.eomVoteCountMessage} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_SELECT</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_SELECT"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_SELECT}
+                                 onChange={this.eomViewvotesSelect} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEW_VOTES_SELECTED</label>
+                        <input className="form-control"
+                                 name="EOM_VIEW_VOTES_SELECTED"
+                                 type="text"
+                                 value={EOM_VIEW_VOTES_SELECTED}
+                                 onChange={this.eomViewVotesSelected} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_POPUP_TITLE</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_POPUP_TITLE"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_POPUP_TITLE}
+                                 onChange={this.eomViewvotesPopupTitle} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_POPUP_MESSAGE</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_POPUP_MESSAGE"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_POPUP_MESSAGE}
+                                 onChange={this.eomViewvotesPopupMessage} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_POPUP_CLOSEBTN</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_POPUP_CLOSEBTN"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_POPUP_CLOSEBTN}
+                                 onChange={this.eomViewvotesPopupCloseBtn} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_POPUP_PROCEEDBTN</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_POPUP_PROCEEDBTN"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_POPUP_PROCEEDBTN}
+                                 onChange={this.eomViewvotesPopupProceedBtn} />
                       </div>
 
                       <div className="field">

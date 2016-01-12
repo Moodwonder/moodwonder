@@ -203,14 +203,14 @@ export default class ChooseEOTM extends React.Component {
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">Employee of the month</div>
+                    <div className="header">{GetText('EOM_VIEWVOTES_POPUP_TITLE', mlarray)}</div>
                     <div className="ui segment">
                         <div className="ui small form">
                             <div className="field">
-                                Are you sure ?
+                                {GetText('EOM_VIEWVOTES_POPUP_MESSAGE', mlarray)}
                             </div>
-                            <button type="button" onClick={this._onChooseSubmit.bind(this,this.props._id)} className="ui submit button submitt" >Yes, Proceed </button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            <button type="button" onClick={this._onChooseSubmit.bind(this,this.props._id)} className="ui submit button submitt" >{GetText('EOM_VIEWVOTES_POPUP_PROCEEDBTN', mlarray)}</button>
+                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_VIEWVOTES_POPUP_CLOSEBTN', mlarray)}</button>
                         </div>
                     </div>
                 </div>
@@ -248,7 +248,7 @@ class SelectWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        //this.state.multilang = MlangStore.getState().multilang;
+        this.state.multilang = MlangStore.getState().multilang;
     }
 
     _onModalClick = () => {
@@ -259,14 +259,12 @@ class SelectWidget extends React.Component {
 
     render() {
 
-        console.log(this.props);
-
-        //let mlarray = this.state.multilang;
+        let mlarray = this.state.multilang;
 
         let voteBtn = (
             <div onClick={this._onModalClick} className='extra content' >
                 <i className="thumbs outline"></i>
-                SELECT
+                {GetText('EOM_VIEWVOTES_SELECT', mlarray)}
             </div>
         );
 
@@ -274,7 +272,7 @@ class SelectWidget extends React.Component {
             voteBtn = (
                 <div className='extra content winner' >
                     <i className="thumbs outline trophy icon"></i>
-                    SELECTED
+                    {GetText('EOM_VIEW_VOTES_SELECTED', mlarray)}
                 </div>
             );
         }
@@ -284,7 +282,7 @@ class SelectWidget extends React.Component {
             voteBtn = (
                 <div className='extra content disabled' >
                     <i className="thumbs outline"></i>
-                    SELECT
+                    {GetText('EOM_VIEWVOTES_SELECT', mlarray)}
                 </div>
             );
         }
@@ -297,7 +295,7 @@ class SelectWidget extends React.Component {
                 <div className="content">
                     <div className="header"><a href={ `/publicprofile/${this.props._id}` } >{this.props.name}</a></div>
                     <div className="total-votes">
-                        <p>{this.props.votes} votes</p>
+                        <p>{this.props.votes} {GetText('EOM_VOTECOUNT_TEXT', mlarray)}</p>
                     </div>
                 </div>
                 {voteBtn}
@@ -311,7 +309,7 @@ class ProfileHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = UserStore.getState();
-        // this.state.multilang = MlangStore.getState().multilang;
+        this.state.multilang = MlangStore.getState().multilang;
     }
     componentDidMount () {
         UserStore.listen(this._onChange);
@@ -325,10 +323,10 @@ class ProfileHeader extends React.Component {
     render() {
 
         let voteperiod = null;
-        // let mlarray = this.state.multilang;
+        let mlarray = this.state.multilang;
 
         if(this.state.voteperiod !== undefined) {
-            voteperiod = [<p className="votes"> Vote period : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
+            voteperiod = [<p className="votes"> {GetText('EOM_VOTE_PERIOD', mlarray)} : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
         //console.log(this.state);
 

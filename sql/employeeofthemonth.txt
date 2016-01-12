@@ -12,10 +12,13 @@ db.employeeofthemonthpage.insert({ "language" : "EN",
                                 "EOM_POPUP_COMMENT": "Comment",
                                 "EOM_POPUP_VOTE_BTN": "Vote",
                                 "EOM_POPUP_CLOSE_BTN": "Close",
-                                "EOM_VOTE_COUNT_MESSAGE": "You have VOTECOUNT more votes remaining"
-                                
-                                
-                                
+                                "EOM_VOTE_COUNT_MESSAGE": "You have VOTECOUNT more votes remaining",
+                                "EOM_VIEWVOTES_SELECT": "Select",
+                                "EOM_VIEW_VOTES_SELECTED": "Selected",
+                                "EOM_VIEWVOTES_POPUP_TITLE": "Employee of the month",
+                                "EOM_VIEWVOTES_POPUP_MESSAGE": "Are you sure?",
+                                "EOM_VIEWVOTES_POPUP_CLOSEBTN": "Close",
+                                "EOM_VIEWVOTES_POPUP_PROCEEDBTN": "Yes, Proceed"                                
 });
 
 db.employeeofthemonthpage.insert({ "language" : "FI", 
@@ -31,5 +34,11 @@ db.employeeofthemonthpage.insert({ "language" : "FI",
                                 "EOM_POPUP_COMMENT": "Kommentti",
                                 "EOM_POPUP_VOTE_BTN": "Äänestää",
                                 "EOM_POPUP_CLOSE_BTN": "Lähellä",
-                                "EOM_VOTE_COUNT_MESSAGE": "Sinulla on VOTECOUNT julkaisemisesta ääntä jäljellä"
+                                "EOM_VOTE_COUNT_MESSAGE": "Sinulla on VOTECOUNT julkaisemisesta ääntä jäljellä",
+                                "EOM_VIEWVOTES_SELECT": "valita",
+                                "EOM_VIEW_VOTES_SELECTED": "Valitut",
+                                "EOM_VIEWVOTES_POPUP_TITLE": "Työntekijä kuukauden",
+                                "EOM_VIEWVOTES_POPUP_MESSAGE": "Oletko varma?",
+                                "EOM_VIEWVOTES_POPUP_CLOSEBTN": "Lähellä",
+                                "EOM_VIEWVOTES_POPUP_PROCEEDBTN": "Kyllä, Jatka",
 });

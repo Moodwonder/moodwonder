@@ -743,6 +743,12 @@ export default RequireAuth(class Pages extends React.Component {
       eom.EOM_POPUP_VOTE_BTN = data['EOM_POPUP_VOTE_BTN'];
       eom.EOM_POPUP_CLOSE_BTN = data['EOM_POPUP_CLOSE_BTN'];
       eom.EOM_VOTE_COUNT_MESSAGE = data['EOM_VOTE_COUNT_MESSAGE'];
+      eom.EOM_VIEWVOTES_SELECT = data['EOM_VIEWVOTES_SELECT'];
+      eom.EOM_VIEW_VOTES_SELECTED = data['EOM_VIEW_VOTES_SELECTED'];
+      eom.EOM_VIEWVOTES_POPUP_TITLE = data['EOM_VIEWVOTES_POPUP_TITLE'];
+      eom.EOM_VIEWVOTES_POPUP_MESSAGE = data['EOM_VIEWVOTES_POPUP_MESSAGE'];
+      eom.EOM_VIEWVOTES_POPUP_CLOSEBTN = data['EOM_VIEWVOTES_POPUP_CLOSEBTN'];
+      eom.EOM_VIEWVOTES_POPUP_PROCEEDBTN = data['EOM_VIEWVOTES_POPUP_PROCEEDBTN'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'eom', eom);
@@ -1046,7 +1052,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="anonymity">Anonymity</option>
                         <option value="createpassword">Create Password</option>
                         <option value="survey">Engagement Survey</option>
-                        <option value="eom">EOM</option>
+                        <option value="eom">EOM & Viewvotes</option>
                         <option value="error">Error</option>
                         <option value="forgotpassword">Forgot Password</option>
                         <option value="invitepeople">Invite People - Mobile</option>
