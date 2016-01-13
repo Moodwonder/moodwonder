@@ -5,6 +5,8 @@ import CustomSurveyResultsActions from 'actions/CustomSurveyResultsActions';
 import CustomSurveyActions from 'actions/CustomSurveyActions';
 import CustomSurveyStore from 'stores/CustomSurveyStore';
 import UserStore from 'stores/UserStore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 
 export default class Takesurvey extends React.Component {
@@ -15,6 +17,7 @@ export default class Takesurvey extends React.Component {
       this.state = CustomSurveyStore.getState();
       this.state.popup = false;
       this.state.errormessage = '';
+      this.state.multilang = MlangStore.getState().multilang;
   }
 
   componentDidMount() {
@@ -129,6 +132,7 @@ export default class Takesurvey extends React.Component {
   render() {
       let form = this.state.form;
       let errormessage = this.state.errormessage;
+      let mlarray = this.state.multilang;
       let questions = [];
       let fields = '';
       let qcount = _.size(form.questions);
@@ -282,8 +286,8 @@ export default class Takesurvey extends React.Component {
                                 <div className="ui form options">
                                     <div className="ui form options">
                                         <div className="field">
-                                            <button className="ui submit  button cancel" onClick={this.onCancelSurvey}>Cancel</button>
-                                            <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>Submit</button>
+                                            <button className="ui submit  button cancel" onClick={this.onCancelSurvey}>{GetText('TSVY_CANCEL_BTN', mlarray)}</button>
+                                            <button className="ui submit button submitt" onClick={this.onSubmitSurvey}>{GetText('TSVY_SUBMIT_BTN', mlarray)}</button>
                                         </div>
                                     </div>
                                 </div>

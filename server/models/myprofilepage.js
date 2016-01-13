@@ -16,6 +16,7 @@ var myProfilePageSchema = new mongoose.Schema({
     PRFL_TAB_MYTEAM: {type: String,default: ''},
     PRFL_EDIT_PROFILE: {type: String,default: ''},
     PRFL_SUMMARY: {type: String,default: ''},
+    PRFL_SMMRY_TITLE: {type: String,default: ''},
     PRFL_PERSONAL_INFO: {type: String,default: ''},
     PRFL_PINFO_FNAME : {type: String,default: ''},
     PRFL_PINFO_LNAME : {type: String,default: ''},

@@ -6,6 +6,8 @@ import PlacesStore from 'stores/PlacesStore';
 import { Navigation } from 'react-router';
 import mixins from 'es6-mixins';
 import _ from 'underscore';
+import GetText from 'utils/GetText';
+import MlangStore from 'stores/MlangStore';
 
 export default class MyCompanyInfo extends React.Component {
 
@@ -13,6 +15,7 @@ export default class MyCompanyInfo extends React.Component {
         super(props);
         mixins(Navigation, this);
         this.state = UserStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
         this.state.canSubmit = false;
         this.state.countries = [];
         this.state.countriesIntial = true;
@@ -280,7 +283,9 @@ export default class MyCompanyInfo extends React.Component {
 
         let message;
         let userInfo = this.state.userDetailsTmp;
+        let mlarray = this.state.multilang;
         let multimessages;
+
         try {
             if (this.state.messages !== undefined && this.state.messages.length > 0) {
                 multimessages = this.state.messages.map((mes, key) => {
@@ -298,7 +303,7 @@ export default class MyCompanyInfo extends React.Component {
 
         return (
             <div>
-                <h4 className="ui header ryt">My Company Info</h4>
+                <h4 className="ui header ryt">{GetText('MYCO_INFO_HEADING', mlarray)}</h4>
                 {message}
                 <div className="ui small form">
                     <form className="field">
@@ -308,7 +313,7 @@ export default class MyCompanyInfo extends React.Component {
                            name="companyname"
                            className="form-control"
                            value={userInfo.companyname}
-                           placeholder="Company name"
+                           placeholder={GetText('MYCO_INFO_PLCHLDR_COMPANYNAME', mlarray)}
                            validationError="Company name is required"
                            onChange={this.onChangeText}
                            required/>
@@ -322,7 +327,7 @@ export default class MyCompanyInfo extends React.Component {
                            value={userInfo.industry}
                            onChange={this.onChangeIndustry.bind(this)}
                            >
-                           <option value="">Industry</option>
+                           <option value="">{GetText('MYCO_INFO_PLCHLDR_INDUSTRY', mlarray)}</option>
                            {
                             (this.state.industries !==undefined && this.state.industries.length > 0) ? (
                             this.state.industries.map((data, key) => {
@@ -341,7 +346,7 @@ export default class MyCompanyInfo extends React.Component {
                            value={userInfo.continent}
                            onChange={this.onChangeContinent.bind(this)}
                            >
-                           <option value="">Continent</option>
+                           <option value="">{GetText('MYCO_INFO_PLCHLDR_CONTINENT', mlarray)}</option>
                            {
                             (this.state.continents !==undefined && this.state.continents.length > 0) ? (
                             this.state.continents.map((data, key) => {
@@ -360,7 +365,7 @@ export default class MyCompanyInfo extends React.Component {
                            onChange={this.onChangeCountry}
                            value={userInfo.country}
                            >
-                           <option value="">Country</option>
+                           <option value="">{GetText('MYCO_INFO_PLCHLDR_COUNTRY', mlarray)}</option>
                            {
                             (this.state.countries.length > 0) ? (
                             this.state.countries.map((data, key) => {
@@ -378,7 +383,7 @@ export default class MyCompanyInfo extends React.Component {
                            value={userInfo.state}
                            onChange={this.onChangeStates}
                            >
-                           <option value="">State</option>
+                           <option value="">{GetText('MYCO_INFO_PLCHLDR_STATE', mlarray)}</option>
                            {
                             (this.state.states.length > 0) ? (
                             this.state.states.map((data, key) => {
@@ -396,7 +401,7 @@ export default class MyCompanyInfo extends React.Component {
                            value={userInfo.city}
                            onChange={this.onChangeCities}
                            >
-                           <option value="">City</option>
+                           <option value="">{GetText('MYCO_INFO_PLCHLDR_CITY', mlarray)}</option>
                            {
                             (this.state.cities.length > 0) ? (
                             this.state.cities.map((data, key) => {
@@ -412,7 +417,7 @@ export default class MyCompanyInfo extends React.Component {
                            name="address"
                            className="form-control"
                            value={userInfo.address}
-                           placeholder="Address"
+                           placeholder={GetText('MYCO_INFO_PLCHLDR_ADDRESS', mlarray)}
                            validationError="Address is required"
                            onChange={this.onChangeText}
                            required/>
@@ -424,7 +429,7 @@ export default class MyCompanyInfo extends React.Component {
                            name="website"
                            className="form-control"
                            value={userInfo.website}
-                           placeholder="Website"
+                           placeholder={GetText('MYCO_INFO_PLCHLDR_WEBSITE', mlarray)}
                            validationError="Website is required"
                            onChange={this.onChangeText}
                            required/>
@@ -444,7 +449,7 @@ export default class MyCompanyInfo extends React.Component {
                            </select>
                         </div>
 
-                        <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>Submit</button>
+                        <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>{GetText('MYCO_INFO_SUBMIT', mlarray)}</button>
                     </form>
                 </div>
             </div>

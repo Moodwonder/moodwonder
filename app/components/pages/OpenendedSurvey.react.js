@@ -250,7 +250,7 @@ export default class OpenendedSurvey extends React.Component {
                                  name="OPES_TOP_QNSTHREE"
                                  type="text"
                                  value={OPES_TOP_QNSTHREE}
-                                 onChange={this.onChangeWorstQthree} />
+                                 onChange={this.onChangeTopQthree} />
                       </div>
                       <div className="field">
                         <label>OPES_WORST_TITLE</label>

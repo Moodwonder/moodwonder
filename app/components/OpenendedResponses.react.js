@@ -258,27 +258,27 @@ export default class OpenendedResponses extends React.Component {
                     <div className="column">
                         <div className="three column">
                             <select style={{"float": "right"}} id="area" className="ui dropdown area">
-                                <option value="most_improved">Most Improved</option>
-                                <option value="least_improved">Least Improved</option>
+                                <option value="most_improved">{GetText('OPER_MOST_IMPROVED', mlarray)}</option>
+                                <option value="least_improved">{GetText('OPER_LEAST_IMPROVED', mlarray)}</option>
                             </select>
                         </div>
                     </div>
                     <div className="column">
                         <div className="three column">
                             <select name="optmood" style={{"float": "right"}} id="mood" className="ui dropdown mood">
-                                <option value="Mood">Mood</option>
-                                <option value="Meaning">Meaning</option>
-                                <option value="Expectations">Expectations</option>
-                                <option value="Strengths">Strengths</option>
-                                <option value="Recognition">Recognition</option>
-                                <option value="Development">Development</option>
-                                <option value="Influence">Influence</option>
-                                <option value="Goals">Goals</option>
-                                <option value="Team">Team</option>
-                                <option value="Friendship">Friendship</option>
-                                <option value="Feedback">Feedback</option>
-                                <option value="Opportunities">Opportunities</option>
-                                <option value="Recommendation">Recommendation</option>
+                                <option value="Mood">{GetText('OPER_OPTMOOD', mlarray)}</option>
+                                <option value="Meaning">{GetText('OPER_OPTMEANING', mlarray)}</option>
+                                <option value="Expectations">{GetText('OPER_OPTEXPECTATIONS', mlarray)}</option>
+                                <option value="Strengths">{GetText('OPER_OPTSTRENGTHS', mlarray)}</option>
+                                <option value="Recognition">{GetText('OPER_OPTRECOGNITION', mlarray)}</option>
+                                <option value="Development">{GetText('OPER_OPTDEVELOPMENT', mlarray)}</option>
+                                <option value="Influence">{GetText('OPER_OPTINFLUENCE', mlarray)}</option>
+                                <option value="Goals">{GetText('OPER_OPTGOALS', mlarray)}</option>
+                                <option value="Team">{GetText('OPER_OPTTEAM', mlarray)}</option>
+                                <option value="Friendship">{GetText('OPER_OPTFRIENDSHIP', mlarray)}</option>
+                                <option value="Feedback">{GetText('OPER_OPTFEEDBACK', mlarray)}</option>
+                                <option value="Opportunities">{GetText('OPER_OPTOPPORTUNITIES', mlarray)}</option>
+                                <option value="Recommendation">{GetText('OPER_OPTRECOMMENDATION', mlarray)}</option>
                             </select>
                         </div>
                     </div>

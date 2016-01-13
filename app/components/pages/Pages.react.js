@@ -29,6 +29,8 @@ import Myprofile from 'components/pages/Myprofile.react';
 import Moodrate from 'components/pages/Moodrate.react';
 import Invitepeople from 'components/pages/Invitepeople.react';
 import Error from 'components/pages/Error.react';
+import Takesurvey from 'components/pages/Takesurvey.react';
+import Surveyresponses from 'components/pages/Surveyresponses.react';
 
 
 export default RequireAuth(class Pages extends React.Component {
@@ -414,6 +416,21 @@ export default RequireAuth(class Pages extends React.Component {
 
       openendedres.language = data['language'];
       openendedres.OPER_TITLE = data['OPER_TITLE'];
+      openendedres.OPER_MOST_IMPROVED = data['OPER_MOST_IMPROVED'];
+      openendedres.OPER_LEAST_IMPROVED = data['OPER_LEAST_IMPROVED'];
+      openendedres.OPER_OPTMOOD = data['OPER_OPTMOOD'];
+      openendedres.OPER_OPTMEANING = data['OPER_OPTMEANING'];
+      openendedres.OPER_OPTEXPECTATIONS = data['OPER_OPTEXPECTATIONS'];
+      openendedres.OPER_OPTSTRENGTHS = data['OPER_OPTSTRENGTHS'];
+      openendedres.OPER_OPTRECOGNITION = data['OPER_OPTRECOGNITION'];
+      openendedres.OPER_OPTDEVELOPMENT = data['OPER_OPTDEVELOPMENT'];
+      openendedres.OPER_OPTINFLUENCE = data['OPER_OPTINFLUENCE'];
+      openendedres.OPER_OPTGOALS = data['OPER_OPTGOALS'];
+      openendedres.OPER_OPTTEAM = data['OPER_OPTTEAM'];
+      openendedres.OPER_OPTFRIENDSHIP = data['OPER_OPTFRIENDSHIP'];
+      openendedres.OPER_OPTFEEDBACK = data['OPER_OPTFEEDBACK'];
+      openendedres.OPER_OPTOPPORTUNITIES = data['OPER_OPTOPPORTUNITIES'];
+      openendedres.OPER_OPTRECOMMENDATION = data['OPER_OPTRECOMMENDATION'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'openendedres', openendedres);
@@ -521,6 +538,16 @@ export default RequireAuth(class Pages extends React.Component {
       mycompany.MYCO_HEADING_WORSTTHREE = data['MYCO_HEADING_WORSTTHREE'];
       mycompany.MYCO_HEADING_MOSTIMPROVED = data['MYCO_HEADING_MOSTIMPROVED'];
       mycompany.MYCO_HEADING_LEASTIMPROVED = data['MYCO_HEADING_LEASTIMPROVED'];
+      mycompany.MYCO_INFO_HEADING = data['MYCO_INFO_HEADING'];
+      mycompany.MYCO_INFO_SUBMIT = data['MYCO_INFO_SUBMIT'];
+      mycompany.MYCO_INFO_PLCHLDR_COMPANYNAME = data['MYCO_INFO_PLCHLDR_COMPANYNAME'];
+      mycompany.MYCO_INFO_PLCHLDR_INDUSTRY = data['MYCO_INFO_PLCHLDR_INDUSTRY'];
+      mycompany.MYCO_INFO_PLCHLDR_CONTINENT = data['MYCO_INFO_PLCHLDR_CONTINENT'];
+      mycompany.MYCO_INFO_PLCHLDR_COUNTRY = data['MYCO_INFO_PLCHLDR_COUNTRY'];
+      mycompany.MYCO_INFO_PLCHLDR_STATE = data['MYCO_INFO_PLCHLDR_STATE'];
+      mycompany.MYCO_INFO_PLCHLDR_CITY = data['MYCO_INFO_PLCHLDR_CITY'];
+      mycompany.MYCO_INFO_PLCHLDR_ADDRESS = data['MYCO_INFO_PLCHLDR_ADDRESS'];
+      mycompany.MYCO_INFO_PLCHLDR_WEBSITE = data['MYCO_INFO_PLCHLDR_WEBSITE'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'mycompany', mycompany);
@@ -708,6 +735,20 @@ export default RequireAuth(class Pages extends React.Component {
       eom.EOM_SHOW_MORE = data['EOM_SHOW_MORE'];
       eom.EOM_SEARCH_PLACEHOLDER_1 = data['EOM_SEARCH_PLACEHOLDER_1'];
       eom.EOM_SEARCH_BTN_1 = data['EOM_SEARCH_BTN_1'];
+      eom.EOM_VOTE_BTN = data['EOM_VOTE_BTN'];
+      eom.EOM_VOTECOUNT_TEXT = data['EOM_VOTECOUNT_TEXT'];
+      eom.EOM_VOTE_PERIOD = data['EOM_VOTE_PERIOD'];
+      eom.EOM_POPUP_TITLE = data['EOM_POPUP_TITLE'];
+      eom.EOM_POPUP_COMMENT = data['EOM_POPUP_COMMENT'];
+      eom.EOM_POPUP_VOTE_BTN = data['EOM_POPUP_VOTE_BTN'];
+      eom.EOM_POPUP_CLOSE_BTN = data['EOM_POPUP_CLOSE_BTN'];
+      eom.EOM_VOTE_COUNT_MESSAGE = data['EOM_VOTE_COUNT_MESSAGE'];
+      eom.EOM_VIEWVOTES_SELECT = data['EOM_VIEWVOTES_SELECT'];
+      eom.EOM_VIEW_VOTES_SELECTED = data['EOM_VIEW_VOTES_SELECTED'];
+      eom.EOM_VIEWVOTES_POPUP_TITLE = data['EOM_VIEWVOTES_POPUP_TITLE'];
+      eom.EOM_VIEWVOTES_POPUP_MESSAGE = data['EOM_VIEWVOTES_POPUP_MESSAGE'];
+      eom.EOM_VIEWVOTES_POPUP_CLOSEBTN = data['EOM_VIEWVOTES_POPUP_CLOSEBTN'];
+      eom.EOM_VIEWVOTES_POPUP_PROCEEDBTN = data['EOM_VIEWVOTES_POPUP_PROCEEDBTN'];
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'eom', eom);
@@ -748,6 +789,7 @@ export default RequireAuth(class Pages extends React.Component {
       myprofile.PRFL_TAB_MYTEAM = data['PRFL_TAB_MYTEAM'];
       myprofile.PRFL_EDIT_PROFILE = data['PRFL_EDIT_PROFILE'];
       myprofile.PRFL_SUMMARY = data['PRFL_SUMMARY'];
+      myprofile.PRFL_SMMRY_TITLE = data['PRFL_SMMRY_TITLE'];
       myprofile.PRFL_PERSONAL_INFO = data['PRFL_PERSONAL_INFO'];
       myprofile.PRFL_PINFO_FNAME = data['PRFL_PINFO_FNAME'];
       myprofile.PRFL_PINFO_LNAME = data['PRFL_PINFO_LNAME'];
@@ -831,6 +873,39 @@ export default RequireAuth(class Pages extends React.Component {
 
       if (window.confirm('Are you sure you want to submit the changes ?')) {
           PageActions.updatePageKeys(pageid, 'error', error);
+          this.setState({formstatus: true});
+      }
+  }
+
+
+  onSubmitTakesurvey = (e) => {
+      let formData = document.querySelector('#takesurveyForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let takesurvey = takesurvey || {};
+
+      takesurvey.language = data['language'];
+      takesurvey.TSVY_CANCEL_BTN = data['TSVY_CANCEL_BTN'];
+      takesurvey.TSVY_SUBMIT_BTN = data['TSVY_SUBMIT_BTN'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'takesurvey', takesurvey);
+          this.setState({formstatus: true});
+      }
+  }
+
+  onSubmitSurveyresponses = (e) => {
+      let formData = document.querySelector('#surveyresponsesForm');
+      let data = getFormData(formData, {trim: true});
+      let pageid = data['_id'];
+      let surveyresponses = surveyresponses || {};
+
+      surveyresponses.language = data['language'];
+      surveyresponses.SVRS_LIST_BTN = data['SVRS_LIST_BTN'];
+      surveyresponses.SVRS_NODATA_MSG = data['SVRS_NODATA_MSG'];
+
+      if (window.confirm('Are you sure you want to submit the changes ?')) {
+          PageActions.updatePageKeys(pageid, 'surveyresponses', surveyresponses);
           this.setState({formstatus: true});
       }
   }
@@ -951,6 +1026,14 @@ export default RequireAuth(class Pages extends React.Component {
               contents = (<Error language={this.state.language} onClick={this.onSubmitError}/>);
               break;
 
+          case 'takesurvey':
+              contents = (<Takesurvey language={this.state.language} onClick={this.onSubmitTakesurvey}/>);
+              break;
+
+          case 'surveyresponses':
+              contents = (<Surveyresponses language={this.state.language} onClick={this.onSubmitSurveyresponses}/>);
+              break;
+
           default: break;
       }
 
@@ -969,7 +1052,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="anonymity">Anonymity</option>
                         <option value="createpassword">Create Password</option>
                         <option value="survey">Engagement Survey</option>
-                        <option value="eom">EOM</option>
+                        <option value="eom">EOM & Viewvotes</option>
                         <option value="error">Error</option>
                         <option value="forgotpassword">Forgot Password</option>
                         <option value="invitepeople">Invite People - Mobile</option>
@@ -987,6 +1070,8 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="publicprofile">Public Profile</option>
                         <option value="signup">Signup</option>
                         <option value="surveyforms">Survey Forms</option>
+                        <option value="surveyresponses">Survey Responses</option>
+                        <option value="takesurvey">Takesurvey</option>
                         <option value="terms">Terms</option>
                     </select>
                   </div>

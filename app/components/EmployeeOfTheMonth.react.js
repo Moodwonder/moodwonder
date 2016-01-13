@@ -233,15 +233,15 @@ export default class EmployeeOfTheMonth extends React.Component {
             <div className="ui dimmer modals page transition visible active">
                 <div className="ui active modal">
                     <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">Vote</div>
+                    <div className="header">{GetText('EOM_POPUP_TITLE', mlarray)}</div>
                     <div className="ui segment">
                         <div className="ui small form">
                             <div className="field">
-                                <label> Comment</label>
+                                <label> {GetText('EOM_POPUP_COMMENT', mlarray)}</label>
                                 <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
                             </div>
-                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >Vote</button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >{GetText('EOM_POPUP_VOTE_BTN', mlarray)}</button>
+                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_POPUP_CLOSE_BTN', mlarray)}</button>
                         </div>
                     </div>
                 </div>
@@ -279,7 +279,9 @@ class VoteWidget extends React.Component {
     constructor(props) {
         super(props);
         //this.state = {};
-        //this.state.multilang = MlangStore.getState().multilang;
+        this.state= {
+            multilang: MlangStore.getState().multilang
+        };
     }
 
     _onModalClick = () => {
@@ -290,12 +292,12 @@ class VoteWidget extends React.Component {
 
     render() {
 
-        //let mlarray = this.state.multilang;
+        let mlarray = this.state.multilang;
 
         let voteBtn = (
             <div onClick={this._onModalClick} className='extra content' >
                 <i className="thumbs outline up icon"></i>
-                VOTE
+                {GetText('EOM_VOTE_BTN', mlarray)}
             </div>
         );
 
@@ -304,7 +306,7 @@ class VoteWidget extends React.Component {
             voteBtn = (
                 <div className='extra content disabled' >
                     <i className="thumbs outline up icon"></i>
-                    VOTE
+                    {GetText('EOM_VOTE_BTN', mlarray)}
                 </div>
             );
         }
@@ -313,7 +315,7 @@ class VoteWidget extends React.Component {
             voteBtn = (
                 <div className='extra content voted' >
                     <i className="thumbs outline up icon"></i>
-                    VOTE
+                    {GetText('EOM_VOTE_BTN', mlarray)}
                 </div>
             );
         }
@@ -326,7 +328,7 @@ class VoteWidget extends React.Component {
                 <div className="content">
                     <div className="header"><a href={ `/publicprofile/${this.props._id}` } >{this.props.name}</a></div>
                     <div className="total-votes">
-                        <p>{this.props.votes} votes</p>
+                        <p>{this.props.votes} {GetText('EOM_VOTECOUNT_TEXT', mlarray)}</p>
                     </div>
                 </div>
                 {voteBtn}
@@ -341,7 +343,7 @@ class ProfileHeader extends React.Component {
 
         super(props);
         this.state = UserStore.getState();
-        // this.state.multilang = MlangStore.getState().multilang;
+        this.state.multilang = MlangStore.getState().multilang;
     }
     componentDidMount () {
         UserStore.listen(this._onChange);
@@ -356,12 +358,16 @@ class ProfileHeader extends React.Component {
 
         let text = null;
         let voteperiod = null;
-        // let mlarray = this.state.multilang;
+        let mlarray = this.state.multilang;
+
         if(this.state.votes !== undefined) {
-            text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
+            //text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
+            let votecount = ( 5 - this.state.votes );
+            let votecountmsg = GetText('EOM_VOTE_COUNT_MESSAGE', mlarray);
+            text = [<p className="votes"> { votecountmsg.replace("VOTECOUNT", votecount) } </p>];
         }
         if(this.state.voteperiod !== undefined) {
-            voteperiod = [<p className="votes"> Vote period : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
+            voteperiod = [<p className="votes"> {GetText('EOM_VOTE_PERIOD', mlarray)} : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
         //console.log(this.state);
 

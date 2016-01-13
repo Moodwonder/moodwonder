@@ -15,6 +15,7 @@ export default class Myprofile extends React.Component {
           PRFL_TAB_MYTEAM: '',
           PRFL_EDIT_PROFILE: '',
           PRFL_SUMMARY: '',
+          PRFL_SMMRY_TITLE: '',
           PRFL_PERSONAL_INFO: '',
           PRFL_PINFO_FNAME: '',
           PRFL_PINFO_LNAME: '',
@@ -63,6 +64,7 @@ export default class Myprofile extends React.Component {
           PRFL_TAB_MYTEAM: pagedata.PRFL_TAB_MYTEAM,
           PRFL_EDIT_PROFILE: pagedata.PRFL_EDIT_PROFILE,
           PRFL_SUMMARY: pagedata.PRFL_SUMMARY,
+          PRFL_SMMRY_TITLE: pagedata.PRFL_SMMRY_TITLE,
           PRFL_PERSONAL_INFO: pagedata.PRFL_PERSONAL_INFO,
           PRFL_PINFO_FNAME: pagedata.PRFL_PINFO_FNAME,
           PRFL_PINFO_LNAME: pagedata.PRFL_PINFO_LNAME,
@@ -118,6 +120,10 @@ export default class Myprofile extends React.Component {
   prflSummary = (e) => {
       e.preventDefault();
       this.setState({ PRFL_SUMMARY: e.target.value });
+  }
+  prflSummaryTitle = (e) => {
+      e.preventDefault();
+      this.setState({ PRFL_SMMRY_TITLE: e.target.value });
   }
   prflPersonalInfo = (e) => {
       e.preventDefault();
@@ -225,6 +231,7 @@ export default class Myprofile extends React.Component {
       let PRFL_TAB_MYTEAM = this.state.PRFL_TAB_MYTEAM;
       let PRFL_EDIT_PROFILE = this.state.PRFL_EDIT_PROFILE;
       let PRFL_SUMMARY = this.state.PRFL_SUMMARY;
+      let PRFL_SMMRY_TITLE = this.state.PRFL_SMMRY_TITLE;
       let PRFL_PERSONAL_INFO = this.state.PRFL_PERSONAL_INFO;
       let PRFL_PINFO_FNAME = this.state.PRFL_PINFO_FNAME;
       let PRFL_PINFO_LNAME = this.state.PRFL_PINFO_LNAME;
@@ -298,6 +305,14 @@ export default class Myprofile extends React.Component {
                                  type="text"
                                  value={PRFL_SUMMARY}
                                  onChange={this.prflSummary} />
+                      </div>
+                      <div className="field">
+                        <label>PRFL_SMMRY_TITLE</label>
+                        <input className="form-control"
+                                 name="PRFL_SMMRY_TITLE"
+                                 type="text"
+                                 value={PRFL_SMMRY_TITLE}
+                                 onChange={this.prflSummaryTitle} />
                       </div>
                       <div className="field">
                         <label>PRFL_PERSONAL_INFO</label>

@@ -33,7 +33,17 @@ var mycompanypageSchema = new mongoose.Schema({
     MYCO_HEADING_TOPTHREE : {type: String, default: ''},
     MYCO_HEADING_WORSTTHREE : {type: String, default: ''},
     MYCO_HEADING_MOSTIMPROVED : {type: String, default: ''},
-    MYCO_HEADING_LEASTIMPROVED : {type: String, default: ''}
+    MYCO_HEADING_LEASTIMPROVED : {type: String, default: ''},
+    MYCO_INFO_HEADING : {type: String, default: ''},
+    MYCO_INFO_SUBMIT : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_COMPANYNAME : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_INDUSTRY : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_CONTINENT : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_COUNTRY : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_STATE : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_CITY : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_ADDRESS : {type: String, default: ''},
+    MYCO_INFO_PLCHLDR_WEBSITE : {type: String, default: ''}
         
 }, {
     collection: 'mycompanypage'
