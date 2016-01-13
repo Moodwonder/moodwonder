@@ -27,6 +27,7 @@ class UserStore {
       this.canSubmit = false;
       this.userData = [];
       this.loggeduserid = '';
+      this.ServerResponse =  false;
 
       this.on('init', this.bootstrap);
       this.on('bootstrap', this.bootstrap);
@@ -77,6 +78,7 @@ class UserStore {
       this.hasError = !response.status;
       this.message = response.message;
       this.updateType = response.type;
+      this.ServerResponse = response;
       if((!this.hasError) && response.type === 'summary'){
           this.summaryEdit = false;
       }

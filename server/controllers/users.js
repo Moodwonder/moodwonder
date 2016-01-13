@@ -939,6 +939,12 @@ exports.postSaveUserInfo = function (req, res, next) {
         User.update(conditions, update, options, function (err) {
             if (!err) {
 
+                if(response.type && response.type === 'generalinfo' && update.language !== req.user.language){
+                    req.user.language = update.language;
+                    res.clearCookie('lang');
+                    res.cookie('lang', language);
+                    response.action = 'reload';
+                }
                 response.status = true;
                 response.message = 'User details updated';
             } else {
