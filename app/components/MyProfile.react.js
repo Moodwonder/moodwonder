@@ -113,6 +113,10 @@ export default class MyProfile extends React.Component {
       this.setState(state);
       //console.log(this.state.userDetails);
       this.messageAutoClose(state);
+      if(this.state.ServerResponse && this.state.ServerResponse.action && this.state.ServerResponse.action === 'reload'){
+          // To realod the page after changing the language
+          window.location.reload();
+      }
   }
 
   _onSaveSubmit = (model) => {

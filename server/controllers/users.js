@@ -939,6 +939,12 @@ exports.postSaveUserInfo = function (req, res, next) {
         User.update(conditions, update, options, function (err) {
             if (!err) {
 
+                if(response.type && response.type === 'generalinfo' && update.language !== req.user.language){
+                    req.user.language = update.language;
+                    res.clearCookie('lang');
+                    res.cookie('lang', language);
+                    response.action = 'reload';
+                }
                 response.status = true;
                 response.message = 'User details updated';
             } else {
@@ -3277,9 +3283,6 @@ exports.loginHandler = function(req, res, next) {
     if(req.user && req.user.company_id){
         // this is a normal user because company_id exist
         res.redirect('/mymood');
-    }else if(req.user && req.user.role && req.user.role === 'ADMIN'){
-        // this is a normal user because company_id exist
-        res.redirect('/admin/users');
     }else{
         // No user
         next();
