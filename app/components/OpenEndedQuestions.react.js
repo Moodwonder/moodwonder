@@ -202,12 +202,12 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.1</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{question.most_improved_qone} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{GetText('OPES_TOP_QNSONE', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
                                         <input type="hidden" name="most_improved_mood" value={hmood} />
-                                        <input type="hidden" name="most_improved_qone" value={question.most_improved_qone} />
+                                        <input type="hidden" name="most_improved_qone" value={GetText('OPES_TOP_QNSONE', mlarray)} />
                                         <textarea name="most_improved_aone" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -218,11 +218,11 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.2</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.2</span>{question.most_improved_qtwo} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.2</span>{GetText('OPES_TOP_QNSTWO', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
-                                        <input type="hidden" name="most_improved_qtwo" value={question.most_improved_qtwo} />
+                                        <input type="hidden" name="most_improved_qtwo" value={GetText('OPES_TOP_QNSTWO', mlarray)} />
                                         <textarea name="most_improved_atwo" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -233,11 +233,11 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.3</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{question.most_improved_qthree} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{GetText('OPES_TOP_QNSTHREE', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
-                                        <input type="hidden" name="most_improved_qthree" value={question.most_improved_qthree} />
+                                        <input type="hidden" name="most_improved_qthree" value={GetText('OPES_TOP_QNSTHREE', mlarray)} />
                                         <textarea name="most_improved_athree" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -257,12 +257,12 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.1</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{question.least_improved_qone} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.1</span>{GetText('OPES_WORST_QNSONE', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
                                         <input type="hidden" name="least_improved_mood" value={wmood} />
-                                        <input type="hidden" name="least_improved_qone" value={question.least_improved_qone} />
+                                        <input type="hidden" name="least_improved_qone" value={GetText('OPES_WORST_QNSONE', mlarray)} />
                                         <textarea name="least_improved_aone" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -273,11 +273,11 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.2</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">0.2</span>{question.least_improved_qtwo} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">0.2</span>{GetText('OPES_WORST_QNSTWO', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
-                                        <input type="hidden" name="least_improved_qtwo" value={question.least_improved_qtwo} />
+                                        <input type="hidden" name="least_improved_qtwo" value={GetText('OPES_WORST_QNSTWO', mlarray)} />
                                         <textarea name="least_improved_atwo" rows="2"></textarea>
                                     </div>
                                 </div>
@@ -288,11 +288,11 @@ export default class OpenEndedQuestions extends React.Component {
                             <div className="ui grey circular label ">Q.3</div>
                         </div>
                         <div className="fifteen wide column padin-lft">
-                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{question.least_improved_qthree} </div>
+                            <div className="ui left pointing label "> <span className="qst-mobile-1">Q.3</span>{GetText('OPES_WORST_QNSTHREE', mlarray)} </div>
                             <div className="ui form options">
                                 <div className="ui form options">
                                     <div className="field">
-                                        <input type="hidden" name="least_improved_qthree" value={question.least_improved_qthree} />
+                                        <input type="hidden" name="least_improved_qthree" value={GetText('OPES_WORST_QNSTHREE', mlarray)} />
                                         <textarea name="least_improved_athree" rows="2"></textarea>
                                     </div>
                                 </div>
