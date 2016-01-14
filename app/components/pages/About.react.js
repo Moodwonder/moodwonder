@@ -186,7 +186,7 @@ export default class About extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - About page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="aboutForm" className="ui form">

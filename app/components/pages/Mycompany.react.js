@@ -283,7 +283,7 @@ export default class Mycompany extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - My company page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="mycompanyForm" className="ui form">

@@ -1055,11 +1055,9 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="eom">EOM & Viewvotes</option>
                         <option value="error">Error</option>
                         <option value="forgotpassword">Forgot Password</option>
-                        <option value="invitepeople">Invite People - Mobile</option>
                         <option value="invitesignup">Invite Signup</option>
                         <option value="login">Login</option>
                         <option value="logout">Logout</option>
-                        <option value="moodrate">Mood Rate - Mobile</option>
                         <option value="mycompany">My Company</option>
                         <option value="myprofile">My Profile</option>
                         <option value="mymood">My Mood</option>

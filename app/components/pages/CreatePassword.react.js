@@ -72,7 +72,7 @@ export default class CreatePassword extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Create password page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="createPasswordForm" className="ui form">
