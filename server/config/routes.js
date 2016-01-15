@@ -427,6 +427,7 @@ module.exports = function (app, passport) {
         
         var userstyles = '';
         userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/font-awesome.min.css" />';
+        userstyles += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/halfdaughnut/css/jquery.circliful.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         userstyles += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
@@ -473,6 +474,7 @@ module.exports = function (app, passport) {
         userscripts += '<script src="/assets/halfdaughnut/js/jquery.circliful.js"></script>';
         
         var homestyles = '';
+        homestyles += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/styles/custom/semantic_custom.css" />';
         homestyles += '<link rel="stylesheet" href="/assets/styles/custom/animation.css" />';
@@ -491,6 +493,7 @@ module.exports = function (app, passport) {
         homescripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/semantic.js"></script>';
         
         var moodrate = '';
+        moodrate += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
         moodrate += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
@@ -517,6 +520,7 @@ module.exports = function (app, passport) {
         
   
         var adminstyles = '';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/admin_main.css" />';
         //adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
@@ -538,6 +542,7 @@ module.exports = function (app, passport) {
         //adminscripts += '<script type="text/javascript" charset="utf-8"  src="/assets/js/custom/adminscripts.js"></script>';
         
         var staticstyles = '';
+        staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/semantic_custom.css" />';
         staticstyles += '<link rel="stylesheet" href="/assets/styles/custom/static.css" />';
@@ -549,6 +554,7 @@ module.exports = function (app, passport) {
         staticscripts += '<script type="text/javascript" charset="utf-8" src="/assets/js/vendor/semantic.js"></script>';
         
         var loginpage = '';
+        loginpage += '<link rel="stylesheet" href="/assets/styles/custom/fonts.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/reset.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/site.css" />';
         loginpage += '<link rel="stylesheet" href="/assets/styles/vendor/container.css" />';
