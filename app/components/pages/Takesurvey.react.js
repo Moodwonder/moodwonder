@@ -65,7 +65,7 @@ export default class Takesurvey extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Takesurvey page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="takesurveyForm" className="ui form">

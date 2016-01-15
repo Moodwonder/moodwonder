@@ -72,7 +72,7 @@ export default class InviteSignup extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Invite signup page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="inviteSignupForm" className="ui form">

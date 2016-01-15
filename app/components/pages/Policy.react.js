@@ -162,7 +162,7 @@ export default class Policy extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Policy page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="policyForm" className="ui form">

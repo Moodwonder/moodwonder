@@ -163,7 +163,7 @@ export default class OpenendedRes extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Openended Responses page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="openendedresForm" className="ui form">

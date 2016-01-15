@@ -178,7 +178,7 @@ export default class Anonymity extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Anonymity page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="anonymityForm" className="ui form">

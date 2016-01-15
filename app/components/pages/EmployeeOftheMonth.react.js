@@ -177,7 +177,7 @@ export default class EmployeeOftheMonth extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Employee of the Month & View votes page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="employeeOftheMonthForm" className="ui form">

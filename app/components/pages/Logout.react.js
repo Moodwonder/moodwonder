@@ -82,7 +82,7 @@ export default class Logout extends React.Component {
 
       return (
             <div className="ui container">
-            <h4>Edit - Login page keys</h4>
+            <h4>Edit - Logout page keys</h4>
             <div className="ui three column stackable grid container ">
                 <div className="column">
                     <form id="logoutForm" className="ui form">

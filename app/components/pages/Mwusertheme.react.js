@@ -402,7 +402,7 @@ export default class Signuppage extends React.Component {
 
       return (
       <div className="ui container">
-        <h4>Edit - Signup page keys</h4>
+        <h4>Edit - Mw user theme page keys</h4>
         <div className="ui three column stackable grid container ">
             <div className="column">
                 <form id="mwuserthemeForm" className="ui form">
