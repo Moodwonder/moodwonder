@@ -517,7 +517,7 @@ module.exports = function (app, passport) {
         
   
         var adminstyles = '';
-        adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/admin_main.css" />';
+        adminstyles += '<link rel="stylesheet" href="/assets/styles/custom/admin_main.css" />';
         //adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/semantic.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/segment.css" />';
         adminstyles += '<link rel="stylesheet" href="/assets/styles/vendor/grid.css" />';
