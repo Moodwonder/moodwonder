@@ -114,7 +114,7 @@ export default class RequestDemo extends React.Component {
         <div className="eight wide column fade-in one">
             <div className="ui segment">
                 <div className="row">
-                    <div className=" ui small form">
+                    <div className=" ui small form request">
                         <div className="field">
                             <label>HOM_7_NAME</label>
                             <input ref="name" placeholder="Name" type="text" />

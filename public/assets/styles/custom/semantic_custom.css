@@ -463,3 +463,6 @@ body.pushable {
 .inner-pages .ui.inverted.segment, .ui.primary.inverted.segment {background:#00827c }
 .inner-pages .ui.menu {
     background:#4db6ac !important;}
+.request {
+    margin-top: -70px;
+}
