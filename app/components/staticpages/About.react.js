@@ -57,7 +57,10 @@ export default class About extends React.Component {
                                     <div className="ui dimmer">
                                         <div className="content">
                                             <div className="center">
-                                                <div className="ui inverted button"><i className="linkedin square icon huge"></i> <i className="twitter square icon huge"></i></div>
+                                                <div className="ui inverted ">
+                                                    <a href="https://fi.linkedin.com/in/kauhakim" style={{"color":"#FFFFFF"}} target="_blank"><i className="linkedin square icon huge"></i></a>
+                                                    <a href="https://twitter.com/KKauhanen" style={{"color":"#FFFFFF"}} target="_blank"><i className="twitter square icon huge"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -71,7 +74,9 @@ export default class About extends React.Component {
                                     <div className="ui dimmer">
                                         <div className="content">
                                             <div className="center">
-                                                <div className="ui inverted button"><i className="linkedin square icon huge"></i> <i className="twitter square icon huge"></i></div>
+                                                <div className="ui inverted ">
+                                                    <a href="https://www.linkedin.com/in/ankursobti" style={{"color":"#FFFFFF"}} target="_blank"><i className="linkedin square icon huge"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +90,9 @@ export default class About extends React.Component {
                                     <div className="ui dimmer">
                                         <div className="content">
                                             <div className="center">
-                                                <div className="ui inverted button"><i className="linkedin square icon huge"></i> <i className="twitter square icon huge"></i></div>
+                                                <div className="ui inverted ">
+                                                    <a href="https://www.linkedin.com/in/ujjwalmairh" style={{"color":"#FFFFFF"}} target="_blank"><i className="linkedin square icon huge"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +106,9 @@ export default class About extends React.Component {
                                     <div className="ui dimmer">
                                         <div className="content">
                                             <div className="center">
-                                                <div className="ui inverted button"><i className="linkedin square icon huge"></i> <i className="twitter square icon huge"></i></div>
+                                                <div className="ui inverted ">
+                                                    <a href="https://www.linkedin.com/in/swaminathanvasanth" style={{"color":"#FFFFFF"}} target="_blank"><i className="linkedin square icon huge"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
