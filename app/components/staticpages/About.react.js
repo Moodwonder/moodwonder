@@ -25,7 +25,7 @@ export default class About extends React.Component {
                     <div className="ui text container">
                         <div className="banner-content">
                             <h2>ABT_BNNR_TITLE</h2>
-                            <div className="ui huge primary button">ABT_BNNR_STARTED <i className="right arrow icon"></i></div>
+                            <a href="/signup"><div className="ui huge primary button">ABT_BNNR_STARTED <i className="right arrow icon"></i></div></a>
                         </div>
                     </div>
                 </div>
