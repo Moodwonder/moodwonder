@@ -1061,7 +1061,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <option value="logout">Logout</option>
                         <option value="mycompany">My Company</option>
                         <option value="myprofile">My Profile</option>
-                        <option value="mymood">My Mood</option>
+                        <option value="mymood">My Mood & Custom survey</option>
                         <option value="mwusertheme">MW Usertheme</option>
                         <option value="openendedres">Openended Responses</option>
                         <option value="openendedsurvey">Openended Survey</option>
