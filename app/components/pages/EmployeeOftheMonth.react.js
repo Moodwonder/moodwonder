@@ -22,6 +22,7 @@ export default class EmployeeOftheMonth extends React.Component {
           EOM_POPUP_VOTE_BTN: '',
           EOM_POPUP_CLOSE_BTN: '',
           EOM_VOTE_COUNT_MESSAGE: '',
+          EOM_VIEWVOTES_TITLE_1: '',
           EOM_VIEWVOTES_SELECT: '',
           EOM_VIEW_VOTES_SELECTED: '',
           EOM_VIEWVOTES_POPUP_TITLE: '',
@@ -59,6 +60,7 @@ export default class EmployeeOftheMonth extends React.Component {
           EOM_POPUP_VOTE_BTN: pagedata.EOM_POPUP_VOTE_BTN,
           EOM_POPUP_CLOSE_BTN: pagedata.EOM_POPUP_CLOSE_BTN,
           EOM_VOTE_COUNT_MESSAGE: pagedata.EOM_VOTE_COUNT_MESSAGE,
+          EOM_VIEWVOTES_TITLE_1: pagedata.EOM_VIEWVOTES_TITLE_1,
           EOM_VIEWVOTES_SELECT: pagedata.EOM_VIEWVOTES_SELECT,
           EOM_VIEW_VOTES_SELECTED: pagedata.EOM_VIEW_VOTES_SELECTED,
           EOM_VIEWVOTES_POPUP_TITLE: pagedata.EOM_VIEWVOTES_POPUP_TITLE,
@@ -80,6 +82,10 @@ export default class EmployeeOftheMonth extends React.Component {
   eomTitle = (e) => {
       e.preventDefault();
       this.setState({ EOM_TITLE_1: e.target.value });
+  }
+  eomViewVotesTitle = (e) => {
+      e.preventDefault();
+      this.setState({ EOM_VIEWVOTES_TITLE_1: e.target.value });
   }
   eomShowMore = (e) => {
       e.preventDefault();
@@ -167,6 +173,7 @@ export default class EmployeeOftheMonth extends React.Component {
       let EOM_POPUP_VOTE_BTN = this.state.EOM_POPUP_VOTE_BTN;
       let EOM_POPUP_CLOSE_BTN = this.state.EOM_POPUP_CLOSE_BTN;
       let EOM_VOTE_COUNT_MESSAGE = this.state.EOM_VOTE_COUNT_MESSAGE;
+      let EOM_VIEWVOTES_TITLE_1 = this.state.EOM_VIEWVOTES_TITLE_1;
       let EOM_VIEWVOTES_SELECT = this.state.EOM_VIEWVOTES_SELECT;
       let EOM_VIEW_VOTES_SELECTED = this.state.EOM_VIEW_VOTES_SELECTED;
       let EOM_VIEWVOTES_POPUP_TITLE = this.state.EOM_VIEWVOTES_POPUP_TITLE;
@@ -279,6 +286,14 @@ export default class EmployeeOftheMonth extends React.Component {
                                  type="text"
                                  value={EOM_VOTE_COUNT_MESSAGE}
                                  onChange={this.eomVoteCountMessage} />
+                      </div>
+                      <div className="field">
+                        <label>EOM_VIEWVOTES_TITLE_1</label>
+                        <input className="form-control"
+                                 name="EOM_VIEWVOTES_TITLE_1"
+                                 type="text"
+                                 value={EOM_VIEWVOTES_TITLE_1}
+                                 onChange={this.eomViewVotesTitle} />
                       </div>
                       <div className="field">
                         <label>EOM_VIEWVOTES_SELECT</label>

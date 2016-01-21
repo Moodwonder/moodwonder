@@ -811,6 +811,7 @@ exports.updatePageKeys = function (req, res) {
                 EOM_POPUP_VOTE_BTN: data.EOM_POPUP_VOTE_BTN,
                 EOM_POPUP_CLOSE_BTN: data.EOM_POPUP_CLOSE_BTN,
                 EOM_VOTE_COUNT_MESSAGE: data.EOM_VOTE_COUNT_MESSAGE,
+                EOM_VIEWVOTES_TITLE_1: data.EOM_VIEWVOTES_TITLE_1,
                 EOM_VIEWVOTES_SELECT: data.EOM_VIEWVOTES_SELECT,
                 EOM_VIEW_VOTES_SELECTED: data.EOM_VIEW_VOTES_SELECTED,
                 EOM_VIEWVOTES_POPUP_TITLE: data.EOM_VIEWVOTES_POPUP_TITLE,

@@ -743,6 +743,7 @@ export default RequireAuth(class Pages extends React.Component {
       eom.EOM_POPUP_VOTE_BTN = data['EOM_POPUP_VOTE_BTN'];
       eom.EOM_POPUP_CLOSE_BTN = data['EOM_POPUP_CLOSE_BTN'];
       eom.EOM_VOTE_COUNT_MESSAGE = data['EOM_VOTE_COUNT_MESSAGE'];
+      eom.EOM_VIEWVOTES_TITLE_1 = data['EOM_VIEWVOTES_TITLE_1'];
       eom.EOM_VIEWVOTES_SELECT = data['EOM_VIEWVOTES_SELECT'];
       eom.EOM_VIEW_VOTES_SELECTED = data['EOM_VIEW_VOTES_SELECTED'];
       eom.EOM_VIEWVOTES_POPUP_TITLE = data['EOM_VIEWVOTES_POPUP_TITLE'];

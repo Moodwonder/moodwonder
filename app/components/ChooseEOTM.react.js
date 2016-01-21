@@ -231,7 +231,7 @@ export default class ChooseEOTM extends React.Component {
                         </form>
                     </div>
                 </div>
-                <h4 className="ui header ryt">{GetText('VIEWVOTES_TITLE_1', mlarray)}</h4>
+                <h4 className="ui header ryt">{GetText('EOM_VIEWVOTES_TITLE_1', mlarray)}</h4>
                 {message}
                 <div className="ui link five cards stackable grid cast">
                     {employees}
