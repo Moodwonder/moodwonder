@@ -3,6 +3,7 @@ import { RouteHandler } from 'react-router';
 import Navigation from 'components/Navigation.react';
 import Footer from 'components/Footer.react';
 import AppStore from 'stores/AppStore';
+import GoogleAnalytics from "components/analytics/GoogleAnalytics.react";
 
 export default class App extends React.Component {
 
@@ -69,12 +70,13 @@ export default class App extends React.Component {
       }
 
       return (
-        <div>
-          <Navigation />
-          {handler}
-          <br/><br/>
-          <Footer />
-        </div>
+          <div>
+              <Navigation />
+              {handler}
+              <br/><br/>
+              <Footer />
+              <GoogleAnalytics id="UA-40351687-1" />
+          </div>
       );
   }
 }
