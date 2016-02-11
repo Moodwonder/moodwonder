@@ -37,7 +37,8 @@ export default class Login extends React.Component {
       this.setState(state);
       if(this.state.isLoggedIn){
           let hashkey = this.getCookie('takesurvey');
-          this.deleteCookie('deleteCookie');
+          this.deleteCookie('takesurvey');
+          //this.deleteCookie('deleteCookie');
           if(hashkey) {
               window.location.assign('/takesurvey/' + hashkey);
           } else {
