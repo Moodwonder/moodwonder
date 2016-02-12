@@ -149,9 +149,7 @@ export default class MyCompany extends React.Component {
 
   onChangeEngagement = (value) => {
       this.setState({ graphengagement : value });
-  }.bind(this);
-
-
+  };
 
   render() {
 
@@ -489,7 +487,7 @@ export default class MyCompany extends React.Component {
                             <div className="ui segment brdr-none padding-none ">
                                 <h4 className="ui header ryt com">{GetText('MYCO_TITLE', mlarray)}</h4>
                                 <div className=" right menu mobile">
-                                    <select className="ui search dropdown companyengagement" onChange={this.onChangeEngagement} value={graphengagement} name="graphengagement">
+                                    <select className="ui search dropdown companyengagement" onChange={this.onChangeEngagement.bind(this)} value={graphengagement} name="graphengagement">
                                         <option value="mw_index">{GetText('MYCO_OPTMWINDEX', mlarray)}</option>
                                         <option value="Mood">{GetText('MYCO_OPTMOOD', mlarray)}</option>
                                         <option value="Meaning">{GetText('MYCO_OPTMEANING', mlarray)}</option>

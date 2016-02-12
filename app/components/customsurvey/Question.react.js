@@ -84,7 +84,7 @@ export default class Question extends React.Component {
                 changeRadio={this.changeRadioHandler}
                 childcancelbtn={childcancelbtn} />
              );
-      }.bind(this));
+      });
 
       if (radio.length > 0) {
           radioAddBtn = (
@@ -103,7 +103,7 @@ export default class Question extends React.Component {
                 changeCheckbox={this.changeCheckboxHandler}
                 childcancelbtn={childcancelbtn} />
              );
-      }.bind(this));
+      });
 
       if (checkbox.length > 0) {
           checkboxAddBtn = (
