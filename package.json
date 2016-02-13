@@ -26,9 +26,9 @@
   "engine": "node >= 0.12.10",
   "dependencies": {
     "alt": "0.16.10",
-    "babel-core": "6.5.2",
+    "babel-core": "5.8.34",
     "babel-eslint": "5.0.0-beta9",
-    "babel-loader": "6.2.2",
+    "babel-loader": "5.3.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.9.3",
     "chart.js": "^1.0.2",
