@@ -20,7 +20,7 @@
       "node": true
     }
   },
-  "author": "Ti Technologies",
+  "author": "Moodwonder",
   "license": "",
   "devDependencies": {},
   "engine": "node >= 0.12.10",

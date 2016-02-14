@@ -26,7 +26,7 @@ export default class Homefooter extends React.Component {
                 <a href="/policy"> HOM_FOOTER_POLICY </a> |
                 <a href="/#contact"> HOM_FOOTER_CONTACT </a>
             </div>
-            <a href="#"> © Moodwonder 2015 </a>
+            <a href="#"> © Moodwonder 2016 </a>
         </footer>
       );
   }
