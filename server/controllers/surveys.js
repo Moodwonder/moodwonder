@@ -8,14 +8,14 @@ var moment = require('moment')
 
 
 
-exports.handleMyMood = function(req, res, next) {
-  console.log('handleMyMood');  
-  console.log(req.user);  
+exports.handleMyMood = function(req, res) {
+  //console.log('handleMyMood');  
+  //console.log(req.user);  
   if(req.user) {
-      console.log('log - 1');
+      //console.log('log - 1');
       getLasteRatedMood(req.user._id, function(data) {
           if (data) {
-              console.log('log - 3');
+              //console.log('log - 3');
               
               var today = new Date();
               var year = today.getFullYear();
@@ -33,22 +33,22 @@ exports.handleMyMood = function(req, res, next) {
               var d = moment.duration(ms);
               var h = Math.floor(d.asHours());
               if (h >= 24) {
-                  console.log('log - 4');
+                  //console.log('log - 4');
                   res.redirect('/survey');
               } else {
-                  console.log('log - 5');
+                  //console.log('log - 5');
                   next();
               }
                             
           } else {
-              console.log('log - 6');
+              //console.log('log - 6');
               res.redirect('/survey');
           }
           
       });
       
   } else {
-      console.log('log - 2');
+      //console.log('log - 2');
       res.redirect('/login');
   }
   

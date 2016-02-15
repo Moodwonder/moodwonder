@@ -164,7 +164,7 @@ exports.postLogin = function (req, res, next) {
             response.message = 'Success! You are logged in';
             response.user = user;
             if(req.body.javascript_status){ 
-                console.log('javascript_status');
+                //console.log('javascript_status');
                 // if not set client_side_rendering_identifier
                 // To fix script loading issue in the browser
                 // refer bug Bug #15825
@@ -172,7 +172,7 @@ exports.postLogin = function (req, res, next) {
                 //next();
                 return;
             }else{
-                console.log('javascript_status false');
+                //console.log('javascript_status false');
                 res.send(response);
                 res.end();
             }
