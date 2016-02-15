@@ -8,7 +8,7 @@ var moment = require('moment')
 
 
 
-exports.handleMyMood = function(req, res) {
+exports.handleMyMood = function(req, res, next) {
   //console.log('handleMyMood');  
   //console.log(req.user);  
   if(req.user) {
