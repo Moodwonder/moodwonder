@@ -514,7 +514,7 @@ export default class MyMood extends React.Component {
 
   onChangeGraphEngagement = (value) => {
       this.setState({ graphengagement : value });
-  }.bind(this);
+  };
 
   engagementGraphClick = (e) => {
       e.preventDefault();
@@ -704,7 +704,7 @@ export default class MyMood extends React.Component {
                 childaddbtn={GetText('MYMD_CHILD_ADDBTN', mlarray)}
                 childcancelbtn={GetText('MYMD_CHILD_CANCELBTN', mlarray)}
             /> );
-      }.bind(this));
+      });
       //End : Custom survey
 
 
@@ -1089,7 +1089,7 @@ export default class MyMood extends React.Component {
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
                             <div className=" right menu mobile">
-                                <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement.bind(this)} value={graphengagement}>
                                     <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
                                     <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
                                     <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>

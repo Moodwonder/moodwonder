@@ -488,7 +488,7 @@ export default class CreateCustomSurvey extends React.Component {
                 childaddbtn={GetText('MYMD_CHILD_ADDBTN', mlarray)}
                 childcancelbtn={GetText('MYMD_CHILD_CANCELBTN', mlarray)}
             /> );
-      }.bind(this));
+      });
       //End : Custom survey
 
 
