@@ -202,7 +202,7 @@ var report = new CronJob({
                 transporter.sendMail({
                     from: Config.fromEmail,
                     to: user.email,
-                    subject: 'Moodwonder Report - dev',
+                    subject: 'Moodwonder Report',
                     html: body
                 });
             });
