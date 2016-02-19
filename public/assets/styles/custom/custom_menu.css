@@ -13,17 +13,6 @@
 /*******************************
             Standard
 *******************************/
-
-@font-face {
-	font-family: "Brandon-bold";
-	src: url("../../fonts/Brandon_bld.eot");
-	src: url("../../fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../../fonts/Brandon_bld.woff") format('woff'), url("../../fonts/Brandon_bld.ttf") format('ttf');
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-decoration: inherit;
-	text-transform: none;
-}
 /*--------------
       Menu
 ---------------*/
@@ -34,8 +23,6 @@
 	height: 80px;
 }
 .ui.menu.tab {
-	
-	font-family: "Brandon-bold";
 	background: #4DB6AC;
 	font-weight: normal;
 	height: 40px;
@@ -122,7 +109,6 @@
 	-webkit-transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
 	transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
 	font-size: 14px;
-	font-family: "Brandon-bold";
 }
 .ui.menu a.item {
 	position: relative;

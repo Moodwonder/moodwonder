@@ -38,23 +38,19 @@ body {
 *******************************/
 
 h1, h2, h3, h4, h5 {
-	font-family: "Brandon-bold";
 	line-height: 1.2857em;
 	margin: calc(2rem - 0.14285em ) 0em 1rem;
 	font-weight: normal;
 	padding: 0em;
 }
 h1 {
-	font-family: "Brandon-bold";
 	min-height: 1rem;
 	font-size: 2rem;
 }
 h2 {
-	font-family: "Brandon-bold";
 	font-size: 1.714rem;
 }
 h3 {
-	font-family: "Brandon-bold";
 	font-size: 1.28rem;
 }
 h4 {
@@ -64,7 +60,6 @@ h4 {
 	font-weight: normal;
 }
 h5 {
-	font-family: "Brandon-bold";
 	font-size: 1rem;
 }
 h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child {
