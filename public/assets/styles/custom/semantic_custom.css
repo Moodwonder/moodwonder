@@ -1,14 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-@font-face {
-    font-family: "Brandon-bold";
-    src: url("../../fonts/Brandon_bld.eot");
-    src: url("../../fonts/Brandon_bld.eot?#iefix") format('embedded-opentype'), url("../../fonts/Brandon_bld.woff") format('woff'), url("../../fonts/Brandon_bld.ttf") format('ttf');
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-decoration: inherit;
-    text-transform: none;
-}
 html {
     font-family: 'Roboto', sans-serif;
 }
@@ -16,7 +6,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 h1, h2, h3, h4, h5 {
-    font-family: "Brandon-bold"!IMPORTANT;
     text-transform: uppercase;
     font-weight: normal;
 }
@@ -32,7 +21,6 @@ h3 {
     border-radius: 2px;
     text-transform: uppercase;
     background: none;
-    font-family: 'Roboto', sans-serif;
     padding: none;
     font-weight: normal;
 }
@@ -401,7 +389,6 @@ body.pushable {
     padding: 0px;
     line-height: 1em;
     text-transform: uppercase!IMPORTANT;
-    font-family: "Brandon-bold";
 }
 .banner-content {
     display: table-cell;

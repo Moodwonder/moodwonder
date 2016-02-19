@@ -1042,7 +1042,6 @@ a.ui.black.labels .label:hover, a.ui.black.label:hover {
 	display: block;
 	transition: background-color 100ms linear 0s;
 	float: left;
-	font-family: "Brandon-bold";
 	width: 30%!important;
 	vertical-align: middle!important;
 	display: block!important;
