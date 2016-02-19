@@ -216,6 +216,7 @@ ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list 
     background: none;
 }
 .ui.menu .ui.dropdown .menu > .item {
+    width: 100%;
     text-transform: uppercase;
 }
 .ui.menu .item > img:not(.ui) {
