@@ -3240,6 +3240,7 @@ exports.handleSetPassword = function(req, res, next) {
 
         response.status = false;
         response.message = 'Invalid verification link';
+        console.log(response);
 
     } else {
 
@@ -3249,15 +3250,17 @@ exports.handleSetPassword = function(req, res, next) {
          * Checking the verifylink is exist in the user collections
          */
         User.findOne(conditions, function (err, document) {
+			console.log(document);
 
             if (document !== null) {
 
                 if(document.verifylink_date && document.verifylink_date !== ''){
 
                     var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
-                    // console.log(ms);
+                    console.log(ms);
                     // 86400000 ms = 24 hours
                     if(ms > 86400000){
+						console.log('ms > 86400000');
                         ErrorState.hasError  =   true;
                         ErrorState.noPswdForm =   true;
                         ErrorState.message = 'Verification link has expired';
@@ -3267,6 +3270,7 @@ exports.handleSetPassword = function(req, res, next) {
                         next();
                     }
                 }else{
+					console.log('next=====>');
                     next();
                 }
             } else {
