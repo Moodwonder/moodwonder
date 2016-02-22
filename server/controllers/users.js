@@ -3264,6 +3264,8 @@ exports.handleSetPassword = function(req, res, next) {
                         ErrorState.hasError  =   true;
                         ErrorState.noPswdForm =   true;
                         ErrorState.message = 'Verification link has expired';
+                        ErrorState.document = document;
+                        ErrorState.ms = ms;
                         req.body.ErrorState = ErrorState;
                         next();
                     }else{
