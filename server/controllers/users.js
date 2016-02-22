@@ -807,7 +807,7 @@ exports.postSignupStep2 = function (req, res, next) {
     } else {
 
         var conditions = {verifylink: verifyString}
-        , update = {verifylink: 1, password: password}
+        , update = {verifylink: 1,verifylink_date: '', password: password}
         , options = {multi: false};
 
         /**
@@ -839,7 +839,7 @@ exports.postSignupStep2 = function (req, res, next) {
                 if(document.verifylink_date && document.verifylink_date !== ''){
 
                     var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
-                    console.log(ms);
+                    // console.log(ms);
                     // 86400000 ms = 24 hours
                     if(ms > 86400000){
                         response.status = false;
@@ -1334,7 +1334,7 @@ exports.postForgotPassword = function (req, res) {
     User.findOne({email: req.body.email}, function (err, existingUser) {
         if (existingUser) {
             var conditions = {email: email}
-            , update = {verifylink: verifystring}
+            , update = {verifylink: verifystring, verifylink_date: ''}
             , options = {multi: false};
 
             User.update(conditions, update, options, function (err) {
@@ -3240,7 +3240,6 @@ exports.handleSetPassword = function(req, res, next) {
 
         response.status = false;
         response.message = 'Invalid verification link';
-        console.log(response);
 
     } else {
 
@@ -3250,30 +3249,24 @@ exports.handleSetPassword = function(req, res, next) {
          * Checking the verifylink is exist in the user collections
          */
         User.findOne(conditions, function (err, document) {
-			console.log(document);
 
             if (document !== null) {
 
                 if(document.verifylink_date && document.verifylink_date !== ''){
 
                     var ms = moment().diff(moment(document.verifylink_date,"YYYY-MM-DD HH:mm:ss"));
-                    console.log(ms);
+                    // console.log(ms);
                     // 86400000 ms = 24 hours
                     if(ms > 86400000){
-						console.log('ms > 86400000');
                         ErrorState.hasError  =   true;
                         ErrorState.noPswdForm =   true;
                         ErrorState.message = 'Verification link has expired';
-                        ErrorState.document = document;
-                        ErrorState.ms = ms;
                         req.body.ErrorState = ErrorState;
-                        res.send(ErrorState);
-                        // next();
+                        next();
                     }else{
                         next();
                     }
                 }else{
-					console.log('next=====>');
                     next();
                 }
             } else {
