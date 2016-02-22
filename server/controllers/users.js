@@ -3267,7 +3267,8 @@ exports.handleSetPassword = function(req, res, next) {
                         ErrorState.document = document;
                         ErrorState.ms = ms;
                         req.body.ErrorState = ErrorState;
-                        next();
+                        res.send(ErrorState);
+                        // next();
                     }else{
                         next();
                     }
