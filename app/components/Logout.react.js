@@ -6,32 +6,31 @@ import MlangStore from 'stores/MlangStore';
 
 export default class Logout extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = UserStore.getState();
-      this.state = {
-        multilang: MlangStore.getState().multilang
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = UserStore.getState();
+        this.state = {
+            multilang: MlangStore.getState().multilang
+        };
+    }
 
-  componentDidMount () {
-      UserStore.listen(this._onChange);
-  }
+    componentDidMount () {
+        UserStore.listen(this._onChange);
+    }
 
-  componentWillUnmount () {
-      UserStore.unlisten(this._onChange);
-  }
+    componentWillUnmount () {
+        UserStore.unlisten(this._onChange);
+    }
 
-  _onChange = () => {
-      if(!this.state.isLoggedIn){
-          window.location.assign('/');
-      }
-  }
+    _onChange = () => {
+        if(!this.state.isLoggedIn){
+            window.location.assign('/');
+        }
+    }
 
-  render() {
-      let mlarray = this.state.multilang;
-
-      return (
+    render() {
+        let mlarray = this.state.multilang;
+        return (
             <div className="ui middle aligned center aligned grid">
                 <div className="column">
                     <h2 className="ui  image header"> <a href="/"><img src="assets/images/logo.png" className="image"/></a></h2>
@@ -40,6 +39,6 @@ export default class Logout extends React.Component {
                     </div>
                 </div>
             </div>
-      );
-  }
+        );
+    }
 }
