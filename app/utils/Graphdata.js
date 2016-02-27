@@ -7,48 +7,46 @@ let periodflag = 'month';
 const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
-
-        //console.log(JSON.stringify(surveyresults));
         switch (graphperiod) {
             case 'all_time' :
-                period = 0;
-                periodflag = 'month';
-                break;
+            period = 0;
+            periodflag = 'month';
+            break;
 
             case 'last_12_months' :
-                period = 12;
-                periodflag = 'month';
-                break;
+            period = 12;
+            periodflag = 'month';
+            break;
 
             case 'last_6_ months' :
-                period = 6;
-                periodflag = 'month';
-                break;
+            period = 6;
+            periodflag = 'month';
+            break;
 
             case 'last_3_months' :
-                period = 3;
-                periodflag = 'month';
-                break;
+            period = 3;
+            periodflag = 'month';
+            break;
 
             case 'last_month' :
-                period = 1;
-                periodflag = 'month';
-                break;
+            period = 1;
+            periodflag = 'month';
+            break;
 
             case '30_days' :
-                period = 30;
-                periodflag = 'day';
-                break;
+            period = 30;
+            periodflag = 'day';
+            break;
 
             case 'week_change' :
-                period = 7;
-                periodflag = 'day';
-                break;
+            period = 7;
+            periodflag = 'day';
+            break;
 
             default :
-                period = 0;
-                periodflag = 'month';
-                break;
+            period = 0;
+            periodflag = 'month';
+            break;
         }
 
         if(period > 0) {
@@ -63,8 +61,8 @@ const graphdata = {
 
             data = _(uniquedaterows).map(function(g, key) {
                 return { created : { d: key},
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
 
         } else {
@@ -130,7 +128,6 @@ const graphdata = {
     },
 
     getDaysChange: function (period, mood, results) {
-
         let statitics = statitics || {};
         let resultrows = this.getEngagementGraphData(period, mood, results);
         let rows = _.sortBy(resultrows, function(o) { return o.created.d; });
@@ -150,9 +147,6 @@ const graphdata = {
         return (statitics.rate2 - statitics.rate1).toFixed(1);
 
     }
-
-
-
 };
 
 export default graphdata;

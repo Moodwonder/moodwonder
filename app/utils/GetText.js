@@ -1,9 +1,7 @@
-
 export default function GetText(lookup, mlarray) {
     lookup = lookup.toUpperCase();
     let tDictionary = [];
     let translation = '';
-    //console.log(mlarray);
     try{
         tDictionary = JSON.parse(mlarray);
         translation = tDictionary[lookup];
