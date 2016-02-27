@@ -6,124 +6,120 @@ import getFormData from 'get-form-data';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
-
 export default class Survey extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = SurveyStore.getState();
-      this.state.multilang = MlangStore.getState().multilang;
-  }
+    constructor(props) {
+        super(props);
+        this.state = SurveyStore.getState();
+        this.state.multilang = MlangStore.getState().multilang;
+    }
 
-  componentDidMount() {
-      SurveyActions.getEngagementSurvey();
-      SurveyStore.listen(this._onChange);
-      SurveyActions.getLastSurvey();
-      MlangStore.listen(this._onMLChange);
-  }
+    componentDidMount() {
+        SurveyActions.getEngagementSurvey();
+        SurveyStore.listen(this._onChange);
+        SurveyActions.getLastSurvey();
+        MlangStore.listen(this._onMLChange);
+    }
 
-  componentWillUnmount() {
-      SurveyStore.unlisten(this._onChange);
-      MlangStore.unlisten(this._onMLChange);
-  }
+    componentWillUnmount() {
+        SurveyStore.unlisten(this._onChange);
+        MlangStore.unlisten(this._onMLChange);
+    }
 
-  _onChange = (state) => {
-      this.setState(state);
-      if(this.state.savedstatus) {
-          //window.location.assign('/mymood');
-          window.location.assign('/openendedsurvey');
-      }
-  }
+    _onChange = (state) => {
+        this.setState(state);
+        if(this.state.savedstatus) {
+            window.location.assign('/openendedsurvey');
+        }
+    }
 
-  _onMLChange = () => {
-      this.setState({
-          multilang: MlangStore.getState().multilang
-      });
-  }
+    _onMLChange = () => {
+        this.setState({
+            multilang: MlangStore.getState().multilang
+        });
+    }
 
-  _onSurveySubmit = () => {
-      let form = document.querySelector('#engagementForm');
-      let formData = getFormData(form, {trim: true});
-      let moodrow = moodrow || {};
-      moodrow.type = 'engagement';
-      const surveyResult = this.state.questions.map((data, key) => {
-          //return { 'mood': data.mood, 'ratting': React.findDOMNode(this.refs[data._id]).value.trim() };
-          let rating = formData[data.mood];
-          return { 'mood': data.mood, 'rating': rating, 'comment_title': '', 'comment': '' };
-      });
-      moodrow.surveyresult = surveyResult;
-      //console.log(JSON.stringify(moodrow));
-      SurveyActions.saveEngagementSurvey(moodrow);
-      sessionStorage.setItem("engagementsurvey", "true");
-  }
+    _onSurveySubmit = () => {
+        let form = document.querySelector('#engagementForm');
+        let formData = getFormData(form, {trim: true});
+        let moodrow = moodrow || {};
+        moodrow.type = 'engagement';
+        const surveyResult = this.state.questions.map((data, key) => {
+            let rating = formData[data.mood];
+            return { 'mood': data.mood, 'rating': rating, 'comment_title': '', 'comment': '' };
+        });
+        moodrow.surveyresult = surveyResult;
+        SurveyActions.saveEngagementSurvey(moodrow);
+        sessionStorage.setItem("engagementsurvey", "true");
+    }
 
-  render() {
+    render() {
 
-      let items = '';
-      let message = '';
-      let slno = 1;
-      let lastsurvey = this.state.lastsurvey;
-      let lastrated = '';
-      let mlarray = this.state.multilang;
+        let items = '';
+        let message = '';
+        let slno = 1;
+        let lastsurvey = this.state.lastsurvey;
+        let lastrated = '';
+        let mlarray = this.state.multilang;
 
 
-      if(this.state.hasQuestions){
-          items = this.state.questions.map((data, key) => {
-              for (let i = 0; i < lastsurvey.length; i++) {
-                  let surveydetail = lastsurvey[i];
-                  if (surveydetail.mood === data.mood) {
-                      lastrated = surveydetail.rating;
-                  }
-              }
+        if(this.state.hasQuestions){
+            items = this.state.questions.map((data, key) => {
+                for (let i = 0; i < lastsurvey.length; i++) {
+                    let surveydetail = lastsurvey[i];
+                    if (surveydetail.mood === data.mood) {
+                        lastrated = surveydetail.rating;
+                    }
+                }
 
-              return (
-                        <Sliderrow slno={slno++} mood={data.mood} description={data.description} lastrated={lastrated} />
-              );
-          });
-      }
+                return (
+                    <Sliderrow slno={slno++} mood={data.mood} description={data.description} lastrated={lastrated} />
+                );
+            });
+        }
 
-      if (this.state.hasError) {
-          message = (
-            <div className="alert alert-warning">
-              {this.state.message}
-            </div>
-          );
-      }
-      else if (this.state.message !== '') {
-          message = (
-            <div className="alert alert-info">
-              {this.state.message}
-            </div>
-          );
-      }
-
-      let submitButton = '';
-      if(items){
-          submitButton = (
-             <button type="button" className="ui submit button submitt" onClick={this._onSurveySubmit}>{GetText('SRVY_SUBMIT_BTN', mlarray)}</button>
-          );
-      }
-
-      let sTitle = (<h3 className="ui header ryt com">{GetText('SRVY_TITLE', mlarray)}</h3>);
-
-      return (
-        <div className="ui segment brdr-none padding-none width-rating  ">
-            <div className="clear"></div>
-            <div className="ui two column stackable grid container ">
-                <div className="column">
-                    {sTitle}
+        if (this.state.hasError) {
+            message = (
+                <div className="alert alert-warning">
+                    {this.state.message}
                 </div>
-                <div className="column"></div>
-            </div>
-            {message}
-            <form id="engagementForm">
-                <div className="ui column stackable  container survey-test survey-mw">
-                    {items}
-                    {submitButton}
+            );
+        }
+        else if (this.state.message !== '') {
+            message = (
+                <div className="alert alert-info">
+                    {this.state.message}
                 </div>
-            </form>
-        </div>
-      );
-  }
+            );
+        }
+
+        let submitButton = '';
+        if(items){
+            submitButton = (
+                <button type="button" className="ui submit button submitt" onClick={this._onSurveySubmit}>{GetText('SRVY_SUBMIT_BTN', mlarray)}</button>
+            );
+        }
+
+        let sTitle = (<h3 className="ui header ryt com">{GetText('SRVY_TITLE', mlarray)}</h3>);
+
+        return (
+            <div className="ui segment brdr-none padding-none width-rating  ">
+                <div className="clear"></div>
+                <div className="ui two column stackable grid container ">
+                    <div className="column">
+                        {sTitle}
+                    </div>
+                    <div className="column"></div>
+                </div>
+                {message}
+                <form id="engagementForm">
+                    <div className="ui column stackable  container survey-test survey-mw">
+                        {items}
+                        {submitButton}
+                    </div>
+                </form>
+            </div>
+        );
+    }
 
 }
