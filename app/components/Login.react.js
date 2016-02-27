@@ -2,13 +2,11 @@ import React from 'react';
 import Immutable from 'immutable';
 import UserActions from 'actions/UserActions';
 import UserStore from 'stores/UserStore';
-// import mixins from 'es6-mixins';
 
 export default class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        // mixins(Navigation, this);
         // No need of mixins in ES6 pattern
         this.state = UserStore.getState();
         this.state.canSubmit = false;
@@ -38,14 +36,11 @@ export default class Login extends React.Component {
         if(this.state.isLoggedIn){
             let hashkey = this.getCookie('takesurvey');
             this.deleteCookie('takesurvey');
-            //this.deleteCookie('deleteCookie');
             if(hashkey) {
                 window.location.assign('/takesurvey/' + hashkey);
             } else {
-                //window.location.assign('/survey');
                 window.location.assign('/mymood');
             }
-            //this.context.router.transitionTo('/survey');
         }
     }
 
@@ -76,7 +71,6 @@ export default class Login extends React.Component {
     }
 
     render() {
-        // console.log(this.state);
         let message;
         let multimessages;
         if (this.state.messages !== undefined && this.state.messages.length > 0) {

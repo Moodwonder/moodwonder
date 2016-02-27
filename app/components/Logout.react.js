@@ -3,7 +3,6 @@ import UserStore from 'stores/UserStore';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
-
 export default class Logout extends React.Component {
 
     constructor(props) {

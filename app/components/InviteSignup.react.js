@@ -27,12 +27,10 @@ export default class InviteSignup extends React.Component {
     }
 
     _onChange = (state) => {
-        // console.log(state);
         this.setState(state);
     }
 
     render() {
-        // console.log(this.state);
         let message;
         let multimessages;
         if (this.state.messages !== undefined && this.state.messages.length > 0) {

@@ -5,9 +5,9 @@ import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
 /*
- * Component for Invite Others Widget
- *
- */
+* Component for Invite Others Widget
+*
+*/
 export default class InviteOthers extends React.Component {
 
     // Do same feature changes in InviteOthers component
@@ -23,9 +23,6 @@ export default class InviteOthers extends React.Component {
         InviteStore.listen(this._onChange);
     }
 
-    componentWillUnmount() {
-    }
-
     _onChange = (state) => {
         this.setState(state);
     }
@@ -36,7 +33,6 @@ export default class InviteOthers extends React.Component {
     }
 
     _onSaveSubmit = (e) => {
-
         let email = React.findDOMNode(this.refs.email).value.trim();
         if (this.isValidEmailAddress(email)) {
             let obj = {
@@ -67,15 +63,15 @@ export default class InviteOthers extends React.Component {
             }
         }
         return (
-        <form className="invite-people mobile" onSubmit={this._onSaveSubmit} >
-            <h2>{GetText('INP_TITLE', mlarray)}</h2>
-            <p>{GetText('INP_DESCRIPTION', mlarray)}</p>
-            <div className="ui input">
-                <input placeholder={GetText('INP_PLCHOLDER', mlarray)} id="email" ref="email" type="text" />
-            </div>
-            <button type="submit" className="ui orange button">{GetText('INP_INVITEBTN', mlarray)}</button>
-            {message}
-        </form>
+            <form className="invite-people mobile" onSubmit={this._onSaveSubmit} >
+                <h2>{GetText('INP_TITLE', mlarray)}</h2>
+                <p>{GetText('INP_DESCRIPTION', mlarray)}</p>
+                <div className="ui input">
+                    <input placeholder={GetText('INP_PLCHOLDER', mlarray)} id="email" ref="email" type="text" />
+                </div>
+                <button type="submit" className="ui orange button">{GetText('INP_INVITEBTN', mlarray)}</button>
+                {message}
+            </form>
         );
     }
 }
