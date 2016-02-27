@@ -30,7 +30,7 @@
     "babel-eslint": "5.0.0-beta9",
     "babel-loader": "5.3.3",
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.9.3",
+    "body-parser": "1.15.0",
     "chart.js": "^1.0.2",
     "classnames": "^2.1.2",
     "connect-mongo": "^0.8.1",
