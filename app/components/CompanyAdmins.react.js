@@ -13,7 +13,6 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
         this.state.totalPages = [];
         this.state.modal = false;
         this.state.userTeams = false;
-
         this.hasData = false;
         this.rows = false;
         this.pagination = [];
@@ -26,9 +25,7 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
     }
 
     _onChange = (state) => {
-        // console.log(state);
         this.pagination = state.usersTable.pagination;
-
         state.rows = state.usersTable.rows;
         this.setState(state);
     }
@@ -42,16 +39,13 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
     }
 
     render() {
-
         let rows;
         let pagination;
 
         try
         {
             if(this.state.rows){
-
                 rows = this.state.rows.map((row, key) => {
-                    // console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={row._id}>
@@ -71,7 +65,6 @@ export default RequireAuth(class CompanyAdmins extends React.Component {
                 let pages = this.pagination.map((data, key) => {
                     return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
                 });
-                //console.log(this.pagination);
                 pagination = (
                     <div className="ui pagination menu">
                         {pages}
@@ -114,7 +107,6 @@ class ChangeUserStatus extends React.Component {
     constructor(props) {
         super(props);
         try{
-            // console.log(this.props.data);
             if(this.props.data.company_admin){
                 this.state = {
                     checked: true,
@@ -130,10 +122,6 @@ class ChangeUserStatus extends React.Component {
         }catch(err){
             console.log(err);
         }
-    }
-
-    componentDidMount(){
-
     }
 
     onChange = (e) => {
@@ -153,7 +141,6 @@ class ChangeUserStatus extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />

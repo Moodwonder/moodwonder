@@ -1,27 +1,16 @@
 import React from 'react';
 
-
 export default class BlankStar extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
-          <i className="icon"></i>
-      );
-  }
+        return (
+            <i className="icon"></i>
+        );
+    }
 
 }
-
-

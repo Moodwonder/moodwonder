@@ -12,7 +12,6 @@ export default RequireAuth(class States extends React.Component {
         this.state.totalPages = [];
         this.state.modal = false;
         this.state.PlacesList = false;
-
         this.hasData = false;
         this.rows = false;
         this.header = [];
@@ -30,7 +29,6 @@ export default RequireAuth(class States extends React.Component {
     }
 
     _onChange = (state) => {
-
         if(state.PlacesList.rows){
             this.pagination = state.PlacesList.pagination;
             state.rows = state.PlacesList.rows;
@@ -106,7 +104,6 @@ export default RequireAuth(class States extends React.Component {
                 let pages = this.pagination.map((data, key) => {
                     return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
                 });
-                //console.log(this.pagination);
                 pagination = (
                     <div className="ui pagination menu">
                         {pages}
@@ -150,9 +147,9 @@ export default RequireAuth(class States extends React.Component {
                     </div>
                 </div>
                 <div className="ui modal">
-                  <i className="close icon"></i>
-                  <div className="header">Message</div>
-                  <div className="content" id="msg"></div>
+                    <i className="close icon"></i>
+                    <div className="header">Message</div>
+                    <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -161,74 +158,70 @@ export default RequireAuth(class States extends React.Component {
 
 class Editable extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state =
-          {
+    constructor(props) {
+        super(props);
+        this.state =
+        {
             Edit: false,
             value:props.value,
             btnDisabled: true
-          };
-  }
+        };
+    }
 
-  componentDidMount() {
-  }
+    componentWillReceiveProps(e) {
+        // to set default
+        this.setState({Edit: false, value: this.props.value });
+    }
 
-  componentWillReceiveProps(e) {
-      // to set default
-      this.setState({Edit: false, value: this.props.value });
-  }
+    changeValue = (event) => {
+        let btnDisabled = true;
+        if(this.props.value !== event.target.value){
+            btnDisabled = false;
+        }
+        this.setState({value:event.target.value, btnDisabled: btnDisabled});
+    }
 
-  changeValue = (event) => {
+    onEditClick = () => {
+        this.setState({ Edit: true, value: this.props.value });
+    }
 
-      let btnDisabled = true;
-      if(this.props.value !== event.target.value){
-          btnDisabled = false;
-      }
-      this.setState({value:event.target.value, btnDisabled: btnDisabled});
-  }
+    onSaveClick = (teamname,teamid) => {
 
-  onEditClick = () => {
-      this.setState({ Edit: true, value: this.props.value });
-  }
+        if(this.props.value !== this.state.value && teamname.trim() !== ''){
+            this.props.onSave({teamname:teamname,teamid:teamid});
+        }
+    }
 
-  onSaveClick = (teamname,teamid) => {
+    render() {
 
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({teamname:teamname,teamid:teamid});
-      }
-  }
+        let buttonlabel = 'Edit';
 
-  render() {
+        let inputORLable = (
+            <label htmlFor="email">{this.props.value}</label>
+        );
 
-      let buttonlabel = 'Edit';
+        let actionButton = (
+            <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+        );
 
-      let inputORLable = (
-        <label htmlFor="email">{this.props.value}</label>
-      );
+        if(this.state.Edit){
+            buttonlabel  = 'Save';
+            inputORLable = (
+                <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+            );
 
-      let actionButton = (
-        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
-      );
+            actionButton = (
+                <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            );
+        }
 
-      if(this.state.Edit){
-          buttonlabel  = 'Save';
-          inputORLable = (
-            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
-          );
-
-          actionButton = (
-            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
-          );
-      }
-
-      return (
-        <div className="row">
-           {inputORLable}
-           {actionButton}
-        </div>
-      );
-  }
+        return (
+            <div className="row">
+                {inputORLable}
+                {actionButton}
+            </div>
+        );
+    }
 }
 
 class Addcities extends React.Component {
@@ -239,7 +232,6 @@ class Addcities extends React.Component {
     }
 
     _onChange = (state) => {
-        //console.log(state);
         this.setState(state);
         if(state.ServerResponse.status){
             React.findDOMNode(this.refs.city).value = '';
@@ -255,7 +247,6 @@ class Addcities extends React.Component {
     }
 
     _onAddcity = (e) => {
-
         let stateID = this.props.data.stateID;
         let city    = React.findDOMNode(this.refs.city).value.trim();
         PlacesActions.addPlaces({ _id: stateID, placeType: 'city', type: 'addcity', action: 'add', place: city });
@@ -264,7 +255,6 @@ class Addcities extends React.Component {
     }
 
     render() {
-
         return (
             <div className="form-group">
                 <div className="ui three column stackable grid container ">

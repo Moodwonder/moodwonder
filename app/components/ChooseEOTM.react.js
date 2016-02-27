@@ -21,13 +21,11 @@ export default class ChooseEOTM extends React.Component {
     }
 
     componentDidMount() {
-        // console.log('componentDidMount');
         EOTMActions.getallemployees();
         EOTMStore.listen(this._onChange);
     }
 
     componentWillUnmount() {
-        // console.log('componentWillUnmount');
         EOTMStore.unlisten(this._onChange);
     }
 
@@ -48,7 +46,6 @@ export default class ChooseEOTM extends React.Component {
 
         if(this.state.awardStatus && (!this.state.hasError) && this.filtered[this.state.selectkey]){
             this.filtered[this.state.selectkey].empofthemonth = true;
-            // state.awardStatus = false;
             this._onPopClose();
         }
 
@@ -80,7 +77,7 @@ export default class ChooseEOTM extends React.Component {
     _onPopClose = () => {
         $( "body" ).removeClass( "dimmed dimmable" );
         this.setState({
-           modalBox:false
+            modalBox:false
         });
     }
 
@@ -98,8 +95,6 @@ export default class ChooseEOTM extends React.Component {
     }
 
     _onSearch = (e) => {
-
-        // console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         if( keyword !== '' ){
             this.search = true;
@@ -114,8 +109,6 @@ export default class ChooseEOTM extends React.Component {
     }
 
     showMoreUsers = () => {
-
-        // console.log('showMoreUsers');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         let obj = {};
         if( keyword !== '' ){
@@ -131,7 +124,6 @@ export default class ChooseEOTM extends React.Component {
     // Function to sort the user list by the entered word in the search user text box
     // It is disabled now
     _onChangeSearch = (e) => {
-        // console.log('_onChangeSearch');
         let text = e.target.value.trim();
 
         // fetch fresh data after clearing the search text box
@@ -159,25 +151,21 @@ export default class ChooseEOTM extends React.Component {
     }
 
     render() {
-        // console.log('render..');
-        // console.log(this.state);
-
         let mlarray = this.state.multilang;
-
         let employees = '';
         let moreusers = null;
         if(this.state.hasEmployees){
             employees = this.filtered.map((data, key) => {
                 return [
                     <SelectWidget
-                    _id={data._id}
-                    uid={this.state.employees.data.current_user_id}
-                    photo={data.photo} name={data.name}
-                    votes={data.votes}
-                    active={data.empofthemonth}
-                    disabled={this.state.awardStatus}
-                    click={this._onPopClick}
-                    index={key} />
+                        _id={data._id}
+                        uid={this.state.employees.data.current_user_id}
+                        photo={data.photo} name={data.name}
+                        votes={data.votes}
+                        active={data.empofthemonth}
+                        disabled={this.state.awardStatus}
+                        click={this._onPopClick}
+                        index={key} />
                 ];
             });
         }
@@ -200,21 +188,21 @@ export default class ChooseEOTM extends React.Component {
         let modal = null;
         if(this.state.modalBox){
             modal = (
-            <div className="ui dimmer modals page transition visible active">
-                <div className="ui active modal">
-                    <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">{GetText('EOM_VIEWVOTES_POPUP_TITLE', mlarray)}</div>
-                    <div className="ui segment">
-                        <div className="ui small form">
-                            <div className="field">
-                                {GetText('EOM_VIEWVOTES_POPUP_MESSAGE', mlarray)}
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal">
+                        <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
+                        <div className="header">{GetText('EOM_VIEWVOTES_POPUP_TITLE', mlarray)}</div>
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    {GetText('EOM_VIEWVOTES_POPUP_MESSAGE', mlarray)}
+                                </div>
+                                <button type="button" onClick={this._onChooseSubmit.bind(this,this.props._id)} className="ui submit button submitt" >{GetText('EOM_VIEWVOTES_POPUP_PROCEEDBTN', mlarray)}</button>
+                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_VIEWVOTES_POPUP_CLOSEBTN', mlarray)}</button>
                             </div>
-                            <button type="button" onClick={this._onChooseSubmit.bind(this,this.props._id)} className="ui submit button submitt" >{GetText('EOM_VIEWVOTES_POPUP_PROCEEDBTN', mlarray)}</button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_VIEWVOTES_POPUP_CLOSEBTN', mlarray)}</button>
                         </div>
                     </div>
                 </div>
-            </div>
             );
         }
 
@@ -328,22 +316,21 @@ class ProfileHeader extends React.Component {
         if(this.state.voteperiod !== undefined) {
             voteperiod = [<p className="votes"> {GetText('EOM_VOTE_PERIOD', mlarray)} : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
-        //console.log(this.state);
 
         return (
-        <div className="ui margin-grid ">
-            <div className="column profile-cover" style={{ backgroundImage: 'url('+this.state.userData.cover_image+')'}}>
-                <div className="dp-container">
-                    <img className="ui tiny circular image dp" src={this.state.userData.profile_image} alt=""/>
-                    <a href="#" className="action act-cover-image"></a>
-                    <div className="title">
-                        <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
-                        <span className="text-shadow">{this.state.userData.email} </span>
-                        {voteperiod}
+            <div className="ui margin-grid ">
+                <div className="column profile-cover" style={{ backgroundImage: 'url('+this.state.userData.cover_image+')'}}>
+                    <div className="dp-container">
+                        <img className="ui tiny circular image dp" src={this.state.userData.profile_image} alt=""/>
+                        <a href="#" className="action act-cover-image"></a>
+                        <div className="title">
+                            <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
+                            <span className="text-shadow">{this.state.userData.email} </span>
+                            {voteperiod}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }
