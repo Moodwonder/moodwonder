@@ -4,12 +4,12 @@ import { RouteHandler } from 'react-router';
 import AdminNavigation from 'components/AdminNavigation.react';
 
 export default class Admin extends React.Component {
-  render() {
-      return (
-      <div>
-        <AdminNavigation />
-        <RouteHandler />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <AdminNavigation />
+                <RouteHandler />
+            </div>
+        );
+    }
 }

@@ -234,10 +234,10 @@ export default RequireAuth(class AllTeams extends React.Component {
                 if(data.members.length>0){
                     members = data.members.map((mem, key) => {
                         return (
-                        <div className="ui grid">
-                          <div className="ten wide column">{mem.member_email}</div>
-                          <div className="six wide column">{mem.member_name}</div>
-                        </div>
+                            <div className="ui grid">
+                                <div className="ten wide column">{mem.member_email}</div>
+                                <div className="six wide column">{mem.member_name}</div>
+                            </div>
                         );
                     });
                 }

@@ -11,16 +11,16 @@ if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
     dir = 'public/images/profilepics/';
     if (!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
+        fs.mkdirSync(dir);
     }
     dir = 'public/images/bannerpics/';
     if (!fs.existsSync(dir)){
-		fs.mkdirSync(dir);
+        fs.mkdirSync(dir);
     }
     console.log('Img dir created...');
 }
 
 dir = 'public/images/bannerpics/';
 if (!fs.existsSync(dir)){
-	fs.mkdirSync(dir);
+    fs.mkdirSync(dir);
 }

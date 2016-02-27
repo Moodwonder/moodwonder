@@ -34,10 +34,10 @@ export default class App extends React.Component {
 
         let handler      = (<RouteHandler />);
         let noPermission = (
-          <div>
-           <p> You do not have sufficient permissions to access this page. </p>
-           <p> Please login to continue <a href="/login">Login</a> </p>
-          </div>
+            <div>
+                <p> You do not have sufficient permissions to access this page. </p>
+                <p> Please login to continue <a href="/login">Login</a> </p>
+            </div>
         );
         let path = this.context.router.getCurrentPathname();
 

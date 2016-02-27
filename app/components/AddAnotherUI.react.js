@@ -1,140 +1,127 @@
 import React from 'react';
 import getFormData from 'get-form-data';
 /*
- * Component for AddAnotherUI
- *
- */
+* Component for AddAnotherUI
+*
+*/
 export default class AddAnotherUI extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-        counter : 1,
-        message : ""
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            counter : 1,
+            message : ""
+        };
+    }
 
-  componentDidMount() {
-  }
+    addNewTextBox = () => {
+        let count = this.state.counter;
+        count++;
+        this.setState({counter: count });
+    }
 
-  componentWillUnmount() {
-  }
+    formSubmit = (fmid) => {
+        let form  =  document.querySelector(('#surveyForm'+fmid));
+        let data  =  getFormData(form, {trim: true});
+        let error =  false;
 
-  addNewTextBox = () => {
-      let count = this.state.counter;
-      count++;
-      this.setState({counter: count });
-  }
+        if(typeof data.membername === 'string'){
+            data.membername = [data.membername];
+        }
 
-  formSubmit = (fmid) => {
-      let form  =  document.querySelector(('#surveyForm'+fmid));
-      let data  =  getFormData(form, {trim: true});
-      let error =  false;
+        if(typeof data.membername === 'object' ){
+            data.membername.map((value, key) => {
+                if( value.trim() === '' ) {
+                    error = true;
+                }
+            });
+        }
 
-      if(typeof data.membername === 'string'){
-          data.membername = [data.membername];
-      }
+        if(error) {
+            this.setState({ message: "please fill the required fields" });
+        }else {
+            this.props.onSave(data);
+        }
 
-      if(typeof data.membername === 'object' ){
-          data.membername.map((value, key) => {
-              if( value.trim() === '' ) {
-                  error = true;
-              }
-          });
-      }
+    }
 
-      if(error) {
-          this.setState({ message: "please fill the required fields" });
-      }else {
-          this.props.onSave(data);
-      }
+    render() {
 
-  }
+        let textboxes = [];
+        let dropdown;
+        let message;
 
-  render() {
+        let options;
+        if(this.props.data){
 
-      let textboxes = [];
-      let dropdown;
-      let message;
+            options = this.props.data.map((value,key) => {
+                return [ <option value={value._id}>{value.name}</option> ];
+            });
 
-      let options;
-      if(this.props.data){
+            dropdown = (
+                <div className="form-group">
+                    <select className="form-control" ref="team_id" name="team_id">
+                        <option value="">Select a team</option>
+                        {options}
+                    </select>
+                </div>
+            );
+        }
 
-          options = this.props.data.map((value,key) => {
-              return [ <option value={value._id}>{value.name}</option> ];
-          });
+        if (this.state.message !== '' ) {
+            message = (
+                <div className="alert alert-info">
+                    {this.state.message}
+                </div>
+            );
+        }
 
-          dropdown = (
-            <div className="form-group">
-              <select className="form-control" ref="team_id" name="team_id">
-                <option value="">Select a team</option>
-                {options}
-              </select>
+        for (let i=0; i < this.state.counter; i++) {
+            textboxes.push(<RemovableTextbox/>);
+        }
+        let fmid = "surveyForm"+this.props.id;
+
+        return (
+            <div className="row">
+                {message}
+                <div className="col-sm-6">
+                    <form role="form" id={fmid}>
+                        {dropdown}
+                        {textboxes}
+                        <button type="button" onClick={this.formSubmit.bind(this,this.props.id)} className="btn btn-default">Submit</button>
+                    </form>
+                </div>
+                <div className="col-sm-6">
+                    <button type="button" onClick={this.addNewTextBox} className="btn btn-default">+</button>
+                </div>
             </div>
-          );
-      }
-
-      if (this.state.message !== '' ) {
-          message = (
-              <div className="alert alert-info">
-                {this.state.message}
-              </div>
-          );
-      }
-
-      for (let i=0; i < this.state.counter; i++) {
-          textboxes.push(<RemovableTextbox/>);
-      }
-      let fmid = "surveyForm"+this.props.id;
-
-      return (
-          <div className="row">
-            {message}
-            <div className="col-sm-6">
-              <form role="form" id={fmid}>
-                {dropdown}
-                {textboxes}
-                <button type="button" onClick={this.formSubmit.bind(this,this.props.id)} className="btn btn-default">Submit</button>
-              </form>
-            </div>
-            <div className="col-sm-6">
-              <button type="button" onClick={this.addNewTextBox} className="btn btn-default">+</button>
-            </div>
-          </div>
-      );
-  }
+        );
+    }
 }
 
 class RemovableTextbox extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-        ui : true
-      };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            ui : true
+        };
+    }
 
-  componentDidMount() {
-  }
+    removeTextBox = () => {
+        this.setState({ui: false });
+    }
 
-  componentWillUnmount() {
-  }
-
-  removeTextBox = () => {
-      this.setState({ui: false });
-  }
-
-  render() {
-      let textbox = (<div></div>);
-      if(this.state.ui){
-          textbox = (
-            <div className="form-group">
-               <input type="text" className="form-control" ref="membername" name="membername" placeholder="Enter work email..."/>
-               <button type="button" onClick={this.removeTextBox} className="btn btn-default">-</button>
-            </div>
-          );
-      }
-      return (textbox);
-  }
+    render() {
+        let textbox = (<div></div>);
+        if(this.state.ui){
+            textbox = (
+                <div className="form-group">
+                    <input type="text" className="form-control" ref="membername" name="membername" placeholder="Enter work email..."/>
+                    <button type="button" onClick={this.removeTextBox} className="btn btn-default">-</button>
+                </div>
+            );
+        }
+        return (textbox);
+    }
 }
-

@@ -14,20 +14,12 @@ export default class Appmobile extends React.Component {
   }
 
   componentDidMount () {
-      AppStore.listen(this._onChange);
       // Redirect to landing page, if no access
       setTimeout(function(){
           if(this.noAccess){
               window.location.assign('/');
           }
       }.bind(this),3000);
-  }
-
-  componentWillUnmount () {
-      AppStore.unlisten(this._onChange);
-  }
-
-  _onChange = () => {
   }
 
   render() {
@@ -42,21 +34,21 @@ export default class Appmobile extends React.Component {
       }
 
       let sitecontent = [
-                    <Navigation />,
-                    <SidebarMenu />,
-                    <div className="pusher">
-                        <div className="ui inverted vertical masthead center aligned "></div>
-                        <div className="ui segment  width padding-top-110">
-                            <div className="ui main">
-                                {handler}
-                            </div>
-                        </div>
-                    </div>,
-                    <GoogleAnalytics id="UA-40351687-1" />
-              ];
+          <Navigation />,
+          <SidebarMenu />,
+          <div className="pusher">
+              <div className="ui inverted vertical masthead center aligned "></div>
+              <div className="ui segment  width padding-top-110">
+                  <div className="ui main">
+                      {handler}
+                  </div>
+              </div>
+          </div>,
+          <GoogleAnalytics id="UA-40351687-1" />
+      ];
 
       return (
-              <span>{sitecontent}</span>
+          <span>{sitecontent}</span>
       );
   }
 }

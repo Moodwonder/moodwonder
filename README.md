@@ -3,7 +3,7 @@
 
 ##Instructions
 
-###Configuration 
+###Configuration
 
 ####secrets.js
 
@@ -12,7 +12,7 @@ Create a secrets.js file with the following lines of code inside server/config d
     module.exports = {
         db: 'mongodb://localhost/moodwonder',
         sessionSecret: 'Your Session Secret goes here',
-        portnumber: PORT_NUMBER 
+        portnumber: PORT_NUMBER
     };
 
 Replace PORT_NUMBER with your port number.
@@ -58,4 +58,3 @@ It will build a minified bundle file - It may take more time to complete the pro
 MongoDB
 
     Run queries given in the files within the `sql` directory before starting the application.
-
