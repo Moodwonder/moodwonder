@@ -1,24 +1,15 @@
 import React from 'react';
 import Header from 'components/staticpages/Header.react';
 
-
 export default class Terms extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
+        return (
             <div className="pusher">
                 <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor": "#4db6ac"}}>
                     <Header />
@@ -90,9 +81,7 @@ export default class Terms extends React.Component {
                     </div>
                 </div>
             </div>
-      );
-  }
+        );
+    }
 
 }
-
-

@@ -10,9 +10,6 @@ export default RequireAuth(class SurveyStatistics extends React.Component {
         this.state = AdminUserStore.getState();
     }
 
-    componentDidMount(){
-    }
-
     _onChange = (state) => {
         this.setState(state);
     }
@@ -23,16 +20,16 @@ export default RequireAuth(class SurveyStatistics extends React.Component {
         if (this.state.hasError && this.state.message !== '' ) {
             message = (
                 <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                {this.state.message}
+                    {this.state.message}
                 </div>
             );
         }
 
         return (
             <div className="container">
-              {message}
-              <h1>MoodWonder Survey Statistics</h1>
-              <UsersSurveyStatistics user_id={this.props.params.uid} />
+                {message}
+                <h1>MoodWonder Survey Statistics</h1>
+                <UsersSurveyStatistics user_id={this.props.params.uid} />
             </div>
         );
     }

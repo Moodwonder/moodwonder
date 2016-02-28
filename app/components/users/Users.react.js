@@ -14,7 +14,6 @@ export default RequireAuth(class Dashboard extends React.Component {
         this.state.modal = false;
         this.state.userTeams = false;
         this.state.popup = false;
-
         this.hasData = false;
         this.rows = false;
         this.header = [];
@@ -69,22 +68,22 @@ export default RequireAuth(class Dashboard extends React.Component {
                 let members;
                 members = data.members.map((mem, key) => {
                     return (
-                    <div className="row" key={key}>
-                      <div className="col-sm-6">{mem.member_email}</div>
-                      <div className="col-sm-4">{mem.member_name}</div>
-                    </div>
+                        <div className="row" key={key}>
+                            <div className="col-sm-6">{mem.member_email}</div>
+                            <div className="col-sm-4">{mem.member_name}</div>
+                        </div>
                     );
                 });
                 return [
-                  <div className="list-group-item" key={data._id+1}>
-                   {data.name}
-                  </div>,
-                  <div className="list-group-item" key={data._id+2}>
-                    <div className="row">
-                      <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
+                    <div className="list-group-item" key={data._id+1}>
+                        {data.name}
+                    </div>,
+                    <div className="list-group-item" key={data._id+2}>
+                        <div className="row">
+                            <div className="col-sm-4"><h4>SUBORDINATES</h4></div>
+                        </div>
+                        {members}
                     </div>
-                    {members}
-                  </div>
                 ];
             });
         }
@@ -137,27 +136,27 @@ export default RequireAuth(class Dashboard extends React.Component {
                 <div>
                     <table className="ui celled table">
                         <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>Email</td>
-                            <td>Type</td>
-                            <td>Verify Status</td>
-                            <td>Country</td>
-                            <td>Domain name</td>
-                            <td>Company name</td>
-                            <td>Company size</td>
-                        </tr>
-                        {rows}
+                            <tr>
+                                <td>Name</td>
+                                <td>Email</td>
+                                <td>Type</td>
+                                <td>Verify Status</td>
+                                <td>Country</td>
+                                <td>Domain name</td>
+                                <td>Company name</td>
+                                <td>Company size</td>
+                            </tr>
+                            {rows}
                         </tbody>
                     </table>
                     {pagination}
                 </div>
                 <div className="ui modal">
-                  <i className="close icon"></i>
-                  <div className="header">Message</div>
-                  <div className="content">
-                  {teamUserList}
-                  </div>
+                    <i className="close icon"></i>
+                    <div className="header">Message</div>
+                    <div className="content">
+                        {teamUserList}
+                    </div>
                 </div>
             </div>
         );

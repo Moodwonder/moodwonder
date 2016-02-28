@@ -2,35 +2,30 @@ import React from 'react';
 import Cookie from 'utils/Cookie';
 import LanguageContants from 'constants/LanguageConstants';
 
-
 export default class Footer extends React.Component {
 
-  constructor (props) {
-      super(props);
-      this.state = {
-          lang: ''
-      };
-  }
+    constructor (props) {
+        super(props);
+        this.state = {
+            lang: ''
+        };
+    }
 
-  componentDidMount () {
-      let lang = Cookie.getCookie('lang');
-      this.setState({lang: lang});
-  }
+    componentWillReceiveProps () {
+        let lang = Cookie.getCookie('lang');
+        this.setState({lang: lang});
+    }
 
-  componentWillUnmount () {
+    onClickLanguage = (lang) => {
+        Cookie.setCookie('lang', lang, 30);
+        this.setState({lang: lang});
+        location.reload(true);
+    }
 
-  }
+    render () {
+        let lang = this.state.lang;
 
-  onClickLanguage = (lang) => {
-      Cookie.setCookie('lang', lang, 30);
-      this.setState({lang: lang});
-      location.reload(true);
-  }
-
-  render () {
-      let lang = this.state.lang;
-
-      return (
+        return (
             <header className="entry-header ui menu">
                 <div style={{"display":"flex!important"}} className="ui menu">
                     <div className="ui container custom-header"> <a className="item " href="/"><img src="assets/images/logo-mw.png" alt=""/></a>
@@ -55,9 +50,7 @@ export default class Footer extends React.Component {
                     </div>
                 </div>
             </header>
-      );
-  }
+        );
+    }
 
 }
-
-

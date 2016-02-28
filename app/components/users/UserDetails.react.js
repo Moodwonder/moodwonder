@@ -54,7 +54,7 @@ export default RequireAuth(class UserDetails extends React.Component {
         if (this.state.hasError && this.state.message !== '' ) {
             message = (
                 <div className={ (this.state.hasError) ? 'alert alert-warning' : 'alert alert-info' }>
-                {this.state.message}
+                    {this.state.message}
                 </div>
             );
         }
@@ -66,17 +66,17 @@ export default RequireAuth(class UserDetails extends React.Component {
                 data.status = true;
             }
             userDetails = (
-            <div className="ui grid">
-              <div className="eight wide column"><img src={this.state.userDetails.profile_image} /></div>
-              <div className="eight wide column">First name : {this.state.userDetails.fname}</div>
-              <div className="eight wide column">Last name : {this.state.userDetails.lname}</div>
-              <div className="eight wide column">Work email : {this.state.userDetails.email}</div>
-              <div className="eight wide column">Language : {this.state.userDetails.language}</div>
-              <div className="eight wide column">Manager : {this.state.userDetails.mymanager}</div>
-              <div className="eight wide column">Report frequency : {this.state.userDetails.reportfrequency}</div>
-              <div className="eight wide column">User status : <ChangeUserStatus data={data} /> </div>
-              <div className="eight wide column"><a href={ `/admin/surveystatistics/${this.props.params.uid}` }>Survey Statistics</a></div>
-            </div>
+                <div className="ui grid">
+                    <div className="eight wide column"><img src={this.state.userDetails.profile_image} /></div>
+                    <div className="eight wide column">First name : {this.state.userDetails.fname}</div>
+                    <div className="eight wide column">Last name : {this.state.userDetails.lname}</div>
+                    <div className="eight wide column">Work email : {this.state.userDetails.email}</div>
+                    <div className="eight wide column">Language : {this.state.userDetails.language}</div>
+                    <div className="eight wide column">Manager : {this.state.userDetails.mymanager}</div>
+                    <div className="eight wide column">Report frequency : {this.state.userDetails.reportfrequency}</div>
+                    <div className="eight wide column">User status : <ChangeUserStatus data={data} /> </div>
+                    <div className="eight wide column"><a href={ `/admin/surveystatistics/${this.props.params.uid}` }>Survey Statistics</a></div>
+                </div>
             );
         }
 
@@ -92,24 +92,24 @@ export default RequireAuth(class UserDetails extends React.Component {
 
         return (
             <div className="ui container">
-            <div className="ui grid page">
-            <div className="column">
-            <div className="ui segment">
-                {message}
-                <h1>Users</h1>
-                <div className="ui top attached tabular menu">
-                    <a className="item active" data-tab="first">User Details</a>
-                    <a className="item" data-tab="second">Responses for open ended questions</a>
+                <div className="ui grid page">
+                    <div className="column">
+                        <div className="ui segment">
+                            {message}
+                            <h1>Users</h1>
+                            <div className="ui top attached tabular menu">
+                                <a className="item active" data-tab="first">User Details</a>
+                                <a className="item" data-tab="second">Responses for open ended questions</a>
+                            </div>
+                            <div className="ui bottom attached tab segment active" data-tab="first">
+                                {Tab[0]}
+                            </div>
+                            <div className="ui bottom attached tab segment" data-tab="second">
+                                {Tab[1]}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="ui bottom attached tab segment active" data-tab="first">
-                  {Tab[0]}
-                </div>
-                <div className="ui bottom attached tab segment" data-tab="second">
-                  {Tab[1]}
-                </div>
-            </div>
-            </div>
-            </div>
             </div>
         );
     }
@@ -152,10 +152,10 @@ class ChangeUserStatus extends React.Component {
 
     render() {
         return (
-        <div>
-        <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
-        {this.state.statusText}
-        </div>
+            <div>
+                <input type="checkbox" name="userStatus" checked={this.state.checked} onChange={this.onChange} value={this.state.checked} />
+                {this.state.statusText}
+            </div>
         );
     }
 }
@@ -219,7 +219,7 @@ class OpenEndedQuestionsAnswers extends React.Component {
             <div>
                 <DatePicker onChange={this.getAnswers}/>
                 <ul className="list-group">
-                  {this.list}
+                    {this.list}
                 </ul>
             </div>
         );
