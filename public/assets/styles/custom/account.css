@@ -197,7 +197,7 @@ a.act-cover-image {
 	margin: 20px 0;
 }
 .eom {
-	background: url(../../assets/images/employee-of-the-month.png) no-repeat center center;
+	background: url(/assets/images/employee-of-the-month.png) no-repeat center center;
 	float: right;
 	width: 150px;
 	top: 20%;
@@ -304,4 +304,3 @@ p.votes {
     padding: 4px 10px;
     width: 100% !important;
 }
-
