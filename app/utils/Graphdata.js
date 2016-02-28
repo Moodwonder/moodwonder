@@ -8,42 +8,42 @@ const graphdata = {
 
     getEngagementGraphData: function (graphperiod, engagementmood, surveyresults) {
         switch (graphperiod) {
-            case 'all_time' :
+        case 'all_time' :
             period = 0;
             periodflag = 'month';
             break;
 
-            case 'last_12_months' :
+        case 'last_12_months' :
             period = 12;
             periodflag = 'month';
             break;
 
-            case 'last_6_ months' :
+        case 'last_6_ months' :
             period = 6;
             periodflag = 'month';
             break;
 
-            case 'last_3_months' :
+        case 'last_3_months' :
             period = 3;
             periodflag = 'month';
             break;
 
-            case 'last_month' :
+        case 'last_month' :
             period = 1;
             periodflag = 'month';
             break;
 
-            case '30_days' :
+        case '30_days' :
             period = 30;
             periodflag = 'day';
             break;
 
-            case 'week_change' :
+        case 'week_change' :
             period = 7;
             periodflag = 'day';
             break;
 
-            default :
+        default :
             period = 0;
             periodflag = 'month';
             break;

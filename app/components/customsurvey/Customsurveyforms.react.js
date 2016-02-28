@@ -115,27 +115,28 @@ export default class Customsurveyforms extends React.Component {
                         <div className="ui search">
                             <div className="ui icon input">
                                 <input className="prompt" type="text" placeholder={GetText('SVFM_SEARCH_BOX', mlarray)} name="searchtitle" id="searchtitle" onChange={this.onSearchTitle} />
-                                <i className="search icon"></i> </div>
-                                <div className="results"></div>
+                                <i className="search icon"></i>
                             </div>
+                            <div className="results"></div>
                         </div>
-                    </div>,
-
-                    <div className="ui container">
-                        <table id="tableData" className="ui celled striped table">
-                            <thead>
-                                <tr>
-                                    <th>{GetText('SVFM_TBLNUMBER', mlarray)}</th>
-                                    <th>{GetText('SVFM_TBLTITLE', mlarray)}</th>
-                                    <th>{GetText('SVFM_TBLDATE', mlarray)}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {items}
-                            </tbody>
-                        </table>
                     </div>
+                </div>,
+
+                <div className="ui container">
+                    <table id="tableData" className="ui celled striped table">
+                        <thead>
+                            <tr>
+                                <th>{GetText('SVFM_TBLNUMBER', mlarray)}</th>
+                                <th>{GetText('SVFM_TBLTITLE', mlarray)}</th>
+                                <th>{GetText('SVFM_TBLDATE', mlarray)}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {items}
+                        </tbody>
+                    </table>
+                </div>
             ];
         } else {
             content = [

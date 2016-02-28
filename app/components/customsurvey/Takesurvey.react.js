@@ -147,7 +147,7 @@ export default class Takesurvey extends React.Component {
             let ans = '';
 
             switch(question.answertype){
-                case 'radio':
+            case 'radio':
                 ans = answers.map((answer) => {
                     return (
                         <div className="field">
@@ -160,7 +160,7 @@ export default class Takesurvey extends React.Component {
                 });
                 break;
 
-                case 'checkbox':
+            case 'checkbox':
                 ans = answers.map((answer) => {
                     return (
                         <div className="field">
@@ -173,13 +173,13 @@ export default class Takesurvey extends React.Component {
                 });
                 break;
 
-                case 'textbox':
+            case 'textbox':
                 ans = (
                     <input type="text" name={'answer_' + qno} />
                 );
                 break;
 
-                case 'textarea':
+            case 'textarea':
                 ans = (
                     <div className="field">
                         <textarea name={'answer_' + qno} rows="2"></textarea>
@@ -187,7 +187,7 @@ export default class Takesurvey extends React.Component {
                 );
                 break;
 
-                default: break;
+            default: break;
             }
 
             let ansoptions = '';

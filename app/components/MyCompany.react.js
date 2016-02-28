@@ -264,7 +264,7 @@ export default class MyCompany extends React.Component {
         } else {
             worstareas = [
                 <div className="column padding-ryt"></div>,
-                    <div className="column padding-ryt">
+                <div className="column padding-ryt">
                     <div className="extra center aligned">
                         <p className="head"></p>
                         <div className="ui star rating">

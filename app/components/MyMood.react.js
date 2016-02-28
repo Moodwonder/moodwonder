@@ -415,31 +415,31 @@ export default class MyMood extends React.Component {
         let aid = '';
 
         switch(answerType){
-            case 'radio':
-                aid = qid + 'r1';
-                let nRadio = this.state.radio;
-                nRadio.push(aid);
-                this.setState({radio: nRadio});
+        case 'radio':
+            aid = qid + 'r1';
+            let nRadio = this.state.radio;
+            nRadio.push(aid);
+            this.setState({radio: nRadio});
             break;
-            case 'checkbox':
-                aid = qid + 'c1';
-                let nCheckbox = this.state.checkbox;
-                nCheckbox.push(aid);
-                this.setState({checkbox: nCheckbox});
+        case 'checkbox':
+            aid = qid + 'c1';
+            let nCheckbox = this.state.checkbox;
+            nCheckbox.push(aid);
+            this.setState({checkbox: nCheckbox});
             break;
-            case 'textbox':
-                aid = qid + 'te1';
-                let nTextbox = this.state.textbox;
-                nTextbox.push(aid);
-                this.setState({textbox: nTextbox});
+        case 'textbox':
+            aid = qid + 'te1';
+            let nTextbox = this.state.textbox;
+            nTextbox.push(aid);
+            this.setState({textbox: nTextbox});
             break;
-            case 'textarea':
-                aid = qid + 'tx1';
-                let nTextarea = this.state.textarea;
-                nTextarea.push(aid);
-                this.setState({textarea: nTextarea});
+        case 'textarea':
+            aid = qid + 'tx1';
+            let nTextarea = this.state.textarea;
+            nTextarea.push(aid);
+            this.setState({textarea: nTextarea});
             break;
-            default: break;
+        default: break;
         }
     }
 
@@ -1012,52 +1012,52 @@ export default class MyMood extends React.Component {
         let engagementGraphTabContent = null;
         if (engagementgraphtab) {
             engagementGraphTabContent = [
-            <div className="ui bottom attached segment brdr-none menu">
-                <div className="ui  column stackable grid container">
-                    <div className="column  brdr-none padding-none">
-                        <div className="ui segment brdr-none padding-none ">
-                            <div className=" right menu mobile">
-                                <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement.bind(this)} value={graphengagement}>
-                                    <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
-                                    <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
-                                    <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
-                                    <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
-                                    <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
-                                    <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
-                                    <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
-                                    <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
-                                    <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
-                                    <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
-                                    <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
-                                    <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
-                                    <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
-                                    <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
-                                </select>
-                                <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
-                                    <option value="all_time">{GetText('MYMD_OPTALLTIME', mlarray)}</option>
-                                    <option value="last_12_months">{GetText('MYMD_OPTTWELVE', mlarray)}</option>
-                                    <option value="last_6_ months">{GetText('MYMD_OPTSIX', mlarray)}</option>
-                                    <option value="last_3_months">{GetText('MYMD_OPTTHREE', mlarray)}</option>
-                                    <option value="last_month">{GetText('MYMD_OPTLASTMONTH', mlarray)}</option>
-                                </select>
-                            </div>
-                            <div className="clear"></div>
-                            <div className="graph">
-                                <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
-                                <div className="legend">
-                                    <div className="legend-sub" style={{"width": "100%", "marginLeft": "38%"}}>
-                                        <label className="custom-lbl"><img src="/assets/images/red.png" /></label>
-                                        <label className="custom-lbl">Mood</label>
-                                        {blueLegend}
+                <div className="ui bottom attached segment brdr-none menu">
+                    <div className="ui  column stackable grid container">
+                        <div className="column  brdr-none padding-none">
+                            <div className="ui segment brdr-none padding-none ">
+                                <div className=" right menu mobile">
+                                    <select className="ui dropdown search graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement.bind(this)} value={graphengagement}>
+                                        <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
+                                        <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
+                                        <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
+                                        <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
+                                        <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
+                                        <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
+                                        <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
+                                        <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
+                                        <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
+                                        <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
+                                        <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
+                                        <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
+                                        <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
+                                        <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
+                                    </select>
+                                    <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
+                                        <option value="all_time">{GetText('MYMD_OPTALLTIME', mlarray)}</option>
+                                        <option value="last_12_months">{GetText('MYMD_OPTTWELVE', mlarray)}</option>
+                                        <option value="last_6_ months">{GetText('MYMD_OPTSIX', mlarray)}</option>
+                                        <option value="last_3_months">{GetText('MYMD_OPTTHREE', mlarray)}</option>
+                                        <option value="last_month">{GetText('MYMD_OPTLASTMONTH', mlarray)}</option>
+                                    </select>
+                                </div>
+                                <div className="clear"></div>
+                                <div className="graph">
+                                    <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
+                                    <div className="legend">
+                                        <div className="legend-sub" style={{"width": "100%", "marginLeft": "38%"}}>
+                                            <label className="custom-lbl"><img src="/assets/images/red.png" /></label>
+                                            <label className="custom-lbl">Mood</label>
+                                            {blueLegend}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>,
+                </div>,
 
-            <div className="clear"></div>,
+                <div className="clear"></div>,
                 <div className="ui two column stackable grid ">
                     <div className="six column row padding-container">
                         <div className="column">

@@ -146,7 +146,7 @@ export default class Navigation extends React.Component {
         if (this.state.user.get('authenticated')) {
             loginOrOut = [
                 <a href="/myprofile" className="item">{GetText('TOP_RIGHT_SIDE_MY_ACCOUNT_LINK', mlarray)}</a>,
-                    <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">{GetText('TOP_RIGHT_SIDE_LOGOUT_LINK', mlarray)}</a>
+                <a href="/logout" style={{"color":"black"}} onClick={this._onLogout} className="item">{GetText('TOP_RIGHT_SIDE_LOGOUT_LINK', mlarray)}</a>
             ];
 
             ratingSection = [

@@ -289,7 +289,7 @@ export default class MyProfile extends React.Component {
                     <a className="action"><i onClick={this.onEditSummaryClick} className="write icon"></i></a>
                 </h3>,
                 {summarymessage},
-                <p>{userInfo.summary}</p>
+            <p>{userInfo.summary}</p>
         ];
 
         if(this.state.summaryEdit){

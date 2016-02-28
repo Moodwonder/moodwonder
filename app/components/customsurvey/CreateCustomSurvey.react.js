@@ -337,31 +337,31 @@ export default class CreateCustomSurvey extends React.Component {
         let aid = '';
 
         switch(answerType){
-            case 'radio':
-                aid = qid + 'r1';
-                let nRadio = this.state.radio;
-                nRadio.push(aid);
-                this.setState({radio: nRadio});
+        case 'radio':
+            aid = qid + 'r1';
+            let nRadio = this.state.radio;
+            nRadio.push(aid);
+            this.setState({radio: nRadio});
             break;
-            case 'checkbox':
-                aid = qid + 'c1';
-                let nCheckbox = this.state.checkbox;
-                nCheckbox.push(aid);
-                this.setState({checkbox: nCheckbox});
+        case 'checkbox':
+            aid = qid + 'c1';
+            let nCheckbox = this.state.checkbox;
+            nCheckbox.push(aid);
+            this.setState({checkbox: nCheckbox});
             break;
-            case 'textbox':
-                aid = qid + 'te1';
-                let nTextbox = this.state.textbox;
-                nTextbox.push(aid);
-                this.setState({textbox: nTextbox});
+        case 'textbox':
+            aid = qid + 'te1';
+            let nTextbox = this.state.textbox;
+            nTextbox.push(aid);
+            this.setState({textbox: nTextbox});
             break;
-            case 'textarea':
-                aid = qid + 'tx1';
-                let nTextarea = this.state.textarea;
-                nTextarea.push(aid);
-                this.setState({textarea: nTextarea});
+        case 'textarea':
+            aid = qid + 'tx1';
+            let nTextarea = this.state.textarea;
+            nTextarea.push(aid);
+            this.setState({textarea: nTextarea});
             break;
-            default: break;
+        default: break;
         }
     }
 

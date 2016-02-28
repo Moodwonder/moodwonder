@@ -19,7 +19,7 @@ const moodratings = {
 
         let finaldata = results.filter(function(o) {
             for (let i = 0; i < topthree.length; i++)
-            if (topthree[i] === o.mood) return false;
+                if (topthree[i] === o.mood) return false;
             return true;
         });
 
