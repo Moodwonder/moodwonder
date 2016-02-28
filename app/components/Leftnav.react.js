@@ -5,91 +5,89 @@ import InviteOthers from 'components/InviteOthers.react';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
-
 export default class Leftnav extends React.Component {
 
-  constructor (props) {
-      super(props);
-      this.state = UserStore.getState();
-      this.state.mwkeys = MlangStore.getState().mwkeys;
-  }
+    constructor (props) {
+        super(props);
+        this.state = UserStore.getState();
+        this.state.mwkeys = MlangStore.getState().mwkeys;
+    }
 
-  componentDidMount () {
-      //UserActions.getuserinfo();
-      UserActions.getUserData();
-      UserStore.listen(this._onChange);
-      // To set active link
-      $( ".left .item" ).each(function( index ) {
-          if(this.attributes.href !== undefined){
-              if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
-                  $( this ).addClass('active');
-              }
-          }
-      });
-  }
+    componentDidMount () {
+        UserActions.getUserData();
+        UserStore.listen(this._onChange);
+        // To set active link
+        $( ".left .item" ).each(function( index ) {
+            if(this.attributes.href !== undefined){
+                if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
+                    $( this ).addClass('active');
+                }
+            }
+        });
+    }
 
-  componentDidUpdate () {
-      $('.ui.menu .ui.dropdown').dropdown({
-          on: 'click'
-      });
+    componentDidUpdate () {
+        $('.ui.menu .ui.dropdown').dropdown({
+            on: 'click'
+        });
 
-      $( ".left .item" ).each(function( index ) {
-          if(this.attributes.href !== undefined){
-              if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
-                  $( this ).addClass('active');
-              }
-          }
-      });
-  }
+        $( ".left .item" ).each(function( index ) {
+            if(this.attributes.href !== undefined){
+                if(location.pathname.substring(1) === this.attributes.href.value.substring(1)){
+                    $( this ).addClass('active');
+                }
+            }
+        });
+    }
 
-  componentWillUnmount () {
-      UserStore.unlisten(this._onChange);
-  }
+    componentWillUnmount () {
+        UserStore.unlisten(this._onChange);
+    }
 
-  _onChange = (state) => {
-      this.setState(state);
-  }
+    _onChange = (state) => {
+        this.setState(state);
+    }
 
-  render () {
-      let user = this.state.userData;
-      let mlarray = this.state.mwkeys;
-      let userfullname = '';
-      if( user.fname !== undefined && user.fname !== 'undefined' ){
-          userfullname = user.fname;
-      }
-      if( user.lname !== undefined && user.lname !== 'undefined' ){
-          userfullname += ' '+user.lname;
-      }
+    render () {
+        let user = this.state.userData;
+        let mlarray = this.state.mwkeys;
+        let userfullname = '';
+        if( user.fname !== undefined && user.fname !== 'undefined' ){
+            userfullname = user.fname;
+        }
+        if( user.lname !== undefined && user.lname !== 'undefined' ){
+            userfullname += ' '+user.lname;
+        }
 
-      let openresponselink;
-      if (user.usertype === 'manager') {
-          openresponselink = [
-                    <a className="item" href="/customsurvey">
-                        <i className="bar chart icon"></i>
-                        {GetText('L_CREATE_NEW_SURVEY', mlarray)}
-                    </a>,
-                    <a className="item" href="/surveyforms">
-                        <i className="line chart icon"></i>
-                        {GetText('L_MY_SURVEYS', mlarray)}
-                    </a>,
-                    <a className="item" href="/openendedresponses">
-                        <i className="list icon"></i>
-                        {GetText('L_OPENENDED_RESPONSES', mlarray)}
-                    </a>
-          ];
-      }
+        let openresponselink;
+        if (user.usertype === 'manager') {
+            openresponselink = [
+                <a className="item" href="/customsurvey">
+                    <i className="bar chart icon"></i>
+                    {GetText('L_CREATE_NEW_SURVEY', mlarray)}
+                </a>,
+                <a className="item" href="/surveyforms">
+                    <i className="line chart icon"></i>
+                    {GetText('L_MY_SURVEYS', mlarray)}
+                </a>,
+                <a className="item" href="/openendedresponses">
+                    <i className="list icon"></i>
+                    {GetText('L_OPENENDED_RESPONSES', mlarray)}
+                </a>
+            ];
+        }
 
-      let viewvotes;
-      if (user.company_admin) {
-          viewvotes = [
-                    <a className="item" href="/viewvotes">
-                        <i className="thumbs trophy icon"></i>
-                        {GetText('L_VIEW_VOTE', mlarray)}
-                    </a>
-          ];
-      }
+        let viewvotes;
+        if (user.company_admin) {
+            viewvotes = [
+                <a className="item" href="/viewvotes">
+                    <i className="thumbs trophy icon"></i>
+                    {GetText('L_VIEW_VOTE', mlarray)}
+                </a>
+            ];
+        }
 
-      return (
+        return (
             <div className="ui left fixed vertical menu ">
                 <div>
                     <div className="profile item">
@@ -130,6 +128,6 @@ export default class Leftnav extends React.Component {
                     <InviteOthers />
                 </div>
             </div>
-      );
-  }
+        );
+    }
 }

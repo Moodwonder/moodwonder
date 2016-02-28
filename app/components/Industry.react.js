@@ -12,7 +12,6 @@ export default RequireAuth(class Industry extends React.Component {
         this.state.totalPages = [];
         this.state.modal = false;
         this.state.IndustryList = false;
-
         this.hasData = false;
         this.rows = false;
         this.header = [];
@@ -30,7 +29,6 @@ export default RequireAuth(class Industry extends React.Component {
     }
 
     _onChange = (state) => {
-
         if(state.IndustryList.rows){
             this.pagination = state.IndustryList.pagination;
             state.rows = state.IndustryList.rows;
@@ -40,11 +38,9 @@ export default RequireAuth(class Industry extends React.Component {
                 }
             }
             this.setState(state);
-            // this.messageAutoClose(state);
         }else{
             state.rows = [];
             this.setState(state);
-            // this.messageAutoClose(state);
         }
         if(this.state.message.trim() !==''){
             console.log(this.state.message);
@@ -100,7 +96,6 @@ export default RequireAuth(class Industry extends React.Component {
         {
             if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
-                    // console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={row._id}>
@@ -113,22 +108,18 @@ export default RequireAuth(class Industry extends React.Component {
                 let pages = this.pagination.map((data, key) => {
                     return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
                 });
-                //console.log(this.pagination);
+
                 pagination = (
                     <div className="ui pagination menu">
                         {pages}
                     </div>
                 );
-            }else{
-
             }
-
         }
         catch(err)
         {
             console.log(err);
         }
-        // console.log(rows);
 
         return (
             <div className="ui container">
@@ -155,9 +146,9 @@ export default RequireAuth(class Industry extends React.Component {
                     </div>
                 </div>
                 <div className="ui modal">
-                  <i className="close icon"></i>
-                  <div className="header">Message</div>
-                  <div className="content" id="msg"></div>
+                    <i className="close icon"></i>
+                    <div className="header">Message</div>
+                    <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -166,75 +157,71 @@ export default RequireAuth(class Industry extends React.Component {
 
 class Editable extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state =
-          {
+    constructor(props) {
+        super(props);
+        this.state =
+        {
             Edit: false,
             value:props.value,
             btnDisabled: true
-          };
-  }
+        };
+    }
 
-  componentDidMount() {
-  }
+    componentWillReceiveProps(e) {
+        // to set default
+        this.setState({Edit: false, value: this.props.value });
+    }
 
-  componentWillReceiveProps(e) {
-      // to set default
-      this.setState({Edit: false, value: this.props.value });
-  }
+    changeValue = (event) => {
+        let btnDisabled = true;
+        if(this.props.value !== event.target.value){
+            btnDisabled = false;
+        }
+        this.setState({value:event.target.value, btnDisabled: btnDisabled});
+    }
 
-  changeValue = (event) => {
+    onEditClick = () => {
+        this.setState({Edit: true, value: this.props.value });
+    }
 
-      let btnDisabled = true;
-      if(this.props.value !== event.target.value){
-          btnDisabled = false;
-      }
-      this.setState({value:event.target.value, btnDisabled: btnDisabled});
-  }
+    onSaveClick = (teamname,teamid) => {
+        console.log(teamname);
+        console.log(teamid);
+        if(this.props.value !== this.state.value && teamname.trim() !== ''){
+            this.props.onSave({teamname:teamname,teamid:teamid});
+        }
+    }
 
-  onEditClick = () => {
-      this.setState({Edit: true, value: this.props.value });
-  }
+    render() {
 
-  onSaveClick = (teamname,teamid) => {
-      console.log(teamname);
-      console.log(teamid);
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({teamname:teamname,teamid:teamid});
-      }
-  }
+        let buttonlabel = 'Edit';
 
-  render() {
+        let inputORLable = (
+            <label htmlFor="email">{this.props.value}</label>
+        );
 
-      let buttonlabel = 'Edit';
+        let actionButton = (
+            <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+        );
 
-      let inputORLable = (
-        <label htmlFor="email">{this.props.value}</label>
-      );
+        if(this.state.Edit){
+            buttonlabel  = 'Save';
+            inputORLable = (
+                <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+            );
 
-      let actionButton = (
-        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
-      );
+            actionButton = (
+                <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            );
+        }
 
-      if(this.state.Edit){
-          buttonlabel  = 'Save';
-          inputORLable = (
-            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
-          );
-
-          actionButton = (
-            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
-          );
-      }
-
-      return (
-        <div className="row">
-           {inputORLable}
-           {actionButton}
-        </div>
-      );
-  }
+        return (
+            <div className="row">
+                {inputORLable}
+                {actionButton}
+            </div>
+        );
+    }
 }
 
 class AddIndustry extends React.Component {
@@ -245,10 +232,8 @@ class AddIndustry extends React.Component {
     }
 
     _onChange = (state) => {
-
         if(state.ServerResponse && state.ServerResponse.type === 'addindustry'){
             this.setState(state);
-            // this.messageAutoClose(state);
             if(state.ServerResponse.status){
                 React.findDOMNode(this.refs.industry).value = '';
             }

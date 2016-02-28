@@ -13,10 +13,10 @@ const compnaygraphdata = {
             });
             data = _(uniquedaterows).map(function(g, key) {
                 return { created : { d: key},
-                         len : g.length,
-                         //rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (13 * (g.length / 13))).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                len : g.length,
+                //rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (13 * (g.length / 13))).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
 
         } else {
@@ -29,9 +29,9 @@ const compnaygraphdata = {
 
             data = _(uniquedaterows).map(function(g, key) {
                 return { created : { d: key},
-                         len : g.length,
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (g.length)).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                len : g.length,
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (g.length)).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
         }
 
@@ -50,8 +50,8 @@ const compnaygraphdata = {
             data = _(uniquedaterows).map(function(g, key) {
 
                 return { created : { d: key},
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
 
         } else {
@@ -77,10 +77,10 @@ const compnaygraphdata = {
             });
             data = _(uniquedaterows).map(function(g, key) {
                 return { created : { d: key},
-                         len : g.length,
-                         //rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (13 * (g.length / 13))).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                len : g.length,
+                //rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / 13).toFixed(1),
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (13 * (g.length / 13))).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
 
         } else {
@@ -93,9 +93,9 @@ const compnaygraphdata = {
 
             data = _(uniquedaterows).map(function(g, key) {
                 return { created : { d: key},
-                         len : g.length,
-                         rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (g.length)).toFixed(1),
-                         sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
+                len : g.length,
+                rating: ((_(g).reduce(function(m,x) { return m + x.rating; }, 0)) / (g.length)).toFixed(1),
+                sum: _(g).reduce(function(m,x) { return m + x.rating; }, 0) };
             });
         }
 

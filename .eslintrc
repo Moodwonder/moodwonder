@@ -56,7 +56,6 @@
         "no-else-return": 0,
         "no-empty": 0,
         "no-empty-character-class": 2,
-        "no-empty-label": 2,
         "no-eq-null": 0,
         "no-eval": 1,
         "no-ex-assign": 2,
@@ -132,7 +131,7 @@
         "no-use-before-define": 0,
         "no-useless-call": 0,
         "no-void": 0,
-        "no-var": 2,
+        "no-var": 0,
         "no-warning-comments": [0, { "terms": ["todo", "fixme", "xxx"], "location": "start" }],
         "no-with": 0,
 

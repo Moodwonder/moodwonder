@@ -3,28 +3,28 @@ import CustomSurveyWebAPIUtils from 'utils/CustomSurveyWebAPIUtils';
 
 class SurveyParticipationActions {
 
-  getMySurveyParticipation (data) {
-      this.dispatch();
-      CustomSurveyWebAPIUtils.getMySurveyParticipation(data)
-      .then((response, textStatus) => {
-          if (response.status === 'success') {
-              this.actions.mysurveyparticipation(response.data);
-          }
-      }, () => {
-        // Dispatch another event for a bad request
-      });
-  }
+    getMySurveyParticipation (data) {
+        this.dispatch();
+        CustomSurveyWebAPIUtils.getMySurveyParticipation(data)
+        .then((response, textStatus) => {
+            if (response.status === 'success') {
+                this.actions.mysurveyparticipation(response.data);
+            }
+        }, () => {
+            // Dispatch another event for a bad request
+        });
+    }
 
-  mysurveyparticipation (data) {
-      if (alt.dispatcher.$Dispatcher_isDispatching) {
-          window.setTimeout(() => {
-              this.dispatch(data);
-          });
-      } else {
-          this.dispatch(data);
-      }
-      //this.dispatch(data);
-  }
+    mysurveyparticipation (data) {
+        if (alt.dispatcher.$Dispatcher_isDispatching) {
+            window.setTimeout(() => {
+                this.dispatch(data);
+            });
+        } else {
+            this.dispatch(data);
+        }
+        //this.dispatch(data);
+    }
 
 }
 

@@ -1,9 +1,5 @@
 import React from 'react';
-//import getFormData from 'get-form-data';
-//import Submenu from 'components/Submenu.react';
 let LineChart = require("react-chartjs").Line;
-//let BarChart = require("react-chartjs").Bar;
-//import MoodSlider from 'components/MoodSlider.react';
 import SurveyActions from 'actions/SurveyActions';
 import SurveyStore from 'stores/SurveyStore';
 import Graphdata from 'utils/Graphdata';
@@ -27,8 +23,6 @@ let chartoptions = {
     scaleStartValue: 0,
     scaleShowLabels: true,
     tooltipTemplate: "<%= value %>"
-    // multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
-    // scaleLineColor: 'black'
 };
 
 LineChart.prototype.titles = [];
@@ -36,259 +30,256 @@ LineChart.prototype.titles = [];
 
 export default class UsersSurveyStatistics extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
-          popup: false,
-          questions: [],
-          surveyresults: [],
-          lastsurvey: [],
-          lastmood: [],
-          graphperiod: 'all_time',
-          graphengagement: 'mw_index',
-          engagementgraphtab: true,
-          quickstatisticstab: false,
-          moodratingstab: false,
-          companysurvey: [],
-          industrysurvey: [],
-          countrysurvey: [],
-          engagedmanagers: [],
-          currentuserid: '',
-          totalcompanyusers: ''
-      };
-      this.engagementmoods = [];
-      this.mooddropdown = false;
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            popup: false,
+            questions: [],
+            surveyresults: [],
+            lastsurvey: [],
+            lastmood: [],
+            graphperiod: 'all_time',
+            graphengagement: 'mw_index',
+            engagementgraphtab: true,
+            quickstatisticstab: false,
+            moodratingstab: false,
+            companysurvey: [],
+            industrysurvey: [],
+            countrysurvey: [],
+            engagedmanagers: [],
+            currentuserid: '',
+            totalcompanyusers: ''
+        };
+        this.engagementmoods = [];
+        this.mooddropdown = false;
+    }
 
-  componentDidMount() {
-      SurveyActions.getEngagementSurvey();
-      console.log(this.props.user_id);
-      SurveyActions.getEngagementResults(this.props.user_id);
-      SurveyStore.listen(this._onMoodChange);
+    componentDidMount() {
+        SurveyActions.getEngagementSurvey();
+        console.log(this.props.user_id);
+        SurveyActions.getEngagementResults(this.props.user_id);
+        SurveyStore.listen(this._onMoodChange);
 
-      $('.ui.menu .ui.dropdown').dropdown({
-        on: 'click'
-      });
+        $('.ui.menu .ui.dropdown').dropdown({
+            on: 'click'
+        });
 
-      $('.graphperiod').dropdown({
-          onChange: this.onChangeGraphPeriod
-      });
+        $('.graphperiod').dropdown({
+            onChange: this.onChangeGraphPeriod
+        });
 
-      $('.graphengagement').dropdown({
-          onChange: this.onChangeGraphEngagement
-      });
-  }
+        $('.graphengagement').dropdown({
+            onChange: this.onChangeGraphEngagement
+        });
+    }
 
-  componentDidUpdate () {
-      if(this.mooddropdown) {
-          $('.ui.menu .ui.dropdown').dropdown({
-              on: 'click'
-          });
+    componentDidUpdate () {
+        if(this.mooddropdown) {
+            $('.ui.menu .ui.dropdown').dropdown({
+                on: 'click'
+            });
 
-          $('.graphengagement').dropdown({
-              onChange: this.onChangeGraphEngagement
-          });
+            $('.graphengagement').dropdown({
+                onChange: this.onChangeGraphEngagement
+            });
 
-          $('.graphperiod').dropdown({
-              onChange: this.onChangeGraphPeriod
-          });
-      }
-  }
+            $('.graphperiod').dropdown({
+                onChange: this.onChangeGraphPeriod
+            });
+        }
+    }
 
-  componentWillUnmount() {
-      SurveyStore.unlisten(this._onMoodChange);
-  }
+    componentWillUnmount() {
+        SurveyStore.unlisten(this._onMoodChange);
+    }
 
-  _onMoodChange = () => {
-      this.setState({
-         lastmood: SurveyStore.getState().lastmood,
-         questions : SurveyStore.getState().questions,
-         surveyresults: SurveyStore.getState().surveyresults,
-         currentuserid: SurveyStore.getState().currentuserid
-      });
+    _onMoodChange = () => {
+        this.setState({
+            lastmood: SurveyStore.getState().lastmood,
+            questions : SurveyStore.getState().questions,
+            surveyresults: SurveyStore.getState().surveyresults,
+            currentuserid: SurveyStore.getState().currentuserid
+        });
 
-      this.engagementmoods = this.state.questions.map((data, key) => {
-          return data.mood;
-      });
-  }
+        this.engagementmoods = this.state.questions.map((data, key) => {
+            return data.mood;
+        });
+    }
 
-  onPopupClose = (e) => {
-      e.preventDefault();
-      this.setState({ popup : false });
-  }
+    onPopupClose = (e) => {
+        e.preventDefault();
+        this.setState({ popup : false });
+    }
 
-  onPopupShow = (e) => {
-      e.preventDefault();
-      this.setState({ popup : true });
-  }
+    onPopupShow = (e) => {
+        e.preventDefault();
+        this.setState({ popup : true });
+    }
 
-  onChangeGraphPeriod = (value) => {
-      console.log(value);
-      this.setState({ graphperiod : value });
-  }
+    onChangeGraphPeriod = (value) => {
+        console.log(value);
+        this.setState({ graphperiod : value });
+    }
 
-  onChangeGraphEngagement = (value) => {
-      console.log(value);
-      this.setState({ graphengagement : value });
-  }
+    onChangeGraphEngagement = (value) => {
+        console.log(value);
+        this.setState({ graphengagement : value });
+    }
 
-  engagementGraphClick = (e) => {
-      e.preventDefault();
-      this.mooddropdown = true;
-      this.setState({
-          engagementgraphtab: true,
-          quickstatisticstab : false,
-          moodratingstab : false
-      });
-  }
+    engagementGraphClick = (e) => {
+        e.preventDefault();
+        this.mooddropdown = true;
+        this.setState({
+            engagementgraphtab: true,
+            quickstatisticstab : false,
+            moodratingstab : false
+        });
+    }
 
-  moodRatingsClick = (e) => {
-      e.preventDefault();
-      this.mooddropdown = false;
-      this.setState({
-          engagementgraphtab: false,
-          quickstatisticstab : false,
-          moodratingstab : true
-      });
-  }
+    moodRatingsClick = (e) => {
+        e.preventDefault();
+        this.mooddropdown = false;
+        this.setState({
+            engagementgraphtab: false,
+            quickstatisticstab : false,
+            moodratingstab : true
+        });
+    }
 
-  isFloat = (n) => {
-      return n === +n && n !== (n|0);
-  }
+    isFloat = (n) => {
+        return n === +n && n !== (n|0);
+    }
 
-  getStars = (rating, star) => {
-      let rate =  Math.abs(rating);
-      let intRating =  parseInt(rate);
-      let rows = [];
-      for (let i = 0; i < intRating; i++) {
-          rows.push(<FullStar star={star} />);
-      }
-      if (this.isFloat(rate)) {
-          rows.push(<HalfStar star={star} />);
-      }
-      for (let j = 0; j < (4 - intRating); j++) {
-          rows.push(<BlankStar />);
-      }
-      if (rows.length !== 5) {
-          rows.push(<BlankStar />);
-      }
+    getStars = (rating, star) => {
+        let rate =  Math.abs(rating);
+        let intRating =  parseInt(rate);
+        let rows = [];
+        for (let i = 0; i < intRating; i++) {
+            rows.push(<FullStar star={star} />);
+        }
+        if (this.isFloat(rate)) {
+            rows.push(<HalfStar star={star} />);
+        }
+        for (let j = 0; j < (4 - intRating); j++) {
+            rows.push(<BlankStar />);
+        }
+        if (rows.length !== 5) {
+            rows.push(<BlankStar />);
+        }
 
-      return rows;
-  }
+        return rows;
+    }
 
+    render() {
 
+        let surveyresults = this.state.surveyresults;
+        let graphperiod = this.state.graphperiod;
+        let graphengagement = this.state.graphengagement;
+        let engagementgraphtab = this.state.engagementgraphtab;
+        let moodratingstab = this.state.moodratingstab;
+        let companysurvey = this.state.companysurvey;
+        let currentuserid = this.state.currentuserid;
 
+        let xlabel = [];
+        let ydata = [];
+        let yMoodData = [];
 
-  render() {
-
-      let surveyresults = this.state.surveyresults;
-      let graphperiod = this.state.graphperiod;
-      let graphengagement = this.state.graphengagement;
-      let engagementgraphtab = this.state.engagementgraphtab;
-      let moodratingstab = this.state.moodratingstab;
-      let companysurvey = this.state.companysurvey;
-      let currentuserid = this.state.currentuserid;
-
-      let xlabel = [];
-      let ydata = [];
-      let yMoodData = [];
-
-      // Start : Rate your mood
-      let engagementmoods = this.engagementmoods;
-      let moodoptions = '';
-      moodoptions = engagementmoods.map((data, key) => {
-          return (<option value={data}>{data}</option>);
-      });
-      // End : Rate your mood
+        // Start : Rate your mood
+        let engagementmoods = this.engagementmoods;
+        let moodoptions = '';
+        moodoptions = engagementmoods.map((data, key) => {
+            return (<option value={data}>{data}</option>);
+        });
+        // End : Rate your mood
 
 
-      let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
-      let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
-      let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
+        let moodGraph = Graphdata.getEngagementGraphData(graphperiod, 'Mood', surveyresults);
+        let graphData = Graphdata.getEngagementGraphData(graphperiod, graphengagement, surveyresults);
+        let engagementStatitics = Graphdata.getEngagementStatitics(graphperiod, graphengagement, surveyresults);
 
-      // Start : MoodRatings
-      let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
-      let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
-      let improvedAreas = MoodRatings.getMostImprovedAreas(surveyresults);
-      let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
-      let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
-      let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
+        // Start : MoodRatings
+        let topThreeAreas = MoodRatings.getTopThreeAreas(surveyresults);
+        let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
+        let improvedAreas = MoodRatings.getMostImprovedAreas(surveyresults);
+        let worstAreas = MoodRatings.getWorstImprovedAreas(surveyresults);
+        let topThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_TOP');
+        let worstThreeVsCompany = MoodRatings.getAreasVsCompany(companysurvey, currentuserid, '_WORST');
 
-      let topthree = topThreeAreas.map((data, key) => {
+        let topthree = topThreeAreas.map((data, key) => {
 
-          let rows = this.getStars(data.rating, "green");
+            let rows = this.getStars(data.rating, "green");
 
-          return (
-                    <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head">{data.rating}</p>
-                                <div data-rating={data.rating} className="ui star rating">
-                                    {rows}
-                                </div>
-                            <div className="title">{data.mood}</div>
+            return (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head">{data.rating}</p>
+                        <div data-rating={data.rating} className="ui star rating">
+                            {rows}
                         </div>
+                        <div className="title">{data.mood}</div>
                     </div>
-                  );
-      });
+                </div>
+            );
+        });
 
-      let worstthree = worstThreeAreas.map((data, key) => {
+        let worstthree = worstThreeAreas.map((data, key) => {
 
-          let rows = this.getStars(data.rating, "red");
+            let rows = this.getStars(data.rating, "red");
 
-          return (
-                    <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head">{data.rating}</p>
-                            <div data-rating={data.rating} className="ui star rating">
-                                {rows}
-                            </div>
-                            <div className="title">{data.mood}</div>
+            return (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head">{data.rating}</p>
+                        <div data-rating={data.rating} className="ui star rating">
+                            {rows}
                         </div>
+                        <div className="title">{data.mood}</div>
                     </div>
-                  );
-      });
+                </div>
+            );
+        });
 
-      let improvedareas = improvedAreas.map((data, key) => {
+        let improvedareas = improvedAreas.map((data, key) => {
 
-          let rows = this.getStars(data.difference, "green");
+            let rows = this.getStars(data.difference, "green");
 
-          return (
-                    <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head">{data.difference}</p>
-                            <div data-rating={data.difference} className="ui star rating">
-                                {rows}
-                            </div>
-                            <div className="title">{data.mood}</div>
+            return (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head">{data.difference}</p>
+                        <div data-rating={data.difference} className="ui star rating">
+                            {rows}
                         </div>
+                        <div className="title">{data.mood}</div>
                     </div>
-                  );
-      });
+                </div>
+            );
+        });
 
-      let worstareas = worstAreas.map((data, key) => {
+        let worstareas = worstAreas.map((data, key) => {
 
-          let rows = this.getStars(data.difference, "red");
+            let rows = this.getStars(data.difference, "red");
 
-          return (
-                    <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head">{data.difference}</p>
-                            <div data-rating={data.difference} className="ui star rating">
-                                {rows}
-                            </div>
-                            <div className="title">{data.mood}</div>
+            return (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head">{data.difference}</p>
+                        <div data-rating={data.difference} className="ui star rating">
+                            {rows}
                         </div>
+                        <div className="title">{data.mood}</div>
                     </div>
-                 );
-      });
+                </div>
+            );
+        });
 
-      let topthreevscompany;
-      if(topThreeVsCompany.length > 0) {
-          topthreevscompany = topThreeVsCompany.map((data, key) => {
+        let topthreevscompany;
+        if(topThreeVsCompany.length > 0) {
+            topthreevscompany = topThreeVsCompany.map((data, key) => {
 
-              let rows = this.getStars(data.avg, "green");
+                let rows = this.getStars(data.avg, "green");
 
-              return (
+                return (
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head">{data.avg}</p>
@@ -298,33 +289,33 @@ export default class UsersSurveyStatistics extends React.Component {
                             <div className="title">{data.mood}</div>
                         </div>
                     </div>
-                 );
-          });
-      } else {
-          topthreevscompany = (
-                  <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head"></p>
-                            <div className="ui star rating">
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                            </div>
-                            <div className="title">You don't have any higher areas.</div>
+                );
+            });
+        } else {
+            topthreevscompany = (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head"></p>
+                        <div className="ui star rating">
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
                         </div>
+                        <div className="title">You don't have any higher areas.</div>
                     </div>
-                  );
-      }
+                </div>
+            );
+        }
 
-      let worstthreevscompany;
-      if(worstThreeVsCompany.length > 0) {
-          worstthreevscompany = worstThreeVsCompany.map((data, key) => {
+        let worstthreevscompany;
+        if(worstThreeVsCompany.length > 0) {
+            worstthreevscompany = worstThreeVsCompany.map((data, key) => {
 
-              let rows = this.getStars(data.avg, "red");
+                let rows = this.getStars(data.avg, "red");
 
-              return (
+                return (
                     <div className="column padding-ryt">
                         <div className="extra center aligned">
                             <p className="head">{data.avg}</p>
@@ -334,91 +325,91 @@ export default class UsersSurveyStatistics extends React.Component {
                             <div className="title">{data.mood}</div>
                         </div>
                     </div>
-                 );
-          });
-      } else {
-          worstthreevscompany = (
-                  <div className="column padding-ryt">
-                        <div className="extra center aligned">
-                            <p className="head"></p>
-                            <div className="ui star rating">
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                                <i className="icon"></i>
-                            </div>
-                            <div className="title">You don't have any worst areas.</div>
+                );
+            });
+        } else {
+            worstthreevscompany = (
+                <div className="column padding-ryt">
+                    <div className="extra center aligned">
+                        <p className="head"></p>
+                        <div className="ui star rating">
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
+                            <i className="icon"></i>
                         </div>
+                        <div className="title">You don't have any worst areas.</div>
                     </div>
-                  );
-      }
+                </div>
+            );
+        }
 
-      // End : MoodRatings
+        // End : MoodRatings
 
-      // Start : Quick Statistics
-      let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+        // Start : Quick Statistics
+        let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
 
-      let bCount = lastRatings.length - 1;
-      let bIndex = 0;
-      let bXLabel = [];
-      let bYLdata = [];
-      for(let data of lastRatings) {
-          if(bIndex <= bCount) {
-              bXLabel[bIndex] = data.mood;
-              bYLdata[bIndex] = data.rating;
-          }
-          bIndex++;
-      }
+        let bCount = lastRatings.length - 1;
+        let bIndex = 0;
+        let bXLabel = [];
+        let bYLdata = [];
+        for(let data of lastRatings) {
+            if(bIndex <= bCount) {
+                bXLabel[bIndex] = data.mood;
+                bYLdata[bIndex] = data.rating;
+            }
+            bIndex++;
+        }
 
-      let barchartdata =  barchartdata || {};
-      let bardataset = {
+        let barchartdata =  barchartdata || {};
+        let bardataset = {
             label: "Mood ratings",
             fillColor: "rgba(151,187,205,0.5)",
             strokeColor: "rgba(151,187,205,0.8)",
             highlightFill: "rgba(151,187,205,0.75)",
             highlightStroke: "rgba(151,187,205,1)",
             data: bYLdata
-          };
+        };
 
-      let bardatasets = [];
-      bardatasets.push(bardataset);
+        let bardatasets = [];
+        bardatasets.push(bardataset);
 
-      barchartdata.labels = bXLabel;
-      barchartdata.datasets = bardatasets;
-      // End : Quick Statistics
-
-
-      // Start : Engagement Graph
-      let count = graphData.length - 1;
-      let index = 0;
-      for(let data of graphData) {
-          if(index <= count) {
-              xlabel[index] = data.created.d;
-              ydata[index] = data.rating;
-          }
-          index++;
-      }
-
-      let mIndex = 0;
-      for(let mood of moodGraph) {
-          if(mIndex <= count) {
-              yMoodData[mIndex] = mood.rating;
-          }
-          mIndex++;
-      }
+        barchartdata.labels = bXLabel;
+        barchartdata.datasets = bardatasets;
+        // End : Quick Statistics
 
 
-      if (xlabel.length === 0) {
-          let today = new Date();
-          let year = today.getFullYear();
-          let month = ('0' + (today.getMonth() + 1)).slice(-2);
-          let day = ('0' + today.getDate()).slice(-2);
-          xlabel.push(year + '-' + month + '-' +day);
-      }
+        // Start : Engagement Graph
+        let count = graphData.length - 1;
+        let index = 0;
+        for(let data of graphData) {
+            if(index <= count) {
+                xlabel[index] = data.created.d;
+                ydata[index] = data.rating;
+            }
+            index++;
+        }
 
-      let chartdata =  chartdata || {};
-      let data = {
+        let mIndex = 0;
+        for(let mood of moodGraph) {
+            if(mIndex <= count) {
+                yMoodData[mIndex] = mood.rating;
+            }
+            mIndex++;
+        }
+
+
+        if (xlabel.length === 0) {
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = ('0' + (today.getMonth() + 1)).slice(-2);
+            let day = ('0' + today.getDate()).slice(-2);
+            xlabel.push(year + '-' + month + '-' +day);
+        }
+
+        let chartdata =  chartdata || {};
+        let data = {
             label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(151,187,205,1)",
@@ -427,9 +418,9 @@ export default class UsersSurveyStatistics extends React.Component {
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
             data: ydata
-          };
+        };
 
-      let mooddata = {
+        let mooddata = {
             label: "Second Dataset",
             fillColor: "rgba(151,187,205,0.2)",
             strokeColor: "rgba(200,127,105,1)",
@@ -438,75 +429,75 @@ export default class UsersSurveyStatistics extends React.Component {
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
             data: yMoodData
-          };
+        };
 
-      let datasets = [];
-      datasets.push(data);
-      datasets.push(mooddata);
+        let datasets = [];
+        datasets.push(data);
+        datasets.push(mooddata);
 
-      chartdata.labels = xlabel;
-      chartdata.datasets = datasets;
-      // End : Engagement Graph
+        chartdata.labels = xlabel;
+        chartdata.datasets = datasets;
+        // End : Engagement Graph
 
-      let engagementGraphTabContent = '';
-      if (engagementgraphtab) {
-          engagementGraphTabContent = [
-                    <div className="ui bottom attached segment brdr-none menu">
-                        <div className="ui  column stackable grid container">
+        let engagementGraphTabContent = '';
+        if (engagementgraphtab) {
+            engagementGraphTabContent = [
+                <div className="ui bottom attached segment brdr-none menu">
+                    <div className="ui  column stackable grid container">
                         <div className="column  brdr-none padding-none">
                             <div className="ui segment brdr-none padding-none ">
-                            <div className=" right menu mobile">
-                                <select className="ui search dropdown graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
-                                    <option value="mw_index">MW-Index</option>
-                                    {moodoptions}
-                                </select>
-                                <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
-                                    <option value="all_time">All time</option>
-                                    <option value="last_12_months">Last 12 months</option>
-                                    <option value="last_6_ months">Last 6 months</option>
-                                    <option value="last_3_months">Last 3 months</option>
-                                    <option value="last_month">Last month</option>
-                                </select>
+                                <div className=" right menu mobile">
+                                    <select className="ui search dropdown graphengagement" name="graphengagement" onChange={this.onChangeGraphEngagement} value={graphengagement}>
+                                        <option value="mw_index">MW-Index</option>
+                                        {moodoptions}
+                                    </select>
+                                    <select className="ui dropdown graphperiod" name="graphperiod" onChange={this.onChangeGraphPeriod} value={graphperiod}>
+                                        <option value="all_time">All time</option>
+                                        <option value="last_12_months">Last 12 months</option>
+                                        <option value="last_6_ months">Last 6 months</option>
+                                        <option value="last_3_months">Last 3 months</option>
+                                        <option value="last_month">Last month</option>
+                                    </select>
+                                </div>
+                                <div className="clear"></div>
+                                <div className="graph">
+                                    <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
+                                </div>
                             </div>
-                            <div className="clear"></div>
-                            <div className="graph">
-                                <LineChart data={chartdata} options={chartoptions} width="800" height="250" redraw/>
-                            </div>
-                          </div>
-                          </div>
-                      </div>
-                    </div>,
-
-                    <div className="clear"></div>,
-                    <div className="ui two column stackable grid ">
-                        <div className="three column row padding-container">
-                            <div className="column">
-                                <div className="ui segment gry">At Start : {engagementStatitics.start}</div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment gry">Highest : {engagementStatitics.highest}</div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment gry">Lowest : {engagementStatitics.lowest}</div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment gry">Current : {engagementStatitics.current}</div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment gry">30 Days change : {engagementStatitics.thirtydayschange}</div>
-                            </div>
-                            <div className="column">
-                                <div className="ui segment gry">Week change : {engagementStatitics.weekchange}</div>
-                            </div>
-                      </div>
+                        </div>
                     </div>
-          ];
-      }
+                </div>,
+
+                <div className="clear"></div>,
+                <div className="ui two column stackable grid ">
+                    <div className="three column row padding-container">
+                        <div className="column">
+                            <div className="ui segment gry">At Start : {engagementStatitics.start}</div>
+                        </div>
+                        <div className="column">
+                            <div className="ui segment gry">Highest : {engagementStatitics.highest}</div>
+                        </div>
+                        <div className="column">
+                            <div className="ui segment gry">Lowest : {engagementStatitics.lowest}</div>
+                        </div>
+                        <div className="column">
+                            <div className="ui segment gry">Current : {engagementStatitics.current}</div>
+                        </div>
+                        <div className="column">
+                            <div className="ui segment gry">30 Days change : {engagementStatitics.thirtydayschange}</div>
+                        </div>
+                        <div className="column">
+                            <div className="ui segment gry">Week change : {engagementStatitics.weekchange}</div>
+                        </div>
+                    </div>
+                </div>
+            ];
+        }
 
 
-      let moodRatingsTabContent = '';
-      if (moodratingstab) {
-          moodRatingsTabContent = (
+        let moodRatingsTabContent = '';
+        if (moodratingstab) {
+            moodRatingsTabContent = (
                 <div className="ui bottom attached segment brdr-none menu minus-margin-top">
                     <div className="ui segment brdr-none padding-none width-rating">
                         <div className="clear"></div>
@@ -625,12 +616,11 @@ export default class UsersSurveyStatistics extends React.Component {
                         </div>
                     </div>
                 </div>
-          );
-      }
+            );
+        }
 
-
-      return (
-              <div>
+        return (
+            <div>
                 <div className="ui tabular menu tab three column">
                     <a className="item mobile active column" onClick={this.engagementGraphClick} href="#"> Engagement Graph </a>
                     <a className="item mobile column" onClick={this.moodRatingsClick} href="#"> Mood Rating </a>
@@ -641,8 +631,7 @@ export default class UsersSurveyStatistics extends React.Component {
                 <div className="clear"></div>
                 {moodRatingsTabContent}
 
-          </div>
-    );
-  }
+            </div>
+        );
+    }
 }
-

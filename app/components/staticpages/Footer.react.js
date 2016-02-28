@@ -1,23 +1,14 @@
 import React from 'react';
 
-
 export default class Footer extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
+        return (
             <footer>
                 <div className="ui  vertical footer segment">
                     <div className="ui container">
@@ -32,9 +23,7 @@ export default class Footer extends React.Component {
                     </div>
                 </div>
             </footer>
-      );
-  }
+        );
+    }
 
 }
-
-

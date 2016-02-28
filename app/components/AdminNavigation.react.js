@@ -5,72 +5,68 @@ import AdminStore from 'stores/AdminStore';
 
 export default class AdminNavigation extends React.Component {
 
-  constructor (props) {
-      super(props);
-      this.state = {
-          isAuth: false,
-          isAuthenticated: false
-      };
-  }
+    constructor (props) {
+        super(props);
+        this.state = {
+            isAuth: false,
+            isAuthenticated: false
+        };
+    }
 
-  componentDidMount () {
-      AdminStore.listen(this._onChange);
-      let isAuth = localStorage.getItem('isAuth');
-      this.setState({isAuth: isAuth});
-  }
+    componentDidMount () {
+        AdminStore.listen(this._onChange);
+        let isAuth = localStorage.getItem('isAuth');
+        this.setState({isAuth: isAuth});
+    }
 
-  componentDidUpdate () {
-      if (this.state.isAuth === "true") {
-          $('.ui.sidebar').sidebar('attach events', '.toc.item');
+    componentDidUpdate () {
+        if (this.state.isAuth === "true") {
+            $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
-          $('.masthead').visibility({
-            once: false,
-            onBottomPassed: function () {
-                $('.fixed.menu').transition('fade in');
-            },
-            onBottomPassedReverse: function () {
-                $('.fixed.menu').transition('fade out');
-            }
-          });
-      }
-  }
+            $('.masthead').visibility({
+                once: false,
+                onBottomPassed: function () {
+                    $('.fixed.menu').transition('fade in');
+                },
+                onBottomPassedReverse: function () {
+                    $('.fixed.menu').transition('fade out');
+                }
+            });
+        }
+    }
 
-  componentWillUnmount () {
-      AdminStore.unlisten(this._onChange);
-  }
+    componentWillUnmount () {
+        AdminStore.unlisten(this._onChange);
+    }
 
-  _onChange = () => {
-      this.setState({
-        isAuth: AdminStore.getState().isAuth,
-        isAuthenticated: AdminStore.getState().isAuthenticated
-      });
-      //if(this.state.isAuthenticated === false) {
-      //    window.location.href = "/admin/logout";
-      //}
-  }
+    _onChange = () => {
+        this.setState({
+            isAuth: AdminStore.getState().isAuth,
+            isAuthenticated: AdminStore.getState().isAuthenticated
+        });
+    }
 
-  showAdminMenu = (e) => {
-      e.preventDefault();
-      $('.ui.sidebar').sidebar({
-          transition: 'push'
-      });
-      //$('.ui.sidebar').sidebar('attach events', '.toc.item');
-      $('.ui.sidebar').sidebar('show');
-  }
+    showAdminMenu = (e) => {
+        e.preventDefault();
+        $('.ui.sidebar').sidebar({
+            transition: 'push'
+        });
+        $('.ui.sidebar').sidebar('show');
+    }
 
-  _onLogout = () => {
-      AdminActions.logout();
-      if(this.state.isAuthenticated === false) {
-          window.location.href = "/admin/logout";
-      }
-  }
+    _onLogout = () => {
+        AdminActions.logout();
+        if(this.state.isAuthenticated === false) {
+            window.location.href = "/admin/logout";
+        }
+    }
 
-  render () {
+    render () {
 
-      let loginOrOut;
-      if (this.state.isAuth === "true") {
+        let loginOrOut;
+        if (this.state.isAuth === "true") {
 
-          loginOrOut = [
+            loginOrOut = [
                 <div className="ui large top fixed hidden menu">
                     <div className="ui container">
                         <a href="/admin/dashboard" className="active item">Moodwonder</a>
@@ -130,11 +126,11 @@ export default class AdminNavigation extends React.Component {
                         </div>
                     </div>
                 </div>
-          ];
+            ];
 
-      } else if (this.state.isAuth === "false") {
+        } else if (this.state.isAuth === "false") {
 
-          loginOrOut = [
+            loginOrOut = [
                 <div className="ui large top fixed hidden menu">
                     <div className="ui container">
                         <a href="/admin" className="active item">Moodwonder</a>
@@ -165,16 +161,15 @@ export default class AdminNavigation extends React.Component {
                         </div>
                     </div>
                 </div>
-          ];
-      }
+            ];
+        }
 
-
-      return (
-        <div id="app-container" style={{"zIndex":"3"}}>
-            {loginOrOut}
-        </div>
-      );
-  }
+        return (
+            <div id="app-container" style={{"zIndex":"3"}}>
+                {loginOrOut}
+            </div>
+        );
+    }
 
 }
 

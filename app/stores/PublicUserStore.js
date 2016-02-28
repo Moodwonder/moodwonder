@@ -2,26 +2,26 @@ import PublicUserActions from 'actions/PublicUserActions';
 import alt from 'altInstance';
 
 /**
- * PublicUserStore
- */
+* PublicUserStore
+*/
 class PublicUserStore {
 
-  constructor () {
+    constructor () {
 
-      this.publicuser = false;
-      this.hasError = false;
+        this.publicuser = false;
+        this.hasError = false;
 
-      this.bindListeners({
-        handlePublicUserInfoSuccess: PublicUserActions.PUBLICUSERINFO
-      });
-  }
+        this.bindListeners({
+            handlePublicUserInfoSuccess: PublicUserActions.PUBLICUSERINFO
+        });
+    }
 
-  handlePublicUserInfoSuccess (response) {
-      this.publicuser = response.publicuser;
-      this.hasError   = !response.status;
-      this.messages   = response.messages;
-      this.emitChange();
-  }
+    handlePublicUserInfoSuccess (response) {
+        this.publicuser = response.publicuser;
+        this.hasError   = !response.status;
+        this.messages   = response.messages;
+        this.emitChange();
+    }
 
 }
 

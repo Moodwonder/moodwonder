@@ -20,8 +20,8 @@ export default class Pagination {
         let props = this.props;
 
         return props.totalPages !== nextProps.totalPages ||
-            props.currentPage !== nextProps.currentPage ||
-            props.showPages !== nextProps.showPages;
+        props.currentPage !== nextProps.currentPage ||
+        props.showPages !== nextProps.showPages;
     }
 
     onChangePage(pageNumber, event) {
@@ -37,8 +37,8 @@ export default class Pagination {
         }
 
         let diff = Math.floor(showPages / 2),
-            start = Math.max(currentPage - diff, 0),
-            end = Math.min(start + showPages, totalPages);
+        start = Math.max(currentPage - diff, 0),
+        end = Math.min(start + showPages, totalPages);
 
         if (totalPages >= showPages && end >= totalPages) {
             start = totalPages - showPages;
@@ -54,13 +54,13 @@ export default class Pagination {
                 btnEvent = this.onChangePage.bind(this, i);
             }
             buttons.push(
-            <li key={i} className={isCurrent ? 'active' : null}>
-              <a role="button" href="#" onClick={btnEvent} tabIndex="0">
-                <span>{i + 1}</span>
-                {isCurrent ?
-                    <span className="sr-only">(current)</span> : null}
-              </a>
-            </li>
+                <li key={i} className={isCurrent ? 'active' : null}>
+                    <a role="button" href="#" onClick={btnEvent} tabIndex="0">
+                        <span>{i + 1}</span>
+                        {isCurrent ?
+                        <span className="sr-only">(current)</span> : null}
+                    </a>
+                </li>
             );
         }
 
@@ -83,47 +83,47 @@ export default class Pagination {
         }
 
         buttons = [
-          <li key="first" className={!isNotFirst ? 'disabled' : null}>
-            <a role="button" href="#" tabIndex="0"
-              onClick={firstHandler}
-              aria-disabled={!isNotFirst}
-              aria-label="First">
-              <span className="fa fa-angle-double-left" aria-hidden="true" />
-            </a>
-          </li>,
-          <li key="prev" className={!isNotFirst ? 'disabled' : null}>
-            <a role="button" href="#" tabIndex="0"
-              onClick={prevHandler}
-              aria-disabled={!isNotFirst}
-              aria-label="Previous">
-              <span className="fa fa-angle-left" aria-hidden="true" />
-            </a>
-          </li>
+            <li key="first" className={!isNotFirst ? 'disabled' : null}>
+                <a role="button" href="#" tabIndex="0"
+                    onClick={firstHandler}
+                    aria-disabled={!isNotFirst}
+                    aria-label="First">
+                    <span className="fa fa-angle-double-left" aria-hidden="true" />
+                </a>
+            </li>,
+            <li key="prev" className={!isNotFirst ? 'disabled' : null}>
+                <a role="button" href="#" tabIndex="0"
+                    onClick={prevHandler}
+                    aria-disabled={!isNotFirst}
+                    aria-label="Previous">
+                    <span className="fa fa-angle-left" aria-hidden="true" />
+                </a>
+            </li>
         ].concat(buttons);
 
         buttons = buttons.concat([
-          <li key="next" className={!isNotLast ? 'disabled' : null}>
-            <a role="button" href="#" tabIndex="0"
-              onClick={nextHandler}
-              aria-disabled={!isNotLast}
-              aria-label="Next">
-              <span className="fa fa-angle-right" aria-hidden="true" />
-            </a>
-          </li>,
-          <li key="last" className={!isNotLast ? 'disabled' : null}>
-            <a role="button" href="#" tabIndex="0"
-              onClick={lastHandler}
-              aria-disabled={!isNotLast}
-              aria-label="Last">
-              <span className="fa fa-angle-double-right" aria-hidden="true" />
-            </a>
-          </li>
+            <li key="next" className={!isNotLast ? 'disabled' : null}>
+                <a role="button" href="#" tabIndex="0"
+                    onClick={nextHandler}
+                    aria-disabled={!isNotLast}
+                    aria-label="Next">
+                    <span className="fa fa-angle-right" aria-hidden="true" />
+                </a>
+            </li>,
+            <li key="last" className={!isNotLast ? 'disabled' : null}>
+                <a role="button" href="#" tabIndex="0"
+                    onClick={lastHandler}
+                    aria-disabled={!isNotLast}
+                    aria-label="Last">
+                    <span className="fa fa-angle-double-right" aria-hidden="true" />
+                </a>
+            </li>
         ]);
 
         return (
-          <ul className={this.props.className} aria-label="Pagination">
-            {buttons}
-          </ul>
+            <ul className={this.props.className} aria-label="Pagination">
+                {buttons}
+            </ul>
         );
     }
 }

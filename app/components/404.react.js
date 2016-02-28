@@ -3,24 +3,17 @@ import React from 'react';
 
 export default class List extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state = {
+    constructor(props) {
+        super(props);
+    }
 
-      };
-  }
+    _onLogoClick = () => {
+        window.location.assign('/');
+    }
 
-  componentDidMount() {
+    render() {
 
-  }
-
-  _onLogoClick = () => {
-      window.location.assign('/');
-  }
-
-  render() {
-
-      return (
+        return (
             <div className="error-page">
                 <div className="ui container" style={{ "height": "100%", "display": "table"}}>
                     <div className="mesg" style={{ "width": "30%", "margin": "0px auto"}}>
@@ -43,8 +36,7 @@ export default class List extends React.Component {
                     </div>
                 </div>
             </div>
-      );
+        );
 
-  }
+    }
 }
-

@@ -27,21 +27,19 @@ const quickstatistics = {
         let ndatestring = nyear + '-' + nmonth + '-' + nday;
 
         let userresults = _(companysurvey).where({user_id: uid});
-        //let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
         let results = _.filter(userresults, function(v) { return v.created.d >= ndatestring; });
         let uGroupResults = _(results).groupBy(function(result) {
-                return result.mood;
-            });
+            return result.mood;
+        });
 
         return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
 
     },
 
     getNumberOfResponses: function (esurveyresults) {
-        //let userresults = _(esurveyresults).where({user_id: uid});
         let uGroupResults = _(esurveyresults).groupBy(function(result) {
-                return result.mood;
-            });
+            return result.mood;
+        });
 
         return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
 
@@ -62,13 +60,15 @@ const quickstatistics = {
     getEmployeeAtRisk: function (companysurvey) {
 
         let uGroupResults = _(companysurvey).groupBy(function(result) {
-                return result.user_id;
-            });
+            return result.user_id;
+        });
 
         let uData = _(uGroupResults).map(function(g, key) {
             let latest =  _.first(_.sortBy(g, function(o) { return o._id; }).reverse(),13);
-            return {   user_id: key,
-                       avg : ((_(latest).reduce(function(m,x) { return m + x.rating; }, 0))/13).toFixed(1)};
+            return {
+                user_id: key,
+                avg : ((_(latest).reduce(function(m,x) { return m + x.rating; }, 0))/13).toFixed(1)
+            };
         });
 
         let employee = 0;
@@ -84,7 +84,7 @@ const quickstatistics = {
     getTimeSinceLastPosted: function (companysurvey, uid) {
         let userresults = _(companysurvey).where({user_id: uid});
         let lastPost = _.first(_.sortBy(userresults, function(o) { return o._id; }).reverse(), 1);
-        //let lastPost = _.first(_.sortBy(companysurvey, function(o) { return o._id; }).reverse(), 1);
+
         let postid = _(lastPost).map(function(g, key) {
             return g._id;
         });
@@ -105,14 +105,12 @@ const quickstatistics = {
             let todaysec = today.getSeconds();
             let todaystring = montharray[todaym] + " " + todayd + ", " + todayy + " " + todayh + ":" + todaymin + ":" + todaysec;
             let futurestring = montharray[m] + " " + d + ", " + yr + " " + h + ":" + min + ":" + sec;
-            //let dd = Date.parse(futurestring) - Date.parse(todaystring);
+
             let dd = Date.parse(todaystring) - Date.parse(futurestring);
             let dday = Math.floor(dd / (60 * 60 * 1000 * 24) * 1);
             let dhour = Math.floor((dd % (60 * 60 * 1000 * 24)) / (60 * 60 * 1000) * 1);
             let dmin = Math.floor(((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) / (60 * 1000) * 1);
-            // let dsec = Math.floor((((dd % (60 * 60 * 1000 * 24)) % (60 * 60 * 1000)) % (60 * 1000)) / 1000 * 1);
 
-            //return dday + " day(s), " + dhour + " hour(s), " + dmin + " minute(s)";
             timeArr['day'] = dday;
             timeArr['hour'] = dhour;
             timeArr['min'] = dmin;
@@ -145,7 +143,6 @@ const quickstatistics = {
         let posteddate = _(lastPost).map(function(g, key) {
             return g.created.d;
         });
-        //return (posteddate[0]) ? posteddate[0] : 0;
         return posteddate[0];
     }
 

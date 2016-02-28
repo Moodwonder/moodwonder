@@ -1,23 +1,14 @@
 import React from 'react';
 
-
 export default class Sidebarmenu extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
+        return (
             <div className="ui vertical inverted sidebar menu">
                 <a className="active item"> Home</a>
                 <a className="item">Work</a>
@@ -26,9 +17,7 @@ export default class Sidebarmenu extends React.Component {
                 <a className="item">Login</a>
                 <a className="item">Signup</a>
             </div>
-      );
-  }
+        );
+    }
 
 }
-
-

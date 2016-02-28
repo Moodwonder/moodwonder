@@ -27,29 +27,21 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     componentDidMount () {
-
         UserActions.getcompanyinfo();
         UserStore.listen(this._onChange);
     }
 
-    componentDidUpdate () {
-        //console.log(this.state);
-    }
-
     onChangeText = (e) => {
-
         let userDetailsTmp = this.state.userDetailsTmp;
         userDetailsTmp[e.target.name] = e.target.value;
         this.setState(userDetailsTmp);
     }
 
     componentWillUnmount () {
-
         UserStore.unlisten(this._onChange);
     }
 
     _onChange = (state) => {
-
         this.setState(state);
         if(this.state.countries.length <= 0 && this.state.userDetails.continent!==''){
             // Set country dropdown list / fetching country list
@@ -59,7 +51,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     onChangeIndustry = (e) => {
-
         let userDetailsTmp = this.state.userDetailsTmp;
         userDetailsTmp[e.target.name] = e.target.value;
         this.setState(userDetailsTmp);
@@ -89,7 +80,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     onChangeCountry = (e) => {
-
         let country = e;
         try{
             country = e.target.value;
@@ -110,7 +100,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     onChangeStates = (e) => {
-
         let state = e;
         try{
             state = e.target.value;
@@ -142,7 +131,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     handleDropDownChanage = (states,placeType,placeState) => {
-
         let places = states.PlacesData.places;
         let currentPlace = this.state.userDetails[placeType];
         let obj = {};
@@ -150,12 +138,10 @@ export default class MyCompanyInfo extends React.Component {
         this.setState(obj);
 
         if(this.placeMatch(currentPlace,places )){
-
             let userDetailsTmp = this.state.userDetailsTmp;
             userDetailsTmp[placeType] = currentPlace;
             this.setState({ userDetailsTmp: userDetailsTmp });
         }else{
-
             let userDetailsTmp = this.state.userDetailsTmp;
             userDetailsTmp[placeType] = '';
             this.setState({ userDetailsTmp: userDetailsTmp });
@@ -173,7 +159,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     _onGetPlaces = (states) => {
-
         if(this.state.countriesIntial && this.state.states.length <= 0 && this.state.userDetailsTmp.country!==''){
 
             this.onChangeCountry(this.state.userDetailsTmp.country);
@@ -201,58 +186,14 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     formValidation = (model) => {
-
         let state = {};
         state.hasError = false;
         state.messages = [];
-
-        /*
-        for (let key in model) {
-
-            if(key === 'companyname' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Company name cannot be empty');
-            }
-            if(key === 'industry' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Industry name cannot be empty');
-            }
-            if(key === 'continent' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Continent name cannot be empty');
-            }
-            if(key === 'country' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Country name cannot be empty');
-            }
-            if(key === 'state' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('State name cannot be empty');
-            }
-            if(key === 'city' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('City name cannot be empty');
-            }
-            if(key === 'address' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Address name cannot be empty');
-            }
-            if(key === 'website' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Website name cannot be empty');
-            }
-            if(key === 'companysize' && model[key].trim() === '' ){
-                state.hasError = true;
-                state.messages.push('Companysize name cannot be empty');
-            }
-        }
-        */
         this.setState(state);
         return (!state.hasError);
     }
 
     _onSaveSubmit = () => {
-
         let model = {};
         let refs = this.refs;
         for (let key in refs) {
@@ -280,7 +221,6 @@ export default class MyCompanyInfo extends React.Component {
     }
 
     render() {
-
         let message;
         let userInfo = this.state.userDetailsTmp;
         let mlarray = this.state.multilang;
@@ -292,11 +232,11 @@ export default class MyCompanyInfo extends React.Component {
                     return [<li>{mes}</li>];
                 });
                 message = (
-                  <div className="ui error message segment">
-                    <ul className="list">
-                        {multimessages}
-                    </ul>
-                  </div>
+                    <div className="ui error message segment">
+                        <ul className="list">
+                            {multimessages}
+                        </ul>
+                    </div>
                 );
             }
         } catch (e) {}
@@ -308,145 +248,145 @@ export default class MyCompanyInfo extends React.Component {
                 <div className="ui small form">
                     <form className="field">
                         <div className="field">
-                           <input
-                           ref="companyname"
-                           name="companyname"
-                           className="form-control"
-                           value={userInfo.companyname}
-                           placeholder={GetText('MYCO_INFO_PLCHLDR_COMPANYNAME', mlarray)}
-                           validationError="Company name is required"
-                           onChange={this.onChangeText}
-                           required/>
+                            <input
+                                ref="companyname"
+                                name="companyname"
+                                className="form-control"
+                                value={userInfo.companyname}
+                                placeholder={GetText('MYCO_INFO_PLCHLDR_COMPANYNAME', mlarray)}
+                                validationError="Company name is required"
+                                onChange={this.onChangeText}
+                                required/>
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="industry"
-                           name="industry"
-                           className="form-control"
-                           value={userInfo.industry}
-                           onChange={this.onChangeIndustry.bind(this)}
-                           >
-                           <option value="">{GetText('MYCO_INFO_PLCHLDR_INDUSTRY', mlarray)}</option>
-                           {
-                            (this.state.industries !==undefined && this.state.industries.length > 0) ? (
-                            this.state.industries.map((data, key) => {
-                                return (<option value={data.name}>{data.name}</option>);
-                            })) : (<option>Other</option>)
-                           }
-                           <option value="Other">Other</option>
-                           </select>
+                            <select
+                                ref="industry"
+                                name="industry"
+                                className="form-control"
+                                value={userInfo.industry}
+                                onChange={this.onChangeIndustry.bind(this)}
+                                >
+                                <option value="">{GetText('MYCO_INFO_PLCHLDR_INDUSTRY', mlarray)}</option>
+                                {
+                                    (this.state.industries !==undefined && this.state.industries.length > 0) ? (
+                                        this.state.industries.map((data, key) => {
+                                            return (<option value={data.name}>{data.name}</option>);
+                                        })) : (<option>Other</option>)
+                                    }
+                                    <option value="Other">Other</option>
+                            </select>
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="continent"
-                           name="continent"
-                           className="form-control"
-                           value={userInfo.continent}
-                           onChange={this.onChangeContinent.bind(this)}
-                           >
-                           <option value="">{GetText('MYCO_INFO_PLCHLDR_CONTINENT', mlarray)}</option>
-                           {
-                            (this.state.continents !==undefined && this.state.continents.length > 0) ? (
-                            this.state.continents.map((data, key) => {
-                                return (<option value={data.text}>{data.text}</option>);
-                            })) : (<option>Other</option>)
-                           }
-                           <option value="Other">Other</option>
-                           </select>
+                            <select
+                                ref="continent"
+                                name="continent"
+                                className="form-control"
+                                value={userInfo.continent}
+                                onChange={this.onChangeContinent.bind(this)}
+                                >
+                                <option value="">{GetText('MYCO_INFO_PLCHLDR_CONTINENT', mlarray)}</option>
+                                {
+                                    (this.state.continents !==undefined && this.state.continents.length > 0) ? (
+                                        this.state.continents.map((data, key) => {
+                                            return (<option value={data.text}>{data.text}</option>);
+                                        })) : (<option>Other</option>)
+                                    }
+                                    <option value="Other">Other</option>
+                            </select>
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="country"
-                           name="country"
-                           className="form-control"
-                           onChange={this.onChangeCountry}
-                           value={userInfo.country}
-                           >
-                           <option value="">{GetText('MYCO_INFO_PLCHLDR_COUNTRY', mlarray)}</option>
-                           {
-                            (this.state.countries.length > 0) ? (
-                            this.state.countries.map((data, key) => {
-                                return (<option>{data.text}</option>);
-                            })) : null
-                           }
-                           </select>
+                            <select
+                                ref="country"
+                                name="country"
+                                className="form-control"
+                                onChange={this.onChangeCountry}
+                                value={userInfo.country}
+                                >
+                                <option value="">{GetText('MYCO_INFO_PLCHLDR_COUNTRY', mlarray)}</option>
+                                {
+                                    (this.state.countries.length > 0) ? (
+                                        this.state.countries.map((data, key) => {
+                                            return (<option>{data.text}</option>);
+                                        })) : null
+                                    }
+                            </select>
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="state"
-                           name="state"
-                           className="form-control"
-                           value={userInfo.state}
-                           onChange={this.onChangeStates}
-                           >
-                           <option value="">{GetText('MYCO_INFO_PLCHLDR_STATE', mlarray)}</option>
-                           {
-                            (this.state.states.length > 0) ? (
-                            this.state.states.map((data, key) => {
-                                return (<option>{data.text}</option>);
-                            })) : null
-                           }
-                           </select>
+                            <select
+                                ref="state"
+                                name="state"
+                                className="form-control"
+                                value={userInfo.state}
+                                onChange={this.onChangeStates}
+                                >
+                                <option value="">{GetText('MYCO_INFO_PLCHLDR_STATE', mlarray)}</option>
+                                {
+                                    (this.state.states.length > 0) ? (
+                                        this.state.states.map((data, key) => {
+                                            return (<option>{data.text}</option>);
+                                        })) : null
+                                    }
+                            </select>
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="city"
-                           name="city"
-                           className="form-control"
-                           value={userInfo.city}
-                           onChange={this.onChangeCities}
-                           >
-                           <option value="">{GetText('MYCO_INFO_PLCHLDR_CITY', mlarray)}</option>
-                           {
-                            (this.state.cities.length > 0) ? (
-                            this.state.cities.map((data, key) => {
-                                return (<option value={data.text}>{data.text}</option>);
-                            })) : null
-                           }
-                           </select>
+                            <select
+                                ref="city"
+                                name="city"
+                                className="form-control"
+                                value={userInfo.city}
+                                onChange={this.onChangeCities}
+                                >
+                                <option value="">{GetText('MYCO_INFO_PLCHLDR_CITY', mlarray)}</option>
+                                {
+                                    (this.state.cities.length > 0) ? (
+                                        this.state.cities.map((data, key) => {
+                                            return (<option value={data.text}>{data.text}</option>);
+                                        })) : null
+                                    }
+                            </select>
                         </div>
 
                         <div className="field">
-                           <input
-                           ref="address"
-                           name="address"
-                           className="form-control"
-                           value={userInfo.address}
-                           placeholder={GetText('MYCO_INFO_PLCHLDR_ADDRESS', mlarray)}
-                           validationError="Address is required"
-                           onChange={this.onChangeText}
-                           required/>
+                            <input
+                                ref="address"
+                                name="address"
+                                className="form-control"
+                                value={userInfo.address}
+                                placeholder={GetText('MYCO_INFO_PLCHLDR_ADDRESS', mlarray)}
+                                validationError="Address is required"
+                                onChange={this.onChangeText}
+                                required />
                         </div>
 
                         <div className="field">
-                           <input
-                           ref="website"
-                           name="website"
-                           className="form-control"
-                           value={userInfo.website}
-                           placeholder={GetText('MYCO_INFO_PLCHLDR_WEBSITE', mlarray)}
-                           validationError="Website is required"
-                           onChange={this.onChangeText}
-                           required/>
+                            <input
+                                ref="website"
+                                name="website"
+                                className="form-control"
+                                value={userInfo.website}
+                                placeholder={GetText('MYCO_INFO_PLCHLDR_WEBSITE', mlarray)}
+                                validationError="Website is required"
+                                onChange={this.onChangeText}
+                                required />
                         </div>
 
                         <div className="field">
-                           <select
-                           ref="companysize"
-                           name="companysize"
-                           className="form-control"
-                           value={userInfo.companysize}
-                           onChange={this.onChangeText}
-                           >
-                           <option>Small</option>
-                           <option>Medium</option>
-                           <option>Big</option>
-                           </select>
+                            <select
+                                ref="companysize"
+                                name="companysize"
+                                className="form-control"
+                                value={userInfo.companysize}
+                                onChange={this.onChangeText}
+                                >
+                                <option>Small</option>
+                                <option>Medium</option>
+                                <option>Big</option>
+                            </select>
                         </div>
 
                         <button type="button" className="ui submit button submitt" onClick={this._onSaveSubmit}>{GetText('MYCO_INFO_SUBMIT', mlarray)}</button>
@@ -456,4 +396,5 @@ export default class MyCompanyInfo extends React.Component {
         );
     }
 }
+
 MyCompanyInfo.contextTypes = { router: React.PropTypes.func };

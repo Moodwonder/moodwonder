@@ -3,14 +3,14 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 import Cookie from 'utils/Cookie';
 
 /**
- * UserActions
- */
+* UserActions
+*/
 class UserActions {
 
-  // login function
-  manuallogin (data) {
-      this.dispatch();
-      UserWebAPIUtils.manuallogin(data)
+    // login function
+    manuallogin (data) {
+        this.dispatch();
+        UserWebAPIUtils.manuallogin(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
@@ -22,18 +22,18 @@ class UserActions {
         }, () => {
             // Dispatch another event for a bad login
         });
-  }
+    }
 
-  // Keep this function name in lower case, otherwise it will not be available in 'Store'
-  loginresponse (response) {
+    // Keep this function name in lower case, otherwise it will not be available in 'Store'
+    loginresponse (response) {
 
-      this.dispatch(response);
-  }
+        this.dispatch(response);
+    }
 
-  // Save user details
-  saveUserInfo (data) {
-      this.dispatch();
-      UserWebAPIUtils.saveUserDetails(data)
+    // Save user details
+    saveUserInfo (data) {
+        this.dispatch();
+        UserWebAPIUtils.saveUserDetails(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.saveuserdetailssuccess(response);
@@ -41,28 +41,28 @@ class UserActions {
             }
         }, () => {
         });
-  }
+    }
 
 
-  saveuserdetailssuccess (response) {
-      this.dispatch(response);
-  }
+    saveuserdetailssuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Update user image
-  updateUserImage (data) {
-      this.dispatch();
-      UserWebAPIUtils.updateUserPhoto(data, this);
-  }
+    // Update user image
+    updateUserImage (data) {
+        this.dispatch();
+        UserWebAPIUtils.updateUserPhoto(data, this);
+    }
 
 
-  updateuserphotosuccess (response) {
-      this.dispatch(response);
-  }
+    updateuserphotosuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Save user details
-  saveManagerInfo (data) {
-      this.dispatch();
-      UserWebAPIUtils.saveManagerDetails(data)
+    // Save user details
+    saveManagerInfo (data) {
+        this.dispatch();
+        UserWebAPIUtils.saveManagerDetails(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.savemanagerdetailssuccess(response);
@@ -70,80 +70,80 @@ class UserActions {
             }
         }, () => {
         });
-  }
+    }
 
-  savemanagerdetailssuccess (response) {
-      this.dispatch(response);
-  }
+    savemanagerdetailssuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Save company details
-  saveCompanyInfo (data) {
-      this.dispatch();
-      UserWebAPIUtils.saveCompanyDetails(data)
+    // Save company details
+    saveCompanyInfo (data) {
+        this.dispatch();
+        UserWebAPIUtils.saveCompanyDetails(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.savecompanysuccess(response);
             }
         }, () => {
         });
-  }
+    }
 
-  savecompanysuccess (response) {
-      this.dispatch(response);
-  }
+    savecompanysuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Get user details
-  getuserinfo () {
-      this.dispatch();
-      UserWebAPIUtils.userinfo()
+    // Get user details
+    getuserinfo () {
+        this.dispatch();
+        UserWebAPIUtils.userinfo()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.userinfosuccess(response);
             }
         }, () => {
         });
-  }
+    }
 
-  userinfosuccess (response) {
-      this.dispatch(response);
-  }
+    userinfosuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Get user details
-  getcompanyinfo () {
-      this.dispatch();
-      UserWebAPIUtils.userinfo('company')
+    // Get user details
+    getcompanyinfo () {
+        this.dispatch();
+        UserWebAPIUtils.userinfo('company')
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.companyinfosuccess(response);
             }
         }, () => {
         });
-  }
+    }
 
-  companyinfosuccess (response) {
-      this.dispatch(response);
-  }
+    companyinfosuccess (response) {
+        this.dispatch(response);
+    }
 
-  // Get user details
-  getCurrentUserId () {
-      this.dispatch();
-      UserWebAPIUtils.getCurrentUserId()
+    // Get user details
+    getCurrentUserId () {
+        this.dispatch();
+        UserWebAPIUtils.getCurrentUserId()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.getcurrentuserid(response);
             }
         }, () => {
         });
-  }
+    }
 
-  getcurrentuserid (response) {
-      this.dispatch(response);
-  }
+    getcurrentuserid (response) {
+        this.dispatch(response);
+    }
 
-  // logout function
-  logout () {
-      this.dispatch();
-      UserWebAPIUtils.logout()
+    // logout function
+    logout () {
+        this.dispatch();
+        UserWebAPIUtils.logout()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
@@ -152,34 +152,34 @@ class UserActions {
         }, () => {
             // Dispatch another event for a bad login
         });
-  }
+    }
 
-  logoutsuccess () {
-      this.dispatch();
-  }
+    logoutsuccess () {
+        this.dispatch();
+    }
 
-  // Get user details for leftbar
-  getUserData () {
-      this.dispatch();
-      UserWebAPIUtils.userinfo()
+    // Get user details for leftbar
+    getUserData () {
+        this.dispatch();
+        UserWebAPIUtils.userinfo()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.userdatasuccess(response);
             }
         }, () => {
         });
-  }
+    }
 
-  userdatasuccess (response) {
-      //this.dispatch(response);
-      if (alt.dispatcher.$Dispatcher_isDispatching) {
-          window.setTimeout(() => {
-              this.dispatch(response);
-          });
-      } else {
-          this.dispatch(response);
-      }
-  }
+    userdatasuccess (response) {
+        //this.dispatch(response);
+        if (alt.dispatcher.$Dispatcher_isDispatching) {
+            window.setTimeout(() => {
+                this.dispatch(response);
+            });
+        } else {
+            this.dispatch(response);
+        }
+    }
 }
 
 export default alt.createActions(UserActions);

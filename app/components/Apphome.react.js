@@ -7,32 +7,23 @@ import GoogleAnalytics from "components/analytics/GoogleAnalytics.react";
 
 export default class Apphome extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render() {
 
-  }
+        let content = [
+            <Homeheader />,
+            <Homecontent />,
+            <Homefooter />,
+            <GoogleAnalytics id="UA-40351687-1" />
+        ];
 
-  componentWillUnmount () {
-
-  }
-
-
-  render() {
-
-      let content = [
-                        <Homeheader />,
-                        <Homecontent />,
-                        <Homefooter />,
-                        <GoogleAnalytics id="UA-40351687-1" />
-                    ];
-
-      return (
-                <div className="home">{content}</div>
-      );
-  }
+        return (
+            <div className="home">{content}</div>
+        );
+    }
 }
 
 Apphome.contextTypes = { router: React.PropTypes.func };

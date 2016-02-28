@@ -4,21 +4,13 @@ import Header from 'components/staticpages/Header.react';
 
 export default class Policy extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
+        return (
             <div className="pusher">
                 <div className="ui inverted vertical masthead center aligned segment" style={{"background-color": "#4db6ac"}}>
                     <Header />
@@ -44,9 +36,7 @@ export default class Policy extends React.Component {
                     </div>
                 </div>
             </div>
-      );
-  }
+        );
+    }
 
 }
-
-

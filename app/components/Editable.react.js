@@ -1,78 +1,73 @@
 import React from 'react';
 /*
- * Component for Editable UI
- *
- */
+* Component for Editable UI
+*
+*/
 export default class Editable extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state =
-          {
+    constructor(props) {
+        super(props);
+        this.state =
+        {
             Edit: false,
             value:props.value,
             btnDisabled: true
-          };
-  }
+        };
+    }
 
-  componentDidMount() {
-  }
+    componentWillReceiveProps(e) {
+        // to set default
+        this.setState({Edit: false, value: this.props.value });
+    }
 
-  componentWillReceiveProps(e) {
-      // to set default
-      this.setState({Edit: false, value: this.props.value });
-  }
+    changeValue = (event) => {
+        let btnDisabled = true;
+        if(this.props.value !== event.target.value){
+            btnDisabled = false;
+        }
+        this.setState({value:event.target.value, btnDisabled: btnDisabled});
+    }
 
-  changeValue = (event) => {
+    onEditClick = () => {
+        this.setState({Edit: true, value: this.props.value });
+    }
 
-      let btnDisabled = true;
-      if(this.props.value !== event.target.value){
-          btnDisabled = false;
-      }
-      this.setState({value:event.target.value, btnDisabled: btnDisabled});
-  }
+    onSaveClick = (teamname,teamid) => {
+        console.log(teamname);
+        console.log(teamid);
+        if(this.props.value !== this.state.value && teamname.trim() !== ''){
+            this.props.onSave({teamname:teamname,teamid:teamid});
+        }
+    }
 
-  onEditClick = () => {
-      this.setState({Edit: true, value: this.props.value });
-  }
+    render() {
 
-  onSaveClick = (teamname,teamid) => {
-      console.log(teamname);
-      console.log(teamid);
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({teamname:teamname,teamid:teamid});
-      }
-  }
+        let buttonlabel = 'Edit';
 
-  render() {
+        let inputORLable = (
+            <label htmlFor="email">{this.props.value}</label>
+        );
 
-      let buttonlabel = 'Edit';
+        let actionButton = (
+            <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+        );
 
-      let inputORLable = (
-        <label htmlFor="email">{this.props.value}</label>
-      );
+        if(this.state.Edit){
+            buttonlabel  = 'Save';
+            inputORLable = (
+                <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+            );
 
-      let actionButton = (
-        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
-      );
+            actionButton = (
+                <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            );
+        }
 
-      if(this.state.Edit){
-          buttonlabel  = 'Save';
-          inputORLable = (
-            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
-          );
-
-          actionButton = (
-            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
-          );
-      }
-
-      return (
-        <div className="row">
-           {inputORLable}
-           {actionButton}
-        </div>
-      );
-  }
+        return (
+            <div className="row">
+                {inputORLable}
+                {actionButton}
+            </div>
+        );
+    }
 }
-//export { Editable as default };

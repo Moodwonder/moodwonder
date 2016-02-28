@@ -2,25 +2,25 @@ import alt from 'altInstance';
 import AdminWebAPIUtils from 'utils/CommonAdminWebAPIUtils';
 
 /**
- * AdminCompanyActions
- */
+* AdminCompanyActions
+*/
 class AdminCompanyActions {
 
-  // Get all users in the database
-  getAllCompanies () {
-      this.dispatch();
-      AdminWebAPIUtils.getAllCompanies()
+    // Get all users in the database
+    getAllCompanies () {
+        this.dispatch();
+        AdminWebAPIUtils.getAllCompanies()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.setallcompanylist(response);
             }
         }, () => {
         });
-  }
+    }
 
-  setallcompanylist (response) {
-      this.dispatch(response);
-  }
+    setallcompanylist (response) {
+        this.dispatch(response);
+    }
 
 }
 

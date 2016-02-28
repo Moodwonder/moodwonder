@@ -40,7 +40,6 @@ export default class PublicProfile extends React.Component {
     }
 
     _onChangeEOTMStore = (state) => {
-        // console.log(state);
         if(!state.modal){
             this._onPopClose();
         }
@@ -58,7 +57,6 @@ export default class PublicProfile extends React.Component {
     }
 
     _onModalClick = () => {
-        // console.log(JSON.stringify(this.props));
         $( "body" ).addClass( "dimmed dimmable" );
         this.setState({
             modal:true,
@@ -117,10 +115,10 @@ export default class PublicProfile extends React.Component {
 
         if (!isNaN(sPercentage) && (sPercentage > 0)) {
             content = (
-                    <div className="ui segment">
-                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
-                        <ParticipationGraph percentage={sPercentage} />
-                    </div>
+                <div className="ui segment">
+                    <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
+                    <ParticipationGraph percentage={sPercentage} />
+                </div>
             );
         }
 
@@ -174,22 +172,22 @@ export default class PublicProfile extends React.Component {
         let modal;
         if(this.state.modal){
             modal = (
-            <div className="ui dimmer modals page transition visible active">
-                <div className="ui active modal">
-                    <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">Vote</div>
-                    <div className="ui segment">
-                        <div className="ui small form">
-                            <div className="field">
-                                <label> Comment</label>
-                                <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal">
+                        <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
+                        <div className="header">Vote</div>
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    <label> Comment</label>
+                                    <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                                </div>
+                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >Vote</button>
+                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
                             </div>
-                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >Vote</button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-            </div>
             );
         }
 
@@ -202,35 +200,34 @@ export default class PublicProfile extends React.Component {
             );
         }
 
-        // console.log(voteBtn);
         return (
-        <div className="ui-main">
-            <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>
-            <div className="ui secondary menu account">
-                {voteBtn}
-            </div>
-            <div className="ui two column stackable grid">
-                <div className="nine wide column">
-                    {message}
-                    <div className="ui segment">
-                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
-                        <p>{publicUser.data.currentuservotes}</p>
-                    </div>
-                    {content}
+            <div className="ui-main">
+                <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>
+                <div className="ui secondary menu account">
+                    {voteBtn}
                 </div>
-                <div className="seven wide column">
-                    <div className="ui segment">
-                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
-                        {manager}
+                <div className="ui two column stackable grid">
+                    <div className="nine wide column">
+                        {message}
+                        <div className="ui segment">
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
+                            <p>{publicUser.data.currentuservotes}</p>
+                        </div>
+                        {content}
+                    </div>
+                    <div className="seven wide column">
+                        <div className="ui segment">
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
+                            {manager}
 
-                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
-                        {teams}
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
+                            {teams}
 
+                        </div>
                     </div>
                 </div>
+                {modal}
             </div>
-            {modal}
-        </div>
         );
     }
 }
@@ -238,25 +235,19 @@ export default class PublicProfile extends React.Component {
 class PublicProfileHeader extends React.Component {
 
     constructor(props) {
-
         super(props);
         this.state = {};
     }
     componentDidMount () {
-        // console.log('componentDidMount');
         this._onChange(this.props.data);
     }
     componentWillReceiveProps (prop) {
-        // console.log('componentWillReceiveProps');
         this._onChange(prop.data);
     }
     _onChange = (state) => {
-        //console.log(state);
         this.setState(state);
     }
     render() {
-
-        //return (null);
         let UIData = {
             eom: null,
             text: '',
@@ -278,22 +269,21 @@ class PublicProfileHeader extends React.Component {
             UIData.name = this.state.publicuser.data.profile.firstname+' '+this.state.publicuser.data.profile.lastname;
             UIData.email = this.state.publicuser.data.profile.email;
         }
-        // console.log(JSON.stringify(this.state.publicuser));
 
         return (
-        <div className="ui margin-grid ">
-            <div className="column profile-cover" style={{ backgroundImage: 'url('+UIData.cover_image+')'}}>
-                <div className="dp-container">
-                    <img className="ui tiny circular image dp" src={UIData.profile_image} alt=""/>
-                    {UIData.eom}
-                    <div className="title">
-                        <h3>{UIData.name}</h3>
-                        <span className="text-shadow">{UIData.email}</span>
-                        {UIData.text}
+            <div className="ui margin-grid ">
+                <div className="column profile-cover" style={{ backgroundImage: 'url('+UIData.cover_image+')'}}>
+                    <div className="dp-container">
+                        <img className="ui tiny circular image dp" src={UIData.profile_image} alt=""/>
+                        {UIData.eom}
+                        <div className="title">
+                            <h3>{UIData.name}</h3>
+                            <span className="text-shadow">{UIData.email}</span>
+                            {UIData.text}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

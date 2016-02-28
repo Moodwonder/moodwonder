@@ -6,35 +6,35 @@ import alt from 'altInstance';
 
 class LanguageStore {
 
-  constructor () {
+    constructor () {
 
-      this.languages = []; //Immutable.Map({});
-      this.home = [];
-      this.pagedata = []; //Immutable.Map({});
-      this.on('init', this.bootstrap);
-      this.on('bootstrap', this.bootstrap);
+        this.languages = []; //Immutable.Map({});
+        this.home = [];
+        this.pagedata = []; //Immutable.Map({});
+        this.on('init', this.bootstrap);
+        this.on('bootstrap', this.bootstrap);
 
-      this.bindListeners({
-          handleDeleteLanguage: LanguageActions.DELETELANGUAGESUCCESS,
-          handleAddLanguage: LanguageActions.ADDLANGUAGESUCCESS,
-          handleEditLanguage: LanguageActions.EDITLANGUAGESUCCESS,
-          handleLanguages: LanguageActions.LANGUAGES
-      });
-  }
+        this.bindListeners({
+            handleDeleteLanguage: LanguageActions.DELETELANGUAGESUCCESS,
+            handleAddLanguage: LanguageActions.ADDLANGUAGESUCCESS,
+            handleEditLanguage: LanguageActions.EDITLANGUAGESUCCESS,
+            handleLanguages: LanguageActions.LANGUAGES
+        });
+    }
 
-  bootstrap () {
-      if (!Immutable.OrderedMap.isOrderedMap(this.pagedata)) {
-          this.pagedata = fromJSOrdered(this.pagedata);
-      }
-      if (!Immutable.OrderedMap.isOrderedMap(this.languages)) {
-          this.languages = fromJSOrdered(this.languages);
-      }
+    bootstrap () {
+        if (!Immutable.OrderedMap.isOrderedMap(this.pagedata)) {
+            this.pagedata = fromJSOrdered(this.pagedata);
+        }
+        if (!Immutable.OrderedMap.isOrderedMap(this.languages)) {
+            this.languages = fromJSOrdered(this.languages);
+        }
 
-  }
+    }
 
-  handleAddLanguage (data) {
-      if(data) {
-          LanguageWebAPIUtils.getLanguages()
+    handleAddLanguage (data) {
+        if(data) {
+            LanguageWebAPIUtils.getLanguages()
             .then((response, textStatus) => {
                 if (response.status === 'success') {
                     this.languages = [];
@@ -44,12 +44,12 @@ class LanguageStore {
             }, () => {
                 // Dispatch another event for a bad request
             });
-      }
-  }
+        }
+    }
 
-  handleEditLanguage (data) {
-      if(data) {
-          LanguageWebAPIUtils.getLanguages()
+    handleEditLanguage (data) {
+        if(data) {
+            LanguageWebAPIUtils.getLanguages()
             .then((response, textStatus) => {
                 if (response.status === 'success') {
                     this.languages = [];
@@ -59,28 +59,28 @@ class LanguageStore {
             }, () => {
                 // Dispatch another event for a bad request
             });
-      }
-  }
+        }
+    }
 
-  handleDeleteLanguage (id) {
-      if(id) {
-          let languages = this.languages;
-          for (let i = 0; i < languages.length; i++) {
-              let language = languages[i];
-              if (language._id === id) {
-                  languages.splice(i, 1);
-                  this.languages = [];
-                  this.languages = languages;
-              }
-          }
-      }
-      this.emitChange();
-  }
+    handleDeleteLanguage (id) {
+        if(id) {
+            let languages = this.languages;
+            for (let i = 0; i < languages.length; i++) {
+                let language = languages[i];
+                if (language._id === id) {
+                    languages.splice(i, 1);
+                    this.languages = [];
+                    this.languages = languages;
+                }
+            }
+        }
+        this.emitChange();
+    }
 
-  handleLanguages (data) {
-      this.languages = data;
-      this.emitChange();
-  }
+    handleLanguages (data) {
+        this.languages = data;
+        this.emitChange();
+    }
 
 
 }

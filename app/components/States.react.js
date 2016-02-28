@@ -93,7 +93,6 @@ export default RequireAuth(class States extends React.Component {
         {
             if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
-                    // console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={(key+1)}>
@@ -107,7 +106,6 @@ export default RequireAuth(class States extends React.Component {
                 let pages = this.pagination.map((data, key) => {
                     return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
                 });
-                //console.log(this.pagination);
                 pagination = (
                     <div className="ui pagination menu">
                         {pages}
@@ -152,9 +150,9 @@ export default RequireAuth(class States extends React.Component {
                     </div>
                 </div>
                 <div className="ui modal">
-                  <i className="close icon"></i>
-                  <div className="header">Message</div>
-                  <div className="content" id="msg"></div>
+                    <i className="close icon"></i>
+                    <div className="header">Message</div>
+                    <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -163,74 +161,74 @@ export default RequireAuth(class States extends React.Component {
 
 class Editable extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state =
-          {
+    constructor(props) {
+        super(props);
+        this.state =
+        {
             Edit: false,
             value:props.value,
             btnDisabled: true
-          };
-  }
+        };
+    }
 
-  componentDidMount() {
-  }
+    componentDidMount() {
+    }
 
-  componentWillReceiveProps(e) {
-      // to set default
-      this.setState({Edit: false, value: this.props.value });
-  }
+    componentWillReceiveProps(e) {
+        // to set default
+        this.setState({Edit: false, value: this.props.value });
+    }
 
-  changeValue = (event) => {
+    changeValue = (event) => {
 
-      let btnDisabled = true;
-      if(this.props.value !== event.target.value){
-          btnDisabled = false;
-      }
-      this.setState({value:event.target.value, btnDisabled: btnDisabled});
-  }
+        let btnDisabled = true;
+        if(this.props.value !== event.target.value){
+            btnDisabled = false;
+        }
+        this.setState({value:event.target.value, btnDisabled: btnDisabled});
+    }
 
-  onEditClick = () => {
-      this.setState({ Edit: true, value: this.props.value });
-  }
+    onEditClick = () => {
+        this.setState({ Edit: true, value: this.props.value });
+    }
 
-  onSaveClick = (teamname,teamid) => {
+    onSaveClick = (teamname,teamid) => {
 
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({teamname:teamname,teamid:teamid});
-      }
-  }
+        if(this.props.value !== this.state.value && teamname.trim() !== ''){
+            this.props.onSave({teamname:teamname,teamid:teamid});
+        }
+    }
 
-  render() {
+    render() {
 
-      let buttonlabel = 'Edit';
+        let buttonlabel = 'Edit';
 
-      let inputORLable = (
-        <label htmlFor="email">{this.props.value}</label>
-      );
+        let inputORLable = (
+            <label htmlFor="email">{this.props.value}</label>
+        );
 
-      let actionButton = (
-        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
-      );
+        let actionButton = (
+            <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+        );
 
-      if(this.state.Edit){
-          buttonlabel  = 'Save';
-          inputORLable = (
-            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
-          );
+        if(this.state.Edit){
+            buttonlabel  = 'Save';
+            inputORLable = (
+                <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+            );
 
-          actionButton = (
-            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
-          );
-      }
+            actionButton = (
+                <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            );
+        }
 
-      return (
-        <div className="row">
-           {inputORLable}
-           {actionButton}
-        </div>
-      );
-  }
+        return (
+            <div className="row">
+                {inputORLable}
+                {actionButton}
+            </div>
+        );
+    }
 }
 
 class AddStates extends React.Component {
@@ -241,7 +239,6 @@ class AddStates extends React.Component {
     }
 
     _onChange = (state) => {
-        //console.log(state);
         this.setState(state);
         if(state.ServerResponse.status){
             React.findDOMNode(this.refs.state).value = '';

@@ -3,24 +3,20 @@ import SurveyParticipationActions from 'actions/SurveyParticipationActions';
 
 class SurveyParticipationStore {
 
-  constructor () {
+    constructor () {
 
-      this.mySurvey = [];
+        this.mySurvey = [];
 
-      this.bindListeners({
-      handleMySurveyParticipation: SurveyParticipationActions.MYSURVEYPARTICIPATION
-    });
-  }
+        this.bindListeners({
+            handleMySurveyParticipation: SurveyParticipationActions.MYSURVEYPARTICIPATION
+        });
+    }
 
-  bootstrap () {
-
-  }
-
-  handleMySurveyParticipation (data) {
-      this.mySurvey = [];
-      this.mySurvey = data;
-      this.emitChange();
-  }
+    handleMySurveyParticipation (data) {
+        this.mySurvey = [];
+        this.mySurvey = data;
+        this.emitChange();
+    }
 
 }
 

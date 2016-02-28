@@ -7,7 +7,6 @@ const requireAuth = (Component) => {
             if (typeof window !== 'undefined') {
                 AdminWebAPIUtils.loggedin().done((response) => {
                     if (!response.authenticated && response.role !== "ADMIN") {
-                        //transition.redirect('/admin', {}, {'nextPath': transition.path});
                         localStorage.setItem('isAuth', "false");
                         transition.redirect('/admin', {}, {});
                     } else {
@@ -20,7 +19,6 @@ const requireAuth = (Component) => {
                 callback();
             }
         }
-
 
         render() {
             return <Component {...this.props}/>;

@@ -2,17 +2,17 @@ import alt from 'altInstance';
 
 class MlangStore {
 
-  constructor () {
+    constructor () {
 
-      this.multilang = {};//Immutable.Map({});
+        this.multilang = {};//Immutable.Map({});
 
-      this.on('init', this.bootstrap);
-      this.on('bootstrap', this.bootstrap);
+        this.on('init', this.bootstrap);
+        this.on('bootstrap', this.bootstrap);
 
-      this.bindListeners({});
-  }
+        this.bindListeners({});
+    }
 
-  bootstrap () {}
+    bootstrap () {}
 
 }
 

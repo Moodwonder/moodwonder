@@ -21,27 +21,20 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     componentDidMount() {
-        // console.log('componentDidMount');
         EOTMActions.getallemployees();
         EOTMStore.listen(this._onChange);
     }
 
     componentWillUnmount() {
-        // console.log('componentWillUnmount');
         EOTMStore.unlisten(this._onChange);
     }
 
     _onChange = (state) => {
-
-        // console.log(state);
-        // console.log(this.ShowMoreStatus);
         if(this.ShowMoreStatus){
             this.ShowMoreStatus = false;
             state.employees.data.employees.map((data, key) => {
                 this.filtered.push(data);
             });
-           // console.log(state);
-            // console.log(this.filtered);
             this.mytotalvotes = state.employees.data.mytotalvotes;
             this.hasData = state.hasEmployees;
             let last_employee = this.filtered[this.filtered.length-1];
@@ -88,7 +81,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     _onChangeComment = (e) => {
-
         if(e.target.value.trim() !== ''){
             this.setState({
                 isNotValid: false
@@ -101,8 +93,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     _onSearch = (e) => {
-
-        // console.log('_onSearch');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         if( keyword !== '' ){
             this.search = true;
@@ -117,8 +107,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     showMoreUsers = () => {
-
-        // console.log('showMoreUsers');
         let keyword = React.findDOMNode(this.refs.search).value.trim();
         let obj = {};
         if( keyword !== '' ){
@@ -134,7 +122,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     // Function to sort the user list by the entered word in the search user text box
     // It is disabled now
     _onChangeSearch = (e) => {
-        // console.log('_onChangeSearch');
         let text = e.target.value.trim();
 
         // fetch fresh data after clearing the search text box
@@ -144,26 +131,6 @@ export default class EmployeeOfTheMonth extends React.Component {
             this.filtered = [];
             EOTMActions.getallemployees();
         }
-
-        /*
-        if(text !== ''){
-            if(this.hasData){
-                this.filtered = [];
-                let i =0;
-                this.state.employees.data.employees.map((data, key) => {
-                    if((data.name.toLowerCase()).indexOf(text.toLowerCase()) === 0){
-                        this.filtered[i] = data;
-                        i++;
-                    }
-                });
-                this.hasData = true;
-                this.setState(this.state);
-            }
-        }else{
-            this.filtered = this.state.employees.data.employees;
-            this.setState(this.state);
-        }
-        */
     }
 
     _onVoteSubmit = (e) => {
@@ -182,9 +149,6 @@ export default class EmployeeOfTheMonth extends React.Component {
     }
 
     render() {
-        // console.log('render..');
-        // console.log(this.state);
-
         this.disableVote = true;
 
         let mlarray = this.state.multilang;
@@ -200,14 +164,14 @@ export default class EmployeeOfTheMonth extends React.Component {
 
                 return [
                     <VoteWidget
-                    _id={data._id}
-                    uid={this.state.employees.data.current_user_id}
-                    photo={data.photo} name={data.name}
-                    votes={data.votes}
-                    active={data.myvote}
-                    disabled={this.disableVote}
-                    click={this._onPopClick}
-                    index={key} />
+                        _id={data._id}
+                        uid={this.state.employees.data.current_user_id}
+                        photo={data.photo} name={data.name}
+                        votes={data.votes}
+                        active={data.myvote}
+                        disabled={this.disableVote}
+                        click={this._onPopClick}
+                        index={key} />
                 ];
             });
         }
@@ -230,22 +194,22 @@ export default class EmployeeOfTheMonth extends React.Component {
         let modal;
         if(this.state.modal){
             modal = (
-            <div className="ui dimmer modals page transition visible active">
-                <div className="ui active modal">
-                    <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                    <div className="header">{GetText('EOM_POPUP_TITLE', mlarray)}</div>
-                    <div className="ui segment">
-                        <div className="ui small form">
-                            <div className="field">
-                                <label> {GetText('EOM_POPUP_COMMENT', mlarray)}</label>
-                                <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal">
+                        <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
+                        <div className="header">{GetText('EOM_POPUP_TITLE', mlarray)}</div>
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    <label> {GetText('EOM_POPUP_COMMENT', mlarray)}</label>
+                                    <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
+                                </div>
+                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >{GetText('EOM_POPUP_VOTE_BTN', mlarray)}</button>
+                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_POPUP_CLOSE_BTN', mlarray)}</button>
                             </div>
-                            <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit}    className="ui submit button submitt" >{GetText('EOM_POPUP_VOTE_BTN', mlarray)}</button>
-                            <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('EOM_POPUP_CLOSE_BTN', mlarray)}</button>
                         </div>
                     </div>
                 </div>
-            </div>
             );
         }
 
@@ -278,7 +242,6 @@ class VoteWidget extends React.Component {
 
     constructor(props) {
         super(props);
-        //this.state = {};
         this.state= {
             multilang: MlangStore.getState().multilang
         };
@@ -291,7 +254,6 @@ class VoteWidget extends React.Component {
     }
 
     render() {
-
         let mlarray = this.state.multilang;
 
         let voteBtn = (
@@ -301,7 +263,6 @@ class VoteWidget extends React.Component {
             </div>
         );
 
-        // console.log(this.props);
         if((this.props._id === this.props.uid) || this.props.disabled){
             voteBtn = (
                 <div className='extra content disabled' >
@@ -361,7 +322,6 @@ class ProfileHeader extends React.Component {
         let mlarray = this.state.multilang;
 
         if(this.state.votes !== undefined) {
-            //text = [<p className="votes"> You have { ( 5 - this.state.votes ) } more votes remaining</p>];
             let votecount = ( 5 - this.state.votes );
             let votecountmsg = GetText('EOM_VOTE_COUNT_MESSAGE', mlarray);
             text = [<p className="votes"> { votecountmsg.replace("VOTECOUNT", votecount) } </p>];
@@ -369,23 +329,22 @@ class ProfileHeader extends React.Component {
         if(this.state.voteperiod !== undefined) {
             voteperiod = [<p className="votes"> {GetText('EOM_VOTE_PERIOD', mlarray)} : { this.state.voteperiod.start } - { this.state.voteperiod.end } </p>];
         }
-        //console.log(this.state);
 
         return (
-        <div className="ui margin-grid ">
-            <div className="column profile-cover" style={{ backgroundImage: 'url('+this.state.userData.cover_image+')'}}>
-                <div className="dp-container">
-                    <img className="ui tiny circular image dp" src={this.state.userData.profile_image} alt=""/>
-                    <a href="#" className="action act-cover-image"></a>
-                    <div className="title">
-                        <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
-                        <span className="text-shadow">{this.state.userData.email} </span>
-                        {text}
-                        {voteperiod}
+            <div className="ui margin-grid ">
+                <div className="column profile-cover" style={{ backgroundImage: 'url('+this.state.userData.cover_image+')'}}>
+                    <div className="dp-container">
+                        <img className="ui tiny circular image dp" src={this.state.userData.profile_image} alt=""/>
+                        <a href="#" className="action act-cover-image"></a>
+                        <div className="title">
+                            <h3>{this.state.userData.fname} {this.state.userData.lname}</h3>
+                            <span className="text-shadow">{this.state.userData.email} </span>
+                            {text}
+                            {voteperiod}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

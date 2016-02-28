@@ -24,8 +24,8 @@ const companyquickstatistics = {
 
         let results = _.filter(companysurvey, function(v) { return v.created.d >= ndatestring; });
         let uGroupResults = _(results).groupBy(function(result) {
-                return result.mood;
-            });
+            return result.mood;
+        });
 
         return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
 
@@ -33,8 +33,8 @@ const companyquickstatistics = {
 
     getNumberOfResponses: function (esurveyresults) {
         let uGroupResults = _(esurveyresults).groupBy(function(result) {
-                return result.mood;
-            });
+            return result.mood;
+        });
 
         return _.map(uGroupResults.Mood, function(n, i) { return i; }).length;
 
@@ -55,13 +55,15 @@ const companyquickstatistics = {
     getEmployeeAtRisk: function (companysurvey) {
 
         let uGroupResults = _(companysurvey).groupBy(function(result) {
-                return result.user_id;
-            });
+            return result.user_id;
+        });
 
         let uData = _(uGroupResults).map(function(g, key) {
             let latest =  _.first(_.sortBy(g, function(o) { return o._id; }).reverse(),13);
-            return {   user_id: key,
-                       avg : ((_(latest).reduce(function(m,x) { return m + x.rating; }, 0))/13).toFixed(1)};
+            return {
+                user_id: key,
+                avg : ((_(latest).reduce(function(m,x) { return m + x.rating; }, 0))/13).toFixed(1)
+            };
         });
 
         let employee = 0;

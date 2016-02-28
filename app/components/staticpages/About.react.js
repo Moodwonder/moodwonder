@@ -1,24 +1,15 @@
 import React from 'react';
 import Header from 'components/staticpages/Header.react';
 
-
 export default class About extends React.Component {
 
-  constructor (props) {
-      super(props);
-  }
+    constructor (props) {
+        super(props);
+    }
 
-  componentDidMount () {
+    render () {
 
-  }
-
-  componentWillUnmount () {
-
-  }
-
-  render () {
-
-      return (
+        return (
             <div className="pusher">
                 <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor":"#4db6ac"}}>
                     <Header />
@@ -64,7 +55,8 @@ export default class About extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <img className="ui medium circular image" src="assets/images/kimmo.png" alt="" /> </div>
+                                    <img className="ui medium circular image" src="assets/images/kimmo.png" alt="" />
+                                </div>
                                 <div className="content">
                                     <h2><a className="header">Kimmo</a> </h2>
                                 </div>
@@ -80,7 +72,8 @@ export default class About extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <img className="ui medium circular image" src="assets/images/ankur.png" alt="" /> </div>
+                                    <img className="ui medium circular image" src="assets/images/ankur.png" alt="" />
+                                </div>
                                 <div className="content">
                                     <h2><a className="header">Ankur</a> </h2>
                                 </div>
@@ -96,7 +89,8 @@ export default class About extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <img className="ui medium circular image" src="assets/images/ujjwal.png" alt="" /> </div>
+                                    <img className="ui medium circular image" src="assets/images/ujjwal.png" alt="" />
+                                </div>
                                 <div className="content">
                                     <h2><a className="header">Ujjwal</a> </h2>
                                 </div>
@@ -112,7 +106,8 @@ export default class About extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <img className="ui medium circular image" src="assets/images/vasanth.png" alt="" /> </div>
+                                    <img className="ui medium circular image" src="assets/images/vasanth.png" alt="" />
+                                </div>
                                 <div className="content">
                                     <h2><a className="header">Vasanth</a></h2>
                                 </div>
@@ -121,9 +116,7 @@ export default class About extends React.Component {
                     </div>
                 </div>
             </div>
-      );
-  }
+        );
+    }
 
 }
-
-

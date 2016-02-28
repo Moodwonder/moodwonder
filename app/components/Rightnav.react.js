@@ -6,117 +6,106 @@ import CompanyQuickStatistics from 'utils/CompanyQuickStatistics';
 import GetText from 'utils/GetText';
 import MlangStore from 'stores/MlangStore';
 
-
 export default class Rightnav extends React.Component {
 
-  constructor (props) {
-      super(props);
-      this.state = {
-          surveyresults: [],
-          companysurvey: [],
-          currentuserid: '',
-          totalcompanyusers: '',
-          mwkeys: MlangStore.getState().mwkeys
-      };
-  }
+    constructor (props) {
+        super(props);
+        this.state = {
+            surveyresults: [],
+            companysurvey: [],
+            currentuserid: '',
+            totalcompanyusers: '',
+            mwkeys: MlangStore.getState().mwkeys
+        };
+    }
 
-  componentDidMount () {
-      SurveyActions.getEngagementSurvey();
-      SurveyActions.getEngagementResults('undefined'); // An undefined check on server.
-      SurveyActions.getResultsByCompany();
-      SurveyStore.listen(this._onMoodChange);
-  }
+    componentDidMount () {
+        SurveyActions.getEngagementSurvey();
+        SurveyActions.getEngagementResults('undefined'); // An undefined check on server.
+        SurveyActions.getResultsByCompany();
+        SurveyStore.listen(this._onMoodChange);
+    }
 
-  componentWillUnmount () {
-      SurveyStore.unlisten(this._onMoodChange);
-  }
+    componentWillUnmount () {
+        SurveyStore.unlisten(this._onMoodChange);
+    }
 
-   _onMoodChange = () => {
-       this.setState({
-         surveyresults: SurveyStore.getState().surveyresults,
-         companysurvey: SurveyStore.getState().companysurvey,
-         currentuserid: SurveyStore.getState().currentuserid,
-         totalcompanyusers: SurveyStore.getState().totalcompanyusers
-      });
-   }
-
-
-   render () {
-      let surveyresults = this.state.surveyresults;
-      let companysurvey = this.state.companysurvey;
-      let currentuserid = this.state.currentuserid;
-      let totalcompanyusers = (this.state.totalcompanyusers) ? this.state.totalcompanyusers : 0;
-      let mlarray = this.state.mwkeys;
-
-      //let employeesAtRisk = QuickStatistics.getEmployeeAtRisk(companysurvey);
-      //let lastMonthResponses = QuickStatistics.getLastMonthResponses(companysurvey, currentuserid);
-      //let timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(companysurvey, currentuserid);
-      //let lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
-
-      let employeesAtRisk = CompanyQuickStatistics.getEmployeeAtRisk(companysurvey);
-      let lastMonthResponses;
-      let timeSinceLastPost;
-      let lastRatings;
-
-      let cPath = this.context.router.getCurrentPathname();
-      let pages = ["/mycompany"];
-      if( pages.indexOf(cPath) >= 0){
-          //MyCompany Statistics.
-          //lastMonthResponses = CompanyQuickStatistics.getLastMonthResponses(companysurvey);
-          lastMonthResponses = CompanyQuickStatistics.getNumberOfResponses(companysurvey);
-          timeSinceLastPost = CompanyQuickStatistics.getTimeSinceLastPosted(companysurvey);
-          lastRatings = (CompanyQuickStatistics.getLastRatings(companysurvey)).reverse();
-
-      } else {
-          //MyMood Statistics.
-          //lastMonthResponses = QuickStatistics.getLastMonthResponses(surveyresults, currentuserid);
-          lastMonthResponses = QuickStatistics.getNumberOfResponses(surveyresults);
-          timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(surveyresults, currentuserid);
-          lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
-      }
+    _onMoodChange = () => {
+        this.setState({
+            surveyresults: SurveyStore.getState().surveyresults,
+            companysurvey: SurveyStore.getState().companysurvey,
+            currentuserid: SurveyStore.getState().currentuserid,
+            totalcompanyusers: SurveyStore.getState().totalcompanyusers
+        });
+    }
 
 
-      let responeHeader;
-      if (lastRatings === undefined || lastRatings.length == 0) {
-          responeHeader = '';
-      } else {
-          responeHeader = (<h4 className="ui header ryt">{GetText('RIGHT_SIDEBAR_RESPONSE_COMPARISON', mlarray)}</h4>);
-      }
+    render () {
+        let surveyresults = this.state.surveyresults;
+        let companysurvey = this.state.companysurvey;
+        let currentuserid = this.state.currentuserid;
+        let totalcompanyusers = (this.state.totalcompanyusers) ? this.state.totalcompanyusers : 0;
+        let mlarray = this.state.mwkeys;
 
-      let responseComparison = lastRatings.map((data, index) => {
-          return [
-                        <div className="column padding-ryt response">
-                            <div className="ui segment padding-20">
-                                <p>{GetText('MW_OPT' + data.mood, mlarray)}</p>
-                            </div>
-                        </div>,
+        let employeesAtRisk = CompanyQuickStatistics.getEmployeeAtRisk(companysurvey);
+        let lastMonthResponses;
+        let timeSinceLastPost;
+        let lastRatings;
 
-                        <div className="column padding-ryt response">
-                            <div className="ui segment padding-20">
-                                <p><meter min="0" max="5" low="3.1" high="4" optimum="5" value={data.rating} className="tab-ryt-meter"></meter></p>
-                            </div>
-                        </div>
-                     ];
-      });
+        let cPath = this.context.router.getCurrentPathname();
+        let pages = ["/mycompany"];
+        if( pages.indexOf(cPath) >= 0){
+            //MyCompany Statistics.
+            lastMonthResponses = CompanyQuickStatistics.getNumberOfResponses(companysurvey);
+            timeSinceLastPost = CompanyQuickStatistics.getTimeSinceLastPosted(companysurvey);
+            lastRatings = (CompanyQuickStatistics.getLastRatings(companysurvey)).reverse();
 
+        } else {
+            //MyMood Statistics.
+            lastMonthResponses = QuickStatistics.getNumberOfResponses(surveyresults);
+            timeSinceLastPost = QuickStatistics.getTimeSinceLastPosted(surveyresults, currentuserid);
+            lastRatings = (QuickStatistics.getLastRatings(surveyresults)).reverse();
+        }
 
-      let days = '- ';
-      if(!isNaN(timeSinceLastPost['day'])) {
-          days = timeSinceLastPost['day'];
-      }
+        let responeHeader;
+        if (lastRatings === undefined || lastRatings.length == 0) {
+            responeHeader = '';
+        } else {
+            responeHeader = (<h4 className="ui header ryt">{GetText('RIGHT_SIDEBAR_RESPONSE_COMPARISON', mlarray)}</h4>);
+        }
 
-      let hours = '- ';
-      if(!isNaN(timeSinceLastPost['hour'])) {
-          hours = timeSinceLastPost['hour'];
-      }
+        let responseComparison = lastRatings.map((data, index) => {
+            return [
+                <div className="column padding-ryt response">
+                    <div className="ui segment padding-20">
+                        <p>{GetText('MW_OPT' + data.mood, mlarray)}</p>
+                    </div>
+                </div>,
 
-      let mins = '- ';
-      if(!isNaN(timeSinceLastPost['min'])) {
-          mins = timeSinceLastPost['min'];
-      }
+                <div className="column padding-ryt response">
+                    <div className="ui segment padding-20">
+                        <p><meter min="0" max="5" low="3.1" high="4" optimum="5" value={data.rating} className="tab-ryt-meter"></meter></p>
+                    </div>
+                </div>
+            ];
+        });
 
+        let days = '- ';
+        if(!isNaN(timeSinceLastPost['day'])) {
+            days = timeSinceLastPost['day'];
+        }
 
-      return (
+        let hours = '- ';
+        if(!isNaN(timeSinceLastPost['hour'])) {
+            hours = timeSinceLastPost['hour'];
+        }
+
+        let mins = '- ';
+        if(!isNaN(timeSinceLastPost['min'])) {
+            mins = timeSinceLastPost['min'];
+        }
+
+        return (
             <div className="ui right fixed vertical menu ryt right-menu">
                 <div className="ui segment ryt brdr-none">
                     <div className="item ryt">
@@ -168,11 +157,9 @@ export default class Rightnav extends React.Component {
                     </div>
                 </div>
             </div>
-      );
-  }
+        );
+    }
 
 }
 
 Rightnav.contextTypes = { router: React.PropTypes.func };
-
-

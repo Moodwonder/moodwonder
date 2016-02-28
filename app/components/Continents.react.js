@@ -12,7 +12,6 @@ export default RequireAuth(class Continents extends React.Component {
         this.state.totalPages = [];
         this.state.modal = false;
         this.state.PlacesList = false;
-
         this.hasData = false;
         this.rows = false;
         this.header = [];
@@ -30,7 +29,6 @@ export default RequireAuth(class Continents extends React.Component {
     }
 
     _onChange = (state) => {
-
         if(state.PlacesList.rows){
             state.rows = state.PlacesList.rows;
             this.pagination = state.PlacesList.pagination;
@@ -43,7 +41,7 @@ export default RequireAuth(class Continents extends React.Component {
                 state.message = this.state.ServerResponse.message;
             }
         }
-        // console.log(state);
+
         this.setState(state);
         this.messageAutoClose(state);
         if(this.state.message.trim() !==''){
@@ -79,7 +77,6 @@ export default RequireAuth(class Continents extends React.Component {
     _onRemoveClick = (e) => {
         if(confirm('Are you sure ?')){
             PlacesActions.deletePlaces({ _id: e.target.dataset.tag, placeType: 'continent', type: 'deletecontinent' });
-            // PlacesActions.getPlaces({ placeType: 'continent', page: this.page });
         }
     }
 
@@ -92,7 +89,6 @@ export default RequireAuth(class Continents extends React.Component {
     }
 
     render() {
-
         let rows;
         let pagination;
 
@@ -100,7 +96,6 @@ export default RequireAuth(class Continents extends React.Component {
         {
             if(this.state.rows !== undefined && this.state.rows.length>0){
                 rows = this.state.rows.map((row, key) => {
-                    // console.log(row);
                     this.hasData = true;
                     return (
                         <tr key={row._id}>
@@ -114,7 +109,7 @@ export default RequireAuth(class Continents extends React.Component {
                 let pages = this.pagination.map((data, key) => {
                     return [<a className="item" onClick={this.onChangePage.bind(this,data.page)}>{data.text}</a>];
                 });
-                //console.log(this.pagination);
+
                 pagination = (
                     <div className="ui pagination menu">
                         {pages}
@@ -159,9 +154,9 @@ export default RequireAuth(class Continents extends React.Component {
                     </div>
                 </div>
                 <div className="ui modal">
-                  <i className="close icon"></i>
-                  <div className="header">Message</div>
-                  <div className="content" id="msg"></div>
+                    <i className="close icon"></i>
+                    <div className="header">Message</div>
+                    <div className="content" id="msg"></div>
                 </div>
             </div>
         );
@@ -170,74 +165,68 @@ export default RequireAuth(class Continents extends React.Component {
 
 class Editable extends React.Component {
 
-  constructor(props) {
-      super(props);
-      this.state =
-          {
+    constructor(props) {
+        super(props);
+        this.state =
+        {
             Edit: false,
             value:props.value,
             btnDisabled: true
-          };
-  }
+        };
+    }
 
-  componentDidMount() {
-  }
+    componentWillReceiveProps(e) {
+        // to set default
+        this.setState({Edit: false, value: this.props.value });
+    }
 
-  componentWillReceiveProps(e) {
-      // to set default
-      this.setState({Edit: false, value: this.props.value });
-  }
+    changeValue = (event) => {
+        let btnDisabled = true;
+        if(this.props.value !== event.target.value){
+            btnDisabled = false;
+        }
+        this.setState({value:event.target.value, btnDisabled: btnDisabled});
+    }
 
-  changeValue = (event) => {
+    onEditClick = () => {
+        this.setState({ Edit: true, value: this.props.value });
+    }
 
-      let btnDisabled = true;
-      if(this.props.value !== event.target.value){
-          btnDisabled = false;
-      }
-      this.setState({value:event.target.value, btnDisabled: btnDisabled});
-  }
+    onSaveClick = (teamname,teamid) => {
+        if(this.props.value !== this.state.value && teamname.trim() !== ''){
+            this.props.onSave({teamname:teamname,teamid:teamid});
+        }
+    }
 
-  onEditClick = () => {
-      this.setState({ Edit: true, value: this.props.value });
-  }
+    render() {
+        let buttonlabel = 'Edit';
 
-  onSaveClick = (teamname,teamid) => {
+        let inputORLable = (
+            <label htmlFor="email">{this.props.value}</label>
+        );
 
-      if(this.props.value !== this.state.value && teamname.trim() !== ''){
-          this.props.onSave({teamname:teamname,teamid:teamid});
-      }
-  }
+        let actionButton = (
+            <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
+        );
 
-  render() {
+        if(this.state.Edit){
+            buttonlabel  = 'Save';
+            inputORLable = (
+                <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
+            );
 
-      let buttonlabel = 'Edit';
+            actionButton = (
+                <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
+            );
+        }
 
-      let inputORLable = (
-        <label htmlFor="email">{this.props.value}</label>
-      );
-
-      let actionButton = (
-        <button type="button" className="btn btn-default" onClick={this.onEditClick} >{buttonlabel}</button>
-      );
-
-      if(this.state.Edit){
-          buttonlabel  = 'Save';
-          inputORLable = (
-            <input type="text" className="form-control" ref="email"  onChange={this.changeValue} value={this.state.value} />
-          );
-
-          actionButton = (
-            <button type="button" disabled={this.state.btnDisabled} className="btn btn-default" onClick={this.onSaveClick.bind(this,this.state.value,this.props.teamid)} >{buttonlabel}</button>
-          );
-      }
-
-      return (
-        <div className="row">
-           {inputORLable}
-           {actionButton}
-        </div>
-      );
-  }
+        return (
+            <div className="row">
+                {inputORLable}
+                {actionButton}
+            </div>
+        );
+    }
 }
 
 class AddContinents extends React.Component {
@@ -248,7 +237,6 @@ class AddContinents extends React.Component {
     }
 
     _onChange = (state) => {
-        //console.log(state);
         this.setState(state);
         this.messageAutoClose(state);
         if(state.ServerResponse.status){
@@ -280,7 +268,6 @@ class AddContinents extends React.Component {
     }
 
     render() {
-
         return (
             <div className="form-group">
                 <div className="ui three column stackable grid container ">
