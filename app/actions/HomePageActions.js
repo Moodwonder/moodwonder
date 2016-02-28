@@ -2,8 +2,8 @@ import alt from 'altInstance';
 import CommonWebAPIUtils from 'utils/CommonWebAPIUtils';
 
 /**
- * HomePageActions
- */
+* HomePageActions
+*/
 class HomePageActions {
 
     // request Demo

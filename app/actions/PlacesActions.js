@@ -2,14 +2,14 @@ import alt from 'altInstance';
 import AdminWebAPIUtils from 'utils/CommonAdminWebAPIUtils';
 
 /**
- * PlacesActions
- */
+* PlacesActions
+*/
 class PlacesActions {
 
-  // add new places
-  addPlaces (data) {
-      this.dispatch();
-      AdminWebAPIUtils.addPlaces(data)
+    // add new places
+    addPlaces (data) {
+        this.dispatch();
+        AdminWebAPIUtils.addPlaces(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.addplaces(response);
@@ -17,36 +17,36 @@ class PlacesActions {
             }
         }, () => {
         });
-  }
+    }
 
-  addplaces (response) {
-      this.dispatch(response);
-  }
+    addplaces (response) {
+        this.dispatch(response);
+    }
 
-  // add new continent
-  getPlaces (data) {
-      //console.log(data);
-      this.dispatch();
-      AdminWebAPIUtils.getPlaces(data)
+    // add new continent
+    getPlaces (data) {
+        //console.log(data);
+        this.dispatch();
+        AdminWebAPIUtils.getPlaces(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 //console.log(response);
                 this.actions.getplaces(response);
-               // this.actions.getcontinents();
+                // this.actions.getcontinents();
             }
         }, () => {
         });
-  }
+    }
 
-  getplaces (response) {
-      //console.log(response);
-      this.dispatch(response);
-  }
+    getplaces (response) {
+        //console.log(response);
+        this.dispatch(response);
+    }
 
-  // update places
-  updatePlaces (data,_id) {
-      this.dispatch();
-      AdminWebAPIUtils.updatePlaces(data)
+    // update places
+    updatePlaces (data,_id) {
+        this.dispatch();
+        AdminWebAPIUtils.updatePlaces(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.updateplaces(response);
@@ -64,16 +64,16 @@ class PlacesActions {
             }
         }, () => {
         });
-  }
+    }
 
-  updateplaces (response) {
-      this.dispatch(response);
-  }
+    updateplaces (response) {
+        this.dispatch(response);
+    }
 
-  // delete Places
-  deletePlaces (data,_id) {
-      this.dispatch();
-      AdminWebAPIUtils.deletePlaces(data)
+    // delete Places
+    deletePlaces (data,_id) {
+        this.dispatch();
+        AdminWebAPIUtils.deletePlaces(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.deleteplaces(response);
@@ -86,27 +86,27 @@ class PlacesActions {
             }
         }, () => {
         });
-  }
+    }
 
-  deleteplaces (response) {
-      this.dispatch(response);
-  }
+    deleteplaces (response) {
+        this.dispatch(response);
+    }
 
-  // get places like coutry, state, city
-  getPlacesData (data) {
-      //this.dispatch();
-      AdminWebAPIUtils.getPlacesData(data)
+    // get places like coutry, state, city
+    getPlacesData (data) {
+        //this.dispatch();
+        AdminWebAPIUtils.getPlacesData(data)
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 this.actions.getplacesdata(response);
             }
         }, () => {
         });
-  }
+    }
 
-  getplacesdata (response) {
-      this.dispatch(response);
-  }
+    getplacesdata (response) {
+        this.dispatch(response);
+    }
 
 }
 

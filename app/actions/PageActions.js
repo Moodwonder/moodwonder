@@ -3,53 +3,53 @@ import LanguageWebAPIUtils from 'utils/LanguageWebAPIUtils';
 
 class PageActions {
 
-  getLanguages () {
-      this.dispatch();
-      LanguageWebAPIUtils.getLanguages()
-      .then((response, textStatus) => {
-          if (response.status === 'success') {
-              this.actions.languages(response.languages);
-          }
-      }, () => {
-        // Dispatch another event for a bad request
-      });
-  }
+    getLanguages () {
+        this.dispatch();
+        LanguageWebAPIUtils.getLanguages()
+        .then((response, textStatus) => {
+            if (response.status === 'success') {
+                this.actions.languages(response.languages);
+            }
+        }, () => {
+            // Dispatch another event for a bad request
+        });
+    }
 
-  languages (data) {
-      this.dispatch(data);
-  }
+    languages (data) {
+        this.dispatch(data);
+    }
 
-  getPage (data) {
-      this.dispatch();
-      LanguageWebAPIUtils.getPage(data)
-      .then((response, textStatus) => {
-          if (response.status === 'success') {
-              this.actions.pagesuccess(response.pagedata);
-          }
-      }, () => {
-        // Dispatch another event for a bad request
-      });
-  }
+    getPage (data) {
+        this.dispatch();
+        LanguageWebAPIUtils.getPage(data)
+        .then((response, textStatus) => {
+            if (response.status === 'success') {
+                this.actions.pagesuccess(response.pagedata);
+            }
+        }, () => {
+            // Dispatch another event for a bad request
+        });
+    }
 
-  pagesuccess (data) {
-      this.dispatch(data);
-  }
+    pagesuccess (data) {
+        this.dispatch(data);
+    }
 
-  updatePageKeys (id, page, data) {
-      this.dispatch();
-      LanguageWebAPIUtils.updatePageKeys(id, page, data)
-      .then((response, textStatus) => {
-          if (textStatus === 'success') {
-              this.actions.pagekeyssuccess(true);
-          }
-      }, () => {
-        // Dispatch another event for a bad request
-      });
-  }
+    updatePageKeys (id, page, data) {
+        this.dispatch();
+        LanguageWebAPIUtils.updatePageKeys(id, page, data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.pagekeyssuccess(true);
+            }
+        }, () => {
+            // Dispatch another event for a bad request
+        });
+    }
 
-  pagekeyssuccess (data) {
-      this.dispatch(data);
-  }
+    pagekeyssuccess (data) {
+        this.dispatch(data);
+    }
 
 
 }

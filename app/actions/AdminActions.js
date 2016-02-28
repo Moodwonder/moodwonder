@@ -3,12 +3,12 @@ import AdminWebAPIUtils from 'utils/AdminWebAPIUtils';
 
 class AdminActions {
 
-  /**
-   * Login function
-   */
-  login (data) {
-      this.dispatch();
-      AdminWebAPIUtils.login(data)
+    /**
+    * Login function
+    */
+    login (data) {
+        this.dispatch();
+        AdminWebAPIUtils.login(data)
         .then((response, textStatus) => {
             if (response.status === 'success') {
                 // Dispatch another event for successful login
@@ -19,19 +19,19 @@ class AdminActions {
         }, () => {
             // Dispatch another event for a bad login
         });
-  }
+    }
 
-  loginsuccess (response) {
-      this.dispatch(response);
-  }
+    loginsuccess (response) {
+        this.dispatch(response);
+    }
 
-  loginfailure (response) {
-      this.dispatch(response);
-  }
+    loginfailure (response) {
+        this.dispatch(response);
+    }
 
-  logout () {
-      this.dispatch();
-      AdminWebAPIUtils.logout()
+    logout () {
+        this.dispatch();
+        AdminWebAPIUtils.logout()
         .then((response, textStatus) => {
             if (textStatus === 'success') {
                 // Dispatch another event for successful login
@@ -40,11 +40,11 @@ class AdminActions {
         }, () => {
             // Dispatch another event for a bad login
         });
-  }
+    }
 
-  logoutsuccess () {
-      this.dispatch();
-  }
+    logoutsuccess () {
+        this.dispatch();
+    }
 
 }
 

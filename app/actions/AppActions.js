@@ -1,14 +1,14 @@
 import alt from 'altInstance';
 
 /**
- * AppActions
- */
+* AppActions
+*/
 class AppActions {
 
-  // check login status and get user type
-  checkuser () {
-      this.dispatch();
-  }
+    // check login status and get user type
+    checkuser () {
+        this.dispatch();
+    }
 
 }
 
