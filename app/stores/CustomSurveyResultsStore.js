@@ -3,29 +3,29 @@ import alt from 'altInstance';
 
 class CustomSurveyResultsStore {
 
-  constructor() {
+    constructor() {
 
-      this.status = false;
-      this.surveyform = [];
-      this.users = [];
-      this.surveyresponses = [];
+        this.status = false;
+        this.surveyform = [];
+        this.users = [];
+        this.surveyresponses = [];
 
-      this.on('init', this.bootstrap);
-      this.on('bootstrap', this.bootstrap);
+        this.on('init', this.bootstrap);
+        this.on('bootstrap', this.bootstrap);
 
-      this.bindListeners({
-          handleSurveyResponses: CustomSurveyResultsActions.HANDLESURVEYRESPONSES
-      });
-  }
+        this.bindListeners({
+            handleSurveyResponses: CustomSurveyResultsActions.HANDLESURVEYRESPONSES
+        });
+    }
 
-  bootstrap() {}
+    bootstrap() {}
 
-  handleSurveyResponses(response) {
-      this.surveyform = response.surveyform;
-      this.users = response.users;
-      this.surveyresponses = response.surveyresponses;
-      this.emitChange();
-  }
+    handleSurveyResponses(response) {
+        this.surveyform = response.surveyform;
+        this.users = response.users;
+        this.surveyresponses = response.surveyresponses;
+        this.emitChange();
+    }
 
 }
 

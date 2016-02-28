@@ -2,26 +2,26 @@ import AdminCompanyActions from 'actions/AdminCompanyActions';
 import alt from 'altInstance';
 
 /**
- * AdminCompanyStore
- */
+* AdminCompanyStore
+*/
 class AdminCompanyStore {
 
-  constructor () {
+    constructor () {
 
-      this.companyList = false;
-      this.hasError = false;
-      this.message = '';
+        this.companyList = false;
+        this.hasError = false;
+        this.message = '';
 
-      this.bindListeners({
-        handleSetCompanyList: AdminCompanyActions.SETALLCOMPANYLIST
-      });
-  }
+        this.bindListeners({
+            handleSetCompanyList: AdminCompanyActions.SETALLCOMPANYLIST
+        });
+    }
 
-  handleSetCompanyList (res) {
-      this.companyList = res.data;
-      this.hasError = !res.status;
-      this.emitChange();
-  }
+    handleSetCompanyList (res) {
+        this.companyList = res.data;
+        this.hasError = !res.status;
+        this.emitChange();
+    }
 
 }
 

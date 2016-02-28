@@ -5,39 +5,38 @@ import alt from 'altInstance';
 
 class PageStore {
 
-  constructor () {
+    constructor () {
 
-      this.languages = [];//Immutable.Map({});
-      this.home = [];
-      this.pagedata = []; //Immutable.Map({});
-      this.on('init', this.bootstrap);
-      this.on('bootstrap', this.bootstrap);
+        this.languages = [];//Immutable.Map({});
+        this.home = [];
+        this.pagedata = []; //Immutable.Map({});
+        this.on('init', this.bootstrap);
+        this.on('bootstrap', this.bootstrap);
 
-      this.bindListeners({
-          handleLanguages: PageActions.LANGUAGES,
-          handlePage: PageActions.PAGESUCCESS
-      });
-  }
+        this.bindListeners({
+            handleLanguages: PageActions.LANGUAGES,
+            handlePage: PageActions.PAGESUCCESS
+        });
+    }
 
-  bootstrap () {
-      if (!Immutable.OrderedMap.isOrderedMap(this.pagedata)) {
-          this.pagedata = fromJSOrdered(this.pagedata);
-      }
-  }
+    bootstrap () {
+        if (!Immutable.OrderedMap.isOrderedMap(this.pagedata)) {
+            this.pagedata = fromJSOrdered(this.pagedata);
+        }
+    }
 
-  handleLanguages (data) {
-      this.languages = [];
-      for (let lng of data) {
-          //this.languages.push(lng.language);
-          this.languages.push(lng.code);
-      }
-      this.emitChange();
-  }
+    handleLanguages (data) {
+        this.languages = [];
+        for (let lng of data) {
+            this.languages.push(lng.code);
+        }
+        this.emitChange();
+    }
 
-  handlePage (data) {
-      this.pagedata = data;
-      this.emitChange();
-  }
+    handlePage (data) {
+        this.pagedata = data;
+        this.emitChange();
+    }
 
 }
 

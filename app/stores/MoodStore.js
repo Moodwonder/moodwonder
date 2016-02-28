@@ -6,46 +6,43 @@ import UserWebAPIUtils from 'utils/UserWebAPIUtils';
 
 class MoodStore {
 
-  constructor () {
-      this.moodstatus = false;
-      this.moods = [];
-      this.on('init', this.bootstrap);
-      this.on('bootstrap', this.bootstrap);
+    constructor () {
+        this.moodstatus = false;
+        this.moods = [];
+        this.on('init', this.bootstrap);
+        this.on('bootstrap', this.bootstrap);
 
-      this.bindListeners({
-          handleAddMood: MoodActions.ADDMOODSUCCESS,
-          handleGetMyMoods: MoodActions.GETMYMOODSSUCCESS
-      });
-  }
+        this.bindListeners({
+            handleAddMood: MoodActions.ADDMOODSUCCESS,
+            handleGetMyMoods: MoodActions.GETMYMOODSSUCCESS
+        });
+    }
 
-  bootstrap () {
-      if (!Immutable.OrderedMap.isOrderedMap(this.moods)) {
-          this.moods = fromJSOrdered(this.moods);
-      }
-  }
+    bootstrap () {
+        if (!Immutable.OrderedMap.isOrderedMap(this.moods)) {
+            this.moods = fromJSOrdered(this.moods);
+        }
+    }
 
-  handleAddMood (res) {
-      if(res.status) {
-          // let user_id = res.user_id;
-          // console.log('res.user_id');
-          // console.log(res.user_id);
-          UserWebAPIUtils.getMyMoods()
-           .then((response, textStatus) => {
-               if (response.status === 'success') {
-                   this.moodstatus = true;
-                   this.moods = response.data;
-                   this.emitChange();
-               }
-           }, () => {
-           // Dispatch another event for a bad request
-           });
-      }
-  }
+    handleAddMood (res) {
+        if(res.status) {
+            UserWebAPIUtils.getMyMoods()
+            .then((response, textStatus) => {
+                if (response.status === 'success') {
+                    this.moodstatus = true;
+                    this.moods = response.data;
+                    this.emitChange();
+                }
+            }, () => {
+                // Dispatch another event for a bad request
+            });
+        }
+    }
 
-  handleGetMyMoods (data) {
-      this.moods = data;
-      this.emitChange();
-  }
+    handleGetMyMoods (data) {
+        this.moods = data;
+        this.emitChange();
+    }
 
 
 }

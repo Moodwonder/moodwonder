@@ -2,8 +2,8 @@ import HomePageActions from 'actions/HomePageActions';
 import alt from 'altInstance';
 
 /**
- * HomePageStore
- */
+* HomePageStore
+*/
 class HomePageStore {
 
     constructor () {
