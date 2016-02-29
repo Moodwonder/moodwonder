@@ -9,7 +9,7 @@
     "build": "webpack --progress && node postpublish.js",
     "watch": "webpack --watch --progress && node postpublish.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint app/ server/",
+    "lint": "eslint app/",
     "postpublish": "node postpublish.js",
     "postinstall": "webpack -p && node postpublish.js"
   },
