@@ -37,8 +37,8 @@ export default class Pagination {
         }
 
         let diff = Math.floor(showPages / 2),
-        start = Math.max(currentPage - diff, 0),
-        end = Math.min(start + showPages, totalPages);
+            start = Math.max(currentPage - diff, 0),
+            end = Math.min(start + showPages, totalPages);
 
         if (totalPages >= showPages && end >= totalPages) {
             start = totalPages - showPages;
