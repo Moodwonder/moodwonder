@@ -18,7 +18,10 @@ export default class Homecontent extends React.Component {
                             <div className="ui middle aligned stackable grid container">
                                 <div className="ten wide column">
                                     <div className="ui segment">
-                                        <div className="images-container"><img src="/assets/images/whiteman-tab.png" alt="pc" className="tab slideUp " id="object"/> <img src="/assets/images/white-man.png" alt="pc" className="man hatch " id="object"  /> </div>
+                                        <div className="images-container">
+                                            <img src="/assets/images/whiteman-tab.png" alt="pc" className="tab" id="object"/>
+                                            <img src="/assets/images/white-man.png" alt="pc" className="man" id="object" />
+                                        </div>
                                     </div>
                                 </div>
                                 <Signup />
@@ -30,32 +33,36 @@ export default class Homecontent extends React.Component {
                 <div className="section" id="section1">
                     <div className="intro">
                         <div className=" ui container">
-                            <div className="ui middle aligned stackable grid container">
-                                <div className="eight wide column">
+                            <div className="ui stackable two column grid container">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
-                                        <h2 >HOM_2_TITLE_1</h2>
-                                        <div className="images-container">
-                                            <img src="/assets/images/1.png" alt="pc" className="img-boy" />
-                                            <img src="/assets/images/2.png" alt="pc" className="img-boy-2 "/>
+                                        <h2> HOM_2_TITLE_1 </h2>
+                                        <div className="images-container"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ui stackable three column grid container">
+                                <div id="object" className="column expandOpen fade-in one  ">
+                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="ui fluid card">
+                                        <div className="content">
+                                            <p> HOM_2_ITEM_1 </p>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="eight wide column">
-                                    <div className="ui segment slideRight ">
-                                        <h3> HOM_2_TITLE_2 </h3>
-                                        <div className="ui divided items palm-container">
-                                            <div className="item">
-                                                <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
-                                                <div className="middle aligned content">HOM_2_ITEM_1</div>
-                                            </div>
-                                            <div className="item">
-                                                <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
-                                                <div className="middle aligned content">HOM_2_ITEM_2</div>
-                                            </div>
-                                            <div className="item">
-                                                <div className="ui tiny image" style={{"height":"auto !important"}}> <i className="pointing right icon"></i></div>
-                                                <div className="middle aligned content">HOM_2_ITEM_3</div>
-                                            </div>
+                                <div id="object" className="column expandOpen fade-in two ">
+                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="ui fluid card">
+                                        <div className="content">
+                                            <p> HOM_2_ITEM_2 </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="object" className="column expandOpen fade-in three">
+                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="ui fluid card">
+                                        <div className="content">
+                                            <p> HOM_2_ITEM_3 </p>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +75,7 @@ export default class Homecontent extends React.Component {
                     <div className="intro">
                         <div className=" ui container">
                             <div className="ui stackable two column grid container">
-                                <div className="eight wide column">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
                                         <h2> HOM_3_TITLE_1 </h2>
                                         <div className="images-container"> </div>
@@ -129,7 +136,7 @@ export default class Homecontent extends React.Component {
                     <div className="intro">
                         <div className=" ui container">
                             <div className="ui stackable two column grid container">
-                                <div className="eight wide column">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
                                         <h2 >HOM_4_TITLE_1</h2>
                                         <div className="images-container"> </div>
@@ -192,7 +199,7 @@ export default class Homecontent extends React.Component {
                     <div className="intro">
                         <div className="ui container">
                             <div className="ui stackable two column grid  container items ">
-                                <div className="eight wide column">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
                                         <h2> HOM_5_TITLE_1 </h2>
                                         <div className="images-container"> </div>
@@ -243,11 +250,10 @@ export default class Homecontent extends React.Component {
                     <div className="intro">
                         <div className="ui container">
                             <div className="ui stackable two column grid  container items ">
-                                <div className="eight wide column">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
                                         <h2> HOM_6_TITLE_1 </h2>
                                         <div className="images-container"> </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -265,21 +271,19 @@ export default class Homecontent extends React.Component {
                     <div className="intro">
                         <div className="ui container transition visible">
                             <div className="ui stackable two column grid  container items ">
-                                <div className="eight wide column">
+                                <div className="sixteen wide column">
                                     <div className="ui segment">
                                         <h2> HOM_7_TITLE </h2>
-                                        <div className="images-container"> </div>
+                                        <div className="images-container"></div>
                                     </div>
                                 </div>
                             </div>
                             <div className="ui stackable three column grid  container items ">
-                                <div className="four wide column"></div>
+                                <div className="four wide column" />
                                 <RequestDemo />
-                                <div className="four wide column"></div>
+                                <div className="four wide column" />
                             </div>
-                            <div className="ui two column stackable grid container ">
-
-                            </div>
+                            <div className="ui two column stackable grid container" />
                         </div>
                     </div>
                 </div>
