@@ -42,7 +42,7 @@ export default class Homecontent extends React.Component {
                                 </div>
                             </div>
                             <div className="ui stackable three column grid container">
-                                <div id="object" className="column expandOpen fade-in one  ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -50,7 +50,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column expandOpen fade-in two ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -58,7 +58,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column expandOpen fade-in three">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -83,7 +83,7 @@ export default class Homecontent extends React.Component {
                                 </div>
                             </div>
                             <div className="ui stackable four column grid container">
-                                <div id="object" className="column fade-in one  ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="location arrow icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -94,7 +94,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in two ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="bar chart icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -105,7 +105,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in three">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="star icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -116,7 +116,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in four">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="share alternate icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -144,7 +144,7 @@ export default class Homecontent extends React.Component {
                                 </div>
                             </div>
                             <div className="ui stackable four column grid container">
-                                <div id="object" className="column fade-in one  ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="comments outline icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -155,7 +155,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in two ">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond">
                                         <i className="smile icon"></i>
                                     </div>
@@ -168,7 +168,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in three">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="area chart icon"></i></div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -179,7 +179,7 @@ export default class Homecontent extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div id="object" className="column fade-in four">
+                                <div id="object" className="column">
                                     <div className="image" id="diamond"> <i className="pie chart icon"></i></div>
                                     <div className="ui fluid card">
                                         <div className="content">
@@ -210,14 +210,14 @@ export default class Homecontent extends React.Component {
                         <div className="ui container transition visible">
                             <div className="ui stackable two column  grid container ">
                                 <div className="row">
-                                    <div className="column fade-in one">
+                                    <div className="column">
                                         <div className="image" id="diamond"> <i className="wizard icon"></i></div>
                                         <span>
                                             <h3> HOM_5_BOX_1_TITLE_1 </h3>
                                         </span> <span>
                                         <p> HOM_5_BOX_1_CONTENT </p>
                                     </span> </div>
-                                    <div className="column fade-in two">
+                                    <div className="column">
                                         <div className="image" id="diamond"><i className="line chart icon"></i> </div>
                                         <span>
                                             <h3> HOM_5_BOX_2_TITLE_1 </h3>
@@ -226,14 +226,14 @@ export default class Homecontent extends React.Component {
                                     </span> </div>
                                 </div>
                                 <div className="row">
-                                    <div className="column fade-in three">
+                                    <div className="column">
                                         <div className="image" id="diamond"> <i className="student icon"></i> </div>
                                         <span>
                                             <h3> HOM_5_BOX_3_TITLE_1 </h3>
                                         </span> <span>
                                         <p> HOM_5_BOX_3_CONTENT </p>
                                     </span> </div>
-                                    <div className="column fade-in four">
+                                    <div className="column">
                                         <div className="image" id="diamond"> <i className="trophy icon"></i> </div>
                                         <span>
                                             <h3> HOM_5_BOX_4_TITLE_1 </h3>
@@ -258,10 +258,10 @@ export default class Homecontent extends React.Component {
                                 </div>
                             </div>
                             <div className="ui four column stackable grid container ">
-                                <div className="column expandOpen one fadeIn"> <img className="ui medium circular image" src="/assets/images/sneak-peak-1.png" /></div>
-                                <div className="column expandOpen two fadeIn"><img className="ui medium circular image" src="/assets/images/sneak-peak-2.png" /></div>
-                                <div className="column expandOpen three fadeIn"> <img className="ui medium circular image" src="/assets/images/sneak-peak-3.png" /></div>
-                                <div className="column expandOpen four fadeIn"><img className="ui medium circular image" src="/assets/images/sneak-peak-4.png" /></div>
+                                <div className="column"> <img className="ui medium circular image" src="/assets/images/sneak-peak-1.png" /></div>
+                                <div className="column"><img className="ui medium circular image" src="/assets/images/sneak-peak-2.png" /></div>
+                                <div className="column"> <img className="ui medium circular image" src="/assets/images/sneak-peak-3.png" /></div>
+                                <div className="column"><img className="ui medium circular image" src="/assets/images/sneak-peak-4.png" /></div>
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ export default class Homecontent extends React.Component {
 
                 <div className="section" id="section6">
                     <div className="intro">
-                        <div className="ui container transition visible">
+                        <div className="ui container">
                             <div className="ui stackable two column grid  container items ">
                                 <div className="sixteen wide column">
                                     <div className="ui segment">
