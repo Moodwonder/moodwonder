@@ -13,6 +13,8 @@ export default class Homepage extends React.Component {
             HOM_REGISTER: '',
             HOM_SGN_WORK_EMAIL: '',
             HOM_GET_STARTED: '',
+            HOM_1_TITLE_1: '',
+            HOM_1_SUBTITLE_1: '',
             HOM_2_TITLE_1: '',
             HOM_2_TITLE_2: '',
             HOM_2_ITEM_1: '',
@@ -81,6 +83,8 @@ export default class Homepage extends React.Component {
             HOM_REGISTER: pagedata.HOM_REGISTER,
             HOM_SGN_WORK_EMAIL: pagedata.HOM_SGN_WORK_EMAIL,
             HOM_GET_STARTED: pagedata.HOM_GET_STARTED,
+            HOM_1_TITLE_1: pagedata.HOM_1_TITLE_1,
+            HOM_1_SUBTITLE_1: pagedata.HOM_1_SUBTITLE_1,
             HOM_2_TITLE_1: pagedata.HOM_2_TITLE_1,
             HOM_2_TITLE_2: pagedata.HOM_2_TITLE_2,
             HOM_2_ITEM_1: pagedata.HOM_2_ITEM_1,
@@ -148,6 +152,14 @@ export default class Homepage extends React.Component {
     homGetStarted = (e) => {
         e.preventDefault();
         this.setState({ HOM_GET_STARTED: e.target.value });
+    }
+    homOneTitleOne = (e) => {
+        e.preventDefault();
+        this.setState({ HOM_1_TITLE_1: e.target.value });
+    }
+    homOneSubTitleOne = (e) => {
+        e.preventDefault();
+        this.setState({ HOM_1_SUBTITLE_1: e.target.value });
     }
     homTwoTitleOne = (e) => {
         e.preventDefault();
@@ -334,7 +346,9 @@ export default class Homepage extends React.Component {
         let HOM_REGISTER = this.state.HOM_REGISTER;
         let HOM_SGN_WORK_EMAIL = this.state.HOM_SGN_WORK_EMAIL;
         let HOM_GET_STARTED = this.state.HOM_GET_STARTED;
-        let HOM_2_TITLE_1 = this.state.HOM_2_TITLE_1;
+        let HOM_1_TITLE_1 = this.state.HOM_1_TITLE_1;
+        let HOM_1_SUBTITLE_1 = this.state.HOM_2_TITLE_1;
+        let HOM_2_TITLE_1 = this.state.HOM_1_SUBTITLE_1;
         let HOM_2_TITLE_2 = this.state.HOM_2_TITLE_2;
         let HOM_2_ITEM_1 = this.state.HOM_2_ITEM_1;
         let HOM_2_ITEM_2 = this.state.HOM_2_ITEM_2;
@@ -421,6 +435,22 @@ export default class Homepage extends React.Component {
                                     className="form-control"
                                     value={HOM_GET_STARTED}
                                     onChange={this.homGetStarted} />
+                            </div>
+                            <div className="field">
+                                <label>HOM_1_TITLE_1</label>
+                                <input type="text"
+                                    name="HOM_1_TITLE_1"
+                                    className="form-control"
+                                    value={HOM_1_TITLE_1}
+                                    onChange={this.homOneTitleOne} />
+                            </div>
+                            <div className="field">
+                                <label>HOM_1_SUBTITLE_1</label>
+                                <input type="text"
+                                    name="HOM_1_SUBTITLE_1"
+                                    className="form-control"
+                                    value={HOM_1_SUBTITLE_1}
+                                    onChange={this.homOneSubTitleOne} />
                             </div>
                             <div className="field">
                                 <label>HOM_2_TITLE_1</label>

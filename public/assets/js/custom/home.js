@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('#fullpage').fullpage({
         anchors: ['home', 'engaging-employees', 'get-started', 'features', 'why-mw', 'sneak-peek', 'contact'],
-        sectionsColor: ['#26A69A ', '#F44336', '#64B5F6', '#FBBD08', '#66BB6A', '#ba68c8', '#4dd0e1'],
+        sectionsColor: ['#2ab27b ', '#439fe0', '#edb431', '#eb4d5c', '#8a74b9', '#2ab27b', '#439fe0'],
         navigation: true,
         navigationPosition: 'right',
         navigationTooltips: ['HOME', 'ENGAGING EMPLOYEES', 'GET STARTED', 'FEATURES', 'WHY MOODWONDER', 'SNEAK PEEK', 'REQUEST A DEMO'],

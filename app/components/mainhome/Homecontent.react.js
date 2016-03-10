@@ -18,10 +18,8 @@ export default class Homecontent extends React.Component {
                             <div className="ui middle aligned stackable grid container">
                                 <div className="ten wide column">
                                     <div className="ui segment">
-                                        <div className="images-container">
-                                            <img src="/assets/images/whiteman-tab.png" alt="pc" className="tab" id="object"/>
-                                            <img src="/assets/images/white-man.png" alt="pc" className="man" id="object" />
-                                        </div>
+                                        <h1>HOM_1_TITLE_1</h1>
+                                        <h2>HOM_1_SUBTITLE_1</h2>
                                     </div>
                                 </div>
                                 <Signup />
@@ -267,7 +265,7 @@ export default class Homecontent extends React.Component {
                     </div>
                 </div>
 
-                <div className="section" id="section6">
+                <div className="section" id="section3">
                     <div className="intro">
                         <div className="ui container">
                             <div className="ui stackable two column grid  container items ">

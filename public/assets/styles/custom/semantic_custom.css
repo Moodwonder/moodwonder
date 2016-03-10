@@ -6,14 +6,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 h1, h2, h3, h4, h5 {
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     font-weight: normal;
-}
-h3 {
-    font-size: 20px;
-    margin-bottom: 50px;
-    color: #fff;
-    font-weight: normal;
+    line-height: 1.5em;
 }
 .ui.button {
     height: 54px;
@@ -202,7 +198,7 @@ ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list 
 }
 .ui.menu {
     display: block!important;
-   
+
 }
 .ui.menu:not(.vertical) .item {
     float: left;
