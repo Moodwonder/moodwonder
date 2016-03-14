@@ -272,7 +272,7 @@
 	color: rgba(0, 0, 0, 0.4);
 }
 .ui.cards > .card .meta > a:not(.ui):hover, .ui.card .meta > a:not(.ui):hover {
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 /*--------------
      Buttons

@@ -127,7 +127,7 @@
 	text-align: left;
 	border-top: none;
 	line-height: 1em;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	padding: 0.71428571rem 1.14285714rem !important;
 	font-size: 1rem;
 	text-transform: none;
@@ -322,7 +322,7 @@
 	background: #26A69A;
 	display: inline-block;
 	padding: 0.78571429em 2.6em 0.78571429em 1em;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	box-shadow: none;
 	border-radius: 0.28571429rem;
 	-webkit-transition: box-shadow 0.1s ease, width 0.1s ease;

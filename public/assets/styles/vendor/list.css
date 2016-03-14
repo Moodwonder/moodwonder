@@ -117,7 +117,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 	margin: 0em;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 /* Description */
 .ui.list .list > .item .description, .ui.list > .item .description {
@@ -131,7 +131,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 /* Linking Item */
 .ui.list .list > a.item, .ui.list > a.item {
 	cursor: pointer;
-	color: #4183c4;
+	color: #3499e0;
 }
 .ui.list .list > a.item:hover, .ui.list > a.item:hover {
 	color: #1e70bf;
@@ -143,7 +143,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 /* Header Link */
 .ui.list .list > .item a.header, .ui.list > .item a.header {
 	cursor: pointer;
-	color: #4183c4 !important;
+	color: #3499e0 !important;
 }
 .ui.list .list > .item a.header:hover, .ui.list > .item a.header:hover {
 	color: #1e70bf !important;
@@ -244,7 +244,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 --------------------*/
 
 .ui.list .list > a.item:hover .icon, .ui.list > a.item:hover .icon {
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 /*******************************
            Variations
@@ -435,7 +435,7 @@ ul.ui.horizontal.bulleted.list li:first-child, .ui.horizontal.bulleted.list > .i
 	margin-left: 0em;
 }
 ul.ui.horizontal.bulleted.list li::before, .ui.horizontal.bulleted.list > .item::before {
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 ul.ui.horizontal.bulleted.list li:first-child::before, .ui.horizontal.bulleted.list > .item:first-child::before {
 	display: none;
@@ -466,7 +466,7 @@ ol.ui.list li:before, .ui.ordered.list .list > .item:before, .ui.ordered.list > 
 	counter-increment: ordered;
 	content: counters(ordered, ".") " ";
 	text-align: right;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	vertical-align: middle;
 	opacity: 0.8;
 }

@@ -30,7 +30,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	line-height: 1.4285em;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	font-smoothing: antialiased;
 }
 /*******************************
@@ -104,29 +104,29 @@ a:hover {
 /* Site */
 ::-webkit-selection {
  background-color: #cce2ff;
- color: rgba(0, 0, 0, 0.87);
+ color: #555459;
 }
 ::-moz-selection {
  background-color: #cce2ff;
- color: rgba(0, 0, 0, 0.87);
+ color: #555459;
 }
 ::selection {
 	background-color: #cce2ff;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 
 /* Form */
 textarea::-webkit-selection, input::-webkit-selection {
  background-color: rgba(100, 100, 100, 0.4);
- color: rgba(0, 0, 0, 0.87);
+ color: #555459;
 }
 textarea::-moz-selection, input::-moz-selection {
  background-color: rgba(100, 100, 100, 0.4);
- color: rgba(0, 0, 0, 0.87);
+ color: #555459;
 }
 textarea::selection, input::selection {
 	background-color: rgba(100, 100, 100, 0.4);
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 
 

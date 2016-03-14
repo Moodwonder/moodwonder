@@ -835,7 +835,7 @@ h2.com {
     height: 54px;
     background: #FFF none repeat scroll 0% 0%;
     border: 1px solid rgba(34, 36, 38, 0.15);
-    color: rgba(0, 0, 0, 0.87);
+    color: #555459;
     border-radius: 2px;
     transition: background-color 0.1s ease 0s, box-shadow 0.1s ease 0s, border-color 0.1s ease 0s;
     box-shadow: none;
