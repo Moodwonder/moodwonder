@@ -21,8 +21,8 @@ export default class ProfileLeft extends React.Component {
                     <span id="userfullname" >{uname}</span>
                     <i className="angle down icon"></i>
                     <div className="menu">
-                        <div className="item drop-down-item"><a id={index} key={index} href={ `/publicprofile/${uid}` } style={{"color":"#000 !important"}}>{plink}</a></div>
-                        <div className="item drop-down-item"><a href="/logout" style={{"color":"#000 !important"}}>{logoutlink}</a></div>
+                        <div className="item drop-down-item"><a id={index} key={index} href={ `/publicprofile/${uid}` } style={{"color":"#555459 !important"}}>{plink}</a></div>
+                        <div className="item drop-down-item"><a href="/logout" style={{"color":"#555459 !important"}}>{logoutlink}</a></div>
                     </div>
                 </div>
             </div>

@@ -46,7 +46,7 @@ abbr,acronym { border: 0;
  * --------------------------------------- */
 body{
 	font-family: 'Roboto', sans-serif;
-	color: #333;
+	color: #555459;
 	color: rgba(0,0,0,0.5);
 }
 .wrap{
@@ -65,7 +65,7 @@ h1{
 #menu li {
 	display:inline-block;
 	margin: 10px;
-	color: #000;
+	color: #555459;
 	background:#fff;
 	background: rgba(255,255,255, 0.5);
 	-webkit-border-radius: 10px;
@@ -78,10 +78,10 @@ h1{
 }
 #menu li a{
 	text-decoration:none;
-	color: #000;
+	color: #555459;
 }
 #menu li.active a:hover{
-	color: #000;
+	color: #555459;
 }
 #menu li:hover{
 	background: rgba(255,255,255, 0.8);
@@ -169,7 +169,7 @@ h1{
 #infoMenu li a{
 	display: block;
 	margin: 0 22px 0 0;
-	color: #333;
+	color: #555459;
 }
 #infoMenu li a:hover{
 	text-decoration:underline;

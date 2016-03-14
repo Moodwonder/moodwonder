@@ -102,7 +102,7 @@ exports.postVote = function(req, res, next) {
 										var link = 'http://' + req.get('host') + '/employeeofthemonth';
 										var body = "Hooray "+user.firstname+"! <br><br>" +
 												"Someone in "+ company_name +" has voted for you on Moodwonder! You have done something remarkable or shown you are a great team player! Congrats! <br><br>" +
-												"<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
+												"<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
 												"It's time to cast your vote and thank someone for being a great colleague or for doing a great job!<br><br>" +
 												"Thanks,"+
 												"<br> Moodwonder Team";
@@ -267,7 +267,7 @@ exports.chooseEmployeeOfTheMonth = function(req, res, next) {
                                     var transporter = nodemailer.createTransport();
                                     var link = 'http://' + req.get('host') + '/publicprofile/'+user._id;
                                     var body = "Congratulations "+ user.firstname +' '+ user.lastname +"! You have received the most votes in Moodwonder within "+ company_name +" this month!<br><br>" +
-                                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Check it out</a> <br><br>" +
+                                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Check it out</a> <br><br>" +
                                             "Thanks,"+
                                             "<br> Moodwonder Team";
                                     body = emailTemplate.general(body);

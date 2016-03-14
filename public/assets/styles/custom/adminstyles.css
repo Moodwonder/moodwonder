@@ -59,7 +59,7 @@
 }
 
 .ui.inverted.segment, .ui.primary.inverted.segment {
-    background: #4DB6AC;
+    background: #26a69a;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -103,7 +103,7 @@
 
 
 .ui.inverted.menu {
-    background: #4db6ac none repeat scroll 0 0;
+    background: #26a69a none repeat scroll 0 0;
 }
 h2 {
     margin: 20px 0 !important;

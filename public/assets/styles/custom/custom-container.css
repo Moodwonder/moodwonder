@@ -304,7 +304,7 @@
     }
     .invite-people.mobile p {
         font-size: 14px;
-        color: #000!important;
+        color: #555459!important;
         text-align: center;
         padding: 30px 0!important;
         margin: 0;
@@ -386,7 +386,7 @@
 }
 .red-time {
     padding: 10px 4px !important;
-    background: #ef5350;
+    background: #cb5234;
     border-radius: 4px;
     color: #fff;
     text-align: center;
@@ -405,7 +405,7 @@
 .employees {
     text-align: center;
     border-radius: 20px;
-    background-color: #64B5F6!important;
+    background-color: #3499e0!important;
     padding: 4px 10px !important;
     color: #FFF;
     float: right;
@@ -416,7 +416,7 @@
     color: #fff;
 }
 .risk {
-    background-color: #ef5350!important;
+    background-color: #cb5234!important;
     text-align: center;
     border-radius: 20px;
     padding: 4px 10px !important;
@@ -429,7 +429,7 @@
     color: #fff;
 }
 .last-month {
-    background-color: #66bb6a!important;
+    background-color: #4cb992!important;
     text-align: center;
     border-radius: 20px;
     padding: 5px 10px 3px !important;
@@ -545,17 +545,17 @@
 }
 .box-gry {
     background: #eeeeee!important;
-    color: #000!important;
+    color: #555459!important;
 }
 .box-gry-border {
     background: #e0e0e0!important;
-    color: #000!important;
+    color: #555459!important;
 }
 .box-green-border {
-    background: #66BB6A!important;
+    background: #4cb992!important;
 }
 .box-red-border {
-    background: #ef5350!important;
+    background: #cb5234!important;
 }
 .box-white {
     background: #fff!important;
@@ -590,7 +590,7 @@
 }
 .head {
     font-size: 20px;
-    color: #333;
+    color: #555459;
     font-weight: bold;
     margin: 4px;
 }
@@ -598,7 +598,7 @@
     color: #fff;
 }
 .title {
-    color: #000;
+    color: #555459;
 }
 .small-title {
     font-size: 12px;
@@ -645,7 +645,7 @@ h2.com {
 .points {
     text-align: center;
     background-color: #ECEFF1 !important;
-    color: #333;
+    color: #555459;
     float: right;
     border-radius: 68px;
     padding: 4px 14px !important;
@@ -653,7 +653,7 @@ h2.com {
 .chrt {
     float: right;
     text-align: right;
-    color: #000;
+    color: #555459;
     margin-left: 10px;
 }
 .options .ui.selection.dropdown {
@@ -669,7 +669,7 @@ h2.com {
     background: #fff;
     display: inline-block;
     padding: .78571429em 2.6em .78571429em 1em;
-    color: rgba(0,0,0,.87);
+    color: #555459;
     box-shadow: none;
     border: 1px solid rgba(34,36,38,.15);
     border-radius: .28571429rem;
@@ -677,15 +677,15 @@ h2.com {
     transition: box-shadow .1s ease, width .1s ease;
 }
 .cancel {
-    background: #EF5350 !important;
+    background: #cb5234 !important;
     color: #fff!important;
 }
 .submitt {
-    background: #66BB6A !important;
+    background: #4cb992 !important;
     color: #fff!important;
 }
 .invite {
-    background: #64B5F6 !important;
+    background: #3499e0 !important;
     color: #fff!important;
 }
 .list.ui.pagination.menu {
@@ -744,7 +744,7 @@ h2.com {
     line-height: 1;
     text-decoration: none;
     -moz-user-select: none;
-    background: #4DB6AC none repeat scroll 0% 0%;
+    background: #26a69a none repeat scroll 0% 0%;
     padding: 10px !important;
     text-transform: none;
     color: #26A69A;
@@ -781,7 +781,7 @@ h2.com {
 }
 .test-gen {
     float: right;
-    background: #64B5F6;
+    background: #3499e0;
     color: #fff!important;
 }
 .test-gen a {
@@ -802,7 +802,7 @@ h2.com {
     margin-bottom: 30px;
 }
 .custom-box .ui.grid > .column:not(.row) {
-    padding: 0 20px!important;
+    padding: 5px 20px!important;
 }
 .survey.test .ui.label {
     width: 100%!important
@@ -909,26 +909,26 @@ meter::-webkit-meter-optimum-value, meter::-webkit-meter-suboptimum-value, meter
     border-radius: 20px;
 }
 meter::-webkit-meter-optimum-value {
-    background: #66bb6a;
+    background: #4cb992;
 }
 meter::-webkit-meter-suboptimum-value {
     background: #FBBD08;
 }
 meter::-webkit-meter-even-less-good-value {
-    background: #ef5350;
+    background: #cb5234;
 }
 /* Firefox */
 meter::-moz-meter-bar {
     border-radius: 20px;
 }
 meter:-moz-meter-optimum::-moz-meter-bar {
-    background: #66bb6a;
+    background: #4cb992;
 }
 meter:-moz-meter-sub-optimum::-moz-meter-bar {
     background: #FBBD08;
 }
 meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: #ef5350;
+    background: #cb5234;
 }
 /*.ui.segment.brdr canvas {
     width: 200px !important;
@@ -1028,6 +1028,3 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     display: none;
 }
 /* End: Edited by Dev */
-
-
-

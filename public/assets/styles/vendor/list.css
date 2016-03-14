@@ -308,7 +308,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 	color: rgba(0, 0, 0, 0.9);
 }
 .ui.link.list .active.item, .ui.link.list .active.item a:not(.ui) {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 .ui.inverted.link.list .item, .ui.inverted.link.list a.item, .ui.inverted.link.list .item a:not(.ui) {
@@ -350,7 +350,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 }
 .ui.selection.list .list > .item.active, .ui.selection.list > .item.active {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 .ui.inverted.selection.list > .item, .ui.inverted.selection.list > .item {

@@ -28,7 +28,7 @@ export default class List extends React.Component {
                                         <h3>ERR_MESSAGE</h3>
                                     </div>
                                     <div className="">
-                                        ERR_TEXTBEFORE_LINK <a href="/" style={{"color": "#000"}}>ERR_REDIRECT_LINK</a>?
+                                        ERR_TEXTBEFORE_LINK <a href="/" style={{"color": "#555459"}}>ERR_REDIRECT_LINK</a>?
                                     </div>
                                 </div>
                             </div>

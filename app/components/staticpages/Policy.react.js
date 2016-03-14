@@ -12,7 +12,7 @@ export default class Policy extends React.Component {
 
         return (
             <div className="pusher">
-                <div className="ui inverted vertical masthead center aligned segment" style={{"background-color": "#4db6ac"}}>
+                <div className="ui inverted vertical masthead center aligned segment" style={{"background-color": "#26a69a"}}>
                     <Header />
                     <div className="ui text container">
                         <div className="banner-content">

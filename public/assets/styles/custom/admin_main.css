@@ -169,7 +169,7 @@ h1 {
 
 mark {
 	background: #ff0;
-	color: #000;
+	color: #555459;
 }
 /**
  * Address inconsistent and variable font size in all browsers.
@@ -571,7 +571,7 @@ textarea::selection, input::selection {
 	outline: none;
 	border: none;
 	vertical-align: baseline;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 	margin: 0em 0.25em 0em 0em;
 	height: 54px;
 	line-height: 54px;
@@ -639,12 +639,12 @@ textarea::selection, input::selection {
 	background-color: #c0c1c2;
 	background-image: none;
 	box-shadow: 0px 0px 0px 1px transparent inset;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.active.button:hover {
 	background-color: #c0c1c2;
 	background-image: none;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.active.button:active {
 	background-color: #c0c1c2;
@@ -1124,7 +1124,7 @@ textarea::selection, input::selection {
 
 .ui.basic.buttons .button, .ui.basic.button {
 	background: transparent none !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 	font-weight: normal;
 	border-radius: 0.28571429rem;
 	text-transform: none;
@@ -1157,7 +1157,7 @@ textarea::selection, input::selection {
 .ui.basic.buttons .active.button, .ui.basic.active.button {
 	background: rgba(0, 0, 0, 0.05) !important;
 	box-shadow: '' !important;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	box-shadow: rgba(34, 36, 38, 0.35);
 }
 .ui.basic.buttons .active.button:hover, .ui.basic.active.button:hover {
@@ -1639,7 +1639,7 @@ textarea::selection, input::selection {
 
 .ui.basic.black.buttons .button, .ui.basic.black.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.black.buttons .button:hover, .ui.basic.black.button:hover {
 	background: transparent !important;
@@ -1674,16 +1674,16 @@ textarea::selection, input::selection {
 	color: #ffffff;
 }
 .ui.inverted.black.buttons .button:hover, .ui.inverted.black.button:hover {
-	background-color: #000000;
+	background-color: #555459;
 }
 .ui.inverted.black.buttons .button:focus, .ui.inverted.black.button:focus {
-	background-color: #000000;
+	background-color: #555459;
 }
 .ui.inverted.black.buttons .active.button, .ui.inverted.black.active.button {
-	background-color: #000000;
+	background-color: #555459;
 }
 .ui.inverted.black.buttons .button:active, .ui.inverted.black.button:active {
-	background-color: #000000;
+	background-color: #555459;
 }
 /* Inverted Basic */
 
@@ -1693,19 +1693,19 @@ textarea::selection, input::selection {
 	color: #ffffff !important;
 }
 .ui.inverted.black.basic.buttons .button:hover, .ui.inverted.black.buttons .basic.button:hover, .ui.inverted.black.basic.button:hover {
-	box-shadow: 0px 0px 0px 2px #000000 inset !important;
+	box-shadow: 0px 0px 0px 2px #555459 inset !important;
 	color: #ffffff !important;
 }
 .ui.inverted.black.basic.buttons .button:focus, .ui.inverted.black.basic.buttons .button:focus, .ui.inverted.black.basic.button:focus {
-	box-shadow: 0px 0px 0px 2px #000000 inset !important;
+	box-shadow: 0px 0px 0px 2px #555459 inset !important;
 	color: #545454 !important;
 }
 .ui.inverted.black.basic.buttons .active.button, .ui.inverted.black.buttons .basic.active.button, .ui.inverted.black.basic.active.button {
-	box-shadow: 0px 0px 0px 2px #000000 inset !important;
+	box-shadow: 0px 0px 0px 2px #555459 inset !important;
 	color: #ffffff !important;
 }
 .ui.inverted.black.basic.buttons .button:active, .ui.inverted.black.buttons .basic.button:active, .ui.inverted.black.basic.button:active {
-	box-shadow: 0px 0px 0px 2px #000000 inset !important;
+	box-shadow: 0px 0px 0px 2px #555459 inset !important;
 	color: #ffffff !important;
 }
 /*--- Grey ---*/
@@ -1743,7 +1743,7 @@ textarea::selection, input::selection {
 
 .ui.basic.grey.buttons .button, .ui.basic.grey.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.grey.buttons .button:hover, .ui.basic.grey.button:hover {
 	background: transparent !important;
@@ -1775,7 +1775,7 @@ textarea::selection, input::selection {
 }
 .ui.inverted.grey.buttons .button:hover, .ui.inverted.grey.button:hover, .ui.inverted.grey.buttons .button:focus, .ui.inverted.grey.button:focus, .ui.inverted.grey.buttons .button.active, .ui.inverted.grey.button.active, .ui.inverted.grey.buttons .button:active, .ui.inverted.grey.button:active {
 	box-shadow: none !important;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.inverted.grey.buttons .button:hover, .ui.inverted.grey.button:hover {
 	background-color: #cfd0d2;
@@ -1847,7 +1847,7 @@ textarea::selection, input::selection {
 
 .ui.basic.brown.buttons .button, .ui.basic.brown.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.brown.buttons .button:hover, .ui.basic.brown.button:hover {
 	background: transparent !important;
@@ -1951,7 +1951,7 @@ textarea::selection, input::selection {
 
 .ui.basic.blue.buttons .button, .ui.basic.blue.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.blue.buttons .button:hover, .ui.basic.blue.button:hover {
 	background: transparent !important;
@@ -2055,7 +2055,7 @@ textarea::selection, input::selection {
 
 .ui.basic.green.buttons .button, .ui.basic.green.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.green.buttons .button:hover, .ui.basic.green.button:hover {
 	background: transparent !important;
@@ -2148,7 +2148,7 @@ textarea::selection, input::selection {
 
 .ui.basic.orange.buttons .button, .ui.basic.orange.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.orange.buttons .button:hover, .ui.basic.orange.button:hover {
 	background: transparent !important;
@@ -2252,7 +2252,7 @@ textarea::selection, input::selection {
 
 .ui.basic.pink.buttons .button, .ui.basic.pink.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.pink.buttons .button:hover, .ui.basic.pink.button:hover {
 	background: transparent !important;
@@ -2356,7 +2356,7 @@ textarea::selection, input::selection {
 
 .ui.basic.violet.buttons .button, .ui.basic.violet.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.violet.buttons .button:hover, .ui.basic.violet.button:hover {
 	background: transparent !important;
@@ -2460,7 +2460,7 @@ textarea::selection, input::selection {
 
 .ui.basic.purple.buttons .button, .ui.basic.purple.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.purple.buttons .button:hover, .ui.basic.purple.button:hover {
 	background: transparent !important;
@@ -2564,7 +2564,7 @@ textarea::selection, input::selection {
 
 .ui.basic.red.buttons .button, .ui.basic.red.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.red.buttons .button:hover, .ui.basic.red.button:hover {
 	background: transparent !important;
@@ -2668,7 +2668,7 @@ textarea::selection, input::selection {
 
 .ui.basic.teal.buttons .button, .ui.basic.teal.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.teal.buttons .button:hover, .ui.basic.teal.button:hover {
 	background: transparent !important;
@@ -2700,7 +2700,7 @@ textarea::selection, input::selection {
 }
 .ui.inverted.teal.buttons .button:hover, .ui.inverted.teal.button:hover, .ui.inverted.teal.buttons .button:focus, .ui.inverted.teal.button:focus, .ui.inverted.teal.buttons .button.active, .ui.inverted.teal.button.active, .ui.inverted.teal.buttons .button:active, .ui.inverted.teal.button:active {
 	box-shadow: none !important;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.inverted.teal.buttons .button:hover, .ui.inverted.teal.button:hover {
 	background-color: #54ffff;
@@ -2772,7 +2772,7 @@ textarea::selection, input::selection {
 
 .ui.basic.olive.buttons .button, .ui.basic.olive.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.olive.buttons .button:hover, .ui.basic.olive.button:hover {
 	background: transparent !important;
@@ -2804,7 +2804,7 @@ textarea::selection, input::selection {
 }
 .ui.inverted.olive.buttons .button:hover, .ui.inverted.olive.button:hover, .ui.inverted.olive.buttons .button:focus, .ui.inverted.olive.button:focus, .ui.inverted.olive.buttons .button.active, .ui.inverted.olive.button.active, .ui.inverted.olive.buttons .button:active, .ui.inverted.olive.button:active {
 	box-shadow: none !important;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.inverted.olive.buttons .button:hover, .ui.inverted.olive.button:hover {
 	background-color: #d8ea5c;
@@ -2876,7 +2876,7 @@ textarea::selection, input::selection {
 
 .ui.basic.yellow.buttons .button, .ui.basic.yellow.button {
 	box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset !important;
-	color: rgba(0, 0, 0, 0.6) !important;
+	color: #555459 !important;
 }
 .ui.basic.yellow.buttons .button:hover, .ui.basic.yellow.button:hover {
 	background: transparent !important;
@@ -2908,7 +2908,7 @@ textarea::selection, input::selection {
 }
 .ui.inverted.yellow.buttons .button:hover, .ui.inverted.yellow.button:hover, .ui.inverted.yellow.buttons .button:focus, .ui.inverted.yellow.button:focus, .ui.inverted.yellow.buttons .button.active, .ui.inverted.yellow.button.active, .ui.inverted.yellow.buttons .button:active, .ui.inverted.yellow.button:active {
 	box-shadow: none !important;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.inverted.yellow.buttons .button:hover, .ui.inverted.yellow.button:hover {
 	background-color: #ffdf05;
@@ -4319,7 +4319,7 @@ i.flag.zw:before, i.flag.zimbabwe:before {
 	margin: 0em;
 	font-size: 1rem;
 	line-height: 1.2em;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 /*--------------
       Icon
@@ -8185,7 +8185,7 @@ img.ui.image {
 	border-color: #e8e8e8;
 	background-image: none;
 	padding: 0.5833em 0.833em;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 	text-transform: none;
 	font-weight: bold;
 	border-radius: 0.28571429rem;
@@ -8577,12 +8577,12 @@ a.ui.labels .label:hover, a.ui.label:hover {
 	background-color: #d0d0d0;
 	border-color: #d0d0d0;
 	background-image: none;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.active.label:before {
 	background-color: #d0d0d0;
 	background-image: none;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*-------------------
      Active Hover
@@ -8592,12 +8592,12 @@ a.ui.labels .active.label:hover, a.ui.active.label:hover {
 	background-color: #c8c8c8;
 	border-color: #c8c8c8;
 	background-image: none;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
  .ui.labels a.active.label:ActiveHover:before, a.ui.active.label:ActiveHover:before {
  background-color: #c8c8c8;
  background-image: none;
- color: rgba(0, 0, 0, 0.95);
+ color: #3a4351;
 }
 /*-------------------
       Visible
@@ -9422,7 +9422,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 	color: rgba(0, 0, 0, 0.9);
 }
 .ui.link.list .active.item, .ui.link.list .active.item a:not(.ui) {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 
@@ -9465,7 +9465,7 @@ ul.ui.list ul li, ol.ui.list ol li, .ui.list .list > .item {
 }
 .ui.selection.list .list > .item.active, .ui.selection.list > .item.active {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 
@@ -11129,7 +11129,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 
 .ui.secondary.segment {
 	background: #f3f4f5;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.secondary.inverted.segment {
 	background: #4c4f52 -webkit-linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
@@ -11140,7 +11140,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 
 .ui.tertiary.segment {
 	background: #dcddde;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.tertiary.inverted.segment {
 	background: #717579 -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%);
@@ -12135,14 +12135,14 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 ---------------------*/
 
 .ui.form input:not([type]):focus, .ui.form input[type="date"]:focus, .ui.form input[type="datetime-local"]:focus, .ui.form input[type="email"]:focus, .ui.form input[type="number"]:focus, .ui.form input[type="password"]:focus, .ui.form input[type="search"]:focus, .ui.form input[type="tel"]:focus, .ui.form input[type="time"]:focus, .ui.form input[type="text"]:focus, .ui.form input[type="url"]:focus {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-color: rgba(34, 36, 38, 0.35);
 	border-radius: 0.28571429rem;
 	background: #ffffff;
 	box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;
 }
 .ui.form textarea:focus {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-color: rgba(34, 36, 38, 0.35);
 	border-radius: 0.28571429rem;
 	background: #ffffff;
@@ -14060,7 +14060,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 	background: none;
 	padding: 0.92857143em 1.14285714em;
 	text-transform: none;
-	color: #333;
+	color: #555459;
 	font-weight: normal;
 	-webkit-transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
 	transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;
@@ -14220,16 +14220,16 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 }
 .ui.menu .ui.dropdown .menu > .item:hover {
 	background: rgba(0, 0, 0, 0.05) !important;
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.menu .ui.dropdown .menu > .selected.item {
 	background: rgba(0, 0, 0, 0.05) !important;
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.menu .ui.dropdown .menu > .active.item {
 	background: rgba(0, 0, 0, 0.03) !important;
 	font-weight: bold !important;
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.menu .ui.dropdown.item .menu .item:not(.filtered) {
 	display: block;
@@ -14364,7 +14364,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 
 .ui.link.menu .item:hover, .ui.menu .dropdown.item:hover, .ui.menu .link.item:hover, .ui.menu a.item:hover {
 	cursor: pointer;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
      Pressed
@@ -14378,7 +14378,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 ---------------*/
 
 .ui.menu .active.item {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	font-weight: normal;
 	box-shadow: none;
 }
@@ -14390,7 +14390,7 @@ ol.ui.horizontal.list li:before, .ui.ordered.horizontal.list .list > .item:befor
 ---------------*/
 
 .ui.menu .active.item:hover, .ui.vertical.menu .active.item:hover {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
      Disabled
@@ -14532,7 +14532,7 @@ Floated Menu / Item
 .ui.vertical.menu .item .menu .active.item {
 	background-color: transparent;
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
      Tabular
@@ -14571,7 +14571,7 @@ Floated Menu / Item
 
 .ui.tabular.menu .active.item {
 	background-color: #ffffff;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-top-width: 1px;
 	border-color: #d4d4d5;
 	font-weight: bold;
@@ -14606,7 +14606,7 @@ Floated Menu / Item
 
 .ui.vertical.tabular.menu .active.item {
 	background-color: #ffffff;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-color: #d4d4d5;
 	margin: 0px -1px 0px 0px;
 	border-radius: 0.28571429rem 0px 0px 0.28571429rem !important;
@@ -14654,7 +14654,7 @@ Floated Menu / Item
 	border-top: none;
 	padding-top: 0.92857143em;
 	background-color: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	box-shadow: none;
 }
 /*--------------
@@ -14705,14 +14705,14 @@ Floated Menu / Item
 
 .ui.secondary.menu .dropdown.item:hover, .ui.secondary.menu .link.item:hover, .ui.secondary.menu a.item:hover {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Active */
 
 .ui.secondary.menu .active.item {
 	box-shadow: none;
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-radius: 0.28571429rem;
 }
 /* Active Hover */
@@ -14720,7 +14720,7 @@ Floated Menu / Item
 .ui.secondary.menu .active.item:hover {
 	box-shadow: none;
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 
@@ -14820,13 +14820,13 @@ Floated Menu / Item
 	box-shadow: none;
 	border-color: #1b1c1d;
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Active Hover */
 
 .ui.secondary.pointing.menu .active.item:hover {
 	border-color: #1b1c1d;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Active Dropdown */
 
@@ -14872,7 +14872,7 @@ Floated Menu / Item
 /* Hover */
 
 .ui.secondary.inverted.pointing.menu .item:hover {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Active */
 
@@ -14900,7 +14900,7 @@ Floated Menu / Item
 	align-self: center;
 	margin: 0em 0.5em;
 	font-weight: normal;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 	-webkit-transition: opacity 0.1s ease;
 	transition: opacity 0.1s ease;
 }
@@ -14970,7 +14970,7 @@ Floated Menu / Item
 	border: none;
 	box-shadow: none;
 	font-weight: normal;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--- active hover ---*/
 
@@ -16401,7 +16401,7 @@ Floated Menu / Item
 .ui.definition.table tr td:first-child {
 	background: rgba(0, 0, 0, 0.03);
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Fix 2nd Column */
 
@@ -16561,7 +16561,7 @@ Floated Menu / Item
 
 .ui.selectable.table tbody tr:hover {
 	background: rgba(0, 0, 0, 0.05) !important;
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.selectable.inverted.table tbody tr:hover {
 	background: rgba(255, 255, 255, 0.08) !important;
@@ -16930,7 +16930,7 @@ Floated Menu / Item
 
 .ui.sortable.table thead th.sorted {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.sortable.table thead th.sorted:after {
 	display: inline-block;
@@ -16939,7 +16939,7 @@ Floated Menu / Item
 
 .ui.sortable.table thead th.sorted:hover {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 
@@ -16964,7 +16964,7 @@ Floated Menu / Item
 /* Text Color */
 
 .ui.inverted.table {
-	background: #333333;
+	background: #555459;
 	color: rgba(255, 255, 255, 0.9);
 	border: none;
 }
@@ -18487,7 +18487,7 @@ Floated Menu / Item
 	background: none;
 	border: none;
 	border-radius: none;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.feed > .event > .label img {
 	width: 100%;
@@ -18626,7 +18626,7 @@ Floated Menu / Item
 	border-radius: 0;
 	box-shadow: none;
 	padding: 0em;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.feed > .event > .content .meta > * {
 	position: relative;
@@ -18670,7 +18670,7 @@ Floated Menu / Item
 	transition: color 0.1s ease;
 }
 .ui.feed > .event > .content .meta a:hover, .ui.feed > .event > .content .meta a:hover .icon, .ui.feed > .event > .content .meta > .icon:hover {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*******************************
             Variations
@@ -18896,7 +18896,7 @@ Floated Menu / Item
 	margin: 0.5em 0em 0.5em;
 	font-size: 1em;
 	line-height: 1em;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.items > .item .meta * {
 	margin-right: 0.3em;
@@ -19780,11 +19780,11 @@ Floated Menu / Item
 
 .ui.styled.accordion .active.title {
 	background: transparent;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.styled.accordion .accordion .active.title {
 	background: transparent;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*******************************
             States
@@ -19969,10 +19969,10 @@ Floated Menu / Item
 	border-color: rgba(34, 36, 38, 0.35);
 }
 .ui.checkbox .box:active::after, .ui.checkbox label:active::after {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.checkbox input:active ~ label {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
      Focus
@@ -19983,10 +19983,10 @@ Floated Menu / Item
 	border-color: rgba(34, 36, 38, 0.35);
 }
 .ui.checkbox input:focus ~ .box:after, .ui.checkbox input:focus ~ label:after {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.checkbox input:focus ~ label {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
      Active
@@ -19998,7 +19998,7 @@ Floated Menu / Item
 }
 .ui.checkbox input:checked ~ .box:after, .ui.checkbox input:checked ~ label:after {
 	opacity: 1;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
   Indeterminate
@@ -20010,7 +20010,7 @@ Floated Menu / Item
 }
 .ui.checkbox input:indeterminate ~ .box:after, .ui.checkbox input:indeterminate ~ label:after {
 	opacity: 1;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
   Active Focus
@@ -20021,7 +20021,7 @@ Floated Menu / Item
 	border-color: rgba(34, 36, 38, 0.5);
 }
 .ui.checkbox input:indeterminate:focus ~ .box:after, .ui.checkbox input:indeterminate:focus ~ label:after, .ui.checkbox input:checked:focus ~ .box:after, .ui.checkbox input:checked:focus ~ label:after {
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------
     Read-Only
@@ -20037,7 +20037,7 @@ Floated Menu / Item
 .ui.disabled.checkbox .box:after, .ui.disabled.checkbox label, .ui.checkbox input[disabled] ~ .box:after, .ui.checkbox input[disabled] ~ label {
 	cursor: default;
 	opacity: 0.5;
-	color: #000000;
+	color: #555459;
 }
 /*--------------
      Hidden
@@ -20113,7 +20113,7 @@ Floated Menu / Item
 	background-color: #f9fafb;
 }
 .ui.radio.checkbox input:focus ~ .box:after, .ui.radio.checkbox input:focus ~ label:after {
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: #3a4351;
 }
 /* Indeterminate */
 
@@ -20126,7 +20126,7 @@ Floated Menu / Item
 	background-color: #ffffff;
 }
 .ui.radio.checkbox input:checked ~ .box:after, .ui.radio.checkbox input:checked ~ label:after {
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: #3a4351;
 }
 /* Active Focus */
 
@@ -20134,7 +20134,7 @@ Floated Menu / Item
 	background-color: #f9fafb;
 }
 .ui.radio.checkbox input:focus:checked ~ .box:after, .ui.radio.checkbox input:focus:checked ~ label:after {
-	background-color: rgba(0, 0, 0, 0.95);
+	background-color: #3a4351;
 }
 /*--------------
      Slider
@@ -20215,7 +20215,7 @@ Floated Menu / Item
 /* Active */
 
 .ui.slider.checkbox input:checked ~ .box, .ui.slider.checkbox input:checked ~ label {
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.slider.checkbox input:checked ~ .box:before, .ui.slider.checkbox input:checked ~ label:before {
 	background-color: #545454 !important;
@@ -20226,10 +20226,10 @@ Floated Menu / Item
 /* Active Focus */
 
 .ui.slider.checkbox input:focus:checked ~ .box, .ui.slider.checkbox input:focus:checked ~ label {
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.slider.checkbox input:focus:checked ~ .box:before, .ui.slider.checkbox input:focus:checked ~ label:before {
-	background-color: #000000 !important;
+	background-color: #555459 !important;
 }
 /*--------------
      Toggle
@@ -20308,7 +20308,7 @@ Floated Menu / Item
 /* Active */
 
 .ui.toggle.checkbox input:checked ~ .box, .ui.toggle.checkbox input:checked ~ label {
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.toggle.checkbox input:checked ~ .box:before, .ui.toggle.checkbox input:checked ~ label:before {
 	background-color: #2185d0 !important;
@@ -20319,7 +20319,7 @@ Floated Menu / Item
 /* Active Focus */
 
 .ui.toggle.checkbox input:focus:checked ~ .box, .ui.toggle.checkbox input:focus:checked ~ label {
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.toggle.checkbox input:focus:checked ~ .box:before, .ui.toggle.checkbox input:focus:checked ~ label:before {
 	background-color: #0d71bb !important;
@@ -20488,7 +20488,7 @@ body.dimmable > .dimmer {
 /* Dimmer Color */
 
 .blurring.dimmable > .dimmer {
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: #555459;
 }
 .blurring.dimmable > .inverted.dimmer {
 }
@@ -21204,7 +21204,7 @@ select.ui.dropdown {
 .ui.dropdown .menu .active.item {
 	background: transparent;
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	box-shadow: none;
 	z-index: 12;
 }
@@ -21216,7 +21216,7 @@ select.ui.dropdown {
 
 .ui.dropdown .menu > .item:hover {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	z-index: 13;
 }
 /*--------------------
@@ -21322,7 +21322,7 @@ select.ui.dropdown {
 
 .ui.dropdown.selected, .ui.dropdown .menu .selected.item {
 	background: rgba(0, 0, 0, 0.03);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------------
     Search Filtered
@@ -23805,7 +23805,7 @@ a.ui.nag {
 .ui.search > .prompt:focus {
 	border-color: rgba(34, 36, 38, 0.35);
 	background: #ffffff;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------------
        Loading
@@ -25086,7 +25086,7 @@ html.ios, html.ios body {
 .ui.definition.table tr td:first-child {
 	background: rgba(0, 0, 0, 0.03);
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Fix 2nd Column */
 
@@ -25246,7 +25246,7 @@ html.ios, html.ios body {
 
 .ui.selectable.table tbody tr:hover {
 	background: rgba(0, 0, 0, 0.05) !important;
-	color: rgba(0, 0, 0, 0.95) !important;
+	color: #3a4351 !important;
 }
 .ui.selectable.inverted.table tbody tr:hover {
 	background: rgba(255, 255, 255, 0.08) !important;
@@ -25615,7 +25615,7 @@ html.ios, html.ios body {
 
 .ui.sortable.table thead th.sorted {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 .ui.sortable.table thead th.sorted:after {
 	display: inline-block;
@@ -25624,7 +25624,7 @@ html.ios, html.ios body {
 
 .ui.sortable.table thead th.sorted:hover {
 	background: rgba(0, 0, 0, 0.05);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /* Inverted */
 
@@ -25649,7 +25649,7 @@ html.ios, html.ios body {
 /* Text Color */
 
 .ui.inverted.table {
-	background: #333333;
+	background: #555459;
 	color: rgba(255, 255, 255, 0.9);
 	border: none;
 }
@@ -27786,14 +27786,14 @@ html.ios, html.ios body {
 .inner-pages footer {
 	bottom: 0px;
 	font-size: 14px;
-	color: #000!important;
+	color: #555459!important;
 	text-align: right;
 	width: 100%;
 	padding: 0px;
 	transition: all 2000ms ease 0s;
 }
 .inner-pages footer a {
-	color: #000!important;
+	color: #555459!important;
 	text-align: right;
 	padding: 0 6px;
 }
