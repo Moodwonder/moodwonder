@@ -159,7 +159,7 @@ export default class Question extends React.Component {
                                 </div>
                                 <div className=" field">
                                     <select
-                                        className=""
+                                        className="ui dropdown"
                                         ref={'answertype_' + qid}
                                         id={qid} name={'answertype_' + qid}
                                         onChange={this.onSelectAnswerType}>

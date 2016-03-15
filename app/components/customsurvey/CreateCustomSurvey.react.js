@@ -576,7 +576,7 @@ export default class CreateCustomSurvey extends React.Component {
                                 </div>
                                 <div className="ten wide column padin-lft">
                                     <div className="ui form options">
-                                        <select className="" name="target_teamid">
+                                        <select className="ui dropdown" name="target_teamid">
                                             <option value="0">{GetText('MYMD_TORG_DEFAULT_OPTION', mlarray)}</option>
                                             {companyoption}
                                             {teamoption}
@@ -600,7 +600,7 @@ export default class CreateCustomSurvey extends React.Component {
                                 </div>
                                 <div className="ten wide column padin-lft ">
                                     <div className="ui form options">
-                                        <select className="" name="targetlevel" style={{"maxWidth": "100%"}}>
+                                        <select className="ui dropdown" name="targetlevel">
                                             <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
                                             <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
                                         </select>
@@ -640,7 +640,7 @@ export default class CreateCustomSurvey extends React.Component {
                                 </div>
                                 <div className="ten wide column padin-lft ">
                                     <div className="ui form options">
-                                        <select className="" name="targetmood" style={{"maxWidth": "100%"}}>
+                                        <select className="ui dropdown" name="targetmood">
                                             <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
                                             <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
                                             <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>

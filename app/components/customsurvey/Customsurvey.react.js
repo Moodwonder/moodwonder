@@ -481,7 +481,7 @@ export default class Customsurvey extends React.Component {
                         <label>Target group</label>
                         <br/>
                         <input type="radio" name="targetgroup" value="organization" defaultChecked/>&nbsp; Org &nbsp;
-                        <select name="target_teamid" className="navigation__item">
+                        <select name="target_teamid" className="navigation__item ui dropdown">
                             <option value="0">Select company or team</option>
                             {companyoption}
                             {teamoption}
@@ -489,7 +489,7 @@ export default class Customsurvey extends React.Component {
                         <br/>
                         <input type="radio" name="targetgroup" value="survey" />&nbsp; Survey &nbsp;
                         <input type="text"  name="targetvalue" />%&nbsp;&nbsp;&nbsp;
-                        <select name="targetlevel" className="navigation__item">
+                        <select name="targetlevel" className="navigation__item ui dropdown">
                             <option value="above">Above</option>
                             <option value="below">Below</option>
                         </select>

@@ -60,7 +60,7 @@ export default class ModalSelect extends React.Component {
         ];
 
         return (
-            <select name="comment_title">
+            <select className="ui dropdown" name="comment_title">
                 {select}
             </select>
         );
