@@ -272,7 +272,7 @@ export default RequireAuth(class AllTeams extends React.Component {
                     <div className="ui two column stackable grid container" >
                         <div className="column" >
                             <form className="ui form" >
-                                <select className="form-control" onChange={this._onCompanyChange} >
+                                <select className="ui search dropdown" onChange={this._onCompanyChange} >
                                     <option value="">-- Select a company --</option>
                                     {companylist}
                                 </select>

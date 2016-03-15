@@ -535,7 +535,6 @@
 }
 .width-rating {
     width: 100%!important;
-    padding: 20px 0!important;
 }
 .box-red {
     background: #e57373!important;
@@ -1011,9 +1010,9 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     }
 }
 .slider-value {
-    border: 1px solid #FBBD08;
+    border: 1px solid #555459;
     border-radius: 4px;
-    color: #FBBD08;
+    color: #555459;
     float: right;
     margin: 0 10px 0 0;
     padding: 4px;

@@ -412,7 +412,7 @@ export default class MyProfile extends React.Component {
                         </div>
                         <div className="field">
                             <label>{GetText('PRFL_GINFO_RPT_FRQ', mlarray)}</label>
-                            <select className="ui dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
+                            <select className="ui search dropdown"  onChange={this._onChangeGeneralInfo} id="reportfrequency" value={userInfo.reportfrequency} >
                                 <option value="">Report Frequency</option>
                                 <option value="Weekly">Weekly</option>
                                 <option value="Monthly">Monthly</option>

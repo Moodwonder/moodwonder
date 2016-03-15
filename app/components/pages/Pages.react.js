@@ -1043,7 +1043,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <form id="pageForm" className="ui form">
                             <div className="field">
                                 <label htmlFor="inputPage">Select Page : </label>
-                                <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
+                                <select className="ui search dropdown" id="inputPage" name="page" onChange={this.onSelectPage}>
                                     <option value="home">Home</option>
                                     <option value="about">About</option>
                                     <option value="anonymity">Anonymity</option>

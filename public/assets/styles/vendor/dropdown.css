@@ -24,7 +24,6 @@
 	transition: box-shadow 0.1s ease, width 0.1s ease;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	width: 100%;
-	text-transform: uppercase;
 	color: #fff;
 	padding: 30px 0 0 0;
 	font-family: 'Roboto', sans-serif;
@@ -329,11 +328,11 @@
 	transition: box-shadow 0.1s ease, width 0.1s ease;
 	text-align: left;
 	color: #fff;
-	
-	
-	
-	
-	
+
+
+
+
+
 }
 .ui.selection.dropdown.visible, .ui.selection.dropdown.active {
 	z-index: 10;
