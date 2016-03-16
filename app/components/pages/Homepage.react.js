@@ -347,7 +347,7 @@ export default class Homepage extends React.Component {
         let HOM_SGN_WORK_EMAIL = this.state.HOM_SGN_WORK_EMAIL;
         let HOM_GET_STARTED = this.state.HOM_GET_STARTED;
         let HOM_1_TITLE_1 = this.state.HOM_1_TITLE_1;
-        let HOM_1_SUBTITLE_1 = this.state.HOM_2_TITLE_1;
+        let HOM_1_SUBTITLE_1 = this.state.HOM_1_SUBTITLE_1;
         let HOM_2_TITLE_1 = this.state.HOM_2_TITLE_1;
         let HOM_2_TITLE_2 = this.state.HOM_2_TITLE_2;
         let HOM_2_ITEM_1 = this.state.HOM_2_ITEM_1;
