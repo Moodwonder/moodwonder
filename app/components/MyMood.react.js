@@ -1107,7 +1107,7 @@ export default class MyMood extends React.Component {
         let customSurveyTabContent=null;
         if (customsurveytab) {
             customSurveyTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top-20 ">
                     <div className="ui segment brdr-none padding-none width-rating  ">
                         <div className="clear"></div>
                         {statusmessage}
@@ -1252,7 +1252,7 @@ export default class MyMood extends React.Component {
         let moodRatingsTabContent=null;
         if (moodratingstab) {
             moodRatingsTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top-20">
                     <div className="ui segment brdr-none padding-none width-rating">
                         <div className="clear"></div>
                         <div className="ui two cards column stackable">
