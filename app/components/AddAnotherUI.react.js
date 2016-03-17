@@ -60,7 +60,7 @@ export default class AddAnotherUI extends React.Component {
 
             dropdown = (
                 <div className="form-group">
-                    <select className="form-control" ref="team_id" name="team_id">
+                    <select className="ui search dropdown" ref="team_id" name="team_id">
                         <option value="">Select a team</option>
                         {options}
                     </select>

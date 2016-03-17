@@ -31,7 +31,7 @@
 .ui.menu.account .ui.secondary.menu .active.item.act-menu {
 	box-shadow: none!important;
 	background: none!important;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	border-radius: none;
 	border-right: 1px solid #ccc;
 	border-radius: 0;
@@ -64,7 +64,7 @@
 .act-menu.active {
 	box-shadow: none!important;
 	background: none!important;
-	color: #000!important;
+	color: #555459!important;
 	border-radius: none;
 	border-right: 1px solid #666;
 	border-radius: 0;
@@ -76,7 +76,7 @@
 .act-menu:hover {
 	box-shadow: none!important;
 	background: none!important;
-	color: #000!important;
+	color: #555459!important;
 	border-radius: none;
 	border-right: 1px solid #666;
 	border-radius: 0;
@@ -88,7 +88,7 @@
 .act-menu.active:last-child {
 	box-shadow: none!important;
 	background: none!important;
-	color: #000!important;
+	color: #555459!important;
 	border-radius: none;
 	border-right: none!important;
 	border-radius: 0;
@@ -102,26 +102,26 @@
 	height: 100%;
 }
 .cancel {
-	background: #EF5350 !important;
+	background: #cb5234 !important;
 	color: #fff!important;
 }
 .submitt {
-	background: #66BB6A !important;
+	background: #4cb992 !important;
 	color: #fff!important;
 }
 .invite {
-	background: #64B5F6 !important;
+	background: #3499e0 !important;
 	color: #fff!important;
 }
 .vote {
-	background: #EF5350 !important;
+	background: #cb5234 !important;
 	color: #fff!important;
 	height: 40px;
 	margin: 10px 0px!important;
 	transition: all 0.3s ease-out!important;
 }
 p.votes {
-	color: #000!important;
+	color: #555459!important;
 	background: rgba(255,255,255, 0.4);
 	padding: 4px 10px;
 	border-radius: 20px;
@@ -129,7 +129,7 @@ p.votes {
 	max-width: 390px;
 }
 .total-votes {
-	color: #64B5F6;
+	color: #3499e0;
 	text-align: center;
 	margin: 4px;
 	font-size: 15px;
@@ -145,11 +145,11 @@ p.votes {
 .dp-container .title h3 {
 	font-size: 16px;
 	text-transform: uppercase;
-	text-shadow: 1px 1px 1px #000;
+	text-shadow: 1px 1px 1px #555459;
 }
 .dp-container .mail {
 	font-size: 14px;
-	color: #000;
+	color: #555459;
 	background: rgba(255,255,255, 0.4);
 	padding: 4px 10px;
 	border-radius: 20px;
@@ -225,22 +225,22 @@ a.act-cover-image {
 }
 .sub:hover {
 	cursor: pointer;
-	border: 1px solid #64B5F6;
+	border: 1px solid #3499e0;
 	border-radius: 20px;
 }
 .sub .right {
 	text-align: right;
-	color: #EF5350 !important;
+	color: #cb5234 !important;
 	display: none!important;
 	transition: all 0.8s ease;
 }
 .sub:hover .right {
 	text-align: right;
-	color: #EF5350 !important;
+	color: #cb5234 !important;
 	display: block!important;
 }
 .cast .header {
-	color: #333!important;
+	color: #555459!important;
 }
 .cast .meta {
 	color: #666!important;
@@ -252,7 +252,7 @@ a.act-cover-image {
 	position: relative;
 	width: 0;
 	min-width: 2em;
-	background: #66BB6A !important;
+	background: #4cb992 !important;
 	border-radius: 10px;
 	-webkit-transition: width .1s ease, background-color .1s ease;
 	transition: width .1s ease, background-color .1s ease;
@@ -290,16 +290,16 @@ a.act-cover-image {
 	-webkit-transition: color .4s ease;
 	transition: color .4s ease;
 	text-transform: uppercase;
-	color: #64B5F6;
+	color: #3499e0;
 }
 .cast .extra.content {
 	text-align: center;
 }
-.text-shadow{ text-shadow: 1px 1px 1px #000;}
+.text-shadow{ text-shadow: 1px 1px 1px #555459;}
 p.votes {
     background: rgba(255, 255, 255, 0.4) none repeat scroll 0 0;
     border-radius: 20px;
-    color: #000 !important;
+    color: #555459 !important;
     max-width: 390px;
     padding: 4px 10px;
     width: 100% !important;

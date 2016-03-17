@@ -58,6 +58,7 @@ border-color:#d5c315!important
 height:1.2142em
 }
 .ui.form input:not([type]), .ui.form input[type=text], .ui.form input[type=email], .ui.form input[type=search], .ui.form input[type=password], .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=tel], .ui.form input[type=time], .ui.form input[type=url], .ui.form input[type=number] {
+	height: 38px;
 	margin: 0;
 	outline: 0;
 	-webkit-appearance: none;
@@ -67,7 +68,7 @@ height:1.2142em
 	font-size: 1em;
 	background: #fff;
 	border: 1px solid rgba(34,36,38,.15);
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	border-radius: 2px;
 	box-shadow: 0 0 0 0 transparent inset;
 	-webkit-transition: color .1s ease, border-color .1s ease;
@@ -81,7 +82,7 @@ height:1.2142em
 	background: #fff;
 	border: 1px solid rgba(34,36,38,.15);
 	outline: 0;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	border-radius: .28571429rem;
 	box-shadow: 0 0 0 0 transparent inset;
 	-webkit-transition: color .1s ease, border-color .1s ease;
@@ -103,14 +104,13 @@ height:1.2142em
 }
 .ui.form select {
 	display: block;
-	height: auto;
 	width: 100%;
 	background: #fff;
 	border: 1px solid rgba(34,36,38,.15);
 	border-radius: .28571429rem;
 	box-shadow: 0 0 0 0 transparent inset;
 	padding: .62em 1em;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	-webkit-transition: color .1s ease, border-color .1s ease;
 	transition: color .1s ease, border-color .1s ease
 }
@@ -233,7 +233,7 @@ color:#da9796
 	display: flex
 }
 .ui.form .field.error .input, .ui.form .field.error label, .ui.form .fields.error .field .input, .ui.form .fields.error .field label {
-	color: #EF5350;
+	color: #cb5234;
 }
 .ui.form .field.error .corner.label, .ui.form .fields.error .field .corner.label {
 	border-color: #9f3a38;
@@ -241,7 +241,7 @@ color:#da9796
 }
 .ui.form .field.error input:not([type]), .ui.form .field.error input[type=text], .ui.form .field.error input[type=email], .ui.form .field.error input[type=search], .ui.form .field.error input[type=password], .ui.form .field.error input[type=date], .ui.form .field.error input[type=datetime-local], .ui.form .field.error input[type=tel], .ui.form .field.error input[type=time], .ui.form .field.error input[type=url], .ui.form .field.error input[type=number], .ui.form .field.error select, .ui.form .field.error textarea, .ui.form .fields.error .field input:not([type]), .ui.form .fields.error .field input[type=text], .ui.form .fields.error .field input[type=email], .ui.form .fields.error .field input[type=search], .ui.form .fields.error .field input[type=password], .ui.form .fields.error .field input[type=date], .ui.form .fields.error .field input[type=datetime-local], .ui.form .fields.error .field input[type=tel], .ui.form .fields.error .field input[type=time], .ui.form .fields.error .field input[type=url], .ui.form .fields.error .field input[type=number], .ui.form .fields.error .field select, .ui.form .fields.error .field textarea {
 	background: #fff6f6;
-	border-color: #EF5350;
+	border-color: #cb5234;
 	color: #9f3a38;
 	border-radius: '';
 	box-shadow: none
@@ -376,7 +376,7 @@ transform:rotate(360deg)
 .ui.inverted.form input:not([type]), .ui.inverted.form input[type=text], .ui.inverted.form input[type=email], .ui.inverted.form input[type=search], .ui.inverted.form input[type=password], .ui.inverted.form input[type=date], .ui.inverted.form input[type=datetime-local], .ui.inverted.form input[type=tel], .ui.inverted.form input[type=time], .ui.inverted.form input[type=url], .ui.inverted.form input[type=number] {
 	background: #fff;
 	border-color: rgba(255,255,255,.1);
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	box-shadow: none
 }
 .ui.form .grouped.fields {
@@ -388,7 +388,7 @@ transform:rotate(360deg)
 }
 .ui.form .grouped.fields>label {
 	margin: 0 0 .28571429rem;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	font-size: .92857143em;
 	font-weight: 700;
 	text-transform: none
@@ -532,14 +532,14 @@ transform:rotate(360deg)
 .qst-mobile-1 {
 	display: block;
 	float: left;
-	color: #000;
+	color: #555459;
 	font-size: 18px;
 	margin-right: 10px;
 }
 .qst-mobile {
 	display: none !important;
 	float: left;
-	color: #000;
+	color: #555459;
 	font-size: 18px;
 	margin-right: 10px;
 }
@@ -619,14 +619,14 @@ transform:rotate(360deg)
 .ui.message {
 	position: relative;
 	min-height: 1em;
-	
-	
+
+
 	padding: 1em 1.5em;
 	line-height: 1.4285em;
-	color: rgba(0,0,0,.87);
-	
-	
-	
+	color: #555459;
+
+
+
 }
 .ui.message:first-child {
 	margin-top: 0
@@ -831,7 +831,7 @@ transform:rotate(360deg)
 	color: #9f3a38
 }
 .ui.attached.error.message, .ui.error.message {
-	
+
 }
 .ui.error.message .header {
 	color: #912d2b
@@ -950,7 +950,7 @@ transform:rotate(360deg)
 	box-shadow: none;
 	border-radius: .28571429rem;
 	text-align: left;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	border-collapse: separate;
 	border-spacing: 0
 }
@@ -971,7 +971,7 @@ transform:rotate(360deg)
 	cursor: auto;
 	background: #f9fafb;
 	text-align: inherit;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	padding: .92857143em .71428571em;
 	vertical-align: inherit;
 	font-style: none;
@@ -1000,7 +1000,7 @@ transform:rotate(360deg)
 	border-top: 1px solid rgba(34,36,38,.15);
 	background: #f9fafb;
 	text-align: inherit;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	padding: .71428571em;
 	vertical-align: middle;
 	font-style: normal;
@@ -1146,9 +1146,9 @@ transform:rotate(360deg)
 	color: #573a08!important
 }
 .ui.table td.active, .ui.table tr.active {
-	box-shadow: 0 0 0 rgba(0,0,0,.87) inset;
+	box-shadow: 0 0 0 #555459 inset;
 	background: #e0e0e0!important;
-	color: rgba(0,0,0,.87)!important
+	color: #555459!important
 }
 .ui.table tr td.disabled, .ui.table tr.disabled td, .ui.table tr.disabled:hover, .ui.table tr:hover td.disabled {
 	pointer-events: none;
@@ -1228,7 +1228,7 @@ transform:rotate(360deg)
 }
 .ui.selectable.table tr.active:hover, .ui.selectable.table tr:hover td.active {
 	background: #e0e0e0!important;
-	color: rgba(0,0,0,.87)!important
+	color: #555459!important
 }
 .ui.selectable.table tr.positive:hover, .ui.selectable.table tr:hover td.positive {
 	background: #f7ffe6!important;
@@ -1469,7 +1469,7 @@ transform:rotate(360deg)
 	cursor: pointer;
 	white-space: nowrap;
 	border-left: 1px solid rgba(34,36,38,.15);
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.sortable.table thead th:first-child {
 	border-left: none
@@ -1532,7 +1532,7 @@ transform:rotate(360deg)
 	border-right-color: transparent
 }
 .ui.inverted.table {
-	background: #333;
+	background: #555459;
 	color: rgba(255,255,255,.9);
 	border: none
 }
@@ -1975,7 +1975,7 @@ transform:rotate(360deg)
 	color: rgba(0,0,0,.4)
 }
 .ui.card .meta>a:not(.ui):hover, .ui.cards>.card .meta>a:not(.ui):hover {
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.card>.button, .ui.card>.buttons, .ui.cards>.card>.button, .ui.cards>.card>.buttons {
 	margin: 0 -1px;
@@ -2467,7 +2467,7 @@ transform:rotate(360deg)
 }
 .ui.comments .comment .author {
 	font-size: 1em;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	font-weight: 700
 }
 .ui.comments .comment a.author {
@@ -2493,7 +2493,7 @@ transform:rotate(360deg)
 	margin: .25em 0 .5em;
 	font-size: 1em;
 	word-wrap: break-word;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	line-height: 1.3
 }
 .ui.comments .comment .actions {
@@ -2649,7 +2649,7 @@ transform:rotate(360deg)
 	margin: 0;
 	font-size: 1em;
 	font-weight: 700;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.feed>.event>.content .summary img {
 	display: inline-block;
@@ -2685,7 +2685,7 @@ transform:rotate(360deg)
 	margin: .5em 0 0;
 	background: 0 0;
 	padding: 0;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.feed>.event>.content .extra.images img {
 	display: inline-block;
@@ -2890,7 +2890,7 @@ transform:rotate(360deg)
 	max-width: auto;
 	font-size: 1em;
 	line-height: 1.4285em;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.items>.item>.content p {
 	margin: 0 0 .5em
@@ -2932,7 +2932,7 @@ transform:rotate(360deg)
 	color: rgba(0,0,0,.4)
 }
 .ui.items>.item .meta>a:not(.ui):hover {
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.items>.item>.content .favorite.icon {
 	cursor: pointer;
@@ -3161,7 +3161,7 @@ transform:rotate(360deg)
 .ui.statistic>.label, .ui.statistics .statistic>.label {
 	font-size: 1em;
 	font-weight: 700;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	text-transform: uppercase;
 	text-align: center
 }
@@ -3452,7 +3452,7 @@ transform:rotate(360deg)
 .ui.accordion .title:not(.ui) {
 	padding: .5em 0;
 	font-size: 1em;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.accordion .accordion .title~.content, .ui.accordion .title~.content {
 	display: none
@@ -3529,7 +3529,7 @@ transform:rotate(360deg)
 }
 .ui.styled.accordion .accordion .active.title, .ui.styled.accordion .accordion .title:hover, .ui.styled.accordion .active.title, .ui.styled.accordion .title:hover {
 	background: 0 0;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.styled.accordion .accordion .active.title, .ui.styled.accordion .active.title {
 	background: 0 0;
@@ -3616,13 +3616,13 @@ transform:rotate(360deg)
 	height: 17px;
 	text-align: center;
 	opacity: 0;
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	-webkit-transition: border .1s ease, opacity .1s ease, -webkit-transform .1s ease, box-shadow .1s ease;
 	transition: border .1s ease, opacity .1s ease, transform .1s ease, box-shadow .1s ease;
 	font-family: Checkbox
 }
 .ui.checkbox label, .ui.checkbox+label {
-	color: rgba(0,0,0,.87);
+	color: #555459;
 	-webkit-transition: color .1s ease;
 	transition: color .1s ease
 }
@@ -3679,7 +3679,7 @@ transform:rotate(360deg)
 .ui.checkbox input[disabled]~.box:after, .ui.checkbox input[disabled]~label, .ui.disabled.checkbox .box:after, .ui.disabled.checkbox label {
 	cursor: default;
 	opacity: .5;
-	color: #000
+	color: #555459
 }
 .ui.checkbox input.hidden {
 	z-index: -1
@@ -3720,7 +3720,7 @@ transform:rotate(360deg)
 	-webkit-transform: scale(.46666667);
 	-ms-transform: scale(.46666667);
 	transform: scale(.46666667);
-	background-color: rgba(0,0,0,.87)
+	background-color: #555459
 }
 .ui.radio.checkbox input:focus~.box:before, .ui.radio.checkbox input:focus~label:before {
 	background-color: #fff
@@ -3816,7 +3816,7 @@ transform:rotate(360deg)
 	color: rgba(0,0,0,.95)!important
 }
 .ui.slider.checkbox input:focus:checked~.box:before, .ui.slider.checkbox input:focus:checked~label:before {
-	background-color: #000!important
+	background-color: #555459!important
 }
 .ui.toggle.checkbox {
 	min-height: 1.5rem
@@ -3828,7 +3828,7 @@ transform:rotate(360deg)
 .ui.toggle.checkbox .box, .ui.toggle.checkbox label {
 	min-height: 1.5rem;
 	padding-left: 4.5rem;
-	color: rgba(0,0,0,.87)
+	color: #555459
 }
 .ui.toggle.checkbox label {
 	padding-top: .15em
@@ -3907,7 +3907,7 @@ transform:rotate(360deg)
 .validation .ui.labels .red.label::before, .ui.red.labels .label::before, .ui.red.label::before {
 	white-space: normal;
 	background: #fff!important;
-	border: 1px solid #EF5350!important;
+	border: 1px solid #cb5234!important;
 	color: #fff !important;
 }
 .validation .ui.pointing.label::before, .ui.label[class*="pointing above"]::before {

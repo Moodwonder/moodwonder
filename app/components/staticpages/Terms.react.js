@@ -11,7 +11,7 @@ export default class Terms extends React.Component {
 
         return (
             <div className="pusher">
-                <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor": "#4db6ac"}}>
+                <div className="ui inverted vertical masthead center aligned segment" style={{"backgroundColor": "#26a69a"}}>
                     <Header />
                     <div className="ui text container">
                         <div className="banner-content">

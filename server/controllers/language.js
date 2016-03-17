@@ -76,8 +76,8 @@ exports.editLanguage = function (req, res) {
 /**
  * Get all languages
  */
-exports.getLanguages = function (req, res) { 
-    
+exports.getLanguages = function (req, res) {
+
     //console.log('req');
     //console.log(req);
     Languages.find({}).exec(function (err, languages) {
@@ -97,7 +97,7 @@ exports.getLanguages = function (req, res) {
 };
 
 /**
- * Get all custome survey forms 
+ * Get all custome survey forms
  */
 exports.deleteLanguage = function (req, res) {
     var _id = mongoose.Types.ObjectId(req.body.id);
@@ -143,37 +143,37 @@ exports.getPage = function (req, res) {
             modelObj = {};
             modelObj = Mwusertheme;
             break;
-            
+
         case 'about':
             modelObj = {};
             modelObj = AboutPage;
             break;
-            
+
         case 'anonymity':
             modelObj = {};
             modelObj = AnonymityPage;
             break;
-            
+
         case 'terms':
             modelObj = {};
             modelObj = TermsPage;
             break;
-            
+
         case 'policy':
             modelObj = {};
             modelObj = PolicyPage;
             break;
-            
+
         case 'logout':
             modelObj = {};
             modelObj = LogoutPage;
             break;
-            
+
         case 'openendedres':
             modelObj = {};
             modelObj = OpenendedresponsesPage;
             break;
-            
+
         case 'surveyforms':
             modelObj = {};
             modelObj = SurveyFormsPage;
@@ -183,12 +183,12 @@ exports.getPage = function (req, res) {
             modelObj = {};
             modelObj = SurveyPage;
             break;
-            
+
         case 'mycompany':
             modelObj = {};
             modelObj = MycompanyPage;
             break;
-            
+
         case 'openendedsurvey':
             modelObj = {};
             modelObj = OpenendedsurveyPage;
@@ -208,7 +208,7 @@ exports.getPage = function (req, res) {
             modelObj = {};
             modelObj = CreatePasswordPage;
             break;
-            
+
         case 'invitesignup':
             modelObj = {};
             modelObj = InviteSignupPage;
@@ -305,6 +305,8 @@ exports.updatePageKeys = function (req, res) {
                 HOM_REGISTER: data.HOM_REGISTER,
                 HOM_SGN_WORK_EMAIL: data.HOM_SGN_WORK_EMAIL,
                 HOM_GET_STARTED: data.HOM_GET_STARTED,
+                HOM_1_TITLE_1: data.HOM_1_TITLE_1,
+                HOM_1_SUBTITLE_1: data.HOM_1_SUBTITLE_1,
                 HOM_2_TITLE_1: data.HOM_2_TITLE_1,
                 HOM_2_TITLE_2: data.HOM_2_TITLE_2,
                 HOM_2_ITEM_1: data.HOM_2_ITEM_1,
@@ -357,7 +359,7 @@ exports.updatePageKeys = function (req, res) {
             modelObj = Signuppage;
             update = {}
             update = {
-                SGN_TITLE: data.SGN_TITLE, 
+                SGN_TITLE: data.SGN_TITLE,
                 SGN_WORK_EMAIL: data.SGN_WORK_EMAIL,
                 SGN_BTN_SUBMIT: data.SGN_BTN_SUBMIT
             };
@@ -375,7 +377,7 @@ exports.updatePageKeys = function (req, res) {
                 LGN_SIGNUP: data.LGN_SIGNUP
             };
             break;
-        
+
         case 'mwusertheme':
             modelObj = {};
             modelObj = Mwusertheme;
@@ -428,7 +430,7 @@ exports.updatePageKeys = function (req, res) {
                 MDL_CLOSE_BTN: data.MDL_CLOSE_BTN
             };
             break;
-            
+
         case 'about':
             modelObj = {};
             modelObj = AboutPage;
@@ -453,7 +455,7 @@ exports.updatePageKeys = function (req, res) {
                 ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
             };
             break;
-            
+
         case 'anonymity':
             modelObj = {};
             modelObj = AnonymityPage;
@@ -477,7 +479,7 @@ exports.updatePageKeys = function (req, res) {
                 ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
             };
             break;
-            
+
         case 'terms':
             modelObj = {};
             modelObj = TermsPage;
@@ -511,7 +513,7 @@ exports.updatePageKeys = function (req, res) {
                 ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
             };
             break;
-            
+
         case 'policy':
             modelObj = {};
             modelObj = PolicyPage;
@@ -533,7 +535,7 @@ exports.updatePageKeys = function (req, res) {
                 ABT_NAV_REGISTER: data.ABT_NAV_REGISTER
             };
             break;
-            
+
         case 'logout':
             modelObj = {};
             modelObj = LogoutPage;
@@ -622,7 +624,7 @@ exports.updatePageKeys = function (req, res) {
                 SRVY_SUBMIT_BTN: data.SRVY_SUBMIT_BTN
             };
             break;
-            
+
         case 'mycompany':
             modelObj = {};
             modelObj = MycompanyPage;
@@ -855,20 +857,20 @@ exports.updatePageKeys = function (req, res) {
                 PRFL_GINFO_WRK_EMAIL: data.PRFL_GINFO_WRK_EMAIL,
                 PRFL_GINFO_LNG: data.PRFL_GINFO_LNG,
                 PRFL_GINFO_RPT_FRQ: data.PRFL_GINFO_RPT_FRQ,
-                PRFL_MNGR_MYMANAGER: data.PRFL_MNGR_MYMANAGER, 
-                PRFL_MNGR_TOP_MSG: data.PRFL_MNGR_TOP_MSG, 
-                PRFL_MNGR_ROL: data.PRFL_MNGR_ROL, 
-                PRFL_MNGR_EMAIL: data.PRFL_MNGR_EMAIL, 
-                PRFL_MNGR_CHNG_MNGR: data.PRFL_MNGR_CHNG_MNGR, 
-                PRFL_MNGR_CANCEL: data.PRFL_MNGR_CANCEL, 
+                PRFL_MNGR_MYMANAGER: data.PRFL_MNGR_MYMANAGER,
+                PRFL_MNGR_TOP_MSG: data.PRFL_MNGR_TOP_MSG,
+                PRFL_MNGR_ROL: data.PRFL_MNGR_ROL,
+                PRFL_MNGR_EMAIL: data.PRFL_MNGR_EMAIL,
+                PRFL_MNGR_CHNG_MNGR: data.PRFL_MNGR_CHNG_MNGR,
+                PRFL_MNGR_CANCEL: data.PRFL_MNGR_CANCEL,
                 PRFL_MNGR_SUBMIT: data.PRFL_MNGR_SUBMIT,
-                PRFL_TEAM_TOP_MSG: data.PRFL_TEAM_TOP_MSG, 
-                PRFL_TEAM_ADD_TEAM: data.PRFL_TEAM_ADD_TEAM, 
+                PRFL_TEAM_TOP_MSG: data.PRFL_TEAM_TOP_MSG,
+                PRFL_TEAM_ADD_TEAM: data.PRFL_TEAM_ADD_TEAM,
                 PRFL_TEAM_NAME: data.PRFL_TEAM_NAME,
                 PRFL_TEAM_SAVE: data.PRFL_TEAM_SAVE,
-                PRFL_TEAM_SUBORDINATES: data.PRFL_TEAM_SUBORDINATES, 
-                PRFL_TEAM_ADD_ANOTHER: data.PRFL_TEAM_ADD_ANOTHER, 
-                PRFL_TEAM_WRK_EML: data.PRFL_TEAM_WRK_EML, 
+                PRFL_TEAM_SUBORDINATES: data.PRFL_TEAM_SUBORDINATES,
+                PRFL_TEAM_ADD_ANOTHER: data.PRFL_TEAM_ADD_ANOTHER,
+                PRFL_TEAM_WRK_EML: data.PRFL_TEAM_WRK_EML,
                 PRFL_TEAM_SUBORDINATES_SAVE: data.PRFL_TEAM_SUBORDINATES_SAVE
             };
             break;
@@ -920,7 +922,7 @@ exports.updatePageKeys = function (req, res) {
                 TSVY_SUBMIT_BTN: data.TSVY_SUBMIT_BTN
             };
             break;
-            
+
         case 'surveyresponses':
             modelObj = {};
             modelObj = SurveyresponsesPage;
@@ -951,8 +953,3 @@ exports.updatePageKeys = function (req, res) {
 
 
 };
-
-
-
-
-

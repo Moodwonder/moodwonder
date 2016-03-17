@@ -24,7 +24,7 @@ export default class Languageoptions extends React.Component {
         }
 
         return (
-            <select className="form-control" onChange={this.onSelectLanguage}>
+            <select className="ui search dropdown" onChange={this.onSelectLanguage}>
                 {options}
             </select>
         );

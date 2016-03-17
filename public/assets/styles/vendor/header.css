@@ -24,7 +24,7 @@
 	font-weight: bold;
 	line-height: 1.2857em;
 	text-transform: none;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 .ui.header:first-child {
 	margin-top: -0.14285em;
@@ -42,7 +42,7 @@
 	margin: 0em;
 	font-size: 1rem;
 	line-height: 1.2em;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 /*--------------
       Icon

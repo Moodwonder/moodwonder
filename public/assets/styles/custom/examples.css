@@ -33,7 +33,7 @@ caption,th {
 }
 h1,h2,h3,h4,h5,h6 {
     color:#fff;
-    
+
 }
 q:before,q:after {
     content:'';
@@ -46,7 +46,7 @@ abbr,acronym { border: 0;
  * --------------------------------------- */
 body{
 	font-family: 'Roboto', sans-serif;
-	color: #333;
+	color: #555459;
 	color: rgba(0,0,0,0.5);
 }
 .wrap{
@@ -56,16 +56,16 @@ body{
 	position: relative;
 }
 h1{
-	
+
 }
 
 .section{
-	
+
 }
 #menu li {
 	display:inline-block;
 	margin: 10px;
-	color: #000;
+	color: #555459;
 	background:#fff;
 	background: rgba(255,255,255, 0.5);
 	-webkit-border-radius: 10px;
@@ -78,10 +78,10 @@ h1{
 }
 #menu li a{
 	text-decoration:none;
-	color: #000;
+	color: #555459;
 }
 #menu li.active a:hover{
-	color: #000;
+	color: #555459;
 }
 #menu li:hover{
 	background: rgba(255,255,255, 0.8);
@@ -160,7 +160,7 @@ h1{
 	bottom:0;
 	width:100%;
 	text-align:right;
-	
+
 	padding:8px 0 8px 0;
 }
 #infoMenu ul{
@@ -169,7 +169,7 @@ h1{
 #infoMenu li a{
 	display: block;
 	margin: 0 22px 0 0;
-	color: #333;
+	color: #555459;
 }
 #infoMenu li a:hover{
 	text-decoration:underline;
@@ -212,7 +212,7 @@ h1{
 }
 #examplesList h3{
 	color: #f2f2f2;
-	
+
 	margin: 0 0 15px 0;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -234,9 +234,9 @@ h1{
 
 .active .img-boy {
     z-index:12;
-   
+
     position: relative;
-	
+
 	-webkit-animation: mymove 3s;  /* Chrome, Safari, Opera */
     -webkit-animation-iteration-count: 1;  /* Chrome, Safari, Opera */
     -webkit-animation-fill-mode: forwards;  /* Chrome, Safari, Opera */
@@ -258,8 +258,8 @@ h1{
 }
 .active .img-boy-2 {
 	z-index:10;
-    
-   
+
+
     position: relative;
    -webkit-animation-iteration-count: 1;  /* Chrome, Safari, Opera */
        -webkit-animation-fill-mode: forwards;  /* Chrome, Safari, Opera */
@@ -273,15 +273,15 @@ h1{
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mysecond {
     0%   {left: 80px; top: 0px;}
-  
+
     75%  { left: 80px; top: 0px;}
-    
+
 }
 
 @keyframes mysecond {
       0%   {left: 80px; top: 0px;}
-   
-   
+
+
     75%  { left: 0px; top: 0px;}
     100% { left: 0px; top: 0px;}
 }
@@ -292,11 +292,11 @@ h1{
 
 
 
-  
-  
-  
-  
-  
+
+
+
+
+
 
 /* make keyframes that tell the start state and the end state of our object */
 
@@ -368,9 +368,9 @@ animation-delay: 2.0s;}
 @media only screen and (max-width: 767px) {
 .img-boy {
     z-index:12;
-   
+
     position: relative;
-	
+
 	-webkit-animation: mymove 3s;  /* Chrome, Safari, Opera */
     -webkit-animation-iteration-count: 1;  /* Chrome, Safari, Opera */
     -webkit-animation-fill-mode: forwards;  /* Chrome, Safari, Opera */
@@ -392,8 +392,8 @@ animation-delay: 2.0s;}
 }
 .img-boy-2 {
 	z-index:10;
-    
-   
+
+
     position: relative;
    -webkit-animation-iteration-count: 1;  /* Chrome, Safari, Opera */
        -webkit-animation-fill-mode: forwards;  /* Chrome, Safari, Opera */
@@ -407,15 +407,15 @@ animation-delay: 2.0s;}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mysecond {
     0%   {left: 40px; top: 0px;}
-  
+
     75%  { left: 40px; top: 0px;}
-    
+
 }
 
 @keyframes mysecond {
       0%   {left: 40px; top: 0px;}
-   
-   
+
+
     75%  { left: 0px; top: 0px;}
     100% { left: 0px; top: 0px;}
 }
@@ -439,24 +439,36 @@ section {
 .loaded section {
 	opacity: 1;
 }
+.section h1 {
+	font-size: 40px;
+	font-weight: 900;
+	color: #fff;
+	margin-bottom: 5%;
+	padding: 0;
+}
 .section h2 {
-	font-size: 35px;
+	font-size: 30px;
+	font-weight: 500;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+.section h3 {
+	font-size: 22px;
 	font-weight: 300;
 	color: #fff;
 	margin: 0;
 	padding: 0;
-	line-height: 1em;
 }
 .section p {
-	
 	margin:20px 0!important;
-	font-size: 15px;
+	font-size: 16px;
 	line-height: 1.6316;
-	color: #333;
+	color: #fff;
 }
 .section-content, .fake-content {
 	display: block;
-	
+
 	z-index: 1;
 	top: 0;
 	left: 0;
@@ -472,12 +484,7 @@ section {
 }
 .images-container {
 	display: block;
-	margin-top: 10%;
-	z-index: 1;
-}
-#section0 .images-container {
-	display: block;
-	margin-top: 0%;
+	margin-top: 5%;
 	z-index: 1;
 }
 .padding-row {
@@ -491,8 +498,8 @@ footer{
     bottom: 0;
 
     font-size: 14px;
-	
-    
+
+
     color: #fff;
     text-align: right;
     width: 100%;
@@ -505,14 +512,14 @@ footer{
 }
 footer a{
 
- 
+
     color: #fff;
 	padding:0 6px;
 }
 
 footer a:hover{
 
- 
+
    color: rgba(255,255,255,0.5);
 	padding:0 6px;
 }

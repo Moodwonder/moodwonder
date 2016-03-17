@@ -103,13 +103,12 @@ export default class Survey extends React.Component {
         let sTitle = (<h3 className="ui header ryt com">{GetText('SRVY_TITLE', mlarray)}</h3>);
 
         return (
-            <div className="ui segment brdr-none padding-none width-rating  ">
+            <div className="ui segment brdr-none padding-none width-rating">
                 <div className="clear"></div>
                 <div className="ui two column stackable grid container ">
                     <div className="column">
                         {sTitle}
                     </div>
-                    <div className="column"></div>
                 </div>
                 {message}
                 <form id="engagementForm">

@@ -263,7 +263,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="industry"
                                 name="industry"
-                                className="form-control"
+                                className="ui search dropdown"
                                 value={userInfo.industry}
                                 onChange={this.onChangeIndustry.bind(this)}
                                 >
@@ -282,7 +282,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="continent"
                                 name="continent"
-                                className="form-control"
+                                className="ui search dropdown"
                                 value={userInfo.continent}
                                 onChange={this.onChangeContinent.bind(this)}
                                 >
@@ -301,7 +301,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="country"
                                 name="country"
-                                className="form-control"
+                                className="ui search dropdown"
                                 onChange={this.onChangeCountry}
                                 value={userInfo.country}
                                 >
@@ -319,7 +319,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="state"
                                 name="state"
-                                className="form-control"
+                                className="ui search dropdown"
                                 value={userInfo.state}
                                 onChange={this.onChangeStates}
                                 >
@@ -337,7 +337,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="city"
                                 name="city"
-                                className="form-control"
+                                className="ui search dropdown"
                                 value={userInfo.city}
                                 onChange={this.onChangeCities}
                                 >
@@ -379,7 +379,7 @@ export default class MyCompanyInfo extends React.Component {
                             <select
                                 ref="companysize"
                                 name="companysize"
-                                className="form-control"
+                                className="ui search dropdown"
                                 value={userInfo.companysize}
                                 onChange={this.onChangeText}
                                 >

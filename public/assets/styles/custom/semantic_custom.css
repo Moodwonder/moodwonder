@@ -6,14 +6,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 h1, h2, h3, h4, h5 {
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     font-weight: normal;
-}
-h3 {
-    font-size: 20px;
-    margin-bottom: 50px;
-    color: #fff;
-    font-weight: normal;
+    line-height: 1.5em;
 }
 .ui.button {
     height: 54px;
@@ -202,13 +198,13 @@ ul.ui.list li:before, .ui.bulleted.list .list > .item:before, .ui.bulleted.list 
 }
 .ui.menu {
     display: block!important;
-   
+
 }
 .ui.menu:not(.vertical) .item {
     float: left;
 }
 .ui.menu .item {
-    color: #333;
+    color: #555459;
     text-transform: uppercase;
     font-size: 14px;
 }
@@ -409,14 +405,14 @@ body.pushable {
 .inner-pages footer {
     bottom: 0px;
     font-size: 14px;
-    color: #000!important;
+    color: #555459!important;
     text-align: right;
     width: 100%;
     padding: 0px;
     transition: all 2000ms ease 0s;
 }
 .inner-pages footer a {
-    color: #000!important;
+    color: #555459!important;
     text-align: right;
     padding: 0 6px;
 }
@@ -433,7 +429,7 @@ body.pushable {
     padding: 0em 1.14286em!important;
 }
 .h2 h2 {
-    color: #4183C4!important;
+    color: #3499e0!important;
 }
 .home .ui.container {
     padding: 0 10px!important;
@@ -450,7 +446,7 @@ body.pushable {
 
 .inner-pages .ui.inverted.segment, .ui.primary.inverted.segment {background:#00827c }
 .inner-pages .ui.menu {
-    background:#4db6ac !important;}
+    background:#26a69a !important;}
 .request {
     margin-top: -70px;
 }

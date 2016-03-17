@@ -252,7 +252,7 @@ export default RequireAuth(class Engagementarea extends React.Component {
                                 </div>
                                 <div className="field">
                                     <label>Status</label>
-                                    <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeEngagementStatus}>
+                                    <select className="ui search dropdown" name="status" value={this.state.editstatus} onChange={this.onChangeEngagementStatus}>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>

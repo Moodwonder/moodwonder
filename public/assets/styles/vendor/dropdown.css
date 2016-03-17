@@ -24,7 +24,6 @@
 	transition: box-shadow 0.1s ease, width 0.1s ease;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	width: 100%;
-	text-transform: uppercase;
 	color: #fff;
 	padding: 30px 0 0 0;
 	font-family: 'Roboto', sans-serif;
@@ -127,7 +126,7 @@
 	text-align: left;
 	border-top: none;
 	line-height: 1em;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	padding: 0.71428571rem 1.14285714rem !important;
 	font-size: 1rem;
 	text-transform: none;
@@ -322,18 +321,18 @@
 	background: #26A69A;
 	display: inline-block;
 	padding: 0.78571429em 2.6em 0.78571429em 1em;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 	box-shadow: none;
 	border-radius: 0.28571429rem;
 	-webkit-transition: box-shadow 0.1s ease, width 0.1s ease;
 	transition: box-shadow 0.1s ease, width 0.1s ease;
 	text-align: left;
 	color: #fff;
-	
-	
-	
-	
-	
+
+
+
+
+
 }
 .ui.selection.dropdown.visible, .ui.selection.dropdown.active {
 	z-index: 10;
@@ -651,7 +650,7 @@ select.ui.dropdown {
 .ui.dropdown .menu .active.item {
 	background: transparent;
 	font-weight: bold;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	box-shadow: none;
 	z-index: 12;
 }
@@ -663,7 +662,7 @@ select.ui.dropdown {
 /* Menu Item Hover */
 .ui.dropdown .menu > .item:hover {
 	background: #ECEFF1;
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 	z-index: 13;
 }
 /*--------------------
@@ -767,7 +766,7 @@ select.ui.dropdown {
 /* Selected Item */
 .ui.dropdown.selected, .ui.dropdown .menu .selected.item {
 	background: rgba(0, 0, 0, 0.03);
-	color: rgba(0, 0, 0, 0.95);
+	color: #3a4351;
 }
 /*--------------------
     Search Filtered

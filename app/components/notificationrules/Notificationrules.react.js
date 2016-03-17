@@ -240,7 +240,7 @@ export default RequireAuth(class Notificationrules extends React.Component {
                                 </div>
                                 <div className="field">
                                     <label>Status</label>
-                                    <select className="form-control" name="status" value={this.state.editstatus} onChange={this.onChangeRuleStatus}>
+                                    <select className="ui search dropdown" name="status" value={this.state.editstatus} onChange={this.onChangeRuleStatus}>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>

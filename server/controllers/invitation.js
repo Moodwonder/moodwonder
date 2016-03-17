@@ -95,7 +95,7 @@ exports.sendInvitation = function(req, res, next) {
                                     var transporter = nodemailer.createTransport();
                                     var body = "Welcome to Moodwonder! <br><br>" +
                                                 invitedby + company_name +" has invited you to join Moodwonder. <br><br>" +
-                                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
                                                 "You may copy/paste this link into your browser: <br><br>" +
                                                 "registration: " + link + "<br><br>" +
                                                 "Thanks," +
@@ -186,7 +186,7 @@ exports.sendInvitation = function(req, res, next) {
                                             var transporter = nodemailer.createTransport();
                                             var body = "Welcome to Moodwonder! <br><br>" +
                                                         invitedby + company_name +" has invited you to join Moodwonder. <br><br>" +
-                                                        "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                                        "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
                                                         "You may copy/paste this link into your browser: <br><br>" +
                                                         "registration: " + link + "<br><br>" +
                                                         "Thanks," +

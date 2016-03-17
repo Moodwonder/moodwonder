@@ -643,7 +643,7 @@ exports.postSignupStep1 = function (req, res, next) {
                                 "We're happy you're here.<br><br>" +
                                 "When you created "+company_name+" account, we didn't ask you to set a password. Let's do that now!<br><br>" +
                                 "If you don't set a password within a day, you will not be able to use the link below.<br><br>" +
-                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
                                 "You may copy/paste this link into your browser: <br><br>" +
                                 "registration: " + link + "<br><br>" +
                                 "Best wishes" +
@@ -1343,7 +1343,7 @@ exports.postForgotPassword = function (req, res) {
                     var link = 'http://' + req.get('host') + '/createpassword/' + verifystring;
                     var transporter = nodemailer.createTransport();
                     var body = "To reset your password please click the following button: <br><br>" +
-                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #4db6ac; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
+                            "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>Set my password</a> <br><br>" +
                             "You may copy/paste this link into your browser: <br><br>" +
                             "registration: " + link + "<br><br>" +
                             "Thanks," +

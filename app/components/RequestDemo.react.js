@@ -107,7 +107,7 @@ export default class RequestDemo extends React.Component {
         }
 
         return (
-            <div className="eight wide column fade-in one">
+            <div className="eight wide column">
                 <div className="ui segment">
                     <div className="row">
                         <div className=" ui small form request">

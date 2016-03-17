@@ -961,8 +961,8 @@ export default class MyMood extends React.Component {
             label: "First Dataset",
             fillColor: "rgba(151,187,205,0.2)",
             //strokeColor: "rgba(151,187,205,1)",
-            strokeColor: "#64B5F6",
-            pointColor: "#64B5F6",
+            strokeColor: "#3499e0",
+            pointColor: "#3499e0",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -973,8 +973,8 @@ export default class MyMood extends React.Component {
             label: "Second Dataset",
             fillColor: "rgba(151,187,205,0.2)",
             //strokeColor: "rgba(200,127,105,1)",
-            strokeColor: "#EF5350",
-            pointColor: "#EF5350",
+            strokeColor: "#cb5234",
+            pointColor: "#cb5234",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(151,187,205,1)",
@@ -1107,7 +1107,7 @@ export default class MyMood extends React.Component {
         let customSurveyTabContent=null;
         if (customsurveytab) {
             customSurveyTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top-20 ">
                     <div className="ui segment brdr-none padding-none width-rating  ">
                         <div className="clear"></div>
                         {statusmessage}
@@ -1252,7 +1252,7 @@ export default class MyMood extends React.Component {
         let moodRatingsTabContent=null;
         if (moodratingstab) {
             moodRatingsTabContent = (
-                <div className="ui bottom attached segment brdr-none menu minus-margin-top">
+                <div className="ui bottom attached segment brdr-none menu minus-margin-top-20">
                     <div className="ui segment brdr-none padding-none width-rating">
                         <div className="clear"></div>
                         <div className="ui two cards column stackable">

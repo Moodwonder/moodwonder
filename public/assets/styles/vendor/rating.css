@@ -65,7 +65,7 @@
 /* Selected Icon */
 .ui.rating .icon.selected, .ui.rating .icon.selected.active {
 	background: transparent;
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 /*-------------------
         Star
@@ -93,22 +93,22 @@
 /* Active Star red */
 .ui.star.rating .active.red.icon {
 	background: transparent !important;
-	color: #EF5350 !important;
+	color: #cb5234 !important;
 }
 /* Active Star red half*/
 .ui.star.rating .red-haf.icon {
 	background: transparent !important;
-	color: #EF5350 !important;
+	color: #cb5234 !important;
 }
 /* Active Star green */
 .ui.star.rating .active.green.icon {
 	background: transparent !important;
-	color: #66BB6A !important;
+	color: #4cb992 !important;
 }
 /* Active Star green half */
 .ui.star.rating .green-haf.icon {
 	background: transparent !important;
-	color: #66BB6A !important;
+	color: #4cb992 !important;
 }
 /* Selected Star */
 .ui.star.rating .icon.selected, .ui.star.rating .icon.selected.active {

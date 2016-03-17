@@ -598,7 +598,7 @@
 }
 /* Nested */
 .ui.inverted.segment .segment {
-	color: rgba(0, 0, 0, 0.87);
+	color: #555459;
 }
 .ui.inverted.segment .inverted.segment {
 	color: rgba(255, 255, 255, 0.9);
@@ -615,7 +615,7 @@
 /* Secondary */
 .ui.secondary.segment {
 	background: #f3f4f5;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.secondary.inverted.segment {
 	background: #4c4f52 -webkit-linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
@@ -625,7 +625,7 @@
 /* Tertiary */
 .ui.tertiary.segment {
 	background: #dcddde;
-	color: rgba(0, 0, 0, 0.6);
+	color: #555459;
 }
 .ui.tertiary.inverted.segment {
 	background: #717579 -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%);

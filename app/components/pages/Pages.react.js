@@ -110,6 +110,8 @@ export default RequireAuth(class Pages extends React.Component {
         home.HOM_REGISTER = data['HOM_REGISTER'];
         home.HOM_SGN_WORK_EMAIL = data['HOM_SGN_WORK_EMAIL'];
         home.HOM_GET_STARTED = data['HOM_GET_STARTED'];
+        home.HOM_1_TITLE_1 = data['HOM_1_TITLE_1'];
+        home.HOM_1_SUBTITLE_1 = data['HOM_1_SUBTITLE_1'];
         home.HOM_2_TITLE_1 = data['HOM_2_TITLE_1'];
         home.HOM_2_TITLE_2 = data['HOM_2_TITLE_2'];
         home.HOM_2_ITEM_1 = data['HOM_2_ITEM_1'];
@@ -1041,7 +1043,7 @@ export default RequireAuth(class Pages extends React.Component {
                         <form id="pageForm" className="ui form">
                             <div className="field">
                                 <label htmlFor="inputPage">Select Page : </label>
-                                <select className="form-control" id="inputPage" name="page" onChange={this.onSelectPage}>
+                                <select className="ui search dropdown" id="inputPage" name="page" onChange={this.onSelectPage}>
                                     <option value="home">Home</option>
                                     <option value="about">About</option>
                                     <option value="anonymity">Anonymity</option>

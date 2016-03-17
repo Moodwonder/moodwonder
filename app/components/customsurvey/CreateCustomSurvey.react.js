@@ -508,193 +508,188 @@ export default class CreateCustomSurvey extends React.Component {
         }
 
         let customSurveyTabContent = (
-            <div className="ui bottom attached segment brdr-none menu minus-margin-top ">
-                <div className="ui segment brdr-none padding-none width-rating  ">
-                    <div className="clear"></div>
-                    {modal}
-                    <div className="ui two column stackable grid container ">
-                        <div className="column">
-                            <h4 className="ui header ryt com">{GetText('MYMD_SGENERATION_TITLE', mlarray)}</h4>
+            <div className="ui segment brdr-none padding-none width-rating  ">
+                <div className="clear"></div>
+                {modal}
+                <div className="ui two column stackable grid container ">
+                    <div className="column">
+                        <h4 className="ui header ryt com">{GetText('MYMD_SGENERATION_TITLE', mlarray)}</h4>
+                    </div>
+                    <div className="column">
+                        <div className="three  column">
+                            <div className="test-gen ui submit ble button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">{GetText('MYMD_SLISTSBTN', mlarray)}</a></div>
                         </div>
-                        <div className="column">
-                            <div className="three  column">
-                                <div className="test-gen ui submit ble button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">{GetText('MYMD_SLISTSBTN', mlarray)}</a></div>
+                    </div>
+                </div>
+                <form id="surveyForm">
+                    <div className="custom-box">
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column ">
+                                <label className="line-height">{GetText('MYMD_STITLE', mlarray)} :</label>
+                            </div>
+                            <div className="thirteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields">
+                                        <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} id="surveytitle" placeholder={GetText('MYMD_TITLE_PLCHOLDER', mlarray)} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column ">
+                                <label className="line-height">{GetText('MYMD_SFREEZE_DATE', mlarray)} :</label>
+                            </div>
+                            <div className="thirteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields">
+                                        <input type="text" ref="freezedate" name="freezedate" id="freezedate" value={freezedate} placeholder="Pick a date"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column ">
+                                <label className="line-height"></label>
+                            </div>
+                            <div className="thirteen wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields">
+                                        <DatePicker minDate={today} onChange={this.onDateChange}/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column ">
+                                <label className="line-height">{GetText('MYMD_TARGET_GROUP', mlarray)} :</label>
+                            </div>
+                            <div className="two wide column padin-lft">
+                                <div className="ui form options">
+                                    <div className="inline fields">
+                                        <div className="ui radio checkbox">
+                                            <input type="radio" name="targetgroup" value="organization" defaultChecked />
+                                            <label>{GetText('MYMD_TARGETORG', mlarray)}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ten wide column padin-lft">
+                                <div className="ui form options">
+                                    <select className="ui dropdown" name="target_teamid">
+                                        <option value="0">{GetText('MYMD_TORG_DEFAULT_OPTION', mlarray)}</option>
+                                        {companyoption}
+                                        {teamoption}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column padin-lft ">
+                                <label className="line-height"></label>
+                            </div>
+                            <div className="two wide column padin-lft">
+                                <div className="ui form ">
+                                    <div className="inline fields">
+                                        <div className="ui radio checkbox">
+                                            <input type="radio" name="targetgroup" value="survey" />
+                                            <label>{GetText('MYMD_TARGETSURVEY', mlarray)}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ten wide column padin-lft ">
+                                <div className="ui form options">
+                                    <select className="ui dropdown" name="targetlevel">
+                                        <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
+                                        <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column padin-lft ">
+                                <label className="line-height"></label>
+                            </div>
+                            <div className="two wide column padin-lft">
+                                <div className="ui form ">
+                                    <div className="inline fields">
+                                        <div className="ui radio checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ten wide column padin-lft ">
+                                <div className="ui form options">
+                                    <input type="text" name="targetvalue" palceholher="" style={{"float":"left", "width":"90%"}}/>
+                                    <label style={{"float":"right", "width":"10%", "padding":"8px"}}>%</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="ui two column stackable grid survey">
+                            <div className="three wide column padin-lft ">
+                                <label className="line-height"></label>
+                            </div>
+                            <div className="two wide column padin-lft">
+                                <div className="ui form ">
+                                    <div className="inline fields">
+                                        <div className="ui radio checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="ten wide column padin-lft ">
+                                <div className="ui form options">
+                                    <select className="ui dropdown" name="targetmood">
+                                        <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
+                                        <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
+                                        <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
+                                        <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
+                                        <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
+                                        <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
+                                        <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
+                                        <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
+                                        <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
+                                        <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
+                                        <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
+                                        <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
+                                        <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
+                                        <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <form id="surveyForm">
-                        <div className="custom-box">
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column ">
-                                    <label className="line-height">{GetText('MYMD_STITLE', mlarray)} :</label>
-                                </div>
-                                <div className="thirteen wide column padin-lft">
-                                    <div className="ui form options">
-                                        <div className="inline fields">
-                                            <input type="text" ref="surveytitle" onChange={this.changeHandler.bind(this, 'formdata', 'surveytitle')} id="surveytitle" placeholder={GetText('MYMD_TITLE_PLCHOLDER', mlarray)} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column ">
-                                    <label className="line-height">{GetText('MYMD_SFREEZE_DATE', mlarray)} :</label>
-                                </div>
-                                <div className="thirteen wide column padin-lft">
-                                    <div className="ui form options">
-                                        <div className="inline fields">
-                                            <input type="text" ref="freezedate" name="freezedate" id="freezedate" value={freezedate} placeholder="Pick a date"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column ">
-                                    <label className="line-height"></label>
-                                </div>
-                                <div className="thirteen wide column padin-lft">
-                                    <div className="ui form options">
-                                        <div className="inline fields">
-                                            <DatePicker minDate={today} onChange={this.onDateChange}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column ">
-                                    <label className="line-height">{GetText('MYMD_TARGET_GROUP', mlarray)} :</label>
-                                </div>
-                                <div className="two wide column padin-lft">
-                                    <div className="ui form options">
-                                        <div className="inline fields">
-                                            <div className="ui radio checkbox">
-                                                <input type="radio" name="targetgroup" value="organization" defaultChecked />
-                                                <label>{GetText('MYMD_TARGETORG', mlarray)}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ten wide column padin-lft">
-                                    <div className="ui form options">
-                                        <select className="" name="target_teamid">
-                                            <option value="0">{GetText('MYMD_TORG_DEFAULT_OPTION', mlarray)}</option>
-                                            {companyoption}
-                                            {teamoption}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column padin-lft ">
-                                    <label className="line-height"></label>
-                                </div>
-                                <div className="two wide column padin-lft">
-                                    <div className="ui form ">
-                                        <div className="inline fields">
-                                            <div className="ui radio checkbox">
-                                                <input type="radio" name="targetgroup" value="survey" />
-                                                <label>{GetText('MYMD_TARGETSURVEY', mlarray)}</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ten wide column padin-lft ">
-                                    <div className="ui form options">
-                                        <select className="" name="targetlevel" style={{"maxWidth": "100%"}}>
-                                            <option value="above">{GetText('MYMD_TSURVEY_DEFAULT_OPTION1', mlarray)}</option>
-                                            <option value="below">{GetText('MYMD_TSURVEY_DEFAULT_OPTION2', mlarray)}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column padin-lft ">
-                                    <label className="line-height"></label>
-                                </div>
-                                <div className="two wide column padin-lft">
-                                    <div className="ui form ">
-                                        <div className="inline fields">
-                                            <div className="ui radio checkbox">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ten wide column padin-lft ">
-                                    <div className="ui form options">
-                                        <input type="text" name="targetvalue" palceholher="" style={{"float":"left", "width":"90%"}}/>
-                                        <label style={{"float":"right", "width":"10%", "padding":"8px"}}>%</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ui two column stackable grid survey">
-                                <div className="three wide column padin-lft ">
-                                    <label className="line-height"></label>
-                                </div>
-                                <div className="two wide column padin-lft">
-                                    <div className="ui form ">
-                                        <div className="inline fields">
-                                            <div className="ui radio checkbox">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ten wide column padin-lft ">
-                                    <div className="ui form options">
-                                        <select className="" name="targetmood" style={{"maxWidth": "100%"}}>
-                                            <option value="mw_index">{GetText('MYMD_OPTMWINDEX', mlarray)}</option>
-                                            <option value="Mood">{GetText('MYMD_OPTMOOD', mlarray)}</option>
-                                            <option value="Meaning">{GetText('MYMD_OPTMEANING', mlarray)}</option>
-                                            <option value="Expectations">{GetText('MYMD_OPTEXPECTATIONS', mlarray)}</option>
-                                            <option value="Strengths">{GetText('MYMD_OPTSTRENGTHS', mlarray)}</option>
-                                            <option value="Recognition">{GetText('MYMD_OPTRECOGNITION', mlarray)}</option>
-                                            <option value="Development">{GetText('MYMD_OPTDEVELOPMENT', mlarray)}</option>
-                                            <option value="Influence">{GetText('MYMD_OPTINFLUENCE', mlarray)}</option>
-                                            <option value="Goals">{GetText('MYMD_OPTGOALS', mlarray)}</option>
-                                            <option value="Team">{GetText('MYMD_OPTTEAM', mlarray)}</option>
-                                            <option value="Friendship">{GetText('MYMD_OPTFRIENDSHIP', mlarray)}</option>
-                                            <option value="Feedback">{GetText('MYMD_OPTFEEDBACK', mlarray)}</option>
-                                            <option value="Opportunities">{GetText('MYMD_OPTOPPORTUNITIES', mlarray)}</option>
-                                            <option value="Recommendation">{GetText('MYMD_OPTRECOMMENDATION', mlarray)}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="ui two column stackable grid container ">
+                        <div className="column">
+                            <h4 className="ui header ryt com">{GetText('MYMD_QNS_TITLE', mlarray)}</h4>
                         </div>
-                        <div className="ui two column stackable grid container ">
-                            <div className="column">
-                                <h4 className="ui header ryt com">{GetText('MYMD_QNS_TITLE', mlarray)}</h4>
-                            </div>
-                            <div className="column"></div>
-                        </div>
+                        <div className="column"></div>
+                    </div>
 
-                        {contents}
+                    {contents}
 
-                        {errorbox}
+                    {errorbox}
 
-                        <div className="ui two column stackable grid survey test">
-                            <div className="one wide column qst-mobile"></div>
-                            <div className="fifteen wide column padin-lft">
+                    <div className="ui two column stackable grid survey test">
+                        <div className="one wide column qst-mobile"></div>
+                        <div className="fifteen wide column padin-lft">
+                            <div className="ui form options">
                                 <div className="ui form options">
-                                    <div className="ui form options">
-                                        <div className="field">
-                                            <button className="ui submit  button blue" onClick={this.onAddQuestion}>{GetText('MYMD_ADD_QNS', mlarray)}</button>
-                                            <button className="ui submit button submitt" onClick={this.onSurveySubmit}>{GetText('MYMD_SUBMIT_SURVEY', mlarray)}</button>
-                                        </div>
+                                    <div className="field">
+                                        <button className="ui submit  button blue" onClick={this.onAddQuestion}>{GetText('MYMD_ADD_QNS', mlarray)}</button>
+                                        <button className="ui submit button submitt" onClick={this.onSurveySubmit}>{GetText('MYMD_SUBMIT_SURVEY', mlarray)}</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </form>
-                </div>
+                </form>
             </div>
         );
 
         return (
-            <div>
-                <div className="ui tabular menu tab two column" style={{"width":"0%"}}></div>
-                {customSurveyTabContent}
-            </div>
+            <div>{customSurveyTabContent}</div>
         );
     }
 }
