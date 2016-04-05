@@ -259,7 +259,7 @@ class PublicProfileHeader extends React.Component {
 
         if(this.state.publicuser !== undefined){
             if(this.state.publicuser.data.profile.summary !== undefined){
-                UIData.text = [<p className="text-shadow">{this.state.publicuser.data.profile.summary}</p>];
+                UIData.text = [<p className="votes">{this.state.publicuser.data.profile.summary}</p>];
             }
             if(this.state.publicuser.data.currentusereom !== undefined && this.state.publicuser.data.currentusereom !== ''){
                 UIData.eom = (<div className="eom"><p>{this.state.publicuser.data.currentusereom} Time</p></div>);
@@ -278,7 +278,7 @@ class PublicProfileHeader extends React.Component {
                         {UIData.eom}
                         <div className="title">
                             <h3>{UIData.name}</h3>
-                            <span className="text-shadow">{UIData.email}</span>
+                            <p className="votes">{UIData.email}</p>
                             {UIData.text}
                         </div>
                     </div>
