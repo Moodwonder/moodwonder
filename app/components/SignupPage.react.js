@@ -154,7 +154,7 @@ export default class SignupPage extends React.Component {
                                     <input ref="hash" name="hash" type="hidden" value={hash} />
                                 </div>
                             </div>
-                            <button type="submit" className="ui yellow button" > SGN_WORK_EMAIL </button>
+                            <button type="submit" className="ui yellow button" > SGN_BTN_SUBMIT </button>
                         </div>
                         {message}
                         {multimessages}
