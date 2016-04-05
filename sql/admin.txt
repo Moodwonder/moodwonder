@@ -1,3 +1,2 @@
 
-db.admin.insert({ "username" : "admin", "password" : "$2a$05$awUK1qZIhG/WMLizxnM13uveVkItKb3gIUi23kNB1vrnk4Dx2/TV2", "role" : "ADMIN" });
-
+db.admin.insert({ "username" : "admin", "password" : "$2a$10$Q5v4TkOstc1SzoAuOSkoJ.f.iCmB6bl52l04.PTOWUMgfNHN8Dsku", "role" : "ADMIN" });

@@ -13,6 +13,7 @@ export default class Homecontent extends React.Component {
         return (
             <div id="fullpage">
                 <div className="section" id="section0">
+                    <div className="landing-overlay" />
                     <div className="intro">
                         <div className=" ui container">
                             <div className="ui middle aligned stackable grid container">
@@ -41,7 +42,7 @@ export default class Homecontent extends React.Component {
                             </div>
                             <div className="ui stackable three column grid container">
                                 <div id="object" className="column">
-                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="image" id="diamond"> <i className="line chart icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
                                             <p> HOM_2_ITEM_1 </p>
@@ -49,7 +50,7 @@ export default class Homecontent extends React.Component {
                                     </div>
                                 </div>
                                 <div id="object" className="column">
-                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="image" id="diamond"> <i className="idea icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
                                             <p> HOM_2_ITEM_2 </p>
@@ -57,7 +58,7 @@ export default class Homecontent extends React.Component {
                                     </div>
                                 </div>
                                 <div id="object" className="column">
-                                    <div className="image" id="diamond"> <i className="pointing down icon"></i> </div>
+                                    <div className="image" id="diamond"> <i className="trophy icon"></i> </div>
                                     <div className="ui fluid card">
                                         <div className="content">
                                             <p> HOM_2_ITEM_3 </p>
