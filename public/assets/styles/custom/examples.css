@@ -538,3 +538,13 @@ footer a:hover{
     	font-weight: 300;
     }
 }
+
+@media only screen and (max-width: 320px) {
+    .section h1 {
+    	display: none;
+    }
+    .section h2 {
+    	font-size: 18px;
+    	font-weight: 300;
+    }
+}
