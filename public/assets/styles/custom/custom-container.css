@@ -1010,14 +1010,15 @@ meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
     }
 }
 .slider-value {
-    border: 1px solid #555459;
-    border-radius: 4px;
+    border-radius: 50%;
+    background-color: #fbbd08;
     color: #555459;
     float: right;
     margin: 0 10px 0 0;
-    padding: 4px;
+    padding-top: 8px;
     text-align: center;
     width: 30px;
+    height: 30px;
 }
 .sliderinput {
     width: 80%;

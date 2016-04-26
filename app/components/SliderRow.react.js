@@ -43,7 +43,7 @@ export default class SliderRow extends React.Component {
                 <div className="ui basic yellow left pointing label column"> {GetText("SRVY_" + mood + "_DES", mlarray)} </div>
                 <div className="mood-slider column">
                     <div className="ui range" style={{"width":"100%"}}>
-                        <input type="range" name={mood} max="5" min="1" value={moodrate} step="0.1" onChange={this.onChangeMood} className="sliderinput" style={{"float": "left", "marginTop": "5px"}} />
+                        <input type="range" name={mood} max="5" min="1" value={moodrate} step="0.1" onChange={this.onChangeMood} className="sliderinput" style={{"float": "left", "marginTop": "8px"}} />
                         <span className="slider-value">{moodrate}</span>
                     </div>
                 </div>
