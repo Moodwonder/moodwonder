@@ -4,7 +4,6 @@ import Homecontent from 'components/mainhome/Homecontent.react';
 import Homefooter from 'components/mainhome/Homefooter.react';
 import GoogleAnalytics from "components/analytics/GoogleAnalytics.react";
 
-
 export default class Apphome extends React.Component {
 
     constructor (props) {
@@ -12,16 +11,13 @@ export default class Apphome extends React.Component {
     }
 
     render() {
-
-        let content = [
-            <Homeheader />,
-            <Homecontent />,
-            <Homefooter />,
-            <GoogleAnalytics id="UA-40351687-1" />
-        ];
-
         return (
-            <div className="home">{content}</div>
+            <div className="home">
+                <Homeheader />,
+                <Homecontent />,
+                <Homefooter />,
+                <GoogleAnalytics id="UA-40351687-1" />
+            </div>
         );
     }
 }

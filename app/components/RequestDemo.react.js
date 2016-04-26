@@ -136,5 +136,3 @@ export default class RequestDemo extends React.Component {
         );
     }
 }
-
-RequestDemo.propTypes = { user: {} };
