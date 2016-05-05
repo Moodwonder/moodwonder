@@ -556,6 +556,7 @@ exports.updatePageKeys = function (req, res) {
                 OPER_TITLE: data.OPER_TITLE,
                 OPER_MOST_IMPROVED: data.OPER_MOST_IMPROVED,
                 OPER_LEAST_IMPROVED: data.OPER_LEAST_IMPROVED,
+                OPER_OPTALL: data.OPER_OPTALL,
                 OPER_OPTMOOD: data.OPER_OPTMOOD,
                 OPER_OPTMEANING: data.OPER_OPTMEANING,
                 OPER_OPTEXPECTATIONS: data.OPER_OPTEXPECTATIONS,

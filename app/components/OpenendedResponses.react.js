@@ -12,7 +12,7 @@ export default class OpenendedResponses extends React.Component {
             answers : OpenEndedStore.getState().answers,
             multilang: MlangStore.getState().multilang,
             area: 'most_improved',
-            mood: 'Mood'
+            mood: 'All'
         };
     }
 
@@ -52,6 +52,7 @@ export default class OpenendedResponses extends React.Component {
     }
 
     render() {
+
 
         let answers = this.state.answers;
         let mlarray = this.state.multilang;
@@ -248,6 +249,7 @@ export default class OpenendedResponses extends React.Component {
                     <div className="column">
                         <div className="three column">
                             <select name="optmood" style={{"float": "right"}} id="mood" className="ui dropdown mood">
+                                <option value="All">{GetText('OPER_OPTALL', mlarray)}</option>
                                 <option value="Mood">{GetText('OPER_OPTMOOD', mlarray)}</option>
                                 <option value="Meaning">{GetText('OPER_OPTMEANING', mlarray)}</option>
                                 <option value="Expectations">{GetText('OPER_OPTEXPECTATIONS', mlarray)}</option>

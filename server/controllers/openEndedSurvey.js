@@ -217,13 +217,19 @@ exports.getAnswers = function (req, res, next) {
                   memberIds.push(members[mkey]._id);
            }
            
+
+
            var condition;
            if (area == "most_improved") {
-               condition = {user_id: {$in: memberIds}, most_improved_mood: mood};
-           } else {
-               condition = {user_id: {$in: memberIds}, least_improved_mood: mood};
-           }
+                condition = {user_id: {$in: memberIds}};
+                (mood != 'All') ? condition.most_improved_mood = mood : '';
            
+           } else {
+
+                condition = {user_id: {$in: memberIds}} 
+                (mood != 'All') ? condition.least_improved_mood = mood : '';
+          }
+        
            OpenEndedAnswers.find(condition).lean().exec(function (err, data) {
                 var response = {};
                 if (!err) {

@@ -14,6 +14,7 @@ var openendedresponsespageSchema = new mongoose.Schema({
     OPER_TITLE: {type: String, default: ''},
     OPER_MOST_IMPROVED: {type: String, default: ''},
     OPER_LEAST_IMPROVED: {type: String, default: ''},
+    OPER_OPTALL: {type: String, default: ''},
     OPER_OPTMOOD: {type: String, default: ''},
     OPER_OPTMEANING: {type: String, default: ''},
     OPER_OPTEXPECTATIONS: {type: String, default: ''},
