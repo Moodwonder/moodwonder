@@ -226,7 +226,7 @@ exports.getAnswers = function (req, res, next) {
            
            } else {
 
-                condition = {user_id: {$in: memberIds}} 
+                condition = {user_id: {$in: memberIds}}; 
                 (mood != 'All') ? condition.least_improved_mood = mood : '';
           }
         
