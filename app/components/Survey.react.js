@@ -43,6 +43,7 @@ export default class Survey extends React.Component {
         let form = document.querySelector('#engagementForm');
         let formData = getFormData(form, {trim: true});
         let moodrow = moodrow || {};
+
         moodrow.type = 'engagement';
         const surveyResult = this.state.questions.map((data, key) => {
             let rating = formData[data.mood];
