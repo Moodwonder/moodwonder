@@ -684,16 +684,16 @@ export default class MyMood extends React.Component {
 
         let topthree = topThreeAreas.map((data, key) => {
 
-            let rows = this.getStars(data.rating, "green");
+            let rows = this.getStars(data.diff, "green");
 
             return (
                 <div className="column padding-ryt">
                     <div className="extra center aligned">
-                        <p className="head">{data.rating}</p>
-                        <div data-rating={data.rating} className="ui star rating">
+                        <p className="head">{data.diff}</p>
+                        <div data-rating={data.diff} className="ui star rating">
                             {rows}
                         </div>
-                        <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                        <div className="title">{GetText('MYMD_OPT' + data.moodObj.mood, mlarray)}</div>
                     </div>
                 </div>
             );
@@ -701,16 +701,16 @@ export default class MyMood extends React.Component {
 
         let worstthree = worstThreeAreas.map((data, key) => {
 
-            let rows = this.getStars(data.rating, "red");
+            let rows = this.getStars(data.diff, "red");
 
             return (
                 <div className="column padding-ryt">
                     <div className="extra center aligned">
-                        <p className="head">{data.rating}</p>
-                        <div data-rating={data.rating} className="ui star rating">
+                        <p className="head">{data.diff}</p>
+                        <div data-rating={data.diff} className="ui star rating">
                             {rows}
                         </div>
-                        <div className="title">{GetText('MYMD_OPT' + data.mood, mlarray)}</div>
+                        <div className="title">{GetText('MYMD_OPT' + data.moodObj.mood, mlarray)}</div>
                     </div>
                 </div>
             );

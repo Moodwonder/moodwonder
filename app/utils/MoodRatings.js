@@ -2,28 +2,32 @@ import _ from 'underscore';
 
 const moodratings = {
 
-    getTopThreeAreas: function (surveyresults) {
+    processAreasSurvey: function(surveyresults){
+        let sortByDate = _.sortBy(surveyresults, function(o) { return o.created.d; }).reverse();  //sort by created desc
+        let groups  =  _.groupBy(sortByDate,function(o){return o.mood;});  //group results by mood
+        let areasList = [];
+        _.map(groups, function(group,i){
+            let t = _.first(group,2);
+            if(t.length >= 2 ){
+                areasList.push({'moodObj':t[0],'diff':parseFloat(t[0].rating-t[1].rating).toFixed(1)});
+            }else{
+                areasList.push({'moodObj':t[0],'diff':parseFloat(t[0].rating).toFixed(1)});
+            }
+        });
+        return areasList;
+    },
 
-        let results = _.sortBy(surveyresults, function(o) { return o.rating; }).reverse();
-        let topthree = _.first(_.uniq(results, function(row) { return row.mood; }),3);
+    getTopThreeAreas: function (surveyresults) {
+        let areasList= this.processAreasSurvey(surveyresults);
+        let sortAreaBydiff = _.sortBy(areasList, function(o) { return -o.diff; }); //sort by rating diff desc
+        let topthree = _.first(sortAreaBydiff,3);
         return topthree;
     },
 
     getWorstThreeAreas: function (surveyresults) {
-
-        let topthree = this.getTopThreeAreas(surveyresults).map((data, key) => {
-            return data.mood;
-        });
-
-        let results = _.sortBy(surveyresults, function(o) { return o.rating;});
-
-        let finaldata = results.filter(function(o) {
-            for (let i = 0; i < topthree.length; i++)
-                if (topthree[i] === o.mood) return false;
-            return true;
-        });
-
-        let worstthree = _.first(_.uniq(finaldata, function(row) { return row.mood; }),3);
+        let areasList= this.processAreasSurvey(surveyresults);
+        let sortAreaBydiff = _.sortBy(areasList, function(o) { return -o.diff; }).reverse(); //sort by rating diff asc
+        let worstthree = _.first(sortAreaBydiff,3);
         return worstthree;
     },
 

@@ -111,44 +111,44 @@ export default class OpenEndedQuestions extends React.Component {
         let worstThreeAreas = MoodRatings.getWorstThreeAreas(surveyresults);
         let mlarray = this.state.multilang;
 
-        _.mixin( { multiplemax: function(list, field){
+        // _.mixin( { multiplemax: function(list, field){
 
-            let max = _.max(list, function(item){
-                return item[field];
-            });
+        //     let max = _.max(list, function(item){
+        //         return item[field];
+        //     });
 
-            return _.filter(list, function(item){
-                return item[field] === max[field];
-            });
-        }});
+        //     return _.filter(list, function(item){
+        //         return item[field] === max[field];
+        //     });
+        // }});
 
         let trand;
         let hmood;
-        let highests = _.multiplemax(topThreeAreas, 'rating');
+        let highests = _.first(topThreeAreas,1);
         if (highests.length > 0) {
             trand = Math.floor(Math.random() * (highests.length));
-            hmood = highests[trand].mood;
+            hmood = highests[trand].moodObj.mood;
         } else {
             hmood = '';
         }
 
-        _.mixin( { multiplemin: function(list, field){
+        // _.mixin( { multiplemin: function(list, field){
 
-            let min = _.min(list, function(item){
-                return item[field];
-            });
+        //     let min = _.min(list, function(item){
+        //         return item[field];
+        //     });
 
-            return _.filter(list, function(item){
-                return item[field] === min[field];
-            });
-        }});
+        //     return _.filter(list, function(item){
+        //         return item[field] === min[field];
+        //     });
+        // }});
 
         let wrand;
         let wmood;
-        let lowests = _.multiplemin(worstThreeAreas, 'rating');
+        let lowests = _.first(worstThreeAreas,1);
         if (lowests.length > 0) {
             wrand = Math.floor(Math.random() * (lowests.length));
-            wmood = lowests[wrand].mood;
+            wmood = lowests[wrand].moodObj.mood;
         } else {
             wmood = '';
         }
