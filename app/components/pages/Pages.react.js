@@ -416,6 +416,7 @@ export default RequireAuth(class Pages extends React.Component {
         openendedres.OPER_TITLE = data['OPER_TITLE'];
         openendedres.OPER_MOST_IMPROVED = data['OPER_MOST_IMPROVED'];
         openendedres.OPER_LEAST_IMPROVED = data['OPER_LEAST_IMPROVED'];
+        openendedres.OPER_OPTALL = data['OPER_OPTALL'];
         openendedres.OPER_OPTMOOD = data['OPER_OPTMOOD'];
         openendedres.OPER_OPTMEANING = data['OPER_OPTMEANING'];
         openendedres.OPER_OPTEXPECTATIONS = data['OPER_OPTEXPECTATIONS'];

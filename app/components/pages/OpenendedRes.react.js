@@ -12,6 +12,7 @@ export default class OpenendedRes extends React.Component {
             OPER_TITLE : '',
             OPER_MOST_IMPROVED: '',
             OPER_LEAST_IMPROVED: '',
+            OPER_OPTALL: '',
             OPER_OPTMOOD: '',
             OPER_OPTMEANING: '',
             OPER_OPTEXPECTATIONS: '',
@@ -47,6 +48,7 @@ export default class OpenendedRes extends React.Component {
             OPER_TITLE: pagedata.OPER_TITLE,
             OPER_MOST_IMPROVED: pagedata.OPER_MOST_IMPROVED,
             OPER_LEAST_IMPROVED: pagedata.OPER_LEAST_IMPROVED,
+            OPER_OPTALL: pagedata.OPER_OPTALL,
             OPER_OPTMOOD: pagedata.OPER_OPTMOOD,
             OPER_OPTMEANING: pagedata.OPER_OPTMEANING,
             OPER_OPTEXPECTATIONS: pagedata.OPER_OPTEXPECTATIONS,
@@ -83,6 +85,10 @@ export default class OpenendedRes extends React.Component {
     onChangeOperLeastImproved = (e) => {
         e.preventDefault();
         this.setState({ OPER_LEAST_IMPROVED: e.target.value });
+    }
+    onChangeOperAll = (e) => {
+        e.preventDefault();
+        this.setState({ OPER_OPTALL: e.target.value });
     }
     onChangeOperMood = (e) => {
         e.preventDefault();
@@ -145,6 +151,7 @@ export default class OpenendedRes extends React.Component {
         let OPER_TITLE = this.state.OPER_TITLE;
         let OPER_MOST_IMPROVED = this.state.OPER_MOST_IMPROVED;
         let OPER_LEAST_IMPROVED = this.state.OPER_LEAST_IMPROVED;
+        let OPER_OPTALL = this.state.OPER_OPTALL;
         let OPER_OPTMOOD = this.state.OPER_OPTMOOD;
         let OPER_OPTMEANING = this.state.OPER_OPTMEANING;
         let OPER_OPTEXPECTATIONS = this.state.OPER_OPTEXPECTATIONS;
@@ -192,6 +199,14 @@ export default class OpenendedRes extends React.Component {
                                     type="text"
                                     value={OPER_LEAST_IMPROVED}
                                     onChange={this.onChangeOperLeastImproved} />
+                            </div>
+                            <div className="field">
+                                <label>OPER_OPTALL</label>
+                                <input className="form-control"
+                                    name="OPER_OPTALL"
+                                    type="text"
+                                    value={OPER_OPTALL}
+                                    onChange={this.onChangeOperAll} />
                             </div>
                             <div className="field">
                                 <label>OPER_OPTMOOD</label>
