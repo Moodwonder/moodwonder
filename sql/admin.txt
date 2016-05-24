@@ -1,2 +1,0 @@
-
-db.admin.insert({ "username" : "admin", "password" : "$2a$10$Q5v4TkOstc1SzoAuOSkoJ.f.iCmB6bl52l04.PTOWUMgfNHN8Dsku", "role" : "ADMIN" });
