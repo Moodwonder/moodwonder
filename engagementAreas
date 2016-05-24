@@ -1,3 +1,0 @@
-db.engagementAreas.insert({ "_id" : ObjectId("55a4de63b88374425b96c575"), "mood" : "Mood", "description" : "I am happy at work today" });
-db.engagementAreas.insert({ "_id" : ObjectId("55a4e92eb88374425b96c579"), "mood" : "Meaning", "description" : "My company is a workplace to make meaningful things" });
-db.engagementAreas.insert({ "_id" : ObjectId("55a4e94ab88374425b96c57a"), "mood" : "Expectations", "description" : "I know what my manager expects of me" });
