@@ -2,7 +2,6 @@ import React from 'react';
 import CreatePswdActions from 'actions/CreatePswdActions';
 import CreatePswdStore from 'stores/CreatePswdStore';
 
-
 export default class CreatePassword extends React.Component {
 
     constructor(props) {
