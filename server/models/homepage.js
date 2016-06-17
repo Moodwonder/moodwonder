@@ -15,6 +15,7 @@ var homePageSchema = new mongoose.Schema({
     HOM_REGISTER: {type: String, default: ''},
     HOM_SGN_WORK_EMAIL: {type: String, default: ''},
     HOM_GET_STARTED: {type: String, default: ''},
+    HOM_NO_CREDIT_CARD: {type: String, default: ''},
     HOM_1_TITLE_1: {type: String, default: ''},
     HOM_1_SUBTITLE_1: {type: String, default: ''},
     HOM_2_TITLE_1: {type: String, default: ''},

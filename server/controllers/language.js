@@ -305,6 +305,7 @@ exports.updatePageKeys = function (req, res) {
                 HOM_REGISTER: data.HOM_REGISTER,
                 HOM_SGN_WORK_EMAIL: data.HOM_SGN_WORK_EMAIL,
                 HOM_GET_STARTED: data.HOM_GET_STARTED,
+                HOM_NO_CREDIT_CARD: data.HOM_NO_CREDIT_CARD,
                 HOM_1_TITLE_1: data.HOM_1_TITLE_1,
                 HOM_1_SUBTITLE_1: data.HOM_1_SUBTITLE_1,
                 HOM_2_TITLE_1: data.HOM_2_TITLE_1,
