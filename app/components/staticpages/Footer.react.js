@@ -19,7 +19,7 @@ export default class Footer extends React.Component {
                             <a href="/policy"> ABT_LINK_POLICY</a> |
                             <a href="/#contact"> ABT_LINK_CONTACT </a>
                         </div>
-                        <a href="#"> © Moodwonder 2015 </a>
+                        <a href="#"> © Moodwonder 2016 </a>
                     </div>
                 </div>
             </footer>
