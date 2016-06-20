@@ -89,6 +89,8 @@ export default RequireAuth(class Pages extends React.Component {
         signup.SGN_TITLE = data['SGN_TITLE'];
         signup.SGN_WORK_EMAIL = data['SGN_WORK_EMAIL'];
         signup.SGN_BTN_SUBMIT = data['SGN_BTN_SUBMIT'];
+        signup.SGN_FOOTER_TERMS = data['SGN_FOOTER_TERMS'];
+        signup.SGN_FOOTER_POLICY = data['SGN_FOOTER_POLICY'];
 
         if (window.confirm('Are you sure you want to submit the changes ?')) {
             PageActions.updatePageKeys(pageid, 'signup', signup);

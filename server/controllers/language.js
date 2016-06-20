@@ -362,7 +362,9 @@ exports.updatePageKeys = function (req, res) {
             update = {
                 SGN_TITLE: data.SGN_TITLE,
                 SGN_WORK_EMAIL: data.SGN_WORK_EMAIL,
-                SGN_BTN_SUBMIT: data.SGN_BTN_SUBMIT
+                SGN_BTN_SUBMIT: data.SGN_BTN_SUBMIT,
+                SGN_FOOTER_TERMS: data.SGN_FOOTER_TERMS,
+                SGN_FOOTER_POLICY: data.SGN_FOOTER_POLICY
             };
             break;
 
