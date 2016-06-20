@@ -165,15 +165,15 @@ export default class Login extends React.Component {
                                 type="submit"
                                 className="ui yellow button"
                                 disabled={this.state.loginBtn} >LGN_BTN</button>
+                            {message}
+                            {multimessages}
                         </form>
-                        {message}
-                        {multimessages}
                     </div>
                     <div className="ui message ">
                         <a href="/forgotpassword" className="frgt">
                             LGN_FORGOT_PSWD ?
                         </a>
-                        <a href="/#firstPage">LGN_SIGNUP</a>
+                        <a href="/signup">LGN_SIGNUP</a>
                     </div>
                 </div>
             </div>

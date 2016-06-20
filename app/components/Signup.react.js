@@ -159,9 +159,9 @@ export default class Signup extends React.Component {
                         <input ref="hash" name="hash" type="hidden" value={hash} />
                     </div>
                     <button type="submit" className="ui orange button" > <span className="pulse">HOM_GET_STARTED</span></button>
+                    {message}
+                    {multimessages}
                 </div>
-                {message}
-                {multimessages}
                 <h4 className="ui yellow header center aligned">HOM_NO_CREDIT_CARD</h4>
             </form>
         );

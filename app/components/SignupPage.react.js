@@ -155,10 +155,10 @@ export default class SignupPage extends React.Component {
                                 </div>
                             </div>
                             <button type="submit" className="ui yellow button" > SGN_BTN_SUBMIT </button>
+                            {message}
+                            {multimessages}
                             <h4 className="ui yellow header center aligned">By clicking signup, you agree to our <a href="/terms" target="_blank"> SGN_FOOTER_TERMS </a> and <a href="/policy" target="_blank"> SGN_FOOTER_POLICY </a></h4>
                         </div>
-                        {message}
-                        {multimessages}
                     </form>
                 </div>
             </div>

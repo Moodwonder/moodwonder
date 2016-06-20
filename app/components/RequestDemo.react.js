@@ -127,11 +127,11 @@ export default class RequestDemo extends React.Component {
                                 <label> HOM_7_LOOKING_FOR </label>
                                 <textarea ref="text"></textarea>
                             </div>
-                            <button className="ui orange button"  onClick={this._demoFormSubmit} > <span className="pulse"> HOM_7_SUBMIT </span></button>
+                            <button className="ui orange button" onClick={this._demoFormSubmit}> HOM_7_SUBMIT </button>
+                            {multimessages}
                         </div>
                     </div>
                 </div>
-                {multimessages}
             </div>
         );
     }
