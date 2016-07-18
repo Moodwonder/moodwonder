@@ -99,10 +99,13 @@ exports.postVote = function(req, res, next) {
 									votefor_userid = new ObjectId(votefor_userid);
 									User.findOne({ _id: votefor_userid }, function(err, user){
 										var transporter = nodemailer.createTransport();
-										var link = 'http://' + req.get('host') + '/employeeofthemonth';
+										var link = 'http://' + req.get('host') + '/publicprofile/' + user._id;
 										var body = "Hooray "+user.firstname+"! <br><br>" +
 												"Someone in "+ company_name +" has voted for you on Moodwonder! You have done something remarkable or shown you are a great team player! Congrats! <br><br>" +
-												"<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
+												
+                                                '<strong>"'+ comment.replace(/\r?\n/g, '<br />') + '"</strong> <br><br>' +
+
+                                                "<a style='-webkit-border-radius: 6; -moz-border-radius: 6; border-radius: 6px; font-family: Arial; color: #ffffff; font-size: 14px; background: #26a69a; padding: 10px 20px 10px 20px; text-decoration: none;' href='" + link + "'>See votes</a> <br><br>" +
 												"It's time to cast your vote and thank someone for being a great colleague or for doing a great job!<br><br>" +
 												"Thanks,"+
 												"<br> Moodwonder Team";
