@@ -101,6 +101,7 @@ export default class PublicProfile extends React.Component {
 
         let manager = [<a>No manager</a>];
         let teams = [<a>No teams</a>];
+        let currentvotes = [];
         if( this.publicuser && this.publicuser.data && this.publicuser.datacurrent_user_id && this.publicuser.datacurrent_user_id === this.props.params.hash ){
             manager = [<a href="/myprofile">Add manager</a>];
             teams = [<a href="/myprofile">Add team</a>];
@@ -115,15 +116,17 @@ export default class PublicProfile extends React.Component {
 
         if (!isNaN(sPercentage) && (sPercentage > 0)) {
             content = (
-                <div className="ui segment">
-                    <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
-                    <ParticipationGraph percentage={sPercentage} />
+                <div className="sixteen wide column">
+                    <div className="ui segment">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
+                        <ParticipationGraph percentage={sPercentage} />
+                    </div>
                 </div>
             );
         }
 
         let publicUser = this.state.publicuser;
-        //console.log(JSON.stringify(publicUser));
+        console.log(JSON.stringify(publicUser));
         if (publicUser.data !== undefined && publicUser.data.manager !== undefined && publicUser.data.manager.status !== undefined && publicUser.data.manager.status ) {
             manager = (
                 <div className="my-info">
@@ -140,7 +143,7 @@ export default class PublicProfile extends React.Component {
                     teams = publicUser.data.teams.data.map((data, key) => {
                         return (
                             <div className="my-info teams">
-                                <span className="heading">{data.teamname}</span>
+                                <span>{data.teamname}</span>
                             </div>
                         );
                     });
@@ -200,6 +203,44 @@ export default class PublicProfile extends React.Component {
             );
         }
 
+        let showMore = null;
+        if (publicUser.data.currentuservotes !== undefined) {
+
+            try{
+                if(publicUser.data.currentuservotes.length > 0){
+                    showMore = (
+                        <div className="column">
+                            <button className="ui button showbtn" type="button">SHOW MORE</button>
+                        </div>
+                    );
+                    currentvotes = publicUser.data.currentuservotes.map((data, key) => {
+                        let comment = data.comment.split('\n').map((item, key) => {
+                            return (
+                                <span>{item}<br/></span>
+                            );
+                        });
+                        return (
+                            <div className="five wide column">
+                                <div className="box">
+                                    <div className="boxtite_bar">
+                                        <span>{data.postdate}</span><i className="ban icon"></i>
+                                    </div>
+                                    <div className="box_details">
+                                        <p>{comment}</p>
+                                        <a href="#" className="leave">Leave a Comment</a>
+                                    </div>
+                               </div>
+                            </div>
+                        );
+                    });
+                }
+            }catch(e){
+                console.log('Error in my currentvotes list');
+                console.log(e);
+            }
+        }
+
+
         return (
             <div className="ui-main">
                 <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>
@@ -207,22 +248,23 @@ export default class PublicProfile extends React.Component {
                     {voteBtn}
                 </div>
                 <div className="ui two column stackable grid">
-                    <div className="nine wide column">
-                        {message}
-                        <div className="ui segment">
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
-                            <p>{publicUser.data.currentuservotes}</p>
-                        </div>
-                        {content}
+                    <div className="eight wide column profilebox">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
+                        {manager}
                     </div>
-                    <div className="seven wide column">
-                        <div className="ui segment">
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
-                            {manager}
-
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
-                            {teams}
-
+                    <div className="eight wide column profilebox">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
+                        {teams}
+                    </div>
+                    {content}
+                    <div className="sixteen wide column praises_container">
+                        {message}
+                        <div>
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} ({publicUser.data.currentuservotes.length}) </h4>
+                            <div className="ui grid column">
+                                {currentvotes}
+                            </div>
+                            {showMore}
                         </div>
                     </div>
                 </div>

@@ -2935,10 +2935,15 @@ exports.getPublicProfile = function (req, res, next) {
                 // Current user total votes
                 Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, votefor_userid: new ObjectId(_id) }, function(err, votes){
 
-                    response.data.currentuservotes = 0;
+                    response.data.currentuservotes = [];
                     if(!err && votes !== null){
                         votes.map(function (data, key) {
-                            response.data.currentuservotes++;
+                            var postdate = data.postdate.split('-');
+                            var datestring = postdate[1] + '/' + postdate[2] + '/' + postdate[0];
+                            response.data.currentuservotes[key] = {'_id':data._id,
+                                                                   'comment':data.comment,
+                                                                   'postdate':datestring
+                                                                   };
                         });
                     }
                     existCondition();

@@ -313,3 +313,19 @@ label.column.email {
     width: auto !important;
 }
 /* End : header css */
+
+
+
+.praises_container .box{ background: #eaeaea; color: #333;}
+.praises_container .box .boxtite_bar{ background: #ddd; padding: 8px 5px;}
+.praises_container .box .boxtite_bar span{ display: inline-block; border-radius: 15px; background: #bdbdbd; padding: 1px 10px; font-size: 13px; color: #333;}
+.praises_container .box .boxtite_bar i{ float: right; color: #F05B71; font-size: 22px;}
+.praises_container .box .box_details{ padding: 10px; display: inline-block; width: 100%;}
+.praises_container .box .box_details .leave{ float: right; padding: 3px 10px; border-radius: 5px; color: #fff; background: #2BBAAA;}
+
+.profilebox .my-info span{ display: block;}
+.profilebox .my-info.teams span{ display: inline-block;}
+.profilebox .my-info img{ border: 3px solid #26A69A !important; width: 100px !important; height: 100px !important; margin: 0 0 10px;}
+.praises_container .showbtn{ background: #2BBAAA; color: #fff; display: block; margin: 0 auto}
+
+ 
