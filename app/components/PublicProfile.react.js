@@ -56,6 +56,35 @@ export default class PublicProfile extends React.Component {
 
     }
 
+    _onVoteModalClick = () => {
+        $( "body" ).addClass( "dimmed dimmable" );
+        this.setState({
+            voteCommentModal:true
+        });
+    }
+
+    _onVotePopClose = () => {
+        $( "body" ).removeClass( "dimmed dimmable" );
+        this.setState({
+            voteCommentModal:false
+        });
+    }
+
+    _onVoteChangeComment = (e) => {
+        if(e.target.value.trim() !== ''){
+            this.setState({
+                isCommentNotValid: false
+            });
+        }else{
+            this.setState({
+                isCommentNotValid: true
+            });
+        }
+    }
+
+    _onVoteCommentSubmit = (e) => {
+    }
+
     _onModalClick = () => {
         $( "body" ).addClass( "dimmed dimmable" );
         this.setState({
@@ -194,6 +223,28 @@ export default class PublicProfile extends React.Component {
             );
         }
 
+        let voteCommentModal;
+        if(this.state.voteCommentModal){
+            voteCommentModal = (
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal">
+                        <i className="close icon" onClick={this._onVotePopClose} data-dismiss="modal"></i>
+                        <div className="header">Comment</div>
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    <label> Comment</label>
+                                    <textarea className="form-control" rows="5" ref="comment" onChange={this._onVoteChangeComment} ></textarea>
+                                </div>
+                                <button type="button" disabled={this.state.isCommentNotValid} onClick={this._onVoteCommentSubmit} className="ui submit button submitt" >Comment</button>
+                                <button type="button" onClick={this._onVotePopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
         let message = null;
         if(this.state.hasError){
             message = (
@@ -227,7 +278,7 @@ export default class PublicProfile extends React.Component {
                                     </div>
                                     <div className="box_details">
                                         <p>{comment}</p>
-                                        <a href="#" className="leave">Leave a Comment</a>
+                                        <a onClick={this._onVoteModalClick} className="leave">Leave a Comment</a>
                                     </div>
                                </div>
                             </div>
@@ -269,6 +320,7 @@ export default class PublicProfile extends React.Component {
                     </div>
                 </div>
                 {modal}
+                {voteCommentModal}
             </div>
         );
     }
