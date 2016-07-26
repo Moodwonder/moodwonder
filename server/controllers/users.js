@@ -3007,7 +3007,7 @@ exports.getEmployeeVotes = function (req, res) {
 
     var lastCommentId = req.body.lastCommentId;
     var hasMoreComments = false;
-    var limit = 7;
+    var limit = 1;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -3025,9 +3025,8 @@ exports.getEmployeeVotes = function (req, res) {
         Vote.count(voteCond, function(err, c) {
             if(c > limit ){
                 hasMoreComments = true;
-                response.data.hasMoreComments = hasMoreComments;
             }
-
+            response.data.hasMoreComments = hasMoreComments;
             // Current user total votes
             Vote.find(voteCond).limit(limit).sort({_id: -1}).exec(function(err, votes){
                 if(!err && votes !== null){
