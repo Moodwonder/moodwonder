@@ -20,6 +20,23 @@ class EmployeeOfTheMonthActions {
         this.dispatch(data);
     }
 
+    getallvotes(data) {
+        this.dispatch();
+        CommonWebAPIUtils.getAllVotes(data)
+        .then((response, textStatus) => {
+            if (textStatus === 'success') {
+                this.actions.getvotes(response);
+            }
+        }, () => {
+            // Dispatch another event for a bad request
+        });
+    }
+
+    getvotes(data)
+    {
+        this.dispatch(data);
+    }
+
     saveVote(data) {
         this.dispatch();
         CommonWebAPIUtils.saveVote(data)

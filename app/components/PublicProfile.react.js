@@ -17,12 +17,17 @@ export default class PublicProfile extends React.Component {
         this.state.isNotValid = true;
         this.state.multilang = MlangStore.getState().multilang;
         this.state.mySurvey = [];
+        this.filteredVote = [];
+        this.ShowMoreVote = true;
+        this.hasMoreComments = false;
+        this.lastCommentId = '';
         this.mytotalvotes = 0;
     }
 
     componentDidMount() {
         if(this.props !== undefined && this.props.params !== undefined && this.props.params.hash !== undefined ){
             SurveyParticipationActions.getMySurveyParticipation({ _id: this.props.params.hash });
+            EOTMActions.getallvotes({ votefor_userid: this.props.params.hash });
         }
         SurveyParticipationStore.listen(this._onChange);
         PublicUserStore.listen(this._onChange);
@@ -39,7 +44,29 @@ export default class PublicProfile extends React.Component {
         });
     }
 
+    showMoreVotes = () => {
+        let obj = {};
+        if( this.lastCommentId !== '' ){
+            obj.lastCommentId = this.lastCommentId;
+            obj.votefor_userid = this.props.params.hash;
+        }
+        EOTMActions.getallvotes(obj);
+        this.ShowMoreVote = true;
+    }
+
+
     _onChangeEOTMStore = (state) => {
+        if(this.ShowMoreVote){
+            this.ShowMoreVote = false;
+            state.employeeVotes.data.currentuservotes.map((data, key) => {
+                this.filteredVote.push(data);
+            });
+            let last_vote = this.filteredVote[this.filteredVote.length-1];
+            if( last_vote !== undefined && last_vote._id !== undefined && last_vote._id !== ''){
+                this.lastCommentId = last_vote._id;
+            }
+        }
+        this.hasMoreComments = state.employeeVotes.data.hasMoreComments;
         if(!state.modal){
             this._onPopClose();
         }
@@ -53,7 +80,6 @@ export default class PublicProfile extends React.Component {
         }else{
             this.setState({ hasError: state.hasError, message: state.message });
         }
-
     }
 
     _onVoteModalClick = () => {
@@ -126,6 +152,7 @@ export default class PublicProfile extends React.Component {
         let mlarray = this.state.multilang;
 
         let content;
+        let morevotes = null;
 
 
         let manager = [<a>No manager</a>];
@@ -139,7 +166,7 @@ export default class PublicProfile extends React.Component {
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
         try{
             if (this.state.publicuser.data.disablevote) {
-                voteBtn   = (<a className="ui button vote disabled" > <i className='checkmark icon'></i> VOTE HERE</a>);
+                voteBtn   = (<a className="ui button vote disabled" > <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)}</a>);
             }
         }catch(e){}
 
@@ -155,7 +182,7 @@ export default class PublicProfile extends React.Component {
         }
 
         let publicUser = this.state.publicuser;
-        console.log(JSON.stringify(publicUser));
+        //console.log(JSON.stringify(publicUser));
         if (publicUser.data !== undefined && publicUser.data.manager !== undefined && publicUser.data.manager.status !== undefined && publicUser.data.manager.status ) {
             manager = (
                 <div className="my-info">
@@ -207,15 +234,15 @@ export default class PublicProfile extends React.Component {
                 <div className="ui dimmer modals page transition visible active">
                     <div className="ui active modal">
                         <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                        <div className="header">Vote</div>
+                        <div className="header">{GetText('PUBLIC_POPUP_TITLE', mlarray)}</div>
                         <div className="ui segment">
                             <div className="ui small form">
                                 <div className="field">
-                                    <label> Comment</label>
+                                    <label> {GetText('PUBLIC_POP_COMMENT', mlarray)}</label>
                                     <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
                                 </div>
-                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >Vote</button>
-                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >{GetText('PUBLIC_POP_VOTE_BTN', mlarray)}</button>
+                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('PUBLIC_POPUP_CLOSE_BTN', mlarray)}</button>
                             </div>
                         </div>
                     </div>
@@ -229,15 +256,15 @@ export default class PublicProfile extends React.Component {
                 <div className="ui dimmer modals page transition visible active">
                     <div className="ui active modal">
                         <i className="close icon" onClick={this._onVotePopClose} data-dismiss="modal"></i>
-                        <div className="header">Comment</div>
+                        <div className="header">{GetText('PUBLIC_COMMENT_VOTE_TITLE', mlarray)}</div>
                         <div className="ui segment">
                             <div className="ui small form">
                                 <div className="field">
-                                    <label> Comment</label>
+                                    <label>{GetText('PUBLIC_COMMENT_POP_LABEL', mlarray)}</label>
                                     <textarea className="form-control" rows="5" ref="comment" onChange={this._onVoteChangeComment} ></textarea>
                                 </div>
-                                <button type="button" disabled={this.state.isCommentNotValid} onClick={this._onVoteCommentSubmit} className="ui submit button submitt" >Comment</button>
-                                <button type="button" onClick={this._onVotePopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                                <button type="button" disabled={this.state.isCommentNotValid} onClick={this._onVoteCommentSubmit} className="ui submit button submitt" >{GetText('PUBLIC_COMMENT_POP_BTN', mlarray)}</button>
+                                <button type="button" onClick={this._onVotePopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('PUBLIC_COMMENT_POP_CLOSE_BTN', mlarray)}</button>
                             </div>
                         </div>
                     </div>
@@ -254,17 +281,10 @@ export default class PublicProfile extends React.Component {
             );
         }
 
-        let showMore = null;
-        if (publicUser.data.currentuservotes !== undefined) {
-
+        if (this.filteredVote !== undefined) {
             try{
-                if(publicUser.data.currentuservotes.length > 0){
-                    showMore = (
-                        <div className="column">
-                            <button className="ui button showbtn" type="button">SHOW MORE</button>
-                        </div>
-                    );
-                    currentvotes = publicUser.data.currentuservotes.map((data, key) => {
+                if(this.filteredVote.length > 0){
+                    currentvotes = this.filteredVote.map((data, key) => {
                         let comment = data.comment.split('\n').map((item, key) => {
                             return (
                                 <span>{item}<br/></span>
@@ -278,7 +298,7 @@ export default class PublicProfile extends React.Component {
                                     </div>
                                     <div className="box_details">
                                         <p>{comment}</p>
-                                        <a onClick={this._onVoteModalClick} className="leave">Leave a Comment</a>
+                                        <a onClick={this._onVoteModalClick} className="leave">{GetText('PUBLIC_LEAVE_COMMENT', mlarray)}</a>
                                     </div>
                                </div>
                             </div>
@@ -289,6 +309,10 @@ export default class PublicProfile extends React.Component {
                 console.log('Error in my currentvotes list');
                 console.log(e);
             }
+        }
+
+        if(this.hasMoreComments){
+            morevotes = [<div className="column"><button className="ui button showbtn" type="button" onClick={this.showMoreVotes}>{GetText('PUBLIC_SHOW_MORE', mlarray)}</button></div>];
         }
 
 
@@ -311,11 +335,11 @@ export default class PublicProfile extends React.Component {
                     <div className="sixteen wide column praises_container">
                         {message}
                         <div>
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} ({publicUser.data.currentuservotes.length}) </h4>
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} ({publicUser.data.currentuservotes}) </h4>
                             <div className="ui grid column">
                                 {currentvotes}
                             </div>
-                            {showMore}
+                            {morevotes}
                         </div>
                     </div>
                 </div>

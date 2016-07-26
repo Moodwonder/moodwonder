@@ -2630,7 +2630,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
     var last_id = req.body.last_id;
     var keyword = req.body.keyword;
     // put 21 if you want 20 results
-    var limit = 21;
+    var limit = 6;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -2933,22 +2933,19 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
                 // Current user total votes
-                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') }, votefor_userid: new ObjectId(_id) }, function(err, votes){
+                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') },
+                                 votefor_userid: new ObjectId(_id) }, function(err, votes){
 
-                    response.data.currentuservotes = [];
+                    response.data.currentuservotes = 0;
                     if(!err && votes !== null){
                         votes.map(function (data, key) {
-                            var postdate = data.postdate.split('-');
-                            var datestring = postdate[1] + '/' + postdate[2] + '/' + postdate[0];
-                            response.data.currentuservotes[key] = {'_id':data._id,
-                                                                   'comment':data.comment,
-                                                                   'postdate':datestring
-                                                                   };
+                            response.data.currentuservotes++;
                         });
                     }
                     existCondition();
                 });
 
+                
                 // Current user employee of the month status
                 EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
 
@@ -2994,6 +2991,73 @@ exports.getPublicProfile = function (req, res, next) {
         next();*/
     }
 };
+
+
+/**
+ * Get public profile votes
+ * 
+ **/
+exports.getEmployeeVotes = function (req, res) {
+
+    var response     = {};
+    response.status  = false;
+    response.message = 'Error';
+    response.data = {};
+    response.data.currentuservotes = [];
+
+    var lastCommentId = req.body.lastCommentId;
+    var hasMoreComments = false;
+    var limit = 7;
+    var date = new Date();
+    // date with YYYY-MM-DD format
+    var cdate = JSON.stringify(date).substring(1, 11);
+    var yearmonth = cdate.substring(0, 7);
+
+    var _id = req.body.votefor_userid;
+    if( _id !== undefined && _id !== '' && ObjectId.isValid(_id)){
+
+        var voteCond = { postdate: { $regex : new RegExp(yearmonth,'i') },
+                         votefor_userid: new ObjectId(_id) };
+        if(isValid(lastCommentId)){
+            voteCond._id = { "$lt": new ObjectId(lastCommentId) };
+        }
+
+        Vote.count(voteCond, function(err, c) {
+            if(c > limit ){
+                hasMoreComments = true;
+                response.data.hasMoreComments = hasMoreComments;
+            }
+
+            // Current user total votes
+            Vote.find(voteCond).limit(limit).sort({_id: -1}).exec(function(err, votes){
+                if(!err && votes !== null){
+                    votes.map(function (data, key) {
+                        var postdate = data.postdate.split('-');
+                        var datestring = postdate[1] + '/' + postdate[2] + '/' + postdate[0];
+                        response.data.currentuservotes[key] = {'_id':data._id,
+                                                               'comment':data.comment,
+                                                               'postdate':datestring
+                                                               };
+                    });
+                }
+
+                response.status = true;
+                response.message = 'success';
+                res.send(response);
+            });
+
+        });
+
+        
+
+        
+    }else{
+        response.status = false;
+        response.message = 'Invalid User!.';
+        res.send(response);
+    }
+};
+
 
 /**
  * Handle invite signup page GET request 
