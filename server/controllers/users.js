@@ -3007,7 +3007,7 @@ exports.getEmployeeVotes = function (req, res) {
 
     var lastCommentId = req.body.lastCommentId;
     var hasMoreComments = false;
-    var limit = 1;
+    var limit = 7;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
