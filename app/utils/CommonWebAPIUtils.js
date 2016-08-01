@@ -78,6 +78,15 @@ const utils = {
         });
     },
 
+    getAllVotes: (data) => {
+        return $.ajax({
+            url: '/getemployeevotes',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data)
+        });
+    },
+
     saveVote: (data) => {
         return $.ajax({
             url: '/postvote',

@@ -17,12 +17,17 @@ export default class PublicProfile extends React.Component {
         this.state.isNotValid = true;
         this.state.multilang = MlangStore.getState().multilang;
         this.state.mySurvey = [];
+        this.filteredVote = [];
+        this.ShowMoreVote = true;
+        this.hasMoreComments = false;
+        this.lastCommentId = '';
         this.mytotalvotes = 0;
     }
 
     componentDidMount() {
         if(this.props !== undefined && this.props.params !== undefined && this.props.params.hash !== undefined ){
             SurveyParticipationActions.getMySurveyParticipation({ _id: this.props.params.hash });
+            EOTMActions.getallvotes({ votefor_userid: this.props.params.hash });
         }
         SurveyParticipationStore.listen(this._onChange);
         PublicUserStore.listen(this._onChange);
@@ -39,7 +44,29 @@ export default class PublicProfile extends React.Component {
         });
     }
 
+    showMoreVotes = () => {
+        let obj = {};
+        if( this.lastCommentId !== '' ){
+            obj.lastCommentId = this.lastCommentId;
+            obj.votefor_userid = this.props.params.hash;
+        }
+        EOTMActions.getallvotes(obj);
+        this.ShowMoreVote = true;
+    }
+
+
     _onChangeEOTMStore = (state) => {
+        if(this.ShowMoreVote){
+            this.ShowMoreVote = false;
+            state.employeeVotes.data.currentuservotes.map((data, key) => {
+                this.filteredVote.push(data);
+            });
+            let last_vote = this.filteredVote[this.filteredVote.length-1];
+            if( last_vote !== undefined && last_vote._id !== undefined && last_vote._id !== ''){
+                this.lastCommentId = last_vote._id;
+            }
+        }
+        this.hasMoreComments = state.employeeVotes.data.hasMoreComments;
         if(!state.modal){
             this._onPopClose();
         }
@@ -53,7 +80,35 @@ export default class PublicProfile extends React.Component {
         }else{
             this.setState({ hasError: state.hasError, message: state.message });
         }
+    }
 
+    _onVoteModalClick = () => {
+        $( "body" ).addClass( "dimmed dimmable" );
+        this.setState({
+            voteCommentModal:true
+        });
+    }
+
+    _onVotePopClose = () => {
+        $( "body" ).removeClass( "dimmed dimmable" );
+        this.setState({
+            voteCommentModal:false
+        });
+    }
+
+    _onVoteChangeComment = (e) => {
+        if(e.target.value.trim() !== ''){
+            this.setState({
+                isCommentNotValid: false
+            });
+        }else{
+            this.setState({
+                isCommentNotValid: true
+            });
+        }
+    }
+
+    _onVoteCommentSubmit = (e) => {
     }
 
     _onModalClick = () => {
@@ -97,10 +152,12 @@ export default class PublicProfile extends React.Component {
         let mlarray = this.state.multilang;
 
         let content;
+        let morevotes = null;
 
 
         let manager = [<a>No manager</a>];
         let teams = [<a>No teams</a>];
+        let currentvotes = [];
         if( this.publicuser && this.publicuser.data && this.publicuser.datacurrent_user_id && this.publicuser.datacurrent_user_id === this.props.params.hash ){
             manager = [<a href="/myprofile">Add manager</a>];
             teams = [<a href="/myprofile">Add team</a>];
@@ -109,15 +166,17 @@ export default class PublicProfile extends React.Component {
         let voteBtn = (<a className="ui button vote "> <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)} </a>);
         try{
             if (this.state.publicuser.data.disablevote) {
-                voteBtn   = (<a className="ui button vote disabled" > <i className='checkmark icon'></i> VOTE HERE</a>);
+                voteBtn   = (<a className="ui button vote disabled" > <i className='checkmark icon'></i> {GetText('PUBLIC_PROFILE_VOTE_BTN', mlarray)}</a>);
             }
         }catch(e){}
 
         if (!isNaN(sPercentage) && (sPercentage > 0)) {
             content = (
-                <div className="ui segment">
-                    <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
-                    <ParticipationGraph percentage={sPercentage} />
+                <div className="sixteen wide column">
+                    <div className="ui segment">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_SURVEYS_PARTICIPATED', mlarray)} </h4>
+                        <ParticipationGraph percentage={sPercentage} />
+                    </div>
                 </div>
             );
         }
@@ -140,7 +199,7 @@ export default class PublicProfile extends React.Component {
                     teams = publicUser.data.teams.data.map((data, key) => {
                         return (
                             <div className="my-info teams">
-                                <span className="heading">{data.teamname}</span>
+                                <span>{data.teamname}</span>
                             </div>
                         );
                     });
@@ -175,15 +234,37 @@ export default class PublicProfile extends React.Component {
                 <div className="ui dimmer modals page transition visible active">
                     <div className="ui active modal">
                         <i className="close icon" onClick={this._onPopClose} data-dismiss="modal"></i>
-                        <div className="header">Vote</div>
+                        <div className="header">{GetText('PUBLIC_POPUP_TITLE', mlarray)}</div>
                         <div className="ui segment">
                             <div className="ui small form">
                                 <div className="field">
-                                    <label> Comment</label>
+                                    <label> {GetText('PUBLIC_POP_COMMENT', mlarray)}</label>
                                     <textarea className="form-control" rows="5" ref="comment" onChange={this._onChangeComment} ></textarea>
                                 </div>
-                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >Vote</button>
-                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">Close</button>
+                                <button type="button" disabled={this.state.isNotValid} onClick={this._onVoteSubmit} className="ui submit button submitt" >{GetText('PUBLIC_POP_VOTE_BTN', mlarray)}</button>
+                                <button type="button" onClick={this._onPopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('PUBLIC_POPUP_CLOSE_BTN', mlarray)}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        let voteCommentModal;
+        if(this.state.voteCommentModal){
+            voteCommentModal = (
+                <div className="ui dimmer modals page transition visible active">
+                    <div className="ui active modal">
+                        <i className="close icon" onClick={this._onVotePopClose} data-dismiss="modal"></i>
+                        <div className="header">{GetText('PUBLIC_COMMENT_VOTE_TITLE', mlarray)}</div>
+                        <div className="ui segment">
+                            <div className="ui small form">
+                                <div className="field">
+                                    <label>{GetText('PUBLIC_COMMENT_POP_LABEL', mlarray)}</label>
+                                    <textarea className="form-control" rows="5" ref="comment" onChange={this._onVoteChangeComment} ></textarea>
+                                </div>
+                                <button type="button" disabled={this.state.isCommentNotValid} onClick={this._onVoteCommentSubmit} className="ui submit button submitt" >{GetText('PUBLIC_COMMENT_POP_BTN', mlarray)}</button>
+                                <button type="button" onClick={this._onVotePopClose} className="ui submit button cancel" data-dismiss="modal">{GetText('PUBLIC_COMMENT_POP_CLOSE_BTN', mlarray)}</button>
                             </div>
                         </div>
                     </div>
@@ -200,6 +281,41 @@ export default class PublicProfile extends React.Component {
             );
         }
 
+        if (this.filteredVote !== undefined) {
+            try{
+                if(this.filteredVote.length > 0){
+                    currentvotes = this.filteredVote.map((data, key) => {
+                        let comment = data.comment.split('\n').map((item, key) => {
+                            return (
+                                <span>{item}<br/></span>
+                            );
+                        });
+                        return (
+                            <div className="five wide column">
+                                <div className="box">
+                                    <div className="boxtite_bar">
+                                        <span>{data.postdate}</span><i className="ban icon"></i>
+                                    </div>
+                                    <div className="box_details">
+                                        <p>{comment}</p>
+                                        <a onClick={this._onVoteModalClick} className="leave">{GetText('PUBLIC_LEAVE_COMMENT', mlarray)}</a>
+                                    </div>
+                               </div>
+                            </div>
+                        );
+                    });
+                }
+            }catch(e){
+                console.log('Error in my currentvotes list');
+                console.log(e);
+            }
+        }
+
+        if(this.hasMoreComments){
+            morevotes = [<div className="column"><button className="ui button showbtn" type="button" onClick={this.showMoreVotes}>{GetText('PUBLIC_SHOW_MORE', mlarray)}</button></div>];
+        }
+
+
         return (
             <div className="ui-main">
                 <PublicProfileHeader data={ { publicuser: this.state.publicuser } }/>
@@ -207,26 +323,28 @@ export default class PublicProfile extends React.Component {
                     {voteBtn}
                 </div>
                 <div className="ui two column stackable grid">
-                    <div className="nine wide column">
-                        {message}
-                        <div className="ui segment">
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} </h4>
-                            <p>{publicUser.data.currentuservotes}</p>
-                        </div>
-                        {content}
+                    <div className="eight wide column profilebox">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
+                        {manager}
                     </div>
-                    <div className="seven wide column">
-                        <div className="ui segment">
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_MANAGERS', mlarray)} </h4>
-                            {manager}
-
-                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
-                            {teams}
-
+                    <div className="eight wide column profilebox">
+                        <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_TEAMS', mlarray)} </h4>
+                        {teams}
+                    </div>
+                    {content}
+                    <div className="sixteen wide column praises_container">
+                        {message}
+                        <div>
+                            <h4 className="ui header ryt"> {GetText('PUBLIC_PROFILE_VOTES', mlarray)} ({publicUser.data.currentuservotes}) </h4>
+                            <div className="ui grid column">
+                                {currentvotes}
+                            </div>
+                            {morevotes}
                         </div>
                     </div>
                 </div>
                 {modal}
+                {voteCommentModal}
             </div>
         );
     }

@@ -7,6 +7,7 @@ class EmployeeOfTheMonthStore {
 
         // All employees
         this.employees    =   {};
+        this.employeeVotes=   {};
         this.hasEmployees =   false;
         // record of a single employee
         this.employee     =   {};
@@ -25,7 +26,8 @@ class EmployeeOfTheMonthStore {
             handleGetEmployees: EmployeeOfTheMonthActions.GETEMPLOYEES,
             handleSetEOTM: EmployeeOfTheMonthActions.SETEMPLOYEEOFTHEMONTH,
             handleGetEMPView: EmployeeOfTheMonthActions.GETEMPVIEW,
-            handleSaveVote: EmployeeOfTheMonthActions.SAVEVOTESUCCESS
+            handleSaveVote: EmployeeOfTheMonthActions.SAVEVOTESUCCESS,
+            handleGetVotes: EmployeeOfTheMonthActions.GETVOTES
         });
     }
 
@@ -36,6 +38,12 @@ class EmployeeOfTheMonthStore {
             this.awardStatus = true;
         }
         this.hasEmployees = true;
+        this.emitChange();
+    }
+
+    handleGetVotes (response) {
+        console.log('handleGetVotes');
+        this.employeeVotes = response;
         this.emitChange();
     }
 

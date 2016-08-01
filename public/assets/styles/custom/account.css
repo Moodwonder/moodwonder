@@ -23,7 +23,7 @@
 }
 .ui.menu.account {
 	display: flex;
-	margin: -30px -30px 0px;
+	margin: -30px -30px 10px;
 	background: #E0E0E0 none repeat scroll 0% 0% !important;
 	height: 60px;
 	padding: 0 10px;
