@@ -294,11 +294,12 @@ export default class PublicProfile extends React.Component {
                             <div className="five wide column">
                                 <div className="box">
                                     <div className="boxtite_bar">
-                                        <span>{data.postdate}</span><i className="ban icon"></i>
+                                        <span>{data.postdate}</span>
+                                        {/*<i className="ban icon"></i>*/}
                                     </div>
                                     <div className="box_details">
                                         <p>{comment}</p>
-                                        <a onClick={this._onVoteModalClick} className="leave">{GetText('PUBLIC_LEAVE_COMMENT', mlarray)}</a>
+                                        {/*<a onClick={this._onVoteModalClick} className="leave">{GetText('PUBLIC_LEAVE_COMMENT', mlarray)}</a>*/}
                                     </div>
                                </div>
                             </div>
