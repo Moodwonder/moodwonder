@@ -2945,7 +2945,7 @@ exports.getPublicProfile = function (req, res, next) {
                     existCondition();
                 });
 
-                
+
                 // Current user employee of the month status
                 EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
 
@@ -2995,7 +2995,7 @@ exports.getPublicProfile = function (req, res, next) {
 
 /**
  * Get public profile votes
- * 
+ *
  **/
 exports.getEmployeeVotes = function (req, res) {
 
@@ -3007,7 +3007,7 @@ exports.getEmployeeVotes = function (req, res) {
 
     var lastCommentId = req.body.lastCommentId;
     var hasMoreComments = false;
-    var limit = 7;
+    var limit = 6;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -3047,9 +3047,9 @@ exports.getEmployeeVotes = function (req, res) {
 
         });
 
-        
 
-        
+
+
     }else{
         response.status = false;
         response.message = 'Invalid User!.';
