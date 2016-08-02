@@ -163,7 +163,7 @@ exports.postLogin = function (req, res, next) {
             response.status = true;
             response.message = 'Success! You are logged in';
             response.user = user;
-            if(req.body.javascript_status){
+            if(req.body.javascript_status){ 
                 //console.log('javascript_status');
                 // if not set client_side_rendering_identifier
                 // To fix script loading issue in the browser
@@ -193,9 +193,9 @@ exports.getallusersforadmin = function (req, res) {
     var condition = {};
     // How many adjacent pages should be shown on each side?
     var adjacents = 3;
-
-    /*
-       First get total number of rows in data table.
+    
+    /* 
+       First get total number of rows in data table. 
        If you have a WHERE clause in your query, make sure you mirror it here.
     */
     var total_pages = 0;
@@ -223,7 +223,7 @@ exports.getallusersforadmin = function (req, res) {
                     lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
                     lpm1 = lastpage - 1;                        //last page minus 1
 
-                    // Now we apply our rules and draw the pagination object.
+                    // Now we apply our rules and draw the pagination object. 
                     // We're actually saving the code to a variable in case we want to draw it more than once.
                     pagination = [];
                     if(lastpage > 1)
@@ -234,10 +234,10 @@ exports.getallusersforadmin = function (req, res) {
                         }else{
                             pagination.push({ page: false, text: 'previous' });
                         }
-
+                        
                         //pages
                         if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
-                        {
+                        {    
                             for (counter = 1; counter <= lastpage; counter++)
                             {
                                 if (counter == page){
@@ -298,7 +298,7 @@ exports.getallusersforadmin = function (req, res) {
                                 }
                             }
                         }
-
+                        
                         //next button
                         if (page < counter - 1){
                             pagination.push({ page: next, text: 'next' });
@@ -479,7 +479,7 @@ exports.getUserInfo = function (req, res) {
                 if (lists.mymanager === undefined || lists.mymanager[0] === undefined) {
                     lists.mymanager[0] = {'email': ''};
                 }
-
+                
                 var profileimage = (lists.profile_image !== '') ? PRO_PIC_PATH+lists.profile_image : '/images/no-profile-img.gif';
                 var profileimage_status = (lists.profile_image !== '') ? true : false;
                 var cover_image = (lists.cover_image !== '') ? BANNER_PIC_PATH+lists.cover_image : '/images/cover.jpg';
@@ -502,17 +502,17 @@ exports.getUserInfo = function (req, res) {
                     'company_admin' : lists.company_admin
                 };
 
-				var date = new Date();
-				// date with YYYY-MM-DD format
-				var cdate = JSON.stringify(date).substring(1, 11);
-				var yearmonth = cdate.substring(0, 7);
+                var date = new Date();
+                // date with YYYY-MM-DD format
+                var cdate = JSON.stringify(date).substring(1, 11);
+                var yearmonth = cdate.substring(0, 7);
                 EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
 
-					if(!err && emp!==null){
-						response.data.disablevote = true;
-					}
-					res.json(response);
-				});
+                    if(!err && emp!==null){
+                        response.data.disablevote = true;
+                    }
+                    res.json(response);
+                });
 
             }
         } else {
@@ -529,12 +529,12 @@ exports.test = function (req, res) {
             "<br><b>Click here :</b>" + ' http://' + req.get('host') + "/createpassword/sdfdsfsdfsdfsdf" +
             "<br> Best wishes" +
             "<br> Moodwonder Team";
-
+            
     body = emailTemplate.general(body);
     var transporter = nodemailer.createTransport();
     transporter.sendMail({
         from: config.fromEmail,
-        to: 'ujjwal@moodwonder.com',
+        to: 'sijo.vijayan@titechnologies.in',
         subject: 'Test mail',
         html: body
     });
@@ -930,7 +930,7 @@ exports.postUserSignUp = function (req, res, next) {
  * @reportfrequency,
  * @password
  * @summary
- *
+ * 
  */
 exports.postSaveUserInfo = function (req, res, next) {
 
@@ -980,7 +980,7 @@ exports.postSaveUserInfo = function (req, res, next) {
             var password  =  model.password;
             var real_pass =  model.real_password;
             var cpassword =  model.cpassword;
-
+    
             //if( hasValue(firstname) && hasValue(lastname) ){
             response.type = 'personalinfo';
             update = { firstname: firstname, lastname: lastname };
@@ -1004,7 +1004,7 @@ exports.postSaveUserInfo = function (req, res, next) {
             var email             =  model.email;
             var report_frequency  =  model.report_frequency;
             var language          =  model.language;
-
+    
             if( hasValue(email) && hasValue(report_frequency) && hasValue(language) ){
                 response.type = 'generalinfo';
                 update = { email: email, report_frequency: report_frequency, language: language };
@@ -1036,7 +1036,7 @@ exports.postSaveUserInfo = function (req, res, next) {
  *
  * Accept :
  * @profilephoto:
- *
+ * 
  */
 exports.UpdateUserPhoto = function (req, res) {
 
@@ -1112,7 +1112,7 @@ exports.UpdateUserPhoto = function (req, res) {
  *
  * Accept :
  * @email : Email id of the manager
- *
+ * 
  */
 exports.postSaveManagerInfo = function (req, res, next) {
 
@@ -1233,7 +1233,7 @@ exports.postSaveManagerInfo = function (req, res, next) {
  * @address
  * @website
  * @companysize
- *
+ * 
  */
 exports.postSaveCompanyInfo = function (req, res) {
 
@@ -1405,7 +1405,7 @@ exports.findUserByEmailId = function (req, res, next) {
  * Update current user collection
  *
  * Working with next() method
- *
+ * 
  */
 exports.updateUser = function (req, res) {
 
@@ -1496,7 +1496,7 @@ exports.usersInTeams = function (req, res) {
                     // Assigning team name and members data into final result
                     team = {"_id": data._id, "name": data.teamname, "members": userData};
                 } else {
-                    // Handling error case
+                    // Handling error case 
                     team = {"_id": data._id, "name": data.teamname, "members": {}};
                 }
 
@@ -1632,7 +1632,7 @@ exports.getAllEmployees = function (req, res) {
                             response.data.mytotalvotes = mytotalvotes;
                             res.send(response);
                         });
-
+                        
 
                     });
                 }
@@ -1684,8 +1684,8 @@ var job = new CronJob({
   cronTime: '00 59 23 * * *',
   onTick: function() {
     /*
-    * Runs every day
-    * at 23:59:00 AM.
+    * Runs every day 
+    * at 23:59:00 AM. 
     * cronTime: '00 59 23 * * *',
     */
 
@@ -1759,7 +1759,7 @@ var job = new CronJob({
                         }
                     });
                 });
-
+                
             }
         });
     }
@@ -1773,7 +1773,7 @@ var job = new CronJob({
     // console.log(today +'==='+ second_last_day);
     // console.log(today === second_last_day);
     if(today === second_last_day){
-
+        
         CompanyInfo.find({}).exec(function(err,company){
             if(!err && company!==null){
                 company.map(function (data, key) {
@@ -1986,7 +1986,7 @@ exports.getTeamsByCompany = function(req, res){
                         // Assigning team name and members data into final result
                         team = {"_id": data._id, "name": data.teamname, "members": userData};
                     } else {
-                        // Handling error case
+                        // Handling error case 
                         team = {"_id": data._id, "name": data.teamname, "members": {}};
                     }
 
@@ -2021,7 +2021,7 @@ exports.getTeamsByCompany = function(req, res){
                             res.send(response);
                             res.end();
                         }
-
+                        
                     });
                 });
             });
@@ -2045,7 +2045,7 @@ exports.getTeamsByCompany = function(req, res){
     var response = {};
     response.status = false;
     response.message = 'Error';
-
+    
     var companyname = req.body.companyname;
     var where = { usertype : "manager" };
 
@@ -2088,9 +2088,9 @@ exports.getAllTeamsFromCompany = function (req, res) {
     };
     // How many adjacent pages should be shown on each side?
     var adjacents = 3;
-
-    /*
-       First get total number of rows in data table.
+    
+    /* 
+       First get total number of rows in data table. 
        If you have a WHERE clause in your query, make sure you mirror it here.
     */
     var total_pages = 0;
@@ -2118,7 +2118,7 @@ exports.getAllTeamsFromCompany = function (req, res) {
                     lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
                     lpm1 = lastpage - 1;                        //last page minus 1
 
-                    // Now we apply our rules and draw the pagination object.
+                    // Now we apply our rules and draw the pagination object. 
                     // We're actually saving the code to a variable in case we want to draw it more than once.
                     pagination = [];
                     if(lastpage > 1)
@@ -2129,10 +2129,10 @@ exports.getAllTeamsFromCompany = function (req, res) {
                         }else{
                             pagination.push({ page: false, text: 'previous' });
                         }
-
+                        
                         //pages
                         if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
-                        {
+                        {    
                             for (counter = 1; counter <= lastpage; counter++)
                             {
                                 if (counter == page){
@@ -2193,7 +2193,7 @@ exports.getAllTeamsFromCompany = function (req, res) {
                                 }
                             }
                         }
-
+                        
                         //next button
                         if (page < counter - 1){
                             pagination.push({ page: next, text: 'next' });
@@ -2280,9 +2280,9 @@ exports.searchTeam = function (req, res) {
         var condition = { teamname: { $regex : new RegExp(teamname,'i') } };
         // How many adjacent pages should be shown on each side?
         var adjacents = 3;
-
-        /*
-           First get total number of rows in data table.
+        
+        /* 
+           First get total number of rows in data table. 
            If you have a WHERE clause in your query, make sure you mirror it here.
         */
         var total_pages = 0;
@@ -2310,7 +2310,7 @@ exports.searchTeam = function (req, res) {
                         lastpage = Math.ceil(total_pages/limit);    //lastpage is = total pages / items per page, rounded up.
                         lpm1 = lastpage - 1;                        //last page minus 1
 
-                        // Now we apply our rules and draw the pagination object.
+                        // Now we apply our rules and draw the pagination object. 
                         // We're actually saving the code to a variable in case we want to draw it more than once.
                         pagination = [];
                         if(lastpage > 1)
@@ -2321,10 +2321,10 @@ exports.searchTeam = function (req, res) {
                             }else{
                                 pagination.push({ page: false, text: 'previous' });
                             }
-
+                            
                             //pages
                             if (lastpage < 7 + (adjacents * 2))    //not enough pages to bother breaking it up
-                            {
+                            {    
                                 for (counter = 1; counter <= lastpage; counter++)
                                 {
                                     if (counter == page){
@@ -2385,7 +2385,7 @@ exports.searchTeam = function (req, res) {
                                     }
                                 }
                             }
-
+                            
                             //next button
                             if (page < counter - 1){
                                 pagination.push({ page: next, text: 'next' });
@@ -2446,7 +2446,7 @@ exports.searchTeam = function (req, res) {
                 res.json(response);
             }
         });
-
+        
     }else{
         response.message = 'Please enter a team name';
         res.send(response);
@@ -2528,7 +2528,7 @@ exports.searchTeam1 = function (req, res){
  *
  * Accept :
  * @bannerimage:
- *
+ * 
  */
 exports.UpdateProfileBanner = function (req, res) {
 
@@ -2648,7 +2648,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
             condition.$or =  [ { firstname: new RegExp(keyword,'i') }, { lastname: new RegExp(keyword,'i') } ];
         }
         // console.log(condition);
-
+        
         User.find(condition).limit(limit).sort({_id: 1}).exec(function (err, lists) {
 
             if (!err) {
@@ -2678,7 +2678,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                 _id: data._id,
                                 photo: profileimage,
                                 name: (data.firstname+' '+data.lastname),
-                                votes: 0, // Total votes
+                                votes: 0, // Total votes 
                                 myvote: false,
                                 empofthemonth: empofthemonth
                             };
@@ -2711,7 +2711,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
                                     if(votes !== null){
                                         votes.map(function(vote, vkey){
                                             if(vote.user_id.toString() === req.user._id.toString()){
-                                                ////////////////// Set my vote status
+                                                ////////////////// Set my vote status 
                                                 employees[key].myvote = true;
                                             }
                                         });
@@ -2792,7 +2792,7 @@ exports.getAllEmployeesInCompany = function (req, res) {
 
 /**
  * Get public profile details
- *
+ * 
  **/
 exports.getPublicProfile = function (req, res, next) {
 
@@ -2945,7 +2945,7 @@ exports.getPublicProfile = function (req, res, next) {
                     existCondition();
                 });
 
-
+                
                 // Current user employee of the month status
                 EOTM.find({ emp_id: new ObjectId(_id) }, function(err, eoms){
 
@@ -2963,20 +2963,20 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
 
-				// Employee of the month selection status
-				var date = new Date();
-				// date with YYYY-MM-DD format
-				var cdate = JSON.stringify(date).substring(1, 11);
-				var yearmonth = cdate.substring(0, 7);
+                // Employee of the month selection status
+                var date = new Date();
+                // date with YYYY-MM-DD format
+                var cdate = JSON.stringify(date).substring(1, 11);
+                var yearmonth = cdate.substring(0, 7);
                 EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
 
-					if(!err && emp!==null){
-						response.data.disablevote = true;
-					}else{
-						response.data.disablevote = false;
-					}
-					existCondition();
-				});
+                    if(!err && emp!==null){
+                        response.data.disablevote = true;
+                    }else{
+                        response.data.disablevote = false;
+                    }
+                    existCondition();
+                });
 
             } else {
                 req.body.response = response;
@@ -2995,7 +2995,7 @@ exports.getPublicProfile = function (req, res, next) {
 
 /**
  * Get public profile votes
- *
+ * 
  **/
 exports.getEmployeeVotes = function (req, res) {
 
@@ -3007,7 +3007,7 @@ exports.getEmployeeVotes = function (req, res) {
 
     var lastCommentId = req.body.lastCommentId;
     var hasMoreComments = false;
-    var limit = 6;
+    var limit = 7;
     var date = new Date();
     // date with YYYY-MM-DD format
     var cdate = JSON.stringify(date).substring(1, 11);
@@ -3020,7 +3020,6 @@ exports.getEmployeeVotes = function (req, res) {
         if(isValid(lastCommentId)){
             voteCond._id = { "$lt": new ObjectId(lastCommentId) };
         }
-
         Vote.count(voteCond, function(err, c) {
             if(c > limit ){
                 hasMoreComments = true;
@@ -3046,9 +3045,9 @@ exports.getEmployeeVotes = function (req, res) {
 
         });
 
+        
 
-
-
+        
     }else{
         response.status = false;
         response.message = 'Invalid User!.';
@@ -3058,9 +3057,9 @@ exports.getEmployeeVotes = function (req, res) {
 
 
 /**
- * Handle invite signup page GET request
+ * Handle invite signup page GET request 
  * Pass e-mail id to the react component if there is a valid url of invitation
- *
+ * 
  */
 exports.handleInviteSignup = function(req, res, next) {
 
