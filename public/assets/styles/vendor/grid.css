@@ -344,7 +344,7 @@
 	width: 25% !important;
 }
 .ui.grid > .row > [class*="five wide"].column, .ui.grid > .column.row > [class*="five wide"].column, .ui.grid > [class*="five wide"].column, .ui.column.grid > [class*="five wide"].column {
-	width: 31.25% !important;
+	width: 31.25% ;
 }
 .ui.grid > .row > [class*="six wide"].column, .ui.grid > .column.row > [class*="six wide"].column, .ui.grid > [class*="six wide"].column, .ui.column.grid > [class*="six wide"].column {
 	width: 37.5% !important;

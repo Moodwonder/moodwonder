@@ -502,17 +502,17 @@ exports.getUserInfo = function (req, res) {
                     'company_admin' : lists.company_admin
                 };
 
-				var date = new Date();
-				// date with YYYY-MM-DD format
-				var cdate = JSON.stringify(date).substring(1, 11);
-				var yearmonth = cdate.substring(0, 7);
+                var date = new Date();
+                // date with YYYY-MM-DD format
+                var cdate = JSON.stringify(date).substring(1, 11);
+                var yearmonth = cdate.substring(0, 7);
                 EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
 
-					if(!err && emp!==null){
-						response.data.disablevote = true;
-					}
-					res.json(response);
-				});
+                    if(!err && emp!==null){
+                        response.data.disablevote = true;
+                    }
+                    res.json(response);
+                });
 
             }
         } else {
@@ -2933,8 +2933,8 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
                 // Current user total votes
-                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') },
-                                 votefor_userid: new ObjectId(_id) }, function(err, votes){
+                //postdate: { $regex : new RegExp(yearmonth,'i') },
+                Vote.find({ votefor_userid: new ObjectId(_id) }, function(err, votes){
 
                     response.data.currentuservotes = 0;
                     if(!err && votes !== null){
@@ -2963,20 +2963,20 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
 
-				// Employee of the month selection status
-				var date = new Date();
-				// date with YYYY-MM-DD format
-				var cdate = JSON.stringify(date).substring(1, 11);
-				var yearmonth = cdate.substring(0, 7);
+                // Employee of the month selection status
+                var date = new Date();
+                // date with YYYY-MM-DD format
+                var cdate = JSON.stringify(date).substring(1, 11);
+                var yearmonth = cdate.substring(0, 7);
                 EOTM.findOne({ date: { $regex : new RegExp(yearmonth,'i') }, company_id: lists.company_id }, function(err, emp){
 
-					if(!err && emp!==null){
-						response.data.disablevote = true;
-					}else{
-						response.data.disablevote = false;
-					}
-					existCondition();
-				});
+                    if(!err && emp!==null){
+                        response.data.disablevote = true;
+                    }else{
+                        response.data.disablevote = false;
+                    }
+                    existCondition();
+                });
 
             } else {
                 req.body.response = response;
@@ -3016,8 +3016,7 @@ exports.getEmployeeVotes = function (req, res) {
     var _id = req.body.votefor_userid;
     if( _id !== undefined && _id !== '' && ObjectId.isValid(_id)){
 
-        var voteCond = { postdate: { $regex : new RegExp(yearmonth,'i') },
-                         votefor_userid: new ObjectId(_id) };
+        var voteCond = { votefor_userid: new ObjectId(_id) };
         if(isValid(lastCommentId)){
             voteCond._id = { "$lt": new ObjectId(lastCommentId) };
         }
