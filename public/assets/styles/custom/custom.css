@@ -327,5 +327,13 @@ label.column.email {
 .profilebox .my-info.teams span{ display: inline-block;}
 .profilebox .my-info img{ border: 3px solid #26A69A !important; width: 100px !important; height: 100px !important; margin: 0 0 10px;}
 .praises_container .showbtn{ background: #2BBAAA; color: #fff; display: block; margin: 0 auto}
+.invite-people {
+  background: #4db6ac none repeat scroll 0 0;
+}
+ @media screen and (min-width:768px) and (max-width:991px){
+    .praises_container .five.wide{ width: 50% !important;}
+ }
 
- 
+  @media screen and (max-width:767px){
+    .praises_container .five.wide{ width: 100% !important;}
+ }

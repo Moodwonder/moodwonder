@@ -2933,8 +2933,8 @@ exports.getPublicProfile = function (req, res, next) {
                 });
 
                 // Current user total votes
-                Vote.find({ postdate: { $regex : new RegExp(yearmonth,'i') },
-                                 votefor_userid: new ObjectId(_id) }, function(err, votes){
+                //postdate: { $regex : new RegExp(yearmonth,'i') },
+                Vote.find({ votefor_userid: new ObjectId(_id) }, function(err, votes){
 
                     response.data.currentuservotes = 0;
                     if(!err && votes !== null){
@@ -3016,8 +3016,7 @@ exports.getEmployeeVotes = function (req, res) {
     var _id = req.body.votefor_userid;
     if( _id !== undefined && _id !== '' && ObjectId.isValid(_id)){
 
-        var voteCond = { postdate: { $regex : new RegExp(yearmonth,'i') },
-                         votefor_userid: new ObjectId(_id) };
+        var voteCond = { votefor_userid: new ObjectId(_id) };
         if(isValid(lastCommentId)){
             voteCond._id = { "$lt": new ObjectId(lastCommentId) };
         }
