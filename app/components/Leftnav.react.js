@@ -66,23 +66,9 @@ export default class Leftnav extends React.Component {
                     <i className="bar chart icon"></i>
                     {GetText('L_CREATE_NEW_SURVEY', mlarray)}
                 </a>,
-                <a className="item" href="/surveyforms">
-                    <i className="line chart icon"></i>
-                    {GetText('L_MY_SURVEYS', mlarray)}
-                </a>,
                 <a className="item" href="/openendedresponses">
                     <i className="list icon"></i>
                     {GetText('L_OPENENDED_RESPONSES', mlarray)}
-                </a>
-            ];
-        }
-
-        let viewvotes;
-        if (user.company_admin) {
-            viewvotes = [
-                <a className="item" href="/viewvotes">
-                    <i className="thumbs trophy icon"></i>
-                    {GetText('L_VIEW_VOTE', mlarray)}
                 </a>
             ];
         }
@@ -114,12 +100,7 @@ export default class Leftnav extends React.Component {
                     <i className="thumbs up icon"></i>
                     {GetText('L_CAST_VOTE', mlarray)}
                 </a>
-                {viewvotes}
                 {openresponselink}
-                <a className="item" href="/viewsurvey">
-                    <i className="area chart icon"></i>
-                    {GetText('L_PARTICIPATE_SURVEYS', mlarray)}
-                </a>
                 <a className="item" href="/myprofile">
                     <i className="setting icon"></i>
                     {GetText('L_MYACCOUNT_LINK', mlarray)}

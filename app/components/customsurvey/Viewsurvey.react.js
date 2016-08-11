@@ -120,7 +120,7 @@ export default class Viewsurvey extends React.Component {
             );
         }
 
-        return (
+        const participateInSurveyTabContent = [
             <div className="ui segment brdr-none padding-none width-rating  ">
                 <div className="clear"></div>
                 <div className="ui two column stackable grid container ">
@@ -130,6 +130,17 @@ export default class Viewsurvey extends React.Component {
                     <div className="column"></div>
                 </div>
                 {content}
+            </div>
+        ];
+
+        return (
+            <div>
+                <div className="ui tabular menu tab two column">
+                    <a className="item mobile column" href="/customsurvey">Create new survey</a>
+                    <a className="item mobile column" href="/surveyforms">My surveys</a>
+                    <a className="item mobile active column" href="/viewsurvey">Participate in surveys</a>
+                </div>
+                {participateInSurveyTabContent}
             </div>
         );
     }

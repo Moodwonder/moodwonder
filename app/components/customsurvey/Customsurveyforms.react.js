@@ -150,20 +150,26 @@ export default class Customsurveyforms extends React.Component {
             ];
         }
 
-        return (
+        const mySurveyTabContent = [
             <div className="ui segment brdr-none padding-none width-rating  ">
                 <div className="clear"></div>
                 <div className="ui two column stackable grid container ">
                     <div className="column">
                         <h4 className="ui header ryt com">{GetText('SVFM_TITLE', mlarray)}</h4>
                     </div>
-                    <div className="column">
-                        <div className="three  column">
-                            <div className="test-gen ui submit ble button" style={{"marginRight": "-28px"}}> <a href="/customsurvey">{GetText('SVFM_CREATE_BTN', mlarray)}</a></div>
-                        </div>
-                    </div>
                 </div>
                 {content}
+            </div>
+        ];
+
+        return (
+            <div>
+                <div className="ui tabular menu tab two column">
+                    <a className="item mobile column" href="/customsurvey">Create new survey</a>
+                    <a className="item mobile active column" href="/surveyforms">My surveys</a>
+                    <a className="item mobile column" href="/viewsurvey">Participate in surveys</a>
+                </div>
+                {mySurveyTabContent}
             </div>
         );
     }

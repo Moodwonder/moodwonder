@@ -507,18 +507,13 @@ export default class CreateCustomSurvey extends React.Component {
             );
         }
 
-        let customSurveyTabContent = (
+        const customSurveyTabContent = [
             <div className="ui segment brdr-none padding-none width-rating  ">
                 <div className="clear"></div>
                 {modal}
                 <div className="ui two column stackable grid container ">
                     <div className="column">
                         <h4 className="ui header ryt com">{GetText('MYMD_SGENERATION_TITLE', mlarray)}</h4>
-                    </div>
-                    <div className="column">
-                        <div className="three  column">
-                            <div className="test-gen ui submit ble button" style={{"marginRight": "-28px"}}> <a href="/surveyforms">{GetText('MYMD_SLISTSBTN', mlarray)}</a></div>
-                        </div>
                     </div>
                 </div>
                 <form id="surveyForm">
@@ -686,10 +681,17 @@ export default class CreateCustomSurvey extends React.Component {
 
                 </form>
             </div>
-        );
+        ];
 
         return (
-            <div>{customSurveyTabContent}</div>
+            <div>
+                <div className="ui tabular menu tab two column">
+                    <a className="item mobile active column" href="/customsurvey">Create new survey</a>
+                    <a className="item mobile column" href="/surveyforms">My surveys</a>
+                    <a className="item mobile column" href="/viewsurvey">Participate in survey</a>
+                </div>
+                {customSurveyTabContent}
+            </div>
         );
     }
 }
